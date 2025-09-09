@@ -2,12 +2,13 @@
 title: "Improving Parquet Dedupe on Hugging Face Hub"
 thumbnail: /blog/assets/improve_parquet_dedupe/thumbnail.png
 authors:
-  - user: yuchenglow
-    org: xet-team
-  - user: seanses
-    org: xet-team
+- user: yuchenglow
+  org: xet-team
+- user: seanses
+  org: xet-team
+orgs:
+- xet-team
 ---
-
 # Improving Parquet Dedupe on Hugging Face Hub
 
 The Xet team at Hugging Face is working on improving the efficiency of the Hub's

@@ -1,5 +1,5 @@
 ---
-title: "Hugging Face x LangChain : A new partner package" 
+title: "Hugging Face x LangChain : A new partner package"
 thumbnail: /blog/assets/langchain_huggingface/thumbnail.png
 authors:
 - user: jofthomas
@@ -8,6 +8,8 @@ authors:
 - user: efriis
   guest: true
   org: langchain-ai
+orgs:
+- langchain-ai
 ---
 # Hugging Face x LangChain : A new partner package in LangChain
 

@@ -11,8 +11,9 @@ authors:
 - user: joeychou
   guest: true
   org: Intel
+orgs:
+- Intel
 ---
-
 # Faster assisted generation support for Intel Gaudi
 
 As model sizes grow, Generative AI implementations require significant inference resources. This not only increases the cost per generation, but also increases the power consumption used to serve such requests.

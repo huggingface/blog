@@ -1,8 +1,8 @@
 ---
-title: "Finally, a Replacement for BERT: Introducing ModernBERT" 
+title: "Finally, a Replacement for BERT: Introducing ModernBERT"
 thumbnail: /blog/assets/modernbert/thumbnail.png
 authors:
-- user: bwarner 
+- user: bwarner
   guest: true
   org: answerdotai
 - user: NohTow
@@ -41,8 +41,10 @@ authors:
 - user: iacolippo
   guest: true
   org: lightonai
+orgs:
+- answerdotai
+- lightonai
 ---
-
 # Finally, a Replacement for BERT
 
 ## TL;DR

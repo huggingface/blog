@@ -6,9 +6,9 @@ authors:
   guest: true
   org: yaak-ai
 - user: cadene
-
+orgs:
+- yaak-ai
 ---
-
 # LeRobot goes to driving school
 
 ---

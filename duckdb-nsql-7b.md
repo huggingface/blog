@@ -1,5 +1,5 @@
 ---
-title: "Text2SQL using Hugging Face Dataset Viewer API and Motherduck DuckDB-NSQL-7B" 
+title: "Text2SQL using Hugging Face Dataset Viewer API and Motherduck DuckDB-NSQL-7B"
 thumbnail: /blog/assets/duckdb-nsql-7b/thumbnail.png
 authors:
 - user: asoria
@@ -12,8 +12,10 @@ authors:
 - user: lorr
   guest: true
   org: NumbersStation
+orgs:
+- motherduckdb
+- NumbersStation
 ---
-
 # Text2SQL using Hugging Face Dataset Viewer API and Motherduck DuckDB-NSQL-7B
 
 Today, integrating AI-powered features, particularly leveraging Large Language Models (LLMs), has become increasingly prevalent across various tasks such as text generation, classification, image-to-text, image-to-image transformations, etc.

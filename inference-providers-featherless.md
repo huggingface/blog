@@ -14,8 +14,9 @@ authors:
 - user: celinah
 - user: Wauplin
 - user: sbrandeis
+orgs:
+- featherless-ai
 ---
-
 ![banner image](https://huggingface.co/blog/assets/inference-providers/welcome-featherless.jpg)
 
 # Featherless AI on Hugging Face Inference Providers 🔥

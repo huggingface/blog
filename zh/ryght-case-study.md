@@ -1,5 +1,5 @@
 ---
-title: "Ryght 在 Hugging Face 专家助力下赋能医疗保健和生命科学之旅" 
+title: "Ryght 在 Hugging Face 专家助力下赋能医疗保健和生命科学之旅"
 thumbnail: /blog/assets/ryght-case-study/thumbnail.png
 authors:
 - user: andrewrreed
@@ -10,8 +10,9 @@ translators:
 - user: MatrixYao
 - user: zhongdongy
   proofreader: true
+orgs:
+- RyghtAI
 ---
-
 # Ryght 在 Hugging Face 专家助力下赋能医疗保健和生命科学之旅
 
 > [!NOTE] 本文是 Ryght 团队的客座博文。

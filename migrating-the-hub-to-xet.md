@@ -1,15 +1,16 @@
 ---
-title: "Migrating the Hub from Git LFS to Xet" 
+title: "Migrating the Hub from Git LFS to Xet"
 thumbnail: /blog/assets/migrating-the-hub-to-xet/thumbnail.png
 authors:
-  - user: jsulz
-    org: xet-team
-  - user: jgodlewski
-    org: xet-team
-  - user: sirahd
-    org: xet-team
+- user: jsulz
+  org: xet-team
+- user: jgodlewski
+  org: xet-team
+- user: sirahd
+  org: xet-team
+orgs:
+- xet-team
 ---
-
 # Migrating the Hub from Git LFS to Xet
 
 In January of this year, Hugging Face's [Xet Team](https://huggingface.co/xet-team) deployed a new storage backend, and shortly after shifted [~6% of Hub downloads through the infrastructure](https://huggingface.co/blog/xet-on-the-hub). This represented a significant milestone, but it was just the beginning. In 6 months, 500,000 repositories holding 20 PB joined the move to Xet as the Hub outgrows Git LFS and transitions to a storage system that scales with the workloads of AI builders. 

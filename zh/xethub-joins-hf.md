@@ -7,8 +7,9 @@ authors:
 - user: julien-c
 translators:
 - user: AdinaY
+orgs:
+- xet-team
 ---
-
 # XetHub 加入 Hugging Face！
 
 我们非常激动地正式宣布，Hugging Face 已收购 XetHub 🔥

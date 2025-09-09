@@ -24,8 +24,9 @@ translators:
 - user: Zipxuan
 - user: zhongdongy
   proofreader: true
+orgs:
+- Intel
 ---
-
 # 使用 Optimum-Intel 和 OpenVINO GenAI 优化和部署模型
 
 在端侧部署 Transformer 模型需要仔细考虑性能和兼容性。Python 虽然功能强大，但对于部署来说有时并不算理想，特别是在由 C++ 主导的环境中。这篇博客将指导您如何使用 Optimum-Intel 和 OpenVINO™ GenAI 来优化和部署 Hugging Face Transformers 模型，确保在最小依赖性的情况下进行高效的 AI 推理。

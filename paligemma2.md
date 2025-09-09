@@ -8,9 +8,9 @@ authors:
   org: google
 - user: pcuenq
 - user: ariG23498
+orgs:
+- google
 ---
-
-
 # Welcome PaliGemma 2 – New vision language models by Google
 
 We are excited to welcome Google's all-new vision language models, PaliGemma 2, a new iteration of PaliGemma. Like its predecessor, PaliGemma 2 uses the same powerful [SigLIP](https://huggingface.co/collections/google/siglip-659d5e62f0ae1a57ae0e83ba) for vision, but it upgrades to the latest Gemma 2 for the text decoder part.

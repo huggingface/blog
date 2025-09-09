@@ -17,8 +17,12 @@ authors:
 - user: sbrandeis
 - user: kramp
 - user: julien-c
+orgs:
+- fal
+- replicate
+- sambanovasystems
+- togethercomputer
 ---
-
 Today, we are launching the integration of four awesome serverless Inference Providers – **fal, Replicate, Sambanova, Together AI** – directly on the Hub’s model pages. They are also seamlessly integrated into our client SDKs (for JS and Python), making it easier than ever to explore serverless inference of a wide variety of models that run on your favorite providers.
 
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/inference-providers/hero.png" alt="Inference Providers"/>

@@ -9,8 +9,9 @@ authors:
 - user: kding1
   guest: true
   org: Intel
+orgs:
+- Intel
 ---
-
 # 🚀 Accelerating LLM Inference with TGI on Intel Gaudi
 
 We're excited to announce the native integration of Intel Gaudi hardware support directly into Text Generation Inference (TGI), our production-ready serving solution for Large Language Models (LLMs). This integration brings the power of Intel's specialized AI accelerators to our high-performance inference stack, enabling more deployment options for the open-source AI community 🎉

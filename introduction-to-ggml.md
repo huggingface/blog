@@ -1,5 +1,5 @@
 ---
-title: "Introduction to ggml" 
+title: "Introduction to ggml"
 thumbnail: /blog/assets/introduction-to-ggml/cover.jpg
 authors:
 - user: ngxson
@@ -9,8 +9,9 @@ authors:
 - user: slaren
   guest: true
   org: ggml-org
+orgs:
+- ggml-org
 ---
-
 # Introduction to ggml
 
 [ggml](https://github.com/ggerganov/ggml) is a machine learning (ML) library written in C and C++ with a focus on Transformer inference. The project is open-source and is being actively developed by a growing community. ggml is similar to ML libraries such as PyTorch and TensorFlow, though it is still in its early stages of development and some of its fundamentals are still changing rapidly.

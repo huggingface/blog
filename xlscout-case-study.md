@@ -2,12 +2,13 @@
 title: "XLSCOUT Unveils ParaEmbed 2.0: a Powerful Embedding Model Tailored for Patents and IP with Expert Support from Hugging Face"
 thumbnail: /blog/assets/xlscout-case-study/thumbnail.png
 authors:
-  - user: andrewrreed
-  - user: Khushwant78
-    guest: true
-    org: xlscout-ai
+- user: andrewrreed
+- user: Khushwant78
+  guest: true
+  org: xlscout-ai
+orgs:
+- xlscout-ai
 ---
-
 # XLSCOUT Unveils ParaEmbed 2.0: a Powerful Embedding Model Tailored for Patents and IP with Expert Support from Hugging Face
 
 > [!NOTE] This is a guest blog post by the XLSCOUT team.

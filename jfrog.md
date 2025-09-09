@@ -6,9 +6,9 @@ authors:
 - user: srmish-jfrog
   guest: true
   org: jfrog
+orgs:
+- jfrog
 ---
-
-
 We are pleased to announce our partnership with [JFrog](https://jfrog.com), creators of the JFrog Software Supply Chain Platform, as part of our [long-standing commitment](https://huggingface.co/blog/2024-security-features) to provide a safe and reliable platform for the ML community.
 
 We have decided to add JFrog's scanner to our platform to continue improving security on the Hugging Face Hub. JFrog's scanner brings new functionality to scanning, aimed at reducing false positives on the Hub. Indeed, what we currently observe is that model weights can contain code that is executed upon deserialization and sometimes at inference time, depending on the format. This code is oftentimes a non harmful practicality for the developer. As our picklescan scanner only performs pattern matching on module names, we cannot always confirm that usage of a given function or module is malicious.

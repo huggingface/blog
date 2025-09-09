@@ -9,8 +9,9 @@ authors:
   guest: true
   org: ArtificialAnalysis
 - user: clefourrier
+orgs:
+- ArtificialAnalysis
 ---
-
 # Bringing the Artificial Analysis LLM Performance Leaderboard to Hugging Face
 
 Building applications with LLMs requires considering more than just quality: for many use-cases, speed and price are equally or more important. 

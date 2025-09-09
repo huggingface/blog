@@ -11,8 +11,9 @@ authors:
 - user: clefourrier
 translators:
 - user: lbourdois
+orgs:
+- dottxt
 ---
-
 # Améliorer la stabilité des instructions grâce à la génération structurée
 
 Récemment, l'équipe de recherche *Leaderboards and Evals* d'Hugging Face a mené de petites expériences qui ont mis en évidence l'instabilité de l'évaluation. Pour une tâche donnée, les résultats sont extrêmement sensibles à de minuscules changements dans le format de l'instruction (*prompt* en anglais) ! Or, ce n'est pas ce que nous voulons : un modèle recevant des instructions à contenu sémantique équivalent devrait produire des résultats similaires.

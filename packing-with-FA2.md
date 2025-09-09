@@ -1,5 +1,5 @@
 ---
-title: "Improving Hugging Face Training Efficiency Through Packing with Flash Attention 2" 
+title: "Improving Hugging Face Training Efficiency Through Packing with Flash Attention 2"
 thumbnail: /blog/assets/packing-with-FA2/thumbnail.png
 authors:
 - user: RQlee
@@ -18,9 +18,9 @@ authors:
 - user: mayank-mishra
   guest: true
   org: ibm
+orgs:
+- ibm
 ---
-
-
 ## TL;DR
 Training with packed instruction tuning examples (without padding) is now compatible with Flash Attention 2 in Hugging Face, thanks to a [recent PR](https://github.com/huggingface/transformers/pull/31629) and the new [DataCollatorWithFlattening](https://huggingface.co/docs/transformers/main/en/main_classes/data_collator#transformers.DataCollatorWithFlattening)
 

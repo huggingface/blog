@@ -12,8 +12,9 @@ translators:
 - user: smartisan
 - user: zhongdongy
   proofreader: true
+orgs:
+- facebook
 ---
-
 # LayerSkip: 使用自推测解码加速大模型推理
 
 自推测解码是一种新颖的文本生成方法，它结合了推测解码 (Speculative Decoding) 的优势和大语言模型 (LLM) 的提前退出 (Early Exit) 机制。该方法出自论文 [LayerSkip: Enabling Early-Exit Inference and Self-Speculative Decoding](https://arxiv.org/abs/2404.16710)。它通过使用 _同一个模型_ 的早期层来生成候选词元 (token)，并使用后期层进行验证，从而实现高效生成。

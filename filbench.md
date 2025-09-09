@@ -2,32 +2,34 @@
 title: "🇵🇭 FilBench - Can LLMs Understand and Generate Filipino?"
 thumbnail: /blog/assets/filbench/thumbnail.png
 authors:
-  - user: ljvmiranda921
-    guest: true
-    org: UD-Filipino
-  - user: acocodes
-    guest: true
-    org: UD-Filipino
-  - user: connermanuel
-    guest: true
-    org: UD-Filipino
-  - user: jcblaise
-    guest: true
-    org: UD-Filipino
-  - user: jcblaise
-    guest: true
-    org: SEACrowd
-  - user: josephimperial
-    guest: true
-    org: SEACrowd
-  - user: davanstrien
-    guest: false
-  - user: SaylorTwift
-    guest: false
-  - user: clefourrier
-    guest: false
+- user: ljvmiranda921
+  guest: true
+  org: UD-Filipino
+- user: acocodes
+  guest: true
+  org: UD-Filipino
+- user: connermanuel
+  guest: true
+  org: UD-Filipino
+- user: jcblaise
+  guest: true
+  org: UD-Filipino
+- user: jcblaise
+  guest: true
+  org: SEACrowd
+- user: josephimperial
+  guest: true
+  org: SEACrowd
+- user: davanstrien
+  guest: false
+- user: SaylorTwift
+  guest: false
+- user: clefourrier
+  guest: false
+orgs:
+- UD-Filipino
+- SEACrowd
 ---
-
 # 🇵🇭 FilBench - Can LLMs Understand and Generate Filipino?
 
 As large language models (LLMs) become increasingly integrated into our lives, it becomes crucial to assess whether they reflect the nuances and capabilities of specific language communities.

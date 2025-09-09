@@ -14,8 +14,10 @@ authors:
 - user: nicholswang
   guest: true
   org: Stanford
+orgs:
+- Stanford
+- huggingface
 ---
-
 # TimeScope: How Long Can Your Video Large Multimodal Model Go?
 
 ## TL;DR

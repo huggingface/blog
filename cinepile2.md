@@ -1,5 +1,5 @@
 ---
-title: "CinePile 2.0 - making stronger datasets with adversarial refinement" 
+title: "CinePile 2.0 - making stronger datasets with adversarial refinement"
 thumbnail: /blog/assets/188_cinepile2/thumbnail.png
 authors:
 - user: RuchitRawal
@@ -10,9 +10,9 @@ authors:
   guest: true
   org: UMD
 - user: lvwerra
-
+orgs:
+- UMD
 ---
-
 # CinePile 2.0 - making stronger datasets with adversarial refinement
 
 In this blog post we share the journey of releasing [CinePile 2.0](https://huggingface.co/datasets/tomg-group-umd/cinepile), a significantly improved version of our long video QA dataset. The improvements in the new dataset rely on a new approach that we coined adversarial dataset refinement. 

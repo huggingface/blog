@@ -1,5 +1,5 @@
 ---
-title: "Introducing NPC-Playground, a 3D playground to interact with LLM-powered NPCs" 
+title: "Introducing NPC-Playground, a 3D playground to interact with LLM-powered NPCs"
 thumbnail: /blog/assets/181_npc-gigax-cubzh/thumbnail.png
 authors:
 - user: Trist4x
@@ -15,8 +15,10 @@ authors:
   guest: true
   org: cubzh
 - user: ThomasSimonini
+orgs:
+- Gigax
+- cubzh
 ---
-
 # Introducing NPC-Playground, a 3D playground to interact with LLM-powered NPCs
 
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/181_npc-gigax-cubzh/thumbnail.png" alt="Thumbnail"/>

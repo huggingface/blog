@@ -2,15 +2,16 @@
 title: "Expert Support case study: Bolstering a RAG app with LLM-as-a-Judge"
 thumbnail: /blog/assets/digital-gren-llm-judge/thumbnail.png
 authors:
-  - user: Vinsingh
-    guest: true
-    org: DigiGreen
-  - user: rajgreen
-    guest: true
-    org: DigiGreen
-  - user: m-ric
+- user: Vinsingh
+  guest: true
+  org: DigiGreen
+- user: rajgreen
+  guest: true
+  org: DigiGreen
+- user: m-ric
+orgs:
+- DigiGreen
 ---
-
 # Expert Support case study: Bolstering a RAG app with LLM-as-a-Judge
 
 > [!NOTE] This is a guest blog post authored by [Digital Green](https://huggingface.co/DigiGreen). Digital green is participating in a [CGIAR](https://huggingface.co/CGIAR)-led collaboration to bring agricultural support to smallholder farmers.

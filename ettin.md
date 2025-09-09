@@ -1,5 +1,5 @@
 ---
-title: "Ettin Suite: SoTA Paired Encoders and Decoders" 
+title: "Ettin Suite: SoTA Paired Encoders and Decoders"
 thumbnail: /blog/assets/ettin/thumbnail.png
 authors:
 - user: orionweller
@@ -20,8 +20,10 @@ authors:
 - user: vandurme
   guest: true
   org: jhu-clsp
+orgs:
+- jhu-clsp
+- lightonai
 ---
-
 # Ettin Suite: SoTA Paired Encoders and Decoders
 
 ## TL;DR

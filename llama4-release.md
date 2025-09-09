@@ -13,8 +13,9 @@ authors:
   guest: true
   org: xet-team
 - user: lysandre
+orgs:
+- xet-team
 ---
-
 # Welcome Llama 4 Maverick & Scout on Hugging Face
 
 We are incredibly excited to welcome the next generation of large language models from Meta to the Hugging Face Hub: [Llama 4 Maverick (\~400B)](https://huggingface.co/meta-llama/Llama-4-Maverick-17B-128E-Instruct) and [Llama 4 Scout (\~109B)\!](https://huggingface.co/meta-llama/Llama-4-Scout-17B-16E-Instruct) 🤗 Both are Mixture of Experts (MoE) models with 17B active parameters.

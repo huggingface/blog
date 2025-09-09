@@ -23,9 +23,10 @@ authors:
 - user: cdq10131
   guest: true
   org: princeton-nlp
-
+orgs:
+- princeton-nlp
+- Intel
 ---
-
 <h1 class="subtitle is-3 publication-subtitle">
   <span>Introducing <span style="color: #E77500"><b>HELMET</b></span>: Holistically Evaluating Long-context Language Models</span>
 </h1>

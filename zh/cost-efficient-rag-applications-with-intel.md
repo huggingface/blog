@@ -31,8 +31,9 @@ translators:
 - user: MatrixYao
 - user: zhongdongy
   proofreader: true
+orgs:
+- Intel
 ---
-
 # 利用英特尔 Gaudi 2 和至强 CPU 构建经济高效的企业级 RAG 应用
 
 <p align="center">

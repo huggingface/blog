@@ -24,8 +24,10 @@ authors:
 - user: jacksongolden
   guest: true
   org: AtlaAI
+orgs:
+- AtlaAI
+- Cohere
 ---
-
 # Judge Arena: Benchmarking LLMs as Evaluators
 
 LLM-as-a-Judge has emerged as a popular way to grade natural language outputs from LLM applications, **but how do we know which models make the best judges**? 

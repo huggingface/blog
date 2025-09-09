@@ -1,13 +1,14 @@
 ---
-title: "Creating custom kernels for the AMD MI300" 
+title: "Creating custom kernels for the AMD MI300"
 thumbnail: /blog/assets/mi300kernels/thumbnail.png
 authors:
 - user: ror
 - user: seungrokj
   guest: true
   org: amd
+orgs:
+- amd
 ---
-
 # Creating custom kernels for the AMD MI300
 
 # AMD Kernels

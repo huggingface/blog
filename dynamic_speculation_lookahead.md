@@ -19,9 +19,10 @@ authors:
 - user: moshew
   guest: true
   org: Intel
-
+orgs:
+- Intel
+- weizmannscience
 ---
-
 ⭐ In this blog post, we’ll explore *dynamic speculative decoding* —a novel method developed by Intel labs and Hugging Face that accelerates text generation by up to 2.7x, depending on the task. This method is the default operational mode for assisted generation starting from [Transformers🤗](https://github.com/huggingface/transformers) release [4.45.0](https://github.com/huggingface/transformers/releases/tag/v4.45.0) ⭐
 
 ## Speculative Decoding

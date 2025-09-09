@@ -84,8 +84,10 @@ authors:
   guest: true
 - user: RTGordon
   guest: true
+orgs:
+- ibm-fms
+- state-spaces
 ---
-
 # Bamba: Inference-Efficient Hybrid Mamba2 Model 🐍
 
 <p align="center">

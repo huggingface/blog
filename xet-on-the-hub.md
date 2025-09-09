@@ -2,20 +2,21 @@
 title: "Xet is on the Hub"
 thumbnail: /blog/assets/xet-on-the-hub/thumbnail.png
 authors:
-  - user: assafvayner
-    org: xet-team
-  - user: brianronan
-    org: xet-team
-  - user: seanses
-    org: xet-team
-  - user: jgodlewski
-    org: xet-team
-  - user: sirahd
-    org: xet-team
-  - user: jsulz
-    org: xet-team
+- user: assafvayner
+  org: xet-team
+- user: brianronan
+  org: xet-team
+- user: seanses
+  org: xet-team
+- user: jgodlewski
+  org: xet-team
+- user: sirahd
+  org: xet-team
+- user: jsulz
+  org: xet-team
+orgs:
+- xet-team
 ---
-
 # Xet is on the Hub
 
 <div 

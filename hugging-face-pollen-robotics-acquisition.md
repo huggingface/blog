@@ -1,13 +1,14 @@
 ---
-title: "Hugging Face to sell open-source robots thanks to Pollen Robotics acquisition 🤖" 
+title: "Hugging Face to sell open-source robots thanks to Pollen Robotics acquisition 🤖"
 thumbnail: /blog/assets/hugging-face-pollen-robotics-acquisition/hf-pollen.png
 authors:
 - user: thomwolf
 - user: clem
 - user: matthieu-lapeyre
   org: pollen-robotics
+orgs:
+- pollen-robotics
 ---
-
 # Hugging Face to sell open-source robots thanks to Pollen Robotics acquisition 🤖
 
 ![HFxReachy2](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/hugging-face-pollen-robotics-acquisition/simon-remi.jpg)

@@ -2,30 +2,30 @@
 title: "Introducing AutoRound: Intel’s Advanced Quantization for LLMs and VLMs"
 thumbnail: /blog/assets/autoround/thumbnail.png
 authors:
-  - user: wenhuach
-    guest: true
-    org: Intel
-  - user: Haihao
-    guest: true
-    org: Intel
-  - user: weiweiz1
-    guest: true
-    org: Intel
-  - user: n1ck-guo
-    guest: true
-    org: Intel
-  - user: isaacmac
-    guest: true
-    org: Intel
-  - user: kding1
-    guest: true
-    org: Intel
-  - user: IlyasMoutawwakil
-  - user: marcsun13
-  - user: medmekk
-
+- user: wenhuach
+  guest: true
+  org: Intel
+- user: Haihao
+  guest: true
+  org: Intel
+- user: weiweiz1
+  guest: true
+  org: Intel
+- user: n1ck-guo
+  guest: true
+  org: Intel
+- user: isaacmac
+  guest: true
+  org: Intel
+- user: kding1
+  guest: true
+  org: Intel
+- user: IlyasMoutawwakil
+- user: marcsun13
+- user: medmekk
+orgs:
+- Intel
 ---
-
 As large language models (LLMs) and vision-language models (VLMs) continue to grow in size and complexity, deploying them efficiently becomes increasingly challenging. Quantization offers a solution by reducing model size and inference latency. Intel's [AutoRound](https://github.com/intel/auto-round) emerges as a cutting-edge quantization tool that balances accuracy, efficiency, and compatibility.
 
 # What is AutoRound?

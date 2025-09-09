@@ -1,5 +1,5 @@
 ---
-title: "NVIDIA's GTC 2025 Announcement for Physical AI Developers: New Open Models and Datasets" 
+title: "NVIDIA's GTC 2025 Announcement for Physical AI Developers: New Open Models and Datasets"
 thumbnail: /blog/assets/nvidia-physical-ai/thumbnail.png
 authors:
 - user: mingyuliutw
@@ -17,8 +17,9 @@ authors:
 - user: asawareeb
   guest: true
   org: nvidia
+orgs:
+- nvidia
 ---
-
 | ![Humanoid pick and place](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/physical-ai/humanoid.gif) |
 | :--: |
 | *NVIDIA Isaac GR00T N1 used in object manipulation.* |

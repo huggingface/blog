@@ -1,13 +1,14 @@
 ---
-title: "Ryght’s Journey to Empower Healthcare and Life Sciences with Expert Support from Hugging Face" 
+title: "Ryght’s Journey to Empower Healthcare and Life Sciences with Expert Support from Hugging Face"
 thumbnail: /blog/assets/ryght-case-study/thumbnail.png
 authors:
 - user: andrewrreed
 - user: johnnybio
   guest: true
   org: RyghtAI
+orgs:
+- RyghtAI
 ---
-
 # Ryght’s Journey to Empower Healthcare and Life Sciences with Expert Support from Hugging Face
 
 > [!NOTE] This is a guest blog post by the Ryght team.

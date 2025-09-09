@@ -1,13 +1,14 @@
 ---
-title: "TextQuests: How Good are LLMs at Text-Based Video Games?" 
+title: "TextQuests: How Good are LLMs at Text-Based Video Games?"
 thumbnail: /blog/assets/textquests/thumbnail.gif
 authors:
 - user: justinphan3110
   org: cais
   guest: true
 - user: clefourrier
+orgs:
+- cais
 ---
-
 # TextQuests: How Good are LLMs at Text-Based Video Games?
 
 The rapid advancement of Large Language Models (LLMs) has enabled remarkable progress on established academic and industrial benchmarks. Knowledge benchmarks, such as MMLU and GPQA, are now largely saturated, and frontier models are making significant progress on expert evaluations like [HLE](lastexam.ai). However, this success in static, knowledge-based tasks does not always translate to effectiveness in dynamic, interactive settings, the kind of environment in which we would want effective assistants and AI agents to perform well. Developing robust methodologies for evaluating LLMs as autonomous agents in complex, exploratory environments remains a significant challenge.

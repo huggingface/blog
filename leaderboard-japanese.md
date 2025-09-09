@@ -19,8 +19,9 @@ authors:
   org: llm-jp
 - user: hysts
 - user: clefourrier
+orgs:
+- llm-jp
 ---
-
 # Introduction to the Open Leaderboard for Japanese LLMs
 
 LLMs are now increasingly capable in English, but it's quite hard to know how well they perform in other national languages, widely spoken but which present their own set of linguistic challenges. Today, we are excited to fill this gap for Japanese! 

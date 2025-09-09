@@ -2,22 +2,23 @@
 title: "SynthID Text：在 AI 生成文本中应用不可见水印的新技术"
 thumbnail: /blog/assets/synthid-text/thumbnail.png
 authors:
-  - user: sumedhghaisas
-    org: Google DeepMind
-    guest: true
-  - user: sdathath
-    org: Google DeepMind
-    guest: true
-  - user: RyanMullins
-    org: Google DeepMind
-    guest: true
-  - user: joaogante
-  - user: marcsun13
-  - user: RaushanTurganbay
+- user: sumedhghaisas
+  org: Google DeepMind
+  guest: true
+- user: sdathath
+  org: Google DeepMind
+  guest: true
+- user: RyanMullins
+  org: Google DeepMind
+  guest: true
+- user: joaogante
+- user: marcsun13
+- user: RaushanTurganbay
 translators:
 - user: chenglu
+orgs:
+- Google DeepMind
 ---
-
 # SynthID Text：在 AI 生成文本中应用不可见水印的新技术
 
 你是否难以分辨一段文本是由人类撰写的，还是 AI 生成的？识别 AI 生成内容对于提升信息可信度、解决归因错误以及抑制错误信息至关重要。

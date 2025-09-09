@@ -1,5 +1,5 @@
 ---
-title: "ggml 简介" 
+title: "ggml 简介"
 thumbnail: /blog/assets/introduction-to-ggml/cover.jpg
 authors:
 - user: ngxson
@@ -13,8 +13,9 @@ translators:
 - user: hugging-hoi2022
 - user: zhongdongy
   proofreader: true
+orgs:
+- ggml-org
 ---
-
 # ggml 简介
 
 [ggml](https://github.com/ggerganov/ggml) 是一个用 C 和 C++ 编写、专注于 Transformer 架构模型推理的机器学习库。该项目完全开源，处于活跃的开发阶段，开发社区也在不断壮大。ggml 和 PyTorch、TensorFlow 等机器学习库比较相似，但由于目前处于开发的早期阶段，一些底层设计仍在不断改进中。

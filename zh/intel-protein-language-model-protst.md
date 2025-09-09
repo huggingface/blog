@@ -23,10 +23,11 @@ authors:
   org: Intel
 translators:
 - user: MatrixYao
-- user: zhongdongy 
+- user: zhongdongy
   proofreader: false
+orgs:
+- Intel
 ---
-
 # 在英特尔 Gaudi 2 上加速蛋白质语言模型 ProtST
 
 <p align="center">

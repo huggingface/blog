@@ -26,8 +26,10 @@ translators:
 - user: MatrixYao
 - user: zhongdongy
   proofreader: true
+orgs:
+- Intel
+- weizmannscience
 ---
-
 # 通用辅助生成: 使用任意辅助模型加速解码
 
 <em>太长不看版</em>: 许多 LLM (如 `gemma-2-9b` 、 `Mixtral-8x22B-Instruct-v0.1` 等) 苦于缺乏对应小模型，而无法适用 [辅助生成](https://huggingface.co/blog/zh/assisted-generation) 方案。本文，我们将介绍由英特尔研究院和 Hugging Face 合作开发的 _通用辅助生成_ 技术。有了这项技术，LLM 可与 **任意** SLM 搭配组成辅助生成方案。从而，我们可以用辅助生成技术加速 _任意_ 解码器模型或 [混合专家](https://huggingface.co/blog/zh/moe) 模型以获得 **1.5x-2.0x** 的加速比。重要的是，开销几乎为零 🔥🔥🔥！一起了解一下吧！

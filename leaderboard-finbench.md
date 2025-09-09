@@ -34,8 +34,10 @@ authors:
 - user: blitzionic
   guest: true
 - user: clefourrier
+orgs:
+- TheFinAI
+- FreedomIntelligence
 ---
-
 # Introducing the Open FinLLM Leaderboard
 
 *Finding the best LLM models for finance use cases*

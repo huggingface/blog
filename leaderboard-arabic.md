@@ -15,9 +15,10 @@ authors:
   guest: true
   org: tiiuae
 - user: clefourrier
+orgs:
+- 2A2I
+- tiiuae
 ---
-
-
 # Introducing the Open Arabic LLM Leaderboard
 
 The Open Arabic LLM Leaderboard (OALL) is designed to address the growing need for specialized benchmarks in the Arabic language processing domain. As the field of Natural Language Processing (NLP) progresses, the focus often remains heavily skewed towards English, leaving a significant gap in resources for other languages. The OALL aims to balance this by providing a platform specifically for evaluating and comparing the performance of Arabic Large Language Models (LLMs), thus promoting research and development in Arabic NLP.

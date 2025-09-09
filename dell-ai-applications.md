@@ -1,5 +1,5 @@
 ---
-title: "Dell Enterprise Hub is all you need to build AI on premises" 
+title: "Dell Enterprise Hub is all you need to build AI on premises"
 thumbnail: /blog/assets/dell-ai-applications/dell-post-thumbnail.png
 authors:
 - user: jeffboudier
@@ -12,8 +12,9 @@ authors:
 - user: balaatdell
   guest: true
   org: DellTechnologies
+orgs:
+- DellTechnologies
 ---
-
 # Dell Enterprise Hub is all you need to build AI on premises
 
 This week at Dell Tech World, we announced the new version of [Dell Enterprise Hub](https://dell.huggingface.co/), with a complete suite of models and applications to easily build AI running on premises with Dell AI servers and AI PCs.

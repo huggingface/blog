@@ -8,8 +8,9 @@ authors:
   guest: true
   org: amd
 - user: mfuntowicz
+orgs:
+- amd
 ---
-
 # Hugging Face on AMD Instinct MI300 GPU
 
 > [!TIP]

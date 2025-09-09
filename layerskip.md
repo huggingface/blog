@@ -8,8 +8,9 @@ authors:
   org: facebook
 - user: pcuenq
 - user: reach-vb
+orgs:
+- facebook
 ---
-
 # Faster Text Generation with Self-Speculative Decoding
 
 Self-speculative decoding, proposed in

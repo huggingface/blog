@@ -14,8 +14,10 @@ authors:
   org: ContextualAI
 translators:
 - user: MatrixYao
+orgs:
+- IBM
+- ContextualAI
 ---
-
 # Hugging Face Accelerate 两个后端的故事：FSDP 与 DeepSpeed
 
 社区中有两个流行的 [零冗余优化器（Zero Redundancy Optimizer，ZeRO）](https://arxiv.org/abs/1910.02054) 算法实现，一个来自 [DeepSpeed](https://github.com/microsoft/DeepSpeed)，另一个来自 [PyTorch](https://pytorch.org/docs/stable/fsdp.html)。Hugging Face [Accelerate](https://huggingface.co/docs/accelerate/en/index) 对这两者都进行了集成并通过接口暴露出来，以供最终用户在训练/微调模型时自主选择其中之一。本文重点介绍了 Accelerate 对外暴露的这两个后端之间的差异。为了让用户能够在这两个后端之间无缝切换，我们在 Accelerate 中合并了 [一个精度相关的 PR](https://github.com/huggingface/accelerate/issues/2624) 及 [一个新的概念指南](https://huggingface.co/docs/accelerate/concept_guides/fsdp_and_deepspeed)。

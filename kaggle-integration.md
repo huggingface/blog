@@ -1,5 +1,5 @@
 ---
-title: "Improving Hugging Face Model Access for Kaggle Users" 
+title: "Improving Hugging Face Model Access for Kaggle Users"
 thumbnail: /blog/assets/kaggle-integration/thumbnail.png
 authors:
 - user: roseberryv
@@ -11,8 +11,9 @@ authors:
 - user: julien-c
 - user: pcuenq
 - user: reach-vb
+orgs:
+- kaggle
 ---
-
 Kaggle and Hugging Face users are part of one AI community. That’s why we’re excited to announce our plans to bring our platforms and communities closer to better serve AI developers everywhere.
 
 Beginning today, Kaggle is launching an integration that enhances visibility and discoverability for Hugging Face models directly on Kaggle. 

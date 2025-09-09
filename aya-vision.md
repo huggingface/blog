@@ -14,8 +14,9 @@ authors:
 - user: johndang-cohere
   guest: true
   org: CohereForAI
+orgs:
+- CohereForAI
 ---
-
 # A Deepdive into Aya Vision: Advancing the Frontier of Multilingual Multimodality
 
 With the release of the [Aya Vision family](https://huggingface.co/collections/CohereForAI/c4ai-aya-vision-67c4ccd395ca064308ee1484), our new **8B** and **32B** parameter vision-language models (VLMs), we are addressing one of the biggest challenges in AI: *bringing multilingual performance to multimodal models*. 

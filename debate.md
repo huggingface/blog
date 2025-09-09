@@ -35,8 +35,10 @@ authors:
   org: Huggingface
 - user: clefourrier
   org: Huggingface
+orgs:
+- BAAI
+- Huggingface
 ---
-
 # Letting Large Models Debate: The First Multilingual LLM Debate Competition
 
 Current static evaluations and user-driven arenas have exhibited their limitations and biases in the previous year. Here, we explore a novel way to evaluate LLMs: debate.

@@ -9,8 +9,9 @@ authors:
 - user: yagilb
   guest: true
   org: lmstudio-ai
+orgs:
+- lmstudio-ai
 ---
-
 # Open R1: How to use OlympicCoder locally for coding
 
 Everyone’s been using Claude and OpenAI as coding assistants for the last few years, but there’s less appeal if you look at the developments coming out of open source projects like [Open R1](https://huggingface.co/open-r1). If we look at the evaluation on [LiveCodeBench](https://livecodebench.github.io) below, we can see that the 7B parameter variant outperforms Claude 3.7 Sonnet and GPT-4o. These models are the daily drivers of many engineers in applications like Cursor and VSCode.

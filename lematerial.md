@@ -1,5 +1,5 @@
 ---
-title: "LeMaterial: an open source initiative to accelerate materials discovery and research" 
+title: "LeMaterial: an open source initiative to accelerate materials discovery and research"
 thumbnail: /blog/assets/lematerial/thumbnail_lematerial.png
 authors:
 - user: AlexDuvalinho
@@ -26,8 +26,10 @@ authors:
 - user: IAMJB
 - user: lvwerra
 - user: thomwolf
+orgs:
+- Entalpic
+- LeMaterial
 ---
-
 ![logos](/blog/assets/lematerial/thumbnail_lematerial.png)
 
 # LeMaterial: an open source initiative to accelerate materials discovery and research

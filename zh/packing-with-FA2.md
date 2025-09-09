@@ -22,8 +22,9 @@ translators:
 - user: innovation64
 - user: zhongdongy
   proofreader: true
+orgs:
+- ibm
 ---
-
 ## 简单概述
 
 现在，在 Hugging Face 中，使用打包的指令调整示例 (无需填充) 进行训练已与 Flash Attention 2 兼容，这要归功于一个 [最近的 PR](https://github.com/huggingface/transformers/pull/31629) 以及新的 [DataCollatorWithFlattening](https://huggingface.co/docs/transformers/main/en/main_classes/data_collator#transformers.DataCollatorWithFlattening)。

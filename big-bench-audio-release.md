@@ -1,5 +1,5 @@
 ---
-title: "Evaluating Audio Reasoning with Big Bench Audio" 
+title: "Evaluating Audio Reasoning with Big Bench Audio"
 thumbnail: /blog/assets/big_bench_audio_release/big-bench-audio-thumbnail.png
 authors:
 - user: mhillsmith
@@ -8,8 +8,9 @@ authors:
 - user: georgewritescode
   guest: true
   org: ArtificialAnalysis
+orgs:
+- ArtificialAnalysis
 ---
-
 # Evaluating Audio Reasoning with Big Bench Audio
 
 The emergence of native Speech to Speech models offers exciting opportunities to increase voice agent capabilities and simplify speech-enabled workflows. However, it's crucial to evaluate whether this simplification comes at the cost of model performance or introduces other trade-offs.

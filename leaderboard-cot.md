@@ -12,8 +12,10 @@ authors:
 - user: yakazimir
   guest: true
   org: allenai
+orgs:
+- logikon
+- allenai
 ---
-
 # Introducing the Open Chain of Thought Leaderboard
 
 [Chain-of-thought prompting](https://huggingface.co/docs/transformers/main/en/tasks/prompting#chain-of-thought) is emerging as a powerful and effective design pattern for LLM-based apps and agents. The basic idea of chain-of-thought prompting is to let a model generate a step-by-step solution (“reasoning trace”) before answering a question or taking a decision. With the Open CoT Leaderboard we’re tracking LLMs’ ability to generate effective chain-of-thought traces for challenging reasoning tasks. 

@@ -28,8 +28,9 @@ authors:
 - user: clefourrier
 translators:
 - user: terryyz
+orgs:
+- bigcode
 ---
-
 # BigCodeBench: 继 HumanEval 之后的新一代代码生成基准测试
 
 [HumanEval](https://github.com/openai/human-eval) 是一个用于评估大型语言模型 (LLMs) 在代码生成任务中的参考基准测试，因为它使得对紧凑的函数级代码片段的评估变得容易。然而，关于其在评估 LLMs 编程能力方面的有效性越来越多的担忧，主要问题是HumanEval 中的任务太简单，可能不能代表真实世界的编程任务。相比于 HumanEval 中的算法导向任务，真实世界的软件开发通常涉及多样的库和函数调用。此外，LLMs 在 HumanEval 上的表现还受[污染和过拟合问题](https://arxiv.org/abs/2403.07974)的影响，这使得其在评估LLMs的泛化能力方面不够可靠。

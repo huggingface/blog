@@ -27,9 +27,9 @@ authors:
 - user: kding1
   guest: true
   org: Intel
-
+orgs:
+- Intel
 ---
-
 # Building Cost-Efficient Enterprise RAG applications with Intel Gaudi 2 and Intel Xeon
 
 <p align="center">

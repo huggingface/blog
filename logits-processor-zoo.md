@@ -6,8 +6,9 @@ authors:
 - user: aerdem4
   guest: true
   org: nvidia
+orgs:
+- nvidia
 ---
-
 # Controlling Language Model Generation with NVIDIA's LogitsProcessorZoo
 
 Generating text with language models often involves selecting the next token based on a distribution of probabilities.

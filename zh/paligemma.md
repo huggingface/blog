@@ -9,8 +9,9 @@ authors:
 - user: pcuenq
 translators:
 - user: chenglu
+orgs:
+- google
 ---
-
 # PaliGemma 正式发布 — Google 最新发布的前沿开放视觉语言模型
 
 PaliGemma 是 Google 推出的新一代视觉语言模型家族，能够接收图像与文本输入并生成文本输出。

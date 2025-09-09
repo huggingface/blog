@@ -5,8 +5,9 @@ authors:
 - user: sean-pai
   guest: true
   org: protectai
+orgs:
+- protectai
 ---
-
 # 4M Models Scanned: Protect AI \+ Hugging Face 6 Months In
 
 ![pai-hf-header](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/pai-6-month/pai-hf-header.png)

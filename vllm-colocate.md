@@ -1,5 +1,5 @@
 ---
-title: "No GPU left behind: Unlocking Efficiency with Co-located vLLM in TRL" 
+title: "No GPU left behind: Unlocking Efficiency with Co-located vLLM in TRL"
 thumbnail: /blog/assets/liger-grpo/thumbnail.png
 authors:
 - user: toslali-ibm
@@ -18,8 +18,9 @@ authors:
 - user: mudhakar
   guest: true
   org: ibm-ai-platform
+orgs:
+- ibm-ai-platform
 ---
-
 # No GPU left behind: Unlocking Efficiency with Co-located vLLM in TRL
 
 ## 🚀 Introduction

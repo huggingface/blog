@@ -1,12 +1,13 @@
 ---
-title: "Welcome to the Falcon 3 Family of Open Models!" 
+title: "Welcome to the Falcon 3 Family of Open Models!"
 thumbnail: /blog/assets/falcon3/thumbnail.png
 authors:
 - user: FalconLLM
   guest: true
   org: tiiuae
+orgs:
+- tiiuae
 ---
-
 # Welcome to the Falcon 3 Family of Open Models!
 
 We introduce Falcon3, a family of decoder-only large language models under 10 billion parameters, developed by

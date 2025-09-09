@@ -5,8 +5,9 @@ authors:
 - user: binoua
   guest: true
   org: zama-fhe
+orgs:
+- zama-fhe
 ---
-
 # Running Privacy-Preserving Inferences on Hugging Face Endpoints
 
 > [!NOTE] This is a guest blog post by the Zama team. Zama is an open source cryptography company building state-of-the-art FHE solutions for blockchain and AI.

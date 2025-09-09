@@ -12,8 +12,11 @@ authors:
   guest: true
   org: Webiks
 - user: clefourrier
+orgs:
+- dicta-il
+- HebArabNlpProject
+- Webiks
 ---
-
 # Introducing the Open Leaderboard for Hebrew LLMs!
 
 

@@ -1,22 +1,23 @@
 ---
-title: SmolVLM2：让视频理解能力触手可及 
-thumbnail: /blog/assets/smolvlm2/banner.png  
-authors:  
+title: SmolVLM2：让视频理解能力触手可及
+thumbnail: /blog/assets/smolvlm2/banner.png
+authors:
 - user: orrzohar
   guest: true
   org: Stanford
-- user: mfarre  
-- user: andito  
-- user: merve  
-- user: pcuenq  
-- user: cyrilzakka  
-- user: xenova  
+- user: mfarre
+- user: andito
+- user: merve
+- user: pcuenq
+- user: cyrilzakka
+- user: xenova
 translators:
 - user: yaoqih
 - user: zhongdongy
   proofreader: true
+orgs:
+- Stanford
 ---
-
 # SmolVLM2: 让视频理解能力触手可及
 
 ## 一句话总结: SmolVLM 现已具备更强的视觉理解能力📺

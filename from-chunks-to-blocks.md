@@ -2,16 +2,17 @@
 title: "From Chunks to Blocks: Accelerating Uploads and Downloads on the Hub"
 thumbnail: /blog/assets/from-chunks-to-blocks/thumbnail.png
 authors:
-  - user: jsulz
-    org: xet-team
-  - user: yuchenglow
-    org: xet-team
-  - user: znation
-    org: xet-team
-  - user: saba9
-    org: xet-team
+- user: jsulz
+  org: xet-team
+- user: yuchenglow
+  org: xet-team
+- user: znation
+  org: xet-team
+- user: saba9
+  org: xet-team
+orgs:
+- xet-team
 ---
-
 # From Chunks to Blocks: Accelerating Uploads and Downloads on the Hub
 
 Content-defined chunking (CDC) plays a central role in [enabling deduplication within a Xet-backed repository](https://huggingface.co/blog/from-files-to-chunks). The idea is straightforward: break each file’s data into chunks, store only unique ones, reap the benefits.

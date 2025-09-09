@@ -2,12 +2,13 @@
 title: "Arc Virtual Cell Challenge: A Primer"
 thumbnail: /blog/assets/virtual-cell-challenge/thumbnail.png
 authors:
-- user: FL33TW00D-HF 
+- user: FL33TW00D-HF
 - user: abhinadduri
   guest: true
   org: arcinstitute
+orgs:
+- arcinstitute
 ---
-
 # Arc Virtual Cell Challenge: A Primer
 
 [Arc Institute](https://arcinstitute.org/) recently unveiled the [Virtual Cell Challenge](https://virtualcellchallenge.org/). Participants are required to train a model capable of predicting the effect of silencing a gene in a (partially) unseen cell type, a task they term _context generalization_.

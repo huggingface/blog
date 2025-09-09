@@ -1,5 +1,5 @@
 ---
-title: "Hugging Face x LangChain：全新 LangChain 合作伙伴包" 
+title: "Hugging Face x LangChain：全新 LangChain 合作伙伴包"
 thumbnail: /blog/assets/langchain_huggingface/thumbnail.png
 authors:
 - user: jofthomas
@@ -12,8 +12,9 @@ translators:
 - user: MatrixYao
 - user: zhongdongy
   proofreader: true
+orgs:
+- langchain-ai
 ---
-
 # Hugging Face x LangChain: 全新 LangChain 合作伙伴包
 
 我们很高兴官宣发布 **`langchain_huggingface`**，这是一个由 Hugging Face 和 LangChain 共同维护的 LangChain 合作伙伴包。这个新的 Python 包旨在将 Hugging Face 最新功能引入 LangChain 并保持同步。

@@ -2,12 +2,13 @@
 title: "From Files to Chunks: Improving HF Storage Efficiency"
 thumbnail: /blog/assets/from-files-to-chunks/thumbnail.png
 authors:
-  - user: jsulz
-    org: xet-team
-  - user: erinys
-    org: xet-team
+- user: jsulz
+  org: xet-team
+- user: erinys
+  org: xet-team
+orgs:
+- xet-team
 ---
-
 # From Files to Chunks: Improving HF Storage Efficiency
 
 Hugging Face stores over [30 PB of models, datasets, and spaces](https://huggingface.co/spaces/xet-team/lfs-analysis) in [Git LFS repositories](https://huggingface.co/docs/hub/en/repositories-getting-started#requirements). Because Git stores and versions at the file level, any change to a file requires re-uploading the full asset – expensive operations when average Parquet and CSV files on the Hub range between 200-300 MB, average Safetensor files around 1 GB, and GGUF files can exceed 8 GB. Imagine modifying just a single line of metadata in a GGUF file and waiting for the multi-gigabyte file to upload; in addition to user time and transfer costs, Git LFS also then needs to save full versions of both files, bloating storage costs.

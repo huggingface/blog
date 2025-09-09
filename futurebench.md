@@ -21,8 +21,9 @@ authors:
 - user: jameszou
   guest: true
   org: togethercomputer
+orgs:
+- togethercomputer
 ---
-
 # Back to The Future: Evaluating AI Agents on Predicting Future Events
 
 

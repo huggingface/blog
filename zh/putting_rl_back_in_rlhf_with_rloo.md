@@ -10,8 +10,9 @@ translators:
 - user: innovation64
 - user: zhongdongy
   proofreader: true
+orgs:
+- CohereForAI
 ---
-
 # 将强化学习重新引入 RLHF
 
 我们很高兴在 TRL 中介绍 RLOO (REINFORCE Leave One-Out) 训练器。作为一种替代 PPO 的方法，RLOO 是一种新的在线 RLHF 训练算法，旨在使其更易于访问和实施。特别是， **RLOO 需要的 GPU 内存更少，并且达到收敛所需的挂钟时间也更短**。如下面的图表所示:

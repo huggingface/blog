@@ -8,8 +8,9 @@ authors:
 - user: georgewritescode
   guest: true
   org: ArtificialAnalysis
+orgs:
+- ArtificialAnalysis
 ---
-
 # Launching the Artificial Analysis Text to Image Leaderboard & Arena
 
 In two short years since the advent of diffusion-based image generators, AI image models have achieved near-photographic quality. How do these models compare? Are the open-source alternatives on par with their proprietary counterparts? 

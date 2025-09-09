@@ -6,9 +6,9 @@ authors:
 - user: sean-pai
   guest: true
   org: protectai
+orgs:
+- protectai
 ---
-
-
 We are pleased to announce our partnership with Protect AI, as part of our [long-standing commitment](https://huggingface.co/blog/2024-security-features) to provide a safe and reliable platform for the ML community.
 
 [Protect AI](https://protectai.com/) is a company founded with a mission to create a safer AI-powered world. They are developing powerful tools, namely [Guardian](https://protectai.com/guardian), to ensure that the rapid pace of AI innovation can continue without compromising security.

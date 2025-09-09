@@ -1,5 +1,5 @@
 ---
-title: "SmolVLM2: Bringing Video Understanding to Every Device" 
+title: "SmolVLM2: Bringing Video Understanding to Every Device"
 thumbnail: /blog/assets/smolvlm2/banner.png
 authors:
 - user: orrzohar
@@ -11,8 +11,9 @@ authors:
 - user: pcuenq
 - user: cyrilzakka
 - user: xenova
+orgs:
+- Stanford
 ---
-
 # SmolVLM2: Bringing Video Understanding to Every Device
 
 ## TL;DR: SmolVLM can now watch 📺 with even better visual understanding

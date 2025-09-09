@@ -1,5 +1,5 @@
 ---
-title: "Visual Document Retrieval Goes Multilingual" 
+title: "Visual Document Retrieval Goes Multilingual"
 thumbnail: /blog/assets/vdr-2b-multilingual/thumbnail.png
 authors:
 - user: marco
@@ -8,6 +8,8 @@ authors:
 - user: cheesyFishes
   guest: true
   org: llamaindex
+orgs:
+- llamaindex
 ---
 > **TL;DR**: We present [`vdr-2b-multi-v1`](https://huggingface.co/llamaindex/vdr-2b-multi-v1), the best multilingual embedding model for visual document retrieval. We also release its English-only twin [`vdr-2b-v1`](https://huggingface.co/llamaindex/vdr-2b-v1) and open-source the new [`vdr-multilingual-train`](https://huggingface.co/datasets/llamaindex/vdr-multilingual-train) dataset. With 500k high-quality samples, it's the largest open-source multilingual synthetic dataset for visual document retrieval.
 

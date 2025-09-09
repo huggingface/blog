@@ -2,14 +2,15 @@
 title: "Rearchitecting Hugging Face Uploads and Downloads"
 thumbnail: /blog/assets/rearchitecting-uploads-and-downloads/thumbnail.png
 authors:
-  - user: port8080
-    org: xet-team
-  - user: jsulz
-    org: xet-team
-  - user: erinys
-    org: xet-team
+- user: port8080
+  org: xet-team
+- user: jsulz
+  org: xet-team
+- user: erinys
+  org: xet-team
+orgs:
+- xet-team
 ---
-
 # Rearchitecting Hugging Face Uploads and Downloads
 
 As part of Hugging Face's Xet team’s work to [improve Hugging Face Hub’s storage backend](https://huggingface.co/blog/xethub-joins-hf), we analyzed a 24 hour window of Hugging Face upload requests to better understand access patterns. On October 11th, 2024, we saw:

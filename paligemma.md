@@ -7,8 +7,9 @@ authors:
   guest: true
   org: google
 - user: pcuenq
+orgs:
+- google
 ---
-
 # PaliGemma – Google's Cutting-Edge Open Vision Language Model
 
 Updated on 23-05-2024: We have introduced a few changes to the transformers PaliGemma implementation around fine-tuning, which you can find in this [notebook](https://github.com/merveenoyan/smol-vision/blob/main/Fine_tune_PaliGemma.ipynb).

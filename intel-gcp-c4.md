@@ -1,5 +1,5 @@
 ---
-title: "Benchmarking Language Model Performance on 5th Gen Xeon at GCP" 
+title: "Benchmarking Language Model Performance on 5th Gen Xeon at GCP"
 thumbnail: /blog/assets/optimum_intel/intel_thumbnail.png
 authors:
 - user: MatrixYao
@@ -9,8 +9,9 @@ authors:
   guest: true
   org: Intel
 - user: IlyasMoutawwakil
+orgs:
+- Intel
 ---
-
 # Benchmarking Language Model Performance on 5th Gen Xeon at GCP
 
 **TL;DR**: We benchmark 2 representative agentic AI workload components, text embedding and text generation, on two Google Cloud Compute Engine Xeon-based CPU instances, namely N2 and C4. The results consistently shows that C4 has 10x to 24x higher throughput over N2 in text embedding and 2.3x to 3.6x higher throughput over N2 in text generation. Taking price into consideration, C4's hourly price is about 1.3x of N2, in this sense, C4 keeps 7x ~ 19x TCO(Total Cost of Ownership) advantage over N2 in text embedding and 1.7x ~ 2.9x TCO advantage in text generation. The results indicate that it is possible to deploy light-weight Agentic AI solutions wholly on CPUs.

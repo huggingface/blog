@@ -23,8 +23,10 @@ translators:
 - user: Zipxuan
 - user: zhongdongy
   proofreader: true
+orgs:
+- Intel
+- weizmannscience
 ---
-
 ⭐ 在这篇博客文章中，我们将探讨 _动态推测解码_ ——这是由英特尔实验室和 Hugging Face 开发的一种新方法，可以加速文本生成高达 2.7 倍，具体取决于任务。从 [Transformers🤗](https://github.com/huggingface/transformers) 发布的版本 [4.45.0](https://github.com/huggingface/transformers/releases/tag/v4.45.0) 开始，这种方法是辅助生成的默认模式⭐
 
 ## 推测解码

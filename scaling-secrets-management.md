@@ -1,12 +1,13 @@
 ---
-title: "How Hugging Face Scaled Secrets Management for AI Infrastructure" 
+title: "How Hugging Face Scaled Secrets Management for AI Infrastructure"
 thumbnail: /blog/assets/infisical/thumbnail.png
 authors:
 - user: segudev
   guest: true
   org: Infisical
+orgs:
+- Infisical
 ---
-
 # How Hugging Face Scaled Secrets Management for AI Infrastructure
 
 Hugging Face has become synonymous with advancing AI at scale. With over 4 million builders deploying models on the Hub, the rapid growth of the platform necessitated a rethinking of how sensitive configuration data —secrets— are managed.

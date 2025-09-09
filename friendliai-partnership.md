@@ -12,8 +12,9 @@ authors:
   guest: true
   org: FriendliAI
 - user: julien-c
+orgs:
+- FriendliAI
 ---
-
 FriendliAI’s inference infrastructure is now integrated into the Hugging Face Hub as an option in the “Deploy this model” button, simplifying and accelerating generative AI model serving.
 
 ![Hugging Face and FriendliAI partner to supercharge model deployment on the Hub](/blog/assets/friendliai-partnership/thumbnail.png)

@@ -1,5 +1,5 @@
 ---
-title: "🇨🇿 BenCzechMark - Can your LLM Understand Czech?" 
+title: "🇨🇿 BenCzechMark - Can your LLM Understand Czech?"
 thumbnail: /blog/assets/187_benczechmark/thumbnail.png
 authors:
 - user: mfajcik
@@ -39,8 +39,11 @@ authors:
 - user: jsedivy
   guest: true
   org: CIIRC-NLP
+orgs:
+- BUT-FIT
+- MU-NLPC
+- CIIRC-NLP
 ---
-
 # 🇨🇿 BenCzechMark - Can your LLM Understand Czech?
 
 The 🇨🇿 BenCzechMark is the first and most comprehensive evaluation suite for assessing the abilities of Large Language Models (LLMs) in the Czech language. It aims to test how well LLMs can:

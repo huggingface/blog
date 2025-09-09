@@ -20,8 +20,10 @@ authors:
 - user: preslavnakov
   guest: true
   org: MBZUAI
+orgs:
+- inceptionai
+- MBZUAI
 ---
-
 # Arabic Leaderboards: Introducing Arabic Instruction Following, Updating AraGen, and More
 
 

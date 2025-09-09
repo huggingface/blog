@@ -11,8 +11,9 @@ authors:
 - user: xiaodouzi666
 - user: zhongdongy
   proofreader: true
+orgs:
+- google
 ---
-
 # PaliGemma 2 简介
 
 我们很高兴迎来 Google 全新的视觉语言模型 **PaliGemma 2**，这是 PaliGemma 的一个新版本。与其前代产品一样，PaliGemma 2 使用强大的 [**SigLIP**](https://huggingface.co/collections/google/siglip-659d5e62f0ae1a57ae0e83ba) 进行视觉处理，但在文本解码部分升级到了最新的 **Gemma 2**。

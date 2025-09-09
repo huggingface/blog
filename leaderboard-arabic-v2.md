@@ -24,9 +24,12 @@ authors:
   guest: true
   org: tiiuae
 - user: clefourrier
-
+orgs:
+- 2A2I
+- OALL
+- AI71ai
+- tiiuae
 ---
-
 # The Open Arabic LLM Leaderboard 2
 
 <script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/4.4.0/gradio.js"> </script>

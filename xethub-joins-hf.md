@@ -5,8 +5,9 @@ authors:
 - user: yuchenglow
   org: xet-team
 - user: julien-c
+orgs:
+- xet-team
 ---
-
 # XetHub is joining Hugging Face!
 
 We are super excited to officially announce that Hugging Face acquired XetHub 🔥

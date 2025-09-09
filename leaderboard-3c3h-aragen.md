@@ -15,8 +15,10 @@ authors:
   guest: true
   org: MBZUAI
 - user: clefourrier
+orgs:
+- inceptionai
+- MBZUAI
 ---
-
 # Rethinking LLM Evaluation with 3C3H: AraGen Benchmark and Leaderboard
 
 In the rapidly evolving landscape of large language models (LLMs), comprehensive and robust evaluation methodologies remain a critical challenge, particularly for low-resource languages. In this blog, we introduce AraGen, a generative tasks benchmark and leaderboard for Arabic LLMs, based on 3C3H, a new evaluation measure for NLG which we hope will inspire work for other languages as well.

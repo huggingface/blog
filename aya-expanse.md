@@ -14,8 +14,9 @@ authors:
 - user: ArashAhmadian
   guest: true
   org: CohereForAI
+orgs:
+- CohereForAI
 ---
-
 # A Deepdive into Aya Expanse: Advancing the Frontier of Multilinguality
 
 > [!NOTE] This is a guest blog post by the Cohere For AI team. Cohere For AI is Cohere's research lab that seeks to solve complex machine learning problems.

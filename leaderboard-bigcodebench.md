@@ -26,8 +26,9 @@ authors:
 - user: lvwerra
   org: bigcode
 - user: clefourrier
+orgs:
+- bigcode
 ---
-
 # BigCodeBench: The Next Generation of HumanEval
 
 [HumanEval](https://github.com/openai/human-eval) is a reference benchmark for evaluating large language models (LLMs) on code generation tasks, as it makes the evaluation of compact function-level code snippets easy. However, there are growing concerns about its effectiveness in evaluating the programming capabilities of LLMs, and the main concern is that tasks in HumanEval are too simple and may not be representative of real-world programming tasks. Compared to the algorithm-oriented tasks in HumanEval, real-world software development often involves diverse libraries and function calls. Furthermore, LLMs' performance on HumanEval is subject to [contamination and overfitting issues](https://arxiv.org/abs/2403.07974), making it less reliable for evaluating the generalization of LLMs.

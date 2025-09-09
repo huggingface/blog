@@ -2,24 +2,25 @@
 title: "How NuminaMath Won the 1st AIMO Progress Prize"
 thumbnail: /blog/assets/winning-aimo-progress-prize/thumbnail.png
 authors:
-  - user: yfleureau
-    guest: true
-    org: AI-MO
-  - user: liyongsea
-    guest: true
-    org: AI-MO
-  - user: edbeeching
-  - user: lewtun
-  - user: benlipkin
-    guest: true
-    org: AI-MO
-  - user: romansoletskyi
-    guest: true
-    org: AI-MO
-  - user: vwxyzjn
-  - user: kashif
+- user: yfleureau
+  guest: true
+  org: AI-MO
+- user: liyongsea
+  guest: true
+  org: AI-MO
+- user: edbeeching
+- user: lewtun
+- user: benlipkin
+  guest: true
+  org: AI-MO
+- user: romansoletskyi
+  guest: true
+  org: AI-MO
+- user: vwxyzjn
+- user: kashif
+orgs:
+- AI-MO
 ---
-
 # How NuminaMath Won the 1st AIMO Progress Prize
 
 This year, [**Numina**](https://projectnumina.ai) and Hugging Face collaborated to compete in the 1st Progress Prize of the [**AI Math Olympiad (AIMO)**](https://aimoprize.com). This competition involved fine-tuning open LLMs to solve difficult math problems that high school students use to train for the International Math Olympiad. We’re excited to share that our model — [**NuminaMath 7B TIR**](https://huggingface.co/AI-MO/NuminaMath-7B-TIR)  — was the winner and managed to solve 29 out of 50 problems on the private test set 🥳!

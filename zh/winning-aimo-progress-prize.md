@@ -2,28 +2,29 @@
 title: "NuminaMath 是如何荣膺首届 AIMO 进步奖的？"
 thumbnail: /blog/assets/winning-aimo-progress-prize/thumbnail.png
 authors:
-  - user: yfleureau
-    guest: true
-    org: AI-MO
-  - user: liyongsea
-    guest: true
-    org: AI-MO
-  - user: edbeeching
-  - user: lewtun
-  - user: benlipkin
-    guest: true
-    org: AI-MO
-  - user: romansoletskyi
-    guest: true
-    org: AI-MO
-  - user: vwxyzjn
-  - user: kashif
+- user: yfleureau
+  guest: true
+  org: AI-MO
+- user: liyongsea
+  guest: true
+  org: AI-MO
+- user: edbeeching
+- user: lewtun
+- user: benlipkin
+  guest: true
+  org: AI-MO
+- user: romansoletskyi
+  guest: true
+  org: AI-MO
+- user: vwxyzjn
+- user: kashif
 translators:
-  - user: MatrixYao
-  - user: zhongdongy
-    proofreader: true
+- user: MatrixYao
+- user: zhongdongy
+  proofreader: true
+orgs:
+- AI-MO
 ---
-
 # NuminaMath 是如何荣膺首届 AIMO 进步奖的？
 
 今年，[**Numina**](https://projectnumina.ai) 和 Hugging Face 合作角逐 [**AI 数学奥林匹克 (AI Math Olympiad，AIMO)**](https://aimoprize.com) 的首届进步奖。此次比赛旨在对开放 LLM 进行微调，以使其能解决高中难度的国际数学奥林匹克训练题。我们很高兴向大家报告: 我们的模型 - [**NuminaMath 7B TIR**](https://huggingface.co/AI-MO/NuminaMath-7B-TIR) - 在比赛中脱颖而出，成功解决了私有测试集 50 道题中的 29 道🥳！

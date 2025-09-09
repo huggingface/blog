@@ -1,5 +1,5 @@
 ---
-title: "Falcon 2: An 11B parameter pretrained language model and VLM, trained on over 5000B tokens and 11 languages" 
+title: "Falcon 2: An 11B parameter pretrained language model and VLM, trained on over 5000B tokens and 11 languages"
 thumbnail: /blog/assets/179_falcon2-11b/thumbnail.jpg
 authors:
 - user: Quent-01
@@ -28,8 +28,9 @@ authors:
   org: tiiuae
 - user: clefourrier
 - user: SailorTwift
+orgs:
+- tiiuae
 ---
-
 # Falcon 2: An 11B parameter pretrained language model and VLM, trained on over 5000B tokens and 11 languages
 
 <a name="the-falcon-models"></a>

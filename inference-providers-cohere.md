@@ -11,8 +11,9 @@ authors:
   org: CohereLabs
 - user: julien-c
 - user: sbrandeis
+orgs:
+- CohereLabs
 ---
-
 ![banner image](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/inference-providers/cohere-banner.png)
 <!-- TODO: this banner is by @burtenshaw and a bit shit canva link is https://www.canva.com/design/DAGkt1fdFb0/m13S0f1UuyJOHs-wC-LQSA/edit?utm_content=DAGkt1fdFb0&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton cohere assets are at https://cohere.com/newsroom -->
 

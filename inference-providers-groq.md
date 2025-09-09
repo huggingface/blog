@@ -2,17 +2,18 @@
 title: "Groq on Hugging Face Inference Providers 🔥"
 thumbnail: /blog/assets/inference-providers/welcome-groq.jpg
 authors:
-  - user: benank-groq
-    guest: true
-    org: Groq
-  - user: hozen
-    guest: true
-    org: Groq
-  - user: celinah
-  - user: Wauplin
-  - user: sbrandeis
+- user: benank-groq
+  guest: true
+  org: Groq
+- user: hozen
+  guest: true
+  org: Groq
+- user: celinah
+- user: Wauplin
+- user: sbrandeis
+orgs:
+- Groq
 ---
-
 ![banner image](https://huggingface.co/blog/assets/inference-providers/welcome-groq.jpg)
 
 # Groq on Hugging Face Inference Providers 🔥

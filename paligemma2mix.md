@@ -7,8 +7,9 @@ authors:
 - user: andsteing
   guest: true
   org: google
+orgs:
+- google
 ---
-
 # PaliGemma 2 Mix - New Instruction Vision Language Models by Google
 
 ## TL;DR

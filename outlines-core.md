@@ -1,5 +1,5 @@
 ---
-title: "Releasing Outlines-core 0.1.0: structured generation in Rust and Python" 
+title: "Releasing Outlines-core 0.1.0: structured generation in Rust and Python"
 thumbnail: /blog/assets/outlines-core/thumbnail.gif
 authors:
 - user: bwillard
@@ -19,8 +19,9 @@ authors:
 - user: willkurt
   guest: true
   org: dottxt
+orgs:
+- dottxt
 ---
-
 dottxt and Hugging Face are excited to announce that we have been collaborating on [outlines-core](https://github.com/dottxt-ai/outlines-core), a Rust port of [outlines](https://github.com/dottxt-ai/outlines)’s core algorithms for structured generation. On top of getting reliable output from LLMs with outlines, this Rust port offers several further benefits to users of outlines:
 
 - Speed: Users can expect to see an 2x improvement in index compilation.

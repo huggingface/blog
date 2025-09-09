@@ -1,5 +1,5 @@
 ---
-title: "Falcon Mamba: 首个高效的无注意力机制 7B 模型" 
+title: "Falcon Mamba: 首个高效的无注意力机制 7B 模型"
 thumbnail: /blog/assets/falconmamba/thumbnail.png
 authors:
 - user: JingweiZuo
@@ -24,8 +24,9 @@ translator:
 - user: Evinci
 - user: zhongdongy
   proofreader: true
+orgs:
+- tiiuae
 ---
-
 [Falcon Mamba](https://falconllm.tii.ae/tii-releases-first-sslm-with-falcon-mamba-7b.html) 是由阿布扎比的 [Technology Innovation Institute (TII)](https://www.tii.ae/ai-and-digital-science) 开发并基于 [TII Falcon Mamba 7B License 1.0](https://falconllm.tii.ae/falcon-mamba-7b-terms-and-conditions.html) 的开放获取模型。该模型是开放获取的，所以任何人都可以在 Hugging Face 生态系统中 [这里](https://huggingface.co/tiiuae/falcon-mamba-7b) 使用它进行研究或应用。
 
 在这篇博客中，我们将深入模型的设计决策、探究模型与其他现有的 SoTA 模型相比的竞争力，以及如何在 Hugging Face 生态系统中使用它。

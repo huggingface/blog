@@ -1,5 +1,5 @@
 ---
-title: "Build AI on premise with Dell Enterprise Hub" 
+title: "Build AI on premise with Dell Enterprise Hub"
 thumbnail: /blog/assets/dell-enterprise-hub/thumbnail.jpg
 authors:
 - user: jeffboudier
@@ -10,9 +10,9 @@ authors:
 - user: ianr007
   guest: true
   org: DellTechnologies
+orgs:
+- DellTechnologies
 ---
-
-
 # Build AI on premise with Dell Enterprise Hub
 
 ![DELL World Keynote announcement Hugging Face](/blog/assets/dell-enterprise-hub/thumbnail.jpg)

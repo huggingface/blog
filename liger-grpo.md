@@ -1,5 +1,5 @@
 ---
-title: "🐯 Liger GRPO meets TRL" 
+title: "🐯 Liger GRPO meets TRL"
 thumbnail: /blog/assets/liger-grpo/thumbnail.png
 authors:
 - user: shisahni
@@ -16,8 +16,10 @@ authors:
 - user: liberty4321
   guest: true
   org: LinkedIn
+orgs:
+- LinkedIn
+- axolotl-ai-co
 ---
-
 # 🐯 Liger GRPO meets TRL
 
 TL; DR
