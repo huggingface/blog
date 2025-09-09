@@ -6593,10 +6593,10 @@
     - image-to-video
 
 - local: mmbert
-  title: "mmBERT: A Modern Multilingual Encoder with Annealed Language Learning"
+  title: "mmBERT: ModernBERT goes Multilingual"
   author: orionweller
   thumbnail: /blog/assets/mmbert/thumbnail.png
-  date: Sept 7th, 2025
+  date: Sept 9th, 2025
   tags:
     - llm
     - nlp
