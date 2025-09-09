@@ -650,7 +650,7 @@ if __name__ == "__main__":
 
 **Research Resources:**
 - [🤗 mmBERT Model Collection](https://huggingface.co/collections/jhu-clsp/mmbert-a-modern-multilingual-encoder-68b725831d7c6e3acc435ed4)
-- [📝 Paper](https://github.com/jhu-clsp/mmBERT)  
+- [📝 Paper](https://arxiv.org/abs/2509.06888)  
 - [🗂️ Training Data](https://huggingface.co/datasets/jhu-clsp/mmbert-pretrain-p1-fineweb2-langs) (3T+ tokens, fully open)
 - [💻 GitHub Repository](https://github.com/jhu-clsp/mmBERT)
-- [📊 Training Checkpoints](https://huggingface.co/jhu-clsp/mmBERT-checkpoints) for studying training dynamics or continued pre-training
+- [📊 Training Checkpoints](https://huggingface.co/jhu-clsp/mmBERT-checkpoints) for studying training or continued pre-training
