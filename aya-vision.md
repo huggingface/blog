@@ -4,16 +4,14 @@ thumbnail: /blog/assets/aya-vision/thumbnail.png
 authors:
 - user: saurabhdash
   guest: true
-  org: CohereForAI
 - user: olivernan
   guest: true
-  org: CohereForAI
 - user: ArashAhmadian
   guest: true
-  org: CohereForAI
 - user: johndang-cohere
   guest: true
-  org: CohereForAI
+orgs:
+- CohereLabs
 ---
 
 # A Deepdive into Aya Vision: Advancing the Frontier of Multilingual Multimodality

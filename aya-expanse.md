@@ -4,16 +4,14 @@ thumbnail: /blog/assets/aya-expanse/thumbnail.jpg
 authors:
 - user: johndang-cohere
   guest: true
-  org: CohereForAI
 - user: shivalikasingh
   guest: true
-  org: CohereForAI
 - user: dsouzadaniel
   guest: true
-  org: CohereForAI
 - user: ArashAhmadian
   guest: true
-  org: CohereForAI
+orgs:
+- CohereLabs
 ---
 
 # A Deepdive into Aya Expanse: Advancing the Frontier of Multilinguality
