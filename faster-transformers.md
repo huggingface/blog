@@ -13,17 +13,11 @@ authors:
 
 # Updates in transformers that enabled gpt-oss
 
-OpenAI recently released their [GPT-OSS series of models](https://huggingface.co/collections/openai/gpt-oss-68911959590a1634ba11c7a4)
-on the Hugging Face Hub. While the models themselves are drawing significant attention from the open-source community,
-it was almost inevitable that the quieter updates in the [`transformers`](https://github.com/huggingface/transformers/) library (which made these releases possible) went largely unnoticed.
+OpenAI recently released their [GPT-OSS series of models](https://huggingface.co/collections/openai/gpt-oss-68911959590a1634ba11c7a4). The models feature some novel techniques like MXFP4 quantization, efficient kernels, a brand new chat format, and more. To enable gpt-oss, we have upgraded the [transformers](https://github.com/huggingface/transformers/) library considerably. The updates make it very efficient to **load**, **run**, and **fine-tune** the models.
 
-In this blog post, we won't be diving into how GPT-OSS itself works or how to fine-tune it
-([here is a cookbook if you wanted to take a look](https://cookbook.openai.com/articles/gpt-oss/fine-tune-transfomers)),
-instead we focus on the concrete capabilities in `transformers` that power this release.
+Here we also showcases the `transformers` design approach. New features are usually motivated by innovative techniques from new models. We incorporate them as part of the `transformers` toolkit, so other models (current and future) can benefit from them too.
 
-This also showcases the transformers design approach. New features are usually motivated by innovative techniques from new models. We incorporate them as part of the `transformers` toolkit, so other models (current and future) can benefit from them too.
-
-Providing clean implementations of new methods allows the community to quickly understand and adopt them. Frameworks such as `MLX`, `llama.cpp` or `vLLM` can use `transformers` code as a reference to build their own implementations, and makes it easy for the community at large to converge on a high-level vocabulary that represents advances in the field. It also facilitates bug discovery and exploration.
+Providing clean implementations of new methods allows the community to quickly understand and adopt them. Frameworks such as [`MLX`](https://github.com/ml-explore/mlx-lm/pull/354), [`llama.cpp`](https://github.com/ggml-org/llama.cpp/discussions/15396) or [`vLLM`](https://docs.vllm.ai/projects/recipes/en/latest/OpenAI/GPT-OSS.html) can use the `transformers` code as a reference to build their own implementations.
 
 For this release, we worked on:
 
@@ -35,21 +29,19 @@ For this release, we worked on:
 - [Load larger models faster](#load-larger-models-faster)
 - [Continuous Batching & Paged Attention](#continuous-batching--paged-attention)
 
+> [!NOTE]
+> Best part: Most of these features should work across all major models within `transformers`!
+
 ## Zero-build Kernels, downloadable from the Hub
 
-A kernel is a small, ***specialized*** program that runs directly on an accelerator to perform operations like matrix multiplications,
-activations, or normalizations. In eager PyTorch, each operation launches its own kernel in sequence, simple, but inefficient due
-to memory transfers and launch overhead. PyTorch 2.0 improved this with `torch.compile`, where backends like **`TorchInductor`**
-fuse and optimize kernels automatically, often yielding 2–10× speedups.
+A kernel is a ***specialized***, compact program that runs on accelerators to execute tasks like matrix multiplications,
+activations, or normalizations. In eager PyTorch, operations trigger individual kernels sequentially, which is straightforward but inefficient due to memory transfers and launch overheads. PyTorch 2.0's `torch.compile` with backends like **`TorchInductor`** addresses this by automatically fusing and optimizing kernels, delivering 2–10× performance gains.
 
-But what if you need something beyond the default fused kernels, like a new operator or a hardware-tuned optimization?
-Writing custom GPU kernels is powerful but notoriously difficult. That’s where **Kernels from the Hub** comes in: you
-can now build kernels with the [kernel-builder](https://huggingface.co/blog/kernel-builder) and share or consume them
-directly via the [kernels package](https://huggingface.co/blog/hello-hf-kernels).
+For custom needs, such as *new operators* or *hardware-specific optimizations*, writing GPU kernels from scratch is powerful but complex. **Kernels from the Hub** simplifies this by enabling the community to build and share kernels using tools like the [`kernel-builder`](https://huggingface.co/blog/kernel-builder). The true strength of the [`kernels` package](https://huggingface.co/blog/hello-hf-kernels) lies in its ability to distribute pre-compiled kernels, making it as easy to share and use kernels as it is for models. This focus on redistribution, rather than kernel creation, maximizes accessibility and efficiency for users.
 
 For `transformers`, this is a big shift. Historically, the library avoided native kernels as it had to depend on too
 many separate PyPI packages. With Kernels from the Hub, there’s only **one lightweight dependency (`kernels`)**, and the
-whole system is community-centric. This means transformers can finally tap into optimized, shareable kernels without
+whole system is community-centric. This means transformers can tap into optimized, shareable kernels without
 sacrificing simplicity or portability.
 
 ### Custom Kernels for GPT-OSS
@@ -101,7 +93,8 @@ it is not worthwhile to use kernels, you can see how well it does for larger bat
 | :--: |
 | Figure 1: Benchmarking results of custom kernels |
 
-> Note: [Here is the benchmarking script](https://huggingface.co/datasets/ariG23498/faster-transformers-scripts/blob/main/benchmark-kernels-with-without.py)
+> [!NOTE]
+> You can explore and play with the benchmarking script [here](https://huggingface.co/datasets/ariG23498/faster-transformers-scripts/blob/main/benchmark-kernels-with-without.py)
 
 ## MXFP4 Quantization
 
@@ -148,16 +141,23 @@ model_id = "openai/gpt-oss-120b"
 cfg = GptOssConfig.from_pretrained(model_id)
 print(cfg.quantization_config)
 
-# {'modules_to_not_convert': [...], 'quant_method': 'mxfp4'}
+# {'modules_to_not_convert': [
+#     'model.layers.*.self_attn',
+#     'model.layers.*.mlp.router',
+#     'model.embed_tokens',
+#     'lm_head'
+# ],
+# 'quant_method': 'mxfp4'}
 ```
 
 If `quant_method` is `"mxfp4"`, the model will use the MXFP4 pathway when possible.
 
-> Note: You can now **save** the model directly to the Hub in MXFP4 format, thanks to [this PR](https://github.com/huggingface/transformers/pull/40176)!
+> [!NOTE]
+> If you fine-tune the gpt-oss models, you can now **save** the model directly to the Hub in MXFP4 format, thanks to [this PR](https://github.com/huggingface/transformers/pull/40176)!
 
 ### Requirements and fallbacks
 
-To run MXFP4 on GPU you typically need:
+To run MXFP4 on GPU you need:
 
 1. `accelerate`, `kernels`, and `triton>=3.4` installed.
 2. NVIDIA GPU with compute capability ≥ 7.5 (Ampere or newer), or a compatible backend.
@@ -165,7 +165,7 @@ To run MXFP4 on GPU you typically need:
 If these constraints are not met, `transformers` falls back to a higher-precision path (for example BF16), which uses about 4× the memory of MXFP4.
 
 The [snippet](https://huggingface.co/datasets/ariG23498/faster-transformers-scripts/blob/main/memory-requirements-quantized-vs-dequantized.py) loads
-GPT-OSS twice on CUDA: once with `Mxfp4Config(dequantize=True)` (heavier) and once in the default quantized path (lighter). Figure 3 shows the amount
+GPT-OSS twice on CUDA: once with `Mxfp4Config(dequantize=True)` (memory intensive) and once in the default quantized path (memory efficient). Figure 3 shows the amount
 of used VRAM after each load so you can visualize the savings.
 
 | ![memory used with quantized vs dequantized models](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/faster-transformers/quantization.png) |
@@ -203,7 +203,8 @@ MoE and RMSNorm kernels for larger batches.
 | :--: |
 | Figure 4: MXFP4 kernel benchmark |
 
-> Note: [Here is the benchmarking script](https://huggingface.co/datasets/ariG23498/faster-transformers-scripts/blob/main/benchmark-mxfp4-kernels.py)
+> [!NOTE]
+> You can explore and play with the benchmarking script [here](https://huggingface.co/datasets/ariG23498/faster-transformers-scripts/blob/main/benchmark-mxfp4-kernels.py)
 
 ## Tensor Parallelism
 
@@ -287,7 +288,8 @@ hf jobs run --detach --flavor l4x4 ghcr.io/astral-sh/uv:debian /bin/bash -c \
   torchrun --nproc-per-node=4 tp_gpt_oss.py"
 ```
 
-> Note: [`hf jobs`](https://huggingface.co/docs/huggingface_hub/guides/jobs) is available for all Hugging Face PRO users.
+> [!NOTE]
+> [`hf jobs`](https://huggingface.co/docs/huggingface_hub/guides/jobs) is available for all Hugging Face PRO & Enterprise users.
 
 Under the hood, `tp_plan="auto"` selects a predefined sharding recipe for each layer and wires the necessary
 collectives. You can inspect the active plan with `print(model._tp_plan)` if you want to verify what is being sharded.
@@ -295,11 +297,10 @@ collectives. You can inspect the active plan with `print(model._tp_plan)` if you
 ### **When to reach for TP**
 
 Use TP when the model is too large for one GPU **and** you want **parallel compute**, not only memory placement.
-TP tends to scale throughput with more GPUs, especially for long sequences or larger batches. For a deeper systems
-view and how TP interacts with sequence or pipeline parallelism, the
-[Ultra-Scale Playbook](https://huggingface.co/spaces/nanotron/ultrascale-playbook) is a great overview.
+TP tends to scale throughput with more GPUs, especially for long sequences or larger batches.
 
-> Note: If you are curious about how TP differs from `device_map="auto"` (memory placement), this short [Stack Overflow answer](https://stackoverflow.com/questions/78852192/choose-available-gpu-devices-with-device-map) explains the distinction and when to use each.
+> [!NOTE]
+> If you are curious about how TP differs from `device_map="auto"` (memory placement), this short [Stack Overflow answer](https://stackoverflow.com/questions/78852192/choose-available-gpu-devices-with-device-map) explains the distinction and when to use each.
 
 If you want to know more about TP, here are the two resources that are must reads:
 
@@ -403,7 +404,7 @@ This provides us with:
 - **Much lower KV‑cache memory** for models with sliding or hybrid attention (e.g. GPT‑OSS).
 Cache growth plateaus once the window is reached (e.g., 4K for Mistral; 128 for GPT‑OSS sliding layers), instead of
 scaling linearly with total generated tokens. ([GitHub](https://github.com/huggingface/transformers/pull/40039),
-[Hugging Face](https://huggingface.co/docs/transformers/en/model_doc/mistral))
+[Transformers](https://huggingface.co/docs/transformers/en/model_doc/mistral))
 - **Speed/latency wins** on long prompts/long generations: smaller KV tensors mean lighter attention reads/writes
 and less memory bandwidth pressure, especially after the window is hit. (This is the central motivation behind
 sliding‑window/hybrid LLMs.) ([AI21](https://www.ai21.com/blog/rise-of-hybrid-llms/),
