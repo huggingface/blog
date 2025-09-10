@@ -6614,3 +6614,15 @@
     - community
     - research
     - open-source-collab  
+
+- local: jupyter-agent-2
+  title: "Jupyter Agents: training LLMs to reason with notebooks"
+  author: baptistecolle
+  thumbnail: /blog/assets/jupyter-agent-2/thumbnail.png
+  date: Sep 10, 2025
+  tags:
+    - agents
+    - jupyter
+    - llm
+    - data-science
+    - research
