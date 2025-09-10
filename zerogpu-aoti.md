@@ -34,6 +34,7 @@ In this post, we’ll show how to wire up Ahead-of-Time (AoT) compilation in Zer
   - [Multi-compile / shared weights](#multi-compile--shared-weights)
   - [FlashAttention-3](#flashattention-3)
   - [Regional compilation](#regional-compilation)
+  - [Use a compiled graph from the Hub](#use-a-compiled-graph-from-the-hub)
 - [AoT compiled ZeroGPU Spaces demos](#aot-compiled-zerogpu-spaces-demos)
 - [Conclusion](#conclusion)
 - [Resources](#resources)
