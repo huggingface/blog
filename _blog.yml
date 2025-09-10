@@ -6616,12 +6616,13 @@
     - open-source-collab  
 
 - local: jupyter-agent-2
-  title: Creating a Data Science Agent from Scratch
+  title: "Jupyter Agents: training LLMs to reason with notebooks"
   author: baptistecolle
   thumbnail: /blog/assets/jupyter-agent-2/thumbnail.png
-  date: Aug 20, 2025
+  date: Sep 10, 2025
   tags:
     - agents
     - jupyter
+    - llm
     - data-science
     - research
