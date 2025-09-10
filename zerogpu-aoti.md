@@ -355,7 +355,7 @@ In our example, we can compile the repeated blocks of the Flux transformer ahead
 You can check out [this Space](https://huggingface.co/spaces/zerogpu-aoti/Qwen-Image-Edit-AoT-Regional) for a complete example.
 
 > [!TIP]
-> 💡 For Flux.1-Dev, compiling regions ahead of time like this reduces the cold start timing from _103 seconds to 23 seconds_, while delivering almost identical speedups.
+> 💡 For Flux.1-Dev, switching to regional compilation reduces the compilation time from _6 minutes_ to just _30 seconds_ while delivering identical speedups.
 
 ### Use a compiled graph from the Hub
 
