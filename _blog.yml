@@ -6592,6 +6592,29 @@
     - image-to-image
     - image-to-video
 
+- local: embeddinggemma
+  title: "Welcome EmbeddingGemma, Google's new efficient embedding model"
+  author: tomaarsen
+  thumbnail: /blog/assets/embeddinggemma/thumbnail.png
+  date: Sep 4, 2025
+  tags:
+    - open-source
+    - community
+    - nlp
+    - guide
+
+- local: mmbert
+  title: "mmBERT: ModernBERT goes Multilingual"
+  author: orionweller
+  thumbnail: /blog/assets/mmbert/thumbnail.png
+  date: Sep 9, 2025
+  tags:
+    - llm
+    - nlp
+    - community
+    - research
+    - open-source-collab
+
 - local: gpt-oss-on-intel-xeon
   title: "Running GPT OSS on Intel Xeon CPU"
   author: Jiqing
