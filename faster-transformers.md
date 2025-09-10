@@ -223,62 +223,33 @@ or batch size grow. TP is communication-intensive and generally works best on a 
 
 ```python
 # run with: torchrun --nproc-per-node 4 tp_gpt_oss.py
-import os
 import torch
-from torch import distributed as dist
-from transformers import GptOssForCausalLM, PreTrainedTokenizerFast
+from transformers import PreTrainedTokenizerFast, GptOssForCausalLM
 
-def initialize_process():
-    # torchrun exports: LOCAL_RANK
-    local_rank = int(os.environ["LOCAL_RANK"])
-    torch.cuda.set_device(local_rank)
-    dist.init_process_group(backend="nccl")
+model_id = "openai/gpt-oss-120b"
+tokenizer = PreTrainedTokenizerFast.from_pretrained(model_id)
+model = GptOssForCausalLM.from_pretrained(
+    model_id,
+    tp_plan="auto", # built in TP support
+    dtype="auto",
+).eval()
 
-def run_inference():
-    model_id = "openai/gpt-oss-120b"
-    tok = PreTrainedTokenizerFast.from_pretrained(model_id)
+messages = [
+    {"role": "system", "content": "Be concise."},
+    {"role": "user", "content": "Explain KV caching briefly."},
+]
+inputs = tokenizer.apply_chat_template(
+    messages,
+    add_generation_prompt=True,
+    return_tensors="pt",
+    return_dict=True,
+    reasoning_effort="low",
+).to(model.device)
 
-    # built in TP
-    model = GptOssForCausalLM.from_pretrained(
-        model_id,
-        tp_plan="auto",
-        torch_dtype="auto",
-    ).eval()
+with torch.inference_mode():
+    generations = model.generate(**inputs, max_new_tokens=128)
 
-    messages = [
-        {"role": "system", "content": "Be concise."},
-        {"role": "user", "content": "Explain KV caching briefly."},
-    ]
-    inputs = tok.apply_chat_template(
-        messages,
-        add_generation_prompt=True,
-        return_tensors="pt",
-        return_dict=True,
-        reasoning_effort="low",
-    )
-
-    local_rank = int(os.environ["LOCAL_RANK"])
-    device = torch.device(f"cuda:{local_rank}")
-    inputs = {k: v.to(device, non_blocking=True) for k, v in inputs.items()}
-
-    with torch.inference_mode():
-        out = model.generate(**inputs, max_new_tokens=128)
-        torch.cuda.synchronize(device)
-
-    # keep output from rank 0 only
-    dist.barrier()
-    if dist.get_rank() == 0:
-        print(tok.decode(out[0][inputs["input_ids"].shape[-1]:]))
-
-def main():
-    initialize_process()
-    try:
-        run_inference()
-    finally:
-        dist.destroy_process_group()
-
-if __name__ == "__main__":
-    main()
+print(tokenizer.decode(generations[0][inputs["input_ids"].shape[-1]:]))
 ```
 
 If you don’t have the infrastructure to run the above, here is what you can do to run it!
@@ -324,65 +295,34 @@ with GPT-OSS MoE layers out of the box in transformers.
 
 ```python
 # run with: torchrun --nproc-per-node 4 ep_gpt_oss.py
-import os
 import torch
-from torch import distributed as dist
-from transformers import GptOssForCausalLM, PreTrainedTokenizerFast
+from transformers import PreTrainedTokenizerFast, GptOssForCausalLM
 from transformers.distributed import DistributedConfig
 
-def initialize_process():
-    # torchrun exports: RANK, LOCAL_RANK, WORLD_SIZE, MASTER_ADDR, MASTER_PORT
-    local_rank = int(os.environ["LOCAL_RANK"])
-    torch.cuda.set_device(local_rank)
-    dist.init_process_group(backend="nccl", device_id=local_rank)
+model_id = "openai/gpt-oss-120b"
+tokenizer = PreTrainedTokenizerFast.from_pretrained(model_id)
+model = GptOssForCausalLM.from_pretrained(
+    model_id,
+    distributed_config=DistributedConfig(enable_expert_parallel=True), # enabling EP
+    dtype="auto",
+).eval()
 
-def run_inference():
-    model_id = "openai/gpt-oss-20b"
-    tok = PreTrainedTokenizerFast.from_pretrained(model_id)
-    
-    model = GptOssForCausalLM.from_pretrained(
-        model_id,
-        distributed_config=DistributedConfig(enable_expert_parallel=True),
-        dtype="auto",
-    ).eval()
+messages = [
+    {"role": "system", "content": "Be concise."},
+    {"role": "user", "content": "Explain KV caching briefly."},
+]
+inputs = tokenizer.apply_chat_template(
+    messages,
+    add_generation_prompt=True,
+    return_tensors="pt",
+    return_dict=True,
+    reasoning_effort="low",
+).to(model.device)
 
-    messages = [
-        {"role": "system", "content": "Be concise."},
-        {"role": "user", "content": "Explain KV caching briefly."},
-    ]
-    inputs = tok.apply_chat_template(
-        messages,
-        add_generation_prompt=True,
-        return_tensors="pt",
-        return_dict=True,
-        reasoning_effort="low",
-    )
+with torch.inference_mode():
+    generations = model.generate(**inputs, max_new_tokens=128)
 
-    # Place inputs on *this process's* GPU
-    local_rank = int(os.environ["LOCAL_RANK"])
-    device = torch.device(f"cuda:{local_rank}")
-    inputs = {k: v.to(device, non_blocking=True) for k, v in inputs.items()}
-
-    with torch.inference_mode():
-        out = model.generate(**inputs, max_new_tokens=128)
-        torch.cuda.synchronize(device)
-
-    # keep output from rank 0 only
-    dist.barrier(
-        device_ids=[int(os.environ["LOCAL_RANK"])]
-    )
-    if dist.get_rank() == 0:
-        print(tok.decode(out[0][inputs["input_ids"].shape[-1]:]))
-
-def main():
-    initialize_process()
-    try:
-        run_inference()
-    finally:
-        dist.destroy_process_group()
-
-if __name__ == "__main__":
-    main()
+print(tokenizer.decode(generations[0][inputs["input_ids"].shape[-1]:]))
 ```
 
 Here is how you would run using `hf jobs`
