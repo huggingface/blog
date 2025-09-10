@@ -11,7 +11,7 @@ authors:
 
 The past year has been all about giving LLMs more tools and autonomy to solve more complex and open ended tasks. The goal of the **Jupyter Agent** is to give the model the ultimate tool: code execution. 
 
-A natural way to display mutli-step code execution together reasoning is within a Jupyter Notebook with code and markdown cells. So we built Jupyter Agent to act as an agent that can execute code directly inside a Jupyter notebook and use this environment to solve data analysis and data science tasks. Think of it like *Cursor*, but living natively inside your data science workflow.  
+A natural way to display mutli-step code execution together with reasoning is within a Jupyter Notebook, which consists of code and markdown cells. So we built Jupyter Agent to act as an agent that can execute code directly inside a Jupyter notebook and use this environment to solve data analysis and data science tasks. Think of it like *Cursor*, but living natively inside your data science workflow.  
 We built a [demo](https://huggingface.co/spaces/lvwerra/jupyter-agent-2) of this vision with **Qwen-3 Coder**, currently one of the strongest coding models. This is a follow-up to our earlier work on [jupyter-agent (v1)](https://huggingface.co/spaces/lvwerra/jupyter-agent).
 
 
@@ -23,7 +23,7 @@ Let’s begin with the last step: selecting a strong benchmark for evaluating mo
 
 ## 🏁 Primer: the DABStep Benchmark
 
-In order to understand if we are making progress towards better data science agents we need a benchmark to measure such capabilities. Last year, in partnership with Adyen, we introduced the **DABStep benchmark**: a way to evaluate data science agents on realistic tasks. The setup is simple: provide the LLM with datasets and ask it to answer non-trivial data questions.  
+In order to understand if we are making progress towards better data science agents we need a benchmark to measure such capabilities. Last year, in partnership with [Adyen](https://huggingface.co/adyen), we introduced the **[DABStep benchmark](https://huggingface.co/blog/dabstep)**: a way to evaluate data science agents on realistic tasks. The setup is simple: provide the LLM with datasets and ask it to answer non-trivial data questions.  
 
 Example tasks:
 
@@ -65,7 +65,7 @@ So, we restructured our scaffolding:
 **Our loop:**  
 - While loop with two tools: *code execution* to run the code and *final_answer* to return the final answer.  
 - We differ from Qwen-Agent by explicitly adding a **final_answer** tool — which in our testing has improved performance.  
-- Compared to smolagents, we simplified the scaffolding by removing a lot of prompts and tools. Smolagents also hardcode a lot of assumptions into the model by using the ReACT framework.
+- Compared to smolagents, we simplified the scaffolding by removing a lot of prompts and tools. Smolagents also hardcodes a lot of assumptions into the model by using the ReACT framework.
 
 ## 🏃‍♂️ Training Pipeline
 
