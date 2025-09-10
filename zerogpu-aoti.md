@@ -343,72 +343,31 @@ Here is a [fully working example of an FA3 attention processor](https://gist.git
 
 ### Regional compilation
 
-> [!TIP]
-> We suggest using regional compilation as opposed to using full model compilation, especially when the speed benefits are similar.
+So far, we have been compiling the full model. Depending on the model, full model compilation can lead to significantly long cold start times. Long cold start times make the development experience unpleasant. 
 
-So far, we have been compiling the full model. Depending on the model, full model compilation can lead to significant cold start times. Long cold start times make the 
-development experience unpleasant. 
+We can also choose to compile _regions_ within a model, significantly reducing the cold start times, while retaining almost all the benefits of full model compilation. Regional compilation becomes promising when
+a model has repeated blocks of computation. A standard language model, for example, has a number of
+identically structured Transformer blocks.
 
-We can also choose to compile _regions_ within a model, significantly reducing the cold start times, while retaining almost all the benefits of full model compilation. Regional
-compilation becomes promising when a model has repeated blocks of computation. A standard
-language model, for example, has a number of identically structured Transformer blocks.
+In our example, we can compile the repeated blocks of the Flux transformer ahead of time like so. The [Flux Transformer](https://github.com/huggingface/diffusers/blob/c2e5ece08bf22d249c62e964f91bc326cf9e3759/src/diffusers/models/transformers/transformer_flux.py) has two kinds of repeated blocks: `FluxTransformerBlock` and `FluxSingleTransformerBlock`.
 
-In our example, we can compile the repeated blocks of the Flux transformer ahead of time like so. The [Flux Transformer](https://github.com/huggingface/diffusers/blob/c2e5ece08bf22d249c62e964f91bc326cf9e3759/src/diffusers/models/transformers/transformer_flux.py) has two kinds of repeated blocks: `FluxTransformerBlock` and `FluxSingleTransformerBlock`. We start by capturing inputs for just these blocks:
-
-```py
-# Capturing inputs just for the first block is enough as the input structure remains
-# the same for others.
-
-with spaces.aoti_capture(pipe.transformer.transformer_blocks[0]) as call_double_blocks:
-    pipe("arbitrary example prompt")
-
-with spaces.aoti_capture(
-    pipe.transformer.single_transformer_blocks[0]
-) as call_single_blocks:
-    pipe("arbitrary example prompt")
-```
-
-We then perform compilation after exporting a `torch.export.ExportedProgram`:
-
-```py
-exported_double = torch.export.export(
-    mod=pipe.transformer.transformer_blocks[0],
-    args=call_double_blocks.args,
-    kwargs=call_double_blocks.kwargs,
-)
-exported_single = torch.export.export(
-    mod=pipe.transformer.single_transformer_blocks[0],
-    args=call_single_blocks.args,
-    kwargs=call_single_blocks.kwargs,
-)
-
-compiled_double = spaces.aoti_compile(exported_double)
-compiled_single = spaces.aoti_compile(exported_single)
-```
-
-Note that we are only compiling the first blocks within `transformer.transformer_blocks` and
-`transformer.single_transformer_blocks` as they each block within these share the same
-configuration. So, the compilation-optimized graph can be reused. During loading, we
-make use of this optimized graph while reusing the parameters for each block as shown below:
-
-```py
-from spaces.zero.torch.aoti import ZeroGPUCompiledModel, ZeroGPUWeights
-
-for block in pipe.transformer.transformer_blocks:
-    weights = ZeroGPUWeights(block.state_dict())
-    compiled_block = ZeroGPUCompiledModel(compiled_double.archive_file, weights)
-    block.forward = compiled_block
-
-  for block in pipe.transformer.single_transformer_blocks:
-    weights = ZeroGPUWeights(block.state_dict())
-    compiled_block = ZeroGPUCompiledModel(compiled_single.archive_file, weights)
-    block.forward = compiled_block
-```
-
-And we should be ready to go 🚀 You can check out [this Space](https://huggingface.co/spaces/zerogpu-aoti/Qwen-Image-Edit-AoT-Regional) for a more complete example.
+You can check out [this Space](https://huggingface.co/spaces/zerogpu-aoti/Qwen-Image-Edit-AoT-Regional) for a complete example.
 
 > [!TIP]
 > 💡 For Flux.1-Dev, compiling regions ahead of time like this reduces the cold start timing from _103 seconds to 23 seconds_, while delivering almost identical speedups.
+
+### Use a compiled graph from the Hub
+
+Once a model (or even a model block) is compiled ahead of time, we can serialize the compiled graph module
+as an artifact and reuse later. In the context of a ZeroGPU-powered demo on Spaces, this will significantly
+cut down the demo startup time.
+
+To keep the storage light, we can just save the compiled model graph without including any model parameters
+inside the artifact.
+
+Check out [this collection](TODO) that shows a full workflow of obtaining compiled model graph, pushing it
+to the Hub, and then using it to build a demo. 
+
 
 ## AoT compiled ZeroGPU Spaces demos
 
@@ -437,6 +396,7 @@ We demonstrate speedups with Flux.1-Dev, but these techniques are not limited to
 - Visit our [ZeroGPU-AOTI org on the Hub](https://huggingface.co/zerogpu-aoti) to refer to a collection of demos that leverage the techniques discussed in this post.
 - Browse `spaces.aoti_*` APIs [source code](https://pypi-browser.org/package/spaces/spaces-0.40.1-py3-none-any.whl/spaces/zero/torch/aoti.py) to learn more about the interface
 - Check out [Kernels Community org on the hub](https://huggingface.co/kernels-community)
+- Learn more about regional compilation from [here](pytorch.org/tutorials/recipes/regional_compilation.html)
 - Upgrade to [Pro](https://huggingface.co/pro) on Hugging Face to create your own ZeroGPU Spaces (and get 25 minutes of H200 usage every day)
 
 *Acknowledgements: Thanks to ChunTe Lee for creating an awesome thumbnail for this post. Thanks to Pedro and Vaibhav for providing feedback on the post.*
