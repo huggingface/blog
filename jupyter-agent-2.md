@@ -33,7 +33,7 @@ Example tasks:
 | For the year 2023, focusing on the merchant *Crossfit Hanna*, if we incentivize users to switch to a different Authorization Characteristics Indicator, which option would be the most cost-effective? | E:346.49 |
 
 This benchmark remains challenging for today’s LLMs — e.g. the best out-of-the-box model is Claude 4 Sonnet which reaches not even 20% accuracy on the hard tasks.  
-You can explore the live leaderboard [here] (https://huggingface.co/spaces/adyen/DABstep).
+You can explore the live leaderboard [here](https://huggingface.co/spaces/adyen/DABstep).
 
 ## 🎯 First Baseline
 
@@ -153,7 +153,7 @@ You are a stateful Python code interpreter that executes code in a persistent en
 ### 7. Final curation
 We truncated overly long outputs and filtered out trivial traces to prevent content length issues and keep only high-quality traces.  
 We kept non-trivial, multi-turn traces aligned with DABStep-style tasks.  
-The resulting [Jupyter Agent Dataset](https://huggingface.co/datasets/data-agents/jupyter-agent-dataset) became the foundation for SFT on Qwen3-4B models with 51k synthetic notebooks and almost 0.2B tokens.
+The resulting [Jupyter Agent Dataset](https://huggingface.co/datasets/jupyter-agent/jupyter-agent-dataset) became the foundation for SFT on Qwen3-4B models with 51k synthetic notebooks and almost 0.2B tokens.
 
 With this dataset in hand, the natural next step is to see whether it actually helps our model become a stronger data science agent. Let’s move on to the training pipeline and evaluate the impact!
 
@@ -212,16 +212,16 @@ These results demonstrate that even small models can become powerful data scienc
 
 We openly release best-performing checkpoints of tuned Qwen3-4B-Instruct-2507 and Qwen3-4B-Thinking-2507 together with the training dataset, which you can try out and experiment with:
 
-* [Jupyter Agent Dataset](https://huggingface.co/datasets/data-agents/jupyter-agent-dataset)
-* [Jupyter-Agent-Qwen3-4B-Instruct](https://huggingface.co/data-agents/jupyter-agent-qwen3-4b-instruct)
-* [Jupyter-Agent-Qwen3-4B-Thinking](https://huggingface.co/data-agents/jupyter-agent-qwen3-4b-thinking)
+* [Jupyter Agent Dataset](https://huggingface.co/datasets/jupyter-agent/jupyter-agent-dataset)
+* [Jupyter-Agent-Qwen3-4B-Instruct](https://huggingface.co/jupyter-agent/jupyter-agent-qwen3-4b-instruct)
+* [Jupyter-Agent-Qwen3-4B-Thinking](https://huggingface.co/jupyter-agent/jupyter-agent-qwen3-4b-thinking)
 
 You can load Jupyter Agent Dataset in just a couple of lines using the following code:
 
 ```python
 from datasets import load_dataset
 # To load the train split of a specific subset, such as non-thinking, you can do
-ds = load_dataset("data-agents/jupyter-agent-dataset", split="non-thinking")
+ds = load_dataset("jupyter-agent/jupyter-agent-dataset", split="non-thinking")
 # apply chat template
 tokenizer.apply_chat_template(ds[0]["text"])
 ```
@@ -234,7 +234,7 @@ import e2b_code_interpreter as e2b
 from datasets import load_dataset
 
 # load the Jupyter Agent Dataset
-ds = load_dataset("data-agents/jupyter-agent-dataset", split="thinking")
+ds = load_dataset("jupyter-agent/jupyter-agent-dataset", split="thinking")
 # get the kaggle dataset name
 dataset_name = ds[0]["kaggle_dataset_name"]
 # load the dataset locally from Kaggle Hub
@@ -256,7 +256,7 @@ You use tuned Jupyter Agent Qwen-based models following the Qwen documentation c
 ```python
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
-model_name = "data-agents/jupyter-agent-qwen3-4b-instruct"
+model_name = "jupyter-agent/jupyter-agent-qwen3-4b-instruct"
 
 # load the tokenizer and the model
 tokenizer = AutoTokenizer.from_pretrained(model_name)
@@ -295,7 +295,7 @@ For Thinking model you can decode both thinking response and content using the n
 ```python
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
-model_name = "data-agents/jupyter-agent-qwen3-4b-thinking"
+model_name = "jupyter-agent/jupyter-agent-qwen3-4b-thinking"
 
 # ...use same processing code from above...
 try:
@@ -308,8 +308,6 @@ thinking_content = tokenizer.decode(output_ids[:index], skip_special_tokens=True
 content = tokenizer.decode(output_ids[index:], skip_special_tokens=True).strip("\n")
 ```
 
-We hope that our findings will help and inspire others to continue progress in developing new and more powerful notebook coding agents. 
-
 ## 🔮 Next Steps
 
 - *Harder tasks:* Generate more challenging, multi-step questions that better reflect real-world analysis.  
@@ -319,4 +317,4 @@ We hope that our findings will help and inspire others to continue progress in d
 
 Maybe this will lead to… **Jupyter-Agent 3.** 😉  
 
-We're excited to see what the community builds next. Dive into our [jupyter-agent dataset](https://huggingface.co/datasets/jupyter-agent/jupyter-agent-dataset) on the 🤗 Hub and explore the codebase at [https://github.com/huggingface/jupyter-agent](https://github.com/huggingface/jupyter-agent) to start your own experiments on agents for jupyter notebooks.
+We hope that our findings will inspire others to continue progress in developing more powerful notebook coding agents and we're excited to see what the community builds next. Dive into our [jupyter-agent dataset](https://huggingface.co/datasets/jupyter-agent/jupyter-agent-dataset) on the 🤗 Hub and explore the codebase at [https://github.com/huggingface/jupyter-agent](https://github.com/huggingface/jupyter-agent) to start your own experiments on agents for jupyter notebooks.
