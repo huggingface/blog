@@ -6591,3 +6591,14 @@
     - text-to-image
     - image-to-image
     - image-to-video
+
+- local: faster-transformers
+  title: "Updates in transformers that enabled gpt-oss"
+  author: ariG23498
+  thumbnail: /blog/assets/zerogpu-aoti/thumbnail.png
+  date: Sep 10, 2025
+  tags:
+    - transformers
+    - pytorch
+    - optimization
+    - guide

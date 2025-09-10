@@ -1,6 +1,6 @@
 ---
 title: "Updates in transformers that enabled gpt-oss" 
-thumbnail: assets/transformers/thumbnail.png
+thumbnail: blog/assets/faster-transformers/thumbnail.png
 authors:
 - user: ariG23498
 - user: sergiopaniego
