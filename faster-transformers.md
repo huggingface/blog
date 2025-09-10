@@ -14,26 +14,28 @@ authors:
 # Updates in transformers that enabled gpt-oss
 
 OpenAI recently released their [GPT-OSS series of models](https://huggingface.co/collections/openai/gpt-oss-68911959590a1634ba11c7a4)
-on the Hugging Face Hub. While the models themselves drew significant attention from the open-source community,
+on the Hugging Face Hub. While the models themselves are drawing significant attention from the open-source community,
 it was almost inevitable that the quieter updates in the [`transformers`](https://github.com/huggingface/transformers/) library (which made these releases possible) went largely unnoticed.
 
 In this blog post, we won't be diving into how GPT-OSS itself works or how to fine-tune it
 ([here is a cookbook if you wanted to take a look](https://cookbook.openai.com/articles/gpt-oss/fine-tune-transfomers)),
-instead show the concrete capabilities in `transformers` that power this release.
+instead we focus on the concrete capabilities in `transformers` that power this release.
 
-> Note: While these updates were motivated by GPT-OSS, they are **generic** and benefit many other large models.
+This also showcases the transformers design approach. New features are usually motivated by innovative techniques from new models. We incorporate them as part of the `transformers` toolkit, so other models (current and future) can benefit from them too.
 
-For this release, we enabled:
+Providing clean implementations of new methods allows the community to quickly understand and adopt them. Frameworks such as `MLX`, `llama.cpp` or `vLLM` can use `transformers` code as a reference to build their own implementations, and makes it easy for the community at large to converge on a high-level vocabulary that represents advances in the field. It also facilitates bug discovery and exploration.
 
-- [Kernels from the Hub](#kernels-from-the-hub)
-- [MXFP4 Quantization and Kernels](#mxfp4-quantization-and-kernels)
-- [Tensor Parallelism in `transformers`](#tensor-parallelism-in-transformers)
-- [Expert Parallelism](#expert-parallelism-in-transformers)
+For this release, we worked on:
+
+- [Zero-build Kernels, downloadable from the Hub](#zero-build-kernels-downloadable-from-the-hub)
+- [MXFP4 Quantization](#mxfp4-quantization)
+- [Tensor Parallelism](#tensor-parallelism)
+- [Expert Parallelism](#expert-parallelism)
 - [Dynamic Sliding Window Layer & Cache](#dynamic-sliding-window-layer--cache)
 - [Load larger models faster](#load-larger-models-faster)
 - [Continuous Batching & Paged Attention](#continuous-batching--paged-attention)
 
-## Kernels from the Hub
+## Zero-build Kernels, downloadable from the Hub
 
 A kernel is a small, ***specialized*** program that runs directly on an accelerator to perform operations like matrix multiplications,
 activations, or normalizations. In eager PyTorch, each operation launches its own kernel in sequence, simple, but inefficient due
@@ -101,7 +103,7 @@ it is not worthwhile to use kernels, you can see how well it does for larger bat
 
 > Note: [Here is the benchmarking script](https://huggingface.co/datasets/ariG23498/faster-transformers-scripts/blob/main/benchmark-kernels-with-without.py)
 
-## MXFP4 Quantization and Kernels
+## MXFP4 Quantization
 
 ### Why quantize at all
 
@@ -203,7 +205,7 @@ MoE and RMSNorm kernels for larger batches.
 
 > Note: [Here is the benchmarking script](https://huggingface.co/datasets/ariG23498/faster-transformers-scripts/blob/main/benchmark-mxfp4-kernels.py)
 
-## Tensor Parallelism in `transformers`
+## Tensor Parallelism
 
 Tensor Parallelism (TP) splits **tensors inside a layer** across multiple GPUs (or the hardware accelerator in question).
 Each GPU multiplies its shard in parallel, and collectives such as all-gather or all-reduce combine the partial results.
@@ -305,7 +307,7 @@ If you want to know more about TP, here are the two resources that are must read
 - [Ultra-Scale Playbook](https://huggingface.co/spaces/nanotron/ultrascale-playbook?section=tensor_parallelism): background on TP and its relationship to other parallelism modes.
 
 
-## Expert Parallelism in `transformers`
+## Expert Parallelism
 
 Expert Parallelism (EP) shards **experts inside MoE layers** across GPUs. Each token is routed to one or a few experts,
 so only those experts run their feed-forward pass. Since experts are independent MLPs, we can place different
