@@ -1,6 +1,6 @@
 ---
 title: "Updates in transformers that enabled gpt-oss" 
-thumbnail: blog/assets/faster-transformers/thumbnail.png
+thumbnail: /blog/assets/faster-transformers/thumbnail.png
 authors:
 - user: ariG23498
 - user: sergiopaniego
@@ -47,7 +47,7 @@ sacrificing simplicity or portability.
 ### Custom Kernels for GPT-OSS
 
 [GPT-OSS](https://github.com/huggingface/transformers/blob/main/src/transformers/models/gpt_oss/modeling_gpt_oss.py),
-a Mixture of Experts (MoE) model, is a real adapter of Kernels from the Hub. It leverages two customized kernels:
+a Mixture of Experts (MoE) model, is a big user of Kernels from the Hub. It leverages two customized kernels:
 
 - `@use_kernel_forward_from_hub("RMSNorm")`
 - `@use_kernel_forward_from_hub("MegaBlocksMoeMLP")`
@@ -57,10 +57,9 @@ from [`liger_kernels`](https://huggingface.co/kernels-community/liger_kernels), 
 comes from [`megablocks`](https://huggingface.co/kernels-community/megablocks). Depending on your device (CUDA or ROCm)
 and whether you’re training or running inference, the right kernel is pulled in automatically.
 
-This design is both **specific and general**: the MoE kernel is tailored to GPT-OSS, but the RMSNorm kernel is already
-being reused across multiple models.
+This design is both **specific and general**: the MoE kernel is tailored to GPT-OSS, but the RMSNorm liger kernels and megablocks is already being reused across multiple models.
 
-Want to confirm kernels are being used? Just enable `INFO` logging and load GPT-OSS with `use_kernels=True`:
+Because `kernels` pulls code from the Hub, you have to opt-in to this feature by passing `use_kernels=True` in your model instantiation, as shown below. We also enable `INFO` logging so you can easily verify that downloadable kernels are in use.
 
 ```python
 from transformers import AutoTokenizer, AutoModelForCausalLM
@@ -86,8 +85,7 @@ INFO:root:Using layer `LigerRMSNorm` from repo `kernels-community/liger_kernels`
 INFO:root:Using layer `MegaBlocksMoeMLP` from repo `kernels-community/megablocks`
 ```
 
-In Figure 1, we show how well the kernels work with larger batch sizes. While for lower batch sizes it might seem that
-it is not worthwhile to use kernels, you can see how well it does for larger batch sizes. 
+Figure 1 shows that, in the system we tested, these kernels work best for larger batch sizes. We always recommend to benchmark any performance-related changes as closely to your production conditions as possible.
 
 | ![benchmark with and without kernels](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/faster-transformers/benchmark-kernels-with-without.png) |
 | :--: |
@@ -122,47 +120,53 @@ On its own, E2M1 is very coarse. MXFP4 compensates with **blockwise scaling**:
 
 This blockwise scheme lets MXFP4 keep range while using very few bits. In practice, GPT-OSS 20B fits in roughly `16 GB`
 of VRAM and GPT-OSS 120B fits in roughly `80 GB` when MXFP4 is active, which is the difference between “cannot load” and
-“can run on a single high-end card.” The catch is that matrix multiplies now have to respect block scales. Doing this
+“can run on a single GPU.” The catch is that matrix multiplies now have to respect block scales. Doing this
 efficiently at scale requires dedicated kernels.
 
 ### MXFP4 in `transformers`
 
-`transformers` has native MXFP4 support:
+`transformers` now includes native support for MXFP4, leveraging optimized Triton MXFP4 kernels for enhanced performance. This builds on the community-driven kernel distribution [discussed earlier](#zero-build-kernels-downloadable-from-the-hub), utilizing pre-compiled kernels from the Hub to simplify deployment.
 
-- **Quantizer logic:** [`quantizers/quantizer_mxfp4.py`](https://github.com/huggingface/transformers/blob/main/src/transformers/quantizers/quantizer_mxfp4.py)
-- **Integration hooks:** [`integrations/mxfp4.py`](https://github.com/huggingface/transformers/blob/main/src/transformers/integrations/mxfp4.py)
+Key implementation details:
 
-You can inspect a model’s configuration to see whether MXFP4 is enabled:
+* Quantizer logic: Found in the [MXFP4 quantizer file](https://github.com/huggingface/transformers/blob/0997c2f2ab08c32c8e2f90aaad06e29a7108535b/src/transformers/quantizers/quantizer_mxfp4.py), this handles the core quantization process for MXFP4.
+* Integration hooks: The [MXFP4 integration file](https://github.com/huggingface/transformers/blob/0997c2f2ab08c32c8e2f90aaad06e29a7108535b/src/transformers/integrations/mxfp4.py) enables seamless use of MXFP4 within the transformers framework.
 
-```python
+Readers should focus on how these files integrate MXFP4 quantization into the model pipeline, particularly how the Triton MXFP4 kernels (accessible via the Hub) are used to optimize performance. These files manage the low-level details, so users can focus on enabling MXFP4 without needing to write custom kernels.
+
+To check if a model supports MXFP4, inspect its configuration:
+```py
 from transformers import GptOssConfig
 
 model_id = "openai/gpt-oss-120b"
 cfg = GptOssConfig.from_pretrained(model_id)
 print(cfg.quantization_config)
 
-# {'modules_to_not_convert': [
+# Example output:
+# {
+#   'modules_to_not_convert': [
 #     'model.layers.*.self_attn',
 #     'model.layers.*.mlp.router',
 #     'model.embed_tokens',
 #     'lm_head'
-# ],
-# 'quant_method': 'mxfp4'}
+#   ],
+#   'quant_method': 'mxfp4'
+# }
 ```
 
-If `quant_method` is `"mxfp4"`, the model will use the MXFP4 pathway when possible.
+If `'quant_method': 'mxfp4'` is present, the model will automatically use the MXFP4 pathway with Triton kernels when supported.
 
 > [!NOTE]
-> If you fine-tune the gpt-oss models, you can now **save** the model directly to the Hub in MXFP4 format, thanks to [this PR](https://github.com/huggingface/transformers/pull/40176)!
+> Thanks to this [pull request](https://github.com/huggingface/transformers/pull/40176), you can fine-tune gpt-oss models and save them directly to the Hub in MXFP4 format, streamlining deployment with optimized performance.
 
 ### Requirements and fallbacks
 
 To run MXFP4 on GPU you need:
 
-1. `accelerate`, `kernels`, and `triton>=3.4` installed.
-2. NVIDIA GPU with compute capability ≥ 7.5 (Ampere or newer), or a compatible backend.
+1. `accelerate`, `kernels`, and `triton>=3.4` installed. Note that Pytorch 2.8 already comes with triton 3.4, so you only need to manually install triton if using Pytorch 2.7.
+2. NVIDIA GPU with compute capability ≥ 7.5. This goes all the way back to Tesla, so you can run gpt-oss-20b on the free tiers of Google Colab and Kaggle, and on many consumer GPUs.
 
-If these constraints are not met, `transformers` falls back to a higher-precision path (for example BF16), which uses about 4× the memory of MXFP4.
+If these constraints are not met, `transformers` falls back to a higher-precision path (BF16 is used by default), which requires about 4× the memory of MXFP4.
 
 The [snippet](https://huggingface.co/datasets/ariG23498/faster-transformers-scripts/blob/main/memory-requirements-quantized-vs-dequantized.py) loads
 GPT-OSS twice on CUDA: once with `Mxfp4Config(dequantize=True)` (memory intensive) and once in the default quantized path (memory efficient). Figure 3 shows the amount
@@ -177,9 +181,9 @@ of used VRAM after each load so you can visualize the savings.
 Efficient MXFP4 requires kernels that understand 32-element blocks and their scales during GEMMs and fused ops.
 This is where **Kernels from the Hub** comes in again. `transformers` automatically pulls in the MXFP4-aware
 Triton kernels from the community repository when you load a model that needs them. The repository will appear
-in your local cache and will be used during the forward pass.
+in your local cache and will be used during the forward pass. For the MXFP4 kernels one does not need to use the `use_kernels=True` parameter like before, it is the default behaviour in `transformers`.
 
-Quick sanity check with the Hugging Face cache CLI:
+Quick sanity check with the Hugging Face cache CLI,  after running gpt-oss-20b on a GPU compatible with the triton mxfp4 kernels:
 
 ```shell
 hf cache scan
@@ -208,10 +212,10 @@ MoE and RMSNorm kernels for larger batches.
 
 ## Tensor Parallelism
 
-Tensor Parallelism (TP) splits **tensors inside a layer** across multiple GPUs (or the hardware accelerator in question).
-Each GPU multiplies its shard in parallel, and collectives such as all-gather or all-reduce combine the partial results.
+Tensor Parallelism (TP) splits **tensors inside a layer** across multiple GPUs.
+Each GPU multiplies its shard in parallel, and then partial results are collected using all-gather or all-reduce operations.
 This reduces per-GPU memory and keeps all GPUs working on the **same layer**, which improves throughput as sequence length
-or batch size grows. TP is communication-intensive and generally works best on a **single machine with fast intra-node links**.
+or batch size grow. TP is communication-intensive and generally works best on a **single machine with fast intra-node links**.
 
 ### What this enables in `transformers`
 
@@ -302,7 +306,7 @@ TP tends to scale throughput with more GPUs, especially for long sequences or la
 > [!NOTE]
 > If you are curious about how TP differs from `device_map="auto"` (memory placement), this short [Stack Overflow answer](https://stackoverflow.com/questions/78852192/choose-available-gpu-devices-with-device-map) explains the distinction and when to use each.
 
-If you want to know more about TP, here are the two resources that are must reads:
+If you want to know more about TP, here are two must-read resources:
 
 - [`transformers` guide](https://huggingface.co/docs/transformers/en/perf_infer_gpu_multi): Tensor parallelism, supported models, plans, and extension points.
 - [Ultra-Scale Playbook](https://huggingface.co/spaces/nanotron/ultrascale-playbook?section=tensor_parallelism): background on TP and its relationship to other parallelism modes.
@@ -412,7 +416,7 @@ sliding‑window/hybrid LLMs.) ([AI21](https://www.ai21.com/blog/rise-of-hybrid-
 
 ### How to use it
 
-The optimized cache is set by default, that means **you would not have to make any changes** to your existing code.
+The optimized cache is set by default, that means **you don't have to make any changes** to your existing code.
 
 If you want to create the `DynamicCache` explicitly here is how you would do it:
 
@@ -464,9 +468,9 @@ When you load a large model into your GPU, PyTorch needs to **reserve GPU memory
 and for multi-billion-parameter models it can mean **thousands of tiny memory allocations**, adding up to a long wait before the model is ready.
 Instead of asking the GPU for new memory every single time, it can **hold on to a big chunk once** and then hand out slices from it quickly.
 
-The allocator holds on to this big chunk and hands out slices. The catch is that the allocator only gets fast *after* you’ve given it some memory to work with.
-If you don’t “stock the pantry” first, you still end up doing many slow trips to the market. The PR (🎉 [#36380](https://github.com/huggingface/transformers/pull/36380))
-teaches `transformers` to **pre-stock the pantry** before it starts copying model weights.
+PyTorch allocators can do exactly this. The catch is that the allocator only gets fast *after* you’ve given it some memory to work with.
+If you don’t “stock the pantry” first, you still end up doing many slow trips to the market. This PR (🎉 [#36380](https://github.com/huggingface/transformers/pull/36380))
+taught `transformers` to **pre-stock the pantry** before it starts copying model weights.
 
 It:
 - Looks at the `device_map` (where each layer will live).
@@ -482,7 +486,7 @@ and `torchrun`** you also benefit from companion changes that make multi-GPU loa
 
 ## Continuous Batching & Paged Attention
 
-A typical autoregressive generation process looks like Figure 6. You input the prefill tokens, and the transformer
+A typical autoregressive generation process looks like Figure 6. You input the prefill tokens, and the model
 predicts each new token one after the other until it predicts the EOS (End of Sequence) token.
 
 | ![prefilling](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/faster-transformers/prefill-tokens.png) |
@@ -501,8 +505,8 @@ inherently comes with inefficiencies. Only after each sentence is completely gen
 
 To bypass this issue, we use **dynamic batching** (also known as *continuous batching*). Instead of waiting
 for all the generation to finish, we schedule incoming requests to the completed generations. That way,
-as soon as a generation in a batch in complete, we prefill the batch with the next request. The process
-looks like in Figure 8
+as soon as a generation in a batch is complete, we prefill the batch with the next request. The process
+looks like Figure 8
 
 | ![continuous batching](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/faster-transformers/dynamic-batching.png) |
 | :--: |
