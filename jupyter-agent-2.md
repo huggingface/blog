@@ -9,13 +9,15 @@ authors:
 
 # Jupyter Agents: training LLMs to reason with notebooks
 
-The goal of our **Jupyter Agent** is to act as an agent that can execute code directly inside a Jupyter notebook and use this environment to solve data analysis and data science tasks. Think of it like *Cursor*, but living natively inside your data science workflow.  
+The past year has been all about giving LLMs more tools and autonomy to solve more complex and open ended tasks. The goal of the **Jupyter Agent** is to give the model the ultimate tool: code execution. 
+
+A natural way to display mutli-step code execution together reasoning is within a Jupyter Notebook with code and markdown cells. So we built Jupyter Agent to act as an agent that can execute code directly inside a Jupyter notebook and use this environment to solve data analysis and data science tasks. Think of it like *Cursor*, but living natively inside your data science workflow.  
 We built a [demo](https://huggingface.co/spaces/lvwerra/jupyter-agent-2) of this vision with **Qwen-3 Coder**, currently one of the strongest coding models. This is a follow-up to our earlier work on [jupyter-agent (v1)](https://huggingface.co/spaces/lvwerra/jupyter-agent).
 
 
 While large models are starting to show useful behavior, the key question is how we can continue improving them. To this end, we focus on strengthening smaller models to perform well on agentic data science tasks as they currently struggle to compete with the large models.
 
-The goal of this project is to build a pipeline that first generates high-quality training data, then fine-tunes an existing small model, and finally evaluates whether its performance improves on suitable benchmarks.
+The goal of this project is to build a pipeline to first generate high-quality training data, then fine-tune an existing small model, and finally evaluate whether the model's performance improves on relevant benchmarks.
 
 Let’s begin with the last step: selecting a strong benchmark for evaluating models on data science tasks.
 
@@ -33,17 +35,17 @@ Example tasks:
 This benchmark remains challenging for today’s LLMs — e.g. the best out-of-the-box model is Claude 4 Sonnet which reaches not even 20% accuracy on the hard tasks.  
 You can explore the live leaderboard [here] (https://huggingface.co/spaces/adyen/DABstep).
 
-## 🎯 Our Objective
+## 🎯 First Baseline
 
 Now that we identified a good benchmark we can try to climb it! We set out to build a dataset for fine-tuning such that  even **a small data agent model** could perform well on DABStep.  
 
-Our first choice was [**Qwen3-4B**](https://huggingface.co/Qwen/Qwen3-4B-Thinking-2507): extremely small (fast to iterate with, easy to run), yet strong enough to act in agentic scenarios.  
+Our first choice was [**Qwen3-4B-Thinking-2507**](https://huggingface.co/Qwen/Qwen3-4B-Thinking-2507): extremely small (fast to iterate with, easy to run), yet strong enough to act in agentic scenarios.  
 
 Baseline results:  
 - *Easy tasks:* **44.4%**  
 - *Hard tasks:* **2.1%**  
 
-Not great — but a promising starting point, since it left a lot of room for improvement.  
+Not great — but a promising starting point, since it left a lot of room for improvement. Let's see how we can improve it!
 
 ## 🔧 Primer on Scaffolding
 
@@ -113,7 +115,7 @@ Using the cleaned notebooks, we generated question–answer pairs using [Qwen3-3
 The complete prompting strategy and implementation is available in [`qa_generation.py`](https://github.com/huggingface/jupyter-agent/blob/main/data/pipelines/qa_generation.py).
 
 ### 6. Trace generation
-We wanted to generate clean traces as the processed notebooks are often not very open ended or verbose. However, we want our Jupyter Agent to get to the result efficiently. To generate cleaner notebook traces for training we generated traces synthetically.  
+Finally we want to generate clean code executions traces since even the original notebooks after processing are often open ended and verbose with lots of irrelevant parts. However, we want our Jupyter Agent to get to the result efficiently. To generate cleaner notebook traces for training we generated traces synthetically based on the original notebooks.  
 We have prompted [Qwen-3-Coder-480B](https://huggingface.co/Qwen/Qwen3-Coder-480B-A35B-Instruct) model to generate a jupyter notebook code to answer the question from the previously generated synthetic QA pair. 
 Traces captured step-by-step code execution, including intermediate outputs, which are crucial for agent training.  
 
@@ -136,7 +138,7 @@ You are a stateful Python code interpreter that executes code in a persistent en
 ### 7. Final curation
 We truncated overly long outputs and filtered out trivial traces to prevent content length issues and keep only high-quality traces.  
 We kept non-trivial, multi-turn traces aligned with DABStep-style tasks.  
-The resulting [Jupyter Agent Dataset](https://huggingface.co/datasets/data-agents/jupyter-agent-dataset) became the foundation for SFT on Qwen3-4B models with 51k synthetic notebooks and almost 0.2B/200M tokens.
+The resulting [Jupyter Agent Dataset](https://huggingface.co/datasets/data-agents/jupyter-agent-dataset) became the foundation for SFT on Qwen3-4B models with 51k synthetic notebooks and almost 0.2B tokens.
 
 **Challenges:**  
 - Prompting models for tool calling is tricky: not all prompts deliver the same performance ([Qwen docs](https://qwen.readthedocs.io/en/latest/framework/function_call.html#vllm)).  
@@ -283,7 +285,7 @@ model_name = "data-agents/jupyter-agent-qwen3-4b-thinking"
 
 # ...use same processing code from above...
 try:
-    # rindex finding 151668 (</think>)
+    # index finding 151668 (</think>)
     index = len(output_ids) - output_ids[::-1].index(151668)
 except ValueError:
     index = 0
