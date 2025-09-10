@@ -11,7 +11,7 @@ authors:
 
 The past year has been all about giving LLMs more tools and autonomy to solve more complex and open ended tasks. The goal of the **Jupyter Agent** is to give the model the ultimate tool: code execution. 
 
-A natural way to display mutli-step code execution together with reasoning is within a Jupyter Notebook, which consists of code and markdown cells. So we built Jupyter Agent to act as an agent that can execute code directly inside a Jupyter notebook and use this environment to solve data analysis and data science tasks. Think of it like *Cursor*, but living natively inside your data science workflow.  
+A natural way to display multi-step code execution together with reasoning is within a Jupyter Notebook, which consists of code and markdown cells. So we built Jupyter Agent to act as an agent that can execute code directly inside a Jupyter notebook and use this environment to solve data analysis and data science tasks. Think of it like *Cursor*, but living natively inside your data science workflow.  
 We built a [demo](https://huggingface.co/spaces/lvwerra/jupyter-agent-2) of this vision with **Qwen-3 Coder**, currently one of the strongest coding models. This is a follow-up to our earlier work on [jupyter-agent (v1)](https://huggingface.co/spaces/lvwerra/jupyter-agent).
 
 
@@ -130,7 +130,7 @@ Using the cleaned notebooks, we generated question–answer pairs using [Qwen3-3
 The complete prompting strategy and implementation is available in [`qa_generation.py`](https://github.com/huggingface/jupyter-agent/blob/main/data/pipelines/qa_generation.py).
 
 ### 6. Trace generation
-Finally we want to generate clean code executions traces since even the original notebooks after processing are often open ended and verbose with lots of irrelevant parts. However, we want our Jupyter Agent to get to the result efficiently. To generate cleaner notebook traces for training we generated traces synthetically based on the original notebooks.  
+Finally we want to generate clean code execution traces since even the original notebooks after processing are often open ended and verbose with lots of irrelevant parts. However, we want our Jupyter Agent to get to the result efficiently. To generate cleaner notebook traces for training we generated traces synthetically based on the original notebooks.  
 We have prompted [Qwen-3-Coder-480B](https://huggingface.co/Qwen/Qwen3-Coder-480B-A35B-Instruct) model to generate a jupyter notebook code to answer the question from the previously generated synthetic QA pair. 
 Traces captured step-by-step code execution, including intermediate outputs, which are crucial for agent training.  
 
@@ -148,7 +148,7 @@ You are a stateful Python code interpreter that executes code in a persistent en
 *Challenge 2:* [Qwen3-Coder-480B-A35B](https://huggingface.co/Qwen/Qwen3-Coder-480B-A35B-Instruct) model does not support thinking mode - how can we extract code commentary? By default it often outputs just a brief comment followed by several steps of code execution. However, we'd like some reasoning or comments between every cell. 
 *Trick:* When switching from [Qwen3-32B](https://huggingface.co/Qwen/Qwen3-32B) to [Qwen3-Coder-480B-A35B](https://huggingface.co/Qwen/Qwen3-Coder-480B-A35B-Instruct) we noticed that often output message content was empty. This turns out to be a previously known quirk of Qwen3-Coder models in which when using tool calling the model would not return an empty assistant response. We enforce some text commentary through tooling by passing 'comment' as a required field in the code execution tool call. This way when non-reasoning model is used for code cell generation it will by default output some description of its actions from 1st POV, emulating the thinking traces structure.
 
-**Note:** the generated final answer in the notebook may vary from the answer specified in the QA pair. This is caused by the fact that the agent model could use data preprocessing methods and steps different from the original Kaggle notebook and the synthetic question would not usually specify them. This discrepancy is normal and lays foundation for a new exciting research direction of how language models tend to treat data analysis and whether they do it differently from humans. For full transparency we keep both LLM-generated final answer and original answer from the real Kaggle notebook as a signal of model's performance. We encourage the community to try different dataset mixes to see how they can push performance even further.
+**Note:** the generated final answer in the notebook may vary from the answer specified in the QA pair. This is caused by the fact that the agent model could use data preprocessing methods and steps different from the original Kaggle notebook and the synthetic question would not usually specify them. This discrepancy is normal and lays the foundation for a new exciting research direction of how language models tend to treat data analysis and whether they do it differently from humans. For full transparency we keep both LLM-generated final answer and original answer from the real Kaggle notebook as a signal of model's performance. We encourage the community to try different dataset mixes to see how they can push performance even further.
 
 ### 7. Final curation
 We truncated overly long outputs and filtered out trivial traces to prevent content length issues and keep only high-quality traces.  
@@ -167,7 +167,7 @@ Some training steps turned out to be particularly interesting and gave us useful
 - For trace generation, we used LLMs to generate QA pairs, which gave us a **verifiable environment**.  
 - Finally, we fine-tuned **Qwen3-4B** with [TRL](https://huggingface.co/docs/trl).  
   - Used `assistant_loss_only=True` → small performance boost.
-  - Added netfune noise for full-parameter multi-epoch training → avoids overfitting.  
+  - Added neftune noise for full-parameter multi-epoch training → avoids overfitting.  
 
 **Challenges:**  
 - Prompting models for tool calling is tricky: not all prompts deliver the same performance ([Qwen docs](https://qwen.readthedocs.io/en/latest/framework/function_call.html#vllm)).  
