@@ -6591,3 +6591,15 @@
     - text-to-image
     - image-to-image
     - image-to-video
+
+- local: gpt-oss-on-intel-xeon
+  title: "Running GPT OSS on Intel Xeon CPU"
+  author: Jiqing
+  thumbnail: /blog/assets/gpt-oss-on-intel-xeon/thumbnail.png
+  date: Sep 4, 2025
+  tags:
+    - intel
+    - cpu
+    - gpt-oss
+    - open-source
+    - LLM
