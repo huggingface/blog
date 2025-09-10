@@ -61,7 +61,7 @@ tokenizer = AutoTokenizer.from_pretrained(model_id)
 
 model = AutoModelForCausalLM.from_pretrained(
     model_id,
-    torch_dtype="auto",
+    dtype="auto",
     device_map="auto",
     use_kernels=True,
 )
@@ -326,7 +326,7 @@ model_id = "openai/gpt-oss-20b"
 tokenizer = AutoTokenizer.from_pretrained(model_id)
 model = AutoModelForCausalLM.from_pretrained(
 	model_id,
-	torch_dtype="auto",
+	dtype="auto",
 	device_map="auto",
 ).eval()
 
@@ -341,7 +341,7 @@ inputs = tokenizer.apply_chat_template(
     return_tensors="pt",
     return_dict=True,
     reasoning_effort="low",
-).to(device)
+).to(model.device)
 
 cache = DynamicCache(config=model.config) # create the cache with the model's config
 
