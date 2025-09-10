@@ -65,17 +65,22 @@ So, we restructured our scaffolding:
 **Our loop:**  
 - While loop with two tools: *code execution* to run the code and *final_answer* to return the final answer.  
 - We differ from Qwen-Agent by explicitly adding a **final_answer** tool — which in our testing has improved performance.  
+- Compared to smolagents, we simplified the scaffolding by removing a lot of prompts and tools. Smolagents also hardcode a lot of assumptions into the model by using the ReACT framework.
 
-## ⚙️ Training Pipeline
+## 🏃‍♂️ Training Pipeline
 
 With simplified scaffolding in place, we focused on fine-tuning Qwen3-4B for **data science agentic tasks**.  
+
+## ⚙️ Dataset Pipeline
+
+The recipe to improve a model on a certain task or behaviour is to train it on data that reflects the tasks as closely as possible. A natural starting point is to look at real Jupyter Notebooks and find notebooks that align closely with the task that we plan to tackle, namely data analysis. 
+
+Kaggle notebooks offer a wealth of high quality data analysis notebooks and are made available by Kaggle:
 
 **Datasets:**  
 - **Kaggle Notebooks dataset**: ~2TB of notebooks.
 - **Kaggle Datasets**: 5TB of kaggle datasets that we manually downloaded and linked to the notebooks.
 - Rich metadata for each notebook (authors, datasets used, etc.).  
-
-## ⚙️ Dataset Pipeline
 
 Now that we have good results with a base model it's time to build a dataset that will help us improve it even further. We designed a multi-stage pipeline using [Datatrove](https://github.com/huggingface/datatrove) to clean and prepare Kaggle notebooks at scale.  
 
@@ -89,18 +94,28 @@ Most Kaggle notebooks are small variations or near-identical copies, so this ste
 *Key insight:* ~90% of raw notebooks are duplicates, which would have skewed training if left unfiltered.
 
 ### 2. Downloading linked datasets
-Notebooks usually reference external datasets through Kaggle metadata.  
-We built a pipeline to automatically fetch these datasets, ensuring the code inside notebooks could actually run. The goal was to later train the model on actual code execution.
+Most Kaggle notebooks reference external datasets via Kaggle metadata. To make sure the code inside notebooks could actually run, we built a pipeline that automatically fetched these linked datasets. This step was crucial, since many notebooks would otherwise be incomplete or non-executable.  
+
+Using the **kagglehub** package, we downloaded thousands of datasets — about **5TB** in total. To keep things manageable and relevant:  
+- We filtered out datasets containing model checkpoints, large multimodal corpora, or LLM-related files.  
+- We also excluded very large datasets (10GB+) that couldn’t fit into the virtual [E2B sandboxes](https://e2b.dev/) we used for execution.  
+
+By the end, we had a rich collection of executable notebooks paired with their datasets, providing the foundation for training agents in realistic, runnable environments.
 
 ### 3. Edu scoring
-We scored notebooks based on educational quality using [Qwen3-32B](https://huggingface.co/Qwen/Qwen3-32B). We saw that using the whole notebook was not optimal, as many contained trivial or broken code. Our educational scoring approach is detailed in [`edu_scoring.py`](https://github.com/huggingface/jupyter-agent/blob/main/data/pipelines/edu_scoring.py).
+We scored notebooks based on educational quality using [Qwen3-32B](https://huggingface.co/Qwen/Qwen3-32B). We saw that using the whole notebook was not optimal, as many contained trivial or broken code. Our educational scoring approach is detailed in edu_scoring.py.
 
-This is similar to the insight from the [*BeyondWeb* paper](https://huggingface.co/papers/2508.10975), which showed that using high-quality data is better for synthetic data generation — a step we relied on for QA (Question-Answer) generation.  
-This helped the model learn from "high quality" notebooks instead of noisy ones.
+**TL;DR:** We assigned each notebook a score from 1–5 based on clarity, completeness, and educational value, and kept only those above a chosen threshold. This filtering removed about 70% of the notebooks.
+
+This is similar to the insight from the BeyondWeb paper, which showed that using high-quality data is better for synthetic data generation — a step we relied on for QA (Question-Answer) generation.
+This helped the model learn from “high quality” notebooks instead of noisy ones.
 
 ### 4. Filtering irrelevant notebooks
-We excluded notebooks about training LLMs or unrelated to data analysis.  
-We also removed notebooks that didn't actually use datasets through an automated LLM-based filtering process using Qwen3-32B. The implementation of filtering can be found in [`extract_packages_and_files.py`](https://github.com/huggingface/jupyter-agent/blob/main/data/pipelines/extract_packages_and_files.py).
+We excluded notebooks about training LLMs or unrelated to data analysis.
+We also removed notebooks that didn’t actually use datasets through an automated LLM-based filtering process using Qwen3-32B. The implementation of filtering can be found in [`extract_packages_and_files.py`](https://github.com/huggingface/jupyter-agent/blob/main/data/pipelines/extract_packages_and_files.py).
+
+**TL;DR:** We prompted Qwen3-32B to identify and remove notebooks that either (1) had nothing to do with data analysis, or (2) didn’t actually use datasets. This step removed about 20% of the notebooks.
+
 This ensured we trained only on relevant data science tasks.
 
 ### 5. QA generation
@@ -140,15 +155,14 @@ We truncated overly long outputs and filtered out trivial traces to prevent cont
 We kept non-trivial, multi-turn traces aligned with DABStep-style tasks.  
 The resulting [Jupyter Agent Dataset](https://huggingface.co/datasets/data-agents/jupyter-agent-dataset) became the foundation for SFT on Qwen3-4B models with 51k synthetic notebooks and almost 0.2B tokens.
 
-**Challenges:**  
-- Prompting models for tool calling is tricky: not all prompts deliver the same performance ([Qwen docs](https://qwen.readthedocs.io/en/latest/framework/function_call.html#vllm)).  
-- We had to manually test each one to find what worked best.  
+With this dataset in hand, the natural next step is to see whether it actually helps our model become a stronger data science agent. Let’s move on to the training pipeline and evaluate the impact!
 
 ## 🏃‍♂️ Training Pipeline
 
-Finally, we want to train a model to see if our dataset yields some performance improvements. For this we setup a simple training pipeline. 
+With the curated dataset ready, we turned to the key question: **does this data actually help the model get better at solving data analysis tasks?**
+To find out, we set up a simple fine-tuning pipeline and ran experiments to measure the impact of training on our synthetic notebooks.
 
-Some training steps were particularly interesting:  
+Some training steps turned out to be particularly interesting and gave us useful insights:
 
 - For trace generation, we used LLMs to generate QA pairs, which gave us a **verifiable environment**.  
 - Finally, we fine-tuned **Qwen3-4B** with [TRL](https://huggingface.co/docs/trl).  
