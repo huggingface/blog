@@ -16,6 +16,8 @@ Generating images or videos can take a significant amount of time. Being able to
 
 This is where PyTorch ahead-of-time (AoT) compilation comes in. Instead of compiling models on the fly (which doesn’t play nicely with ZeroGPU’s short-lived processes), AoT lets you optimize once and reload instantly. 
 
+<!--comment to trigger refresh -->
+
 **The result**: snappier demos and a smoother experience, with speedups ranging from __1.3×–1.8×__ on models like Flux, Wan, and LTX 🔥
 
 In this post, we’ll show how to wire up Ahead-of-Time (AoT) compilation in ZeroGPU Spaces. We'll explore advanced tricks like FP8 quantization and dynamic shapes, and share working demos you can try right away. If you cannot wait, we invite you to check out some ZeroGPU-powered demos on the [zerogpu-aoti](https://huggingface.co/zerogpu-aoti) organization.
