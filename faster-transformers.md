@@ -440,12 +440,6 @@ It:
 - **Pre-allocates a big enough block on each GPU**.
 - Then, as layers are copied in, they just slot neatly into this pre-reserved space.
 
-This results in speedups in practice. In **Figure 11** we show the loading times of dequantized gpt-oss-20b with and without the allocator.
-
-| ![speedup of loading models](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/faster-transformers/load-big-models.png) |
-| :--: |
-| Figure 11: Loading time of gpt-oss-2b model |
-
 You have to make no changes to your existing code, as this is default behaviour in `transformers`. If you use **`device_map="auto"`** or provide your own device map, your model will now load faster automatically. If you’re running with **Tensor Parallel (`tp_plan="auto"`) and `torchrun`** you also benefit from companion changes that make multi-GPU loading smarter.
 
 ## Conclusion
