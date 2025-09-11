@@ -387,104 +387,16 @@ To bypass this issue, we use **dynamic batching** (also known as *continuous bat
 | :--: |
 | Figure 9: Continuous Batching of sequences |
 
-Transformers supports continuous batching and here is how to use it:
+Transformers supports continuous batching with the `generate_batch` API. Here is an official [script](https://github.com/huggingface/transformers/blob/0f1b128d3359a26bd18be99c26d7f04fb3cba914/examples/pytorch/continuous_batching_simple.py) that runs CB end to end on `Qwen/Qwen3-4B-Instruct-2507`.
 
-```bash
-import argparse
-import time
+We have also performed a benchmark between Continuous Batching and Static Batching with 100 samples. In Figure 9, we note that CB is quite faster than SB.
 
-import datasets
-import torch
+| ![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/faster-transformers/cb-sb.png) |
+| :--: |
+| Figure 9: Continuous vs Static Batching Tokens/Second |
 
-from transformers import AutoModelForCausalLM, AutoTokenizer
-from transformers.generation import GenerationConfig
-
-MODEL_ID = "Qwen/Qwen3-4B-Instruct-2507"
-DISPLAYED_SAMPLES = 3
-
-if __name__ == "__main__":
-    # Parse args
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--num-blocks", "-n", type=int, default=None)
-    parser.add_argument("--max-batch-tokens", "-b", type=int, default=None)
-    parser.add_argument(
-        "--attn", type=str, default="paged_attention|kernels-community/flash-attn", help="Attention implementation"
-    )
-    parser.add_argument("--samples", type=int, default=500)
-    args = parser.parse_args()
-
-    # Prepare model
-    model = AutoModelForCausalLM.from_pretrained(
-        MODEL_ID,
-        attn_implementation=args.attn,
-        dtype=torch.bfloat16,
-    )
-    model = model.cuda().eval()
-
-    # Prepare tokenizer and dataset
-    tokenizer = AutoTokenizer.from_pretrained(MODEL_ID, padding_side="left")
-    dataset = datasets.load_dataset("openai/gsm8k", "socratic", split="test")
-    dataset = dataset.select(range(args.samples))
-    tokenized_datasets = dataset.map(lambda x: tokenizer(x["question"]), batched=True)
-    simple_batch_inputs = [item["input_ids"] for item in tokenized_datasets]
-
-    # Prepare generation config
-    generation_config = GenerationConfig(
-        max_new_tokens=512,
-        use_cuda_graph=False,  # Not supported for simple version
-        eos_token_id=tokenizer.eos_token_id,
-        pad_token_id=tokenizer.pad_token_id,
-        do_sample=False,
-        num_blocks=args.num_blocks,
-        max_batch_tokens=args.max_batch_tokens,
-    )
-
-    # Warmup iterations
-    _ = model.generate_batch(
-        inputs=simple_batch_inputs[: min(5, args.samples)],
-        generation_config=generation_config,
-        slice_inputs=True,
-    )
-
-    # Actual batch generation
-    print("--- Running CB Generation Example ---")
-    start_time = time.time()
-    batch_outputs = model.generate_batch(
-        inputs=simple_batch_inputs,
-        generation_config=generation_config,
-        slice_inputs=True,
-    )
-    end_time = time.time()
-    print("Done with batch generation.")
-
-    # Decode outputs
-    token_count = 0
-    for i, request in enumerate(batch_outputs):
-        input_text = tokenizer.decode(batch_outputs[request].prompt_ids, skip_special_tokens=True)
-        # Try to decode the output
-        try:
-            output_text = tokenizer.decode(batch_outputs[request].generated_tokens, skip_special_tokens=True)
-            token_count += len(batch_outputs[request].generated_tokens[1:])
-        except Exception as e:
-            print(f"Decoding failed for request {request}: {e}")
-            continue
-
-        # Display sample if asked
-        if i < DISPLAYED_SAMPLES:
-            print("-" * 20)
-            print(f"{request} Input:  {input_text}")
-            if len(output_text) > 0:
-                print(f"{request} Output: {output_text}")
-            else:
-                print(f"[WARN] {request} Output was empty!")
-
-    # Compute stats and maybe print them
-    gen_time = end_time - start_time
-    tok_per_sec = token_count / gen_time
-    print("-" * 20)
-    print("--- Finished CB Generation Example ---\n")
-    print(f"CB generation took: {gen_time:.2f} seconds for {token_count} tokens. {tok_per_sec:.2f}tok/s")
-```
+> [!NOTE]
+> You can play around with the benchmark here: [SB](https://huggingface.co/datasets/ariG23498/faster-transformers-scripts/blob/main/sb-bench.py), [CB](https://huggingface.co/datasets/ariG23498/faster-transformers-scripts/blob/main/cb-bench.py)
 
 ## Load larger models faster
 
@@ -497,11 +409,11 @@ It:
 - **Pre-allocates a big enough block on each GPU**.
 - Then, as layers are copied in, they just slot neatly into this pre-reserved space.
 
-This results in speedups in practice. In **Figure 10** we show the loading times of dequantized gpt-oss-20b with and without the allocator.
+This results in speedups in practice. In **Figure 11** we show the loading times of dequantized gpt-oss-20b with and without the allocator.
 
 | ![speedup of loading models](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/faster-transformers/load-big-models.png) |
 | :--: |
-| Figure 10: Loading time of gpt-oss-2b model |
+| Figure 11: Loading time of gpt-oss-2b model |
 
 You have to make no changes to your existing code, as this is default behaviour in `transformers`. If you use **`device_map="auto"`** or provide your own device map, your model will now load faster automatically. If you’re running with **Tensor Parallel (`tp_plan="auto"`) and `torchrun`** you also benefit from companion changes that make multi-GPU loading smarter.
 
