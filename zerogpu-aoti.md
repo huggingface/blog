@@ -350,7 +350,7 @@ We can also choose to compile _regions_ within a model, significantly reducing t
 a model has repeated blocks of computation. A standard language model, for example, has a number of
 identically structured Transformer blocks.
 
-In our example, we can compile the repeated blocks of the Flux transformer ahead of time like so. The [Flux Transformer](https://github.com/huggingface/diffusers/blob/c2e5ece08bf22d249c62e964f91bc326cf9e3759/src/diffusers/models/transformers/transformer_flux.py) has two kinds of repeated blocks: `FluxTransformerBlock` and `FluxSingleTransformerBlock`.
+In our example, we can compile the repeated blocks of the Flux transformer ahead of time, and propagate the compiled graph to the remaining repeated blocks. The [Flux Transformer](https://github.com/huggingface/diffusers/blob/c2e5ece08bf22d249c62e964f91bc326cf9e3759/src/diffusers/models/transformers/transformer_flux.py) has two kinds of repeated blocks: `FluxTransformerBlock` and `FluxSingleTransformerBlock`.
 
 You can check out [this Space](https://huggingface.co/spaces/cbensimon/FLUX.1-dev-fa3-aoti/tree/main) for a complete example.
 
