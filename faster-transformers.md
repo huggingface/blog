@@ -401,7 +401,7 @@ A typical autoregressive generation process looks like **Figure 7**. You input t
 | :--: |
 | Figure 7: Autoregressive token generation |
 
-Let’s see what the generation process looks like when we pass a **batch** of inputs. In **Figure 8** you notice that some generations finish off early than the others. This mismatch of length underutilizes the GPUs.
+Let’s see what the generation process looks like when we pass a **batch** of inputs. In **Figure 8** you notice that some generations finish off earlier than the others. This mismatch of length underutilizes the GPUs.
 
 | ![static batching](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/faster-transformers/static-batching.png) |
 | :--: |
