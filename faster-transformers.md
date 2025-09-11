@@ -339,7 +339,7 @@ Many recent LLMs use _sliding window_ attention, or a combination of sliding and
 
 For models that only use sliding window layers, such as Mistral 7B, cache memory stops growing when the sequence reaches the window size (4096, in this case). This makes sense, because the sliding layers can't look past the previous 4K tokens anyway.
 
-![mistral cache behaviour comparison](https://private-user-images.githubusercontent.com/71554963/476701186-e7fb1288-7713-4140-a2b2-1af0a723f76a.png)
+![mistral cache behaviour comparison](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/faster-transformers/mistral-dynamic-cache-with-config.png)
 
 OpenAI gpt-oss alternates between sliding and global attention layers, which results in total KV cache memory being _halved_, as we'll see, as sequence length increases.
 This provides us with:
