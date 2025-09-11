@@ -352,7 +352,7 @@ identically structured Transformer blocks.
 
 In our example, we can compile the repeated blocks of the Flux transformer ahead of time like so. The [Flux Transformer](https://github.com/huggingface/diffusers/blob/c2e5ece08bf22d249c62e964f91bc326cf9e3759/src/diffusers/models/transformers/transformer_flux.py) has two kinds of repeated blocks: `FluxTransformerBlock` and `FluxSingleTransformerBlock`.
 
-You can check out [this Space](https://huggingface.co/spaces/zerogpu-aoti/Qwen-Image-Edit-AoT-Regional) for a complete example.
+You can check out [this Space](https://huggingface.co/spaces/cbensimon/FLUX.1-dev-fa3-aoti/tree/main) for a complete example.
 
 > [!TIP]
 > 💡 For Flux.1-Dev, switching to regional compilation reduces the compilation time from _6 minutes_ to just _30 seconds_ while delivering identical speedups.
@@ -361,7 +361,7 @@ You can check out [this Space](https://huggingface.co/spaces/zerogpu-aoti/Qwen-I
 
 Once a model (or even a model block) is compiled ahead of time, we can serialize the compiled graph module
 as an artifact and reuse later. In the context of a ZeroGPU-powered demo on Spaces, this will significantly
-cut down the demo startup time.
+cut down the demo startup time by skipping the compilation time.
 
 To keep the storage light, we can just save the compiled model graph without including any model parameters
 inside the artifact.
