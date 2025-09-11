@@ -6592,11 +6592,46 @@
     - image-to-image
     - image-to-video
 
+- local: embeddinggemma
+  title: "Welcome EmbeddingGemma, Google's new efficient embedding model"
+  author: tomaarsen
+  thumbnail: /blog/assets/embeddinggemma/thumbnail.png
+  date: Sep 4, 2025
+  tags:
+    - open-source
+    - community
+    - nlp
+    - guide
+
+- local: mmbert
+  title: "mmBERT: ModernBERT goes Multilingual"
+  author: orionweller
+  thumbnail: /blog/assets/mmbert/thumbnail.png
+  date: Sep 9, 2025
+  tags:
+    - llm
+    - nlp
+    - community
+    - research
+    - open-source-collab  
+
+- local: jupyter-agent-2
+  title: "Jupyter Agents: training LLMs to reason with notebooks"
+  author: baptistecolle
+  thumbnail: /blog/assets/jupyter-agent-2/thumbnail.png
+  date: Sep 10, 2025
+  tags:
+    - agents
+    - jupyter
+    - llm
+    - data-science
+    - research
+
 - local: faster-transformers
   title: "Updates in transformers that enabled gpt-oss"
   author: ariG23498
   thumbnail: /blog/assets/zerogpu-aoti/thumbnail.png
-  date: Sep 10, 2025
+  date: Sep 11, 2025
   tags:
     - transformers
     - pytorch

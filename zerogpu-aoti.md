@@ -287,7 +287,7 @@ We then define a map of argument names and which dimensions in their input value
 
 ```python
 transformer_dynamic_shapes = {
-    "hidden_dim": {1: transformer_hidden_dim}, 
+    "hidden_states": {1: transformer_hidden_dim}, 
     "img_ids": {0: transformer_hidden_dim},
 }
 ```
