@@ -41,14 +41,13 @@ The [kernels package](https://huggingface.co/blog/hello-hf-kernels) solves this 
 
 ### Custom Kernels for GPT-OSS
 
-[GPT-OSS](https://github.com/huggingface/transformers/blob/main/src/transformers/models/gpt_oss/modeling_gpt_oss.py), a Mixture of Experts (MoE) model, is a big user of Kernels from the Hub. It leverages two customized kernels:
+[GPT-OSS](https://github.com/huggingface/transformers/blob/0f1b128d3359a26bd18be99c26d7f04fb3cba914/src/transformers/models/gpt_oss/modeling_gpt_oss.py), a Mixture of Experts (MoE) model, is a big user of Kernels from the Hub. It leverages the following customized kernels:
 
-- `@use_kernel_forward_from_hub("RMSNorm")`
-- `@use_kernel_forward_from_hub("MegaBlocksMoeMLP")`
-- MXFP4 triton kernels (covered [later](#mxfp4-in-transformers))
+1. `@use_kernel_forward_from_hub("RMSNorm")`
+2. `@use_kernel_forward_from_hub("MegaBlocksMoeMLP")`
+3. MXFP4 triton kernels (covered [later](#mxfp4-in-transformers))
 
-Behind the scenes, these decorators simply point to community-contributed kernels. For example, `RMSNorm` comes from [`liger_kernels`](https://huggingface.co/kernels-community/liger_kernels), while the `MegaBlocksMoeMLP` kernel
-comes from [`megablocks`](https://huggingface.co/kernels-community/megablocks). Depending on your device (CUDA or ROCm) and whether you’re training or running inference, the right kernel is pulled in automatically.
+Behind the scenes, the decorators (1 and 2) simply point to community-contributed kernels. For example, `RMSNorm` comes from [`liger_kernels`](https://huggingface.co/kernels-community/liger_kernels), while the `MegaBlocksMoeMLP` kernel comes from [`megablocks`](https://huggingface.co/kernels-community/megablocks). Depending on your device (CUDA or ROCm) and whether you’re training or running inference, the right kernel is pulled in automatically.
 
 This design is both **specific and general**: the MoE kernel is tailored to GPT-OSS, but the RMSNorm liger kernels is already being reused across multiple models. Because `kernels` pulls code from the Hub, you have to opt-in to this feature by passing `use_kernels=True` in your model instantiation, as shown below. We also enable `INFO` logging so you can easily verify that downloadable kernels are in use.
 
