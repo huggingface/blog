@@ -415,7 +415,7 @@ To bypass this issue, we use **dynamic batching** (also known as *continuous bat
 | :--: |
 | Figure 9: Continuous Batching of sequences |
 
-Transformers supports continuous batching with the `generate_batch` API. Here is an example [script](https://github.com/huggingface/transformers/blob/0f1b128d3359a26bd18be99c26d7f04fb3cba914/examples/pytorch/continuous_batching_simple.py) that runs CB end to end on `Qwen/Qwen3-4B-Instruct-2507`.
+Transformers supports continuous batching with the `generate_batch` API. This is not meant for production-grade model serving –frameworks like vLLM and SGLang are great at that–, but can be very helpful for evaluation and experimentation. Here is an example [script](https://github.com/huggingface/transformers/blob/0f1b128d3359a26bd18be99c26d7f04fb3cba914/examples/pytorch/continuous_batching_simple.py) that runs CB end to end on `Qwen/Qwen3-4B-Instruct-2507`.
 
 We have also performed a benchmark between Continuous Batching and Static Batching with 100 samples. In Figure 9, we note that CB is quite faster than SB.
 
@@ -425,9 +425,6 @@ We have also performed a benchmark between Continuous Batching and Static Batchi
 
 > [!NOTE]
 > You can play around with the benchmark here: [SB](https://huggingface.co/datasets/ariG23498/faster-transformers-scripts/blob/main/sb-bench.py), [CB](https://huggingface.co/datasets/ariG23498/faster-transformers-scripts/blob/main/cb-bench.py)
-
-> [!NOTE]
-> Continuous Batching in `transformers` is added in order to perform evaluations and experimentation. This is not created to replace inference engines (like vLLM and SGLang) in production environment.
 
 ## Load larger models faster
 
@@ -444,12 +441,12 @@ You have to make no changes to your existing code, as this is default behaviour 
 
 ## Conclusion
 
-`transformers` moves quickly and it is community-first. The library evolves at the pace of the field because contributors shape it in the open.
+`transformers` moves quickly and it is community-first. The library evolves at the pace of the field because contributors shape it in the open. Pieces added for new models become part of the toolkit and are reused in future integrations.
 
-That velocity enables day-zero integrations like the GPT-OSS series. As the stack becomes increasingly [PyTorch-first](https://x.com/LysandreJik/status/1933201171130593530), it sheds bloat and doubles down on the PyTorch paths that matter in practice. The result is a cleaner core that still unlocks new capabilities through community kernels, quantization, and parallelism plans, while also
-[standardizing model definitions](https://huggingface.co/blog/transformers-model-definition) so that architectures supported in transformers seamlessly extend across the wider ecosystem.
+This velocity enables day-zero integrations like the GPT-OSS series. As the stack becomes increasingly [PyTorch-first](https://x.com/LysandreJik/status/1933201171130593530), it trims bloat and doubles down on the PyTorch paths that matter in practice. The result is a cleaner core that unlocks new capabilities through community kernels, quantization, and parallelism plans, while also
+[standardizing model definitions](https://huggingface.co/blog/transformers-model-definition) so that architectures supported in transformers are a reference and extend across the wider ecosystem.
 
-The direction is constant: serve the needs of the community. This post is a snapshot meant to put the key ideas in one place, not a rolling changelog. It will not be updated often. For the latest details, check the [docs](https://huggingface.co/docs/transformers/index) and [release notes](https://github.com/huggingface/transformers/releases), and keep sharing feedback so the next steps reflect what you need.
+This post is a one-time snapshot of a process we repeatedly iterate on towards the same direction: serve the needs of the community. To be up to date with the latest additions to transformers, check the [docs](https://huggingface.co/docs/transformers/index) and [release notes](https://github.com/huggingface/transformers/releases). And please, keep sharing your feedback and releasing your models in transformers for the community to enjoy 🤗
 
 ## Read More
 
