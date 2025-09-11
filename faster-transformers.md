@@ -24,8 +24,8 @@ For this release, we worked on:
 - [Tensor Parallelism](#tensor-parallelism)
 - [Expert Parallelism](#expert-parallelism)
 - [Dynamic Sliding Window Layer & Cache](#dynamic-sliding-window-layer--cache)
-- [Load larger models faster](#load-larger-models-faster)
 - [Continuous Batching & Paged Attention](#continuous-batching--paged-attention)
+- [Load larger models faster](#load-larger-models-faster)
 
 > [!NOTE]
 > Best part: Most of these features should work across all major models within `transformers`!
@@ -45,6 +45,7 @@ The [kernels package](https://huggingface.co/blog/hello-hf-kernels) solves this 
 
 - `@use_kernel_forward_from_hub("RMSNorm")`
 - `@use_kernel_forward_from_hub("MegaBlocksMoeMLP")`
+- MXFP4 triton kernels (covered [later](#mxfp4-in-transformers))
 
 Behind the scenes, these decorators simply point to community-contributed kernels. For example, `RMSNorm` comes from [`liger_kernels`](https://huggingface.co/kernels-community/liger_kernels), while the `MegaBlocksMoeMLP` kernel
 comes from [`megablocks`](https://huggingface.co/kernels-community/megablocks). Depending on your device (CUDA or ROCm) and whether you’re training or running inference, the right kernel is pulled in automatically.
@@ -230,7 +231,7 @@ with torch.inference_mode():
 print(tokenizer.decode(generations[0][inputs["input_ids"].shape[-1]:]))
 ```
 
-If you don’t have the infrastructure to run the above, here is what you can do to run it!
+If you don’t have the infrastructure to run the above, you can just spawn a process on our GPUs using [Hugging Face Jobs](https://huggingface.co/docs/huggingface_hub/en/guides/jobs)!
 
 ```bash
 hf jobs run --detach --flavor l4x4 ghcr.io/astral-sh/uv:debian /bin/bash -c \
@@ -246,7 +247,7 @@ hf jobs run --detach --flavor l4x4 ghcr.io/astral-sh/uv:debian /bin/bash -c \
 
 Under the hood, `tp_plan="auto"` selects a predefined sharding recipe for each layer and wires the necessary collectives. You can inspect the active plan with `print(model._tp_plan)` if you want to verify what is being sharded.
 
-### **When to reach for TP**
+### When to reach for TP
 
 Use TP when the model is too large for one GPU and you want **parallel compute**, not only memory placement. TP tends to scale throughput with more GPUs, especially for long sequences or larger batches.
 
@@ -306,6 +307,9 @@ hf jobs run --detach --flavor l4x4 ghcr.io/astral-sh/uv:debian /bin/bash -c \
   torchrun --nproc-per-node=4 ep_gpt_oss.py"
 ```
 
+> [!NOTE]
+> When you enable Expert Parallelism, Tensor Parallelism gets activated by default. This means you enjoy the best of both worlds!
+
 ## Dynamic Sliding Window Layer & Cache
 
 `transformers` now has a [**`DynamicSlidingWindowLayer`**](https://github.com/huggingface/transformers/blob/64ae6e6b1de2c6822a53be46aba9db68f75ec595/src/transformers/cache_utils.py#L165) and a *config‑aware* [`DynamicCache`](https://github.com/huggingface/transformers/blob/64ae6e6b1de2c6822a53be46aba9db68f75ec595/src/transformers/cache_utils.py#L959). If the model config declares sliding‑window or hybrid attention, the cache **stops growing past the window** for those layers; if you don’t pass the config, behavior stays as before (full, ever‑growing KV).
@@ -360,20 +364,6 @@ print(tokenizer.decode(generated[0][inputs["input_ids"].shape[-1]:]))
 | :--: |
 | Figure 6: The memory analysis of dynamic cache with sliding window attention |
 
-## Load larger models faster
-
-When you load a large model into your GPU, PyTorch needs to **reserve GPU memory for each layer’s weights**. Each of these requests (per layer) takes time, and for multi-billion-parameter models it can mean **thousands of tiny memory allocations**, adding up to a long wait before the model is ready. Instead of asking the GPU for new memory every single time, it can **hold on to a big chunk once** and then hand out slices from it quickly.
-
-PyTorch allocators can do exactly this. The catch is that the allocator only gets fast *after* you’ve given it some memory to work with. If you don’t “stock the pantry” first, you still end up doing many slow trips to the market. This PR (🎉 [#36380](https://github.com/huggingface/transformers/pull/36380)) taught `transformers` to **pre-stock the pantry** before it starts copying model weights.
-
-It:
-- Looks at the `device_map` (where each layer will live).
-- **Pre-allocates a big enough block on each GPU**.
-- Then, as layers are copied in, they just slot neatly into this pre-reserved space.
-
-This results in huge speedups in practice. The PR’s benchmarks showed model load times dropping from ~42 seconds to ~6 seconds for an 8B model — about **7× faster**.
-
-You have to make no changes to your existing code, as this is default behaviour in `transformers`. If you use **`device_map="auto"`** or provide your own device map, your model will now load faster automatically. If you’re running with **Tensor Parallel (`tp_plan="auto"`) and `torchrun`** you also benefit from companion changes that make multi-GPU loading smarter.
 
 ## Continuous Batching & Paged Attention
 
@@ -496,6 +486,25 @@ if __name__ == "__main__":
     print(f"CB generation took: {gen_time:.2f} seconds for {token_count} tokens. {tok_per_sec:.2f}tok/s")
 ```
 
+## Load larger models faster
+
+When you load a large model into your GPU, PyTorch needs to **reserve GPU memory for each layer’s weights**. Each of these requests (per layer) takes time, and for multi-billion-parameter models it can mean **thousands of tiny memory allocations**, adding up to a long wait before the model is ready. Instead of asking the GPU for new memory every single time, it can **hold on to a big chunk once** and then hand out slices from it quickly.
+
+PyTorch allocators can do exactly this. The catch is that the allocator only gets fast *after* you’ve given it some memory to work with. If you don’t “stock the pantry” first, you still end up doing many slow trips to the market. This PR (🎉 [#36380](https://github.com/huggingface/transformers/pull/36380)) taught `transformers` to **pre-stock the pantry** before it starts copying model weights.
+
+It:
+- Looks at the `device_map` (where each layer will live).
+- **Pre-allocates a big enough block on each GPU**.
+- Then, as layers are copied in, they just slot neatly into this pre-reserved space.
+
+This results in speedups in practice. In **Figure 10** we show the loading times of dequantized gpt-oss-20b with and without the allocator.
+
+| ![speedup of loading models](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/faster-transformers/load-big-models.png) |
+| :--: |
+| Figure 10: Loading time of gpt-oss-2b model |
+
+You have to make no changes to your existing code, as this is default behaviour in `transformers`. If you use **`device_map="auto"`** or provide your own device map, your model will now load faster automatically. If you’re running with **Tensor Parallel (`tp_plan="auto"`) and `torchrun`** you also benefit from companion changes that make multi-GPU loading smarter.
+
 ## Conclusion
 
 `transformers` moves quickly and it is community-first. The library evolves at the pace of the field because contributors shape it in the open.
@@ -504,3 +513,18 @@ That velocity enables day-zero integrations like the GPT-OSS series. As the stac
 [standardizing model definitions](https://huggingface.co/blog/transformers-model-definition) so that architectures supported in transformers seamlessly extend across the wider ecosystem.
 
 The direction is constant: serve the needs of the community. This post is a snapshot meant to put the key ideas in one place, not a rolling changelog. It will not be updated often. For the latest details, check the [docs](https://huggingface.co/docs/transformers/index) and [release notes](https://github.com/huggingface/transformers/releases), and keep sharing feedback so the next steps reflect what you need.
+
+## Read More
+
+If you want to go further into particular topics, here is a list of links that one should visit:
+
+1. https://github.com/huggingface/gpt-oss-recipes
+2. https://huggingface.co/blog/welcome-openai-gpt-oss
+3. https://cookbook.openai.com/topic/gpt-oss
+4. https://huggingface.co/docs/transformers/v4.53.3/en/perf_infer_gpu_multi
+5. https://x.com/carrigmat/status/1952779877569978797
+6. https://www.youtube.com/watch?v=bbkcEiUjehk
+7. https://github.com/huggingface/transformers/pull/36380
+8. https://github.com/huggingface/transformers/pull/36335
+9. https://github.com/huggingface/transformers/pull/40039
+10. https://hanlab.mit.edu/blog/streamingllm
