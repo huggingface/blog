@@ -366,7 +366,7 @@ cut down the demo startup time by skipping the compilation time.
 To keep the storage light, we can just save the compiled model graph without including any model parameters
 inside the artifact.
 
-Check out [this collection](TODO) that shows a full workflow of obtaining compiled model graph, pushing it
+Check out [this collection](https://huggingface.co/collections/zerogpu-aoti/using-compiled-graph-from-the-hub-68c2afcc03de7609f9f91e35) that shows a full workflow of obtaining compiled model graph, pushing it
 to the Hub, and then using it to build a demo. 
 
 
