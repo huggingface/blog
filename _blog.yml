@@ -6628,7 +6628,7 @@
     - research
 
 - local: faster-transformers
-  title: "Updates in transformers that enabled gpt-oss"
+  title: "Tricks from OpenAI gpt-oss YOU 🫵 can use with transformers"
   author: ariG23498
   thumbnail: /blog/assets/faster-transformers/thumbnail.png
   date: Sep 11, 2025
