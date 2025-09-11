@@ -33,6 +33,8 @@ In this post, we’ll show how to wire up Ahead-of-Time (AoT) compilation in Zer
   - [Dynamic shapes](#dynamic-shapes)
   - [Multi-compile / shared weights](#multi-compile--shared-weights)
   - [FlashAttention-3](#flashattention-3)
+  - [Regional compilation](#regional-compilation)
+  - [Use a compiled graph from the Hub](#use-a-compiled-graph-from-the-hub)
 - [AoT compiled ZeroGPU Spaces demos](#aot-compiled-zerogpu-spaces-demos)
 - [Conclusion](#conclusion)
 - [Resources](#resources)
@@ -340,6 +342,34 @@ It tries to load a kernel from the [`kernels-community/vllm-flash-attn3`](https:
 
 Here is a [fully working example of an FA3 attention processor](https://gist.github.com/sayakpaul/ff715f979793d4d44beb68e5e08ee067#file-fa3_qwen-py) for the Qwen-Image model.
 
+### Regional compilation
+
+So far, we have been compiling the full model. Depending on the model, full model compilation can lead to significantly long cold start times. Long cold start times make the development experience unpleasant. 
+
+We can also choose to compile _regions_ within a model, significantly reducing the cold start times, while retaining almost all the benefits of full model compilation. Regional compilation becomes promising when
+a model has repeated blocks of computation. A standard language model, for example, has a number of
+identically structured Transformer blocks.
+
+In our example, we can compile the repeated blocks of the Flux transformer ahead of time, and propagate the compiled graph to the remaining repeated blocks. The [Flux Transformer](https://github.com/huggingface/diffusers/blob/c2e5ece08bf22d249c62e964f91bc326cf9e3759/src/diffusers/models/transformers/transformer_flux.py) has two kinds of repeated blocks: `FluxTransformerBlock` and `FluxSingleTransformerBlock`.
+
+You can check out [this Space](https://huggingface.co/spaces/cbensimon/FLUX.1-dev-fa3-aoti/tree/main) for a complete example.
+
+> [!TIP]
+> 💡 For Flux.1-Dev, switching to regional compilation reduces the compilation time from _6 minutes_ to just _30 seconds_ while delivering identical speedups.
+
+### Use a compiled graph from the Hub
+
+Once a model (or even a model block) is compiled ahead of time, we can serialize the compiled graph module
+as an artifact and reuse later. In the context of a ZeroGPU-powered demo on Spaces, this will significantly
+cut down the demo startup time by skipping the compilation time.
+
+To keep the storage light, we can just save the compiled model graph without including any model parameters
+inside the artifact.
+
+Check out [this collection](https://huggingface.co/collections/zerogpu-aoti/using-compiled-graph-from-the-hub-68c2afcc03de7609f9f91e35) that shows a full workflow of obtaining compiled model graph, pushing it
+to the Hub, and then using it to build a demo. 
+
+
 ## AoT compiled ZeroGPU Spaces demos
 
 ### Speedup comparison
@@ -350,7 +380,11 @@ Here is a [fully working example of an FA3 attention processor](https://gist.git
 - [FLUX.1 Kontext](https://huggingface.co/spaces/zerogpu-aoti/FLUX.1-Kontext-Dev)
 - [QwenImage Edit](https://huggingface.co/spaces/multimodalart/Qwen-Image-Edit-Fast)
 - [Wan 2.2](https://huggingface.co/spaces/zerogpu-aoti/wan2-2-fp8da-aoti-faster)
-- [LTX Video](https://huggingface.co/spaces/zerogpu-aoti/ltx-dev-fast)
+
+### Regional compilation
+- [Regional compilation recipe](https://docs.pytorch.org/tutorials/recipes/regional_compilation.html)
+- [Native integration in Diffusers](https://huggingface.co/docs/diffusers/main/en/optimization/fp16)
+- [More performance numbers](https://pytorch.org/blog/torch-compile-and-diffusers-a-hands-on-guide-to-peak-performance/)
 
 ## Conclusion
 
@@ -363,6 +397,7 @@ We demonstrate speedups with Flux.1-Dev, but these techniques are not limited to
 - Visit our [ZeroGPU-AOTI org on the Hub](https://huggingface.co/zerogpu-aoti) to refer to a collection of demos that leverage the techniques discussed in this post.
 - Browse `spaces.aoti_*` APIs [source code](https://pypi-browser.org/package/spaces/spaces-0.40.1-py3-none-any.whl/spaces/zero/torch/aoti.py) to learn more about the interface
 - Check out [Kernels Community org on the hub](https://huggingface.co/kernels-community)
+- Learn more about regional compilation from [here](pytorch.org/tutorials/recipes/regional_compilation.html)
 - Upgrade to [Pro](https://huggingface.co/pro) on Hugging Face to create your own ZeroGPU Spaces (and get 25 minutes of H200 usage every day)
 
-*Acknowledgements: Thanks to ChunTe Lee for creating an awesome thumbnail for this post. Thanks to Pedro and Vaibhav for providing feedback on the post.*
+*Acknowledgements: Thanks to ChunTe Lee for creating an awesome thumbnail for this post. Thanks to Pedro and Vaibhav for providing feedback on the post. Thanks to Angela Yi from the PyTorch team for helping us with AOT guidance.*
