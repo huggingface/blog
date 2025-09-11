@@ -15,7 +15,7 @@ authors:
 
 OpenAI recently released their [GPT-OSS series of models](https://huggingface.co/collections/openai/gpt-oss-68911959590a1634ba11c7a4). The models feature some novel techniques like MXFP4 quantization, efficient kernels, a brand new chat format, and more. To enable the release of gpt-oss through `transformers`, we have upgraded the [library](https://github.com/huggingface/transformers/) considerably. The updates make it very efficient to **load**, **run**, and **fine-tune** the models.
 
-In this blog post, we talk about all the upgrades in-depth. New features are usually motivated by innovative techniques from new models. We incorporate them as part of the `transformers` toolkit, so other models (current and future) can benefit from them too. Providing clean implementations of new methods allows the community to quickly understand and adopt them. Frameworks such as [`MLX`](https://github.com/ml-explore/mlx-lm/pull/354), [`llama.cpp`](https://github.com/ggml-org/llama.cpp/discussions/15396) or [`vLLM`](https://docs.vllm.ai/projects/recipes/en/latest/OpenAI/GPT-OSS.html) can use the `transformers` code as a reference to build their own implementations.
+In this blog post, we talk about all the upgrades in-depth, and how they become part of the transformers toolkit so other models (current and future) can benefit from them. Providing clean implementations of new methods in transformers also allows the community to quickly understand and adopt them. Frameworks such as [`MLX`](https://github.com/ml-explore/mlx-lm/pull/354), [`llama.cpp`](https://github.com/ggml-org/llama.cpp/discussions/15396) or [`vLLM`](https://docs.vllm.ai/projects/recipes/en/latest/OpenAI/GPT-OSS.html) can use the transformers code as a reference to build their own implementations.
 
 For this release, we worked on:
 
@@ -34,22 +34,31 @@ For this release, we worked on:
 
 A kernel is a ***specialized***, compact program that runs on accelerators to execute tasks like matrix multiplications, activations, or normalizations. In eager PyTorch, operations trigger individual kernels sequentially, which is straightforward but inefficient due to memory transfers and launch overheads. PyTorch 2.0's `torch.compile` with backends like `TorchInductor` addresses this by automatically fusing and optimizing kernels, delivering `2–10× ` performance gains.
 
-In addition, the community has created custom kernels for frequent combinations of operations *not just individual PyTorch ops like matmul*. For example, Flash Attention was created to optimize the critical attention block that defines the transformers architecture, and is present in many models including most LLMs. By carefully combining all the attention operations inside a single kernel, memory transfers are minimized, memory use is reduced, and speedups can be achieved.
+In addition, the community has created custom kernels for frequent combinations of operations, *not just individual PyTorch ops like matmul*. For example, Flash Attention was created to optimize the critical attention block that defines the transformers architecture, and is present in many models including most LLMs. By carefully combining all the attention operations inside a single kernel, memory transfers are minimized, memory use is reduced, and speedups can be achieved.
 
 The problem is that all these various kernels are available in separate libraries, which creates a dependency bloat if they were to be added to the transformers library. Furthermore, these kernels are not just Python code, they consist of low-level cuda code, glued together with C++ and exposed through a Python layer. This means they have to be compiled in the target system, which in turn requires whatever build system is required by each kernel library.
+
 The [kernels package](https://huggingface.co/blog/hello-hf-kernels) solves this problem by downloading pre-built binaries of supported kernels from the Hub. You just indicate the kernel you want to use, and `kernels` will look for a version compatible with your system and download it on first use.
 
 ### Custom Kernels for GPT-OSS
 
-[GPT-OSS](https://github.com/huggingface/transformers/blob/0f1b128d3359a26bd18be99c26d7f04fb3cba914/src/transformers/models/gpt_oss/modeling_gpt_oss.py), a Mixture of Experts (MoE) model, is a big user of Kernels from the Hub. It leverages the following customized kernels:
+[GPT-OSS](https://github.com/huggingface/transformers/blob/0f1b128d3359a26bd18be99c26d7f04fb3cba914/src/transformers/models/gpt_oss/modeling_gpt_oss.py), a Mixture of Experts (MoE) model, is a big user of Kernels from the Hub. It leverages several custom kernels:
 
-1. `@use_kernel_forward_from_hub("RMSNorm")`
-2. `@use_kernel_forward_from_hub("MegaBlocksMoeMLP")`
-3. MXFP4 triton kernels (covered [later](#mxfp4-in-transformers))
+1. Liger RMSNorm, used as [`@use_kernel_forward_from_hub("RMSNorm")`](https://github.com/huggingface/transformers/blob/0f1b128d3359a26bd18be99c26d7f04fb3cba914/src/transformers/models/gpt_oss/modeling_gpt_oss.py#L46)`
+2. Megablocks MoE kernels: [`@use_kernel_forward_from_hub("MegaBlocksMoeMLP")`](https://github.com/huggingface/transformers/blob/0f1b128d3359a26bd18be99c26d7f04fb3cba914/src/transformers/models/gpt_oss/modular_gpt_oss.py#L160)
+3. Flash Attention 3 with [support for attention sinks](https://huggingface.co/kernels-community/vllm-flash-attn3).
+4. MXFP4 triton kernels (covered [later](#mxfp4-in-transformers))
+
+Let's take a look at the first two ones.
 
 Behind the scenes, the decorators (1 and 2) simply point to community-contributed kernels. For example, `RMSNorm` comes from [`liger_kernels`](https://huggingface.co/kernels-community/liger_kernels), while the `MegaBlocksMoeMLP` kernel comes from [`megablocks`](https://huggingface.co/kernels-community/megablocks). Depending on your device (CUDA or ROCm) and whether you’re training or running inference, the right kernel is pulled in automatically.
 
-This design is both **specific and general**: the MoE kernel is tailored to GPT-OSS, but the RMSNorm liger kernels is already being reused across multiple models. Because `kernels` pulls code from the Hub, you have to opt-in to this feature by passing `use_kernels=True` in your model instantiation, as shown below. We also enable `INFO` logging so you can easily verify that downloadable kernels are in use.
+This design is both **specific and general**: the RMSNorm liger kernels are already being reused across multiple models, and the MoE kernel could be applied to future MoEs as well.
+
+Because `kernels` pulls code from the Hub, you have to opt-in to this feature by passing `use_kernels=True` in your model instantiation, as shown below. We enable `INFO` logging in the example so you can easily verify that downloadable kernels are in use.
+
+> [!TIP]
+> These kernels are not compatible with `mxfp4`, so inference will happen in `bfloat16` if you use them. Please, benchmark your system for the best combination in memory and throughput that suits your project!
 
 ```python
 from transformers import AutoTokenizer, AutoModelForCausalLM
@@ -85,8 +94,6 @@ INFO:root:Using layer `MegaBlocksMoeMLP` from repo `kernels-community/megablocks
 > You can explore and play with the benchmarking script [here](https://huggingface.co/datasets/ariG23498/faster-transformers-scripts/blob/main/benchmark-kernels-with-without.py)
 
 ## MXFP4 Quantization
-
-### Why quantize at all
 
 Large language models are memory-hungry. Quantization reduces memory footprint by storing weights (and sometimes activations) in lower-precision formats. For reference, `FP32` uses 32 bits per number and `BF16` uses 16. By reducing bit width, we trade some precision for smaller models and faster memory movement.
 
@@ -147,7 +154,7 @@ To run `MXFP4` on GPU you need:
 1. `accelerate`, `kernels`, and `triton>=3.4` installed. Note that `Pytorch 2.8` already comes with `triton 3.4`, so you only need to manually install triton if using `Pytorch 2.7`.
 2. NVIDIA GPU with compute capability `≥ 7.5`. This goes all the way back to Tesla, so you can run `gpt-oss-20b` on the free tiers of Google Colab and Kaggle, and on many consumer GPUs.
 
-If these constraints are not met, `transformers` falls back to a higher-precision path (`BF16` is used by default), which requires about 4× the memory of MXFP4.
+If these constraints are not met, `transformers` falls back to a higher-precision path (`bfloat16` is used by default), which requires about 4× the memory of MXFP4.
 
 The [snippet](https://huggingface.co/datasets/ariG23498/faster-transformers-scripts/blob/main/memory-requirements-quantized-vs-dequantized.py) loads GPT-OSS twice on CUDA: once with `Mxfp4Config(dequantize=True)` (memory intensive) and once in the default quantized path (memory efficient). **Figure 3** shows the amount of used VRAM after each load so you can visualize the savings.
 
@@ -253,7 +260,7 @@ Use TP when the model is too large for one GPU and you want **parallel compute**
 > [!NOTE]
 > If you are curious about how TP differs from `device_map="auto"` (memory placement), this short [Stack Overflow answer](https://stackoverflow.com/questions/78852192/choose-available-gpu-devices-with-device-map) explains the distinction and when to use each.
 
-If you want to know more about TP, here are two must-read resources:
+To learn more about TP, here are two must-read resources:
 
 - [`transformers` guide](https://huggingface.co/docs/transformers/en/perf_infer_gpu_multi): Tensor parallelism, supported models, plans, and extension points.
 - [Ultra-Scale Playbook](https://huggingface.co/spaces/nanotron/ultrascale-playbook?section=tensor_parallelism): background on TP and its relationship to other parallelism modes.
@@ -307,12 +314,20 @@ hf jobs run --detach --flavor l4x4 ghcr.io/astral-sh/uv:debian /bin/bash -c \
 ```
 
 > [!NOTE]
-> When you enable Expert Parallelism, Tensor Parallelism gets activated by default. This means you enjoy the best of both worlds!
+> When you enable Expert Parallelism, Tensor Parallelism is also activated. This means you enjoy the best of both worlds!
 
 ## Dynamic Sliding Window Layer & Cache
 
-`transformers` now has a [**`DynamicSlidingWindowLayer`**](https://github.com/huggingface/transformers/blob/64ae6e6b1de2c6822a53be46aba9db68f75ec595/src/transformers/cache_utils.py#L165) and a *config‑aware* [`DynamicCache`](https://github.com/huggingface/transformers/blob/64ae6e6b1de2c6822a53be46aba9db68f75ec595/src/transformers/cache_utils.py#L959). If the model config declares sliding‑window or hybrid attention, the cache **stops growing past the window** for those layers; if you don’t pass the config, behavior stays as before (full, ever‑growing KV).
 
+Many recent LLMs use _sliding window_ attention, or a combination of sliding and global attention layers, as a means to save memory and reduce those expensive quadratic matmuls that grow with sequence length. However, the dynamic KV cache implementation in transformers used to continue to allocate space according to sequence length, without looking at the individual attention layers. You could always optimize memory using compilation (meaning, fixed shapes), but that's a separate scenario altogether.
+
+`transformers` now has a [**`DynamicSlidingWindowLayer`**](https://github.com/huggingface/transformers/blob/64ae6e6b1de2c6822a53be46aba9db68f75ec595/src/transformers/cache_utils.py#L165) and a *config‑aware* [`DynamicCache`](https://github.com/huggingface/transformers/blob/64ae6e6b1de2c6822a53be46aba9db68f75ec595/src/transformers/cache_utils.py#L959). If the model config declares sliding‑window or hybrid attention (both sliding and global attention layers are used), the cache **stops growing past the window** for the sliding layers. If you don’t pass the config, behavior stays as before (full, ever‑growing KV as sequence length grows).
+
+For models that only use sliding window layers, such as Mistral 7B, cache memory stops growing when the sequence reaches the window size (4096, in this case). This makes sense, because the sliding layers can't look past the previous 4K tokens anyway.
+
+![mistral cache behaviour comparison](https://private-user-images.githubusercontent.com/71554963/476701186-e7fb1288-7713-4140-a2b2-1af0a723f76a.png)
+
+OpenAI gpt-oss alternates between sliding and global attention layers, which results in total KV cache memory being _halved_, as we'll see, as sequence length increases.
 This provides us with:
 
 - **Much lower KV‑cache memory** for models with sliding or hybrid attention (e.g. GPT‑OSS). Cache growth plateaus once the window is reached (e.g., 4K for Mistral; 128 for GPT‑OSS sliding layers), instead of scaling linearly with total generated tokens. ([GitHub](https://github.com/huggingface/transformers/pull/40039), [Transformers](https://huggingface.co/docs/transformers/en/model_doc/mistral))

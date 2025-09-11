@@ -6630,7 +6630,7 @@
 - local: faster-transformers
   title: "Updates in transformers that enabled gpt-oss"
   author: ariG23498
-  thumbnail: /blog/assets/zerogpu-aoti/thumbnail.png
+  thumbnail: /blog/assets/faster-transformers/thumbnail.png
   date: Sep 11, 2025
   tags:
     - transformers
