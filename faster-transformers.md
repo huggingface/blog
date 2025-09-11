@@ -32,7 +32,7 @@ For this release, we worked on:
 
 ## Zero-build Kernels, downloadable from the Hub
 
-A kernel is a ***specialized***, compact program that runs on accelerators to execute tasks like matrix multiplications, activations, or normalizations. In eager PyTorch, operations trigger individual kernels sequentially, which is straightforward but slow due to memory transfers and launch overheads. PyTorch 2.0's `torch.compile` with backends like `TorchInductor` addresses this by automatically fusing and optimizing kernels, delivering `2–10× ` performance gains.
+A kernel is a ***specialized***, compact program that runs on accelerators to execute tasks like matrix multiplications, activations, or normalizations. In eager PyTorch, operations trigger individual kernels sequentially, which is straightforward but can incur extra memory transfers and launch overheads. PyTorch 2.0's `torch.compile` with backends like `TorchInductor` addresses this by automatically fusing and optimizing kernels, delivering `2–10×` performance gains.
 
 In addition, the community has created custom kernels for frequent combinations of operations, *not just individual PyTorch ops like matmul*. For example, Flash Attention was created to optimize the critical attention block that defines the transformers architecture, and is present in many models including most LLMs. By carefully combining all the attention operations inside a single kernel, memory transfers are minimized, memory use is reduced, and speedups can be achieved.
 
@@ -179,7 +179,7 @@ The [snippet](https://huggingface.co/datasets/ariG23498/faster-transformers-scri
 ### Kernels for MXFP4
 
 Efficient `MXFP4` requires kernels that understand 32-element blocks and their scales during GEMMs and fused ops. This is where **Kernels from the Hub** comes in again. `transformers` automatically pulls in the `MXFP4`-aware
-tTriton kernels from the community repository when you load a model that needs them. The repository will appear in your local cache and will be used during the forward pass. For the `MXFP4` kernels one does not need to use the `use_kernels=True` parameter like before, it is set to default in `transformers`.
+Triton kernels from the community repository when you load a model that needs them. The repository will appear in your local cache and will be used during the forward pass. For the `MXFP4` kernels one does not need to use the `use_kernels=True` parameter like before, it is set to default in `transformers`.
 
 Quick sanity check with the Hugging Face cache CLI,  after running `gpt-oss-20b` on a GPU compatible with the triton MXFP4 kernels:
 
@@ -460,14 +460,13 @@ The direction is constant: serve the needs of the community. This post is a snap
 ## Read More
 
 If you want to go further into particular topics, here is a list of links that one should visit:
-
-1. https://github.com/huggingface/gpt-oss-recipes
-2. https://huggingface.co/blog/welcome-openai-gpt-oss
-3. https://cookbook.openai.com/topic/gpt-oss
-4. https://huggingface.co/docs/transformers/v4.53.3/en/perf_infer_gpu_multi
-5. https://x.com/carrigmat/status/1952779877569978797
-6. https://www.youtube.com/watch?v=bbkcEiUjehk
-7. https://github.com/huggingface/transformers/pull/36380
-8. https://github.com/huggingface/transformers/pull/36335
-9. https://github.com/huggingface/transformers/pull/40039
-10. https://hanlab.mit.edu/blog/streamingllm
+1. [Hugging Face GPT-OSS Recipes Repository](https://github.com/huggingface/gpt-oss-recipes)
+2. [Welcome GPT OSS: OpenAI's New Open-Source Model Family](https://huggingface.co/blog/welcome-openai-gpt-oss)
+3. [OpenAI Cookbook: GPT-OSS Topic](https://cookbook.openai.com/topic/gpt-oss)
+4. [Transformers Documentation: Distributed Inference on Multiple GPUs](https://huggingface.co/docs/transformers/en/perf_infer_gpu_multi)
+5. [Matthew Carrigan's X Thread on GPT OSS Innovations](https://x.com/carrigmat/status/1952779877569978797)
+6. [YouTube Video: OpenAI GPT OSS Announcement](https://www.youtube.com/watch?v=bbkcEiUjehk)
+7. [Transformers PR #36380: Faster Model Loading on Accelerators](https://github.com/huggingface/transformers/pull/36380)
+8. [Transformers PR #36335: Update from_pretrained for Tensor Parallelism](https://github.com/huggingface/transformers/pull/36335)
+9. [Transformers PR #40039: New Dynamic Sliding Window Layer and Cache](https://github.com/huggingface/transformers/pull/40039)
+10. [HAN Lab Blog: How Attention Sinks Keep Language Models Stable](https://hanlab.mit.edu/blog/streamingllm)
