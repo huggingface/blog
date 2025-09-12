@@ -6637,3 +6637,14 @@
     - pytorch
     - optimization
     - guide
+
+- local: openvino-vlm
+  title: "Get your VLM running in 3 simple steps"
+  author: ezelanza
+  thumbnail: /blog/assets/optimum_intel/intel_thumbnail.png
+  date: Sep 15, 2025
+  tags:
+    - intel
+    - optimum
+    - quantization
+    - inference
