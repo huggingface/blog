@@ -383,6 +383,7 @@ to the Hub, and then using it to build a demo.
 
 ### Regional compilation
 - [Regional compilation recipe](https://docs.pytorch.org/tutorials/recipes/regional_compilation.html)
+- [Regional compilation witj AOT](https://docs.pytorch.org/tutorials/recipes/regional_aot.html)
 - [Native integration in Diffusers](https://huggingface.co/docs/diffusers/main/en/optimization/fp16)
 - [More performance numbers](https://pytorch.org/blog/torch-compile-and-diffusers-a-hands-on-guide-to-peak-performance/)
 
