@@ -6637,3 +6637,15 @@
     - pytorch
     - optimization
     - guide
+
+- local: watermarking-with-gradio
+  title: "Visible Watermarking with Gradio"
+  author: ariG23498
+  thumbnail: /blog/assets/watermarking-with-gradio/thumbnail.png
+  date: Sep 15, 2025
+  tags:
+    - ethics
+    - text-generation
+    - guide
+    - text-to-image
+    - text-to-video
