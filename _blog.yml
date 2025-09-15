@@ -6637,3 +6637,13 @@
     - pytorch
     - optimization
     - guide
+
+- local: lerobot-dataset-v3
+  title: "`LeRobotDataset`: Bringing large-scale datasets to lerobot"
+  author: fracapuano
+  thumbnail: /blog/assets/lerobot-dataset-v3/thumbnail.png
+  date: Sep 15, 2025
+  tags:
+    - lerobot
+    - datasets
+    - robotics
