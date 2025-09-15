@@ -11,6 +11,7 @@ authors:
 - user: rcadene
 - user: aliberts
 - user: AdilZtn
+- user: imstevenpmwork
 ---
 
 **TL;DR** With `LeRobotDataset:v2` we stored one video per episode, and therefore hit filesystem limits at million-episode scale. `LeRobotDataset:v3` packs many episodes per video indexed by metadata, adds native frame streaming, lets you aggregate multiple sources into a single logical dataset, and supports direct frame/delta-frame access.
