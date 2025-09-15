@@ -16,8 +16,6 @@ authors:
 
 **TL;DR** Today we release `LeRobotDataset:v3`! With `LeRobotDataset:v2` we used to store one file per episode, and therefore hit file system limitations when scaling datasets to the million-episode scale. `LeRobotDataset:v3` packs multiple episodes in a single file, and uses relational metadata to retrieve information at the individual episode level from multi-episode files, allowing to scale robotics datasets in the `LeRobotDataset` format.
 
-**TL;DR** Today we release `LeRobotDataset:v3`! With `LeRobotDataset:v2` we used to store one file per episode, and therefore hit file system limitations when scaling datasets to the million-episode scale. `LeRobotDataset:v3` packs multiple episodes in a single file, and uses relational metadata to retrieve information at the individual episode level from multi-episode files, allowing to scale robotics datasets in the `LeRobotDataset` format.
-
 ## Table of Contents
 
 - [Install `lerobot`, and record a Dataset](#install-lerobot-and-record-a-dataset)
@@ -42,7 +40,7 @@ It is designed to be easily extensible and customizable, and already supports op
 The format is optimized to be efficient for training while remaining flexible enough to handle the diverse data types common in robotics, all while promoting reproducibility and ease of use.
 You can explore the current datasets supported via LeRobot using the [dataset visualizer](https://huggingface.co/spaces/lerobot/visualize_dataset) 🔗
 
-### Install `lerobot`, and record a Dataset
+### Install `lerobot`, and record a dataset
 With `lerobot`, you can record and store on the Hugging Face Hub datasets collected on a variety of real-world robots.
 Read more about the robots we currently support [here](https://huggingface.co/docs/lerobot/).
 
@@ -85,7 +83,7 @@ A dataset is organized into three main components:
 
 For scalability, and to support datasets with potentially millions of trajectories resulting in hundreds of millions or billions of individual camera frames, we merge data from different episodes into the same high-level structure.
 Concretely, this means that any given tabular collection and video will not typically contain information about one episode only, but rather a concatenation of the information available in multiple episodes.
-This keeps the pressure on the file system, both locally and on remote storage providers like Hugging Face, manageable, at the expense of leveraging more heavily the metadata part of the data, e.g. used to reconstruct information relative to at which position a given episode starts or ends.
+This keeps the pressure on the file system, both locally and on remote storage providers like Hugging Face, manageable, at the expense of leveraging more heavily the metadata part of the data, e.g., used to reconstruct information relative to at which position a given episode starts or ends.
 
 
 *   **`meta/info.json`**: This is the central metadata file. It contains the complete dataset schema, defining all features (e.g., `observation.state`, `action`), their shapes, and data types. It also stores crucial information like the dataset's frames-per-second (`fps`), codebase version, and the path templates used to locate data and video files.
@@ -143,7 +141,7 @@ print(sample)
 #     ...
 # }
 delta_timestamps = {
-    "observation.images.wrist_camera": [-0.2, -0.1, 0.0]  # 0.2, and 0.1 seconds *before* any observation
+    "observation.images.wrist_camera": [-0.2, -0.1, 0.0]  # 0.2 and 0.1 seconds *before* any observation
 }
 dataset = LeRobotDataset(
     "lerobot/svla_so101_pickplace",
@@ -192,4 +190,4 @@ for epoch in range(num_epochs):
 - enabling native frame and delta-frame retrieval for temporal context
 - allowing aggregation of multiple sources into a single logical dataset
 
-Try it now installing the latest `lerobot`, record or convert a dataset, and share any feedback on GitHub `https://github.com/huggingface/lerobot/issues` 🤗
+Try it now by installing the latest `lerobot`, record or convert a dataset, and share any feedback on GitHub `https://github.com/huggingface/lerobot/issues` 🤗
