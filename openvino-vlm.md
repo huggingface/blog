@@ -16,7 +16,7 @@ authors:
 
 # Get your VLM running in 3 simple steps
 
-Teaser: Run a Vision Language Model (VLM) locally in three steps, no need for expensive cloud infrastructure or high-end compute devices. SmolVLM + Intel Optimum + OpenVINO makes it possible to accelerate on an iGPU or an NPU.
+Teaser: Run a Vision Language Model (VLM) locally in three steps, no need for expensive cloud infrastructure or high-end compute devices. SmolVLM + Intel Optimum + OpenVINO makes it possible to accelerate on an iGPU or a discrete Intel GPU).
 
 As large language models (LLMs) and chatbots become more capable, AI is moving beyond text; it's now interpreting images and videos as well. This is where Vision Language Models (VLMs) come in, enabling tasks like describing scenes, generating captions, or answering questions about images.
 
@@ -24,7 +24,7 @@ Early models like [Flamingo](https://arxiv.org/abs/2204.14198) and [Idefics](htt
 
 That’s why running AI models locally is still a challenge, but also a huge opportunity. Local inference keeps your data private, gives you fast responses without internet latency, avoids cloud costs, and lets you run and tweak models offline, with full control.
 
-That’s where tools like Intel [Hugging Face Optimum](https://docs.openvino.ai/2024/learn-openvino/llm_inference_guide/llm-inference-hf.html), OpenVINO, and the lightweight [SmolVLM](https://huggingface.co/blog/smolvlm) model come in. In this post, we’ll show you how to get a VLM running locally in just three simple steps, with no expensive hardware or GPUs needed (though it can also run on Intel GPUs).
+That’s where tools like [Hugging Face Optimum](https://docs.openvino.ai/2024/learn-openvino/llm_inference_guide/llm-inference-hf.html), [OpenVINO](https://github.com/openvinotoolkit/openvino), and the lightweight [SmolVLM](https://huggingface.co/blog/smolvlm) model come in. In this post, we’ll show you how to get a VLM running locally in just three simple steps, with no expensive hardware or GPUs needed (though it can also run on Intel GPUs).
 
 ## What is a VLM
 
@@ -169,18 +169,29 @@ model = OVModelForVisualCausalLM.from_pretrained(model_id, device="gpu")
 
 Try the complete notebook [here](https://github.com/huggingface/optimum-intel/blob/main/notebooks/openvino/vision_language_quantization.ipynb).
 
-## Conclusion
+## Evaluation and Conclusion
 
-Multimodal AI is becoming more accessible thanks to smaller, optimized models like **SmolVLM**, along with tools such as **Hugging Face Optimum** and **OpenVINO**. While deploying vision-language models locally still comes with challenges, this workflow shows that it's possible to run lightweight image-and-text models on modest hardware.
+Multimodal AI is becoming more accessible thanks to smaller, optimized models like SmolVLM and tools such as Hugging Face Optimum and OpenVINO. While deploying vision-language models locally still presents challenges, this workflow shows that it's possible to run lightweight image-and-text models on multiple hardware.
+To have an idea of how it performs on different Intel hardware, we will be providing an image. In this benchmark, we will be using the SmolVLM2-256M model with weight-only quantization. The input will be an image of a flower with a bee on it, and we will be testing how the model processes the image and answers the question: “What is on the flower?”. We will measure the model size to know how much space the model occupies, the average latency to see how long it takes to process the image and generate an answer, the images per second to understand how quickly the model can handle such images, and the tokens per second to see how fast it can produce the text of its response (A bee is on the flower). The token throughput is reported for the first token, showing how quickly the model starts generating a response, and for the second token, showing how efficiently it continues generating the rest of the answer.
 
-By combining quantization techniques with OpenVINO's inference engine, you can reduce memory and compute requirements significantly, making local deployment feasible for a wide range of applications. Whether you're experimenting, prototyping, or looking to deploy offline, this setup gives you a practical starting point.
+![image](assets/113_openvino/flower_bee.png)
 
-As models and tooling continue to improve, so will the ability to run powerful multimodal systems without relying on the cloud.
+Here are the results across different Intel hardware:
+
+| Device       | Model Size (MB) (Before/After) | Images Throughput (im/s) (Before/After) | First Token Throughput (t/s) (Before/After) | Second Token Throughput (t/s) (Before/After) | Latency (s) (Before/After) |
+|-------------|-------------------------------|-----------------------------------------|--------------------------------------------|---------------------------------------------|-----------------------------|
+| CPU         |  -             | 0.33 / 0.55                              | 2.69 / 3.94                                | 83.25 / 146.1                               | 3.5249 / 2.1548            |
+| iGPU        | -                             | 0.58 / 0.53                              | 5.01 / 5.26                                | 51.62 / 49.56                               | 2.1386 / 2.3182            |
+| GPU (b580)  | 980.61 / 248 (Applies to all devices)                             | 15.75 / 15.01                            | 34.51 / 27.54                              | 149.79 / 120.91                             | 0.2074 / 0.2376            |
+| GPU (A770)  | -                             | 10.68 / 10.89                            | 16.57 / 15.79                              | 83.01 / 69.1                                | 0.3321 / 0.3403            |
+
+This benchmark demonstrates that smaller, optimized multimodal models like SmolVLM2-256M can run effectively across a range of Intel hardware. Weight-only quantization significantly reduces model size, improving efficiency without majorly impacting throughput. GPUs deliver the highest image and token processing speeds, while CPUs and iGPUs remain viable for lighter workloads. Overall, this shows that lightweight vision-language models can be deployed locally with reasonable performance, making multimodal AI more accessible.
+
 
 ## Useful Links & Resources
 - [Notebook](https://github.com/huggingface/optimum-intel/blob/main/notebooks/openvino/vision_language_quantization.ipynb)
 - [Try our Space](https://huggingface.co/spaces/echarlaix/vision-langage-openvino)
-- Watch the webinar recording
+- [Watch the webinar recording](https://web.cvent.com/event/d550a2a7-04f2-4a28-b641-3af228e318ca/regProcessStep1?utm_campaign=speakers4&utm_medium=organic&utm_source=Community)
 - [Optimum Intel Documentation](https://huggingface.co/docs/optimum-intel/en/openvino/inference)
 
 #### Notices and Disclaimers
