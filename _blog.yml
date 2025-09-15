@@ -6640,7 +6640,7 @@
 
 - local: watermarking-with-gradio
   title: "Visible Watermarking with Gradio"
-  author: ariG23498
+  author: meg
   thumbnail: /blog/assets/watermarking-with-gradio/thumbnail.png
   date: Sep 15, 2025
   tags:
