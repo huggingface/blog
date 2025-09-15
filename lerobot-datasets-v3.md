@@ -1,6 +1,6 @@
 ---
 title: "`LeRobotDataset-v3.0`: Bringing large-scale datasets to lerobot"
-thumbnail: https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/lerobotdataset-v3/lerobot-dataset-v3.png
+thumbnail: /blog/assets/lerobot-dataset-v3/thumbnail.png
 authors:
 - user: fracapuano
 - user: aractingi
@@ -14,7 +14,18 @@ authors:
 - user: imstevenpmwork
 ---
 
-**TL;DR** With `LeRobotDataset:v2` we used to store one file per episode, and therefore hit file system limitations when scaling datasets to the million-episode scale. `LeRobotDataset:v3` packs multiple episodes in a single file, and uses relational metadata to retrieve information at the individual episode level from multi-episode files, allowing to scale robotics datasets in the `LeRobotDataset` format.
+**TL;DR** Today we release `LeRobotDataset:v3`! With `LeRobotDataset:v2` we used to store one file per episode, and therefore hit file system limitations when scaling datasets to the million-episode scale. `LeRobotDataset:v3` packs multiple episodes in a single file, and uses relational metadata to retrieve information at the individual episode level from multi-episode files, allowing to scale robotics datasets in the `LeRobotDataset` format.
+
+**TL;DR** Today we release `LeRobotDataset:v3`! With `LeRobotDataset:v2` we used to store one file per episode, and therefore hit file system limitations when scaling datasets to the million-episode scale. `LeRobotDataset:v3` packs multiple episodes in a single file, and uses relational metadata to retrieve information at the individual episode level from multi-episode files, allowing to scale robotics datasets in the `LeRobotDataset` format.
+
+## Table of Contents
+
+- [Install `lerobot`, and record a Dataset](#install-lerobot-and-record-a-dataset)
+- [The (New) Format Design](#the-new-format-design)
+- [Convert your dataset to v3.0](#convert-your-dataset-to-v30)
+- [Code Example: Using `LeRobotDataset` with `torch.utils.data.DataLoader`](#code-example-using-lerobotdataset-with-torchutilsdatadataloader)
+- [Wrapping up](#wrapping-up)
+
 
 # LeRobotDataset, v3.0
 
@@ -22,13 +33,14 @@ authors:
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/lerobotdataset-v3/asset1datasetv3.png" alt="LeRobotDataset v3 diagram" width="300" />
 </p>
 
-`LeRobotDataset` is a standardized dataset format designed to address the specific needs of robot learning research. 
-In this, `LeRobotDataset` provides unified and convenient access to robotics data across modalities, including sensorimotor readings, multiple camera feeds and teleoperation status. 
+`LeRobotDataset` is a standardized dataset format designed to address the specific needs of robot learning research.
+With this format, the new dataset format provides unified and convenient access to robotics data across modalities, including sensorimotor readings, multiple camera feeds and teleoperation status.
 `LeRobotDataset` also stores general information regarding the data collected, like the task being performed by the teleoperator, the kind of robot used and measurement details like the frames per second at which both image and robot state streams are recorded.
 
-Therefore, `LeRobotDataset` provides a unified interface for handling multi-modal, time-series data, and it integrates seamlessly with the PyTorch and Hugging Face ecosystems. 
-`LeRobotDataset` is designed to be easily extensible and customizable by users, and it already supports openly available data coming from a variety of embodiments, ranging from manipulator platforms like the SO-100 and ALOHA-2, to real-world humanoid data, simulation datasets and self-driving car datasets.
-This dataset format is built to be both efficient for training and flexible enough to accommodate the diverse data types encountered in robotics, while promoting reproducibility and ease of use for users.
+`LeRobotDataset` provides a unified interface for working with multi-modal, time-series data, seamlessly integrating with both the PyTorch and Hugging Face ecosystems. 
+It is designed to be easily extensible and customizable, and already supports openly available datasets from a wide range of embodiments—including manipulator platforms such as the SO-100 and ALOHA-2, real-world humanoid data, simulation datasets, and self-driving car data. 
+The format is optimized to be efficient for training while remaining flexible enough to handle the diverse data types common in robotics, all while promoting reproducibility and ease of use.
+You can explore the current datasets supported via LeRobot using the [dataset visualizer](https://huggingface.co/spaces/lerobot/visualize_dataset) 🔗
 
 ### Install `lerobot`, and record a Dataset
 With `lerobot`, you can record and store on the Hugging Face Hub datasets collected on a variety of real-world robots.
@@ -65,7 +77,7 @@ This allows for efficient serialization and storage while presenting the data in
 
 ![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/lerobotdataset-v3/dataset-v3-pillars.png)
 
-A dataset is always organized into three main components:
+A dataset is organized into three main components:
 
 1.  **Tabular Data**: Low-dimensional, high-frequency data such as joint states, and actions are stored in efficient [Apache Parquet](https://parquet.apache.org/) files, and typically offloaded to the more mature `datasets` library, providing fast, memory-mapped access.
 2.  **Visual Data**: To handle large volumes of camera data, frames are concatenated and encoded into MP4 files. Frames from the same episode are always grouped together into the same video, and multiple videos are grouped together by camera. To reduce stress on the file system, groups of videos for the same camera view are also broken into multiple subdirectories, after a given threshold number.
@@ -99,9 +111,10 @@ Once you have installed a version of lerobot supporting the new dataset format, 
 python -m lerobot.datasets.v30.convert_dataset_v21_to_v30 --repo-id=HF-USER/DATASET-NAME
 ``` 
 
+The migration script aggregates the multiple episodes `episode-0000.mp4, episode-0001.mp4, episode-0002.mp4, ...`/`episode-0000.parquet, episode-0001.parquet, episode-0002.parquet, episode-0003.parquet, ...` into single files `file-0000.mp4`/`file-0000.parquet`, and updates the metadata accordingly to be able to retrieve episode-specific information from higher-level files.
+
 ## Code Example: Using `LeRobotDataset` with `torch.utils.data.DataLoader`
 
-This section provides an overview of how to access datasets hosted on Hugging Face using the `LeRobotDataset` class. 
 Every dataset on the Hugging Face Hub containing the three main pillars presented above (Tabular and Visual Data, as well as relational Metadata) can be accessed with a single line.
 Most reinforcement learning (RL) and behavioral cloning (BC) algorithms tend to operate on a stack of observations and actions.
 For instance, RL algorithms typically use a history of previous observations `o_{t-H_o:t}` to mitigate partial observability.
@@ -171,3 +184,12 @@ for epoch in range(num_epochs):
         # Next do amazing_model.forward(batch)
         ...
 ```
+
+## Wrapping up
+
+`LeRobotDataset v3.0` is a stepping stone towards scaling up robotics datasets supported in LeRobot. We achieve this by:
+- packing many episodes per file with relational metadata for precise indexing
+- enabling native frame and delta-frame retrieval for temporal context
+- allowing aggregation of multiple sources into a single logical dataset
+
+Try it now installing the latest `lerobot`, record or convert a dataset, and share any feedback on GitHub `https://github.com/huggingface/lerobot/issues` 🤗
