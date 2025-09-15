@@ -183,6 +183,9 @@ for epoch in range(num_epochs):
         ...
 ```
 
+### Acknowledgements
+We thank the fantastic [yaak.ai](https://www.yaak.ai/) team for their precious support and feedback while developing this new format for robotics datasets. Make sure to [follow their organization](https://huggingface.co/yaak-ai) on the Hugging Face Hub!
+
 ## Wrapping up
 
 `LeRobotDataset v3.0` is a stepping stone towards scaling up robotics datasets supported in LeRobot. We achieve this by:
