@@ -30,7 +30,7 @@ authors:
 
 `LeRobotDataset` is a standardized dataset format designed to address the specific needs of robot learning, and it provides unified and convenient access to robotics data across modalities, including sensorimotor readings, multiple camera feeds and teleoperation status.
 Our dataset format also stores general information regarding the way the data is being collected (*metadata*), including a textual description of the task being performed, the kind of robot used and measurement details like the frames per second at which both image and robot state streams are sampled.
-Metadata are very useful to index and search across robotics datasets on the Hugging Face Hub!
+Metadata are useful to index and search across robotics datasets on the Hugging Face Hub!
 
 Within `lerobot`, the robotics library we are developing at Hugging Face, `LeRobotDataset` provides a unified interface for working with multi-modal, time-series data, and it seamlessly integrates both with the Hugging Face and Pytorch ecosystems.
 The dataset format is designed to be easily extensible and customizable, and already supports openly available datasets from a wide range of embodiments—including manipulator platforms such as the SO-100 arms and ALOHA-2 setup, real-world humanoid data, simulation datasets, and even self-driving car data!
