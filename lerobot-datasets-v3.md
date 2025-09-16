@@ -194,6 +194,7 @@ for epoch in range(num_epochs):
 ```
 
 ## Streaming compatibility
+
 You can also use any dataset in `v3.0` format in streaming mode, without the need to downloading it locally, by using the `StreamingLeRobotDataset` class.
 
 ```python
