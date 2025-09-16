@@ -106,6 +106,7 @@ Datasets are organized as repositories containing:
 
 
 ## Migrate your `v2.1` dataset to `v3.0`
+
 `LeRobotDataset:v3.0` will be released with `lerobot-v0.4.0`, together with the possibility to easily convert any dataset currently hosted on the Hugging Face Hub to the new `v3.0` using:
 ```bash
 python -m lerobot.datasets.v30.convert_dataset_v21_to_v30--repo-id=<HFUSER/DATASET_ID>
