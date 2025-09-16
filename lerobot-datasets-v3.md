@@ -8,12 +8,14 @@ authors:
 - user: CarolinePascal
 - user: pepijn223
 - user: jadechoghari
-- user: rcadene
+- user: cadene
 - user: aliberts
 - user: AdilZtn
 - user: nepyope
 - user: imstevenpmwork
 ---
+
+# `LeRobotDataset:v3.0`: Bringing large-scale datasets to `lerobot`
 
 **TL;DR** Today we release `LeRobotDataset:v3`! In our previous `LeRobotDataset:v2` release, we stored one episode per file, hitting file-system limitations when scaling datasets to millions of episodes. `LeRobotDataset:v3` packs multiple episodes in a single file, using relational metadata to retrieve information at the individual episode level from multi-episode files. The new format also natively supports accessing datasets in streaming mode, allowing to process large datasets on the fly.We provide a one-liner util to convert all datasets in the LeRobotDataset format to the new format, and are very excited to share this milestone with the community ahead of our next stable release!
 
