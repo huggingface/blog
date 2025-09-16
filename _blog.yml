@@ -6649,3 +6649,13 @@
     - guide
     - text-to-image
     - text-to-video
+
+- local: lerobot-datasets-v3
+  title: "`LeRobotDataset`: Bringing large-scale datasets to lerobot"
+  author: fracapuano
+  thumbnail: /blog/assets/lerobot-dataset-v3/thumbnail.png
+  date: Sep 16, 2025
+  tags:
+    - lerobot
+    - datasets
+    - robotics
