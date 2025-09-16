@@ -55,7 +55,7 @@ Even though SmolVLM was designed for low-resource consumption, there’s still r
 This is where [Optimum Intel for OpenVINO](https://huggingface.co/docs/optimum-intel/en/index) ([repo](https://github.com/huggingface/optimum-intel)) comes in.  
 It acts as a bridge between Hugging Face libraries like [**Transformers**](https://huggingface.co/docs/transformers/en/index)**, [Diffusers](https://huggingface.co/docs/diffusers/index), [timm](https://huggingface.co/docs/timm/index), and [sentence-transformers](https://huggingface.co/sentence-transformers)**, and Intel’s optimization tools, making it easy to accelerate end-to-end pipelines on Intel hardware
 
-Before using it the very first step is to install the library.  
+Before using it, the very first step is to install the library.  
 ```bash  
 pip install optimum-intel[openvino]  
 ```
