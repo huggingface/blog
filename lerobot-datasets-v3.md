@@ -183,7 +183,7 @@ for epoch in range(num_epochs):
 
         # Move data to the appropriate device (e.g., GPU)
         observations = batch['observation.state'].to(device)
-        actions = batch['action'].to(device)
+        actions = batch['action.continuous'].to(device)
         images = batch['observation.images.front_left'].to(device)
 
         # Next do amazing_model.forward(batch)
