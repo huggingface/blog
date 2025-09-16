@@ -143,7 +143,7 @@ print(sample)
 # {
 #     'observation.state': tensor([...]),
 #     'action': tensor([...]),
-#     'observation.images.wrist_camera': tensor([C, H, W]),
+#     'observation.images. front_left': tensor([C, H, W]),
 #     'timestamp': tensor(1.234),
 #     ...
 # }
