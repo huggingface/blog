@@ -160,7 +160,7 @@ sample = dataset[100]
 
 # The image tensor will now have a time dimension
 # 'observation.images.wrist_camera' has shape [T, C, H, W], where T=3
-print(sample['observation.images.wrist_camera'].shape)
+print(sample['observation.images. front_left'].shape)
 
 batch_size=16
 # Wrap the dataset in a DataLoader to process it in batches for training purposes
