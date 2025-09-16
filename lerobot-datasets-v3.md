@@ -26,7 +26,7 @@ authors:
 - [Code Example: Using `LeRobotDataset` with `torch.utils.data.DataLoader`](#code-example-using-lerobotdataset-with-torchutilsdatadataloader)
 - [Wrapping up](#wrapping-up)
 
-# LeRobotDataset, v3.0
+## LeRobotDataset, v3.0
 
 `LeRobotDataset` is a standardized dataset format designed to address the specific needs of robot learning, and it provides unified and convenient access to robotics data across modalities, including sensorimotor readings, multiple camera feeds and teleoperation status.
 Our dataset format also stores general information regarding the way the data is being collected (*metadata*), including a textual description of the task being performed, the kind of robot used and measurement details like the frames per second at which both image and robot state streams are sampled.
