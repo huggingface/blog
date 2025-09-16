@@ -210,6 +210,7 @@ dataset = StreamingLeRobotDataset(repo_id)
 You can try the new dataset format by installing the latest `lerobot-v0.3.x`, and share any feedback [on GitHub](https://github.com/huggingface/lerobot/issues) or on our [Discord server](https://discord.gg/ttk5CV6tUw)! 🤗
 
 ## Acknowledgements
+
 We thank the fantastic [yaak.ai](https://www.yaak.ai/) team for their precious support and feedback while developing LeRobotDataset:v3. 
 Go ahead and [follow their organization](https://huggingface.co/yaak-ai) on the Hugging Face Hub!
 We are always looking to collaborate with the community and share early features. [Reach out](mailto:francesco.capuano@huggingface.co) if you would like to collaborate 😊
