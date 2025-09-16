@@ -14,7 +14,7 @@ authors:
   org: Intel
 ---
 
-# Get your VLM running in 3 simple steps
+# Get your VLM running in 3 simple steps on Intel CPU/GPU
 
 Teaser: Run a Vision Language Model (VLM) locally in three steps, no need for expensive cloud infrastructure or high-end compute devices. SmolVLM + Intel Optimum + OpenVINO makes it possible to accelerate on an iGPU or a discrete Intel GPU).
 
@@ -172,9 +172,13 @@ Try the complete notebook [here](https://github.com/huggingface/optimum-intel/bl
 ## Evaluation and Conclusion
 
 Multimodal AI is becoming more accessible thanks to smaller, optimized models like SmolVLM and tools such as Hugging Face Optimum and OpenVINO. While deploying vision-language models locally still presents challenges, this workflow shows that it's possible to run lightweight image-and-text models on multiple hardware.
-To have an idea of how it performs on different Intel hardware, we will be providing an image. In this benchmark, we will be using the SmolVLM2-256M model with weight-only quantization. The input will be an image of a flower with a bee on it, and we will be testing how the model processes the image and answers the question: “What is on the flower?”. We will measure the model size to know how much space the model occupies, the average latency to see how long it takes to process the image and generate an answer, the images per second to understand how quickly the model can handle such images, and the tokens per second to see how fast it can produce the text of its response (A bee is on the flower). The token throughput is reported for the first token, showing how quickly the model starts generating a response, and for the second token, showing how efficiently it continues generating the rest of the answer.
+To have an idea of how it performs on different Intel hardware, we will be providing an image. In this benchmark, we will be using the SmolVLM2-256M model with weight-only quantization. The input will be an image of a flower with a bee on it, and we will be testing how the model processes the image and answers the question: “What is on the flower?”. We will measure the model size to know how much space the model occupies, the average latency to see how long it takes to process the image and generate an answer, the images per second to understand how quickly the model can handle such images, and the tokens per second to see how fast it can produce the text of its response (A bee is on the flower). The first token shows how fast the model produces its very first word after reading the input (prefill), which is important because it reflects how quickly the model can start generating an answer, while the second token shows how fast it continues writing the rest of the answer once it has started (decode).
 
-![image](assets/113_openvino/flower_bee.png)
+
+<p align="center">
+  <img src="https://huggingface.co/datasets/OpenVINO/documentation/resolve/main/blog/openvino_vlm/flower.png" alt="Pink flower with bee" width="700"/>
+</p>
+
 
 Here are the results across different Intel hardware:
 
