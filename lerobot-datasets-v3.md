@@ -8,7 +8,7 @@ authors:
 - user: CarolinePascal
 - user: pepijn223
 - user: jadechoghari
-- user: rcadene
+- user: cadene
 - user: aliberts
 - user: AdilZtn
 - user: nepyope
