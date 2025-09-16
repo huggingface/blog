@@ -104,7 +104,7 @@ Let’s explore each of them.
 
 ### Option 1: Weight Only Quantization
 
-Weight-only quantization means that only the weights are being quantized and leaving the activation in their original precisions. To explain this process, let’s imagine preparing for a long backpacking trip. To reduce weight, you replace bulky items like full-size shampoo bottles with compact travel-sized versions. This is like weight-only quantization, where the model’s weights are compressed from 32-bit floating-point numbers to 8-bit integers, reducing the model’s memory footprint.
+Weight-only quantization means that only the weights are quantized but activations remain in their original precisions. To explain this process, let’s imagine preparing for a long backpacking trip. To reduce weight, you replace bulky items like full-size shampoo bottles with compact travel-sized versions. This is like weight-only quantization, where the model’s weights are compressed from 32-bit floating-point numbers to 8-bit integers, reducing the model’s memory footprint.
 
 However, the “interactions” during the trip, like drinking water, remain unchanged. This is similar to what happens to activations, which stay in high precision (FP32 or BF16) to preserve accuracy during computation.
 
