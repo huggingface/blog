@@ -95,7 +95,7 @@ Concretely, this means that any given tabular collection and video will not cont
 This keeps the pressure on the file system manageable, both locally and on remote storage providers like Hugging Face.
 We can then leverage metadata to gather episode-specific information, e.g. the timestamp a given episode starts or ends in a certain video.
 
-Concretely, datasets are organized as repositories containing:
+Datasets are organized as repositories containing:
 
 * **`meta/info.json`**: This is the central metadata file. It contains the complete dataset schema, defining all features (e.g., `observation.state`, `action`), their shapes, and data types. It also stores crucial information like the dataset's frames-per-second (`fps`), codebase version, and the path templates used to locate data and video files.
 * **`meta/stats.json`**: This file stores aggregated statistics (mean, std, min, max) for each feature across the entire dataset. These are used for data normalization and are accessible via `dataset.meta.stats`.
