@@ -24,7 +24,7 @@ Early models like [Flamingo](https://arxiv.org/abs/2204.14198) and [Idefics](htt
 
 That’s why running AI models locally is still a challenge, but also a huge opportunity. Local inference keeps your data private, gives you fast responses without internet latency, avoids cloud costs, and lets you run and tweak models offline, with full control.
 
-That’s where tools like Intel [Hugging Face Optimum](https://docs.openvino.ai/2024/learn-openvino/llm_inference_guide/llm-inference-hf.html), OpenVINO, and the lightweight [SmolVLM](https://huggingface.co/blog/smolvlm) model come in. In this post, we’ll show you how to get a VLM running locally in just three simple steps, with no expensive hardware or GPUs needed (though it can also run on Intel GPUs).
+That’s where tools like [Hugging Face Optimum](https://docs.openvino.ai/2024/learn-openvino/llm_inference_guide/llm-inference-hf.html), [OpenVINO](https://github.com/openvinotoolkit/openvino), and the lightweight [SmolVLM](https://huggingface.co/blog/smolvlm) model come in. In this post, we’ll show you how to get a VLM running locally in just three simple steps, with no expensive hardware or GPUs needed (though it can also run on Intel GPUs).
 
 ## What is a VLM
 
