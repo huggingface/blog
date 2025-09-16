@@ -182,7 +182,7 @@ for epoch in range(num_epochs):
         # shape of [32, T, C, H, W].
 
         # Move data to the appropriate device (e.g., GPU)
-        observations = batch['observation.state'].to(device)
+        observations = batch['observation.state.vehicle'].to(device)
         actions = batch['action.continuous'].to(device)
         images = batch['observation.images.front_left'].to(device)
 
