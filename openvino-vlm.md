@@ -153,7 +153,7 @@ Quantizing activations adds small errors that can build up and affect accuracy, 
 
 ### Step 3: Run inference
 
-You can now run inference with your quantized model :
+You can now run inference with your quantized model:
 
 ```python
 generated_ids = q_model.generate(**inputs, max_new_tokens=500)
