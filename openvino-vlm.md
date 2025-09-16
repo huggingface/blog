@@ -172,8 +172,13 @@ Try the complete notebook [here](https://github.com/huggingface/optimum-intel/bl
 ## Evaluation and Conclusion
 
 Multimodal AI is becoming more accessible thanks to smaller, optimized models like SmolVLM and tools such as Hugging Face Optimum and OpenVINO. While deploying vision-language models locally still presents challenges, this workflow shows that it's possible to run lightweight image-and-text models on multiple hardware.
-To have an idea of how it performs on different Intel hardware, we will be providing an image. In this benchmark, we will be using the SmolVLM2-256M model with weight-only quantization. The input will be an image of a flower with a bee on it, and we will be testing how the model processes the image and answers the question: “What is on the flower?”. We will measure the model size to know how much space the model occupies, the average latency to see how long it takes to process the image and generate an answer, the images per second to understand how quickly the model can handle such images, and the tokens per second to see how fast it can produce the text of its response (A bee is on the flower). The first token shows how fast the model produces its very first word after reading the input (prefill), which is important because it reflects how quickly the model can start generating an answer, while the second token shows how fast it continues writing the rest of the answer once it has started (decode).
 
+We ran a benchmark to show the impact of weight-only quantization on a (SmolVLM2-256M)[https://huggingface.co/HuggingFaceTB/SmolVLM2-256M-Video-Instruct] model and how it performs on different Intel hardware. For this test, we used a single image.
+We measured the following metrics to evaluate the model's performance:
+- Model Size: this shows how much storage space the model requires.
+- Latency: we measured the average time it took for the model to process an input.
+- Image throughput: the rate at which the model can process images.
+- Tokens throughput: the rate at which the model can process tokens.
 
 <p align="center">
   <img src="https://huggingface.co/datasets/OpenVINO/documentation/resolve/main/blog/openvino_vlm/flower.png" alt="Pink flower with bee" width="700"/>
@@ -189,7 +194,7 @@ Here are the results across different Intel hardware:
 | GPU (b580)  | 980.61 / 248 (Applies to all devices)                             | 15.75 / 15.01                            | 34.51 / 27.54                              | 149.79 / 120.91                             | 0.2074 / 0.2376            |
 | GPU (A770)  | -                             | 10.68 / 10.89                            | 16.57 / 15.79                              | 83.01 / 69.1                                | 0.3321 / 0.3403            |
 
-This benchmark demonstrates that smaller, optimized multimodal models like SmolVLM2-256M can run effectively across a range of Intel hardware. Weight-only quantization significantly reduces model size, improving efficiency without majorly impacting throughput. GPUs deliver the highest image and token processing speeds, while CPUs and iGPUs remain viable for lighter workloads. Overall, this shows that lightweight vision-language models can be deployed locally with reasonable performance, making multimodal AI more accessible.
+This benchmark shows that small, optimized multimodal models, like (SmolVLM2-256M)[https://huggingface.co/HuggingFaceTB/SmolVLM2-256M-Video-Instruct], can run efficiently on various Intel hardware. Weight-only quantization significantly reduces model size, improving efficiency without majorly impacting throughput. GPUs deliver the highest image and token processing speeds, while CPUs and iGPUs remain viable for lighter workloads. Overall, this shows that lightweight vision-language models can be deployed locally with reasonable performance, making multimodal AI more accessible.
 
 
 ## Useful Links & Resources
@@ -197,6 +202,3 @@ This benchmark demonstrates that smaller, optimized multimodal models like SmolV
 - [Try our Space](https://huggingface.co/spaces/echarlaix/vision-langage-openvino)
 - [Watch the webinar recording](https://web.cvent.com/event/d550a2a7-04f2-4a28-b641-3af228e318ca/regProcessStep1?utm_campaign=speakers4&utm_medium=organic&utm_source=Community)
 - [Optimum Intel Documentation](https://huggingface.co/docs/optimum-intel/en/openvino/inference)
-
-
-
