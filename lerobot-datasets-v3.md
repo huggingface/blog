@@ -40,7 +40,7 @@ You can explore the current datasets contributed by the community using the [dat
 
 Besides scale, this new release of `LeRobotDataset` also enables support for a *streaming* functionality, allowing to process batches of data from large datasets on the fly, without having to download prohibitively large collections of data onto disk.
 You can access and use any dataset in `v3.0` in streaming mode by using the dedicated `StreamingLeRobotDataset` interface!
-Streaming datasets is a key milestones towards more accessible robot learning, and we are excited about sharing it with the community 🤗
+Streaming datasets is a key milestone towards more accessible robot learning, and we are excited about sharing it with the community 🤗
 
 <div style="display:flex; justify-content:center; gap:12px; flex-wrap:wrap;">
   <figure style="margin:0; text-align:center;">
@@ -80,7 +80,7 @@ lerobot-record \
     --dataset.num_episodes=5 \
     --dataset.single_task="Grab the black cube"
 ```
-Head out the [official documentation](https://huggingface.co/docs/lerobot/en/il_robots?record=Command#record-a-dataset) to see how to record a dataset for your use case.
+Head to the [official documentation](https://huggingface.co/docs/lerobot/en/il_robots?record=Command#record-a-dataset) to see how to record a dataset for your use case.
 
 # The (New) Format Design
 
@@ -120,7 +120,7 @@ python -m lerobot.datasets.v30.convert_dataset_v21_to_v30 --repo-id=<HFUSER/DATA
 ```
 Note that this is a pre-release, and generally unstable version. You can follow the status of the development of our next stable release [here](https://github.com/huggingface/lerobot/issues/1654)!
 
-The convertion script `convert_dataset_v21_to_v30.py` aggregates the multiple episodes `episode-0000.mp4, episode-0001.mp4, episode-0002.mp4, ...`/`episode-0000.parquet, episode-0001.parquet, episode-0002.parquet, episode-0003.parquet, ...` into single files `file-0000.mp4`/`file-0000.parquet`, and updates the metadata accordingly, to be able to retrieve episode-specific information from higher-level files.
+The conversion script `convert_dataset_v21_to_v30.py` aggregates the multiple episodes `episode-0000.mp4, episode-0001.mp4, episode-0002.mp4, ...`/`episode-0000.parquet, episode-0001.parquet, episode-0002.parquet, episode-0003.parquet, ...` into single files `file-0000.mp4`/`file-0000.parquet`, and updates the metadata accordingly, to be able to retrieve episode-specific information from higher-level files.
 
 ### Code Example: Using `LeRobotDataset` with `torch.utils.data.DataLoader`
 
@@ -197,7 +197,7 @@ for epoch in range(num_epochs):
 
 ## Streaming
 
-You can also use any dataset in `v3.0` format in streaming mode, without the need to downloading it locally, by using the `StreamingLeRobotDataset` class.
+You can also use any dataset in `v3.0` format in streaming mode, without the need to download it locally, by using the `StreamingLeRobotDataset` class.
 
 ```python
 from lerobot.datasets.streaming_dataset import StreamingLeRobotDataset
