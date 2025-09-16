@@ -18,7 +18,7 @@ authors:
 
 Teaser: Run a Vision Language Model (VLM) locally in three steps, no need for expensive cloud infrastructure or high-end compute devices. SmolVLM + Intel Optimum + OpenVINO makes it possible to accelerate on an iGPU or an NPU.
 
-As large language models (LLMs) and chatbots become more capable, AI is moving beyond text; it's now interpreting images and videos as well. This is where Vision Language Models (VLMs) come in, enabling tasks like describing scenes, generating captions, or answering questions about images.
+As large language models (LLMs) and chatbots become more capable, AI is moving beyond text, and can now understand images and videos as well. Vision Language Models (VLMs) enable tasks like describing scenes, generating captions, answering questions about images, and many others.
 
 Early models like [Flamingo](https://arxiv.org/abs/2204.14198) and [Idefics](https://huggingface.co/blog/idefics) showed what was possible, both demonstrated capabilities with 80B parameters. More recently, we’ve seen small models emerge, [PaliGemma 3B](https://huggingface.co/google/paligemma-3b-pt-896?utm_source=chatgpt.com) , [moondream2](https://www.analyticsvidhya.com/blog/2024/03/introducing-moondream2-a-tiny-vision-language-model/?utm_source=chatgpt.com) , and [Qwen2-VL models](https://nodeshift.com/blog/how-to-install-qwen2-5-vl-7b-instruct-locally?utm_source=chatgpt.com)   but even these “small” versions can be tough to run locally because they still carry a lot of the memory and compute demands from their larger predecessors.
 
