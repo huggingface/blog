@@ -5,13 +5,14 @@ authors:
 - user: ezelanza
   guest: true
   org: Intel
-- user: echarlaix
 - user: helenai
   guest: true
   org: Intel
 - user: nikita-savelyev-intel
   guest: true
   org: Intel
+- user: echarlaix
+- user: IlyasMoutawwakil
 ---
 
 # Get your VLM running in 3 simple steps on Intel CPU/GPU
