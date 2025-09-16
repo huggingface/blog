@@ -143,7 +143,7 @@ q_model = OVModelForVisualCausalLM.from_pretrained(model_id, quantization_config
 q_model.save_pretrained("smolvlm_static_int8")
 ```
 
-or quivalently using the CLI:
+or equivalently with the CLI:
 
 ```bash
 optimum-cli export openvino -m HuggingFaceTB/SmolVLM2-256M-Video-Instruct --quant-mode int8 --dataset contextual --num-samples 50 smolvlm_static_int8/
