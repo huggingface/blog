@@ -6638,10 +6638,22 @@
     - optimization
     - guide
 
+- local: watermarking-with-gradio
+  title: "Visible Watermarking with Gradio"
+  author: meg
+  thumbnail: /blog/assets/watermarking-with-gradio/thumbnail.png
+  date: Sep 15, 2025
+  tags:
+    - ethics
+    - text-generation
+    - guide
+    - text-to-image
+    - text-to-video
+
 - local: lerobot-datasets-v3
   title: "`LeRobotDataset`: Bringing large-scale datasets to lerobot"
   author: fracapuano
-  thumbnail: /blog/assets/lerobot-datasets-v3/thumbnail.png
+  thumbnail: /blog/assets/lerobot-dataset-v3/thumbnail.png
   date: Sep 16, 2025
   tags:
     - lerobot

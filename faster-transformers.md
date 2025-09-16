@@ -95,7 +95,7 @@ INFO:root:Using layer `MegaBlocksMoeMLP` from repo `kernels-community/megablocks
 
 ### Flash Attention 3
 
-OpenAI gpt-oss models use _attention sinks_, which improves quality and facilitates the use of longer contexts. The vLLM team added this feature to the latest version of Flash Attention (Flash Attention 3), and the resulting custom kernels is available [on the Hub](https://huggingface.co/kernels-community/vllm-flash-attn3). Currently, this kernel is compatible with the Hopper architecture. If you have one, this is the way to enable it:
+OpenAI gpt-oss models use _attention sinks_, which improves quality and facilitates the use of longer contexts. The vLLM team added this feature to the latest version of Flash Attention (Flash Attention 3), and the resulting custom kernel is available [on the Hub](https://huggingface.co/kernels-community/vllm-flash-attn3). Currently, this kernel is compatible with the Hopper architecture. If you have one, this is the way to enable it:
 
 ```diff
 model = AutoModelForCausalLM.from_pretrained(
