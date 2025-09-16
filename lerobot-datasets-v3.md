@@ -203,7 +203,7 @@ from lerobot.datasets.streaming_dataset import StreamingLeRobotDataset
 repo_id = "yaak-ai/L2D-v3"
 dataset = StreamingLeRobotDataset(repo_id)
 ```
-## Wrapping up
+## Conclusion
 
 `LeRobotDataset v3.0` is a stepping stone towards scaling up robotics datasets supported in LeRobot. By providing a format to store and access large collections of robot data we are making progress towards democratizing robotics, allowing the community to train on possibly millions of episodes without even downloading the data itself!
 
