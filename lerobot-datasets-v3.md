@@ -38,7 +38,7 @@ You can explore the current datasets contributed by the community using the [dat
 
 Besides scale, this new release of `LeRobotDataset` also enables support for a *streaming* functionality, allowing to process batches of data from large datasets on the fly, without having to download prohibitively large collections of data onto disk.
 You can access and use any dataset in `v3.0` in streaming mode by using the dedicated `StreamingLeRobotDataset` interface!
-Streaming datasets is a key milestones towards more accessible robot learning, and we are very excited about sharing this with the community 🤗
+Streaming datasets is a key milestones towards more accessible robot learning, and we are excited about sharing it with the community 🤗
 
 <div style="display:flex; justify-content:center; gap:12px; flex-wrap:wrap;">
   <figure style="margin:0; text-align:center;">
