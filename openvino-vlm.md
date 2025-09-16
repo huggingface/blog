@@ -183,9 +183,5 @@ As models and tooling continue to improve, so will the ability to run powerful m
 - Watch the webinar recording
 - [Optimum Intel Documentation](https://huggingface.co/docs/optimum-intel/en/openvino/inference)
 
-#### Notices and Disclaimers
-Performance varies by use, configuration, and other factors. Learn more on the Performance Index site.
-Performance results are based on testing as of dates shown in configurations and may not reflect all publicly available updates. See backup for configuration details. No product or component can be absolutely secure. Your costs and results may vary. Intel technologies may require enabled hardware, software or service activation.
-© Intel Corporation. Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.
 
 
