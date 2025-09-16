@@ -148,7 +148,7 @@ print(sample)
 #     ...
 # }
 delta_timestamps = {
-    "observation.images.wrist_camera": [-0.2, -0.1, 0.0]  # 0.2 and 0.1 seconds *before* any observation
+    "observation.images.front_left": [-0.2, -0.1, 0.0]  # 0.2 and 0.1 seconds *before* any observation
 }
 dataset = LeRobotDataset(
     repo_id
