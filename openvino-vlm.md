@@ -133,7 +133,7 @@ optimum-cli export openvino -m HuggingFaceTB/SmolVLM2-256M-Video-Instruct --weig
 
 ## Option 2: Static Quantization
 
-When applying static quantization, quantization is applied on both weights and activations. For this a calibration step is needed in which a dataset subset is used in order to estimate the activations ranges. In the following example we are using 50 samples of the [contextual dataset](https://huggingface.co/datasets/ucla-contextual/contextual_test) to perform this calibration step.
+To achieve the best estimate for the activation quantization parameters, we perform a calibration step. This involves running inference on a small subset of our dataset, in our case using 50 samples of the [contextual dataset](https://huggingface.co/datasets/ucla-contextual/contextual_test).
 
 ```python
 from optimum.intel import OVModelForVisualCausalLM, OVQuantizationConfig
