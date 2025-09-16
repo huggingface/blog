@@ -95,7 +95,7 @@ Essentially, it's a way to map values from a high-precision data type, such as 3
   <img src="https://huggingface.co/datasets/openvino/documentation/resolve/main/blog/openvino_vlm/quantization.png">
 </figure>
 
-Optimum supports two main post-training quantization:
+Optimum supports two main post-training quantization methods:
 
 - Weight Only Quantization  
 - Static Quantization
