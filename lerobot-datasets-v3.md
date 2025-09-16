@@ -52,6 +52,7 @@ Streaming datasets is a key milestones towards more accessible robot learning, a
 </div>
 
 ## Install `lerobot`, and record a dataset
+
 [`lerobot`](https://github.com/huggingface/lerobot) is the end-to-end robotics library developed at Hugging Face, supporting real-world robotics as well as state of the art robot learning algorithms.
 The library allows to record datasets locally directly on real-world robots, and to store datasets on the Hugging Face Hub.
 You can read more about the robots we currently support [here](https://huggingface.co/docs/lerobot/)!
