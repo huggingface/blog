@@ -198,6 +198,27 @@ This benchmark demonstrates that smaller, optimized multimodal models like SmolV
 - [Watch the webinar recording](https://web.cvent.com/event/d550a2a7-04f2-4a28-b641-3af228e318ca/regProcessStep1?utm_campaign=speakers4&utm_medium=organic&utm_source=Community)
 - [Optimum Intel Documentation](https://huggingface.co/docs/optimum-intel/en/openvino/inference)
 
+## Platform configuration
+Platform Configuration for performance claims above:
+
+System Board: MSI B860M GAMING PLUS WIFI (MS-7E42)
+CPU: Intel® Core™ Ultra 7 265K
+Sockets/Physical cores: 1/20 (20 threads)
+HyperThreading/Turbo Settings: Disabled
+Memory: 64 GB DDR5 @ 6400 MHz
+GPU: 1x Intel® Graphics (4 Xe cores), 1x Intel® Arc™ A770 Graphics (32 Xe cores), 1x Intel® Arc™ B580 Graphics (20 Xe cores)
+NPU: Intel® AI Boost
+TDP: 665W
+BIOS: American Megatrends International, LLC. 2.A10
+BIOS release date: 28.11.2024
+OS: Ubuntu 24.10
+Kernel: 6.11.0–25-generic
+
+** TO BE COMPLETED AFTER LEGAL REVIEW**
+OpenVINO Version: 2025.1.0–18503
+Benchmark Date: XX.XX.2025
+Benchmarked by: Intel Corporation
+
 #### Notices and Disclaimers
 Performance varies by use, configuration, and other factors. Learn more on the Performance Index site.
 Performance results are based on testing as of dates shown in configurations and may not reflect all publicly available updates. See backup for configuration details. No product or component can be absolutely secure. Your costs and results may vary. Intel technologies may require enabled hardware, software or service activation.
