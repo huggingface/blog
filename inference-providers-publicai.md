@@ -63,7 +63,7 @@ See the list of supported models [here](https://huggingface.co/models?inference_
 
 The following example shows how to use Swiss AI's Apertus-70B using Public AI as the inference provider. You can use a [Hugging Face token](https://huggingface.co/settings/tokens) for automatic routing through Hugging Face, or your own Public AI API key if you have one.
 
-Note: this requires `huggingface_hub` with Inference Providers support (>= 0.33.0). If your environment doesn’t have it yet, you can install from source (see [instructions](https://huggingface.co/docs/huggingface_hub/installation#install-from-source)).
+Note: this requires using a recent version of `huggingface_hub` (>= 0.34.6).
 
 ```python
 import os
