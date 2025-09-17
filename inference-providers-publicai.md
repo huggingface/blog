@@ -21,15 +21,17 @@ authors:
 We're thrilled to share that **Public AI** is now a supported Inference Provider on the Hugging Face Hub!
 Public AI joins our growing ecosystem, enhancing the breadth and capabilities of serverless inference directly on the Hub’s model pages. Inference Providers are also seamlessly integrated into our client SDKs (for both JS and Python), making it super easy to use a wide variety of models with your preferred providers.
 
-The Public AI Inference Utility is a nonprofit, open-source project. The team builds products and organizes advocacy to support the work of Public AI model builders like the Swiss AI Initiative, AI Singapore, AI Sweden, and the Barcelona Supercomputing Center.
+This launch makes it easier than ever to access public and sovereign models from institutions like the Swiss AI Initiative and AI Singapore — right from Hugging Face. You can browse Public AI’s org on the Hub at https://huggingface.co/publicai and try trending supported models at https://huggingface.co/models?inference_provider=publicai&sort=trending.
 
-The Public AI Inference Utility runs on a distributed infrastructure that combines a vLLM-powered backend and a deployment layer designed for resilience across multiple partners. Behind the scenes, inference is handled by servers running OpenAI-compatible APIs on vLLM. These servers are deployed across clusters donated by national and industry partners. A global load-balancing layer ensures that requests are routed efficiently and transparently, regardless of which country's compute is serving the query.
+The Public AI Inference Utility is a nonprofit, open-source project. The team builds products and organizes advocacy to support the work of public AI model builders like the Swiss AI Initiative and AI Singapore, among others.
 
-Free public access is supported by donated GPU time and advertising subsidies, while long-term stability is intended to be anchored by state and institutional contributions.
+The Public AI Inference Utility runs on a distributed infrastructure that combines a vLLM-powered backend with a deployment layer designed for resilience across multiple partners. Behind the scenes, inference is handled by servers exposing OpenAI-compatible APIs on vLLM, deployed across clusters donated by national and industry partners. A global load-balancing layer ensures requests are routed efficiently and transparently, regardless of which country’s compute is serving the query.
 
-You can now use the Public AI Inference Utility as an Inference Provider on Huggingface. We're quite excited to see what you'll build with this new provider.
+Free public access is supported by donated GPU time and advertising subsidies, while long-term stability is intended to be anchored by state and institutional contributions. You can learn more about Public AI’s platform and infrastructure at https://platform.publicai.co/.
 
-Read more about how to use Public AI as Inference Provider in its dedicated [documentation page](https://huggingface.co/docs/inference-providers/providers/publicai).
+You can now use the Public AI Inference Utility as an Inference Provider on Hugging Face. We're excited to see what you'll build with this new provider.
+
+Read more about how to use Public AI as an Inference Provider in its dedicated [documentation page](https://huggingface.co/docs/inference-providers/providers/publicai).
 
 See the list of supported models [here](https://huggingface.co/models?inference_provider=publicai&sort=trending).
 
@@ -61,7 +63,7 @@ See the list of supported models [here](https://huggingface.co/models?inference_
 
 The following example shows how to use Swiss AI's Apertus-70B using Public AI as the inference provider. You can use a [Hugging Face token](https://huggingface.co/settings/tokens) for automatic routing through Hugging Face, or your own Public AI API key if you have one.
 
-Install `huggingface_hub` from source (see [instructions](https://huggingface.co/docs/huggingface_hub/installation#install-from-source)). Official support will be released soon in version v0.33.0.
+Note: this requires `huggingface_hub` with Inference Providers support (>= 0.33.0). If your environment doesn’t have it yet, you can install from source (see [instructions](https://huggingface.co/docs/huggingface_hub/installation#install-from-source)).
 
 ```python
 import os
@@ -111,13 +113,13 @@ console.log(chatCompletion.choices[0].message);
 ## Billing
 
 
-At the time of writing, usage of the Public AI Inference Utility though Hugging Face Inference Providers is free of charge!
+At the time of writing, usage of the Public AI Inference Utility through Hugging Face Inference Providers is free of charge. Pricing and availability may change.
 
 Here is how billing works for other providers on the platform:
 
 For direct requests, i.e. when you use the key from an inference provider, you are billed by the corresponding provider. For instance, if you use a Public AI API key you're billed on your Public AI account.
 
-For routed requests, i.e. when you authenticate via the Hugging Face Hub, you'll only pay the standard provider API rates. There's no additional markup from us, we just pass through the provider costs directly. (In the future, we may establish revenue-sharing agreements with our provider partners.)
+For routed requests, i.e. when you authenticate via the Hugging Face Hub, you'll only pay the standard provider API rates. There's no additional markup from us; we just pass through the provider costs directly. (In the future, we may establish revenue-sharing agreements with our provider partners.)
 
 **Important Note** ‼️ PRO users get $2 worth of Inference credits every month. You can use them across providers. 🔥
 
