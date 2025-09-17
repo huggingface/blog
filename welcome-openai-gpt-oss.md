@@ -126,17 +126,25 @@ print(response)
 
 ### Using Transformers
 
-You need to install the latest `transformers` release (v4.55.1 or later), as well as `accelerate` and `kernels`. We also recommend installing triton 3.4 or better, as it unblocks support for `mxfp4` quantization on CUDA hardware:
+You need to install the latest `transformers` release (v4.55 or later), as well as `accelerate` and `kernels`:
 
 ```shell
-pip install --upgrade transformers kernels accelerate "triton>=3.4"
+pip install --upgrade accelerate transformers kernels
 ```
 
-The model weights are quantized in `mxfp4` format, which was originally available on GPUs of the Hopper or Blackwell families, but now works on previous CUDA architectures (including Ada, Ampere, and Tesla). Installing triton 3.4, together with the `kernels` library, makes it possible to download optimized `mxfp4` kernels on first use, achieving large memory savings. With these components in place, you can run the 20B model on GPUs with 16 GB of RAM. This includes many consumer cards (3090, 4090, 5080) as well as Colab and Kaggle!
+The model weights are quantized in `mxfp4` format, which is compatible with GPUs of the Hopper or Blackwell families. This includes data-center cards such as H100, H200 or GB200, as well as the latest consumer GPUs in the 50xx family. If you have one of these cards, `mxfp4` will yield the best results in terms of speed and memory consumption. To use it, you need `triton 3.4` and `triton_kernels`. If these libraries are not installed (or you don’t have a compatible GPU), loading the model will fall back to `bfloat16`, unpacked from the quantized weights.
 
-If the previous libraries are not installed (or you don’t have a compatible GPU), loading the model will fall back to `bfloat16`, unpacked from the quantized weights.
+In our tests, Triton 3.4 works fine with the latest PyTorch version (2.7.x). You may optionally want to install PyTorch 2.8 instead – it’s a pre-release version at the time of writing ([although it should be released soon](https://github.com/pytorch/pytorch/milestone/53)), but it’s the one that’s been prepared alongside triton 3.4, so they are stable together. Here’s how to install PyTorch 2.8 (comes with triton 3.4) and the triton kernels:
 
-The following snippet shows simple inference with the 20B model. As explained, it runs on 16 GB GPUs when using `mxfp4`, or \~48 GB in `bfloat16`.
+```shell
+# Optional step if you want PyTorch 2.8, otherwise just `pip install torch`
+pip install torch==2.8.0 --index-url https://download.pytorch.org/whl/test/cu128
+
+# Install triton kernels for mxfp4 support
+pip install git+https://github.com/triton-lang/triton.git@main#subdirectory=python/triton_kernels
+```
+
+The following snippet shows simple inference with the 20B model. It runs on 16 GB GPUs when using `mxfp4`, or \~48 GB in `bfloat16`.
 
 ```py
 from transformers import AutoModelForCausalLM, AutoTokenizer
@@ -202,7 +210,7 @@ This snippet will download the optimized, pre-compiled kernel code from `kernels
 
 #### Other optimizations
 
-We recommend you use `mxfp4` if your GPU supports it. If you can additionally use Flash Attention 3, then by all means do enable it! 
+If you have a Hopper GPU or better, we recommend you use `mxfp4` for the reasons explained above. If you can additionally use Flash Attention 3, then by all means do enable it! 
 
 > [!TIP]
 > If your GPU is not compatible with `mxfp4`, then we recommend you use MegaBlocks MoE kernels for a nice speed bump. To do so, you just need to adjust your inference code like this:
@@ -253,10 +261,10 @@ At the time of writing, this table summarizes our _recommendations_ based on GPU
 |  | mxfp4 | Flash Attention 3 (w/ sink attention) | MegaBlocks MoE kernels |
 | :---- | :---- | :---- | :---- |
 | Hopper GPUs (H100, H200) | ✅ | ✅ | ❌ |
-| CUDA GPUS with 16+ GB of RAM | ✅ | ❌ | ❌ |
+| Blackwell GPUs (GB200, 50xx, RTX Pro 6000\) | ✅ | ❌ | ❌ |
 | Other CUDA GPUs | ❌ | ❌ | ✅ |
 | AMD Instinct (MI3XX) | ❌ | ❌ | ✅ |
-| *How to enable* | triton 3.4 + kernels library | Use vllm-flash-attn3 from kernels-community | `use_kernels` |
+| *How to enable* | Install triton 3.4 + triton kernels | Use vllm-flash-attn3 from kernels-community" | `use_kernels` |
 
 Even though the 120B model fits on a single H100 GPU (using `mxfp4`), you can also run it easily on multiple GPUs using `accelerate` or `torchrun`. Transformers provides a default parallelization plan, and you can leverage optimized attention kernels as well. The following snippet can be run with `torchrun --nproc_per_node=4 generate.py` on a system with 4 GPUs:
 
