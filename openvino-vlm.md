@@ -27,11 +27,12 @@ While running AI models on your own device can be difficult as these models are 
 
 ## Optimum
 
-Even though SmolVLM was designed for low-resource consumption, there’s still room for improvement. These models can be further compressed or optimized for your own hardware. However, if you’ve tried to optimize a model yourself, you probably know it’s not a trivial task.
+Small models like SmolVLM are built for low-resource consumption, but they can be further optimized. In this section, we will see how you can optimize your VLM with [Optimum](https://github.com/huggingface/optimum-intel).
 
-Before using it, the very first step is to install the library.  
+First, we need to install `optimum`:
+
 ```bash  
-pip install optimum-intel[openvino]  
+pip install optimum-intel[openvino]
 ```
 
 By using Optimum with OpenVINO, you gain several benefits, like improving the inference time and lower memory/storage usage out of the box. But you can go even further: quantization can reduce the model size and resource consumption even more. While quantization often requires deep expertise, Optimum simplifies the process, making it much more accessible.
