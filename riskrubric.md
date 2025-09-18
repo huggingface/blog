@@ -61,7 +61,7 @@ Stricter protections often make models *less transparent* to end users (e.g. ref
 
 **What this means**: Security shouldn’t come at the cost of trust. To balance both, pair strong safeguards with **explanatory refusals, provenance signals, and auditability**. This preserves transparency without loosening defenses.
 
-An updating results sheet can be accessed [here](https://docs.google.com/spreadsheets/d/15adko_TbbR9lVK6OweBTSi1OZg9QHhEvZGMI-CbXCaM/edit?usp=sharing)
+An updating results sheet can be accessed [here](https://huggingface.co/datasets/nomasecurity/riskrubric-results)
 
 ## **Conclusion**
 
