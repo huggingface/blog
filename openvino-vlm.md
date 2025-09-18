@@ -110,7 +110,7 @@ However, the “interactions” during the trip, like drinking water, remain unc
 As a result, the model becomes smaller and more memory-efficient, improving loading times. But since activations are not quantized, inference speed gains are limited. Since OpenVINO 2024.3, if the model's weight have been quantized, the corresponding activations will also be quantized at runtime, leading to additional speedup depending on the device.
 
 Weight-only quantization is a simple first step since it usually doesn’t result in significant accuracy degradation.  
-In order to run it, you will need to create a quantization configuration using Optimum \`OVWeightQuantizationConfig\` as follows
+In order to run it, you will need to create a quantization configuration using Optimum `OVWeightQuantizationConfig` as follows
 
 
 ```python
