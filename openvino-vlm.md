@@ -39,13 +39,6 @@ In contrast, SmolVLM is purpose-built for low-resource environments, and it beco
 Launched by Hugging Face in July 2024, SmolVLM addresses the growing need for multimodal AI that runs locally without requiring high-end GPUs or cloud infrastructure. As vision-language models become essential in areas like accessibility, robotics, and on-device assistants, SmolVLM offers a path to efficient, privacy-preserving inference at the edge.  
 Architecturally, SmolVLM pairs a lightweight vision encoder with a compact language decoder. This modular design enables it to interpret both images and text.
 
-<figure style="width: 700px; margin: 0 auto;">
-  <img src="https://huggingface.co/datasets/openvino/documentation/resolve/main/blog/openvino_vlm/smolvlm.png" width=700>
-  <figcaption style="text-align: center;">
-    SmolVLM architecture (<b><i>Source: <a href="https://huggingface.co/blog/smolvlm#what-is-smolvlm">SmolVLM - small yet mighty Vision Language Model</i></b></a>).
-  </figcaption>
-</figure>
-
 It offers a lightweight, efficient solution for running image-and-text models directly on laptops or edge devices.
 
 ## Hugging Face Optimum
