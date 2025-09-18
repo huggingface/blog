@@ -6651,7 +6651,7 @@
     - text-to-video
 
 - local: lerobot-datasets-v3
-  title: "`LeRobotDataset`: Bringing large-scale datasets to lerobot"
+  title: "LeRobotDataset:v3.0: Bringing large-scale datasets to lerobot"
   author: fracapuano
   thumbnail: /blog/assets/lerobot-dataset-v3/thumbnail.png
   date: Sep 16, 2025
@@ -6672,3 +6672,13 @@
     - enterprise
     - partnerships
     - hub
+
+- local: lerobot-dataset-streaming
+  title: "StreamingLeRobotDataset: Training on large-scale data without downloading"
+  author: fracapuano
+  thumbnail: /blog/assets/streaming-lerobot-dataset/thumbnail.png
+  date: Sep 18, 2025
+  tags:
+    - lerobot
+    - datasets
+    - robotics
