@@ -6659,3 +6659,16 @@
     - lerobot
     - datasets
     - robotics
+
+- local: inference-providers-publicai
+  title: "Public AI on Hugging Face Inference Providers 🔥"
+  author: sbrandeis
+  thumbnail: /blog/assets/inference-providers/welcome-publicai.jpg
+  date: Sep 17, 2025
+  tags:
+    - llms
+    - inference-providers
+    - public-ai
+    - enterprise
+    - partnerships
+    - hub
