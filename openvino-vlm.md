@@ -17,7 +17,7 @@ authors:
 
 # Get your VLM running in 3 simple steps on Intel CPUs
 
-Accelerate Your VLM: Deploy a Vision Language Model locally without the cost of cloud computing. This guide shows you how to use [Optimum Intel](https://huggingface.co/docs/optimum-intel/en/index) and [OpenVINO](https://docs.openvino.ai/2025/index.html) to get high-speed performance on your Intel CPU.
+Deploy your [Vision Language Model (VLM)](https://huggingface.co/blog/vlms-2025) locally without the cost of cloud computing. This guide shows you how to use [Optimum Intel](https://huggingface.co/docs/optimum-intel/en/index) and [OpenVINO](https://docs.openvino.ai/2025/index.html) to get high-speed performance on your Intel CPU.
 
 With the growing capability of large language models (LLMs), a new class of models has emerged: Vision Language Models (VLMs). These models can analyze images and videos to describe scenes, create captions, and answer questions about visual content.
 
@@ -25,27 +25,9 @@ Early models like [Flamingo](https://arxiv.org/abs/2204.14198) and [Idefics](htt
 
 While running AI models on your own device can be difficult as these models are often computationally demanding, it also offers significant benefits: including improved privacy since your data stays on your machine, and enhanced speed and reliability because you're not dependent on an internet connection or external servers. This is where tools like Optimum and OpenVINO come in, along with a small, efficient model like [SmolVLM](https://huggingface.co/blog/smolvlm). In this blog post, we'll walk you through three easy steps to get a VLM running locally, with no expensive hardware or GPUs required (though you can run all the code samples from this blog post on Intel GPUs).
 
-## What is a VLM
-
-Let’s first recap: A Vision Language Model (VLM) can understand both text and images. Instead of just reading or writing text, it can also “see” pictures, so you can ask it to describe a photo, answer a question about an image, or generate a caption. It’s like giving your LLM eyes.  
-
-<figure style="width: 700px; margin: 0 auto;">
-  <img src="https://huggingface.co/datasets/openvino/documentation/resolve/main/blog/openvino_vlm/chat1.png">
-</figure>
-
-It’s impressive, but not exactly accessible to use. Let’s take [CogVLM](https://github.com/THUDM/CogVLM), for example, it is a powerful open source vision-language model with around 17 billion parameters (10B vision encoder \+ 7B language model)  which can require [about 80GB of RAM](https://inference.roboflow.com/foundation/cogvlm/) to run the model in full precision. Inference is still relatively slow: captioning a single image takes 10 to 13 seconds on an NVIDIA T4 GPU ([RoboflowBenchmark](https://inference.roboflow.com/foundation/cogvlm/?utm_source=chatgpt.com)). Users attempting to run CogVLM on CPUs have reported crashes or memory errors even with 64 GB of RAM, highlighting its impracticality for typical local deployment ([GitHub Issue](https://github.com/THUDM/CogVLM/issues/162)), just to mention one model, this is the challenge faced recently with most small VLMs.
-
-In contrast, SmolVLM is purpose-built for low-resource environments, and it becomes a highly efficient solution for deploying vision-language models on laptops or edge devices.  
-Launched by Hugging Face in July 2024, SmolVLM addresses the growing need for multimodal AI that runs locally without requiring high-end GPUs or cloud infrastructure. As vision-language models become essential in areas like accessibility, robotics, and on-device assistants, SmolVLM offers a path to efficient, privacy-preserving inference at the edge.  
-Architecturally, SmolVLM pairs a lightweight vision encoder with a compact language decoder. This modular design enables it to interpret both images and text.
-
-It offers a lightweight, efficient solution for running image-and-text models directly on laptops or edge devices.
-
-## Hugging Face Optimum
+## Optimum
 
 Even though SmolVLM was designed for low-resource consumption, there’s still room for improvement. These models can be further compressed or optimized for your own hardware. However, if you’ve tried to optimize a model yourself, you probably know it’s not a trivial task.
-This is where [Optimum Intel for OpenVINO](https://huggingface.co/docs/optimum-intel/en/index) ([repo](https://github.com/huggingface/optimum-intel)) comes in.  
-It acts as a bridge between Hugging Face libraries –including [**Transformers**](https://huggingface.co/docs/transformers/en/index)**, [Diffusers](https://huggingface.co/docs/diffusers/index), [timm](https://huggingface.co/docs/timm/index), and [sentence-transformers](https://huggingface.co/sentence-transformers)**–, and Intel’s optimization tools, making it easy to accelerate end-to-end pipelines on Intel hardware.
 
 Before using it, the very first step is to install the library.  
 ```bash  
