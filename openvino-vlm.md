@@ -25,7 +25,8 @@ While running AI models on your own device can be difficult as these models are 
 
 ## Deploy your model with Optimum
 
-Small models like SmolVLM are built for low-resource consumption, but they can be further optimized. In this blog post we will see how to optimize your model to further improve inference time and lower memory/storage usage.
+
+Small models like SmolVLM are built for low-resource consumption, but they can be further optimized. In this blog post we will see how to optimize your model, to lower memory usage and speedup inference, making it more efficient for deployment on devices with limited resource.
 
 To follow this tutorial, you need to install `optimum` and `openvino`, which you can do with:
 
