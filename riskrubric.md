@@ -53,7 +53,7 @@ The models concentrated in the 50–67 band (C/D range) are not outright broken,
 
 The *Safety & Societal* pillar (e.g. harmful output prevention) shows the widest variation across models. Importantly, models that invest in **security hardening** (prompt injection defenses, policy enforcement) almost always score better on safety as well.
 
-**What this means**: Strengthening core security controls goes beyond preventing jailbreaks, but also directly reduces downstream harms\! Safety seems like it is a byproduct of robust security posture.
+**What this means**: Strengthening core security controls goes beyond preventing jailbreaks, but also directly reduces downstream harms! Safety seems like it is a byproduct of robust security posture.
 
 **Guardrails can erode transparency – unless you design for it**
 
@@ -67,6 +67,6 @@ An updating results sheet can be accessed [here](https://docs.google.com/spreads
 
 When risk assessments are public and standardized, the entire community can work together to improve model safety. Developers can see exactly where their models need strengthening, and the community can contribute fixes, patches, and safer fine-tuned variants. This creates a virtuous cycle of transparent improvement that's impossible with closed systems. It also helps the community at large understand what works and does not, safety wise, by studying best models. 
 
-If you want to take part in this initiative, you can submit your model for evaluation (or suggest existing models\!) to understand their risk profile\! 
+If you want to take part in this initiative, you can submit your model for evaluation (or suggest existing models!) to understand their risk profile! 
 
 We also welcome all feedback on the assessment methodology and scoring framework
