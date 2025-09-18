@@ -16,7 +16,7 @@ authors:
 We're thrilled to share that **Scaleway** is now a supported Inference Provider on the Hugging Face Hub!
 Scaleway joins our growing ecosystem, enhancing the breadth and capabilities of serverless inference directly on the Hub’s model pages. Inference Providers are also seamlessly integrated into our client SDKs (for both JS and Python), making it super easy to use a wide variety of models with your preferred providers.
 
-This launch makes it easier than ever to access popular open-weight models like Llama 3.1, Mistral, Qwen, and Pixtral — right from Hugging Face. You can browse Scaleway's org on the Hub at https://huggingface.co/scaleway and try trending supported models at https://huggingface.co/models?inference_provider=scaleway&sort=trending.
+This launch makes it easier than ever to access popular open-weight models like gpt-oss, Qwen3, DeepSeek R1, and Gemma 3 — right from Hugging Face. You can browse Scaleway's org on the Hub at https://huggingface.co/scaleway and try trending supported models at https://huggingface.co/models?inference_provider=scaleway&sort=trending.
 
 Scaleway Generative APIs is a fully managed serverless service that provides access to frontier AI models from leading research labs via simple API calls. The service offers competitive pay-per-token pricing starting at €0.20 per million tokens.
 
