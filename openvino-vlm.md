@@ -132,6 +132,12 @@ model = OVModelForVisualCausalLM.from_pretrained(model_id, device="gpu")
 
 Try the complete notebook [here](https://github.com/huggingface/optimum-intel/blob/main/notebooks/openvino/vision_language_quantization.ipynb).
 
+We also created a [space](https://huggingface.co/spaces/echarlaix/vision-langage-openvino) so you can play with the [original model](https://huggingface.co/echarlaix/SmolVLM2-500M-Video-Instruct-openvino) and its quantized variants obtained by respectively applying [weight-only quantization](https://huggingface.co/echarlaix/SmolVLM2-500M-Video-Instruct-openvino-8bit-woq) and [static quantization](https://huggingface.co/echarlaix/SmolVLM2-500M-Video-Instruct-openvino-8bit-static). This demo runs on 4th Generation Intel Xeon (Sapphire Rapids) processors.
+
+<figure style="width: 700px; margin: 0 auto;">
+  <img src="https://huggingface.co/datasets/openvino/documentation/resolve/main/blog/openvino_vlm/chat1.png">
+</figure>
+
 ## Evaluation and Conclusion
 
 Multimodal AI is becoming more accessible thanks to smaller, optimized models like SmolVLM and tools such as Hugging Face Optimum and OpenVINO. While deploying vision-language models locally still presents challenges, this workflow shows that it's possible to run lightweight image-and-text models on multiple hardware.
