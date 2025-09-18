@@ -1,12 +1,12 @@
 ---
-title: "Democratizing AI Safety with [RiskRubric.ai](https://RiskRubric.ai)"  
+title: "Democratizing AI Safety with RiskRubric.ai"  
 thumbnail: /blog/assets/riskrubric/thumbnail.png
 authors:
 - user: galmo-noma
   guest: true
 ---
 
-# **Democratizing AI Safety with RiskRubric.ai**
+# Democratizing AI Safety with RiskRubric.ai
 
 *Building trust in the open model ecosystem through standardized risk assessment*
 
@@ -14,7 +14,7 @@ More than 500,000 models can be found on the Hugging Face hub, but it’s not al
 
 As models become more powerful and adoption accelerates, we need equally rapid progress in AI safety and security reporting. We're therefore excited to announce [RiskRubric.ai](https://riskrubric.ai/), a novel initiative led by Cloud Security Alliance and [Noma Security](https://noma.security), with contributions by Haize Labs and Harmonic Security, for standardized and transparent risk assessment in the AI model ecosystem.
 
-## **Risk Rubric, a new Standardized Assessment of Risk for models**
+## Risk Rubric, a new Standardized Assessment of Risk for models
 
 RiskRubric.ai provides **consistent, comparable risk scores across the entire model landscape**, by evaluating models across six pillars: transparency, reliability, security, privacy, safety, and reputation. 
 
@@ -31,7 +31,7 @@ These assessments produce 0-100 scores for each risk pillar, rolling up to clear
 
 RiskRubric also comes with filters to help developers and organizations make deployment decisions based on what’s important for them. Need a model with strong privacy guarantees for healthcare applications? Filter by privacy scores. Building a customer-facing application requiring consistent outputs? Prioritize reliability ratings. 
 
-## **What we found (as of September 2025\)**
+## What we found (as of September 2025)
 
 Evaluating both open and closed models with the exact same standards highlighted some interesting results: many open models actually outperform their closed counterparts in specific risk dimensions (particularly transparency, where open development practices shine).
 
@@ -45,7 +45,7 @@ The total risk scores range from 47 to 94, with a median of 81 (on a 100 points)
 
 The models concentrated in the 50–67 band (C/D range) are not outright broken, but they do provide only medium to low overall protection. This band represents the most practical area of concern, where security gaps are material enough to warrant prioritization.
 
-**What this means:** Don’t assume the “average” model is safe. The tail of weak performers is real – and that’s where attackers will focus. Teams can use composite scores to set a **minimum threshold (e.g. 75\)** for procurement or deployment, ensuring outliers don’t slip into production.
+**What this means:** Don’t assume the “average” model is safe. The tail of weak performers is real – and that’s where attackers will focus. Teams can use composite scores to set a **minimum threshold (e.g. 75)** for procurement or deployment, ensuring outliers don’t slip into production.
 
 **Safety risk is the “swing factor” – but it tracks closely with security posture**
 
