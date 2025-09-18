@@ -15,11 +15,11 @@ authors:
 - user: IlyasMoutawwakil
 ---
 
-# Get your VLM running in 3 simple steps on Intel CPU/GPU
+# Get your VLM running in 3 simple steps on Intel CPUs
 
-Teaser: Run a Vision Language Model (VLM) locally in three steps, no need for expensive cloud infrastructure or high-end compute devices. SmolVLM + Intel Optimum + OpenVINO makes it possible to accelerate on an iGPU or a discrete Intel GPU.
+Accelerate Your VLM: Deploy a Vision Language Model locally without the cost of cloud computing. This guide shows you how to use [Optimum Intel](https://huggingface.co/docs/optimum-intel/en/index) and [OpenVINO](https://docs.openvino.ai/2025/index.html) to get high-speed performance on your Intel CPU.
 
-As large language models (LLMs) and chatbots become more capable, AI is moving beyond text, and can now understand images and videos as well. Vision Language Models (VLMs) enable tasks like describing scenes, generating captions, answering questions about images, and many others.
+With the growing capability of large language models (LLMs), a new class of models has emerged: Vision Language Models (VLMs). These models can analyze images and videos to describe scenes, create captions, and answer questions about visual content.
 
 Early models like [Flamingo](https://arxiv.org/abs/2204.14198) and [Idefics](https://huggingface.co/blog/idefics) showed what was possible. Both demonstrated interesting capabilities, using 80B parameters. More recently, we’ve seen much smaller models emerge, like [PaliGemma 2 (3B)](https://huggingface.co/google/paligemma2-3b-pt-224), [moondream2 (2B)](https://huggingface.co/vikhyatk/moondream2), or [Qwen2.5-VL (7B)](https://huggingface.co/Qwen/Qwen2.5-VL-7B-Instruct), but even these “small” versions can be tough to run locally because they still carry a lot of the memory and compute demands from their larger predecessors.
 
