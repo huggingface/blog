@@ -64,7 +64,7 @@ Having high throughput in frames-per-second (fps) helps removing bottlenecks whi
 We are very excited to share this first version of streaming, and cannot wait for the community to show us what they build on top of it.
 You can always profile the performance of `StreamingLeRobotDataset` in terms of both fps and randomness by running:
 ```bash
-python -m lerobot.datasets.profile_streaming --repo-id lerobot/svla_so101_pickplace  # change this with any other dataset
+python -m lerobot.scripts.profile_streaming--repo-id lerobot/svla_so101_pickplace  # change this with any other dataset
 ```
 While we expect our randomness measurements to be robust across deployment scenarios, the samples throughput is likely going to vary depending on the connection speed.
 
