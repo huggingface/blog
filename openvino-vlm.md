@@ -17,7 +17,7 @@ authors:
 
 # Get your VLM running in 3 simple steps on Intel CPU/GPU
 
-Teaser: Run a Vision Language Model (VLM) locally in three steps, no need for expensive cloud infrastructure or high-end compute devices. SmolVLM + Intel Optimum + OpenVINO makes it possible to accelerate on an iGPU or a discrete Intel GPU).
+Teaser: Run a Vision Language Model (VLM) locally in three steps, no need for expensive cloud infrastructure or high-end compute devices. SmolVLM + Intel Optimum + OpenVINO makes it possible to accelerate on an iGPU or a discrete Intel GPU.
 
 As large language models (LLMs) and chatbots become more capable, AI is moving beyond text, and can now understand images and videos as well. Vision Language Models (VLMs) enable tasks like describing scenes, generating captions, answering questions about images, and many others.
 
