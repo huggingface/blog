@@ -39,7 +39,6 @@ Let’s look at general trends:
 
 **Risk distribution is polarized – most models are strong, but mid-tier scores show elevated exposure**
 
-**![][image1]**
 ![total_score](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/riskrubric/RiskRubric.png)
 
 The total risk scores range from 47 to 94, with a median of 81 (on a 100 points). Most models cluster in the “safer” range (54% are A or B level), but a long tail of underperformers drags the average down. That split shows a polarization: models tend to be either well-protected or in the middle-score range, with fewer in between.
