@@ -21,27 +21,21 @@ Deploy your [Vision Language Model (VLM)](https://huggingface.co/blog/vlms-2025)
 
 With the growing capability of large language models (LLMs), a new class of models has emerged: Vision Language Models (VLMs). These models can analyze images and videos to describe scenes, create captions, and answer questions about visual content.
 
-Early models like [Flamingo](https://arxiv.org/abs/2204.14198) and [Idefics](https://huggingface.co/blog/idefics) showed what was possible. Both demonstrated interesting capabilities, using 80B parameters. More recently, we’ve seen much smaller models emerge, like [PaliGemma 2 (3B)](https://huggingface.co/google/paligemma2-3b-pt-224), [moondream2 (2B)](https://huggingface.co/vikhyatk/moondream2), or [Qwen2.5-VL (7B)](https://huggingface.co/Qwen/Qwen2.5-VL-7B-Instruct), but even these “small” versions can be tough to run locally because they still carry a lot of the memory and compute demands from their larger predecessors.
-
 While running AI models on your own device can be difficult as these models are often computationally demanding, it also offers significant benefits: including improved privacy since your data stays on your machine, and enhanced speed and reliability because you're not dependent on an internet connection or external servers. This is where tools like Optimum and OpenVINO come in, along with a small, efficient model like [SmolVLM](https://huggingface.co/blog/smolvlm). In this blog post, we'll walk you through three easy steps to get a VLM running locally, with no expensive hardware or GPUs required (though you can run all the code samples from this blog post on Intel GPUs).
 
-## Optimum
+## Deploy your model with Optimum
 
-Small models like SmolVLM are built for low-resource consumption, but they can be further optimized. In this section, we will see how you can optimize your VLM with [Optimum](https://github.com/huggingface/optimum-intel).
+Small models like SmolVLM are built for low-resource consumption, but they can be further optimized. In this blog post we will see how to optimize your model to further improve inference time and lower memory/storage usage.
 
-First, we need to install `optimum`:
+To follow this tutorial, you need to install `optimum` and `openvino`, which you can do with:
 
-```bash  
+```bash
 pip install optimum-intel[openvino]
 ```
 
-By using Optimum with OpenVINO, you gain several benefits, like improving the inference time and lower memory/storage usage out of the box. But you can go even further: quantization can reduce the model size and resource consumption even more. While quantization often requires deep expertise, Optimum simplifies the process, making it much more accessible.
+## Step 1: Convert your model
 
-Let’s see how you can run SmolVLM then.
-
-## Step 1: Convert your model to the OpenVINO IR
-
-First, you will need to convert your model to the OpenVINO IR. There are multiple options to do it:
+First, you will need to convert your model to the [OpenVINO IR](https://docs.openvino.ai/2025/documentation/openvino-ir-format.html). There are multiple options to do it:
 
 1. You can use the [Optimum CLI](https://huggingface.co/docs/optimum-intel/en/openvino/export#using-the-cli)
 
@@ -62,7 +56,7 @@ model.save_pretrained("smolvlm_ov")
 
 ## Step 2: Quantization
 
-Now it’s time to optimize the model for efficient execution using **quantization**. Quantization reduces the precision of the model weights and/or activations, leading to smaller, faster models.
+Now it’s time to optimize your model. Quantization reduces the precision of the model weights and/or activations, leading to smaller, faster models.
 
 Essentially, it's a way to map values from a high-precision data type, such as 32-bit floating-point numbers (FP32), to a lower-precision format, typically 8-bit integers (INT8). While this process offers several key benefits, it can also impact in a potential loss of accuracy.
 
@@ -72,22 +66,17 @@ Essentially, it's a way to map values from a high-precision data type, such as 3
 
 Optimum supports two main post-training quantization methods:
 
-- Weight Only Quantization  
+- Weight Only Quantization
 - Static Quantization
 
 Let’s explore each of them.
 
 ### Option 1: Weight Only Quantization
 
-Weight-only quantization means that only the weights are quantized but activations remain in their original precisions. To explain this process, let’s imagine preparing for a long backpacking trip. To reduce weight, you replace bulky items like full-size shampoo bottles with compact travel-sized versions. This is like weight-only quantization, where the model’s weights are compressed from 32-bit floating-point numbers to 8-bit integers, reducing the model’s memory footprint.
-
-However, the “interactions” during the trip, like drinking water, remain unchanged. This is similar to what happens to activations, which stay in high precision (FP32 or BF16) to preserve accuracy during computation.
-
-As a result, the model becomes smaller and more memory-efficient, improving loading times. But since activations are not quantized, inference speed gains are limited. Since OpenVINO 2024.3, if the model's weight have been quantized, the corresponding activations will also be quantized at runtime, leading to additional speedup depending on the device.
+Weight-only quantization means that only the weights are quantized but activations remain in their original precisions. As a result, the model becomes smaller and more memory-efficient, improving loading times. But since activations are not quantized, inference speed gains are limited. Since OpenVINO 2024.3, if the model's weight have been quantized, the corresponding activations will also be quantized at runtime, leading to additional speedup depending on the device.
 
 Weight-only quantization is a simple first step since it usually doesn’t result in significant accuracy degradation.  
-In order to run it, you will need to create a quantization configuration using Optimum `OVWeightQuantizationConfig` as follows
-
+In order to run it, you will need to create a quantization configuration `OVWeightQuantizationConfig` as follows:
 
 ```python
 from optimum.intel import OVModelForVisualCausalLM, OVWeightQuantizationConfig
@@ -100,15 +89,13 @@ q_model.save_pretrained("smolvlm_int8")
 
 or quivalently using the CLI:
 
-
 ```bash
 optimum-cli export openvino -m HuggingFaceTB/SmolVLM2-256M-Video-Instruct --weight-format int8 smolvlm_int8/
-
 ```
 
 ## Option 2: Static Quantization
 
-To achieve the best estimate for the activation quantization parameters, we perform a calibration step. This involves running inference on a small subset of our dataset, in our case using 50 samples of the [contextual dataset](https://huggingface.co/datasets/ucla-contextual/contextual_test).
+With Static Quantization, both weights and activations are quantized before inference. To achieve the best estimate for the activation quantization parameters, we perform a calibration step. During this step, a small representative dataset is fed through the model. In our case, we will use 50 samples of the [contextual dataset](https://huggingface.co/datasets/ucla-contextual/contextual_test).
 
 ```python
 from optimum.intel import OVModelForVisualCausalLM, OVQuantizationConfig
