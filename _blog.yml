@@ -6673,7 +6673,7 @@
     - partnerships
     - hub
 
-- local: lerobot-dataset-streaming
+- local: lerobot_dataset_streaming
   title: "StreamingLeRobotDataset: Training on large-scale data without downloading"
   author: fracapuano
   thumbnail: /blog/assets/streaming-lerobot-dataset/thumbnail.png
