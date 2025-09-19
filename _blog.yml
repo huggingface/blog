@@ -4509,6 +4509,7 @@
     - announcement
     - enterprise
     - hub
+    - xet
 
 - local: unified-tool-use
   title: "Tool Use, Unified"
@@ -4742,6 +4743,7 @@
     - parquet
     - dedupe
     - storage
+    - xet
 
 - local: dynamic_speculation_lookahead
   title: "Faster Assisted Generation with Dynamic Speculation"
@@ -5037,6 +5039,7 @@
     - dedupe
     - storage
     - content defined chunking
+    - xet
 
 - local: debate
   title: "Letting Large Models Debate: The First Multilingual LLM Debate Competition"
@@ -5085,6 +5088,7 @@
     - storage
     - content addressed store
     - infrastructure
+    - xet
 
 - local: cfm-case-study
   title: "Investing in Performance: Fine-tune small models with LLM insights  - a CFM case study"
@@ -5505,6 +5509,7 @@
     - storage
     - content defined chunking
     - quantization
+    - xet
 
 - local: billion-classifications
   title: "1 Billion Classifications"
@@ -5697,6 +5702,7 @@
     - storage
     - infrastructure
     - content addressed store
+    - xet
 
 - local: nvidia-physical-ai
   title: "NVIDIA's GTC 2025 Announcement for Physical AI Developers: New Open Models and Datasets"
@@ -6348,6 +6354,7 @@
     - storage
     - infrastructure
     - content addressed store
+    - xet
 
 - local: ettin
   title: "Seq vs Seq: the Ettin Suite of Paired Encoders and Decoders"
