@@ -2,6 +2,9 @@
 title: "Scaleway on Hugging Face Inference Providers 🔥"
 thumbnail: /blog/assets/inference-providers/welcome-scaleway.jpg
 authors:
+  - user: gnoale
+    guest: true
+    org: scaleway
   - user: f14e
     guest: true
     org: scaleway
