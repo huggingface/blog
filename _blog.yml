@@ -6680,3 +6680,16 @@
     - llms
     - security
     - partnerships
+
+- local: inference-providers-scaleway
+  title: "Scaleway on Hugging Face Inference Providers 🔥"
+  author: sbrandeis
+  thumbnail: /blog/assets/inference-providers/welcome-scaleway.jpg
+  date: Sep 19, 2025
+  tags:
+    - llms
+    - inference-providers
+    - scaleway
+    - enterprise
+    - partnerships
+    - hub
