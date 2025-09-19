@@ -190,7 +190,7 @@ RLOO now supports common VLMs. Check out the [`rloo_vlm.py`](https://github.com/
 Online DPO also supports VLMs. See the [`online_dpo_vlm.py`](https://github.com/huggingface/trl/blob/main/examples/scripts/online_dpo_vlm.py) script for a simple example.
 
 > [!NOTE]
-> These scripts are ready-to-run for VLM training; full parameter tuning is documented in TRL.
+> These scripts are ready-to-run for VLM training; full parameter tuning is documented in TRL: [Online DPO trainer](https://huggingface.co/docs/trl/en/online_dpo_trainer) [RLOO Trainer](https://huggingface.co/docs/trl/en/rloo_trainer).
 
 
 ## Native Supervised Fine-tuning Support
