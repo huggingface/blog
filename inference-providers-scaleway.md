@@ -18,13 +18,12 @@ Scaleway joins our growing ecosystem, enhancing the breadth and capabilities of 
 
 This launch makes it easier than ever to access popular open-weight models like gpt-oss, Qwen3, DeepSeek R1, and Gemma 3 — right from Hugging Face. You can browse Scaleway's org on the Hub at https://huggingface.co/scaleway and try trending supported models at https://huggingface.co/models?inference_provider=scaleway&sort=trending.
 
-Scaleway Generative APIs is a fully managed serverless service that provides access to frontier AI models from leading research labs via simple API calls. The service offers competitive pay-per-token pricing starting at €0.20 per million tokens.
+_Scaleway Generative APIs_ is a fully managed, serverless service that provides access to frontier AI models from leading research labs via simple API calls. The service offers competitive pay-per-token pricing starting at €0.20 per million tokens.
 
 The service runs on secure infrastructure located in European data centers (Paris, France), ensuring data sovereignty and low latency for European users. The platform supports advanced features including structured outputs, function calling, and multimodal capabilities for both text and image processing.
 
 Built for production use, Scaleway's inference infrastructure delivers sub-200ms response times for first tokens, making it ideal for interactive applications and agentic workflows. The service supports both text generation and embedding models. You can learn more about Scaleway's platform and infrastructure at https://www.scaleway.com/en/generative-apis/.
 
-You can now use Scaleway as an Inference Provider on Hugging Face. We're excited to see what you'll build with this new provider.
 
 Read more about how to use Scaleway as an Inference Provider in its dedicated [documentation page](https://huggingface.co/docs/inference-providers/providers/scaleway).
 
@@ -107,7 +106,7 @@ console.log(chatCompletion.choices[0].message);
 
 ## Billing
 
-Here is how billing works for other providers on the platform:
+Here is how billing works:
 
 For direct requests, i.e. when you use the key from an inference provider, you are billed by the corresponding provider. For instance, if you use a Scaleway API key you're billed on your Scaleway account.
 
