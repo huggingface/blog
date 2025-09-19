@@ -2,7 +2,15 @@
 title: "Scaleway on Hugging Face Inference Providers 🔥"
 thumbnail: /blog/assets/inference-providers/welcome-scaleway.jpg
 authors:
-  - 
+  - user: f14e
+    guest: true
+    org: scaleway
+  - user: gcalmettes
+    guest: true
+    org: scaleway
+  - user: C-morales
+    guest: true
+    org: scaleway
   - user: celinah
   - user: julien-c
   - user: sbrandeis
@@ -16,7 +24,7 @@ authors:
 We're thrilled to share that **Scaleway** is now a supported Inference Provider on the Hugging Face Hub!
 Scaleway joins our growing ecosystem, enhancing the breadth and capabilities of serverless inference directly on the Hub’s model pages. Inference Providers are also seamlessly integrated into our client SDKs (for both JS and Python), making it super easy to use a wide variety of models with your preferred providers.
 
-This launch makes it easier than ever to access popular open-weight models like gpt-oss, Qwen3, DeepSeek R1, and Gemma 3 — right from Hugging Face. You can browse Scaleway's org on the Hub at https://huggingface.co/scaleway and try trending supported models at https://huggingface.co/models?inference_provider=scaleway&sort=trending.
+This launch makes it easier than ever to access popular open-weight models like [gpt-oss](https://huggingface.co/openai/gpt-oss-120b?inference_provider=scaleway), [Qwen3](https://huggingface.co/Qwen/Qwen3-Coder-30B-A3B-Instruct?inference_provider=scaleway), [DeepSeek R1](https://huggingface.co/deepseek-ai/DeepSeek-R1-Distill-Llama-70B?inference_provider=scaleway), and [Gemma 3](https://huggingface.co/google/gemma-3-27b-it?inference_provider=scaleway) — right from Hugging Face. You can browse Scaleway's org on the Hub at https://huggingface.co/scaleway and try trending supported models at https://huggingface.co/models?inference_provider=scaleway&sort=trending.
 
 _Scaleway Generative APIs_ is a fully managed, serverless service that provides access to frontier AI models from leading research labs via simple API calls. The service offers competitive pay-per-token pricing starting at €0.20 per million tokens.
 
