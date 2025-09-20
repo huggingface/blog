@@ -2343,3 +2343,14 @@
     - text-to-image
     - image-to-image
     - image-to-video
+
+- local: faster-transformers
+  title: "来自OpenAI gpt-oss的技巧，你🫵在transformers中也可以使用"
+  author: ariG23498
+  thumbnail: /blog/assets/faster-transformers/thumbnail.png
+  date: Sep 11, 2025
+  tags:
+    - transformers
+    - pytorch
+    - optimization
+    - guide
