@@ -45,9 +45,9 @@ The method leverages a fast yet less accurate model as a draft to speculate and 
 ```python
 from openvino_genai import LLMPipeline, draft_model
 
-target_path = "/path/to/target/model\"
+target_path = "/path/to/target/model"
 
-draft_path = "/path/to/draft/model\"
+draft_path = "/path/to/draft/model"
 
 device = "GPU"
 
@@ -55,10 +55,10 @@ model = LLMPipeline(target_path, device, draft_model=draft_model(draft_path, dev
 
 streamer = lambda x: print(x, end=\'\', flush=True)
 
-model.generate(\"What is speculative decoding and how does it improve inference speed?\", max_new_tokens=100, reamer=streamer)
+model.generate("What is speculative decoding and how does it improve inference speed?", max_new_tokens=100, reamer=streamer)
 ```
 
-# Pushing Performance Further**
+# Pushing Performance Further
 
 The speedup from SD depends on the mean number of generated tokens per forward step of the target, $\gamma$ the speculation window size, and the ratio between the target and draft models' latency $c$. A faster yet less accurate draft model can yield greater overall acceleration. This motivated us to further reduce the size of the draft model while trying to preserve its quality, i.e. $E(\# generated\ tokens)$.
 
