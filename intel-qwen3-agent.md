@@ -1,5 +1,21 @@
-**Accelerating Qwen3-8B Agents on Intel® Core™ Ultra with Speculative
-Decoding and Depth-Pruned Draft Models**
+---
+title: "BAccelerating Qwen3-8B Agents on Intel® Core™ Ultra with Speculative Decoding and Depth-Pruned Draft Models" 
+thumbnail: #/blog/assets/optimum_intel/intel_thumbnail.png
+authors:
+- user: imargulis
+  guest: true
+  org: Intel
+- user: ofirzaf
+  guest: true
+  org: Intel  
+- user: sguskin
+  guest: true
+  org: Intel  
+- user: guybd
+  guest: true
+  org: Intel
+---
+****
 
 ![](media/image1.png){width="6.5in" height="0.375in"}
 
