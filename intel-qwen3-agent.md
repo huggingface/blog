@@ -31,41 +31,34 @@ TL;DR:
 -   We wrap it up by showing how to utilize this speedup to run a fast
     local AI Agent with 🤗/smolagents
 
-Qwen3-8B is part of the latest Qwen family, trained with explicit
-agentic capabilities. It supports tool invocation, multi-step reasoning,
-and long context, making it well-suited for agent workflows. Integrated
-with frameworks such as Hugging Face SmolAgents, QwenAgent, or AutoGen, it enables a wide range of agentic applications involving tool calling and reasoning.
+# Qwen3
+Qwen3-8B is part of the latest Qwen family, trained with explicit agentic capabilities. It supports tool invocation, multi-step reasoning, and long context, making it well-suited for agent workflows. Integrated with frameworks such as Hugging Face SmolAgents, QwenAgent, or AutoGen, it enables a wide range of agentic applications involving tool calling and reasoning.
 
-**Accelerating Qwen3-8B on Intel Lunar Lake with speculative Decoding**
+# Accelerating Qwen3-8B on Intel Lunar Lake with Speculative Decoding
 
 We began by benchmarking Qwen3-8B on an Intel Lunar Lake AI-PC using OpenVINO, which served as the baseline reference for
 optimization.
 
-[Speculative decoding](https://arxiv.org/abs/2211.17192) is a method
-to accelerate auto-regressive generation presented in this paper (link).
-The method leverages a fast yet less accurate model as a draft to
-speculate and validate several tokens in one forward pass. We applied
-speculative decoding (SD) with Qwen3-8B as the target model and
-Qwen3-0.6B as the draft model. This configuration achieved a \~1.3× speedup.
+[Speculative decoding](https://arxiv.org/abs/2211.17192) is a method to accelerate auto-regressive generation presented in this paper (link).
+The method leverages a fast yet less accurate model as a draft to speculate and validate several tokens in one forward pass. We applied speculative decoding (SD) with Qwen3-8B as the target model and Qwen3-0.6B as the draft model. This configuration achieved a \~1.3× speedup.
 
-```
+```python
 from openvino_genai import LLMPipeline, draft_model
 
-target_path = \"/path/to/target/model\"
+target_path = "/path/to/target/model\"
 
-draft_path = \"/path/to/draft/model\"
+draft_path = "/path/to/draft/model\"
 
-device = \"GPU\"
+device = "GPU"
 
-model = LLMPipeline(target_path, device,
-draft_model=draft_model(draft_path, device))
+model = LLMPipeline(target_path, device, draft_model=draft_model(draft_path, device))
 
 streamer = lambda x: print(x, end=\'\', flush=True)
 
-model.generate(\"What is speculative decoding and how does it improve inference speed?\", max_new_tokens=100, treamer=streamer)
+model.generate(\"What is speculative decoding and how does it improve inference speed?\", max_new_tokens=100, reamer=streamer)
 ```
 
-**Pushing Performance Further**
+# Pushing Performance Further**
 
 The speedup from SD depends on the mean number of generated tokens per forward step of the target, $\gamma$ the speculation window size, and the ratio between the target and draft models' latency $c$. A faster yet less accurate draft model can yield greater overall acceleration. This motivated us to further reduce the size of the draft model while trying to preserve its quality, i.e. $E(\# generated\ tokens)$.
 
@@ -81,7 +74,7 @@ The resulting pruned draft model delivered \~1.4x speedup and up to 2x bandwidth
 Notebook link -
 [[https://github.com/openvinotoolkit/openvino_notebooks/compare/latest\...guybd:openvino_notebooks:latest]{.underline}](https://github.com/openvinotoolkit/openvino_notebooks/compare/latest...guybd:openvino_notebooks:latest)
 
-**Integration to Smolagents**
+# Integration to Smolagents
 
 Finally, we deployed our optimized setup with 🤗/smolagents library.
 Developers can now plug in Qwen3-8B (with our pruned draft) to build
