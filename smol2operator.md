@@ -51,7 +51,7 @@ authors:
   - [Phase 2 Results](#phase-2-results)
 - [4. All you need is Open Source](#4-all-you-need-is-open-source)
 - [5. Conclusion](#5-conclusion)
-- [What Next?](#what-next)
+- [What's Next?](#whats-next)
 
 <br>
 
@@ -717,8 +717,12 @@ All training code, data processing pipelines, datasets and model are open-source
 
 ## 5. Conclusion
 
-Our experiments demonstrate that high-quality, reasoning-oriented data can substantially improve GUI grounding, even for small VLMs, using only supervised fine-tuning (SFT). Beyond raw performance gains, these results show that the capabilities of a "GUI model" are largely determined by the quality of the data. High-quality, task-specific data for GUI interactions is a critical prerequisite for advancing agentic models. Carefully curated datasets teach models the structure and semantics of user interfaces, providing the grounding needed for accurate action prediction.
+Our experiments demonstrate that high-quality, reasoning-oriented data can substantially improve GUI grounding, even for small VLMs, using only supervised fine-tuning (SFT). Beyond raw performance gains, these results show that the capabilities of a "GUI model" are largely determined by the quality of the data. Carefully curated datasets teach models the structure and semantics of user interfaces, providing the grounding needed for accurate action prediction.
 
-While SFT excels at supervised tasks, emerging methods such as Reinforcement Learning (RL) or Direct Preference Optimization (DPO) support deeper reasoning and enable dynamic, real-time adaptation. These advances point toward a new generation of GUI agents that learn and improve through interaction rather than relying solely on static datasets.
+To support the development of GUI agents, we’re open-sourcing everything: our complete pipeline, datasets, and trained model. You can reproduce our results, experiment with different models and architectures, or adapt our approach to new domains. The future of agentic AI depends on researchers like you pushing these boundaries further!
 
-To support the development of GUI agents, we’re open-sourcing everything: our complete pipeline, datasets, and trained model. You can reproduce our results, experiment with different models and architectures, or adapt our approach to new domains. The future of agentic AI depends on researchers like you pushing these boundaries further 🤗
+## What's Next?
+
+While SFT excels at supervised tasks, emerging methods such as Reinforcement Learning (RL) or Direct Preference Optimization (DPO) support deeper reasoning and enable real-time adaptation. These advances point toward a new generation of GUI agents that learn and improve through interaction rather than relying solely on static datasets.
+
+Let’s build the future of GUI agents together 🤗
