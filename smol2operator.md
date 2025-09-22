@@ -71,7 +71,7 @@ authors:
 
 ## Introduction
 
-Graphical User Interface (GUI) automation represents one of the most challenging frontiers in computer vision. Developing the ability to understand and interact with user interfaces opens a new era of automation, where AI agents navigating mobile, desktop, and web platforms could reshape the future of digital interaction.
+Graphical User Interface (GUI) automation is one of the most challenging frontiers in computer vision. Developing models that see and interact with user interfaces enables AI agents to navigate mobile, desktop, and web platforms. This will reshape the future of digital interaction.
 
 In this blog post, we present a comprehensive approach to training vision-language models for GUI automation through a multi-phase training strategy. We demonstrate how to transform a model with zero grounding capabilities into an agentic coder capable of understanding and interacting with graphical interfaces.
 
