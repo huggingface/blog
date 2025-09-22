@@ -228,14 +228,14 @@ CUDA_VISIBLE_DEVICES=1,2 python3 examples/scripts/rloo_vlm.py --model_name_or_pa
 
 Online DPO also supports VLMs. See the [`online_dpo_vlm.py`](https://github.com/huggingface/trl/blob/main/examples/scripts/online_dpo_vlm.py) script for a simple example.
 
-> [!NOTE]
-> These scripts are ready-to-run for VLM training; full parameter tuning is documented in TRL: [Online DPO trainer](https://huggingface.co/docs/trl/en/online_dpo_trainer) [RLOO Trainer](https://huggingface.co/docs/trl/en/rloo_trainer).
-
 To run the example script:
 
 ```bash
 CUDA_VISIBLE_DEVICES=1,2 python3 examples/scripts/online_dpo_vlm.py --model_name_or_path Qwen/Qwen2.5-VL-3B-Instruct --use_vllm --vllm_mode server
 ```
+
+> [!NOTE]
+> These scripts are ready-to-run for VLM training; full parameter tuning is documented in TRL: [Online DPO trainer](https://huggingface.co/docs/trl/en/online_dpo_trainer) [RLOO Trainer](https://huggingface.co/docs/trl/en/rloo_trainer).
 
 
 ## Native Supervised Fine-tuning Support
