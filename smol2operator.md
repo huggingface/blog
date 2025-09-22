@@ -79,7 +79,7 @@ Rather than aiming for a SOTA model, our goal is to demonstrate the entire proce
 
 <div align="center">
 
-![GUI capabilities combine understanding of the interface and precise element localization. These abilities enable the model to translate high-level tasks into low-level GUI actions such as clicking, typing, …](/blog/assets/smol2operator/google.png)
+![GUI capabilities combine understanding of the interface and precise element localization. These abilities enable the model to translate high-level tasks into low-level GUI actions such as clicking, typing, …](assets/smol2operator/google.png)
 <p style="
   font-size: 0.85em; 
   color: #666; 
@@ -100,7 +100,7 @@ We evaluate our approach on an established perception benchmark: **ScreenSpot-v2
 
 <div align="center">
 
-![Evolution of ScreenSpot-v2 performance during the training phase of the base model SmolVLM2-2.2B-Instruct.](/blog/assets/smol2operator/screenspot-v2.png)
+![Evolution of ScreenSpot-v2 performance during the training phase of the base model SmolVLM2-2.2B-Instruct.](assets/smol2operator/screenspot-v2.png)
 <p style="
   font-size: 0.85em; 
   color: #666; 
