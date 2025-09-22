@@ -717,10 +717,8 @@ All training code, data processing pipelines, datasets and model are open-source
 
 ## 5. Conclusion
 
-Our experiments demonstrate that high-quality, reasoning-oriented data can substantially improve GUI grounding, even for small VLMs, using only supervised fine-tuning (SFT). Beyond raw performance gains, these results show that the capabilities of a “GUI model” are largely determined by the structure of the data (i.e., the action space), which in turn instills within the model an internal representation of the user interface and the spatial organization of its interactive elements.
+Our experiments demonstrate that high-quality, reasoning-oriented data can substantially improve GUI grounding, even for small VLMs, using only supervised fine-tuning (SFT). Beyond raw performance gains, these results show that the capabilities of a "GUI model" are largely determined by the quality of the data. High-quality, task-specific data for GUI interactions is a critical prerequisite for advancing agentic models. Carefully curated datasets teach models the structure and semantics of user interfaces, providing the grounding needed for accurate action prediction.
 
-## What next?
+While SFT excels at supervised tasks, emerging methods such as Reinforcement Learning (RL) or Direct Preference Optimization (DPO) support deeper reasoning and enable dynamic, real-time adaptation. These advances point toward a new generation of GUI agents that learn and improve through interaction rather than relying solely on static datasets.
 
-High-quality, task-specific data for GUI interactions is a critical prerequisite for advancing agentic models. Carefully curated datasets teach models the structure and semantics of interfaces while providing the grounding needed for accurate action prediction and evaluation.
-
-In addition, recent studies have also explored reinforcement learning (RL) and direct preference optimization (DPO) to enhance reasoning, planning, consistency, and execution in end-to-end agentic models. These approaches appear better suited to online, dynamic environments compared to SFT, signaling a new generation of GUI-grounded agents optimized through reinforcement-based methods, enabling richer reasoning and more reliable execution.
+To support the development of GUI agents, we’re open-sourcing everything: our complete pipeline, datasets, and trained model. You can reproduce our results, experiment with different models and architectures, or adapt our approach to new domains. The future of agentic AI depends on researchers like you pushing these boundaries further 🤗
