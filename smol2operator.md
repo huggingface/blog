@@ -50,7 +50,6 @@ authors:
   - [Training Data](#training-data-1)
   - [Phase 2 Results](#phase-2-results)
 - [4. All you need is Open Source](#4-all-you-need-is-open-source)
-  - [Key Components](#key-components)
 - [5. Conclusion](#5-conclusion)
 - [What Next?](#what-next)
 
@@ -697,8 +696,6 @@ Starting from the Phase 1 checkpoint (1152 px resolution, normalized coordinates
 ## 4. All you need is Open Source
 
 All training code, data processing pipelines, datasets and model are open-source!
-
-### Key Components
 
 1. **Training Recipe** ([`recipe.ipynb`](https://github.com/huggingface/aguvis/blob/main/recipe.ipynb)): Complete training pipeline for both Phase 1 and Phase 2, including dataset mixture configurations and training orchestration. We leverage the [TRL](https://huggingface.co/docs/trl/en/index) library to train our models.
 2. **Datasets** ([`smolagents/aguvis-stage-1`](https://huggingface.co/datasets/smolagents/aguvis-stage-1), [`smolagents/aguvis-stage-2`](https://huggingface.co/datasets/smolagents/aguvis-stage-2)): all datasets used are open-source.
