@@ -1,4 +1,4 @@
----
+  ---
 title: "Gaia2 and ARE: Empowering the community to study agents " 
 thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_mare_Gaia2.png
 authors:
@@ -126,11 +126,11 @@ We first ask the agent to text everyone in the Renne family about the user’s 3
 Next, we ask the agent to create a calendar invite and add them as invitees. The agent remembers the above context! It creates a calendar invite on the correct date and correctly adds the family members to it.
 
 
-ARE Blog Video 1.mov
-    <video controls width="800">
+
+<video controls width="800">
         <source src="https://huggingface.co/spaces/meta-agents-research-environments/demo/resolve/main/blog_assets/demo_base.mov" type="video/mp4">
         Your browser does not support the video tag.
-    </video>
+</video>
 
 
 Understanding agents: deep diving the traces
@@ -138,24 +138,24 @@ Understanding agents: deep diving the traces
 ARE also allows us to check the traces behind the actions taken by the agent. 
 Upon opening the Agent logs tool on the left, we can see the system prompt, the chain of thought, multi-step actions taken with the tools called, and the outcomes as neatly organised logs. Everything can be exported as json if you want to consult things offline!
 
-ARE Blog Video 2.mov
-    <video controls width="800">
+
+<video controls width="800">
         <source src="https://huggingface.co/spaces/meta-agents-research-environments/demo/resolve/main/blog_assets/demo_traces.mov" type="video/mp4">
         Your browser does not support the video tag.
-    </video>
+</video>
 
 
 Extending the demo: Connecting the agent to your own MCPs
 
 In this last example, we connect ARE to a remote robot arm via MCP, so it can gesture things to us, then ask the agent to answer our yes or no questions by waving the robot arm! Here’s what it looks like.
 
- 
-    <video controls width="800">
+
+<video controls width="800">
         <source src="https://huggingface.co/spaces/meta-agents-research-environments/demo/resolve/main/blog_assets/demo_robot_short.mp4" type="video/mp4">
         Your browser does not support the video tag.
-    </video>
+</video>
 
-```
+
 
 But these examples are only very simple starting points, and we’re really looking towards what you’ll build! (For more advanced users, you can even directly install and edit the Meta-ARE code [here](https://github.com/facebookresearch/meta-agents-research-environments).)
 
