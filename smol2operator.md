@@ -723,6 +723,6 @@ To support the development of GUI agents, we’re open-sourcing everything: our 
 
 ## What's Next?
 
-While SFT excels at supervised tasks, emerging methods such as Reinforcement Learning (RL) or Direct Preference Optimization (DPO) support the development of stronger reasoning capabilities and enable real-time adaptation. These advances point toward a new generation of GUI agents that learn and improve through interaction rather than relying solely on static datasets.
+While SFT excels at supervised tasks, emerging methods such as Reinforcement Learning (RL) or Direct Preference Optimization (DPO) help develop stronger reasoning capabilities and enable real-time adaptation. These advances point toward a new generation of GUI agents that learn and improve through interaction rather than relying solely on static datasets.
 
 Let’s build the future of GUI agents together 🤗
