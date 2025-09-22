@@ -1,6 +1,6 @@
-  ---
+---
 title: "Gaia2 and ARE: Empowering the community to study agents " 
-thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_mare_Gaia2.png
+thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_mare_gaia2.png
 authors:
 - user: clefourrier
   org: OpenEvals
@@ -24,12 +24,14 @@ authors:
   guest: true
   org: meta-agents-research-environments
 - user: CarolinePascal
-   org: lerobot
+  org: lerobot
 - user: upiter
   guest: true
   org: meta-agents-research-environments
 ---
+
 # Gaia2 and ARE: Empowering the Community to Evaluate Agents
+
 In an ideal world, AI agents would be reliable assistants. When given a query, they would easily manage ambiguity in instructions, construct step-by-step plans, correctly identify necessary resources, execute those plans without getting sidetracked, and adapt to unexpected events, all while maintaining accuracy and avoiding hallucinations.
 However, developing agents and testing these behaviors is no small feat: if you have ever tried to debug your own agent, you’ve probably observed how tedious and frustrating this can be. Existing evaluation environments are tightly coupled with the tasks they evaluate, lack real-world flexibility, and do not reflect the messy reality of open-world agents: simulated pages never fail to load, events don’t spontaneously emerge, and asynchronous chaos is absent.
 
@@ -38,8 +40,8 @@ That’s why we’re very happy to introduce Gaia2, the follow-up to the agentic
 ![Gaia2 Budget Scaling curves](https://huggingface.co/spaces/meta-agents-research-environments/demo/resolve/main/blog_assets/fig1_budget_scaling_curves.png)
 
 
-
 ## Gaia2: Agentic Evaluation on Real Life Assistant Tasks
+
 [GAIA](https://arxiv.org/abs/2311.12983) is an agentic benchmark published in 2023, with 3 levels of information retrieval questions requiring tools, web browsing, and reasoning to solve. In 2 years, the easiest levels have become too easy for models, and the community is coming close to solving the hardest questions, so it was time for an entirely new and harder agent benchmark! 
 
 Here comes Gaia2, a follow up to GAIA, going way beyond it in terms of capabilities studied! 
@@ -59,7 +61,9 @@ To do this, we use the following task groups (thanks to 1000 brand new human-cre
 In the spirit of GAIA, scenarios do not require specialized knowledge: humans should in principle be able to get 100%, which allows easy debugging for model developers.
 
 Want to explore the benchmark? Check out our [dataset](https://huggingface.co/datasets/meta-agents-research-environments/Gaia2), which you can better display in our demo [here](https://huggingface.co/spaces/meta-agents-research-environments/demo).
+
 ### How does Gaia2 run? 
+
 Gaia2 runs with ARE, an execution environment, where an agent of your choice has access to a combination of applications and associated pre-populated data. 
 
 For Gaia2, we created a **smartphone mock-up** environment, simulating what a human would use in their daily life. It contains real-world applications such as messaging (Email), utilities (Calendar, Contacts, Shopping, a FileSystem, …), and a chat interface to talk to the agent. All applications are also accessible to the agents through tool calling. Last but not least, the demo also contains a simulated persona’s history of conversations and app interactions.
@@ -71,13 +75,11 @@ All agent interactions are automatically recorded as **structured traces** durin
 
 ### Results
 
-
 For reference, we compare a range of large open and closed source models: Llama 3.3-70B Instruct, Llama-4-Maverick, GPT-4o, Qwen3-235B-MoE, Grok-4, Kimi K2, Gemini 2.5 Pro, Claude 4 Sonnet, and GPT-5 in all reasoning modes.
 
 All models are evaluated using the same setup (a uniform ReAct loop for consistency, temperature of 0.5, generation limit of 16K tokens), with a combination of model-as-a-judge (Llama 3.3 Instruct 70B) and exact-match evaluation depending on the particular task. All 101 tools (and the general environment description) are provided in the system prompt. 
 
 ![Results](https://huggingface.co/spaces/meta-agents-research-environments/demo/resolve/main/blog_assets/fig9_Gaia2_scores_per_capability.png)
-
 
 
 Among the evaluated models, the **highest-scoring model** overall as of September 2025 is GPT-5 with high reasoning, and the best open source model is Kimi K2. 
@@ -92,32 +94,47 @@ However, we believe it’s important to **push reporting beyond raw scores**: if
 ### Compare with your favorite models! Evaluating on Gaia2
 
 If you want to evaluate your model on Gaia2, you can follow these steps:
+
 First, install Meta's Agent Research Environment in your Python environment of choice (uv, conda, virtualenv, ...)
+
+```bash
 pip install meta-agents-research-environments
+```
+
 Then, run the benchmark for all configurations: execution, search, adaptability, time and ambiguity. Don't forget to upload all results to the hub with the hf_upload kwarg!
+
+```bash
 are-benchmark run --hf meta-agents-research-environments/Gaia2     --split validation --config CONFIGURATION     --model YOUR_MODEL --model_provider YOUR_PROVIDER     --agent default     --max_concurrent_scenarios 2     --scenario_timeout 300     --output_dir ./monitored_test_results     --hf_upload YOUR_HUB_DATASET_TO_SAVE_RESULTS 
+```
+
 Run the oracle to get your aggregated score file
+
+```bash
 are-benchmark judge --hf meta-agents-research-environments/Gaia2     --split validation --config CONFIGURATION     --agent default     --max_concurrent_scenarios 2     --scenario_timeout 300     --output_dir ./monitored_test_results --hf_upload YOUR_HUB_DATASET_TO_SAVE_RESULTS 
+```
+
 Finally, add all the relevant information about your model in the README, and share it on the leaderboard to centralize Gaia2 traces [here](https://huggingface.co/spaces/meta-agents-research-environments/leaderboard)!
+
 ## Beyond Gaia2: study your agents with ARE
-Beyond benchmark scenarios, you can use Gaia2 apps and content in ARE to see if the model is able to correctly solve less verifiable tasks such as loading emails, writing  follow-ups, adding events to the calendar or booking meetings.  - in sum, providing the perfect setup to **evaluate your AI assistants through interaction**! 
+
+Beyond benchmark scenarios, you can use Gaia2 apps and content in ARE to see if the model is able to correctly solve less verifiable tasks such as loading emails, writing  follow-ups, adding events to the calendar or booking meetings - in sum, providing the perfect setup to **evaluate your AI assistants through interaction**! 
 
 You can also easily customise the environment, by 1) **connecting your tools** (via MCP or directly ) to test your agents on it; 2) **implementing your own scenarios**, including defining **trigger or timed events** (eg: after 2 minutes, the Mail app will receive a new email from Contact), to see how the agent is able to adapt to an evolving environment 
 
 (As the agents are by default `json agents`, they can’t mess up your machine, unless of course you connect them to external apps with unsafe rights. So, operate with caution when adding your own apps or using untrusted MCPs) 
 
 Here are several use cases that we’ve used ARE for:
-**Vibe-check any agent** on real or simulated data, to study a variety of setups, with their own rules, tools, content, and verifications
-Test agent **tool calling and orchestration capabilites**, either with local apps or MCP tools
-Generate your own tool-calling trace to **fine-tune tool calling models**
-Easily gather and **reproduce existing agentic benchmarks** in a unified framework
-Debug and **study agent to agent interactions on the fly** within the user interface 
-**Study model limitations** in noisy environments (with API timeouts and ambiguity)
+- **Vibe-check any agent** on real or simulated data, to study a variety of setups, with their own rules, tools, content, and verifications
+- Test agent **tool calling and orchestration capabilites**, either with local apps or MCP tools
+- Generate your own tool-calling trace to **fine-tune tool calling models**
+- Easily gather and **reproduce existing agentic benchmarks** in a unified framework
+- Debug and **study agent to agent interactions on the fly** within the user interface 
+- **Study model limitations** in noisy environments (with API timeouts and ambiguity)
 
 
-We recorded 3 videos so you can check some of these use cases (but of course, we hope the community gets creative with ARE 🤗). For these videos, we use the default demo described above, which contains the simulated life of Linda Renne, PhD student in machine learning. 
+We recorded 3 videos so you can check some of these use cases (but of course, we hope the community gets creative with ARE :hugging_face:). For these videos, we use the default demo described above, which contains the simulated life of Linda Renne, PhD student in machine learning. 
 
-Testing an agent on a simple task: event organisation
+### 1) Testing an agent on a simple task: event organisation
 
 To test how good the default model is at event organisation, let’s plan a birthday party! 
 
@@ -126,36 +143,31 @@ We first ask the agent to text everyone in the Renne family about the user’s 3
 Next, we ask the agent to create a calendar invite and add them as invitees. The agent remembers the above context! It creates a calendar invite on the correct date and correctly adds the family members to it.
 
 
-
 <video controls width="800">
-        <source src="https://huggingface.co/spaces/meta-agents-research-environments/demo/resolve/main/blog_assets/demo_base.mov" type="video/mp4">
-        Your browser does not support the video tag.
+    <source src="https://huggingface.co/spaces/meta-agents-research-environments/demo/resolve/main/blog_assets/demo_base.mov" type="video/mp4">
+    Your browser does not support the video tag.
 </video>
 
 
-Understanding agents: deep diving the traces
+### 2) Understanding agents: deep diving the traces
 
 ARE also allows us to check the traces behind the actions taken by the agent. 
 Upon opening the Agent logs tool on the left, we can see the system prompt, the chain of thought, multi-step actions taken with the tools called, and the outcomes as neatly organised logs. Everything can be exported as json if you want to consult things offline!
 
-
 <video controls width="800">
-        <source src="https://huggingface.co/spaces/meta-agents-research-environments/demo/resolve/main/blog_assets/demo_traces.mov" type="video/mp4">
-        Your browser does not support the video tag.
+    <source src="https://huggingface.co/spaces/meta-agents-research-environments/demo/resolve/main/blog_assets/demo_traces.mov" type="video/mp4">
+    Your browser does not support the video tag.
 </video>
 
 
-Extending the demo: Connecting the agent to your own MCPs
+### 3) Playing around and extending the demo: Connecting the agent to your own MCPs
 
 In this last example, we connect ARE to a remote robot arm via MCP, so it can gesture things to us, then ask the agent to answer our yes or no questions by waving the robot arm! Here’s what it looks like.
 
-
 <video controls width="800">
-        <source src="https://huggingface.co/spaces/meta-agents-research-environments/demo/resolve/main/blog_assets/demo_robot_short.mp4" type="video/mp4">
-        Your browser does not support the video tag.
+    <source src="https://huggingface.co/spaces/meta-agents-research-environments/demo/resolve/main/blog_assets/demo_robot_short.mp4" type="video/mp4">
+    Your browser does not support the video tag.
 </video>
-
-
 
 But these examples are only very simple starting points, and we’re really looking towards what you’ll build! (For more advanced users, you can even directly install and edit the Meta-ARE code [here](https://github.com/facebookresearch/meta-agents-research-environments).)
 
@@ -163,4 +175,4 @@ But these examples are only very simple starting points, and we’re really look
 
 Gaia2 and ARE are new research tools that we hope will empower anyone to easily build more reliable and adaptable AI agents - by allowing easy experiments, making real-world evaluation accessible to anyone, as well as improving trust through transparent, reproducible benchmarks and debuggable traces.
 
-We’d love to see what you will do with this project! 
+We’d love to see what you will do with this project!
