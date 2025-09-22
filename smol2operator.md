@@ -17,7 +17,7 @@ authors:
 
 <figure style="text-align: center;">
   <iframe width="560" height="315"
-    src="https://www.youtube.com/embed/FNoVhqCfcew?si=OEZL2RWrxXMhTbPB"
+    src="https://www.youtube.com/embed/Rv1q3OA33eM?si=-LRkSgm5obYl798S"
     title="YouTube video player" frameborder="0"
     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
     allowfullscreen>
