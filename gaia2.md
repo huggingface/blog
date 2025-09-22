@@ -165,7 +165,7 @@ Upon opening the Agent logs tool on the left, we can see the system prompt, the 
 In this last example, we connect ARE to a remote robot arm via MCP, so it can gesture things to us, then ask the agent to answer our yes or no questions by waving the robot arm! Here’s what it looks like.
 
 <video controls width="800">
-    <source src="https://huggingface.co/spaces/meta-agents-research-environments/demo/resolve/main/blog_assets/demo_robot_short.mp4" type="video/mp4">
+    <source src="https://huggingface.co/spaces/meta-agents-research-environments/demo/resolve/main/blog_assets/demo_robot_short.mov" type="video/mp4">
     Your browser does not support the video tag.
 </video>
 
