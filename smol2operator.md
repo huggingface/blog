@@ -600,7 +600,7 @@ Phase 2 uses the [smolagents/aguvis-stage-2](https://huggingface.co/datasets/smo
 
 - **High-level instructions** require multi-step, low-level actions.
 
-for example, the [smolagents/aguvis-stage-2](https://huggingface.co/datasets/smolagents/aguvis-stage-2) chat message is like this:
+For example, the [smolagents/aguvis-stage-2](https://huggingface.co/datasets/smolagents/aguvis-stage-2) chat message is like this:
 
 ```json
 {
