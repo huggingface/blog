@@ -717,7 +717,7 @@ All training code, data processing pipelines, datasets and model are open-source
 
 ## 5. Conclusion
 
-Our experiments demonstrate that high-quality, reasoning-oriented data can substantially improve GUI grounding, even for small VLMs, using only supervised fine-tuning (SFT). Beyond raw performance gains, these results show that the capabilities of a "GUI model" are largely determined by the quality of the data. Carefully curated datasets teach models the structure and semantics of user interfaces, providing the grounding needed for accurate action prediction.
+Our experiments demonstrate that high-quality, reasoning-oriented data can substantially improve GUI grounding, even for small VLMs, using only supervised fine-tuning (SFT). Beyond raw performance gains, these results show that the GUI grounding capabilities are largely determined by the quality of the data. Carefully curated datasets teach models the structure and semantics of user interfaces, providing the grounding needed for accurate action prediction.
 
 To support the development of GUI agents, we’re open-sourcing everything: our complete pipeline, datasets, and trained model. You can reproduce our results, experiment with different models and architectures, or adapt our approach to new domains. The future of agentic AI depends on researchers like you pushing these boundaries further!
 
