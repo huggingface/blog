@@ -16,7 +16,7 @@ authors:
 - user: xcid
 - user: tfrere
 - user: evijit
-  org: hfmlsoc
+  org: hfpolicy
 - user: RomainFroger
   guest: true
   org: meta-agents-research-environments
