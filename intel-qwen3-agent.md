@@ -1,5 +1,5 @@
 ---
-title: "Accelerating Qwen3-8B Agents on Intel® Core™ Ultra with Speculative Decoding and Depth-Pruned Draft Models" 
+title: "Accelerating Qwen3-8B Agent on Intel® Core™ Ultra with Depth-Pruned Draft Models" 
 thumbnail: #/blog/assets/optimum_intel/intel_thumbnail.png
 authors:
 - user: imargulis
@@ -17,32 +17,28 @@ authors:
 ---
 ****
 
-# Accelerating Qwen3-8B Agents on Intel® Core™ Ultra with Speculative Decoding and Depth-Pruned Draft Models
+# Accelerating Qwen3-8B Agents on Intel® Core™ Ultra with Depth-Pruned Draft Models
 
 TL;DR:
 
--   [Qwen3-8B](https://qwenlm.github.io/blog/qwen3/) is a promising recently released model with built-in
-    agentic capabilities making it a perfect fit for the AIPC.
+-   [Qwen3-8B](https://qwenlm.github.io/blog/qwen3/) is one of the most exciting recent releases—a model with  native agentic capabilities, making it a natural fit for the AIPC.
 
--   With OpenVINO.GenAI we can speedup generation by \~1.3x with
-    speculative decoding and Qwen3-0.6B draft
+-   With [OpenVINO.GenAI](https://github.com/openvinotoolkit/openvino.genai), we’ve been able to accelerate generation by ~1.3× using speculative decoding with a lightweight Qwen3-0.6B draft.
 
--   We show how through a simple pruning process of the draft we can
-    increase the speedup further to \~1.4x
+-   By applying a simple pruning process to the draft, we pushed the speedup even further to ~1.4×
 
--   We wrap it up by showing how to utilize this speedup to run a fast
-    local AI Agent with 🤗/smolagents
+-   We wrapped this up by showing how these improvements can be used to run a fast, local AI Agent with 🤗/smolagents
 
 ## Qwen3
-Qwen3-8B is part of the latest Qwen family, trained with explicit agentic capabilities. It supports tool invocation, multi-step reasoning, and long context, making it well-suited for agent workflows. Integrated with frameworks such as Hugging Face SmolAgents, QwenAgent, or AutoGen, it enables a wide range of agentic applications involving tool calling and reasoning.
+Qwen3-8B is part of the latest Qwen family, trained with explicit agentic behaviors. It supports tool invocation, multi-step reasoning, and long-context handling—capabilities that make it well-suited for complex agent workflows. When integrated with frameworks like Hugging Face SmolAgents, QwenAgent, or AutoGen, it enables a wide range of agentic applications built around tool use and reasoning.
+The combination of optimized inference and built-in agentic intelligence makes Qwen3-8B a compelling foundation for next-gen AI agents.
 
-## Accelerating Qwen3-8B on Intel Lunar Lake with Speculative Decoding
 
-We began by benchmarking Qwen3-8B on an Intel Lunar Lake AI-PC using OpenVINO, which served as the baseline reference for
-optimization.
+## Accelerating Qwen3-8B on Intel® Core™ Ultra with Speculative Decoding
 
-[Speculative decoding](https://arxiv.org/abs/2211.17192) is a method to accelerate auto-regressive generation presented in this paper (link).
-The method leverages a fast yet less accurate model as a draft to speculate and validate several tokens in one forward pass. We applied speculative decoding (SD) with Qwen3-8B as the target model and Qwen3-0.6B as the draft model. This configuration achieved a \~1.3× speedup.
+We started by benchmarking Qwen3-8B on an Intel Lunar Lake AI PC with OpenVINO acceleration, establishing our baseline for further optimization.
+
+[Speculative decoding](https://arxiv.org/abs/2211.17192) is a method to speed up auto-regressive generation. It works by using a smaller, faster model as a draft to propose multiple tokens in a single forward pass, which are then validated by the larger target model in one forward pass. In our setup, Qwen3-8B served as the target model while Qwen3-0.6B was used as the draft. This approach delivered an average of 1.3× speedup over the baseline.
 
 ```python
 from openvino_genai import LLMPipeline, draft_model
@@ -62,39 +58,34 @@ model.generate("What is speculative decoding and how does it improve inference s
 
 ## Pushing Performance Further
 
-The speedup from SD depends on the mean number of generated tokens per forward step of the target, $\gamma$ the speculation window size, and the ratio between the target and draft models' latency $c$. A faster yet less accurate draft model can yield greater overall acceleration. This motivated us to further reduce the size of the draft model while trying to preserve its quality, i.e. $E(\\# generated\ tokens)$.
+ The speedup from SD depends on the mean number of generated tokens per forward step of the target, $\gamma$ the speculation window size, and the ratio between the target and draft models' latency $c$. A smaller, faster (though less accurate) draft can often deliver greater acceleration. This inspired us to shrink the draft model while still preserving its quality, i.e. $E(\\# generated\ tokens)$.
 
 $$
 Speedup = \frac{E(\\# generated\ tokens)}{\gamma c + 1}
 $$
 
-Our [recent work](https://huggingface.co/papers/2411.11055) shows that model depth, the total number of layers, plays a crucial role in determining inference latency. Combined with insights from Gromov et al., who demonstrated that layer pruning is possible with minimal accuracy loss, we pruned 6 of 28 layers from the Qwen3-0.6B draft model.
-To recover performance, we then finetuned the pruned draft using the synthetic data generated by Qwen3-8B.
+Our [recent work](https://huggingface.co/papers/2411.11055) shows that model depth (number of layers) is a major contributor to inference latency. Building on insights from Gromov et al., who showed that layer pruning can be done with minimal accuracy loss, we pruned 6 of 28 layers from the Qwen3-0.6B draft.
+To recover quality of the pruned draft model, we further finetuned it using synthetic data generated by Qwen3-8B.
 The data was produced by generating responses to 500k prompts from [BAAI/Infinity-Instruct dataset](https://huggingface.co/datasets/BAAI/Infinity-Instruct).
 
-The resulting pruned draft model delivered \~1.4x speedup and up to 2x bandwidth reduction compared to the baseline --- an improvement over the \~1.3× gain achieved with the original draft. This outcome aligns with theoretical expectations: reducing draft latency improves the speculative ratio, enabling faster and more efficient inference.
+The resulting pruned draft model delivered \~1.4x speedup compared to the baseline --- an improvement over the \~1.3× gain achieved with the original draft. This outcome aligns with theoretical expectations - reducing draft latency improves the speculative ratio, enabling faster and more efficient inference.
 
-Reproduce these results with this step-by-step [notebook](https://github.com/guybd/openvino_notebooks/blob/latest/supplementary_materials/notebooks/qwen-3/qwen3.ipynb). It walks you through downloading the models, enabling speculative decoding with the pruned draft, and benchmarking performance on your system.
+This demonstrates how pruning + speculative decoding can unlock faster and more efficient inference—making local AI agents even more practical.
+
+Check out the [notebook](https://github.com/guybd/openvino_notebooks/blob/latest/supplementary_materials/notebooks/qwen-3/qwen3.ipynb) to reproduce the results step-by-step. 
+
 
 ## Integration to Smolagents
 
-Finally, we deployed our optimized setup with 🤗/smolagents library.
-Developers can now plug in Qwen3-8B (with our pruned draft) to build
-agents that Call APIs and tools, write & execute code, handle
-long-context reasoning and Run efficiently on Intel® Core™ Ultra.
+To showcase the real-world potential, we deployed our optimized setup with the 🤗 SmolAgents library. With this integration, developers can plug in Qwen3-8B (paired with our pruned draft) to build agents that call APIs and external tools, write and execute code, handle long-context reasoning and run efficiently on Intel® Core™ Ultra.
+The benefits aren’t limited to Hugging Face—this model pairing can also be used seamlessly with frameworks like AutoGen or QwenAgent, further strengthening the agentic ecosystem.
 
-Beyond Hugging Face, the same model pairing can be deployed seamlessly
-with frameworks like Autogen, or QwenAgent, strengthening the agentic
-ecosystem.
-
-In this example, we demonstrate how our accelerated Qwen3 model performs
-as an agent. We assign it a task: summarize the key features of the
-Qwen3 model series and then present the findings in a slide deck. To
-accomplish this, the agent first uses the web search tool to gather
-information, then switches to the Python interpreter to generate a
-presentation with the python-pptx library. This workflow showcases just
-a glimpse of the powerful potential unlocked when accelerated Qwen3 is
-combined with Hugging Face's smolagents. Try it [here](https://github.com/guybd/openvino_notebooks/blob/latest/supplementary_materials/notebooks/qwen-3/smolagents/qwen3_agent.ipynb).
+In our demo, we assigned the accelerated Qwen3-based agent a task:
+ 👉 Summarize the key features of the Qwen3 model series and present them in a slide deck.
+Here’s how it worked:
+1.	The agent used a web search tool to gather up-to-date information.
+2.	It then switched to the Python interpreter to generate slides with the python-pptx library.
+This simple workflow highlights just a fraction of the possibilities unlocked when accelerated Qwen3 models meet frameworks like SmolAgents—bringing practical, efficient AI agents to life on AI PC. Try it [here](https://github.com/guybd/openvino_notebooks/blob/latest/supplementary_materials/notebooks/qwen-3/smolagents/qwen3_agent.ipynb).
 
 <iframe width="100%" style="aspect-ratio: 16 / 9;"src="https://youtu.be/_ng5jXkN1Qc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
