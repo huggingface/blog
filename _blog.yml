@@ -6700,3 +6700,14 @@
     - enterprise
     - partnerships
     - hub
+
+- local: gaia2
+  title: "Gaia2 and ARE: Empowering the community to study agents"
+  author: clefourrier
+  thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_mare_gaia2.png
+  date: Sep 22, 2025
+  tags:
+    - leaderboards
+    - gaia
+    - agents
+    - evaluation
