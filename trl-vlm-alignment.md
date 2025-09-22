@@ -15,7 +15,26 @@ authors:
 
 Vision Language Models (VLMs) are getting stronger, but *aligning* them to human preferences still matters. In TRL, we already showed how to post-train VLMs with [**Supervised Fine-Tuning (SFT)**](https://huggingface.co/docs/trl/main/en/training_vlm_sft) and [**Direct Preference Optimization (DPO)**](https://huggingface.co/learn/cookbook/fine_tuning_vlm_dpo_smolvlm_instruct). This time, we’re going further.
 
-**tl;dr** We have added two new multimodal alignment methods to TRL: **Mixed Preference Optimization (MPO)**, **Group Relative Policy Optimization (GRPO)**, and its variant **Group Sequence Policy Optimization (GSPO)**. These methods let you go beyond pairwise DPO, extracting more signal from preference data and scaling better with modern VLMs. We have also extended existing preference optimization methods, **Reinforce Leave One Out (RLOO)** and **Online Direct Preference Optimization (Online DPO)**, to support VLMs, enabling more efficient and scalable alignment. Finally, native Supervised Fine-tuning support for Vision Language Models is now fully available. Training scripts and demo notebooks are provided to help you get started quickly!
+**tl;dr** Here’s what’s new in TRL:
+
+- **Mixed Preference Optimization (MPO)**
+- **Group Relative Policy Optimization (GRPO)**
+- **Group Sequence Policy Optimization (GSPO)** (a variant of GRPO)
+
+These go beyond pairwise DPO, extracting richer signals from preference data and scaling better with modern VLMs.
+
+We’ve also extended existing methods to support VLMs:
+
+- **Reinforce Leave One Out (RLOO)**
+- **Online Direct Preference Optimization (Online DPO)**
+
+This enables more efficient and scalable multimodal alignment.
+
+Finally:
+
+- **Native Supervised Fine-tuning support for Vision Language Models**
+- **Training scripts and demo notebooks** to help you get started quickly
+
 
 ## Table of Contents
 
@@ -183,7 +202,27 @@ In addition to MPO, GRPO, and GSPO, TRL now supports [Reinforce Leave One Out](h
 
 #### Reinforce Leave One Out (RLOO)
 
-RLOO now supports common VLMs. Check out the [`rloo_vlm.py`](https://github.com/huggingface/trl/blob/main/examples/scripts/rloo_vlm.py) script for a quick training example.
+RLOO now supports common VLMs. You can find a complete training example in the [`rloo_vlm.py`](https://github.com/huggingface/trl/blob/main/examples/scripts/rloo_vlm.py) script.
+
+Here’s how to set up a `RLOOTrainer`:
+
+```python
+trainer = RLOOTrainer(
+    model=model_name,
+    args=training_args,
+    reward_funcs=[think_format_reward, accuracy_reward],
+    train_dataset=train_dataset,
+    eval_dataset=eval_dataset,
+)
+
+trainer.train()
+```
+
+And to launch training directly from the example script:
+
+```bash
+CUDA_VISIBLE_DEVICES=1,2 python3 examples/scripts/rloo_vlm.py --model_name_or_path Qwen/Qwen2.5-VL-3B-Instruct
+```
 
 #### Online Direct Preference Optimization (Online DPO)
 
@@ -191,6 +230,12 @@ Online DPO also supports VLMs. See the [`online_dpo_vlm.py`](https://github.com/
 
 > [!NOTE]
 > These scripts are ready-to-run for VLM training; full parameter tuning is documented in TRL: [Online DPO trainer](https://huggingface.co/docs/trl/en/online_dpo_trainer) [RLOO Trainer](https://huggingface.co/docs/trl/en/rloo_trainer).
+
+To run the example script:
+
+```bash
+CUDA_VISIBLE_DEVICES=1,2 python3 examples/scripts/online_dpo_vlm.py --model_name_or_path Qwen/Qwen2.5-VL-3B-Instruct --use_vllm --vllm_mode server
+```
 
 
 ## Native Supervised Fine-tuning Support
