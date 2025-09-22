@@ -96,7 +96,7 @@ Rather than aiming for a SOTA model, our goal is to demonstrate the entire proce
 
 Our approach leverages [**SmolVLM2-2.2B-Instruct**](https://huggingface.co/HuggingFaceTB/SmolVLM2-2.2B-Instruct) as the baseline model, a small powerful vision-language model that initially has no grounding capabilities for GUI tasks. This makes it an ideal candidate to demonstrate the effectiveness of our training methodology. Through our two-phase training process, we first instill grounding capabilities in the model, then enhance it with agentic reasoning abilities using Supervised Fine-Tuning (SFT).
 
-We evaluate our approach on an established perception benchmark: **ScreenSpot-v2**, which test the model’s ability to understand and locate elements within screenshots. Our process is inspired by the [AGUVIS](https://huggingface.co/papers/2412.04454) paper, and we leverage their carefully curated datasets to build upon their foundational work.
+We evaluate our approach on an established perception benchmark: **ScreenSpot-v2**, which tests the model’s ability to understand and locate elements within screenshots. Our process is inspired by the [AGUVIS](https://huggingface.co/papers/2412.04454) paper, and we leverage their carefully curated datasets to build upon their foundational work.
 
 <div align="center">
 
