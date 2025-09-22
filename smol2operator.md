@@ -696,7 +696,7 @@ Starting from the Phase 1 checkpoint (1152 px resolution, normalized coordinates
 
 ## 4. All you need is Open Source
 
-All training code, data processing pipelines, datasets and model are open source !
+All training code, data processing pipelines, datasets and model are open-source!
 
 ### Key Components
 
