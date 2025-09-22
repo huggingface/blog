@@ -11,7 +11,7 @@ authors:
 
 # Smol2Operator: Post-Training GUI Agents for Computer Use
 
-**TL;DR:** This work shows how a lightweight vision–language model can acquire GUI-grounded skills and evolve into an agentic GUI coder. We release all training recipes, data-processing tools, and datasets to enable full reproducibility and foster further research.
+**TL;DR:** This work shows how a lightweight vision–language model can acquire GUI-grounded skills and evolve into an agentic GUI coder. We release all training recipes, data-processing tools, and datasets to enable full reproducibility and foster further research 🫡.
 
 ---
 
