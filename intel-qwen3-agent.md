@@ -38,7 +38,7 @@ The combination of optimized inference and built-in agentic intelligence makes Q
 
 We started by benchmarking Qwen3-8B on an Intel Lunar Lake AI PC with OpenVINO acceleration, establishing our baseline for further optimization.
 
-[Speculative decoding](https://arxiv.org/abs/2211.17192) is a method to speed up auto-regressive generation. It works by using a smaller, faster model as a draft to propose multiple tokens in a single forward pass, which are then validated by the larger target model in one forward pass. In our setup, Qwen3-8B served as the target model while Qwen3-0.6B was used as the draft. This approach delivered an average of 1.3× speedup over the baseline.
+[Speculative decoding](https://arxiv.org/abs/2211.17192) is a method to speed up auto-regressive generation. It works by using a smaller, faster model as a draft to propose multiple tokens in a single forward pass, which are then validated by the larger target model in one forward pass. In our setup, [Qwen3-8B](https://huggingface.co/Qwen/Qwen3-8B) served as the target model while [Qwen3-0.6B](https://huggingface.co/Qwen/Qwen3-0.6B) was used as the draft. This approach delivered an average of 1.3× speedup over the baseline.
 
 ```python
 from openvino_genai import LLMPipeline, draft_model
@@ -72,7 +72,7 @@ The resulting pruned draft model delivered \~1.4x speedup compared to the baseli
 
 This demonstrates how pruning + speculative decoding can unlock faster and more efficient inference—making local AI agents even more practical.
 
-Check out the [notebook](https://github.com/guybd/openvino_notebooks/blob/latest/supplementary_materials/notebooks/qwen-3/qwen3.ipynb) to reproduce the results step-by-step. 
+Check out the [notebook](https://github.com/guybd/openvino_notebooks/blob/latest/supplementary_materials/notebooks/qwen-3/qwen3.ipynb) and the Qwen3-0.6B depth-pruned [draft model](https://huggingface.co/OpenVINO/Qwen3-pruned-6L-from-0.6B-int8-ov) to reproduce the results step by step
 
 
 ## Integration to Smolagents
