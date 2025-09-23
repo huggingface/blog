@@ -92,7 +92,7 @@ This simple workflow highlights just a fraction of the possibilities unlocked wh
 > [!NOTE]
 > **Performance and legal notices**
 >
-> - Performance results are based on internal benchmarking with OpenVINO™ 2025.2 as of September 2025, using a configuration with an Intel® Core™ Ultra 7 268V 2.20 GHz processor with an integrated Intel® Arc™ 140V GPU, paired with 32 GB of DDR memory.
+> - Performance results are based on internal benchmarking with OpenVINO™ 2025.2 as of September 2025, using a configuration with an Intel® Core™ Ultra 7 268V 2.20 GHz processor with an integrated Intel® Arc™ 140V GPU, paired with 32 GB of DDR5 memory.
 > - Performance varies by use, configuration and other factors. Learn more at www.Intel.com/PerformanceIndex.
 > - No product or component can be absolutely secure.
 > - Your costs and results may vary.
