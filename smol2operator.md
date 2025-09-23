@@ -15,16 +15,20 @@ authors:
 
 ---
 
-<figure style="text-align: center;">
-  <iframe width="560" height="315"
-    src="https://www.youtube.com/embed/Rv1q3OA33eM?si=-LRkSgm5obYl798S"
-    title="YouTube video player" frameborder="0"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-    allowfullscreen>
-  </iframe>
-  <figcaption style="font-size:14px; color:#555; margin-top:8px;">
-    This video demonstrates the model obtained through the recipe described below, executing a task end-to-end.
-  </figcaption>
+<figure style="text-align: center; margin: auto;">
+  <div style="aspect-ratio: 16/9;">
+    <iframe
+      src="https://www.youtube.com/embed/Rv1q3OA33eM?si=-LRkSgm5obYl798S"
+      title="YouTube video player"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen
+      style="width: 100%; height: 100%;">
+    </iframe>
+  </div>
+  <figcaption style="font-size:14px; color:#555; margin-top:8px;">
+    This video demonstrates the model obtained through the recipe described below, executing a task end-to-end.
+  </figcaption>
 </figure>
 
 ---
