@@ -36,7 +36,7 @@ The combination of optimized inference and built-in agentic intelligence makes Q
 
 ## Accelerating Qwen3-8B on Intel® Core™ Ultra with Speculative Decoding
 
-We started by benchmarking Qwen3-8B on an Intel Lunar Lake AI PC with OpenVINO acceleration, establishing our baseline for further optimization.
+We started by benchmarking Qwen3-8B on an Intel Lunar Lake integrated GPU with OpenVINO, establishing our baseline for further optimization.
 
 [Speculative decoding](https://arxiv.org/abs/2211.17192) is a method to speed up auto-regressive generation. It works by using a smaller, faster model as a draft to propose multiple tokens in a single forward pass, which are then validated by the larger target model in one forward pass. In our setup, [Qwen3-8B](https://huggingface.co/Qwen/Qwen3-8B) served as the target model while [Qwen3-0.6B](https://huggingface.co/Qwen/Qwen3-0.6B) was used as the draft. This approach delivered an average of 1.3× speedup over the baseline.
 
