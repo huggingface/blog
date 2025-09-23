@@ -599,7 +599,7 @@ Phase 2 uses the [smolagents/aguvis-stage-2](https://huggingface.co/datasets/smo
 
 - **Explicit reasoning** about upcoming actions
 
-- **Context consistence** across multiple interaction steps
+- **Context consistency** across multiple interaction steps
 
 - **High-level instructions** require multi-step, low-level actions.
 
