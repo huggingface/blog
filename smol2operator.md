@@ -712,7 +712,7 @@ All training code, data processing pipelines, datasets and model are open-source
   margin: 16px 0;
   @media (prefers-color-scheme: dark) { border-color: #555; }
 ">
-💡 We’ve also opened a Space to experiment with the POC model’s agentic grounding capabilities: <a href="https://huggingface.co/spaces/A-Mahla/Smol2Operator">A-Mahla/Smol2Operator</a>
+💡 We’ve also released a Space to try the model’s agentic grounding capabilities: <a href="https://huggingface.co/spaces/A-Mahla/Smol2Operator">A-Mahla/Smol2Operator</a>
 </div>
 
 ## 5. Conclusion
