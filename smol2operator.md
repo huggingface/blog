@@ -107,7 +107,7 @@ We evaluate our approach on an established perception benchmark: [**ScreenSpot-v
   margin: 8px 0 0 0; 
   font-style: italic;
   @media (prefers-color-scheme: dark) { color: #999; }
-"><em>Evolution of ScreenSpot-v2 performance during the training phase of the base model **SmolVLM2-2.2B-Instruct**.</em></p>
+"><em>Evolution of ScreenSpot-v2 performance during the training phase of the base model <strong>SmolVLM2-2.2B-Instruct</strong>.</em></p>
 
 </div>
 
