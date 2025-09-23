@@ -92,8 +92,8 @@ This simple workflow highlights just a fraction of the possibilities unlocked wh
 > [!NOTE]
 > **Performance and legal notices**
 >
-> - Performance results are based on testing as of September 2025.
-> - Performance varies by use, configuration, and other factors. Learn more on the Performance Index site.
+> - Performance results are based on internal benchmarking as of September 2025, using a configuration with an Intel® Core™ Ultra 7 268V 2.20 GHz processor with an integrated Intel® Arc™ 140V GPU and 32 GB of DDR memory.
+> - Performance varies by use, configuration and other factors. Learn more at www.Intel.com/PerformanceIndex.
 > - No product or component can be absolutely secure.
 > - Your costs and results may vary.
 > - Intel technologies may require enabled hardware, software, or service activation.
