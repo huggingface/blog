@@ -17,7 +17,7 @@ authors:
 ---
 ****
 
-# Accelerating Qwen3-8B Agents on Intel® Core™ Ultra with Depth-Pruned Draft Models
+# Accelerating Qwen3-8B Agent on Intel® Core™ Ultra with Depth-Pruned Draft Models
 
 TL;DR:
 
