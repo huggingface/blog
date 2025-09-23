@@ -64,7 +64,7 @@ authors:
 ">
 <strong>💡 Additional Resources:</strong>
 <br><br>
-• Github repository: <a href="https://github.com/huggingface/aguvis">https://github.com/huggingface/aguvis</a><br>
+• Github repository: <a href="https://github.com/huggingface/smol2operator">https://github.com/huggingface/smol2operator</a><br>
 • Datasets: <a href="https://huggingface.co/datasets/smolagents/aguvis-stage-1"><code>smolagents/aguvis-stage-1</code></a>, <a href="https://huggingface.co/datasets/smolagents/aguvis-stage-2"><code>smolagents/aguvis-stage-2</code></a>
 </div>
 
@@ -697,13 +697,13 @@ Starting from the Phase 1 checkpoint (1152 px resolution, normalized coordinates
 
 All training code, data processing pipelines, datasets and model are open-source!
 
-1. **Training Recipe** ([`recipe.ipynb`](https://github.com/huggingface/aguvis/blob/main/recipe.ipynb)): Complete training pipeline for both Phase 1 and Phase 2, including dataset mixture configurations and training orchestration. We leverage the [TRL](https://huggingface.co/docs/trl/en/index) library to train our models.
+1. **Training Recipe** ([`recipe.ipynb`](https://github.com/huggingface/smol2operator/blob/main/recipe.ipynb)): Complete training pipeline for both Phase 1 and Phase 2, including dataset mixture configurations and training orchestration. We leverage the [TRL](https://huggingface.co/docs/trl/en/index) library to train our models.
 2. **Datasets** ([`smolagents/aguvis-stage-1`](https://huggingface.co/datasets/smolagents/aguvis-stage-1), [`smolagents/aguvis-stage-2`](https://huggingface.co/datasets/smolagents/aguvis-stage-2)): all datasets used are open-source.
 3. **Model** ([`smolagents/SmolVLM2-2.2B-Instruct-Agentic-GUI`](https://huggingface.co/smolagents/SmolVLM2-2.2B-Instruct-Agentic-GUI)): the model produced by applying the training recipe described above.
 4. **Preprocessing Tools:**
-    - **Function Parser** ([`utils/function_parser.py`](https://github.com/huggingface/aguvis/blob/main/utils/function_parser.py)): Utilities for parsing, normalizing, and reconstructing function calls from diverse dataset formats. Supports complex parameter structures, positional arguments, and multiple function call extraction.
-    - **Action Conversion System** ([`preprocessing/action_conversion.py`](https://github.com/huggingface/aguvis/blob/main/preprocessing/action_conversion.py)): Core unification engine transforming mobile and PyAutoGUI desktop actions into a standardized API format. Features smart coordinate handling, direction detection for scroll actions, and comprehensive parameter normalization.
-    - **Action Space Converter** ([`utils/action_space_converter.py`](https://github.com/huggingface/aguvis/blob/main/utils/action_space_converter.py)): Flexible tool for adapting the unified action space to custom vocabularies and naming conventions. Enables domain-specific customization through configurable parameter mappings.
+    - **Function Parser** ([`utils/function_parser.py`](https://github.com/huggingface/smol2operator/blob/main/utils/function_parser.py)): Utilities for parsing, normalizing, and reconstructing function calls from diverse dataset formats. Supports complex parameter structures, positional arguments, and multiple function call extraction.
+    - **Action Conversion System** ([`preprocessing/action_conversion.py`](https://github.com/huggingface/smol2operator/blob/main/preprocessing/action_conversion.py)): Core unification engine transforming mobile and PyAutoGUI desktop actions into a standardized API format. Features smart coordinate handling, direction detection for scroll actions, and comprehensive parameter normalization.
+    - **Action Space Converter** ([`utils/action_space_converter.py`](https://github.com/huggingface/smol2operator/blob/main/utils/action_space_converter.py)): Flexible tool for adapting the unified action space to custom vocabularies and naming conventions. Enables domain-specific customization through configurable parameter mappings.
 
 <div style="
   border: 1px solid #ddd; 
