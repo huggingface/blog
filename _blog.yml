@@ -6711,3 +6711,20 @@
     - gaia
     - agents
     - evaluation
+
+- local: smol2operator
+  title: "Smol2Operator: Post-Training GUI Agents for Computer Use"
+  author: A-Mahla
+  thumbnail: /blog/assets/smol2operator/thumbnail.png
+  date: Sep 23, 2025
+  tags:
+    - agents
+    - gui
+    - vlm
+    - vision
+    - training
+    - post-training
+    - computer-use
+    - agentic
+    - community
+    - open-source
