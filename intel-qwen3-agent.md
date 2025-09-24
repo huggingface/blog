@@ -89,7 +89,7 @@ Here’s how it worked:
 2.	It then switched to the Python interpreter to generate slides with the `python-pptx` library.
 This simple workflow highlights just a fraction of the possibilities unlocked when accelerated Qwen3 models meet frameworks like 🤗smolagents, bringing practical, efficient AI agents to life on AI PC. Try it [here](https://github.com/guybd/openvino_notebooks/blob/latest/supplementary_materials/notebooks/qwen-3/smolagents/qwen3_agent.ipynb) 🚀
 
-<iframe width="100%" style="aspect-ratio: 16 / 9;"src="https://youtu.be/_ng5jXkN1Qc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="100%" style="aspect-ratio: 16 / 9;"src="https://youtu.be/irSDd5lNxIk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 > [!NOTE]
 > **Performance and legal notices**
