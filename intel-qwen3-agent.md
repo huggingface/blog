@@ -14,8 +14,10 @@ authors:
 - user: guybd
   guest: true
   org: Intel
+  user: pcuenq
 ---
 ****
+![banner image](https://github.com/guybd/blog/blob/main/assets/intel-qwen3-agent/intel-qwen-3-agent1.png)
 
 # Accelerating Qwen3-8B Agent on Intel® Core™ Ultra with Depth-Pruned Draft Models
 
