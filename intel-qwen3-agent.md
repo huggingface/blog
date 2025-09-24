@@ -14,7 +14,7 @@ authors:
 - user: guybd
   guest: true
   org: Intel
-  user: pcuenq
+- user: pcuenq
 ---
 ****
 ![banner image](https://github.com/guybd/blog/blob/main/assets/intel-qwen3-agent/intel-qwen-3-agent1.png)
