@@ -32,13 +32,13 @@ TL;DR:
 -   We wrapped this up by showing how these improvements can be used to run a fast, local AI Agent with 🤗[smolagents](https://github.com/huggingface/smolagents)
 
 ## Qwen3
-Qwen3-8B is part of the latest Qwen family, trained with explicit agentic behaviors. It supports tool invocation, multi-step reasoning, and long-context handling—capabilities that make it well-suited for complex agent workflows. When integrated with frameworks like Hugging Face SmolAgents, QwenAgent, or AutoGen, it enables a wide range of agentic applications built around tool use and reasoning.
+Qwen3-8B is part of the latest Qwen family, trained with explicit agentic behaviors. It supports tool invocation, multi-step reasoning, and long-context handling capabilities, that make it well-suited for complex agent workflows. When integrated with frameworks like Hugging Face SmolAgents, QwenAgent, or AutoGen, it enables a wide range of agentic applications built around tool use and reasoning.
 The combination of optimized inference and built-in agentic intelligence makes Qwen3-8B a compelling foundation for next-gen AI agents.
 
 
 ## Accelerating Qwen3-8B on Intel® Core™ Ultra with Speculative Decoding
 
-We started by benchmarking Qwen3-8B on an Intel Lunar Lake integrated GPU with OpenVINO, establishing our baseline for further optimization.
+We started by benchmarking the 4-bit optimized OpenVINO version of Qwen3-8B on an Intel Lunar Lake integrated GPU, establishing this as our baseline for further acceleration
 
 [Speculative decoding](https://arxiv.org/abs/2211.17192) is a method to speed up auto-regressive generation. It works by using a smaller, faster model as a draft to propose multiple tokens in a single forward pass, which are then validated by the larger target model in one forward pass. In our setup, [Qwen3-8B](https://huggingface.co/Qwen/Qwen3-8B) served as the target model while [Qwen3-0.6B](https://huggingface.co/Qwen/Qwen3-0.6B) was used as the draft. This approach delivered an average of 1.3× speedup over the baseline.
 
