@@ -17,6 +17,8 @@ TL;DR of [L2D](https://huggingface.co/datasets/yaak-ai/L2D), the world's largest
 - 90+ TeraBytes of multimodal data (5000+ hours of driving) from 30 cities in Germany
 - 6x surrounding HD cameras and complete vehicle state: Speed/Heading/GPS/IMU
 - Continuous: Gas/Brake/Steering and discrete actions: Gear/Turn Signals
+- Environment state: Lane count, Road type (highway|residential), Road surface (asphalt, cobbled, sett), Max speed limit.
+- Environment conditions: Precipitation, Conditions (Snow, Clear, Rain), Lighting (Dawn, Day, Dusk)
 - Designed for training end-to-end models conditioned on natural language instructions or future waypoints
 - Natural language instructions. F.ex ["When the light turns green, drive over the tram tracks and then through the roundabout"](https://huggingface.co/spaces/lerobot/visualize_dataset?dataset=yaak-ai%2FL2D&episode=82) for each episode
 - [Future waypoints](#OpenStreetMap) snapped to OpenStreetMap graph, aditionally rendered in birds-eye-view
@@ -129,6 +131,13 @@ feasible to enhance precision (See Table 2.) and finally reduced the sampling ra
 | gear | [action.discrete.gear](https://huggingface.co/datasets/yaak-ai/L2D/blob/main/meta/info.json#L140) | N1 | [asof\[100ms\]\[nearest\]](https://docs.pola.rs/api/python/stable/reference/dataframe/api/polars.DataFrame.join_asof.html) |
 | language | [task.policy](https://huggingface.co/datasets/yaak-ai/L2D/blob/main/meta/info.json#L106) | N1 | — |
 | language | [task.instructions](https://huggingface.co/datasets/yaak-ai/L2D/blob/main/meta/info.json#L113) | N1 | — |
+| lane count | ["observation.state.lanes"](https://huggingface.co/datasets/yaak-ai/L2D/blob/main/meta/info.json#L35) | N1 | — |
+| road type | ["observation.state.road](https://huggingface.co/datasets/yaak-ai/L2D/blob/main/meta/info.json#L42) | N1 | — |
+| road surface | ["observation.state.surface"](https://huggingface.co/datasets/yaak-ai/L2D/blob/main/meta/info.json#L49) | N1 | — |
+| max speed | ["observation.state.max_speed"](https://huggingface.co/datasets/yaak-ai/L2D/blob/main/meta/info.json#L56) | N1 | — |
+| precipitation | ["observation.state.precipitation"](https://huggingface.co/datasets/yaak-ai/L2D/blob/main/meta/info.json#L63) | N1 | — |
+| conditions | ["observation.state.conditions"](https://huggingface.co/datasets/yaak-ai/L2D/blob/main/meta/info.json#L70) | N1 | — |
+| lighting | ["observation.state.lighting"](https://huggingface.co/datasets/yaak-ai/L2D/blob/main/meta/info.json#L77) | N1 | — |
 
 <p align="center">
   <em> Table 2: Modality types, LeRobot v3.0 key, shape and interpolation strategy. </em>
@@ -264,8 +273,8 @@ information about the episodes. Each release **R1+** is a superset of the previo
 | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | [R0](https://huggingface.co/datasets/yaak-ai/L2D/tree/R0) | [R0](https://nutron-sandbox.yaak.ai/collections/fcbb0dfd-40ae-4fd2-b023-7f300f35c5c7/300b7174-b6aa-4598-83e8-fc28cc5fcbe3/search/list/session-logs?context=5s) | March 2025 | 100 | 0.5+ hr | 9,5 GB | ☑️ |  |  |  |
 | [R1](https://huggingface.co/datasets/yaak-ai/L2D/tree/R1) | [R1](https://nutron-sandbox.yaak.ai/collections/fcbb0dfd-40ae-4fd2-b023-7f300f35c5c7/1cb18573-f731-47b1-ae89-7ea2f026b8d0/search/list/session-logs?context=5s) | April 2025 | 1K | 5+ hr | 95 GB | ☑️ |  |  |  |
-| [R2](https://huggingface.co/datasets/yaak-ai/L2D/tree/R2) | [R2](https://nutron-sandbox.yaak.ai/collections/fcbb0dfd-40ae-4fd2-b023-7f300f35c5c7/6e53636a-59ed-466b-8722-2c0b415f9bca/search/list/session-logs?context=5s) | May 2025 | 10K | 50+ hr | 1 TB | ☑️ | ☑️ | ☑️ | ☑️ |
-| [R3](https://huggingface.co/datasets/yaak-ai/L2D/tree/main) | R3 | Sept 2025 | 100K | 500+ hr | 5 TB | ☑️ | ☑️ | ☑️ | ☑️ |
+| [R2](https://huggingface.co/datasets/yaak-ai/L2D/tree/R2) | [R2](https://nutron-sandbox.yaak.ai/collections/fcbb0dfd-40ae-4fd2-b023-7f300f35c5c7/6e53636a-59ed-466b-8722-2c0b415f9bca/search/list/session-logs?context=5s) | May 2025 | 10K | 50+ hr | 0.5 TB | ☑️ |  | ☑️ | ☑️ |
+| [R3](https://huggingface.co/datasets/yaak-ai/L2D/tree/main) | R3 | Sept 2025 | 100K | 500+ hr | 5 TB | ☑️ |  | ☑️ | ☑️ |
 | R4 | R4 | Nov 2025 | 1M | 5000+ hr | 90 TB | ☑️ | ☑️ | ☑️ | ☑️ |
 
 <p align="center">
@@ -285,7 +294,7 @@ ImageNet moment for spatial intelligence.
 </div>
 
 <p align="center">
-  <em> Fig 1: Searching episodes by natural language instructions</em>
+  <em> Fig 7: Searching episodes by natural language instructions</em>
 </p>
 
 # Using L2D with HF/LeRobot
