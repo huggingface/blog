@@ -5,6 +5,9 @@ authors:
   - user: gnoale
     guest: true
     org: scaleway
+  - user: fpagny
+    guest: true
+    org: scaleway
   - user: f14e
     guest: true
     org: scaleway
