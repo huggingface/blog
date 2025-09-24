@@ -124,7 +124,7 @@ One of mmBERT's most significant novel features is demonstrating that low-resour
 </figure>
 
 
-**Dramatic Performance Gains**: Testing on TiQuaD (Tigray) and FoQA (Faroese), we observed substantial improvements when these languages were included in the decay phase, as shown in [Figure 2](#figure2). The results demonstrate the effectiveness of our progressive language learning approach.
+**Dramatic Performance Gains**: Testing on TiQuaD (Tigrinya) and FoQA (Faroese), we observed substantial improvements when these languages were included in the decay phase, as shown in [Figure 2](#figure2). The results demonstrate the effectiveness of our progressive language learning approach.
 
 **Competitive with Large Models**: Despite only seeing these languages in the final training phase, mmBERT achieves performance levels that exceed much larger models. On Faroese question answering where LLMs have been benchmarked, mmBERT outperforms Google Gemini 2.5 Pro and OpenAI o3.
 
