@@ -11,7 +11,7 @@ authors:
 
 People are trying to vibe code games. And it kind of works, at first. However, as the project grows, things begin to fall apart. Why? And what can we do about it?
 
-I'll talk about the problem, how I fixed* it, and where to go from here.
+I'll talk about the problem, how I fixed it, and where to go from here.
 
 ## What Is "Vibe Coding"?
 
@@ -32,9 +32,9 @@ I couldn't find a lightweight, accessible solution, which doesn't rely on signif
 1. `/peel [prompt]` to load context at the beginning of a conversation
 2. `/nourish` to update context at the end of a conversation
 
-Anecdotally, this works well. However, it works best when the project stays lean and well-organized, so all relevant context can easily fit in the model's context window.
+Anecdotally, this works well. However, it works best when the project stays lean and well-organized, so all relevant context can easily fit in the model's context window. While Claude Code is used here, the same principles generalize to other models.
 
-With that said, what existing game engines are best suited for this?
+Beyond context management tools, platform choice is critical. The platform should ideally naturally keep projects lean through high-level abstractions, while also being something AI models understand well. So, what existing platforms are best suited for vibe coding?
 
 ## Initial Exploration
 
@@ -74,7 +74,7 @@ Unity is a powerful engine with a lot of capabilities. However, the complexity a
 
 ### Attempt 3: Web Stack
 
-The open web platform, using three.js for 3D rendering, rapier for physics, and bitecs for game logic.
+The open web platform, using [three.js](https://threejs.org/) for 3D rendering, [rapier](https://rapier.rs/) for physics, and [bitecs](https://github.com/NateTheGreatt/bitECS) for game logic.
 
 Pros:
 - Far superior AI proficiency compared to game engines, likely due to massive training data
@@ -85,7 +85,7 @@ Cons:
 - Relatively low level libraries, requiring essentially building the engine before building the game
 - Lack of ecosystem for high-quality 3D games; web tends toward 2D games and simple 3D experiences
 
-This approach had the best AI performance by far, likely due to the vast amount of web development data available during training. However, the low-level nature of the libraries meant that I had to essentially build a game engine before I could build the game itself.
+This approach had the best AI performance by far, likely due to the vast amount of web development data available during training. However, the low-level nature of the libraries meant that I had to essentially build a game engine before I could build the game itself. This allows us to work at a much higher level of abstraction, like we did with Roblox.
 
 Despite requiring essentially building an engine first, this was the only approach that produced something *actually kind of fun* without requiring significant user domain knowledge. So I decided to explore this direction further.
 
@@ -158,7 +158,7 @@ So, with a definition of vibe coding that is the one-shot "make me a game" appro
 
 To try it immediately, I built a demo where you can develop a game directly in the browser using VibeGame with [Qwen3-Next-80B-A3B-Instruct](https://huggingface.co/Qwen/Qwen3-Next-80B-A3B-Instruct): [Live Demo on Hugging Face](https://huggingface.co/spaces/dylanebert/VibeGame).
 
-However, for the best experience, I recommend running it locally with a frontier model like Claude Code:
+You can also test it locally with a frontier model like Claude Code:
 
 ```bash
 npm create vibegame@latest my-game
