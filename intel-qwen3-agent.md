@@ -16,8 +16,7 @@ authors:
   org: Intel
 - user: pcuenq
 ---
-****
-# ![banner image](assets/intel-qwen3-agent/smolagents2.png)
+![banner image](/blog/assets/intel-qwen3-agent/smolagents2.png)
 
 # Accelerating Qwen3-8B Agent on Intel® Core™ Ultra with Depth-Pruned Draft Models
 
