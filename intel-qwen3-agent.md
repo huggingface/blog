@@ -26,7 +26,7 @@ TL;DR:
 
 -   With [OpenVINO.GenAI](https://github.com/openvinotoolkit/openvino.genai), we’ve been able to accelerate generation by ~1.3× using speculative decoding with a lightweight Qwen3-0.6B draft.
 
--   By applying a simple pruning process to the draft, we pushed the speedup even further to ~1.4×
+-   By using speculative decoding and applying a simple pruning process to the draft, we pushed the speedup even further to ~1.4×
 
 -   We wrapped this up by showing how these improvements can be used to run a fast, local AI Agent with 🤗[smolagents](https://github.com/huggingface/smolagents)
 
