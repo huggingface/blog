@@ -1,6 +1,6 @@
 ---
 title: "Swift Transformers v1.0"
-thumbnail: /blog/assets/swift-coreml-llm/thumbnail.png
+thumbnail: /blog/assets/swift-transformers/swift-transformers-thumb.png
 authors:
 - user: pcuenq
 - user: FL33TW00D-HF
