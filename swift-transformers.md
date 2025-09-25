@@ -17,9 +17,9 @@ We want to double down on the use cases that provide most benefits to the commun
 
 `swift-transformers` is a Swift library that [aims to reduce the friction](https://huggingface.co/blog/swift-coreml-llm) for developers that want to work with local models on Apple Silicon platforms, including iPhones. It includes the missing pieces that are not provided by Core ML or MLX alone, but that are required to work with local inference. Namely, it provides the following components:
 
-* `Tokenizers`. A tokenizer helps you prepare inputs for your language model in the format it understands: it translates *text* to *tokens*. Each model uses a different tokenizer, and each conversational model uses a different *chat template*. All this complexity is handled by the `Tokenizers` module so you don’t have to write custom code for the models you want to use, and can quickly replace them in your app.  
+* `Tokenizers`. Preparing inputs for a language model is surprisingly complex. We've built a lot of experience with our `tokenizers` Python and Rust libraries, which are foundational to the AI ecosystem. We wanted to bring the same performant, ergonomic experience to Swift. The Swift version of `Tokenizers` should handle everything for you, including chat templates and agentic use!
 * `Hub`. This is an interface to the [Hugging Face Hub](https://huggingface.co), where all open models are available. It allows you to download models from the Hub and cache them locally, and supports background resumable downloads, model updates, offline mode. It contains a subset of the functionality provided by the [Python](https://huggingface.co/docs/huggingface_hub/en/index) and [JavaScript](https://huggingface.co/docs/huggingface.js/en/hub/README) libraries, focused on the tasks that Apple developers need the most (i.e., uploads are not supported).  
-* `Models` and `Generation`. These are wrappers for LLMs converted to the Core ML format. Converting them is out of the scope of the library (but we have some guides). Once they are converted, these modules make it easy to run inference with them.
+* `Models` and `Generation`. These are wrappers for LLMs converted to the Core ML format. Converting them is out of the scope of the library (but [we have some guides](https://www.google.com/url?q=https://huggingface.co/blog/mistral-coreml)). Once they are converted, these modules make it easy to run inference with them.
 
 ## How is the community using it
 
@@ -41,7 +41,7 @@ Version 1.0 is a consolidation of the most important use cases, and a foundation
 * **Tests** are better, faster, stronger.
 * **Swift 6** and Swift 5 are both supported.
 
-This is a breaking API change. However, we don’t expect major problems if you are a user of `Tokenizers` or `Hub`. If you use the Core ML components of the library, please get in touch so we can support you during transition. We’ll prepare a migration guide and add it to the documentation.
+This is a breaking API change. However, we don’t expect major problems if you are a user of `Tokenizers` or `Hub`. If you use the Core ML components of the library, please [get in touch](https://github.com/huggingface/swift-transformers/issues/new) so we can support you during transition. We’ll prepare a migration guide and add it to the documentation.
 
 ## What comes next
 
