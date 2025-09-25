@@ -59,7 +59,7 @@ model.generate("What is speculative decoding and how does it improve inference s
  The speedup from SD depends on the mean number of generated tokens per forward step of the target, $\gamma$ the speculation window size, and the ratio between the target and draft models' latency $c$. A smaller, faster (though less accurate) draft can often deliver greater acceleration. This inspired us to shrink the draft model while still preserving its quality, i.e. $E(\\# generated\ tokens)$.
 
 $$
-Speedup = \frac{E(\\# generated\ tokens)}{\gamma c + 1}
+Speedup = \frac{E(\# generated\_tokens)}{\gamma c + 1}
 $$
 
 Our [recent work](https://huggingface.co/papers/2411.11055) shows that model depth (number of layers) is a major contributor to inference latency. Building on insights from [Gromov et al.](https://huggingface.co/papers/2403.17887) and [Siddiqui et al.](https://arxiv.org/abs/2407.16286), who showed that layer pruning can be done with minimal accuracy loss, we pruned 6 of 28 layers from the Qwen3-0.6B draft.
