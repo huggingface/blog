@@ -6699,4 +6699,15 @@
     - scaleway
     - enterprise
     - partnerships
+
+- local: intel-qwen3-agent
+  title: "Accelerating Qwen3-8B Agent on Intel® Core™ Ultra with Depth-Pruned Draft Models"
+  author: imargulis
+  thumbnail: /blog/assets/intel-qwen3-agent/smolagents2.png
+  date: Sep 25, 2025
+  tags:
+    - llm
+    - intel
+    - nlp
+    - guide
     - hub
