@@ -39,13 +39,13 @@ The combination of optimized inference and built-in agentic intelligence makes Q
 
 We started by benchmarking the 4-bit optimized OpenVINO version of Qwen3-8B on an Intel Lunar Lake integrated GPU, establishing this as our baseline for further acceleration
 
-[Speculative decoding](https://arxiv.org/abs/2211.17192) is a method to speed up auto-regressive generation. It works by using a smaller, faster model as a draft to propose multiple tokens in a single forward pass, which are then validated by the larger target model in one forward pass. In our setup, [Qwen3-8B](https://huggingface.co/Qwen/Qwen3-8B) served as the target model while [Qwen3-0.6B](https://huggingface.co/Qwen/Qwen3-0.6B) was used as the draft. This approach delivered an average of 1.3× speedup over the baseline.
+[Speculative decoding](https://arxiv.org/abs/2211.17192) is a method to speed up auto-regressive generation. It works by using a smaller, faster model as a draft to propose multiple tokens in a single forward pass, which are then validated by the larger target model in one forward pass. In our setup, [Qwen3-8B](https://huggingface.co/OpenVINO/Qwen3-8B-int4-ov) served as the target model while [Qwen3-0.6B](https://huggingface.co/OpenVINO/Qwen3-0.6B-int8-ov) was used as the draft. This approach delivered an average of 1.3× speedup over the baseline.
 
 ```python
 from openvino_genai import LLMPipeline, draft_model
 
-target_path = "/path/to/target/model"
-draft_path = "/path/to/draft/model"
+target_path = "/path/to/target/Qwen3-8B-int4-ov"
+draft_path = "/path/to/draft/Qwen3-0.6B-int8-ov"
 device = "GPU"
 
 model = LLMPipeline(target_path, device, draft_model=draft_model(draft_path, device))
