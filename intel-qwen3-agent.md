@@ -56,7 +56,7 @@ model.generate("What is speculative decoding and how does it improve inference s
 
 ## Pushing Performance Further
 
- The speedup from SD depends on the mean number of generated tokens per forward step of the target, $\gamma$ the speculation window size, and the ratio between the target and draft models' latency $c$. A smaller, faster (though less accurate) draft can often deliver greater acceleration. This inspired us to shrink the draft model while still preserving its quality, i.e. $E(\\# generated\ tokens)$.
+ The speculative decoding speedup depends on the average number of generated tokens per forward step of the target, \\( \gamma \\), the speculation window size, and the ratio between the target and draft models' latency \\( c \\). A smaller, faster (though less accurate) draft can often deliver greater acceleration. This inspired us to shrink the draft model while still preserving its quality, i.e. \\( E(\# generated\_tokens) \\).
 
 $$
 Speedup = \frac{E(\# generated\_tokens)}{\gamma c + 1}
