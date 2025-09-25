@@ -28,7 +28,7 @@ TL;DR:
 
 -   By using speculative decoding and applying a simple pruning process to the draft, we pushed the speedup even further to ~1.4×
 
--   We wrapped this up by showing how these improvements can be used to run a fast, local AI Agent with 🤗[smolagents](https://github.com/huggingface/smolagents)
+-   We wrapped this up by showing how these improvements can be used to run a fast, local AI Agent with 🤗 [smolagents](https://github.com/huggingface/smolagents)
 
 ## Qwen3
 Qwen3-8B is part of the latest Qwen family, trained with explicit agentic behaviors. It supports tool invocation, multi-step reasoning, and long-context handling capabilities, that make it well-suited for complex agent workflows. When integrated with frameworks like Hugging Face 🤗smolagents, QwenAgent, or AutoGen, it enables a wide range of agentic applications built around tool use and reasoning.
