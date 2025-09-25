@@ -45,15 +45,12 @@ We started by benchmarking the 4-bit optimized OpenVINO version of Qwen3-8B on a
 from openvino_genai import LLMPipeline, draft_model
 
 target_path = "/path/to/target/model"
-
 draft_path = "/path/to/draft/model"
-
 device = "GPU"
 
 model = LLMPipeline(target_path, device, draft_model=draft_model(draft_path, device))
 
 streamer = lambda x: print(x, end="", flush=True)
-
 model.generate("What is speculative decoding and how does it improve inference speed?", max_new_tokens=100, reamer=streamer)
 ```
 
