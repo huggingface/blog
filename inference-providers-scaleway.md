@@ -5,6 +5,9 @@ authors:
   - user: gnoale
     guest: true
     org: scaleway
+  - user: fpagny
+    guest: true
+    org: scaleway
   - user: f14e
     guest: true
     org: scaleway
@@ -66,7 +69,7 @@ See the list of supported models [here](https://huggingface.co/models?inference_
 
 #### from Python, using huggingface_hub
 
-The following example shows how to use Swiss AI's Apertus-70B using Scaleway as the inference provider. You can use a [Hugging Face token](https://huggingface.co/settings/tokens) for automatic routing through Hugging Face, or your own Scaleway API key if you have one.
+The following example shows how to use OpenAI's gpt-oss-120b using Scaleway as the inference provider. You can use a [Hugging Face token](https://huggingface.co/settings/tokens) for automatic routing through Hugging Face, or your own Scaleway API key if you have one.
 
 Note: this requires using a recent version of `huggingface_hub` (>= 0.34.6).
 

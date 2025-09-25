@@ -6699,6 +6699,35 @@
     - scaleway
     - enterprise
     - partnerships
+    - hub
+
+- local: gaia2
+  title: "Gaia2 and ARE: Empowering the community to study agents"
+  author: clefourrier
+  thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_mare_gaia2.png
+  date: Sep 22, 2025
+  tags:
+    - leaderboards
+    - gaia
+    - agents
+    - evaluation
+
+- local: smol2operator
+  title: "Smol2Operator: Post-Training GUI Agents for Computer Use"
+  author: A-Mahla
+  thumbnail: /blog/assets/smol2operator/thumbnail.png
+  date: Sep 23, 2025
+  tags:
+    - agents
+    - gui
+    - vlm
+    - vision
+    - training
+    - post-training
+    - computer-use
+    - agentic
+    - community
+    - open-source
 
 - local: intel-qwen3-agent
   title: "Accelerating Qwen3-8B Agent on Intel® Core™ Ultra with Depth-Pruned Draft Models"
