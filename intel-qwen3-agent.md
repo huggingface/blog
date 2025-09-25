@@ -1,6 +1,6 @@
 ---
 title: "Accelerating Qwen3-8B Agent on Intel® Core™ Ultra with Depth-Pruned Draft Models" 
-thumbnail: /blog/assets/intel-qwen3-agent/intel-qwen-3-agent1.png
+thumbnail: /blog/assets/intel-qwen3-agent/smolagents2.png
 authors:
 - user: imargulis
   guest: true
@@ -17,7 +17,7 @@ authors:
 - user: pcuenq
 ---
 ****
-![banner image](https://github.com/guybd/blog/blob/main/assets/intel-qwen3-agent/intel-qwen-3-agent1.png)
+# ![banner image](https://github.com/guybd/blog/blob/main/assets/intel-qwen3-agent/smolagents2.png)
 
 # Accelerating Qwen3-8B Agent on Intel® Core™ Ultra with Depth-Pruned Draft Models
 
