@@ -1258,7 +1258,7 @@
 
 - local: stable_diffusion_jax
   title: "Stable Diffusion in JAX/Flax 🚀"
-  author: pcuenca
+  author: pcuenq
   thumbnail: /blog/assets/108_stable_diffusion_jax/thumbnail.png
   date: Oct 13, 2022
   tags:
@@ -1449,7 +1449,7 @@
 
 - local: diffusers-coreml
   title: "Using Stable Diffusion with Core ML on Apple Silicon"
-  author: pcuenca
+  author: pcuenq
   thumbnail: /blog/assets/diffusers_coreml/thumbnail.png
   date: December 1, 2022
   tags:
@@ -6728,3 +6728,15 @@
     - agentic
     - community
     - open-source
+
+- local: swift-transformers
+  title: "Swift Transformers v1.0"
+  author: pcuenq
+  thumbnail: /blog/assets/swift-coreml-llm/thumbnail.png
+  date: Sep 25, 2025
+  tags:
+    - swift
+    - transformers
+    - swift-transformers
+    - coreml
+    - apple
