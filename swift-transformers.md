@@ -21,6 +21,11 @@ We want to double down on the use cases that provide most benefits to the commun
 * `Hub`. This is an interface to the [Hugging Face Hub](https://huggingface.co), where all open models are available. It allows you to download models from the Hub and cache them locally, and supports background resumable downloads, model updates, offline mode. It contains a subset of the functionality provided by the [Python](https://huggingface.co/docs/huggingface_hub/en/index) and [JavaScript](https://huggingface.co/docs/huggingface.js/en/hub/README) libraries, focused on the tasks that Apple developers need the most (i.e., uploads are not supported).  
 * `Models` and `Generation`. These are wrappers for LLMs converted to the Core ML format. Converting them is out of the scope of the library (but [we have some guides](https://www.google.com/url?q=https://huggingface.co/blog/mistral-coreml)). Once they are converted, these modules make it easy to run inference with them.
 
+<figure style="text-align: center;">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/swift-transformers/mlx-vlm-examples-birds.jpg" alt="Test app from mlx-swift-examples, showing SmolVLM2 explaining actions in a video." style="width: 100%;"/>
+  <figcaption>Test app from mlx-swift-examples, showing SmolVLM2 explaining actions in a video.</figcaption>
+</figure>
+
 ## How is the community using it
 
 We are not 100% sure about all use cases, but most of the time people use the `Tokenizers` or `Hub` modules, and frequently both. Some notable projects that rely on `swift-transformers` include:
