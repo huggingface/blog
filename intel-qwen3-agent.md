@@ -22,7 +22,7 @@ authors:
 
 TL;DR:
 
--   [Qwen3-8B](https://qwenlm.github.io/blog/qwen3/) is one of the most exciting recent releases—a model with  native agentic capabilities, making it a natural fit for the AIPC.
+-   [Qwen3-8B](https://huggingface.co/Qwen/Qwen3-8B) is one of the most exciting recent releases—a model with  native agentic capabilities, making it a natural fit for the AIPC.
 
 -   With [OpenVINO.GenAI](https://github.com/openvinotoolkit/openvino.genai), we’ve been able to accelerate generation by ~1.3× using speculative decoding with a lightweight Qwen3-0.6B draft.
 
