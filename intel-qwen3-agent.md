@@ -73,7 +73,7 @@ This demonstrates how pruning + speculative decoding can unlock faster and more 
 Check out the [notebook](https://github.com/guybd/openvino_notebooks/blob/latest/supplementary_materials/notebooks/qwen-3/qwen3.ipynb) and the Qwen3-0.6B depth-pruned [draft model](https://huggingface.co/OpenVINO/Qwen3-pruned-6L-from-0.6B-int8-ov) to reproduce our results step by step
 
 
-## Integration to 🤗smolagents
+## Integration with 🤗smolagents
 
 To showcase the real-world potential, we deployed our optimized setup with the 🤗smolagents library. With this integration, developers can plug in Qwen3-8B (paired with our pruned draft) to build agents that call APIs and external tools, write and execute code, handle long-context reasoning and run efficiently on Intel® Core™ Ultra.
 The benefits aren’t limited to Hugging Face, this model pairing can also be used seamlessly with frameworks like AutoGen or QwenAgent, further strengthening the agentic ecosystem.
