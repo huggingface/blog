@@ -1058,8 +1058,9 @@ Our fine-tuning process achieved a significant improvement of +0.0522 NDCG@10 on
 
 ## Further Reading
 
-- [Google EmbeddingGemma blogpost](https://developers.googleblog.com/en/introducing-embeddinggemma/)
 - [google/embeddinggemma-300m](https://huggingface.co/google/embeddinggemma-300m)
+- [Google EmbeddingGemma blogpost](https://developers.googleblog.com/en/introducing-embeddinggemma/)
+- [Google EmbeddingGemma technical report](https://arxiv.org/abs/2509.20354)
 - [Sentence Transformers documentation](https://sbert.net/)
 - [Sentence Transformers > Training Overview documentation](https://sbert.net/docs/sentence_transformer/training_overview.html)
 - [Transformers.js documentation](https://huggingface.co/docs/transformers.js/en/index)

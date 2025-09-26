@@ -10,6 +10,9 @@ authors:
 ---
 # Tiny Agents in Python: an MCP-powered agent in ~70 lines of code
 
+> [!TIP]
+> NEW: tiny-agents now supports [AGENTS.md](https://agents.md/) standard. 🥳
+
 Inspired by [Tiny Agents in JS](https://huggingface.co/blog/tiny-agents), we ported the idea to Python 🐍 and extended the [`huggingface_hub`](https://github.com/huggingface/huggingface_hub/) client SDK to act as a MCP Client so it can pull tools from MCP servers and pass them to the LLM during inference.
 
 MCP ([Model Context Protocol](https://modelcontextprotocol.io/)) is an open protocol that standardizes how Large Language Models (LLMs) interact with external tools and APIs. Essentially, it removed the need to write custom integrations for each tool, making it simpler to plug new capabilities into your LLMs.

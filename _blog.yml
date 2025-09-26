@@ -4509,6 +4509,7 @@
     - announcement
     - enterprise
     - hub
+    - xet
 
 - local: unified-tool-use
   title: "Tool Use, Unified"
@@ -4742,6 +4743,7 @@
     - parquet
     - dedupe
     - storage
+    - xet
 
 - local: dynamic_speculation_lookahead
   title: "Faster Assisted Generation with Dynamic Speculation"
@@ -5037,6 +5039,7 @@
     - dedupe
     - storage
     - content defined chunking
+    - xet
 
 - local: debate
   title: "Letting Large Models Debate: The First Multilingual LLM Debate Competition"
@@ -5085,6 +5088,7 @@
     - storage
     - content addressed store
     - infrastructure
+    - xet
 
 - local: cfm-case-study
   title: "Investing in Performance: Fine-tune small models with LLM insights  - a CFM case study"
@@ -5505,6 +5509,7 @@
     - storage
     - content defined chunking
     - quantization
+    - xet
 
 - local: billion-classifications
   title: "1 Billion Classifications"
@@ -5697,6 +5702,7 @@
     - storage
     - infrastructure
     - content addressed store
+    - xet
 
 - local: nvidia-physical-ai
   title: "NVIDIA's GTC 2025 Announcement for Physical AI Developers: New Open Models and Datasets"
@@ -6284,7 +6290,7 @@
     - llm
 
 - local: mi300kernels
-  title: "Creating custom kernels for the AMD MI300" 
+  title: "Creating custom kernels for the AMD MI300"
   author: ror
   thumbnail: /blog/assets/mi300kernels/thumbnail.png
   date: Jul 9, 2025
@@ -6316,7 +6322,6 @@
     - gradio
     - multimodal
 
-
 - local: screenenv
   title: "ScreenEnv: Deploy your full stack Desktop Agent"
   author: A-Mahla
@@ -6340,7 +6345,6 @@
     - models
     - open-source
 
-
 - local: migrating-the-hub-to-xet
   title: "Migrating the Hub from Git LFS to Xet"
   author: jsulz
@@ -6350,6 +6354,7 @@
     - storage
     - infrastructure
     - content addressed store
+    - xet
 
 - local: ettin
   title: "Seq vs Seq: the Ettin Suite of Paired Encoders and Decoders"
@@ -6361,7 +6366,7 @@
     - nlp
     - community
     - research
-    - open-source-collab 
+    - open-source-collab
 
 - local: gradio-mcp-updates
   title: "Five Big Improvements to Gradio MCP Servers"
@@ -6397,16 +6402,16 @@
     - gradio
     - mcp
 
-- local: virtual-cell-challenge 
+- local: virtual-cell-challenge
   title: "Arc Virtual Cell Challenge: A Primer"
   thumbnail: /blog/assets/virtual-cell-challenge/thumbnail.png
-  author: FL33TW00D-HF 
+  author: FL33TW00D-HF
   date: July 18, 2025
   tags:
     - collaboration
     - guide
 
-- local: lora-fast 
+- local: lora-fast
   title: "Fast LoRA inference for Flux with Diffusers and PEFT"
   thumbnail: /blog/assets/lora-fast/thumbnail.png
   author: sayakpaul
@@ -6427,7 +6432,7 @@
     - multimodal
     - open-source
     - benchmark
-    
+
 - local: parquet-cdc
   title: "Parquet Content-Defined Chunking"
   author: kszucs
@@ -6485,7 +6490,7 @@
     - open-source
     - LLM
     - community
-    
+
 - local: trl-vlm-alignment
   title: "Vision Language Model Alignment in TRL ⚡️"
   author: sergiopaniego
@@ -6495,7 +6500,7 @@
     - trl
     - vlm
     - vision
-   
+
 - local: filbench
   title: "🇵🇭 FilBench - Can LLMs Understand and Generate Filipino?"
   author: ljvmiranda921
@@ -6510,7 +6515,7 @@
     - tagalog
     - cebuano
     - philippines
-    
+
 - local: accelerate-nd-parallel
   title: "Accelerate ND-Parallel: A Guide to Efficient Multi-GPU Training"
   author: siro1
@@ -6615,6 +6620,115 @@
     - research
     - open-source-collab
 
+- local: jupyter-agent-2
+  title: "Jupyter Agents: training LLMs to reason with notebooks"
+  author: baptistecolle
+  thumbnail: /blog/assets/jupyter-agent-2/thumbnail.png
+  date: Sep 10, 2025
+  tags:
+    - agents
+    - jupyter
+    - llm
+    - data-science
+    - research
+
+- local: faster-transformers
+  title: "Tricks from OpenAI gpt-oss YOU 🫵 can use with transformers"
+  author: ariG23498
+  thumbnail: /blog/assets/faster-transformers/thumbnail.png
+  date: Sep 11, 2025
+  tags:
+    - transformers
+    - pytorch
+    - optimization
+    - guide
+
+- local: watermarking-with-gradio
+  title: "Visible Watermarking with Gradio"
+  author: meg
+  thumbnail: /blog/assets/watermarking-with-gradio/thumbnail.png
+  date: Sep 15, 2025
+  tags:
+    - ethics
+    - text-generation
+    - guide
+    - text-to-image
+    - text-to-video
+
+- local: lerobot-datasets-v3
+  title: "`LeRobotDataset`: Bringing large-scale datasets to lerobot"
+  author: fracapuano
+  thumbnail: /blog/assets/lerobot-dataset-v3/thumbnail.png
+  date: Sep 16, 2025
+  tags:
+    - lerobot
+    - datasets
+    - robotics
+
+- local: inference-providers-publicai
+  title: "Public AI on Hugging Face Inference Providers 🔥"
+  author: sbrandeis
+  thumbnail: /blog/assets/inference-providers/welcome-publicai.jpg
+  date: Sep 17, 2025
+  tags:
+    - llms
+    - inference-providers
+    - public-ai
+    - enterprise
+    - partnerships
+    - hub
+
+- local: riskrubric
+  title: "Democratizing AI Safety with RiskRubric.ai"
+  author: galmo-noma
+  thumbnail: /blog/assets/riskrubric/thumbnail.png
+  date: Sep 18, 2025
+  tags:
+    - llms
+    - security
+    - partnerships
+
+- local: inference-providers-scaleway
+  title: "Scaleway on Hugging Face Inference Providers 🔥"
+  author: sbrandeis
+  thumbnail: /blog/assets/inference-providers/welcome-scaleway.jpg
+  date: Sep 19, 2025
+  tags:
+    - llms
+    - inference-providers
+    - scaleway
+    - enterprise
+    - partnerships
+    - hub
+
+- local: gaia2
+  title: "Gaia2 and ARE: Empowering the community to study agents"
+  author: clefourrier
+  thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_mare_gaia2.png
+  date: Sep 22, 2025
+  tags:
+    - leaderboards
+    - gaia
+    - agents
+    - evaluation
+
+- local: smol2operator
+  title: "Smol2Operator: Post-Training GUI Agents for Computer Use"
+  author: A-Mahla
+  thumbnail: /blog/assets/smol2operator/thumbnail.png
+  date: Sep 23, 2025
+  tags:
+    - agents
+    - gui
+    - vlm
+    - vision
+    - training
+    - post-training
+    - computer-use
+    - agentic
+    - community
+    - open-source
+    
 - local: gpt-oss-on-intel-xeon
   title: "Running GPT OSS on Intel Xeon CPU"
   author: Jiqing
