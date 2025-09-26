@@ -5,6 +5,7 @@ authors:
 - user: pcuenq
 - user: FL33TW00D-HF
 - user: mattt
+- user: reach-vb
 ---
 
 # swift-transformers 1.0
@@ -36,24 +37,57 @@ Most of the time people use the `Tokenizers` or `Hub` modules, and frequently bo
 
 ## What changes with v1.0
 
-Version 1.0 is a consolidation of the most important use cases, and a foundation on which to iterate with the community to build the next set of features. These are some of our preferred updates:
+Version 1.0 signals stability in the package. Developers are building apps on swift-transformers, and this first major release recognizes those use cases and brings the version number in line with that reality. It also provides the foundation on which to iterate with the community to build the next set of features. These are some of our preferred updates:
 
-* **`Tokenizers` and `Hub`** are now first-citizen, top-level modules. Before 1.0, you had to depend on and import the full package, whereas now you can just pick `Tokenizers`, for instance.
-* Speaking of Jinja, we are super proud to announce that we have collaborated with [John Mai](https://huggingface.co/JohnMai) ([X](https://x.com/JohnMai_Dev)) to create the **next version of his excellent Swift Jinja library**. 
+* **`Tokenizers` and `Hub`** are now [first-citizen, top-level modules](https://github.com/huggingface/swift-transformers/pull/269). Before 1.0, you had to depend on and import the full package, whereas now you can just pick `Tokenizers`, for instance.
+* Speaking of Jinja, we are super proud to announce that we have collaborated with [John Mai](https://huggingface.co/JohnMai) ([X](https://x.com/JohnMai_Dev)) to create the **next version of his excellent Swift Jinja library**.
 John’s work has been crucial for the community: he single-handedly took on the task to provide a solid chat template library that could grow as templates became more and more complex. The new version is a couple orders of magnitude faster (no kidding), and [lives here as `swift-jinja`](https://github.com/huggingface/swift-jinja).
 * To further reduce the load imposed on downstream users, we have **removed our example CLI targets and the `swift-argument-parser` dependency**, which in turn prevents version conflicts for projects that already use it.
-* Thanks to contributions by Apple, we have adopted **Modern Core ML APIs** with support for stateful models (for easier KV-caching) and expressive `MLTensor` APIs – this removes thousands of lines of custom tensor operations and math code.
-* Lots of **additional cruft removed and API surface reduced** to reduce cognitive load and iterate faster.
-* **Tests** are better, faster, stronger.
-* **Swift 6** and Swift 5 are both supported.
+* Thanks to contributions by Apple, we have [adopted **Modern Core ML APIs**](https://github.com/huggingface/swift-transformers/pull/257) with support for stateful models (for easier KV-caching) and expressive `MLTensor` APIs – this removes thousands of lines of custom tensor operations and math code.
+* Lots of **additional cruft removed and [API surface reduced](https://github.com/huggingface/swift-transformers/pull/250)** to reduce cognitive load and iterate faster.
+* **Tests** are [better, faster, stronger](https://github.com/huggingface/swift-transformers/pull/229).
+* **Documentation comments** have been added to [public APIs](https://github.com/huggingface/swift-transformers/pull/268).
+* **Swift 6** is [fully supported](https://github.com/huggingface/swift-transformers/pull/264).
 
-This is a breaking API change. However, we don’t expect major problems if you are a user of `Tokenizers` or `Hub`. If you use the Core ML components of the library, please [get in touch](https://github.com/huggingface/swift-transformers/issues/new) so we can support you during transition. We’ll prepare a migration guide and add it to the documentation.
+Version 1.0 comes with breaking API changes. However, we don’t expect major problems if you are a user of `Tokenizers` or `Hub`. If you use the Core ML components of the library, please [get in touch](https://github.com/huggingface/swift-transformers/issues/new) so we can support you during transition. We’ll prepare a migration guide and add it to the documentation.
+
+## Usage Examples
+
+Here's how to use `Tokenizers` to format tool calling input for an LLM:
+
+```swift
+import Tokenizers
+
+let tokenizer = try await AutoTokenizer.from(pretrained: "mlx-community/Qwen2.5-7B-Instruct-4bit")
+
+let weatherTool = [
+    "type": "function",
+    "function": [
+        "name": "get_current_weather",
+        "description": "Get the current weather in a given location",
+        "parameters": [
+            "type": "object",
+            "properties": ["location": ["type": "string", "description": "City and state"]],
+            "required": ["location"]
+        ]
+    ]
+]
+
+let tokens = try tokenizer.applyChatTemplate(
+    messages: [["role": "user", "content": "What's the weather in Paris?"]],
+    tools: [weatherTool]
+)
+```
+
+For additional examples, please check [this section in the README](https://github.com/huggingface/swift-transformers?#examples) and the Exa[mples folder](https://github.com/huggingface/swift-transformers/tree/main/Examples).
 
 ## What comes next
 
 Honestly, we don’t know. We do know that we are super interested in exploring MLX, because that’s usually the current go-to approach for developers getting started with ML in native apps, and we want to help make the experience as seamless as possible. We are thinking along the lines of better integration with `mlx-swift-examples` for LLMs and VLMs, potentially through pre-processing and post-processing operations that developers encounter frequently.
 
 We are also extremely excited about agentic use in general and MCP in particular. We think that exposure of system resources to local workflows would be 🚀
+
+If you want to follow along in this journey or want to share your ideas, please contact us through our social networks or [the repo](https://github.com/huggingface/swift-transformers/issues/new).
 
 ## We couldn’t have done this without you 🫵
 
