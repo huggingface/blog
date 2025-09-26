@@ -54,6 +54,10 @@ streamer = lambda x: print(x, end="", flush=True)
 model.generate("What is speculative decoding and how does it improve inference speed?", max_new_tokens=100, reamer=streamer)
 ```
 
+> [!NOTE]  
+> Before initializing the `LLMPipeline`, make sure both the target and draft models are converted to OpenVINO. You can either download pre-converted models from the provided links or follow these [instructions](https://huggingface.co/docs/optimum-intel/en/openvino/export) to convert your own.
+
+
 ## Pushing Performance Further
 
  The speculative decoding speedup depends on the average number of generated tokens per forward step of the target, \\( \gamma \\), the speculation window size, and the ratio between the target and draft models' latency \\( c \\). A smaller, faster (though less accurate) draft can often deliver greater acceleration. This inspired us to shrink the draft model while still preserving its quality, i.e. \\( E(\# generated\_tokens) \\).
