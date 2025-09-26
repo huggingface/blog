@@ -1,5 +1,5 @@
 ---
-title: "Swift Transformers goes stable with v1.0"
+title: "Swift Transformers Reaches 1.0 – and Looks to the Future"
 thumbnail: /blog/assets/swift-transformers/swift-transformers-thumb.png
 authors:
 - user: pcuenq
@@ -8,7 +8,7 @@ authors:
 - user: reach-vb
 ---
 
-# swift-transformers 1.0
+# Swift Transformers Reaches 1.0 – and Looks to the Future
 
 We released [`swift-transformers`](https://github.com/huggingface/swift-transformers) two years ago (!) with the goal to support Apple developers and help them integrate local LLMs in their apps. A lot has changed since then (MLX and chat templates did not exist!), and we’ve learned how the community is actually using the library.
 
