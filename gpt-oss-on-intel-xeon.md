@@ -16,7 +16,7 @@ authors:
 
 # Optimizing GPT OSS on 6th Gen Xeon at GCP
 
-TL;DR: We benchmarked the text generation performance of OpenAI GPT OSS LLM on Google Cloud C4 (using Intel Xeon 6 “Granite Rapids” (GNR)) and C3 (4th Gen Intel Xeon “Sapphire Rapids” (SPR)) instances. It shows the C4 VM (GNR) delivers: 
+TL;DR: We benchmarked the text generation performance of OpenAI GPT OSS LLM on Google Cloud C4 (using Intel Xeon 6 "Granite Rapids" (GNR)) and C3 (4th Gen Intel Xeon "Sapphire Rapids" (SPR)) instances. It shows the C4 VM (GNR) delivers:
 - 1.4x ~ 1.7x better throughput per vCPU
 
 Combining performance and price (C4 has a lower price per hour over C3), C4 delivers around 1.7× TCO over C3.
