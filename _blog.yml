@@ -6728,3 +6728,22 @@
     - agentic
     - community
     - open-source
+
+- local: optimizing_moe_training
+  title: "Optimizing Mixture-of-Experts Training: A Cost-Effective, Two-Sided Approach"
+  author: kshitijthakkar
+  thumbnail: /blog/assets/optimizing_moe_training/optimizing_moe_training.png
+  date: Sep 26, 2025
+  tags:
+    - mixture-of-experts
+    - cost-optimization
+    - training
+    - fine-tuning
+    - preprocessing
+    - infrastructure
+    - huggingface
+    - modal
+    - reproducibility
+    - early-stopping
+    - efficiency
+    - gpu
