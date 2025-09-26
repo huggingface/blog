@@ -6730,10 +6730,10 @@
     - open-source
 
 - local: swift-transformers
-  title: "Swift Transformers v1.0"
+  title: "Swift Transformers goes stable with v1.0"
   author: pcuenq
   thumbnail: /blog/assets/swift-transformers/swift-transformers-thumb.png
-  date: Sep 25, 2025
+  date: Sep 26, 2025
   tags:
     - swift
     - transformers

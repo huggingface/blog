@@ -1,5 +1,5 @@
 ---
-title: "Swift Transformers v1.0"
+title: "Swift Transformers goes stable with v1.0"
 thumbnail: /blog/assets/swift-transformers/swift-transformers-thumb.png
 authors:
 - user: pcuenq
@@ -19,7 +19,7 @@ We want to double down on the use cases that provide most benefits to the commun
 
 * `Tokenizers`. Preparing inputs for a language model is surprisingly complex. We've built a lot of experience with our `tokenizers` Python and Rust libraries, which are foundational to the AI ecosystem. We wanted to bring the same performant, ergonomic experience to Swift. The Swift version of `Tokenizers` should handle everything for you, including chat templates and agentic use!
 * `Hub`. This is an interface to the [Hugging Face Hub](https://huggingface.co), where all open models are available. It allows you to download models from the Hub and cache them locally, and supports background resumable downloads, model updates, offline mode. It contains a subset of the functionality provided by the [Python](https://huggingface.co/docs/huggingface_hub/en/index) and [JavaScript](https://huggingface.co/docs/huggingface.js/en/hub/README) libraries, focused on the tasks that Apple developers need the most (i.e., uploads are not supported).  
-* `Models` and `Generation`. These are wrappers for LLMs converted to the Core ML format. Converting them is out of the scope of the library (but [we have some guides](https://www.google.com/url?q=https://huggingface.co/blog/mistral-coreml)). Once they are converted, these modules make it easy to run inference with them.
+* `Models` and `Generation`. These are wrappers for LLMs converted to the Core ML format. Converting them is out of the scope of the library (but [we have some guides](https://huggingface.co/blog/mistral-coreml)). Once they are converted, these modules make it easy to run inference with them.
 
 <figure style="text-align: center;">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/swift-transformers/mlx-vlm-examples-birds.jpg" alt="Test app from mlx-swift-examples, showing SmolVLM2 explaining actions in a video." style="width: 100%;"/>
@@ -28,7 +28,7 @@ We want to double down on the use cases that provide most benefits to the commun
 
 ## How is the community using it
 
-We are not 100% sure about all use cases, but most of the time people use the `Tokenizers` or `Hub` modules, and frequently both. Some notable projects that rely on `swift-transformers` include:
+Most of the time people use the `Tokenizers` or `Hub` modules, and frequently both. Some notable projects that rely on `swift-transformers` include:
 
 * [`mlx-swift-examples`](https://github.com/ml-explore/mlx-swift-examples), by Apple. It’s, in fact, not just a collection of examples, but a list of libraries you can use to run various types of models using MLX, including LLMs and VLMs (vision-language models). It’s kind of our `Models` and `Generation` libraries but for MLX instead of Core ML – and it supports many more model types like embedders or Stable Diffusion.  
 * [WhisperKit](https://github.com/argmaxinc/WhisperKit/), by [argmax](https://www.argmaxinc.com). Open Source ASR (speech recognition) framework, super heavily optimized for Apple Silicon. It relies on our `Hub` and `Tokenizers` modules.  
@@ -39,7 +39,8 @@ We are not 100% sure about all use cases, but most of the time people use the `T
 Version 1.0 is a consolidation of the most important use cases, and a foundation on which to iterate with the community to build the next set of features. These are some of our preferred updates:
 
 * **`Tokenizers` and `Hub`** are now first-citizen, top-level modules. Before 1.0, you had to depend on and import the full package, whereas now you can just pick `Tokenizers`, for instance.
-* Speaking of Jinja, we are super proud to announce that we have collaborated with [John Mai](https://huggingface.co/JohnMai) ([X](https://x.com/JohnMai_Dev)) to create the **next version of his excellent Swift Jinja library**. John’s work has been crucial for the community: he single-handedly took on the task to provide a solid chat template library that could grow as templates became more and more complex. The new version is a couple orders of magnitude faster (no kidding), and [lives here as `swift-jinja`](https://github.com/huggingface/swift-jinja).
+* Speaking of Jinja, we are super proud to announce that we have collaborated with [John Mai](https://huggingface.co/JohnMai) ([X](https://x.com/JohnMai_Dev)) to create the **next version of his excellent Swift Jinja library**. 
+John’s work has been crucial for the community: he single-handedly took on the task to provide a solid chat template library that could grow as templates became more and more complex. The new version is a couple orders of magnitude faster (no kidding), and [lives here as `swift-jinja`](https://github.com/huggingface/swift-jinja).
 * To further reduce the load imposed on downstream users, we have **removed our example CLI targets and the `swift-argument-parser` dependency**, which in turn prevents version conflicts for projects that already use it.
 * Thanks to contributions by Apple, we have adopted **Modern Core ML APIs** with support for stateful models (for easier KV-caching) and expressive `MLTensor` APIs – this removes thousands of lines of custom tensor operations and math code.
 * Lots of **additional cruft removed and API surface reduced** to reduce cognitive load and iterate faster.
