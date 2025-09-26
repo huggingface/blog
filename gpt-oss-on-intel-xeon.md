@@ -16,84 +16,92 @@ authors:
 
 # Optimizing GPT OSS on 6th Gen Xeon at GCP
 
-With our optimization, GPT-OSS achieves inference speeds that approach human reading speed up to batch size 4. We have merged all optimizations into Transformers, so users can benefit from them out of the box. Users can reproduce the resultes in this blog on GNR powered C4 by following this blog.
+TL;DR: We benchmarked the text generation performance of OpenAI GPT OSS LLM on Google Cloud C4 (using Intel Xeon 6 “Granite Rapids” (GNR)) and C3 (4th Gen Intel Xeon “Sapphire Rapids” (SPR)) instances. It shows the C4 VM (GNR) delivers: 
+- 1.4x ~ 1.7x better throughput per vCPU
 
+Combining performance and price (C4 has a lower price per hour over C3), C4 delivers around 1.7× TCO over C3.
 
 ## Introduction
 
-GPT OSS is an open-weight model known for its strong reasoning and versatility. Its MoE architecture, while having a large number of parameters, activates only a small subset during inference. This makes it possible to run large models on Intel Xeon CPUs, where Expert Parallelism can further improve performance by distributing the computation of experts across multiple processes.
+GPT OSS is an open-source MoE model released by OpenAI demonstrating strong reasoning quality. Although it has large parameters, only a small subset of experts is activated per token, making CPU inference viable. 
 
-The following diagram briefly shows our optimizations on the experts.
+With joint work between Intel and Hugging Face, we merged an expert execution optimization (PR [40304](https://github.com/huggingface/transformers/pull/40304)) that eliminates redundant computation where every expert processed all tokens to transformers. With this optimization, each expert runs only on the tokens it is routed to, removing FLOPs waste and improving effective utilization.
 
 <kbd>
-  <img src="assets/gpt-oss-on-intel-xeon/expert_parallelism.png">
+  <img src="assets/gpt-oss-on-intel-xeon/gpt_oss_expert.png">
 </kbd>
 
-The first optimization in PR [40304](https://github.com/huggingface/transformers/pull/40304) focus on the expert computing strategy. Previously, Transformers computed all tokens for every expert, leading to unnecessary computation overhead. With our optimization, each expert processes only the tokens it activates.
 
-The second optimization in [40545](https://github.com/huggingface/transformers/pull/40545) enables native transfomers expert parallelism for GPT OSS model. EP (Expert Parallelism) is a technique used to distribute the computation of experts across multiple computation resources.
+## Benchmark Scope & Hardware
 
-In this blog, we benchmark the bfloat16 version of GPT OSS model [lmsys/gpt-oss-20b-bf16](https://huggingface.co/lmsys/gpt-oss-20b-bf16) on Intel 6th Gen Xeon GNR CPUs at GCP C4. The task is text generation with input sequence length 1024 and output sequence length 1024, and we sweep batch size from 1 to 64.
+We benchmark a large MoE model under a controlled, repeatable generation workload to isolate architectural differences (C3 SPR vs C4 GNR) and MoE execution efficiency. The focus is steady‑state decoding (per‑token latency) and end‑to‑end normalized throughput with increasing batch size while keeping sequence lengths fixed. All runs use static KV cache and SDPA attention for determinism.
+
+### Configuration Summary
+- Model: [unsloth/gpt-oss-120b-BF16](https://huggingface.co/unsloth/gpt-oss-120b-BF16)
+- Precision: bfloat16
+- Task: Text generation
+- Input length: 1024 tokens (left‑padded)
+- Output length: 1024 tokens
+- Batch sizes: 1, 2, 4, 8, 16, 32, 64
+- Enabled features:
+  - Static KV cache
+  - SDPA attention backend
+- Reported metrics:
+  - Throughput (Total generated tokens per second aggregated over the batch)
+
+### Hardware Under Test
+| Instance | Architecture | vCPUs |
+|----------|--------------|-------|
+| C3       | 4th Gen Xeon (SPR) | 172 |
+| C4       | 6th Gen Xeon (GNR) | 144 |
 
 
-## Create C4 instance
-Visit [google cloud console](https://console.cloud.google.com/) and click on `create a VM` under your project. Follow the below steps to create a 288-vcpu instance which corresponds to one Intel Granite Rapids socket.
+## Create instance
+### C3
+Visit [google cloud console](https://console.cloud.google.com/) and click on `create a VM` under your project. Follow the steps below to create a 176vCPU instance which corresponds to two Intel Sapphire Rapids sockets.
 
-1. pick C4 in `Machine configuration` tab and specify `Machine type` as `c4-standard-288`. You can also set `CPU platform` and turn on all-core turbo to make performance more stable:
+1. Pick 3 in the `Machine configuration` and specify Machine type as `c3-standard-176`. You can also set the `CPU platform` and turn on all-core turbo to make performance more stable:
+   ![alt text](assets/gpt-oss-on-intel-xeon/spr.png)
+2. configure OS and storage tab as below:
+   ![alt text](assets/gpt-oss-on-intel-xeon/spr-os.png)
+3. keep other configurations as default
+4. click `CREATE` button
+
+
+### C4
+Visit [google cloud console](https://console.cloud.google.com/) and click on `create a VM` under your project. Follow the below steps to create a 144 vCPU instance which corresponds to one Intel Granite Rapids processor socket.
+
+1. Pick C4 in the `Machine configuration` tab and specify Machine type as `c4-standard-144`. You can also set the `CPU platform` and turn on all-core turbo to make performance more stable:
    ![alt text](assets/gpt-oss-on-intel-xeon/gnr.png)
-2. keep other configurations as default
-3. click `CREATE` button
+2. configure OS and storage tab as we need for C3.
+3. keep other configurations as default
+4. click `CREATE` button
 
 
 ## Set up environment
-Run `vim Dockerfile` and paste the following codes.
+Please SSH connect to the instance and install docker. Follow the steps below to set up the environment easily. For reproducibility, we list the version and commit we are using in the commands.
 
-```dockerfile
-FROM intel/deep-learning-essentials:2025.1.3-0-devel-ubuntu24.04 AS base
-SHELL ["/bin/bash", "-c"]
+1. `$ git clone https://github.com/huggingface/transformers.git`
+2. `$ cd transformers/`
+3. `$ git checkout 26b65fb5168f324277b85c558ef8209bfceae1fe`
+4. `$ cd docker/transformers-intel-cpu/`
+5. `$ sudo docker build . -t <your_docker_image_tag>`
+6. `$ sudo docker run -it --rm --privileged -v /home/<your_home_folder>:/workspace <your_docker_image_tag> /bin/bash`
 
-ARG PYTHON_VERSION=3.12
-ENV DEBIAN_FRONTEND=noninteractive
+We are in container now, do following steps.
 
-RUN apt-get update && \
-    apt-get install -y software-properties-common && \
-    add-apt-repository -y ppa:deadsnakes/ppa && \
-    apt-get update
-
-RUN apt-get update && apt-get -y install apt-utils build-essential ca-certificates \
-    clinfo curl git git-lfs vim numactl python3-dev wget google-perftools \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
-
-# Use virtual env because Ubuntu:24 does not allowed pip on original python
-RUN curl -LsSf https://astral.sh/uv/install.sh | sh
-ENV PATH="/root/.local/bin:$PATH"
-ENV VIRTUAL_ENV="/opt/venv"
-ENV UV_PYTHON_INSTALL_DIR=/opt/uv/python
-RUN uv venv --python ${PYTHON_VERSION} --seed ${VIRTUAL_ENV}
-ENV PATH="$VIRTUAL_ENV/bin:$PATH"
-
-RUN pip install torch torchvision torchaudio torchcodec --index-url https://download.pytorch.org/whl/cpu --no-cache-dir
-RUN pip install -U datasets transformers accelerate intel-openmp
-
-ENV LD_PRELOAD=${LD_PRELOAD}:/opt/venv/lib/libiomp5.so:/usr/lib/x86_64-linux-gnu/libtcmalloc.so.4
-ENV KMP_AFFINITY=granularity=fine,compact,1,0
-
-RUN touch /entrypoint.sh && chmod +x /entrypoint.sh
-RUN echo "#!/bin/bash" >> /entrypoint.sh && echo "/bin/bash" >> /entrypoint.sh
-
-ENTRYPOINT ["/entrypoint.sh"]
-```
-
-Run `sudo docker build . -t <your_docker_image_tag>`, then, run `sudo docker run -it --rm --privileged -v /home/<your_home_folder>:/workspace <your_docker_image_tag> /bin/bash`
-
-We are in container now, do following steps:
-`pip install git+https://github.com/huggingface/transformers.git`
+1. `$ pip install "transformers"@git+https://github.com/huggingface/transformers.git@26b65fb5168f324277b85c558ef8209bfceae1fe`
+2. `$ pip install torch==2.8.0 torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu`
 
 
-## Benchmark
+## Benchmark Procedure
 
-Run `vim benchmark.py` and paste the following codes.
+For each batch size we
+1. Build a fixed 1024‑token left‑padded batch.
+2. Run a single warm‑up generation on the same inputs (excluded from timing).
+3. set `max_new_tokens=1024` and measure total latency, then derive `throughput = (OUTPUT_TOKENS * batch_size) / total_latency`.
+
+Run `numactl -l python benchmark.py` for the following codes.
 
 ```python
 import os
@@ -102,9 +110,6 @@ import torch
 from datasets import load_dataset
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
-os.environ['RANK'] = str(os.environ.get('PMI_RANK', 0))
-os.environ['LOCAL_RANK'] = str(os.environ.get('PMI_RANK', 0))
-os.environ['WORLD_SIZE'] = str(os.environ.get('PMI_SIZE', 1))
 INPUT_TOKENS = 1024
 OUTPUT_TOKENS = 1024
 
@@ -125,6 +130,7 @@ def get_inputs(tokenizer, batch_size):
 
 def run_generate(model, inputs, generation_config):
     inputs["generation_config"] = generation_config
+    model.generate(**inputs) # warm up
     pre = time.time()
     model.generate(**inputs)
     latency = (time.time() - pre)
@@ -132,9 +138,6 @@ def run_generate(model, inputs, generation_config):
 
 def benchmark(model, tokenizer, batch_size, generation_config):
     inputs = get_inputs(tokenizer, batch_size)
-    generation_config.max_new_tokens = 8
-    generation_config.min_new_tokens = 8
-    _ = run_generate(model, inputs, generation_config) # warm_up
     generation_config.max_new_tokens = 1
     generation_config.min_new_tokens = 1
     prefill_latency = run_generate(model, inputs, generation_config)
@@ -148,11 +151,9 @@ def benchmark(model, tokenizer, batch_size, generation_config):
 
 
 if __name__ == "__main__":
-    model_id = "lmsys/gpt-oss-20b-bf16"
+    model_id = "unsloth/gpt-oss-120b-BF16"
     tokenizer = AutoTokenizer.from_pretrained(model_id)
     model_kwargs = {"dtype": torch.bfloat16}
-    if int(os.environ.get("WORLD_SIZE", 0)) > 1:
-        model_kwargs["tp_plan"] = "auto"
     model = AutoModelForCausalLM.from_pretrained(model_id, **model_kwargs)
     model.config._attn_implementation="sdpa"
     generation_config = model.generation_config
@@ -160,41 +161,37 @@ if __name__ == "__main__":
     generation_config.cache_implementation="static"
 
     for batch_size in [1, 2, 4, 8, 16, 32, 64]:
-        if int(os.environ['RANK']) == 0:
-            print(f"---------- Run generation with batch size = {batch_size} ----------", flush=True)
-        prefill_latency, decoding_latency, throughput = \
-            benchmark(model, tokenizer, batch_size, generation_config)
-        if int(os.environ['RANK']) == 0:
-            print(f"TTFT = {prefill_latency * 1000} ms", flush=True)
-            print(f"TPOT = {decoding_latency * 1000} ms", flush=True)
-            print(f"throughput = {throughput}", flush=True)
+        print(f"---------- Run generation with batch size = {batch_size} ----------", flush=True)
+        prefill_latency, decoding_latency, throughput = benchmark(model, tokenizer, batch_size, generation_config)
+        print(f"throughput = {throughput}", flush=True)
 ```
 
-Run `numactl -C 0-71 --membind 0 python benchmark.py` to get the performance without EP.
 
-Run `mpirun -np 2 --map-by ppr:1:numa --bind-to numa -genv MASTER_ADDR=127.0.0.1 -genv MASTER_PORT=29500 -genv OMP_NUM_THREADS=24 python benchmark.py` to get the performance with EP=2.
+## Results
+### Normalized Throughput per vCPU
+Across batch sizes up to 64, GNR powered C4 consistently outperforms C3 with a 1.4x ~ 1.7× throughput per-vCPU. The formula is:
 
-
-## Results and Conclusion
-
-The following figures show the performance results for TTFT (Time to First Token) and TPOT (Time per Output Token) under batch sizes 1~8.
+`normalized_throughput_per_vCPU = (throughput_C4 / vCPUs_C4) / (throughput_C3 / vCPUs_C3)`
 
 <kbd>
-  <img src="assets/gpt-oss-on-intel-xeon/TTFT-gpt-oss.png">
+  <img src="assets/gpt-oss-on-intel-xeon/throughput-gpt-oss-per-vcpu.png">
 </kbd>
+
+### Cost & TCO Perspective
+C4-GNR features lower cost and higher throughput than C3-SPR. As illustrated in the figure below, under the same budget, the throughput of C4-GNR can reach 1.4x to 1.7x that of C3-SPR. The formula is:
+
+`normalized_throughput_per_dollar = (throughput_C4 / cost_C4) / (throughput_C3 / cost_C3)`
 
 <kbd>
-  <img src="assets/gpt-oss-on-intel-xeon/TPOT-gpt-oss.png">
+  <img src="assets/gpt-oss-on-intel-xeon/throughput-gpt-oss-per-dollar.png">
 </kbd>
+The TCO can reach 1.7x when the batch size is 64. 
 
-From the figures above, we can see that with EP enabled, the model achieves human reading speed (240-300 ms/token) up to batch size 8, where the TPOT is 299 ms/token.
 
-The following figures show the throughputs under batch sizes 8~64.
+## Key Takeaways
+- Intel Granite Rapids (C4) provides both performance gains and better cost efficiency for large MoE inference.
 
-<kbd>
-  <img src="assets/gpt-oss-on-intel-xeon/throughput-gpt-oss.png">
-</kbd>
 
-From the throughput figure, we can observe that EP significantly improves throughput. With EP enabled, the model achieves a throughput of 85 tokens/second at batch size 64.
+## Conclusion
 
-This blog demonstrates the potential of running large MoE models on CPUs. With further optimizations, we look forward to unlocking even greater performance on CPU-based systems in the future.
+C4 (Xeon 6 GNR) establishes a clear advantage over C3 (4th Gen Xeon SPR) for GPT OSS MoE inference, combining higher throughput, and reduced cost. These results underline that with targeted framework optimizations, large MoE models can be efficiently served on next-generation general-purpose CPUs. 
