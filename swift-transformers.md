@@ -79,7 +79,7 @@ let tokens = try tokenizer.applyChatTemplate(
 )
 ```
 
-For additional examples, please check [this section in the README](https://github.com/huggingface/swift-transformers?#examples) and the Exa[mples folder](https://github.com/huggingface/swift-transformers/tree/main/Examples).
+For additional examples, please check [this section in the README](https://github.com/huggingface/swift-transformers?#examples) and the [Examples folder](https://github.com/huggingface/swift-transformers/tree/main/Examples).
 
 ## What comes next
 
