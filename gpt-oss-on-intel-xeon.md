@@ -169,7 +169,7 @@ if __name__ == "__main__":
 
 ## Results
 ### Normalized Throughput per vCPU
-Across batch sizes up to 64, GNR powered C4 consistently outperforms C3 with a 1.4x ~ 1.7× throughput per-vCPU. The formula is:
+Across batch sizes up to 64, C4 consistently outperforms C3 with a 1.4x ~ 1.7× throughput per-vCPU. The formula is:
 
 `normalized_throughput_per_vCPU = (throughput_C4 / vCPUs_C4) / (throughput_C3 / vCPUs_C3)`
 
