@@ -6740,3 +6740,16 @@
     - swift-transformers
     - coreml
     - apple
+
+
+- local: vibegame
+  title: "VibeGame: Exploring Vibe Coding Games"
+  author: dylanebert
+  thumbnail: /blog/assets/vibegame/thumbnail.png
+  date: Sep 29, 2025
+  tags:
+    - guide
+    - open-source
+    - generation
+    - agents
+    - web
