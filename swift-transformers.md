@@ -39,7 +39,7 @@ Most of the time people use the `Tokenizers` or `Hub` modules, and frequently bo
 
 Version 1.0 signals stability in the package. Developers are building apps on swift-transformers, and this first major release recognizes those use cases and brings the version number in line with that reality. It also provides the foundation on which to iterate with the community to build the next set of features. These are some of our preferred updates:
 
-* **`Tokenizers` and `Hub`** are now [first-citizen, top-level modules](https://github.com/huggingface/swift-transformers/pull/269). Before 1.0, you had to depend on and import the full package, whereas now you can just pick `Tokenizers`, for instance.
+* **`Tokenizers` and `Hub`** are now [first-class, top-level modules](https://github.com/huggingface/swift-transformers/pull/269). Before 1.0, you had to depend on and import the full package, whereas now you can just pick `Tokenizers`, for instance.
 * Speaking of Jinja, we are super proud to announce that we have collaborated with [John Mai](https://huggingface.co/JohnMai) ([X](https://x.com/JohnMai_Dev)) to create the **next version of his excellent Swift Jinja library**.
 John’s work has been crucial for the community: he single-handedly took on the task to provide a solid chat template library that could grow as templates became more and more complex. The new version is a couple orders of magnitude faster (no kidding), and [lives here as `swift-jinja`](https://github.com/huggingface/swift-jinja).
 * To further reduce the load imposed on downstream users, we have **removed our example CLI targets and the `swift-argument-parser` dependency**, which in turn prevents version conflicts for projects that already use it.
