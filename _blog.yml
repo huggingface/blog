@@ -6740,3 +6740,17 @@
     - swift-transformers
     - coreml
     - apple
+
+- local: productionizing-diffusion-2
+  title: "Optimizing diffusion inference for production-ready speeds - II"
+  author: a-r-r-o-w
+  thumbnail: /blog/assets/productionizing-diffusion/productionizing-diffusion-thumbnail-2.png
+  date: Sep 29, 2025
+  tags:
+    - diffusers
+    - guide
+    - image_gen
+    - video_gen
+    - optimization
+    - benchmark
+    - performance
