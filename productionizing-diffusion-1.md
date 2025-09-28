@@ -48,7 +48,7 @@ Let's begin by understanding how diffusion models work and their computational c
 
 Diffusion models are a class of generative models that learn to predict a target data distribution by gradually moving towards it starting from a source data distribution. In the case of text-to-image generation, the source distribution is [gaussian noise](https://en.wikipedia.org/wiki/Normal_distribution), and the target distribution is the aeshetically pleasing images that we all love and generate. The model is trained to iteratively refine and denoise some starting random noise into a coherent image over many steps, possibly guided by different conditioning signals like text prompts, images (image-to-image task), or even other modalities like depth maps/sketches (control-to-image tasks), audio and more.
 
-![Diffusion forward process](../assets/diffusion_forward_process.png)
+![Diffusion forward process](https://huggingface.co/datasets/huggingface/documentation-images/resolve/refs%2Fpr%2F555/blog/productionizing-diffusion/diffusion_forward_process.png)
 
 <sup> The above image illustrates the diffusion forward process, where a clean image is gradually corrupted by adding noise over a series of steps. The model is trained to reverse this process, so it can take a noisy image and iteratively denoise it back to a clean image. </sup>
 
@@ -233,8 +233,8 @@ Here, we try to run the entire Flux model in BF16 precision. An important point 
   </tr>
 
   <tr>
-    <td><img src="../assets/rope-comparison-bf16.png" width="384px" /></td>
-    <td><img src="../assets/rope-comparison-fp32.png" width="384px" /></td>
+    <td><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/refs%2Fpr%2F555/blog/productionizing-diffusion/rope-comparison-bf16.png" width="384px" /></td>
+    <td><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/refs%2Fpr%2F555/blog/productionizing-diffusion/rope-comparison-fp32.png" width="384px" /></td>
   </tr>
 </table>
 
@@ -377,7 +377,7 @@ for length in [128, 256, 384, 512]:
 make_image_grid(images, rows=1, cols=len(images)).save("output.png")
 ```
 
-<img src="../assets/cat-varying-text-seq-len.png" height="512px" />
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/refs%2Fpr%2F555/blog/productionizing-diffusion/cat-varying-text-seq-len.png" height="512px" />
 
 <sup> We support this optimization in the example scripts, but every benchmark result shared when comparing to other implementations is with the default `512` text tokens for a fair comparison. </sup>
 
@@ -401,8 +401,8 @@ Note: We are using the reported performance results from the above projects. On 
   <th> H100 </th>
 </tr>
 <tr>
-  <td><img src="../assets/benchmark_post_1-a100.png" width="512px" /></td>
-  <td><img src="../assets/benchmark_post_1-h100.png" width="512px" /></td>
+  <td><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/refs%2Fpr%2F555/blog/productionizing-diffusion/benchmark_post_1-a100.png" width="512px" /></td>
+  <td><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/refs%2Fpr%2F555/blog/productionizing-diffusion/benchmark_post_1-h100.png" width="512px" /></td>
 </tr>
 </table>
 
