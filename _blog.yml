@@ -6756,7 +6756,7 @@
 - local: intel-qwen3-agent
   title: "Accelerating Qwen3-8B Agent on Intel® Core™ Ultra with Depth-Pruned Draft Models"
   author: imargulis
-  thumbnail: /blog/assets/intel-qwen3-agent/smolagents2.png
+  thumbnail: /blog/assets/intel-qwen3-agent/smolagents-1300-650.png
   date: Sep 29, 2025
   tags:
     - llm
