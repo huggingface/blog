@@ -87,7 +87,7 @@ Cons:
 
 This approach had the best AI performance by far, likely due to the vast amount of web development data available during training. However, the low-level nature of the libraries meant that I had to essentially build a game engine before I could build the game itself. This allows us to work at a much higher level of abstraction, like we did with Roblox.
 
-Despite requiring essentially building an engine first, this was the only approach that produced something *actually kind of fun* without requiring significant user domain knowledge. So I decided to explore this direction further.
+Although it required building an engine first, this approach was the only one that produced a fun result without heavy domain knowledge.
 
 ### Comparison Summary
 
