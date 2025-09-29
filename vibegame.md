@@ -19,7 +19,7 @@ First, what is vibe coding? It's originally coined by Andrej Karpathy in a [vira
 
 However, since then, it's used descriptively to mean a lot of different things, anywhere from just "using AI when coding" to "not thinking about the code at all". In this blog post, I'll define it as: using AI as a high-level programming language to build something. Like other programming languages, this benefits from understanding what's going on under the hood, but doesn't necessarily require it.
 
-With this interpretation of vibe coding games, it should be *feasible* to make a game without understanding code at all, but benefit from having an understanding of the underlying fundamentals. It should abstract the code, but not take away control or hide it.
+With this interpretation, you could make a game without understanding code, though knowing the fundamentals still helps.
 
 ## Context Management
 
