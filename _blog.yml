@@ -6741,6 +6741,18 @@
     - coreml
     - apple
 
+- local: vibegame
+  title: "VibeGame: Exploring Vibe Coding Games"
+  author: dylanebert
+  thumbnail: /blog/assets/vibegame/thumbnail.png
+  date: Sep 29, 2025
+  tags:
+    - guide
+    - open-source
+    - generation
+    - agents
+    - web
+
 - local: intel-qwen3-agent
   title: "Accelerating Qwen3-8B Agent on Intel® Core™ Ultra with Depth-Pruned Draft Models"
   author: imargulis
