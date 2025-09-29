@@ -31,7 +31,7 @@ TL;DR:
 -   We wrapped this up by showing how these improvements can be used to run a fast, local AI Agent with 🤗 [smolagents](https://github.com/huggingface/smolagents)
 
 ## Qwen3
-Qwen3-8B is part of the latest Qwen family, trained with explicit agentic behaviors. It supports tool invocation, multi-step reasoning, and long-context handling capabilities, that make it well-suited for complex agent workflows. When integrated with frameworks like Hugging Face 🤗smolagents, QwenAgent, or AutoGen, it enables a wide range of agentic applications built around tool use and reasoning.
+Qwen3-8B is part of the latest Qwen family, trained with explicit agentic behaviors. It supports tool invocation, multi-step reasoning, and long-context handling capabilities, that make it well-suited for complex agent workflows. When integrated with frameworks like Hugging Face 🤗smolagents, QwenAgent, or AutoGen, it enables a wide range of agentic applications built around tool use and reasoning. Unlike single-turn chatbots, agentic applications rely on reasoning models that produce “thinking aloud” traces, intermediate steps that expand token usage, making inference speed critical to responsiveness.
 The combination of optimized inference and built-in agentic intelligence makes Qwen3-8B a compelling foundation for next-gen AI agents.
 
 
@@ -75,7 +75,7 @@ The resulting pruned draft model delivered \~1.4x speedup compared to the baseli
 
 This demonstrates how pruning + speculative decoding can unlock faster and more efficient inference—making local AI agents even more practical.
 
-Check out the [notebook](https://github.com/guybd/openvino_notebooks/blob/latest/supplementary_materials/notebooks/qwen-3/qwen3.ipynb) and the Qwen3-0.6B depth-pruned [draft model](https://huggingface.co/OpenVINO/Qwen3-pruned-6L-from-0.6B-int8-ov) to reproduce our results step by step
+Check out the [notebook](https://github.com/openvinotoolkit/openvino_notebooks/blob/latest/supplementary_materials/notebooks/qwen-3/qwen3.ipynb) and the Qwen3-0.6B depth-pruned [draft model](https://huggingface.co/OpenVINO/Qwen3-pruned-6L-from-0.6B-int8-ov) to reproduce our results step by step
 
 
 ## Integration with 🤗smolagents
@@ -88,7 +88,7 @@ In our demo, we assigned the accelerated Qwen3-based agent a task: 👉 Summariz
 Here’s how it worked:
 1.	The agent used a web search tool to gather up-to-date information.
 2.	It then switched to the Python interpreter to generate slides with the `python-pptx` library.
-This simple workflow highlights just a fraction of the possibilities unlocked when accelerated Qwen3 models meet frameworks like 🤗smolagents, bringing practical, efficient AI agents to life on AI PC. Try it [here](https://github.com/guybd/openvino_notebooks/blob/latest/supplementary_materials/notebooks/qwen-3/smolagents/qwen3_agent.ipynb) 🚀
+This simple workflow highlights just a fraction of the possibilities unlocked when accelerated Qwen3 models meet frameworks like 🤗smolagents, bringing practical, efficient AI agents to life on AI PC. Try it [here](https://github.com/openvinotoolkit/openvino_notebooks/blob/latest/supplementary_materials/notebooks/qwen-3/smolagents/qwen3_agent.ipynb) 🚀
 
 <iframe width="100%" style="aspect-ratio: 16 / 9;"src="https://www.youtube.com/embed/irSDd5lNxIk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
