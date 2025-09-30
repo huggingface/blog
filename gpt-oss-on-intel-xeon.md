@@ -20,9 +20,8 @@ Intel and Hugging Face collaborated to demonstrate the real-world value of upgra
 
 The results are, and they are impressive, demonstrating a 1.7x improvement in Total Cost of Ownership(TCO) over the previous-generation Google C3 VM instances. The Google Cloud C4 VM instance further resulted in:
 
-•	1.4x ~ 1.7x TPOT throughput/vCPU/dollar
-•	Lower price per hour over C3 VM
-•	Achieved human reading speed (~240-300 ms/token)$^{[1]}$
+- 1.4x ~ 1.7x TPOT throughput/vCPU/dollar
+- Lower price per hour over C3 VM
 
 ## Introduction
 
@@ -182,15 +181,13 @@ $$normalized\_throughput\_per\_vCPU = (throughput\_C4 / vCPUs\_C4) / (throughput
 </kbd>
 
 ### Cost & TCO
-Intel Xeon 6 processor‑powered `C4` features lower cost and higher throughput than `C3`. As illustrated in the figure below, under the same budget, the throughput of `C4` can reach 1.4x to 1.7x that of `C3`. The formula is:
+At batch size 64, `C4` provides 1.7× the per‑vCPU throughput of `C3`; with near parity in price per vCPU (hourly cost scales ~linearly with vCPU count), this yields a ≈1.7× TCO advantage (`C3` would require ~1.7× the spend for the same generated token volume).  
 
-$$normalized\_throughput\_per\_dollar = (throughput\_C4 / cost\_C4) / (throughput\_C3 / cost\_C3)$$
+Per‑vCPU throughput ratio: $(Throughput_C4 / vCPUs_C4) / (Throughput_C3 / vCPUs_C3) = 1.7 ⇒ TCO_C3 / TCO_C4 ≈ 1.7$
 
 <kbd>
   <img src="assets/gpt-oss-on-intel-xeon/throughput-gpt-oss-per-dollar.png">
 </kbd>
-The TCO can reach 1.7x when the batch size is 64.
-
 
 ## Key Takeaways
 
