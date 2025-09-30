@@ -14,14 +14,14 @@ authors:
 ---
 
 
-# Google Cloud C4 Brings a 70% TCO improvement on GPT OSS with Intel and Hugging Face
+# Google Cloud `C4` Brings a 70% TCO improvement on GPT OSS with Intel and Hugging Face
 
-Intel and Hugging Face collaborated to demonstrate the real-world value of upgrading to Google’s latest `C4` Virtual Machine (VM) running on Intel® Xeon® 6 processors (codenamed Granite Rapids (GNR)). We specifically wanted to test improvements in the text generation performance of OpenAI GPT OSS Large Language Model(LLM). 
+Intel and Hugging Face collaborated to demonstrate the real-world value of upgrading to Google’s latest `C4` Virtual Machine (VM) running on Intel® Xeon® 6 processors (codenamed Granite Rapids (GNR)). We specifically wanted to benchmark improvements in the text generation performance of OpenAI GPT OSS Large Language Model(LLM). 
 
-The results are, and they are impressive, demonstrating a 1.7x improvement in Total Cost of Ownership(TCO) over the previous-generation Google C3 VM instances. The Google Cloud C4 VM instance further resulted in:
+The results are, and they are impressive, demonstrating a *1.7x* improvement in Total Cost of Ownership(TCO) over the previous-generation Google `C3` VM instances. The Google Cloud `C4` VM instance further resulted in:
 
 - 1.4x ~ 1.7x TPOT throughput/vCPU/dollar
-- Lower price per hour over C3 VM
+- Lower price per hour over `C3` VM
 
 ## Introduction
 
@@ -64,22 +64,22 @@ We benchmarked GPT OSS under a controlled, repeatable generation workload to iso
 ### `C3`
 Visit [`Google Cloud Console`](https://console.cloud.google.com/) and click on `create a VM` under your project. Follow the steps below to create a `176 vCPU` instance.
 
-1. Pick `C3` in the `Machine configuration` and specify Machine type as `c3-standard-176`. You also need to set the `CPU platform` and turn on `all-core turbo` to make performance more stable:
+1. pick `C3` in the `Machine configuration` and specify Machine type as `c3-standard-176`. You also need to set the `CPU platform` and turn on `all-core turbo` to make performance more stable:
    ![alt text](assets/gpt-oss-on-intel-xeon/spr.png)
 2. configure OS and storage tab as below:
    ![alt text](assets/gpt-oss-on-intel-xeon/spr-os.png)
 3. keep other configurations as default
-4. click `CREATE` button
+4. click `Create` button
 
 
 ### `C4`
 Visit [`Google Cloud Console`](https://console.cloud.google.com/) and click on `create a VM` under your project. Follow the below steps to create a `144 vCPU` instance.
 
-1. Pick `C4` in the `Machine configuration` tab and specify Machine type as `c4-standard-144`. You can also set the `CPU platform` and turn on all-core turbo to make performance more stable:
+1. pick `C4` in the `Machine configuration` tab and specify Machine type as `c4-standard-144`. You can also set the `CPU platform` and turn on all-core turbo to make performance more stable:
    ![alt text](assets/gpt-oss-on-intel-xeon/gnr.png)
 2. configure OS and storage tab as we need for C3.
 3. keep other configurations as default
-4. click `CREATE` button
+4. click `Create` button
 
 
 ## Set up the environment
@@ -103,7 +103,7 @@ We are in container now, do following steps.
 For each batch size we
 1. Build a fixed-length 1024‑token left‑padded batch.
 2. Run a single warm‑up round.
-3. set `max_new_tokens=1024` and measure total latency, then get `throughput = (OUTPUT_TOKENS * batch_size) / total_latency`.
+3. set `max_new_tokens=1024` and measure total latency, then get $throughput = (OUTPUT\\_TOKENS * batch\\_size) / total\\_latency$.
 
 Run `numactl -l python benchmark.py` for the following codes.
 
@@ -181,18 +181,14 @@ $$normalized\\_throughput\\_per\\_vCPU = (throughput\\_C4 / vCPUs\\_C4) / (throu
 </kbd>
 
 ### Cost & TCO
-At batch size 64, `C4` provides 1.7× the per‑vCPU throughput of `C3`; with near parity in price per vCPU (hourly cost scales ~linearly with vCPU count), this yields a ≈1.7× TCO advantage (`C3` would require ~1.7× the spend for the same generated token volume).  
+At batch size 64, `C4` provides 1.7× the per‑vCPU throughput of `C3`; with near parity in price per vCPU (hourly cost scales ~linearly with vCPU count), this yields a ~1.7× TCO advantage (`C3` would require ~1.7× the spend for the same generated token volume).  
 
-Per‑vCPU throughput ratio: $(Throughput_C4 / vCPUs_C4) / (Throughput_C3 / vCPUs_C3) = 1.7 ⇒ TCO_C3 / TCO_C4 ≈ 1.7$
+Per‑vCPU throughput ratio: $(throughput\\_C4 / vCPUs\\_C4) / (throughput\\_C3 / vCPUs\\_C3) = 1.7 ⇒ \frac{TCO\\_C3}{TCO\\_C4} ≈ 1.7$
 
 <kbd>
   <img src="assets/gpt-oss-on-intel-xeon/throughput-gpt-oss-per-dollar.png">
 </kbd>
 
-## Key Takeaways
-
-- Google Cloud `C4` VMs powered by Intel Xeon 6 processors (GNR) provide both impressive performance gains and better cost efficiency for large MoE inference.
-
 ## Conclusion 
 
-Google Cloud `C4` VM (powered by Intel Xeon 6 processors) establishes a clear advantage over previous generation Google Cloud `C3` VM (powered by 4th Gen Intel Xeon processors). For GPT OSS MoE inference, we saw combined higher throughput, lower latency, and reduced cost. These results underline that thanks to targeted framework optimizations from Intel and Hugging Face, large MoE models can be efficiently served on next-generation general-purpose CPUs.
+Google Cloud `C4` VMs powered by Intel Xeon 6 processors (GNR) provide both impressive performance gains and better cost efficiency for large MoE inference over previous generation Google Cloud `C3` VM (powered by 4th Gen Intel Xeon processors). For GPT OSS MoE inference, we observed combined higher throughput, lower latency, and reduced cost. These results underline that thanks to targeted framework optimizations from Intel and Hugging Face, large MoE models can be efficiently served on next-generation general-purpose CPUs.
