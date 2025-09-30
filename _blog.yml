@@ -1258,7 +1258,7 @@
 
 - local: stable_diffusion_jax
   title: "Stable Diffusion in JAX/Flax 🚀"
-  author: pcuenca
+  author: pcuenq
   thumbnail: /blog/assets/108_stable_diffusion_jax/thumbnail.png
   date: Oct 13, 2022
   tags:
@@ -1449,7 +1449,7 @@
 
 - local: diffusers-coreml
   title: "Using Stable Diffusion with Core ML on Apple Silicon"
-  author: pcuenca
+  author: pcuenq
   thumbnail: /blog/assets/diffusers_coreml/thumbnail.png
   date: December 1, 2022
   tags:
@@ -6728,7 +6728,43 @@
     - agentic
     - community
     - open-source
-    
+
+- local: swift-transformers
+  title: "Swift Transformers Reaches 1.0 — and Looks to the Future"
+  author: pcuenq
+  thumbnail: /blog/assets/swift-transformers/swift-transformers-thumb.png
+  date: Sep 26, 2025
+  tags:
+    - swift
+    - transformers
+    - swift-transformers
+    - coreml
+    - apple
+
+- local: vibegame
+  title: "VibeGame: Exploring Vibe Coding Games"
+  author: dylanebert
+  thumbnail: /blog/assets/vibegame/thumbnail.png
+  date: Sep 29, 2025
+  tags:
+    - guide
+    - open-source
+    - generation
+    - agents
+    - web
+
+- local: intel-qwen3-agent
+  title: "Accelerating Qwen3-8B Agent on Intel® Core™ Ultra with Depth-Pruned Draft Models"
+  author: imargulis
+  thumbnail: /blog/assets/intel-qwen3-agent/smolagents-1300-650.png
+  date: Sep 29, 2025
+  tags:
+    - llm
+    - intel
+    - nlp
+    - guide
+    - hub
+
 - local: gpt-oss-on-intel-xeon
   title: "Running GPT OSS on Intel Xeon CPU"
   author: Jiqing
