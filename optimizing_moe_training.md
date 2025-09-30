@@ -8,7 +8,7 @@ authors:
 ---
 # Optimizing Mixture-of-Experts Training: A Cost-Effective, Two-Sided Approach
 
-Training large-scale Mixture-of-Experts (MoE) models presents unique challenges, not least of which are the significant computational costs and time required for data preprocessing and training. As a part of a recent training effort for a Qwen3-MoE model, a flexible, two-pronged workflow was developed to dramatically reduce expenses and accelerate the end-to-end process. This blog post outlines the core strategies and technical steps that made this possible.
+Training large-scale Mixture-of-Experts (MoE) models presents unique challenges, not least of which are the significant computational costs and time required for data preprocessing and training. As a part of a recent training effort for a Qwen3-MoE model, a flexible, two-pronged workflow was developed to dramatically reduce expenses and accelerate the end-to-end process. **You can try out the final, optimized model here: [Loggenix MoE Demo (Hugging Face CPU Space)](https://huggingface.co/spaces/kshitijthakkar/loggenix-moe-0.3B-A0.1B-demo)**. This blog post outlines the core strategies and technical steps that made this possible.
 
 ---
 
