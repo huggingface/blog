@@ -4,6 +4,7 @@ thumbnail: /blog/assets/optimizing_moe_training/optimizing_moe_training.png
 date: 2025-09-26
 authors:
 - user: kshitijthakkar
+- guest: true
 ---
 # Optimizing Mixture-of-Experts Training: A Cost-Effective, Two-Sided Approach
 
