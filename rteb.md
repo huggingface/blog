@@ -53,7 +53,7 @@ Because of the above, models with a lower zero-shot score<a href="#footnote-1">[
 
 ## Introducing RTEB
 
-Today, we’re excited to introduce the **ReTrieval Embedding Benchmark (RTEB)**. Its goal is to create a new, reliable, high-quality benchmark that measures the true retrieval accuracy of embedding models.
+Today, we’re excited to introduce the **Retrieval Embedding Benchmark (RTEB)**. Its goal is to create a new, reliable, high-quality benchmark that measures the true retrieval accuracy of embedding models.
 
 ### A Hybrid Strategy for True Generalization
 
