@@ -6768,6 +6768,7 @@
 - local: rteb
   title: "Introducing RTEB: A New Standard for Retrieval Evaluation"
   author: fzliu
+  guest: true
   thumbnail: /blog/assets/rteb/thumbnail.png
   date: Oct 1, 2025
   tags:

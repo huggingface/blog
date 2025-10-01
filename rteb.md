@@ -21,7 +21,7 @@ authors:
   org: MongoDB
 ---
 
-### **Introducing RTEB: A New Standard for Retrieval Evaluation**
+# Introducing RTEB: A New Standard for Retrieval Evaluation
 
 **TL;DR –** We’re excited to introduce the beta version of the Retrieval Embedding Benchmark (RTEB), a new benchmark designed to reliably evaluate the retrieval accuracy of embedding models for real-world applications. Existing benchmarks struggle to measure true generalization, while RTEB addresses this with a hybrid strategy of open and private datasets. Its goal is simple: to create a fair, transparent, and application-focused standard for measuring how models perform on data they haven’t seen before.
 
@@ -36,7 +36,7 @@ This is where things get tricky. The current standard for evaluation often relie
 
 To address these challenges, we developed RTEB, a benchmark built to provide a reliable standard for evaluating retrieval models.
 
-### **Why Existing Benchmarks Fall Short**
+## Why Existing Benchmarks Fall Short
 
 While the underlying evaluation methodology and metrics (such as NDCG@10) are well-known and robust, the integrity of existing benchmarks is often set back by the following issues:
 
@@ -51,11 +51,11 @@ Because of the above, models with a lower zero-shot score<a href="#footnote-1">[
 
 **Misalignment with Today’s AI Applications**. Many benchmarks are poorly aligned with the enterprise use cases that developers are building today. They often rely on academic datasets or on retrieval tasks derived from QA datasets, which, while useful in their own right, were not designed to evaluate retrieval and can fail to capture the distributional biases and complexities encountered in real-world retrieval scenarios. Benchmarks which do not possess these issues are often too narrow, focusing on a single domain like code retrieval, making them unsuitable for evaluating general-purpose models.
 
-### **Introducing RTEB**
+## Introducing RTEB
 
 Today, we’re excited to introduce the **ReTrieval Embedding Benchmark (RTEB)**. Its goal is to create a new, reliable, high-quality benchmark that measures the true retrieval accuracy of embedding models.
 
-#### **A Hybrid Strategy for True Generalization**
+### A Hybrid Strategy for True Generalization
 
 To combat benchmark overfitting, RTEB implements a hybrid strategy using both open and private datasets:
 
@@ -64,7 +64,7 @@ To combat benchmark overfitting, RTEB implements a hybrid strategy using both op
 
 This hybrid approach encourages the development of models with broad, robust generalization. A model with a significant performance drop between the open and the private datasets would suggest overfitting, providing a clear signal to the community. This is already apparent with some models, which show a notable drop in performance on RTEB's private datasets.
 
-#### **Built for Real-World Domains**
+### Built for Real-World Domains
 
 RTEB is designed with a particular emphasis on enterprise use cases. Instead of a complex hierarchy, it uses simple groups for clarity. A single dataset can belong to multiple groups (e.g., a German law dataset exists in both the "law" and "German" groups).
 
@@ -124,19 +124,19 @@ A complete list of the datasets can be found below. We plan to continually updat
 
 </details>
 
-### **Launching RTEB: A Community Effort**
+## Launching RTEB: A Community Effort
 
 RTEB is launching today in beta. We believe building a robust benchmark is a community effort, and we plan to evolve RTEB based on feedback from developers and researchers alike. We encourage you to share your thoughts, suggest new datasets, find issues in existing datasets and help us build a more reliable standard for everyone. Please feel free to join the discussion or open an issue in the [MTEB repository on Github](https://github.com/embeddings-benchmark/mteb).
 
-### **Limitations and Future Work**
+## Limitations and Future Work
 
 To highlight areas for improvement we want to be transparent about RTEB's current limitations and our plans for the future.
 
 * **Benchmark Scope:** RTEB is focused on realistic, retrieval-first use cases. Highly challenging synthetic datasets are not a current goal but could be added in the future.
 * **Modality:** The benchmark currently evaluates text-only retrieval. We plan to incorporate text-image and other multimodal retrieval tasks in future releases.
 * **Language Coverage:** We are actively working to expand our language coverage, particularly for major languages like Chinese and Arabic, as well as more low-resource languages. If you know of high-quality datasets that fits these criteria please let us know.
-* **Repurposing of QA dataset**: About 50% of the current retrieval datasets are repurposed from QA datasets, this might lead to issues such as a strong lexical overlap between the question and the context, which can favor models that rely on keyword matching over true semantic understanding.
-* **Private datasets:** To test for generalizability, we utilize private datasets that are only accessible to MTEB maintainers. To maintain fairness, all maintainers commit to not publishing models trained on these datasets and only testing on these private datasets through public channels, ensuring no company or individual receives unfair advantages.
+* **Repurposing of QA dataset**: About 50% of the current retrieval datasets are repurposed from QA datasets, which might lead to issues such as a strong lexical overlap between the question and the context, favoring models that rely on keyword matching over true semantic understanding.
+* **Private datasets:** To test for generalization, we utilize private datasets that are only accessible to MTEB maintainers. To maintain fairness, all maintainers commit to not publishing models trained on these datasets and only testing on these private datasets through public channels, ensuring no company or individual receives unfair advantages.
 
 Our goal is for RTEB to become a community-trusted standard for retrieval evaluation.
 
