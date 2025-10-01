@@ -23,7 +23,7 @@ authors:
 
 # Introducing RTEB: A New Standard for Retrieval Evaluation
 
-**TL;DR –** We’re excited to introduce the beta version of the Retrieval Embedding Benchmark (RTEB), a new benchmark designed to reliably evaluate the retrieval accuracy of embedding models for real-world applications. Existing benchmarks struggle to measure true generalization, while RTEB addresses this with a hybrid strategy of open and private datasets. Its goal is simple: to create a fair, transparent, and application-focused standard for measuring how models perform on data they haven’t seen before.
+**TL;DR –** We’re excited to introduce the beta version of the [Retrieval Embedding Benchmark (RTEB)](https://huggingface.co/spaces/mteb/leaderboard?benchmark_name=RTEB%28beta%29), a new benchmark designed to reliably evaluate the retrieval accuracy of embedding models for real-world applications. Existing benchmarks struggle to measure true generalization, while RTEB addresses this with a hybrid strategy of open and private datasets. Its goal is simple: to create a fair, transparent, and application-focused standard for measuring how models perform on data they haven’t seen before.
 
 The performance of many AI applications, from RAG and agents to recommendation systems, is fundamentally limited by the quality of search and retrieval. As such, accurately measuring the retrieval quality of embedding models is a common pain point for developers. How do you *really* know how well a model will perform in the wild?
 
