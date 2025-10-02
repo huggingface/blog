@@ -6778,3 +6778,12 @@
     - benchmark
     - community
     - research
+
+- local: dots-ocr-ne 
+  title: "SOTA OCR on-device with CoreML and dots.ocr"
+  author: FL33TW00D-HF 
+  thumbnail: /blog/assets/dots-ocr-ne/thumbnail.png
+  date: Oct 2, 2025
+  tags:
+    - coreml
+    - apple
