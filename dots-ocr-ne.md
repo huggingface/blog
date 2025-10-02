@@ -1,4 +1,9 @@
-# SOTA OCR with CoreML and dots.ocr 
+---
+title: "SOTA OCR with CoreML and dots.ocr"
+thumbnail: /blog/assets/dots-ocr-ne/dots_header.png
+authors:
+- user: FL33TW00D-HF
+---
 
 Every year our hardware is a little more powerful, our models a little smarter for each parameter. In 2025, it is more feasible than ever to run truly competitive models on-device. [dots.ocr](https://huggingface.co/rednote-hilab/dots.ocr), a 3B parameter OCR model from RedNote, surpasses Gemini 2.5 Pro in [OmniDocBench](https://github.com/opendatalab/OmniDocBench), making OCR a truly no compromises on-device use case. Running models on-device is certainly appealing to developers: no smuggling API keys, zero cost, and no network required. However, if we want these models to run on-device, we need to be mindful of the limited compute and power budgets.
 
