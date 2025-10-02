@@ -156,7 +156,11 @@ We measured the following metrics to evaluate the model's performance:
 
 Here are the results across different Intel hardware:
 
-| Device       | Model Size (MB) (Before/After) | Images Throughput (im/s) (Before/After) | First Token Throughput (t/s) (Before/After) | Second Token Throughput (t/s) (Before/After) | Latency (s) (Before/After) |
+| Configuration/Device    | first_generate Latency (s) | prefill Latency (s) | generate Latency (s) | decode Latency (s) | prefill Throughput   | generate Throughput   | decode Throughput    |
+|--------------------|----------------------------|--------------------|---------------------|-------------------|----------------------|-----------------------|----------------------|
+| pytorch/CPU            | 28.277                     | 5.150              | 25.927              | 20.777            | 0.194 samples/s      | 0.579 samples/s       | 0.722 tokens/s       |
+| openvino/CPU           | 0.706                      | 0.420              | 0.738               | 0.318             | 2.378 samples/s      | 20.325 samples/s      | 47.237 tokens/s      |
+| openvino-8bit-woq/CPU  | 0.483                      | 0.247              | 0.482               | 0.235             | 4.044 samples/s      | 31.127 samples/s      | 63.928 tokens/s      |
 |-------------|-------------------------------|-----------------------------------------|--------------------------------------------|---------------------------------------------|-----------------------------|
 | CPU         |  -             | 0.33 / 0.55                              | 2.69 / 3.94                                | 83.25 / 146.1                               | 3.5249 / 2.1548            |
 | iGPU        | -                             | 0.58 / 0.53                              | 5.01 / 5.26                                | 51.62 / 49.56                               | 2.1386 / 2.3182            |
