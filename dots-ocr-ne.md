@@ -65,7 +65,7 @@ Using `torch.jit.trace` is still the most mature method for converting models to
 a simple harness that allows you to modify the compute units used and the precision selected.
 
 You can check out the initial harness [here](https://github.com/FL33TW00D/dots.ocr.ne/blob/master/convert.py). If we run
-the following:
+the following on the original code implementation:
 
 ```bash
 uv run convert.py --precision FLOAT32 --compute_units CPU_AND_GPU
