@@ -3,14 +3,18 @@ title: "SOTA OCR with Core ML and dots.ocr"
 thumbnail: /blog/assets/dots-ocr-ne/dots_header.png
 authors:
 - user: FL33TW00D-HF
+- user: pcuenq
 ---
 
 Every year our hardware is a little more powerful, our models a little smarter for each parameter. In 2025, it is more feasible than ever to run truly competitive models on-device. [dots.ocr](https://huggingface.co/rednote-hilab/dots.ocr), a 3B parameter OCR model from RedNote, surpasses Gemini 2.5 Pro in [OmniDocBench](https://github.com/opendatalab/OmniDocBench), making OCR a truly no compromises on-device use case. Running models on-device is certainly appealing to developers: no smuggling API keys, zero cost, and no network required. However, if we want these models to run on-device, we need to be mindful of the limited compute and power budgets.
 
-Enter the Neural Engine, Apple's custom AI accelerator that has shipped with every Apple device since 2017. This accelerator is designed for high performance whilst sipping battery power. Some of our testing has found the Neural Engine to be **12x more power efficient than CPU**, and **4x more power efficient than GPU** ([source](https://x.com/fleetwood___/status/1864600598731215155)). Whilst this all sounds very appealing, unfortunately the Neural Engine is only accessible through [Core ML](https://developer.apple.com/documentation/coreml), Apple's _closed source_ ML framework. Furthermore, even just converting a model from PyTorch to Core ML can present some challenges, and without a preconverted model or some knowledge of the sharp edges it can be arduous for developers. Luckily, Apple also offers [MLX](https://developer.apple.com/documentation/machinelearning/mlx), a more modern and flexible ML framework that targets the GPU (not the Neural Engine), and can be used in conjunction with Core ML.
+Enter the Neural Engine, Apple's custom AI accelerator that has shipped with every Apple device since 2017. This accelerator is designed for high performance whilst sipping battery power. Some of our testing has found the Neural Engine to be **12x more power efficient than CPU**, and **4x more power efficient than GPU**.
+
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/dots-ocr-ne/joules_cu.png" width="512px" alt="Compute unit energy" />
+
+Whilst this all sounds very appealing, unfortunately the Neural Engine is only accessible through [Core ML](https://developer.apple.com/documentation/coreml), Apple's _closed source_ ML framework. Furthermore, even just converting a model from PyTorch to Core ML can present some challenges, and without a preconverted model or some knowledge of the sharp edges it can be arduous for developers. Luckily, Apple also offers [MLX](https://developer.apple.com/documentation/machinelearning/mlx), a more modern and flexible ML framework that targets the GPU (not the Neural Engine), and can be used in conjunction with Core ML.
 
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/dots-ocr-ne/NE_Header.png" width="512px" alt="NE Header" />
-
 
 In this three part series, we will provide a _reasoning trace_ of how we converted `dots.ocr` to run on-device, using a
 combination of `CoreML` and `MLX`. This process should be applicable to many other models, and we hope that this will help
