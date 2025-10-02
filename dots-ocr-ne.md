@@ -25,7 +25,7 @@ the setup command:
 
 If you just want to skip ahead and use the converted model, you can download it [here](https://huggingface.co/FL33TW00D/dots.ocr.ne).
 
-# Conversion
+## Conversion
 
 Converting from PyTorch to CoreML is a two step process:
 1. Capturing your PyTorch execution graph (via [`torch.jit.trace`](https://docs.pytorch.org/docs/stable/generated/torch.jit.trace.html) or, the more modern approach of [`torch.export`](https://docs.pytorch.org/docs/stable/export.html)).
