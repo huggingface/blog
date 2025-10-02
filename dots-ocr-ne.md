@@ -1,5 +1,5 @@
 ---
-title: "SOTA OCR with CoreML and dots.ocr"
+title: "SOTA OCR with Core ML and dots.ocr"
 thumbnail: /blog/assets/dots-ocr-ne/dots_header.png
 authors:
 - user: FL33TW00D-HF
