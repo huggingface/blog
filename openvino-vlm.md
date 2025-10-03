@@ -157,15 +157,14 @@ We measured the following metrics to evaluate the model's performance:
 
 Here are the results on Intel CPU:
 
-| Configuration    | prefill latency     | decode latency   | generate latency    | prefill throughput   | decode throughput    | generate throughput  |
-|------------------|---------------------|------------------|---------------------|----------------------|----------------------|----------------------|
-| pytorch          | 5.150               | 20.777           | 25.927              | 0.194                | 0.722                | 0.579                |
-| openvino         | 0.420               | 0.318            | 0.738               | 2.378                | 47.237               | 20.325               |
-| openvino-8bit-woq| 0.247               | 0.235            | 0.482               | 4.044                | 63.928               | 31.127               |
+| Configuration    | Prefill Latency (TTFT)| Decoding Latency | generate Latency    | Decoding Throughput    |
+|------------------|-----------------------|------------------|---------------------|------------------------|
+| pytorch          | 5.150                 | 1.298            | 25.927              | 0.722                  |
+| openvino         | 0.420                 | 0.019            | 0.738               | 47.237                 |
+| openvino-8bit-woq| 0.247                 | 0.015            | 0.482               | 63.928                 |
 
 
 This benchmark shows that small, optimized multimodal models, like (SmolVLM2-256M)[https://huggingface.co/HuggingFaceTB/SmolVLM2-256M-Video-Instruct], can run efficiently on various Intel hardware. Weight-only quantization significantly reduces model size, improving efficiency without majorly impacting throughput. GPUs deliver the highest image and token processing speeds, while CPUs and iGPUs remain viable for lighter workloads. Overall, this shows that lightweight vision-language models can be deployed locally with reasonable performance, making multimodal AI more accessible.
-
 
 ## Useful Links & Resources
 - [Notebook](https://github.com/huggingface/optimum-intel/blob/main/notebooks/openvino/vision_language_quantization.ipynb)
