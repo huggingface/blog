@@ -145,10 +145,11 @@ Multimodal AI is becoming more accessible thanks to smaller, optimized models li
 We ran a benchmark to compare the performance of the PyTorch, OpenVINO, and OpenVINO 8-bit weight-only quantized (WOQ) versions of the (SmolVLM2-256M)[https://huggingface.co/HuggingFaceTB/SmolVLM2-256M-Video-Instruct] model. The goal was to evaluate the impact of weight-only quantization on latency and throughput on Intel CPU hardware. For this test, we used a single image as input.
 
 We measured the following metrics to evaluate the model's performance:
-- Model Size: this shows how much storage space the model requires.
-- Latency: we measured the average time it took for the model to process an input.
-- Image throughput: the rate at which the model can process images.
-- Tokens throughput: the rate at which the model can process tokens.
+
+- Time To First Token (TTFT) : Time it takes to generate the first output token.
+- Time Per Output Token (TPOT): Time it takes to generate all subsequent output tokens.
+- End-to-End Latency : Total time it takes to generate the output all output tokens.
+- Decoding Throughput: Number of tokens per second the model generates during the decoding phase.
 
 <p align="center">
   <img src="https://huggingface.co/datasets/OpenVINO/documentation/resolve/main/blog/openvino_vlm/flower.png" alt="Pink flower with bee" width="700"/>
@@ -157,11 +158,11 @@ We measured the following metrics to evaluate the model's performance:
 
 Here are the results on Intel CPU:
 
-| Configuration    | Prefill Latency (TTFT)| Decoding Latency | generate Latency    | Decoding Throughput    |
-|------------------|-----------------------|------------------|---------------------|------------------------|
-| pytorch          | 5.150                 | 1.298            | 25.927              | 0.722                  |
-| openvino         | 0.420                 | 0.019            | 0.738               | 47.237                 |
-| openvino-8bit-woq| 0.247                 | 0.015            | 0.482               | 63.928                 |
+| Configuration    |        TTFT        |      TPOT        | End-to-End Latency    | Decoding Throughput           |
+|------------------|--------------------|------------------|-----------------------|-------------------------------|
+| pytorch          | 5.150              | 1.385            | 25.927                | 0.722                         |
+| openvino         | 0.420              | 0.021            | 0.738                 | 47.237                        |
+| openvino-8bit-woq| 0.247              | 0.016            | 0.482                 | 63.928                        |
 
 
 This benchmark shows that small, optimized multimodal models, like (SmolVLM2-256M)[https://huggingface.co/HuggingFaceTB/SmolVLM2-256M-Video-Instruct], can run efficiently on various Intel hardware. Weight-only quantization significantly reduces model size, improving efficiency without majorly impacting throughput. GPUs deliver the highest image and token processing speeds, while CPUs and iGPUs remain viable for lighter workloads. Overall, this shows that lightweight vision-language models can be deployed locally with reasonable performance, making multimodal AI more accessible.
