@@ -142,7 +142,8 @@ We also created a [space](https://huggingface.co/spaces/echarlaix/vision-langage
 
 Multimodal AI is becoming more accessible thanks to smaller, optimized models like SmolVLM and tools such as Hugging Face Optimum and OpenVINO. While deploying vision-language models locally still presents challenges, this workflow shows that it's possible to run lightweight image-and-text models on multiple hardware.
 
-We ran a benchmark to show the impact of weight-only quantization on a (SmolVLM2-256M)[https://huggingface.co/HuggingFaceTB/SmolVLM2-256M-Video-Instruct] model and how it performs on different Intel hardware. For this test, we used a single image.
+We ran a benchmark to compare the performance of the PyTorch, OpenVINO, and OpenVINO 8-bit weight-only quantized (WOQ) versions of the (SmolVLM2-256M)[https://huggingface.co/HuggingFaceTB/SmolVLM2-256M-Video-Instruct] model. The goal was to evaluate the impact of weight-only quantization on latency and throughput on Intel CPU hardware. For this test, we used a single image as input.
+
 We measured the following metrics to evaluate the model's performance:
 - Model Size: this shows how much storage space the model requires.
 - Latency: we measured the average time it took for the model to process an input.
