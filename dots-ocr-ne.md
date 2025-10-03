@@ -14,7 +14,7 @@ Enter the Neural Engine, Apple's custom AI accelerator that has shipped with eve
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/dots-ocr-ne/joules_cu.png" width="1024px" alt="Compute unit energy" />
 </div>
 
-Whilst this all sounds very appealing, unfortunately the Neural Engine is only accessible through [Core ML](https://developer.apple.com/documentation/coreml), Apple's _closed source_ ML framework. Furthermore, even just converting a model from PyTorch to Core ML can present some challenges, and without a preconverted model or some knowledge of the sharp edges it can be arduous for developers. Luckily, Apple also offers [MLX](https://developer.apple.com/documentation/machinelearning/mlx), a more modern and flexible ML framework that targets the GPU (not the Neural Engine), and can be used in conjunction with Core ML.
+Whilst this all sounds very appealing, unfortunately the Neural Engine is only accessible through [Core ML](https://developer.apple.com/documentation/coreml), Apple's _closed source_ ML framework. Furthermore, even just converting a model from PyTorch to Core ML can present some challenges, and without a preconverted model or some knowledge of the sharp edges it can be arduous for developers. Luckily, Apple also offers [MLX](https://mlx-framework.org), a more modern and flexible ML framework that targets the GPU (not the Neural Engine), and can be used in conjunction with Core ML.
 
 <div align="center">
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/dots-ocr-ne/NE_Header.png" width="512px" alt="NE Header" />
@@ -31,7 +31,7 @@ the setup command:
 ./boostrap.sh
 ```
 
-If you just want to skip ahead and use the converted model, you can download it [here](https://huggingface.co/FL33TW00D/dots.ocr.ne).
+If you just want to skip ahead and use the converted model, you can download it [here](https://huggingface.co/FL33TW00D-HF/dots.ocr.ne).
 
 ## Conversion
 
