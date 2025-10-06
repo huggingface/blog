@@ -274,7 +274,7 @@ information about the episodes. Each release **R1+** is a superset of the previo
 | [R0](https://huggingface.co/datasets/yaak-ai/L2D/tree/R0) | [R0](https://nutron-sandbox.yaak.ai/collections/fcbb0dfd-40ae-4fd2-b023-7f300f35c5c7/300b7174-b6aa-4598-83e8-fc28cc5fcbe3/search/list/session-logs?context=5s) | March 2025 | 100 | 0.5+ hr | 9,5 GB | ☑️ |  |  |  |
 | [R1](https://huggingface.co/datasets/yaak-ai/L2D/tree/R1) | [R1](https://nutron-sandbox.yaak.ai/collections/fcbb0dfd-40ae-4fd2-b023-7f300f35c5c7/1cb18573-f731-47b1-ae89-7ea2f026b8d0/search/list/session-logs?context=5s) | April 2025 | 1K | 5+ hr | 95 GB | ☑️ |  |  |  |
 | [R2](https://huggingface.co/datasets/yaak-ai/L2D/tree/R2) | [R2](https://nutron-sandbox.yaak.ai/collections/fcbb0dfd-40ae-4fd2-b023-7f300f35c5c7/6e53636a-59ed-466b-8722-2c0b415f9bca/search/list/session-logs?context=5s) | May 2025 | 10K | 50+ hr | 0.5 TB | ☑️ |  | ☑️ | ☑️ |
-| [R3](https://huggingface.co/datasets/yaak-ai/L2D/tree/main) | R3 | Sept 2025 | 100K | 500+ hr | 5 TB | ☑️ |  | ☑️ | ☑️ |
+| [R3](https://huggingface.co/datasets/yaak-ai/L2D/tree/main) | [R3](https://nutron-sandbox.yaak.ai/collections/fcbb0dfd-40ae-4fd2-b023-7f300f35c5c7/8930821d-b793-4885-b8c1-98cc10e20e81/search/list?context=5s) | Sept 2025 | 100K | 500+ hr | 5 TB | ☑️ |  | ☑️ | ☑️ |
 | R4 | R4 | Nov 2025 | 1M | 5000+ hr | 90 TB | ☑️ | ☑️ | ☑️ | ☑️ |
 
 <p align="center">
@@ -314,12 +314,12 @@ uv run python
 >>> from lerobot.datasets.streaming_dataset import StreamingLeRobotDataset
 # This will load 3 episodes=[0, 9999, 99999], to load all the episodes please remove it
 >>> dataset = StreamingLeRobotDataset("yaak-ai/L2D", episodes=[0, 9999, 99999], streaming=True, buffer_size=1000)
->>> print(dataset)
-StreamingLeRobotDataset({
+dataset.meta
+LeRobotDatasetMetadata({
     Repository ID: 'yaak-ai/L2D',
-    Number of selected episodes: '100000',
-    Number of selected samples: '19042712',
-    Features: '['observation.images.front_left', 'observation.images.left_forward', 'observation.images.right_forward', 'observation.images.left_backward', 'observation.images.right_backward', 'observation.images.rear', 'observation.images.map', 'observation.state.vehicle', 'observation.state.waypoints', 'observation.state.timestamp', 'task.policy', 'task.instructions', 'action.continuous', 'action.discrete', 'timestamp', 'frame_index', 'episode_index', 'index', 'task_index']',
+    Total episodes: '100000',
+    Total frames: '19042712',
+    Features: '['observation.state.vehicle', 'observation.state.lanes', 'observation.state.road', 'observation.state.surface', 'observation.state.max_speed', 'observation.state.precipitation', 'observation.state.conditions', 'observation.state.lighting', 'observation.state.waypoints', 'observation.state.timestamp', 'task.policy', 'task.instructions', 'action.continuous', 'action.discrete', 'timestamp', 'frame_index', 'episode_index', 'index', 'task_index', 'observation.images.left_forward', 'observation.images.front_left', 'observation.images.right_forward', 'observation.images.left_backward', 'observation.images.rear', 'observation.images.right_backward', 'observation.images.map']',
 })',
 ```
 
