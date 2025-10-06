@@ -314,7 +314,7 @@ uv run python
 >>> from lerobot.datasets.streaming_dataset import StreamingLeRobotDataset
 # This will load 3 episodes=[0, 9999, 99999], to load all the episodes please remove it
 >>> dataset = StreamingLeRobotDataset("yaak-ai/L2D", episodes=[0, 9999, 99999], streaming=True, buffer_size=1000)
-dataset.meta
+>>> dataset.meta
 LeRobotDatasetMetadata({
     Repository ID: 'yaak-ai/L2D',
     Total episodes: '100000',
