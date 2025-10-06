@@ -6779,6 +6779,15 @@
     - community
     - research
 
+- local: dots-ocr-ne 
+  title: "SOTA OCR on-device with Core ML and dots.ocr"
+  author: FL33TW00D-HF 
+  thumbnail: /blog/assets/dots-ocr-ne/dots_header.png
+  date: Oct 2, 2025
+  tags:
+    - coreml
+    - apple
+
 - local: gpt-oss-on-intel-xeon
   title: "Running GPT OSS on Intel Xeon CPU"
   author: Jiqing
