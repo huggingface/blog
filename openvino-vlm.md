@@ -23,8 +23,8 @@ With the growing capability of large language models (LLMs), a new class of mode
 
 While running AI models on your own device can be difficult as these models are often computationally demanding, it also offers significant benefits: including improved privacy since your data stays on your machine, and enhanced speed and reliability because you're not dependent on an internet connection or external servers. This is where tools like Optimum and OpenVINO come in, along with a small, efficient model like [SmolVLM](https://huggingface.co/blog/smolvlm). In this blog post, we'll walk you through three easy steps to get a VLM running locally, with no expensive hardware or GPUs required (though you can run all the code samples from this blog post on Intel GPUs).
 
-## Deploy your model with Optimum
 
+## Deploy your model with Optimum
 
 Small models like SmolVLM are built for low-resource consumption, but they can be further optimized. In this blog post we will see how to optimize your model, to lower memory usage and speedup inference, making it more efficient for deployment on devices with limited resources.
 
@@ -88,7 +88,7 @@ q_model = OVModelForVisualCausalLM.from_pretrained(model_id, quantization_config
 q_model.save_pretrained("smolvlm_int8")
 ```
 
-or quivalently using the CLI:
+or equivalently using the CLI:
 
 ```bash
 optimum-cli export openvino -m HuggingFaceTB/SmolVLM2-256M-Video-Instruct --weight-format int8 smolvlm_int8/
