@@ -54,9 +54,7 @@ model.save_pretrained("smolvlm_ov")
 
 ## Step 2: Quantization
 
-Now it’s time to optimize your model. Quantization reduces the precision of the model weights and/or activations, leading to smaller, faster models.
-
-Essentially, it's a way to map values from a high-precision data type, such as 32-bit floating-point numbers (FP32), to a lower-precision format, typically 8-bit integers (INT8). While this process offers several key benefits, it can also impact in a potential loss of accuracy.
+Now it’s time to optimize your model. Quantization reduces the precision of the model weights and/or activations, leading to smaller, faster models. Essentially, it's a way to map values from a high-precision data type, such as 32-bit floating-point numbers (FP32), to a lower-precision format, typically 8-bit integers (INT8). While this process offers several key benefits, it can also impact in a potential loss of accuracy.
 
 <p align="center">
   <img src="https://huggingface.co/datasets/OpenVINO/documentation/resolve/main/blog/openvino_vlm/quantization.png" alt="Quantization" width="700"/>
@@ -138,12 +136,9 @@ We also created a [space](https://huggingface.co/spaces/echarlaix/vision-langage
 
 ## Evaluation and Conclusion
 
-Multimodal AI is becoming more accessible thanks to smaller, optimized models like SmolVLM and tools such as Hugging Face Optimum and OpenVINO. While deploying vision-language models locally still presents challenges, this workflow shows that it's possible to run lightweight image-and-text models on multiple hardware.
-
 We ran a benchmark to compare the performance of the PyTorch, OpenVINO, and OpenVINO 8-bit weight-only quantized (WOQ) versions of the [SmolVLM2-256M](https://huggingface.co/HuggingFaceTB/SmolVLM2-256M-Video-Instruct) model. The goal was to evaluate the impact of weight-only quantization on latency and throughput on Intel CPU hardware. For this test, we used [a single image](https://huggingface.co/datasets/OpenVINO/documentation/resolve/main/blog/openvino_vlm/flower.png) as input.
 
 We measured the following metrics to evaluate the model's performance:
-
 - Time To First Token (TTFT) : Time it takes to generate the first output token.
 - Time Per Output Token (TPOT): Time it takes to generate each subsequent output tokens.
 - End-to-End Latency : Total time it takes to generate the output all output tokens.
@@ -158,9 +153,11 @@ Here are the results on Intel CPU:
 | openvino-8bit-woq| 0.247                    | 0.016                      | 0.482                 | 63.928                        |
 
 
-This benchmark shows that small, optimized multimodal models, like (SmolVLM2-256M)[https://huggingface.co/HuggingFaceTB/SmolVLM2-256M-Video-Instruct], can run efficiently on various Intel hardware. Weight-only quantization significantly reduces model size, improving efficiency without majorly impacting throughput. GPUs deliver the highest image and token processing speeds, while CPUs and iGPUs remain viable for lighter workloads. Overall, this shows that lightweight vision-language models can be deployed locally with reasonable performance, making multimodal AI more accessible.
+This benchmark shows that small, optimized multimodal models, like [SmolVLM2-256M](https://huggingface.co/HuggingFaceTB/SmolVLM2-256M-Video-Instruct), can run efficiently on Intel CPUs. Weight-only quantization significantly reduces model size, improving efficiency without majorly impacting throughput.
+
 
 ## Useful Links & Resources
+
 - [Notebook](https://github.com/huggingface/optimum-intel/blob/main/notebooks/openvino/vision_language_quantization.ipynb)
 - [Try our Space](https://huggingface.co/spaces/echarlaix/vision-langage-openvino)
 - [Watch the webinar recording](https://web.cvent.com/event/d550a2a7-04f2-4a28-b641-3af228e318ca/regProcessStep1?utm_campaign=speakers4&utm_medium=organic&utm_source=Community)
