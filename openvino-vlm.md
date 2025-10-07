@@ -71,16 +71,17 @@ Let’s explore each of them.
 
 ### Option 1: Weight Only Quantization
 
-Weight-only quantization means that only the weights are quantized but activations remain in their original precisions. As a result, the model becomes smaller and more memory-efficient, improving loading times. But since activations are not quantized, inference speed gains are limited. Since OpenVINO 2024.3, if the model's weight have been quantized, the corresponding activations will also be quantized at runtime, leading to additional speedup depending on the device.
+Weight-only quantization means that only the weights are quantized but activations remain in their original precisions. As a result, the model becomes smaller and more memory-efficient, improving loading times. But since activations are not quantized, inference speed gains are limited. Weight-only quantization is a simple first step since it usually doesn’t result in significant accuracy degradation.
 
-Weight-only quantization is a simple first step since it usually doesn’t result in significant accuracy degradation.  
+> [!NOTE]
+> Since OpenVINO 2024.3, if the model's weight have been quantized, the corresponding activations will also be quantized at runtime, leading to additional speedup depending on the device.
+
 In order to run it, you will need to create a quantization configuration `OVWeightQuantizationConfig` as follows:
 
 ```python
 from optimum.intel import OVModelForVisualCausalLM, OVWeightQuantizationConfig
 
 q_config = OVWeightQuantizationConfig(bits=8)
-# Apply quantization and save the new model
 q_model = OVModelForVisualCausalLM.from_pretrained(model_id, quantization_config=q_config)
 q_model.save_pretrained("smolvlm_int8")
 ```
@@ -150,11 +151,11 @@ We measured the following metrics to evaluate the model's performance:
 
 Here are the results on Intel CPU:
 
-| Configuration    |        TTFT        |      TPOT        | End-to-End Latency    | Decoding Throughput           |
-|------------------|--------------------|------------------|-----------------------|-------------------------------|
-| pytorch          | 5.150              | 1.385            | 25.927                | 0.722                         |
-| openvino         | 0.420              | 0.021            | 0.738                 | 47.237                        |
-| openvino-8bit-woq| 0.247              | 0.016            | 0.482                 | 63.928                        |
+| Configuration    |Time To First Token (TTFT)|Time Per Output Token (TPOT)| End-to-End Latency    | Decoding Throughput           |
+|------------------|--------------------------|----------------------------|-----------------------|-------------------------------|
+| pytorch          | 5.150                    | 1.385                      | 25.927                | 0.722                         |
+| openvino         | 0.420                    | 0.021                      | 0.738                 | 47.237                        |
+| openvino-8bit-woq| 0.247                    | 0.016                      | 0.482                 | 63.928                        |
 
 
 This benchmark shows that small, optimized multimodal models, like (SmolVLM2-256M)[https://huggingface.co/HuggingFaceTB/SmolVLM2-256M-Video-Instruct], can run efficiently on various Intel hardware. Weight-only quantization significantly reduces model size, improving efficiency without majorly impacting throughput. GPUs deliver the highest image and token processing speeds, while CPUs and iGPUs remain viable for lighter workloads. Overall, this shows that lightweight vision-language models can be deployed locally with reasonable performance, making multimodal AI more accessible.
