@@ -64,8 +64,8 @@ Essentially, it's a way to map values from a high-precision data type, such as 3
 
 Optimum supports two main post-training quantization methods:
 
-- Weight Only Quantization
-- Static Quantization
+- [Weight Only Quantization](https://huggingface.co/docs/optimum-intel/en/openvino/optimization#weight-only-quantization)
+- [Static Quantization](https://huggingface.co/docs/optimum-intel/en/openvino/optimization#full-quantization)
 
 Let’s explore each of them.
 
