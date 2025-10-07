@@ -147,7 +147,7 @@ We ran a benchmark to compare the performance of the PyTorch, OpenVINO, and Open
 We measured the following metrics to evaluate the model's performance:
 
 - Time To First Token (TTFT) : Time it takes to generate the first output token.
-- Time Per Output Token (TPOT): Time it takes to generate all subsequent output tokens.
+- Time Per Output Token (TPOT): Time it takes to generate each subsequent output tokens.
 - End-to-End Latency : Total time it takes to generate the output all output tokens.
 - Decoding Throughput: Number of tokens per second the model generates during the decoding phase.
 
