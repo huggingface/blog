@@ -62,7 +62,7 @@ Now it’s time to optimize your model. Quantization reduces the precision of th
 
 Optimum supports two main post-training quantization methods:
 
-- [Weight Only Quantization](https://huggingface.co/docs/optimum-intel/en/openvino/optimization#weight-only-quantization)
+- [Weight Only Quantization (WOQ)](https://huggingface.co/docs/optimum-intel/en/openvino/optimization#weight-only-quantization)
 - [Static Quantization](https://huggingface.co/docs/optimum-intel/en/openvino/optimization#full-quantization)
 
 Let’s explore each of them.
@@ -136,7 +136,7 @@ To reproduce our results, check out our [notebook](https://github.com/huggingfac
 
 ## Evaluation and Conclusion
 
-We ran a benchmark to compare the performance of the PyTorch, OpenVINO, and OpenVINO 8-bit weight-only quantized (WOQ) versions of the [SmolVLM2-256M](https://huggingface.co/HuggingFaceTB/SmolVLM2-256M-Video-Instruct) model. The goal was to evaluate the impact of weight-only quantization on latency and throughput on Intel CPU hardware. For this test, we used [a single image](https://huggingface.co/datasets/OpenVINO/documentation/resolve/main/blog/openvino_vlm/flower.png) as input.
+We ran a benchmark to compare the performance of the [PyTorch](https://huggingface.co/HuggingFaceTB/SmolVLM2-256M-Video-Instruct), [OpenVINO](https://huggingface.co/echarlaix/SmolVLM2-256M-Video-Instruct-openvino), and [OpenVINO 8-bit WOQ](https://huggingface.co/echarlaix/SmolVLM2-256M-Video-Instruct-openvino-8bit-woq-data-free) versions of the original model. The goal was to evaluate the impact of weight-only quantization on latency and throughput on Intel CPU hardware. For this test, we used [a single image](https://huggingface.co/datasets/OpenVINO/documentation/resolve/main/blog/openvino_vlm/flower.png) as input.
 
 We measured the following metrics to evaluate the model's performance:
 - Time To First Token (TTFT) : Time it takes to generate the first output token.
