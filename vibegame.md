@@ -23,7 +23,7 @@ With this interpretation, you could make a game without understanding code, thou
 
 ## Context Management
 
-Earlier I mentioned that "as the project grows, things begin to fall apart". This is because there is [evidence](https://huggingface.co/blog/helmet) that as context window fills up, model performance begins to degrade. This is especially true for game development, where the context can grow very large, very quickly.
+Earlier I mentioned that "as the project grows, things begin to fall apart". This is because there is [evidence](https://huggingface.co/blog/helmet) that as the context window fills up, model performance begins to degrade. This is especially true for game development, where the context can grow very large, very quickly.
 
 To address this issue, there are many personal ad-hoc solutions, such as writing LLM-specific context directly in the project files, or more comprehensive solutions like [Claude Code Development Kit](https://github.com/peterkrueck/Claude-Code-Development-Kit) for large-scale context management.
 
