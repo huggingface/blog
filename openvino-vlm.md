@@ -92,20 +92,22 @@ optimum-cli export openvino -m HuggingFaceTB/SmolVLM2-256M-Video-Instruct --weig
 
 ## Option 2: Static Quantization
 
-With Static Quantization, both weights and activations are quantized before inference. To achieve the best estimate for the activation quantization parameters, we perform a calibration step. During this step, a small representative dataset is fed through the model. In our case, we will use 50 samples of the [contextual dataset](https://huggingface.co/datasets/ucla-contextual/contextual_test).
+With Static Quantization, both weights and activations are quantized before inference. To achieve the best estimate for the activation quantization parameters, we perform a calibration step. During this step, a small representative dataset is fed through the model. In our case, we will use 50 samples of the [contextual dataset](https://huggingface.co/datasets/ucla-contextual/contextual_test) and will apply static quantization on the vision encoder while weight-only quantizatoon will be applied on the rest of the model. Experiments show that applying static quantization on the vision encoder provides a noticeable performance improvement without significant accuracy degradation. Since the vision encoder is called only once per generation, the overall performance gain from applying static quantization on this component is lower than the gain achieved by optimizing more frequently used components like the language model
 
 ```python
-from optimum.intel import OVModelForVisualCausalLM, OVQuantizationConfig
+from optimum.intel import OVModelForVisualCausalLM, OVPipelineQuantizationConfig, OVQuantizationConfig, OVWeightQuantizationConfig
 
-q_config = OVQuantizationConfig(bits=8, dataset="contextual", num_samples=50)
+q_config = OVPipelineQuantizationConfig(
+    quantization_configs={
+        "lm_model": OVWeightQuantizationConfig(bits=8),
+        "text_embeddings_model": OVWeightQuantizationConfig(bits=8),
+        "vision_embeddings_model": OVQuantizationConfig(bits=8),
+    },
+    dataset=dataset,
+    num_samples=num_samples,
+)
 q_model = OVModelForVisualCausalLM.from_pretrained(model_id, quantization_config=q_config)
 q_model.save_pretrained("smolvlm_static_int8")
-```
-
-or equivalently with the CLI:
-
-```bash
-optimum-cli export openvino -m HuggingFaceTB/SmolVLM2-256M-Video-Instruct --quant-mode int8 --dataset contextual --num-samples 50 smolvlm_static_int8/
 ```
 
 Quantizing activations adds small errors that can build up and affect accuracy, so careful testing afterward is important. More information and examples can be found in [our documentation](https://huggingface.co/docs/optimum-intel/en/openvino/optimization#pipeline-quantization).
@@ -115,7 +117,7 @@ Quantizing activations adds small errors that can build up and affect accuracy, 
 You can now run inference with your quantized model:
 
 ```python
-generated_ids = q_model.generate(**inputs, max_new_tokens=500)
+generated_ids = q_model.generate(**inputs, max_new_tokens=100)
 generated_texts = processor.batch_decode(generated_ids, skip_special_tokens=True)
 print(generated_texts[0])
 ```
@@ -126,7 +128,8 @@ If you have a recent Intel laptop, Intel AI PC, or Intel discrete GPU, you can l
 model = OVModelForVisualCausalLM.from_pretrained(model_id, device="gpu")
 ```
 
-We also created a [space](https://huggingface.co/spaces/echarlaix/vision-langage-openvino) so you can play with the [original model](https://huggingface.co/echarlaix/SmolVLM2-500M-Video-Instruct-openvino) and its quantized variants obtained by respectively applying [weight-only quantization](https://huggingface.co/echarlaix/SmolVLM2-500M-Video-Instruct-openvino-8bit-woq) and [static quantization](https://huggingface.co/echarlaix/SmolVLM2-500M-Video-Instruct-openvino-8bit-static). This demo runs on 4th Generation Intel Xeon (Sapphire Rapids) processors.
+We also created a [space](https://huggingface.co/spaces/echarlaix/vision-langage-openvino) so you can play with the [original model](https://huggingface.co/echarlaix/SmoSmolVLM2-256M-Video-Instruct-openvino) and its quantized variants obtained by respectively applying [weight-only quantization](https://huggingface.co/echarlaix/SmolVLM2-256M-Video-Instruct-openvino-8bit-woq-data-free) and [mixed quantization](https://huggingface.co/echarlaix/SmolVLM2-256M-Video-Instruct-openvino-8bit-mixed). This demo runs on 4th Generation Intel Xeon (Sapphire Rapids) processors.
+
 
 <p align="center">
   <img src="https://huggingface.co/datasets/OpenVINO/documentation/resolve/main/blog/openvino_vlm/chat1.png" alt=" HF Space" width="500"/>
