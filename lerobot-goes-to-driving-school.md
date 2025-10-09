@@ -17,6 +17,8 @@ TL;DR of [L2D](https://huggingface.co/datasets/yaak-ai/L2D), the world's largest
 - 90+ TeraBytes of multimodal data (5000+ hours of driving) from 30 cities in Germany
 - 6x surrounding HD cameras and complete vehicle state: Speed/Heading/GPS/IMU
 - Continuous: Gas/Brake/Steering and discrete actions: Gear/Turn Signals
+- Environment state: Lane count, Road type (highway|residential), Road surface (asphalt, cobbled, sett), Max speed limit.
+- Environment conditions: Precipitation, Conditions (Snow, Clear, Rain), Lighting (Dawn, Day, Dusk)
 - Designed for training end-to-end models conditioned on natural language instructions or future waypoints
 - Natural language instructions. F.ex ["When the light turns green, drive over the tram tracks and then through the roundabout"](https://huggingface.co/spaces/lerobot/visualize_dataset?dataset=yaak-ai%2FL2D&episode=82) for each episode
 - [Future waypoints](#OpenStreetMap) snapped to OpenStreetMap graph, aditionally rendered in birds-eye-view
@@ -113,25 +115,32 @@ feasible to enhance precision (See Table 2.) and finally reduced the sampling ra
   <em> Fig 3: Multimodal data visualization with Visualization: <a href="https://nutron-sandbox.yaak.ai/dataset/session-logs/a58deaa0-247e-4e86-b10a-8b3a3f42d646?begin=0&end=3073&context=5&offset=0&datasetId=fcbb0dfd-40ae-4fd2-b023-7f300f35c5c7">Nutron</a> (only 3 of 6 cameras shown for clarity) </em>
 </p>
 
-| Modality | LeRobotDataset v2.1 key | Shape | alignment\[tol\]\[strategy\] |
+| Modality | LeRobotDataset v3.0 key | Shape | alignment\[tol\]\[strategy\] |
 | :---- | :---- | :---- | :---- |
-| image (x6) | [observation.images.front\_left](https://huggingface.co/datasets/yaak-ai/lerobot-driving-school/blob/main/meta/info.json#L17)\[left\_forward,..\] | N3HW | [asof\[20ms\]\[nearest\]](https://docs.pola.rs/api/python/stable/reference/dataframe/api/polars.DataFrame.join_asof.html) |
-| speed | [observation.state.vehicle.speed](https://huggingface.co/datasets/yaak-ai/lerobot-driving-school/blob/main/meta/info.json#L185) | N1 | [interp](https://docs.pola.rs/api/python/dev/reference/expressions/api/polars.Expr.interpolate_by.html) |
-| heading | [observation.state.vehicle.heading](https://huggingface.co/datasets/yaak-ai/lerobot-driving-school/blob/main/meta/info.json#L186)\[heading\_error\] | N1 | [asof\[50ms\]\[nearest\]](https://docs.pola.rs/api/python/stable/reference/dataframe/api/polars.DataFrame.join_asof.html) |
-| GPS | [observation.state.vehicle.latitude](https://huggingface.co/datasets/yaak-ai/lerobot-driving-school/blob/main/meta/info.json#L188)\[longitude/altitude\] | N1 | [asof\[50ms\]\[nearest\]](https://docs.pola.rs/api/python/stable/reference/dataframe/api/polars.DataFrame.join_asof.html) |
-| IMU | [observation.state.vehicle.acceleration\_x](https://huggingface.co/datasets/yaak-ai/lerobot-driving-school/blob/main/meta/info.json#L191)\[y\] | N1 | [interp](https://docs.pola.rs/api/python/dev/reference/expressions/api/polars.Expr.interpolate_by.html) |
-| waypoints | [observation.state.vehicle.waypoints](https://huggingface.co/datasets/yaak-ai/lerobot-driving-school/blob/main/meta/info.json#L196) | N2L | [asof\[10m\]\[nearest\]](https://docs.pola.rs/api/python/stable/reference/dataframe/api/polars.DataFrame.join_asof.html) |
-| timestamp | [observation.state.timestamp](https://huggingface.co/datasets/yaak-ai/lerobot-driving-school/blob/main/meta/info.json#L207) | N1 | observation.images.front\_left |
-| gas | [action.continous.gas\_pedal\_normalized](https://huggingface.co/datasets/yaak-ai/lerobot-driving-school/blob/main/meta/info.json#L225) | N1 | [interp](https://docs.pola.rs/api/python/dev/reference/expressions/api/polars.Expr.interpolate_by.html) |
-| brake | [action.continous.brake\_pedal\_normalized](https://huggingface.co/datasets/yaak-ai/lerobot-driving-school/blob/main/meta/info.json#L226) | N1 | [interp](https://docs.pola.rs/api/python/dev/reference/expressions/api/polars.Expr.interpolate_by.html) |
-| steering | [action.continous.steering\_angle\_normalized](https://huggingface.co/datasets/yaak-ai/lerobot-driving-school/blob/main/meta/info.json#L227) | N1 | [interp](https://docs.pola.rs/api/python/dev/reference/expressions/api/polars.Expr.interpolate_by.html) |
-| turn signal | [action.discrete.turn\_signal](https://huggingface.co/datasets/yaak-ai/lerobot-driving-school/blob/main/meta/info.json#L238) | N1 | [asof\[100ms\]\[nearest\]](https://docs.pola.rs/api/python/stable/reference/dataframe/api/polars.DataFrame.join_asof.html) |
-| gear | [action.discrete.gear](https://huggingface.co/datasets/yaak-ai/lerobot-driving-school/blob/main/meta/info.json#L239) | N1 | [asof\[100ms\]\[nearest\]](https://docs.pola.rs/api/python/stable/reference/dataframe/api/polars.DataFrame.join_asof.html) |
-| language | [task.policy](https://huggingface.co/datasets/yaak-ai/lerobot-driving-school/blob/main/meta/info.json#L218) | N1 | — |
-| language | [task.instructions](https://huggingface.co/datasets/yaak-ai/lerobot-driving-school/blob/main/meta/info.json#L225) | N1 | — |
+| image (x6) | [observation.images.front\_left](https://huggingface.co/datasets/yaak-ai/L2D/blob/main/meta/info.json#L193)\[left\_forward,..\] | N3HW | [asof\[20ms\]\[nearest\]](https://docs.pola.rs/api/python/stable/reference/dataframe/api/polars.DataFrame.join_asof.html) |
+| speed | [observation.state.vehicle.speed](https://huggingface.co/datasets/yaak-ai/L2D/blob/main/meta/info.json#L24) | N1 | [interp](https://docs.pola.rs/api/python/dev/reference/expressions/api/polars.Expr.interpolate_by.html) |
+| heading | [observation.state.vehicle.heading](https://huggingface.co/datasets/yaak-ai/L2D/blob/main/meta/info.json#L25)\[heading\_error\] | N1 | [asof\[50ms\]\[nearest\]](https://docs.pola.rs/api/python/stable/reference/dataframe/api/polars.DataFrame.join_asof.html) |
+| GPS | [observation.state.vehicle.latitude](https://huggingface.co/datasets/yaak-ai/L2D/blob/main/meta/info.json#L27)\[longitude/altitude\] | N1 | [asof\[50ms\]\[nearest\]](https://docs.pola.rs/api/python/stable/reference/dataframe/api/polars.DataFrame.join_asof.html) |
+| IMU | [observation.state.vehicle.acceleration\_x](https://huggingface.co/datasets/yaak-ai/L2D/blob/main/meta/info.json#L30)\[y\] | N1 | [interp](https://docs.pola.rs/api/python/dev/reference/expressions/api/polars.Expr.interpolate_by.html) |
+| waypoints | [observation.state.vehicle.waypoints](https://huggingface.co/datasets/yaak-ai/L2D/blob/main/meta/info.json#L84) | N2L | [asof\[10m\]\[nearest\]](https://docs.pola.rs/api/python/stable/reference/dataframe/api/polars.DataFrame.join_asof.html) |
+| timestamp | [observation.state.timestamp](https://huggingface.co/datasets/yaak-ai/L2D/blob/main/meta/info.json#L95) | N1 | observation.images.front\_left |
+| gas | [action.continous.gas\_pedal\_normalized](https://huggingface.co/datasets/yaak-ai/L2D/blob/main/meta/info.json#L127) | N1 | [interp](https://docs.pola.rs/api/python/dev/reference/expressions/api/polars.Expr.interpolate_by.html) |
+| brake | [action.continous.brake\_pedal\_normalized](https://huggingface.co/datasets/yaak-ai/L2D/blob/main/meta/info.json#L128) | N1 | [interp](https://docs.pola.rs/api/python/dev/reference/expressions/api/polars.Expr.interpolate_by.html) |
+| steering | [action.continous.steering\_angle\_normalized](https://huggingface.co/datasets/yaak-ai/L2D/blob/main/meta/info.json#L129) | N1 | [interp](https://docs.pola.rs/api/python/dev/reference/expressions/api/polars.Expr.interpolate_by.html) |
+| turn signal | [action.discrete.turn\_signal](https://huggingface.co/datasets/yaak-ai/L2D/blob/main/meta/info.json#L141) | N1 | [asof\[100ms\]\[nearest\]](https://docs.pola.rs/api/python/stable/reference/dataframe/api/polars.DataFrame.join_asof.html) |
+| gear | [action.discrete.gear](https://huggingface.co/datasets/yaak-ai/L2D/blob/main/meta/info.json#L140) | N1 | [asof\[100ms\]\[nearest\]](https://docs.pola.rs/api/python/stable/reference/dataframe/api/polars.DataFrame.join_asof.html) |
+| language | [task.policy](https://huggingface.co/datasets/yaak-ai/L2D/blob/main/meta/info.json#L106) | N1 | — |
+| language | [task.instructions](https://huggingface.co/datasets/yaak-ai/L2D/blob/main/meta/info.json#L113) | N1 | — |
+| lane count | [observation.state.lanes](https://huggingface.co/datasets/yaak-ai/L2D/blob/main/meta/info.json#L35) | N1 | [asof\[500ms\]\[nearest\]](https://docs.pola.rs/api/python/stable/reference/dataframe/api/polars.DataFrame.join_asof.html) |
+| road type | [observation.state.road](https://huggingface.co/datasets/yaak-ai/L2D/blob/main/meta/info.json#L42) | N1 | [asof\[500ms\]\[nearest\]](https://docs.pola.rs/api/python/stable/reference/dataframe/api/polars.DataFrame.join_asof.html) |
+| road surface | [observation.state.surface](https://huggingface.co/datasets/yaak-ai/L2D/blob/main/meta/info.json#L49) | N1 | [asof\[500ms\]\[nearest\]](https://docs.pola.rs/api/python/stable/reference/dataframe/api/polars.DataFrame.join_asof.html) |
+| max speed | [observation.state.max_speed](https://huggingface.co/datasets/yaak-ai/L2D/blob/main/meta/info.json#L56) | N1 | [asof\[500ms\]\[nearest\]](https://docs.pola.rs/api/python/stable/reference/dataframe/api/polars.DataFrame.join_asof.html) |
+| precipitation | [observation.state.precipitation](https://huggingface.co/datasets/yaak-ai/L2D/blob/main/meta/info.json#L63) | N1 | [asof\[1hr\]\[nearest\]](https://docs.pola.rs/api/python/stable/reference/dataframe/api/polars.DataFrame.join_asof.html) |
+| conditions | [observation.state.conditions](https://huggingface.co/datasets/yaak-ai/L2D/blob/main/meta/info.json#L70) | N1 | [asof\[1hr\]\[nearest\]](https://docs.pola.rs/api/python/stable/reference/dataframe/api/polars.DataFrame.join_asof.html) |
+| lighting | [observation.state.lighting](https://huggingface.co/datasets/yaak-ai/L2D/blob/main/meta/info.json#L77) | N1 | [asof\[1hr\]\[nearest\]](https://docs.pola.rs/api/python/stable/reference/dataframe/api/polars.DataFrame.join_asof.html) |
 
 <p align="center">
-  <em> Table 2: Modality types, LeRobot v2.1 key, shape and interpolation strategy. </em>
+  <em> Table 2: Modality types, LeRobot v3.0 key, shape and interpolation strategy. </em>
 </p>
 
 L2D follows the official German [driving task catalog](https://docs.google.com/spreadsheets/d/1phItCf1n6AVQqEIiP7lmfj0G07gR52iD7q93mMmrZio/edit?usp=sharing)
@@ -238,7 +247,7 @@ we used approx 30 pairs of known natural language queries and route tasks for in
 
 ## LeRobot
 
-L2D on 🤗 is converted to [LeRobotDataset v2.1](https://github.com/huggingface/lerobot/pull/711) format to fully leverage
+L2D on 🤗 is converted to [LeRobotDataset v2.1](https://github.com/huggingface/lerobot/pull/711) and [LeRobotDataset v3.0](https://huggingface.co/blog/lerobot-datasets-v3) format to fully leverage
 the current and future models supported within [LeRobot](https://github.com/huggingface/lerobot).
 The AI community can now build end-to-end self-driving models leveraging the state-of-the-art imitation learning
 and reinforcement learning models for real world robotics like [ACT](https://tonyzhaozh.github.io/aloha),
@@ -264,9 +273,9 @@ information about the episodes. Each release **R1+** is a superset of the previo
 | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | [R0](https://huggingface.co/datasets/yaak-ai/L2D/tree/R0) | [R0](https://nutron-sandbox.yaak.ai/collections/fcbb0dfd-40ae-4fd2-b023-7f300f35c5c7/300b7174-b6aa-4598-83e8-fc28cc5fcbe3/search/list/session-logs?context=5s) | March 2025 | 100 | 0.5+ hr | 9,5 GB | ☑️ |  |  |  |
 | [R1](https://huggingface.co/datasets/yaak-ai/L2D/tree/R1) | [R1](https://nutron-sandbox.yaak.ai/collections/fcbb0dfd-40ae-4fd2-b023-7f300f35c5c7/1cb18573-f731-47b1-ae89-7ea2f026b8d0/search/list/session-logs?context=5s) | April 2025 | 1K | 5+ hr | 95 GB | ☑️ |  |  |  |
-| [R2](https://huggingface.co/datasets/yaak-ai/L2D/tree/main) | [R2](https://nutron-sandbox.yaak.ai/collections/fcbb0dfd-40ae-4fd2-b023-7f300f35c5c7/6e53636a-59ed-466b-8722-2c0b415f9bca/search/list/session-logs?context=5s) | May 2025 | 10K | 50+ hr | 1 TB | ☑️ | ☑️ | ☑️ | ☑️ |
-| R3 | R3 | June 2025 | 100K | 500+ hr | 10 TB | ☑️ | ☑️ | ☑️ | ☑️ |
-| R4 | R4 | July 2025 | 1M | 5000+ hr | 90 TB | ☑️ | ☑️ | ☑️ | ☑️ |
+| [R2](https://huggingface.co/datasets/yaak-ai/L2D/tree/R2) | [R2](https://nutron-sandbox.yaak.ai/collections/fcbb0dfd-40ae-4fd2-b023-7f300f35c5c7/6e53636a-59ed-466b-8722-2c0b415f9bca/search/list/session-logs?context=5s) | May 2025 | 10K | 50+ hr | 0.5 TB | ☑️ |  | ☑️ | ☑️ |
+| [R3](https://huggingface.co/datasets/yaak-ai/L2D/tree/main) | [R3](https://nutron-sandbox.yaak.ai/collections/fcbb0dfd-40ae-4fd2-b023-7f300f35c5c7/8930821d-b793-4885-b8c1-98cc10e20e81/search/list?context=5s) | Sept 2025 | 100K | 500+ hr | 5 TB | ☑️ |  | ☑️ | ☑️ |
+| R4 | R4 | Nov 2025 | 1M | 5000+ hr | 90 TB | ☑️ | ☑️ | ☑️ | ☑️ |
 
 <p align="center">
   <em> Table 5: L2D release dates </em>
@@ -285,28 +294,32 @@ ImageNet moment for spatial intelligence.
 </div>
 
 <p align="center">
-  <em> Fig 1: Searching episodes by natural language instructions</em>
+  <em> Fig 7: Searching episodes by natural language instructions</em>
 </p>
 
 # Using L2D with HF/LeRobot
+
+For R0, R1 we recommend using `LeRobotDataset`, with `revision=[R0|R1]`, which can be used directly from the pypi release of LeRobot. For R2+, please follow installation [outlined here](https://huggingface.co/blog/lerobot-datasets-v3#install-lerobot-and-record-a-dataset) or install from main as below, as we recommend using [`StreamingLeRobotDataset`](https://github.com/huggingface/lerobot/blob/main/src/lerobot/datasets/streaming_dataset.py#L43) as R3 is is [Dataset v3.0](https://huggingface.co/blog/lerobot-datasets-v3) format.
 
 ```
 # uv for python deps
 curl -LsSf https://astral.sh/uv/install.sh | sh
 # install python version and pin it
 uv init && uv python install 3.12.4 && uv python pin 3.12.4
-# add lerobot to deps
+# add lerobot to deps for R0, R1
 uv add lerobot
+# for R2+
+GIT_LFS_SKIP_SMUDGE=1 uv add "git+https://github.com/huggingface/lerobot.git@main"
 uv run python
->>> from lerobot.common.datasets.lerobot_dataset import LeRobotDataset
-# This will load 3 episodes=[0, 1001, 9999], to load all the episodes please remove it
->>> dataset = LeRobotDataset("yaak-ai/L2D", episodes=[0, 1001, 9999])
->>> dataset
-LeRobotDataset({
+>>> from lerobot.datasets.streaming_dataset import StreamingLeRobotDataset
+# This will load 3 episodes=[0, 9999, 99999], to load all the episodes please remove it
+>>> dataset = StreamingLeRobotDataset("yaak-ai/L2D", episodes=[0, 9999, 99999], streaming=True, buffer_size=1000)
+>>> dataset.meta
+LeRobotDatasetMetadata({
     Repository ID: 'yaak-ai/L2D',
-    Number of selected episodes: '3',
-    Number of selected samples: '326',
-    Features: '['observation.images.front_left', 'observation.images.left_forward', 'observation.images.right_forward', 'observation.images.left_backward', 'observation.images.right_backward', 'observation.images.rear', 'observation.images.map', 'observation.state.vehicle', 'observation.state.waypoints', 'observation.state.timestamp', 'task.policy', 'task.instructions', 'action.continuous', 'action.discrete', 'timestamp', 'frame_index', 'episode_index', 'index', 'task_index']',
+    Total episodes: '100000',
+    Total frames: '19042712',
+    Features: '['observation.state.vehicle', 'observation.state.lanes', 'observation.state.road', 'observation.state.surface', 'observation.state.max_speed', 'observation.state.precipitation', 'observation.state.conditions', 'observation.state.lighting', 'observation.state.waypoints', 'observation.state.timestamp', 'task.policy', 'task.instructions', 'action.continuous', 'action.discrete', 'timestamp', 'frame_index', 'episode_index', 'index', 'task_index', 'observation.images.left_forward', 'observation.images.front_left', 'observation.images.right_forward', 'observation.images.left_backward', 'observation.images.rear', 'observation.images.right_backward', 'observation.images.map']',
 })',
 ```
 
