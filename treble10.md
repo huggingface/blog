@@ -18,7 +18,7 @@ authors:
 # High-Quality Datasets for Far-Field ASR (Treble Technologies x Hugging Face)
 
 <div align="center">
-  <img src="assets/treble10/thumbnail.png" width="1024px" alt="trebleXhf" />
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/treble10/thumbnail.png" width="1024px" alt="thumbnail" />
 </div>
 
 
