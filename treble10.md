@@ -3,8 +3,14 @@ title: "treble10"
 thumbnail: /blog/assets/treble10/thumbnail.png
 authors:
 - user: georg-goetz
+  guest: true
+  org: treble-technologies
 - user: ssm-treble
+  guest: true
+  org: treble-technologies
 - user: daniel-treble
+  guest: true
+  org: treble-technologies
 - user: bezzam
 - user: Steveeeeeeen
 ---
@@ -129,8 +135,6 @@ At Treble Technologies, we believe that advancing audio machine learning require
 
 The Treble SDK offers a flexible, Python-based framework powered by an advanced acoustic simulation engine. It enables engineers and researchers to: 
 
-Simulate complex acoustic environments: Move beyond simple room models to capture detailed geometries and devices. Model wave effects that are crucial phenomena in real-world sound propagation, such as diffraction, scattering, interference, and the resulting modal behavior. 
-
-Generate multi-channel room impulse responses (RIRs) at scale: Create large datasets of physically accurate, high-fidelity RIRs, including precise simulations for custom microphone arrays embedded within device structures. 
-
-Control acoustic parameters with precision: Adjust room size, material properties, source and receiver positions (including array layouts), and object placements to produce diverse and well-controlled acoustic conditions. 
+- **Simulate complex acoustic environments**: Move beyond simple room models to capture detailed geometries and devices. Model wave effects that are crucial phenomena in real-world sound propagation, such as diffraction, scattering, interference, and the resulting modal behavior. 
+- **Generate multi-channel room impulse responses (RIRs) at scale**: Create large datasets of physically accurate, high-fidelity RIRs, including precise simulations for custom microphone arrays embedded within device structures. 
+- **Control acoustic parameters with precision**: Adjust room size, material properties, source and receiver positions (including array layouts), and object placements to produce diverse and well-controlled acoustic conditions. 
