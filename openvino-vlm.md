@@ -1,5 +1,5 @@
 ---
-title: "Get your VLM running in 3 simple steps"
+title: "Get your VLM running in 3 simple steps on Intel CPUs"
 thumbnail: /blog/assets/optimum_intel/intel_thumbnail.png
 authors:
 - user: ezelanza

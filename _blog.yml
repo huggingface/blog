@@ -6789,10 +6789,10 @@
     - apple
 
 - local: openvino-vlm
-  title: "Get your VLM running in 3 simple steps"
+  title: "Get your VLM running in 3 simple steps on Intel CPUs"
   author: ezelanza
   thumbnail: /blog/assets/optimum_intel/intel_thumbnail.png
-  date: Sep 15, 2025
+  date: Oct 10, 2025
   tags:
     - intel
     - optimum
