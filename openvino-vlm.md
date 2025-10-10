@@ -181,6 +181,7 @@ This benchmark shows that small, optimized multimodal models, like [SmolVLM2-256
 > **transformers:** 4.53.3  
 > **Benchmark Date:** 15.05.2025  
 > **Benchmarked by:** Intel Corporation
+> Performance may vary by use, configuration, and other factors. See the platform configuration below.
 
 
 ## Useful Links & Resources
