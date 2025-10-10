@@ -29,7 +29,7 @@ Small models like SmolVLM are built for low-resource consumption, but they can b
 To follow this tutorial, you need to install `optimum` and `openvino`, which you can do with:
 
 ```bash
-pip install optimum-intel[openvino]
+pip install optimum-intel[openvino] transformers==4.52.*
 ```
 
 ## Step 1: Convert your model
