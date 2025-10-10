@@ -157,37 +157,30 @@ Here are the results on Intel CPU:
 
 
 This benchmark shows that small, optimized multimodal models, like [SmolVLM2-256M](https://huggingface.co/HuggingFaceTB/SmolVLM2-256M-Video-Instruct), can run efficiently on Intel CPUs. Weight-only quantization significantly reduces model size, improving efficiency without majorly impacting throughput.
-## Platform configuration
-Platform Configuration for performance claims above:
 
-**System Board:** MSI B860M GAMING PLUS WIFI (MS-7E42)  
-**CPU:** Intel® Core™ Ultra 7 265K  
-**Sockets/Physical Cores:** 1/20 (20 threads)  
-**HyperThreading/Turbo Settings:** Disabled  
-**Memory:** 64 GB DDR5 @ 6400 MHz  
-**GPU:** 1x Intel® Graphics (4 Xe cores), 1x Intel® Arc™ A770 Graphics (32 Xe cores), 1x Intel® Arc™ B580 Graphics (20 Xe cores)  
-**NPU:** Intel® AI Boost  
-**TDP:** 665W  
-**BIOS:** American Megatrends International, LLC. 2.A10  
-**BIOS Release Date:** 28.11.2024  
-**OS:** Ubuntu 24.10  
-**Kernel:** 6.11.0–25-generic  
-**OpenVINO Version:** 2025.2.0  
-**torch:** 2.8.0  
-**torchvision:** 0.23.0+cpu  
-**optimum-intel:** 1.25.2  
-**transformers:** 4.53.3  
-**Benchmark Date:** 15.05.2025  
-**Benchmarked by:** Intel Corporation
-
-
-
-## Notices & Disclaimers
-Performance varies by use, configuration, and other factors. Learn more on the Performance Index site.
-
-Performance results are based on testing as of dates shown in configurations and may not reflect all publicly available updates. See backup for configuration details. No product or component can be absolutely secure. Your costs and results may vary. Intel technologies may require enabled hardware, software or service activation.
-
-© Intel Corporation. Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.
+> [!NOTE]
+> **Platform configuration**
+> Platform Configuration for performance claims above:
+>
+> **System Board:** MSI B860M GAMING PLUS WIFI (MS-7E42)  
+> **CPU:** Intel® Core™ Ultra 7 265K  
+> **Sockets/Physical Cores:** 1/20 (20 threads)  
+> **HyperThreading/Turbo Settings:** Disabled  
+> **Memory:** 64 GB DDR5 @ 6400 MHz  
+> **GPU:** 1x Intel® Graphics (4 Xe cores), 1x Intel® Arc™ A770 Graphics (32 Xe cores), 1x Intel® Arc™ B580 Graphics (20 Xe cores)  
+> **NPU:** Intel® AI Boost  
+> **TDP:** 665W  
+> **BIOS:** American Megatrends International, LLC. 2.A10  
+> **BIOS Release Date:** 28.11.2024  
+> **OS:** Ubuntu 24.10  
+> **Kernel:** 6.11.0–25-generic  
+> **OpenVINO Version:** 2025.2.0  
+> **torch:** 2.8.0  
+> **torchvision:** 0.23.0+cpu  
+> **optimum-intel:** 1.25.2  
+> **transformers:** 4.53.3  
+> **Benchmark Date:** 15.05.2025  
+> **Benchmarked by:** Intel Corporation
 
 
 ## Useful Links & Resources
@@ -196,3 +189,12 @@ Performance results are based on testing as of dates shown in configurations and
 - [Try our Space](https://huggingface.co/spaces/echarlaix/vision-langage-openvino)
 - [Watch the webinar recording](https://web.cvent.com/event/d550a2a7-04f2-4a28-b641-3af228e318ca/regProcessStep1?utm_campaign=speakers4&utm_medium=organic&utm_source=Community)
 - [Optimum Intel Documentation](https://huggingface.co/docs/optimum-intel/en/openvino/inference)
+
+
+> [!NOTE]
+> ## Notices & Disclaimers
+> Performance varies by use, configuration, and other factors. Learn more on the Performance Index site.
+
+> Performance results are based on testing as of dates shown in configurations and may not reflect all publicly available updates. See backup for configuration details. No product or component can be absolutely secure. Your costs and results may vary. Intel technologies may require enabled hardware, software or service activation.
+
+> © Intel Corporation. Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.
