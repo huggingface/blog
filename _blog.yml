@@ -6787,3 +6787,13 @@
   tags:
     - coreml
     - apple
+
+- local: treble10
+  title: "High-Quality Datasets for Far-Field ASR (Treble Technologies x Hugging Face)"
+  author: georg-goetz
+  thumbnail: /blog/assets/treble10/thumbnail.png
+  date: Oct 15, 2025
+  tags:
+    - audio
+    - open-source-collab
+    - partnerships
