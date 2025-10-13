@@ -167,8 +167,6 @@ This benchmark demonstrates how small, optimized multimodal models, like [SmolVL
 > **Sockets/Physical Cores:** 1/20 (20 threads)  
 > **HyperThreading/Turbo Settings:** Disabled  
 > **Memory:** 64 GB DDR5 @ 6400 MHz  
-> **GPU:** 1x Intel® Graphics (4 Xe cores), 1x Intel® Arc™ A770 Graphics (32 Xe cores), 1x Intel® Arc™ B580 Graphics (20 Xe cores)  
-> **NPU:** Intel® AI Boost  
 > **TDP:** 665W  
 > **BIOS:** American Megatrends International, LLC. 2.A10  
 > **BIOS Release Date:** 28.11.2024  
