@@ -73,7 +73,7 @@ SmolLM3 follows a transformer decoder architecture with tied embedding similar t
 
 **NoPE:** We implemented NoPE from "[RoPE to NoRoPE and Back Again: A New Hybrid Attention Strategy](https://huggingface.co/papers/2501.18795)" (Yang et al., 2025), selectively removing rotary position embeddings from every 4th layer. This approach improves long context performance without affecting short context capabilities, as confirmed by our ablations.
 
-**Intra-Document Masking:** During training, we use attention masking to ensure tokens from different documents in the same training sequence don't attend to each other. Similar to Llama 3, this helps with faster and more stable long context training while maintaining short context performance.
+**Intra-Document Masking:** Following "[Analysing The Impact of Sequence Composition on Language Model Pre-Training](https://arxiv.org/abs/2402.13991)", during training, we use attention masking to ensure tokens from different documents in the same training sequence don't attend to each other. Similar to Llama 3, this helps with faster and more stable long context training while maintaining short context performance.
 
 **Training Stability:** Following OLMo 2, we remove weight decay from embedding layers to improve training stability. This modification contributed to more stable training dynamics, with embedding norms naturally stabilizing at healthier values during training without impacting overall performance in our ablations.
 
