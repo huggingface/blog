@@ -6798,3 +6798,12 @@
     - optimum
     - quantization
     - inference
+
+- local: lerobot-release-v040
+  title: "LeRobot v0.4.0: XXX"
+  author: imstevenpmwork
+  thumbnail: /blog/assets/lerobot-release-v040/thumbnail.png
+  date: Oct 27, 2025
+  tags:
+    - lerobot
+    - robotics
