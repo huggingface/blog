@@ -13,7 +13,7 @@ We're thrilled to announce a series of significant advancements across LeRobot, 
 ## Datasets: Ready for the Next Wave of Large-Scale Robot Learning
 We've completely overhauled our dataset infrastructure with **LeRobotDataset v3.0**, featuring a new chunked episode format and streaming capabilities. This is a game-changer for handling massive datasets like OXE, bringing unparalleled efficiency and scalability.
 
-(TODO: IMAGE)
+![TODO](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/lerobot-release-v040/XXX.png)
 
 ### What's New in v3.0?
 * Chunked Episodes for Massive Scale: Our new format supports datasets at the OXE-level, enabling unprecedented scalability.
@@ -37,7 +37,7 @@ These tools streamline your workflow, allowing you to curate and optimize your r
 ## Simulation Environments: Expanding Your Training Grounds
 We're continuously expanding LeRobot's simulation capabilities to provide richer and more diverse training environments for your robotic policies.
 
-(TODO: IMAGE)
+![TODO](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/lerobot-release-v040/XXX.png)
 
 ### LIBERO Support:
 LeRobot now officially supports **LIBERO**, one of the largest open benchmarks for Vision-Language-Action (VLA) policies, boasting over 130 tasks! This is a huge step toward building the go-to evaluation hub for VLAs, enabling easy integration and a unified setup for evaluating any VLA policy.
@@ -52,7 +52,7 @@ Train your policies with the [Meta-World dataset](https://huggingface.co/dataset
 ## Robots: A New Era of Hardware Integration with the Plugin System
 Big news for hardware enthusiasts! We've launched a brand-new plugin system to revolutionize how you integrate third-party hardware with LeRobot. Now, connecting any robot, camera, or teleoperator is as simple as a `pip install`, eliminating the need to modify the core library.
 
-(TODO: IMAGE)
+![TODO](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/lerobot-release-v040/XXX.png)
 
 ### Key Benefits:
 * Extensibility: Develop and integrate custom hardware in separate Python packages.
@@ -70,7 +70,7 @@ Thanks to our new plugin system, we've also added **Reachy 2** from Pollen Robot
 
 We're making robot control more flexible and accessible, enabling new possibilities for data collection and model training.
 
-(TODO: IMAGE)
+![TODO](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/lerobot-release-v040/XXX.png)
 
 ### RobotProcessor: The New Pipeline for Data Processing
 We've introduced `RobotProcessor`, a powerful pipeline system for transforming data within LeRobot. This enables native support for end-effector control, making it easier to record and train AI models in end-effector space or with any other desired features.
@@ -85,7 +85,7 @@ This modular architecture, complete with over 30 registered processors, ensures 
 ## Policies: Unleashing Open-World Generalization with pi0 and pi0.5
 In a major milestone for open-source robotics, we've integrated **pi0** and **pi0.5** policies by Physical Intelligence into LeRobot, fully ported to PyTorch! These Vision-Language-Action (VLA) models represent a significant leap towards addressing open-world generalization in robotics.
 
-(TODO: IMAGE)
+![TODO](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/lerobot-release-v040/XXX.png)
 
 ### What makes π₀.₅ revolutionary?
 * Open-World Generalization: Designed to adapt to entirely new environments and situations, generalizing across physical, semantic, and environmental levels.
