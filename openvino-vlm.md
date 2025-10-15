@@ -156,7 +156,7 @@ Here are the results on Intel CPU:
 | openvino-8bit-woq| 0.247                    | 0.016                      | 0.482                 | 63.928                        |
 
 
-This benchmark demonstrates how small, optimized multimodal models, like [SmolVLM2-256M](https://huggingface.co/HuggingFaceTB/SmolVLM2-256M-Video-Instruct), perform on Intel CPUs across different configurations. According to the tests, the PyTorch version shows high latency, with a time to first token (TTFT) of over 5s with a decoding throughput of 0.7 tokens/s. Simply converting the model with Optimum and running it on OpenVINO drastically reduces the time to first token (TTFT) to 0.42s (~**x12** speedup) and raises throughput to 47 tokens/s (~**x65**). Applying 8-bit weight-only quantization further reduces TTFT (x1.7) and increases throughput (x1.4), while also reducing model size and improving efficiency.
+This benchmark demonstrates how small, optimized multimodal models, like [SmolVLM2-256M](https://huggingface.co/HuggingFaceTB/SmolVLM2-256M-Video-Instruct), perform on Intel CPUs across different configurations. According to the tests, the PyTorch version shows high latency, with a time to first token (TTFT) of over 5s with a decoding throughput of 0.7 tokens/s. Simply converting the model with Optimum and running it on OpenVINO drastically reduces the time to first token (TTFT) to 0.42s (**x12** speedup) and raises throughput to 47 tokens/s (**x65**). Applying 8-bit weight-only quantization further reduces TTFT (x1.7) and increases throughput (x1.4), while also reducing model size and improving efficiency.
 
 > [!NOTE]
 > **Platform configuration**
