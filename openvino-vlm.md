@@ -128,7 +128,7 @@ If you have a recent Intel laptop, Intel AI PC, or Intel discrete GPU, you can l
 model = OVModelForVisualCausalLM.from_pretrained(model_id, device="gpu")
 ```
 
-We also created a [space](https://huggingface.co/spaces/echarlaix/vision-langage-openvino) so you can play with the [original model](https://huggingface.co/echarlaix/SmolVLM2-256M-Video-Instruct-openvino) and its quantized variants obtained by respectively applying [weight-only quantization](https://huggingface.co/echarlaix/SmolVLM2-256M-Video-Instruct-openvino-8bit-woq-data-free) and [mixed quantization](https://huggingface.co/echarlaix/SmolVLM2-256M-Video-Instruct-openvino-8bit-mixed). This demo runs on 4th Generation Intel Xeon (Sapphire Rapids) processors.
+We also [created a space](https://huggingface.co/spaces/echarlaix/vision-langage-openvino) so you can play with the [original model](https://huggingface.co/echarlaix/SmolVLM2-256M-Video-Instruct-openvino) and its quantized variants obtained by respectively applying [weight-only quantization](https://huggingface.co/echarlaix/SmolVLM2-256M-Video-Instruct-openvino-8bit-woq-data-free) and [mixed quantization](https://huggingface.co/echarlaix/SmolVLM2-256M-Video-Instruct-openvino-8bit-mixed). This demo runs on 4th Generation Intel Xeon (Sapphire Rapids) processors.
 
 
 <p align="center">
