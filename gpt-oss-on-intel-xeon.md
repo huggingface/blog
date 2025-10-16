@@ -188,7 +188,7 @@ At batch size 64, `C4` provides 1.7× the per‑vCPU throughput of `C3`; with ne
 
 Per‑vCPU throughput ratio:
 $$
-(throughput\text{\_}C4 / vCPUs\text{\_}C4) / (throughput\text{\_}C3 / vCPUs\text{\_}C3) = 1.7 ⇒ \frac{TCO\text{\_}C3}{TCO\text{\_}C4} ≈ 1.7
+\frac{throughput\text{\_}C4 / vCPUs\text{\_}C4}{throughput\text{\_}C3 / vCPUs\text{\_}C3} = 1.7 ⇒ \frac{TCO\text{\_}C3}{TCO\text{\_}C4} ≈ 1.7
 $$
 
 <p align="center">
