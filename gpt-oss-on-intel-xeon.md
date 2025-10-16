@@ -175,7 +175,9 @@ if __name__ == "__main__":
 ### Normalized Throughput per vCPU
 Across batch sizes up to 64, Intel Xeon 6 processor‑powered `C4` consistently outperforms `C3` with a 1.4x to 1.7× throughput per-vCPU. The formula is:
 
-$$normalized\\_throughput\\_per\\_vCPU = (throughput\\_C4 / vCPUs\\_C4) / (throughput\\_C3 / vCPUs\\_C3)$$
+$$
+normalized\text{\_}throughput\text{\_}per\text{\_}vCPU = \frac{throughput\text{\_}C4 / vCPUs\text{\_}C4}{throughput\text{\_}C3 / vCPUs\text{\_}C3}
+$$
 
 <p align="center">
   <img src="https://huggingface.co/datasets/Intel/blog/resolve/main/gpt-oss-on-intel-xeon/throughput-gpt-oss-per-vcpu.png" alt="throughput-gpt-oss-per-vcpu" width="700"/>
