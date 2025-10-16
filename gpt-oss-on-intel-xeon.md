@@ -176,7 +176,10 @@ if __name__ == "__main__":
 Across batch sizes up to 64, Intel Xeon 6 processor‑powered `C4` consistently outperforms `C3` with a 1.4x to 1.7× throughput per-vCPU. The formula is:
 
 $$
-\text{normalized\_throughput\_per\_vCPU} = \frac{\text{throughput\_C4} / \text{vCPUs\_C4}}{\text{throughput\_C3} / \text{vCPUs\_C3}}
+\text{normalized\_throughput\_per\_vCPU} 
+= 
+\frac{\text{throughput\_C4} / \text{vCPUs\_C4}}
+     {\text{throughput\_C3} / \text{vCPUs\_C3}}
 $$
 
 <p align="center">
