@@ -104,7 +104,7 @@ We are in container now, do following steps.
 For each batch size we
 1. Build a fixed-length 1024‑token left‑padded batch.
 2. Run a single warm‑up round.
-3. set `max_new_tokens=1024` and measure total latency, then get $throughput = (OUTPUT\\_TOKENS * batch\\_size) / total\\_latency$.
+3. set `max_new_tokens=1024` and measure total latency, then get \\(throughput = (OUTPUT\_TOKENS * batch\_size) / total\_latency\\).
 
 Run `numactl -l python benchmark.py` for the following codes.
 
