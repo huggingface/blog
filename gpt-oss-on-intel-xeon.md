@@ -21,7 +21,7 @@ Intel and Hugging Face collaborated to demonstrate the real-world value of upgra
 
 The results are in, and they are impressive, demonstrating a *1.7x* improvement in Total Cost of Ownership(TCO) over the previous-generation Google `C3` VM instances. The Google Cloud `C4` VM instance further resulted in:
 
-- 1.4x ~ 1.7x TPOT throughput/vCPU/dollar
+- 1.4x to 1.7x TPOT throughput/vCPU/dollar
 - Lower price per hour over `C3` VM
 
 ## Introduction
@@ -173,7 +173,7 @@ if __name__ == "__main__":
 
 ## Results
 ### Normalized Throughput per vCPU
-Across batch sizes up to 64, Intel Xeon 6 processor‑powered `C4` consistently outperforms `C3` with a 1.4x ~ 1.7× throughput per-vCPU. The formula is:
+Across batch sizes up to 64, Intel Xeon 6 processor‑powered `C4` consistently outperforms `C3` with a 1.4x to 1.7× throughput per-vCPU. The formula is:
 
 $$normalized\\_throughput\\_per\\_vCPU = (throughput\\_C4 / vCPUs\\_C4) / (throughput\\_C3 / vCPUs\\_C3)$$
 
@@ -182,7 +182,7 @@ $$normalized\\_throughput\\_per\\_vCPU = (throughput\\_C4 / vCPUs\\_C4) / (throu
 </p>
 
 ### Cost & TCO
-At batch size 64, `C4` provides 1.7× the per‑vCPU throughput of `C3`; with near parity in price per vCPU (hourly cost scales ~linearly with vCPU count), this yields a ~1.7× TCO advantage (`C3` would require ~1.7× the spend for the same generated token volume).  
+At batch size 64, `C4` provides 1.7× the per‑vCPU throughput of `C3`; with near parity in price per vCPU (hourly cost scales linearly with vCPU count), this yields a 1.7× TCO advantage (`C3` would require 1.7× the spend for the same generated token volume).  
 
 Per‑vCPU throughput ratio: $(throughput\\_C4 / vCPUs\\_C4) / (throughput\\_C3 / vCPUs\\_C3) = 1.7 ⇒ \frac{TCO\\_C3}{TCO\\_C4} ≈ 1.7$
 
