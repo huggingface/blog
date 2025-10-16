@@ -32,9 +32,9 @@ Even with very large parameters, only a small subset of experts is activated per
 
 Intel and Hugging Face collaborated to merge an expert execution optimization (PR [#40304](https://github.com/huggingface/transformers/pull/40304)) to eliminate redundant computation where every expert processed all tokens to transformers. This optimization directed each expert to run only on the tokens it is routed to, removing FLOPs waste and improving utilization.
 
-<kbd>
-  <img src="assets/gpt-oss-on-intel-xeon/gpt_oss_expert.png">
-</kbd>
+<p align="center">
+  <img src="https://huggingface.co/datasets/Intel/blog/resolve/main/gpt-oss-on-intel-xeon/gpt_oss_expert.png" alt="gpt_oss_expert" width="500"/>
+</p>
 
 
 ## Benchmark Scope & Hardware
@@ -66,9 +66,9 @@ We benchmarked GPT OSS under a controlled, repeatable generation workload to iso
 Visit [`Google Cloud Console`](https://console.cloud.google.com/) and click on `create a VM` under your project. Follow the steps below to create a `176 vCPU` instance.
 
 1. pick `C3` in the `Machine configuration` and specify Machine type as `c3-standard-176`. You also need to set the `CPU platform` and turn on `all-core turbo` to make performance more stable:
-   ![alt text](assets/gpt-oss-on-intel-xeon/spr.png)
+   ![alt text](https://huggingface.co/datasets/Intel/blog/resolve/main/gpt-oss-on-intel-xeon/spr.png)
 2. configure OS and storage tab as below:
-   ![alt text](assets/gpt-oss-on-intel-xeon/spr-os.png)
+   ![alt text](https://huggingface.co/datasets/Intel/blog/resolve/main/gpt-oss-on-intel-xeon/spr-os.png)
 3. keep other configurations as default
 4. click `Create` button
 
@@ -77,7 +77,7 @@ Visit [`Google Cloud Console`](https://console.cloud.google.com/) and click on�
 Visit [`Google Cloud Console`](https://console.cloud.google.com/) and click on `create a VM` under your project. Follow the below steps to create a `144 vCPU` instance.
 
 1. pick `C4` in the `Machine configuration` tab and specify Machine type as `c4-standard-144`. You can also set the `CPU platform` and turn on all-core turbo to make performance more stable:
-   ![alt text](assets/gpt-oss-on-intel-xeon/gnr.png)
+   ![alt text](https://huggingface.co/datasets/Intel/blog/resolve/main/gpt-oss-on-intel-xeon/gnr.png)
 2. configure OS and storage tab as we need for C3.
 3. keep other configurations as default
 4. click `Create` button
@@ -177,18 +177,18 @@ Across batch sizes up to 64, Intel Xeon 6 processor‑powered `C4` consistently 
 
 $$normalized\\_throughput\\_per\\_vCPU = (throughput\\_C4 / vCPUs\\_C4) / (throughput\\_C3 / vCPUs\\_C3)$$
 
-<kbd>
-  <img src="assets/gpt-oss-on-intel-xeon/throughput-gpt-oss-per-vcpu.png">
-</kbd>
+<p align="center">
+  <img src="https://huggingface.co/datasets/Intel/blog/resolve/main/gpt-oss-on-intel-xeon/throughput-gpt-oss-per-vcpu.png" alt="throughput-gpt-oss-per-vcpu" width="700"/>
+</p>
 
 ### Cost & TCO
 At batch size 64, `C4` provides 1.7× the per‑vCPU throughput of `C3`; with near parity in price per vCPU (hourly cost scales ~linearly with vCPU count), this yields a ~1.7× TCO advantage (`C3` would require ~1.7× the spend for the same generated token volume).  
 
 Per‑vCPU throughput ratio: $(throughput\\_C4 / vCPUs\\_C4) / (throughput\\_C3 / vCPUs\\_C3) = 1.7 ⇒ \frac{TCO\\_C3}{TCO\\_C4} ≈ 1.7$
 
-<kbd>
-  <img src="assets/gpt-oss-on-intel-xeon/throughput-gpt-oss-per-dollar.png">
-</kbd>
+<p align="center">
+  <img src="https://huggingface.co/datasets/Intel/blog/resolve/main/gpt-oss-on-intel-xeon/throughput-gpt-oss-per-dollar.png" alt="throughput-gpt-oss-per-dollar" width="700"/>
+</p>
 
 ## Conclusion 
 
