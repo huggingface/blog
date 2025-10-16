@@ -175,7 +175,12 @@ if __name__ == "__main__":
 ### Normalized Throughput per vCPU
 Across batch sizes up to 64, Intel Xeon 6 processor‑powered `C4` consistently outperforms `C3` with a 1.4x to 1.7× throughput per-vCPU. The formula is:
 
-$$normalized\\_throughput\\_per\\_vCPU = (throughput\\_C4 / vCPUs\\_C4) / (throughput\\_C3 / vCPUs\\_C3)$$
+$$
+\text{normalized\_throughput\_per\_vCPU} 
+= 
+\frac{\text{throughput\_C4} / \text{vCPUs\_C4}}
+     {\text{throughput\_C3} / \text{vCPUs\_C3}}
+$$
 
 <p align="center">
   <img src="https://huggingface.co/datasets/Intel/blog/resolve/main/gpt-oss-on-intel-xeon/throughput-gpt-oss-per-vcpu.png" alt="throughput-gpt-oss-per-vcpu" width="700"/>
@@ -184,7 +189,13 @@ $$normalized\\_throughput\\_per\\_vCPU = (throughput\\_C4 / vCPUs\\_C4) / (throu
 ### Cost & TCO
 At batch size 64, `C4` provides 1.7× the per‑vCPU throughput of `C3`; with near parity in price per vCPU (hourly cost scales linearly with vCPU count), this yields a 1.7× TCO advantage (`C3` would require 1.7× the spend for the same generated token volume).  
 
-Per‑vCPU throughput ratio: $(throughput\\_C4 / vCPUs\\_C4) / (throughput\\_C3 / vCPUs\\_C3) = 1.7 ⇒ \frac{TCO\\_C3}{TCO\\_C4} ≈ 1.7$
+Per‑vCPU throughput ratio:
+$$
+\frac{\text{throughput\_C4} / \text{vCPUs\_C4}}{\text{throughput\_C3} / \text{vCPUs\_C3}}
+= 1.7 
+\Rightarrow 
+\frac{\text{TCO\_C3}}{\text{TCO\_C4}} \approx 1.7
+$$
 
 <p align="center">
   <img src="https://huggingface.co/datasets/Intel/blog/resolve/main/gpt-oss-on-intel-xeon/throughput-gpt-oss-per-dollar.png" alt="throughput-gpt-oss-per-dollar" width="700"/>
