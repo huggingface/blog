@@ -6800,7 +6800,7 @@
     - inference
 
 - local: gpt-oss-on-intel-xeon
-  title: "Running GPT OSS on Intel Xeon CPU"
+  title: "Google Cloud C4 Brings a 70% TCO improvement on GPT OSS with Intel and Hugging Face"
   author: Jiqing
   thumbnail: /blog/assets/gpt-oss-on-intel-xeon/thumbnail.png
   date: Sep 4, 2025
