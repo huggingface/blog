@@ -6798,3 +6798,15 @@
     - optimum
     - quantization
     - inference
+
+- local: gpt-oss-on-intel-xeon
+  title: "Google Cloud C4 Brings a 70% TCO improvement on GPT OSS with Intel and Hugging Face"
+  author: Jiqing
+  thumbnail: /blog/assets/optimum_intel/intel_thumbnail.png
+  date: Oct 16, 2025
+  tags:
+    - intel
+    - cpu
+    - gpt-oss
+    - open-source
+    - LLM
