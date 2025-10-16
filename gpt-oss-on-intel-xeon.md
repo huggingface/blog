@@ -186,7 +186,10 @@ $$
 ### Cost & TCO
 At batch size 64, `C4` provides 1.7× the per‑vCPU throughput of `C3`; with near parity in price per vCPU (hourly cost scales linearly with vCPU count), this yields a 1.7× TCO advantage (`C3` would require 1.7× the spend for the same generated token volume).  
 
-Per‑vCPU throughput ratio: $(throughput\\_C4 / vCPUs\\_C4) / (throughput\\_C3 / vCPUs\\_C3) = 1.7 ⇒ \frac{TCO\\_C3}{TCO\\_C4} ≈ 1.7$
+Per‑vCPU throughput ratio:
+$$
+(throughput\text{\_}C4 / vCPUs\text{\_}C4) / (throughput\text{\_}C3 / vCPUs\text{\_}C3) = 1.7 ⇒ \frac{TCO\text{\_}C3}{TCO\text{\_}C4} ≈ 1.7
+$$
 
 <p align="center">
   <img src="https://huggingface.co/datasets/Intel/blog/resolve/main/gpt-oss-on-intel-xeon/throughput-gpt-oss-per-dollar.png" alt="throughput-gpt-oss-per-dollar" width="700"/>
