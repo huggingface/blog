@@ -15,7 +15,7 @@ authors:
 ---
 
 
-# Google Cloud `C4` Brings a 70% TCO improvement on GPT OSS with Intel and Hugging Face
+# Google Cloud C4 Brings a 70% TCO improvement on GPT OSS with Intel and Hugging Face
 
 Intel and Hugging Face collaborated to demonstrate the real-world value of upgrading to Google’s latest `C4` Virtual Machine (VM) running on Intel® Xeon® 6 processors (codenamed Granite Rapids (GNR)). We specifically wanted to benchmark improvements in the text generation performance of OpenAI GPT OSS Large Language Model(LLM). 
 
