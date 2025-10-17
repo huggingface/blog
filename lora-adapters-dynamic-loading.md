@@ -231,7 +231,7 @@ $ docker build -t test:1.0 -f Dockerfile .
 $ cat > /tmp/env_file <<'EOF'
 MODEL_ID=stabilityai/stable-diffusion-xl-base-1.0
 TASK=text-to-image
-HF_HUB_ENABLE_HF_TRANSFER=1
+HF_XET_HIGH_PERFORMANCE=1
 EOF
 
 $ docker run --gpus all --rm --name test1 --env-file /tmp/env_file_minimal -p 8888:80 -it test:1.0
