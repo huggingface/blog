@@ -6810,3 +6810,13 @@
     - gpt-oss
     - open-source
     - LLM
+
+- local: aisheets-unlock-images
+  title: "Unlock the power of images with AI Sheets"
+  author: dvilasuero
+  thumbnail: /blog/assets/aisheets/aisheets-thumb.gif
+  date: Oct 21, 2025
+  tags:
+    - datasets
+    - open-source
+    - vision
