@@ -6791,7 +6791,7 @@
 - local: openvino-vlm
   title: "Get your VLM running in 3 simple steps on Intel CPUs"
   author: ezelanza
-  thumbnail: /blog/assets/optimum_intel/intel_thumbnail.png
+  thumbnail: /blog/assets/optimum_intel/optimum_openvino_thumbnail.png
   date: Oct 15, 2025
   tags:
     - intel
