@@ -1,4 +1,6 @@
 TODO:
+- header section
+- thumbnail
 - acknowledgments
 - link to release notes
 - some snippets? (unsure)
