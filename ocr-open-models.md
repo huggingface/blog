@@ -298,7 +298,7 @@ Here is a simple method of deploying `nanonets` using vLLM as the inference engi
 
 3. Configure the deployment setup within seconds
 
-![Inference Endpoints](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/resolve/ocr/IE2.png)
+![Inference Endpoints](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ocr/IE2.png)
 
 4. After the endpoint is created, you can consume it using the OpenAI client snippet we provided in the previous section.
 
@@ -317,10 +317,10 @@ To make this even easier, we've created [uv-scripts/ocr](https://huggingface.co/
 For example, to run OCR on 100 images:
 
 ```bash  
-hf jobs uv run \--flavor l4x1 \\  
-  https://huggingface.co/datasets/uv-scripts/ocr/raw/main/nanonets-ocr.py \\  
-  your-input-dataset your-output-dataset \\  
-  --max-samples 100  
+hf jobs uv run --flavor l4x1 \
+  https://huggingface.co/datasets/uv-scripts/ocr/raw/main/nanonets-ocr.py \
+  your-input-dataset your-output-dataset \
+  --max-samples 100
 ```
 
 The scripts handle all the vLLM configuration and batching automatically, making batch OCR accessible without infrastructure setup.
