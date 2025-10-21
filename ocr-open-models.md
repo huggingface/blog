@@ -138,13 +138,13 @@ To make things a bit easier, we’re putting together a non-exhaustive compariso
 | [DeepSeek-OCR](https://huggingface.co/deepseek-ai/DeepSeek-OCR) | Markdown \+ HTML  | Supports general visual understanding Can parse and re-render all charts, tables, and more into HTML Handles handwriting Memory-efficient, solves text through image | 3B | ✅Supports nearly 100 languages |
 
 Here’s a small demo for you to try some of the latest models and compare their outputs.   
-\<iframe  
-    src\="https://prithivMLmods-Multimodal-OCR3.hf.space"  
-    frameborder\="0"  
-    width\="850"  
-    height\="450"
+<iframe  
+    src="https://prithivMLmods-Multimodal-OCR3.hf.space"  
+    frameborder="0"  
+    width="850"  
+    height="450"
 
-\>\</iframe\>
+></iframe>
 
 ### Evaluating Models
 
