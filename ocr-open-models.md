@@ -74,7 +74,7 @@ The input can include:
 	OCR models convert them into machine-readable text that comes in many different formats like HTML, Markdown and more.  
 	
 
-### Handling complex components in documents
+#### Handling complex components in documents
 
 On top of text, some models can also recognize:
 
