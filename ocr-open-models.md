@@ -165,7 +165,7 @@ Most OCR models are small, having between 3B and 7B parameters; you can even fin
 
 #### Open OCR Datasets 
 
-While the past year has seen a surge in open OCR models, this hasn't been matched by as many open training and evaluation datasets. An exception is AllenAI's \[olmOCR-mix-0225\](https://huggingface.co/datasets/allenai/olmOCR-mix-0225), which has been used to train at least [72 models on the Hub](https://huggingface.co/models?dataset=dataset:allenai/olmOCR-mix-0225) – likely more, since not all models document their training data.
+While the past year has seen a surge in open OCR models, this hasn't been matched by as many open training and evaluation datasets. An exception is AllenAI's [olmOCR-mix-0225](https://huggingface.co/datasets/allenai/olmOCR-mix-0225), which has been used to train at least [72 models on the Hub](https://huggingface.co/models?dataset=dataset:allenai/olmOCR-mix-0225) – likely more, since not all models document their training data.
 
 Sharing more datasets could unlock even greater advances in open OCR models. There are several promising approaches for creating these datasets:
 
