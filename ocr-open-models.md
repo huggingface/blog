@@ -320,7 +320,7 @@ For example, to run OCR on 100 images:
 hf jobs uv run \--flavor l4x1 \\  
   https://huggingface.co/datasets/uv-scripts/ocr/raw/main/nanonets-ocr.py \\  
   your-input-dataset your-output-dataset \\  
-  \--max-samples 100  
+  --max-samples 100  
 ```
 
 The scripts handle all the vLLM configuration and batching automatically, making batch OCR accessible without infrastructure setup.
