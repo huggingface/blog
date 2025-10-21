@@ -22,11 +22,11 @@ authors:
   <figcaption>Analyzing your images with AI Sheets</figcaption>   
  </figure>
 
-We are excited to release a massive update to [Hugging Face AI Sheets](https://github.com/huggingface/aisheets), the open-source tool for building, transforming, and enriching data with open AI models. AI Sheets leverages [Inference Providers](https://huggingface.co/docs/inference-providers/index), which means you can use 1000s of open models powered by the best inference providers on the planet.
+We are excited to release a massive update to [Hugging Face AI Sheets](https://github.com/huggingface/aisheets), the open-source tool for building, transforming, and enriching data with open AI models. AI Sheets leverages [Inference Providers](https://huggingface.co/docs/inference-providers/index), which means you can use thousands of open models powered by the best inference providers on the planet.
 
-The first version of AI Sheets made structuring and enriching textual content a breeze. **Now, we're adding vision to AI Sheets.**
+The [first version of AI Sheets](https://huggingface.co/blog/aisheets) made structuring and enriching textual content a breeze. **Now, we're adding vision to AI Sheets.**
 
-Images are everywhere—product photos, receipts, screenshots, diagrams, charts, logos. Each contains structured information waiting to be extracted, analyzed, and transformed. Today, you can finally work with visual content directly in AI Sheets: view images, analyze them, extract information, generate new ones, and even edit them in real-time —all in the same workflow.
+Images are everywhere—product photos, receipts, screenshots, diagrams, charts, logos. These documents contain structured information waiting to be extracted, analyzed, and transformed. Today, you can finally work with visual content directly in AI Sheets: view images, analyze them, extract information, generate new ones, and even edit them in real-time —all in the same workflow.
 
 ## Your images have stories to tell
 
