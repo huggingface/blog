@@ -32,6 +32,18 @@ In late 2020, we shipped `huggingface_hub` [v0.0.1](https://github.com/huggingfa
 
 Let's trace that journey.
 
+
+<div class="flex justify-center">
+    <img 
+        class="block dark:hidden" 
+        src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/huggingface-hub-v1/timeline-white.gif"
+    />
+    <img 
+        class="hidden dark:block" 
+        src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/huggingface-hub-v1/timeline-black.gif"
+    />
+</div>
+
 ### The Foundation Years (2020-2021)
 
 The early releases established the basics. Version [0.0.8](https://github.com/huggingface/huggingface_hub/releases/tag/v0.0.8) introduced our first APIs, wrapping Git commands to interact with repositories. Version [0.0.17](https://github.com/huggingface/huggingface_hub/releases/tag/v0.0.17) brought token-based authentication, enabling secure access to private repositories and uploads. These were humble beginnings, but they laid the groundwork for everything that followed.
