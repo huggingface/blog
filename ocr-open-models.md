@@ -92,7 +92,7 @@ Similarly for tables, cells are converted into a machine-readable format while r
 
 ![Table Rendering][https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ocr/table-rendering.png]
 
-### Output formats
+#### Output formats
 Different OCR models have different output formats. Briefly, here are the common output formats used by modern models.   
 **DocTag:** DocTag is an XML-like format for documents that expresses location, text format, component-level information, and more. Below is an illustration of a paper parsed into DocTags. This format is employed by the open Docling models.  
 
