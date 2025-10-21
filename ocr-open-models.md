@@ -115,7 +115,7 @@ Documents can have complex structures, like multi-column text blocks and floatin
 
 #### Model Prompting
 
-OCR models can either take in images or a text prompt along with the image, which heavily depends on the architecture and the pre-training setup.   
+OCR models can either take in images and an optional text prompt, this depends on the model architecture and the pre-training setup.   
 Some OCR models support prompt-based task switching, e.g. [granite-docling](https://huggingface.co/ibm-granite/granite-docling-258M) can parse an entire page with the prompt “Convert this page to Docling” while it can also take prompts like “Convert this formula to LaTeX” along with a page full of formulas.   
 Other models, however, are trained only for parsing entire pages, and they are conditioned to do this through a system prompt.   
 For instance, [OlmOCR by AllenAI](https://huggingface.co/collections/allenai/olmocr-67af8630b0062a25bf1b54a1) takes a long conditioning prompt. Like many others, OlmOCR is technically an OCR fine-tuned version of a VLM (Qwen2.5VL in this case), so you can prompt for other tasks, but its performance will not be on par with the OCR capabilities. 
