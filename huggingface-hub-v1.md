@@ -10,7 +10,7 @@ authors:
 
 # huggingface_hub v1.0: Five Years of Building the Foundation of Open Machine Learning
 
-**TL;DR:** After five years of development, `huggingface_hub` has reached v1.0 - a milestone that marks the library's maturity as the Python package powering **200,000 dependent libraries** and providing core functionality for accessing over 2 million public models, 400,000+ datasets, and 600,000+ Spaces. This release introduces breaking changes designed to support the next decade of open machine learning, driven by a global community of 280+ contributors and millions of users.
+**TL;DR:** After five years of development, `huggingface_hub` has reached v1.0 - a milestone that marks the library's maturity as the Python package powering **200,000 dependent libraries** and providing core functionality for accessing over 2 million public models, 0.5 million public datasets, and 1 million public Spaces. This release introduces breaking changes designed to support the next decade of open machine learning, driven by a global community of almost 300 contributors and millions of users.
 
 **🚀 We highly recommend upgrading to v1.0 to benefit from major performance improvements and new capabilities.**
 
@@ -22,7 +22,7 @@ You can find the **[full release notes here](https://github.com/huggingface/hugg
 
 ## The Story Behind the Library
 
-Every major library has an origin story. For `huggingface_hub`, it began with a simple idea: **what if sharing machine learning models could be as easy as sharing code on GitHub?**
+Every major library has a story. For `huggingface_hub`, it began with a simple idea: **what if sharing machine learning models could be as easy as sharing code on GitHub?**
 
 In the early days of the Hugging Face Hub, researchers and practitioners faced a common frustration. Training a state-of-the-art model required significant compute resources and expertise. Once trained, these models often lived in isolation, stored on local machines and shared via (broken) Google Drive links. The AI community was duplicating work, wasting resources, and missing opportunities for collaboration.
 
@@ -38,25 +38,25 @@ The early releases established the basics. Version [0.0.8](https://github.com/hu
 
 ### The Great Shift: Git to HTTP (2022)
 
-In June 2022, version [0.8.1](https://github.com/huggingface/huggingface_hub/releases/tag/v0.8.1) marked a pivotal moment: we introduced the HTTP Commit API. Instead of requiring Git and Git LFS installations, users could now upload files directly through HTTP requests. The new `create_commit()` API simplified workflows dramatically, especially for large model files that had been cumbersome with Git LFS. In parallel of the commit API, a git-aware cache file layout was introduced. All libraries would now share the same cache, with explicit versioning and file deduplication.
+In June 2022, version [0.8.1](https://github.com/huggingface/huggingface_hub/releases/tag/v0.8.1) marked a pivotal moment: we introduced the HTTP Commit API. Instead of requiring Git and Git LFS installations, users could now upload files directly through HTTP requests. The new `create_commit()` API simplified workflows dramatically, especially for large model files that are cumbersome to use with Git LFS. In addition, a git-aware cache file layout was introduced. All libraries (not only transformers, but third party ones as well) would now share the same cache, with explicit versioning and file deduplication.
 
 This wasn't just a technical improvement. It was a philosophical shift. We were no longer building a Git wrapper; we were building purpose-built infrastructure for machine learning artifacts.
 
 ### An Expanding API Surface (2022–2024)
 
-As the Hub grew from a model repository into a full platform, `huggingface_hub` kept pace with an expanding API surface. Core repository primitives matured: listing trees, browsing refs and commits, reading files or syncing folders, and managing tags, branches, and release cycles. Repository metadata and webhooks rounded out the offering so teams could react to changes in real time.
+As the Hub grew from a model repository into a full platform, `huggingface_hub` kept pace with an expanding API surface. Core repository primitives matured: listing trees, browsing refs and commits, reading files or syncing folders, managing tags, branches, and release cycles. Repository metadata and webhooks rounded up the offering so teams could react to changes in real time.
 
 [Spaces](https://huggingface.co/docs/huggingface_hub/guides/manage-spaces) gained full programmatic control to deploy and manage ML apps (hardware requests, secrets, environment configuration, uploads). To deploy models on production-scale infrastructure, [Inference Endpoints](https://huggingface.co/docs/huggingface_hub/guides/inference_endpoints) were integrated as well. The [Jobs API](https://huggingface.co/docs/huggingface_hub/guides/jobs) came later (Q3 2025) to complete our compute offering.
 
-The social and community layers became first-class: APIs for [pull requests and comments](https://huggingface.co/docs/huggingface_hub/guides/community), user and organization info, repository likes, following and followers, plus [Collections](https://huggingface.co/docs/huggingface_hub/guides/collections) to curate and share sets across the Hub. Everyday ergonomics improved too: seamless authentication in Colab, resumable downloads, reliable uploads of large-scale folders, and more.
+The social and community layers became first-class citizens too: from APIs for [pull requests and comments](https://huggingface.co/docs/huggingface_hub/guides/community), to user and organization info, repository likes, following and followers, all the way through [Collections](https://huggingface.co/docs/huggingface_hub/guides/collections) to curate and share sets of related resources. Everyday ergonomics improved too: seamless authentication in Colab, resumable downloads, reliable uploads of large-scale folders, and more.
 
-Then came version [0.28.0](https://github.com/huggingface/huggingface_hub/releases/tag/v0.28.0) and the [Inference Providers](https://huggingface.co/docs/huggingface_hub/guides/inference) ecosystem. Instead of a single inference backend, we partnered with multiple serverless providers (Together AI, SambaNova, Replicate, Cerebras, Groq, and more) to serve one API with transparent routing. The pay-per-request architecture finally matched how people actually wanted to work.
+Then came version [0.28.0](https://github.com/huggingface/huggingface_hub/releases/tag/v0.28.0) and the [Inference Providers](https://huggingface.co/docs/huggingface_hub/guides/inference) ecosystem. Instead of a single inference backend, we partnered with multiple serverless providers (Together AI, SambaNova, Replicate, Cerebras, Groq, and more) to serve one API with transparent routing. We adopted a pay-per-request inference architecture that matched how people actually wanted to work.
 
 ### Ready. Xet. Go! (2024-2025)
 
-Version [0.30.0](https://github.com/huggingface/huggingface_hub/releases/tag/v0.30.0) introduced Xet, a groundbreaking new protocol for storing large objects in Git repositories. Unlike Git LFS, which deduplicates at the file level, Xet operates at the chunk level (64KB chunks). When you modify a large model file, only the changed chunks are uploaded or downloaded, not the entire file.
+Version [0.30.0](https://github.com/huggingface/huggingface_hub/releases/tag/v0.30.0) introduced Xet, a groundbreaking new protocol for storing large objects in Git repositories. Unlike Git LFS, which deduplicates at the file level, Xet operates at the chunk level (64KB chunks). When you update a large file in a dataset or a model, only the changed chunks are uploaded or downloaded, not the entire file.
 
-[The migration was massive](https://huggingface.co/spaces/jsulz/ready-xet-go), starting with 20 petabytes across over 500,000 repositories. Yet it happened transparently, with full backward compatibility. One year later, all **77PB+** over **6,000,000 repositories** have been migrated seamlessly to the Xet backend, allowing for much faster (and smarter!) uploads and downloads.
+[The migration was massive](https://huggingface.co/spaces/jsulz/ready-xet-go), starting with 20 petabytes across over 500,000 repositories. Yet it happened transparently, with full backward compatibility. One year later, all **77PB+** over **6,000,000 repositories** have been migrated to the Xet backend, allowing for much faster (and smarter!) uploads and downloads. This happened with no user intervention, and no disruption to existing workflows 🔥
 
 ![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/huggingface-hub-v1/xet_progress.png)
 
@@ -65,7 +65,7 @@ Version [0.30.0](https://github.com/huggingface/huggingface_hub/releases/tag/v0.
 Measuring the growth and impact of an open-source library is a tricky task. Numbers tell a story of their own:
 
 - **113.5 million monthly downloads**, **1.6 billion** total (October 2025).
-- Powers access to **2M+** public models, **400k+** public datasets, **600k** public Spaces, and about triple when accounting for private repos.
+- Powers access to **2M+** public models, **500k+** public datasets, **1M+** public Spaces, and about twice as much when accounting for private repos.
 - Used by **60k+** users daily, **550k+** monthly
 - Trusted by **200k+ companies** from startups to Fortune 500
 
@@ -92,7 +92,7 @@ Version [0.32.0](https://github.com/huggingface/huggingface_hub/releases/tag/v0.
 
 The [`MCPClient`](https://huggingface.co/docs/huggingface_hub/package_reference/mcp) provides a standardized way for AI agents to interact with tools, while the `tiny-agents` CLI lets you run agents directly from the Hub. Connect to local or remote MCP servers, use any Gradio Space as a tool, and build conversational agents that feel natural and responsive.
 
-All of this is built on top of our existing `InferenceClient` and the 12+ Inference Providers integrated. We do believe Agents are the future, and `huggingface_hub` is there to provide the building blocks enabling AI builders to play with them. 
+All of this is built on top of our existing `InferenceClient` and the dozens of Inference Providers it supports. We do believe Agents are the future, and `huggingface_hub` is there to provide the building blocks that enable AI builders to play with them. 
 
 ### A Fully-Featured CLI for Modern Workflows
 
@@ -126,8 +126,8 @@ These changes weren't made lightly. Most deprecations were announced months in a
 
 We understand that breaking changes are disruptive. That's why we've invested heavily in making the migration as smooth as possible. Our [comprehensive migration guide](https://huggingface.co/docs/huggingface_hub/concepts/migration) provides step-by-step instructions for every change with explanations of why each change was necessary.
 
-Most importantly, we've maintained backward compatibility wherever possible. `HfHubHttpError` especially inherits from both the old `requests` and new `httpx` base `HTTPError` classes, ensuring that error handling continues to work across versions.
-With this release, we're fully committing to the future and we will focus exclusively on v1.0 and beyond, ensuring we can deliver the performance, features, and tools the community needs to interact with the Hugging Face Hub. While previous versions `v0.*` will remain available on PyPI, they will no longer receive updates.
+Most importantly, we've maintained backward compatibility wherever possible. `HfHubHttpError`, for example, inherits from both the old `requests` and new `httpx` base `HTTPError` classes, ensuring that error handling continues to work across versions.
+With this release, we're fully committing to the future and we will focus exclusively on v1.0 and beyond, ensuring we can deliver the performance, features, and tools the community needs to interact with the Hugging Face Hub. Previous `v0.*` versions will remain available on PyPI, but they will no longer receive updates.
 
 ## Acknowledgments
 
