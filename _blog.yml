@@ -6821,7 +6821,7 @@
     - open-source
     - vision
 
-- local: open-ocr-models
+- local: ocr-open-models
   title: "Supercharge your OCR Pipelines with Open Models"
   author: merve
   thumbnail: /blog/assets/aisheets/open-ocr-models.png
