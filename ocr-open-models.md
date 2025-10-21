@@ -270,7 +270,7 @@ print(result)
 ```
 
 **MLX**  
-MLX is an open-source machine learning framework for Apple Silicon. MLX-VLM is built on top of MLX to serve vision language models easily. You can explore all the OCR models available in MLX format [here](https://huggingface.co/models?sort=trending&search=ocr). They also come in quantized versions.  
+MLX is an open-source machine learning framework for Apple Silicon. [MLX-VLM](https://github.com/Blaizzy/mlx-vlm) is built on top of MLX to serve vision language models easily. You can explore all the OCR models available in MLX format [here](https://huggingface.co/models?sort=trending&search=ocr). They also come in quantized versions.  
 You can install MLX-VLM as follows.
 
 ```
