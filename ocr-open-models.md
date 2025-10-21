@@ -15,7 +15,7 @@ authors:
 
 TL;DR: The rise of powerful vision-language models has transformed document AI. Each model comes with unique strengths, making it tricky to choose the right one. Open-weight models offer better cost efficiency and privacy. To help you get started with them, we’ve put together this guide.
 
-You’ll learn:
+In this guide, you’ll learn:
 
 * The landscape of current models and their capabilities  
 * When to fine-tune models vs. use models out-of-the-box  
