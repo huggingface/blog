@@ -208,7 +208,7 @@ Result:
 ![bw](https://cdn-uploads.huggingface.co/production/uploads/60420dccc15e823a685f2b03/cMzCQUMMRKch__C3W_-Ve.png)
 
 ### Export your dataset
-Once you're happy with your new dataset, export it to the Hub! You can export it to an organization or your profile or make it private if you don't want to share it with the community.
+Once you're happy with your new dataset, export it to the Hub! You can export it to an organization, your personal profile or make it private if you don't want to share it with the community.
 
 
 ![export](https://cdn-uploads.huggingface.co/production/uploads/60420dccc15e823a685f2b03/2fSKxUzwZtPkPJ-ZWEYYl.png)
