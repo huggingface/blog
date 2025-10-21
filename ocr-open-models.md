@@ -58,7 +58,7 @@ Optical Character Recognition (OCR) is one of the earliest and longest running c
 
 With the surge of [vision-language models](https://huggingface.co/blog/vlms) (VLMs), OCR has advanced significantly. Recently, many OCR models have been developed by fine-tuning existing VLMs. But today’s capabilities extend far beyond OCR: you can retrieve documents by query or answer questions about them directly. Thanks to stronger vision features, these models can also handle low-quality scans, interpret complex elements like tables, charts, and images, and fuse text with visuals to answer open-ended questions across documents.
 
-## Model Capabilities
+### Model Capabilities
 
 ### Transcription
 Recent models transcribe texts into a machine-readable format.   
