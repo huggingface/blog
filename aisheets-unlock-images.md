@@ -1,6 +1,6 @@
 ---
 title: "Unlock the power of images with AI Sheets"
-thumbnail: /blog/assets/aisheets/aisheets-thumb.gif
+thumbnail: /blog/assets/aisheets/aisheets-image.png
 authors:
 - user: Ameeeee
 - user: dvilasuero
@@ -9,7 +9,7 @@ authors:
 - user: lvwerra
 - user: thomwolf
 ---
-> 🧭**TL;DR**: Hugging AI Sheets is an open-source tool for **supercharging datasets with AI models**, no code required. **Now with vision support**: extract data from images (receipts, documents), generate visuals from text, and edit images—all in a spreadsheet. Powered by thousands of open models via Inference Providers.
+> 🧭**TL;DR**: Hugging Face AI Sheets is an open-source tool for **supercharging datasets with AI models**, no code required. **Now with vision support**: extract data from images (receipts, documents), generate visuals from text, and edit images—all in a spreadsheet. Powered by thousands of open models via Inference Providers.
 
 We are excited to release a massive update to [Hugging Face AI Sheets](https://github.com/huggingface/aisheets), the open-source tool for building, transforming, and enriching data with open AI models. AI Sheets leverages [Inference Providers](https://huggingface.co/docs/inference-providers/index), which means you can use 1000s of open models powered by the best inference providers on the planet.
 
