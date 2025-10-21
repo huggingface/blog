@@ -71,7 +71,7 @@ The input can include:
 - Image/Layout/Page number tags
 
 	  
-	OCR models convert them into machine-readable text that comes in many different formats like HTML, Markdown and more.  
+OCR models convert them into machine-readable text that comes in many different formats like HTML, Markdown and more.  
 	
 
 #### Handling complex components in documents
