@@ -42,11 +42,7 @@ By the end, you’ll know how to choose the right OCR model, start building with
       - [Open OCR Datasets](#open-ocr-datasets)
   - [Tools to Run Models](#tools-to-run-models)
     - [Locally](#locally)
-      - [Transformers](#transformers)
-      - [MLX](#mlx)
     - [Remotely](#remotely)
-      - [Inference Endpoints for Managed Deployment](#inference-endpoints-for-managed-deployment)
-      - [Hugging Face Jobs for Batch Inference](#hugging-face-jobs-for-batch-inference)
   - [Going Beyond OCR](#going-beyond-ocr)
     - [Visual Document Retrievers](#visual-document-retrievers)
     - [Using Vision Language Models for Document Question Answering](#using-vision-language-models-for-document-question-answering)
@@ -130,12 +126,12 @@ To make things a bit easier, we’re putting together a non-exhaustive compariso
 
 | Model Name | Output formats | Features | Model Size | Multilingual? |
 | :---- | :---- | :---- | :---- | :---- |
-| [Nanonets-OCR2-3B](https://huggingface.co/collections/nanonets/nanonets-ocr2-68ed207f17ee6c31d226319e) | structured Markdown with semantic tagging (plus HTML tables, etc.) | Captions images in the documents Signature & watermark extraction Handles checkboxes, flowcharts, and handwriting | 4B | ✅Supports English, Chinese, French, Arabic and more.  |
-| [PaddleOCR-VL](https://huggingface.co/collections/PaddlePaddle/paddleocr-vl-68f0db852483c7af0bc86849) | Markdown, JSON, HTML tables and charts  |  Handles handwriting, old documents Allows prompting Converts tables & charts to HTML Extracts and inserts images directly  | 0.9B | ✅Supports 109 languages |
-| [dots.ocr](https://huggingface.co/rednote-hilab/dots.ocr) | Markdown, JSON | Grounding Extracts and inserts images Handles handwriting | 3B | ✅Multilingual with language info not available |
-| [OlmOCR](https://huggingface.co/allenai/olmOCR-7B-0825) | Markdown, html, latex | Grounding Optimized for large-scale batch processing | 8B | ❎English-only  |
-| [Granite-Docling-258M](https://huggingface.co/ibm-granite/granite-docling-258M) | DocTags | Prompt-based task switching Ability to prompt element locations with location tokens Rich output | 258M | ✅Supports English, Japanese, Arabic and Chinese. |
-| [DeepSeek-OCR](https://huggingface.co/deepseek-ai/DeepSeek-OCR) | Markdown \+ HTML  | Supports general visual understanding Can parse and re-render all charts, tables, and more into HTML Handles handwriting Memory-efficient, solves text through image | 3B | ✅Supports nearly 100 languages |
+| [Nanonets-OCR2-3B](https://huggingface.co/collections/nanonets/nanonets-ocr2-68ed207f17ee6c31d226319e) | structured Markdown with semantic tagging (plus HTML tables, etc.) | Captions images in the documents<br>Signature & watermark extraction<br>Handles checkboxes, flowcharts, and handwriting | 4B | ✅Supports English, Chinese, French, Arabic and more. |
+| [PaddleOCR-VL](https://huggingface.co/collections/PaddlePaddle/paddleocr-vl-68f0db852483c7af0bc86849) | Markdown, JSON, HTML tables and charts | Handles handwriting, old documents<br>Allows prompting<br>Converts tables & charts to HTML<br>Extracts and inserts images directly | 0.9B | ✅Supports 109 languages |
+| [dots.ocr](https://huggingface.co/rednote-hilab/dots.ocr) | Markdown, JSON | Grounding<br>Extracts and inserts images<br>Handles handwriting | 3B | ✅Multilingual with language info not available |
+| [OlmOCR](https://huggingface.co/allenai/olmOCR-7B-0825) | Markdown, HTML, LaTeX | Grounding<br>Optimized for large-scale batch processing | 8B | ❎English-only |
+| [Granite-Docling-258M](https://huggingface.co/ibm-granite/granite-docling-258M) | DocTags | Prompt-based task switching<br>Ability to prompt element locations with location tokens<br>Rich output | 258M | ✅Supports English, Japanese, Arabic and Chinese. |
+| [DeepSeek-OCR](https://huggingface.co/deepseek-ai/DeepSeek-OCR) | Markdown + HTML | Supports general visual understanding<br>Can parse and re-render all charts, tables, and more into HTML<br>Handles handwriting<br>Memory-efficient, solves text through image | 3B | ✅Supports nearly 100 languages |
 
 Here’s a [small demo](https://prithivMLmods-Multimodal-OCR3.hf.space) for you to try some of the latest models and compare their outputs.   
 <iframe  
@@ -329,12 +325,12 @@ The scripts handle all the vLLM configuration and batching automatically, making
 
 If you are interested in document AI, not just OCR, here are some of our recommendations. 
 
-**Visual Document Retrievers**  
+#### Visual Document Retrievers
 Visual document retrieval is to retrieve the most relevant top-k documents when given a text query. If you have previously worked with retriever models, the difference is that you search directly on a stack of PDFs. Aside from using them standalone, you can also build multimodal RAG pipelines by combining them with a vision language model (find how to do so [here](https://huggingface.co/merve/smol-vision/blob/main/ColPali\_%2B\_Qwen2\_VL.ipynb)). You can find [all of them on Hugging Face Hub](https://huggingface.co/models?pipeline\_tag=visual-document-retrieval\&sort=trending).
 
 There are two types of visual document retrievers, single-vector and multi-vector models. Single-vector models are more memory efficient and less performant; meanwhile, multi-vector models are more memory hungry and more performant. Most of these models often come with vLLM and transformers integrations, so you can index documents using them and then do a search easily using a vector DB.
 
-**Using Vision Language Models for Document Question Answering**  
+#### Using Vision Language Models for Document Question Answering
 If you have a task at hand that only requires answering questions based on documents, you can use some of the vision language models that had document tasks in their training tasks. We’ve observed users trying to convert documents into text and passing the output to LLMs, but if your document has a complex layout, and your converted document outputs charts and so on in HTML, or images are captioned incorrectly, the LLM will miss out. Instead, feed your document and query to one of the advanced vision language models like [Qwen3-VL](https://huggingface.co/collections/Qwen/qwen3-vl-68d2a7c1b8a8afce4ebd2dbe) not to miss out on any context. 
 
 ## Wrapping up
