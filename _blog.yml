@@ -6824,7 +6824,7 @@
 - local: ocr-open-models
   title: "Supercharge your OCR Pipelines with Open Models"
   author: merve
-  thumbnail: /blog/assets/aisheets/open-ocr-models.png
+  thumbnail: /blog/assets/ocr-open-models/thumbnail.png
   date: Oct 21, 2025
   tags:
     - ocr
