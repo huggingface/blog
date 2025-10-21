@@ -41,7 +41,7 @@ The social and community layers became first-class: APIs for pull requests and c
 
 Then came version 0.28.0 and the Inference Providers ecosystem. Instead of a single inference backend, we partnered with multiple serverless providers—Together AI, SambaNova, Replicate, Cerebras, Groq, and more. One API, multiple providers, transparent routing. The architecture finally matched how people actually wanted to work.
 
-### Ready. Set. Go! (2024-2025)
+### Ready. Xet. Go! (2024-2025)
 
 Version 0.30.0 introduced Xet, a groundbreaking new protocol for storing large objects in Git repositories. Unlike Git LFS, which deduplicates at the file level, Xet operates at the chunk level (64KB chunks). When you modify a large model file, only the changed chunks are uploaded or downloaded, not the entire file.
 
