@@ -194,7 +194,7 @@ And then you can query as follows using e.g. OpenAI client.
 from openai import OpenAI
 import base64
 
-client = OpenAI(api_key={YOUR_API_KEY}, base_url="http://localhost:8000/v1")
+client = OpenAI(base_url="http://localhost:8000/v1")
 
 model = "nanonets/Nanonets-OCR2-3B"
 
