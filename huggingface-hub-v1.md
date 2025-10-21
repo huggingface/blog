@@ -106,6 +106,7 @@ These changes weren't made lightly. Each deprecation was announced months in adv
 We understand that breaking changes are disruptive. That's why we've invested heavily in making the migration as smooth as possible. Our [comprehensive migration guide](https://huggingface.co/docs/huggingface_hub/concepts/migration) provides step-by-step instructions for every change with explanations of why each change was necessary.
 
 Most importantly, we've maintained backward compatibility wherever possible. `HfHubHttpError` especially inherits from both the old `requests` and new `httpx` base `HTTPError` classes, ensuring that error handling continues to work across versions.
+With this release, we're fully committing to the future and we will focus exclusively on v1.0 and beyond, ensuring we can deliver the performance, features, and tools the community needs to interact with the Hugging Face Hub. While previous versions `v0.*` will remain available on PyPI, they will no longer receive updates.
 
 ## Acknowledgments
 
