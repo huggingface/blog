@@ -6814,7 +6814,7 @@
 - local: aisheets-unlock-images
   title: "Unlock the power of images with AI Sheets"
   author: dvilasuero
-  thumbnail: /blog/assets/aisheets/aisheets-thumb.gif
+  thumbnail: /blog/assets/aisheets/aisheets-image.png
   date: Oct 21, 2025
   tags:
     - datasets
