@@ -113,7 +113,7 @@ The right model depends on how you plan to use its outputs:
 Documents can have complex structures, like multi-column text blocks and floating figures. Older OCR models handled these documents by detecting words and then the layout of pages manually in post-processing to have the text rendered in reading order, which is brittle.  Modern OCR models, on the other hand, incorporate layout metadata to help preserve reading order and accuracy. This metadata is called “anchor”, it can come in bounding boxes. This process is also called as “grounding/anchoring” because it helps with hallucination.
 
 
-### Model Prompting
+#### Model Prompting
 
 OCR models can either take in images or a text prompt along with the image, which heavily depends on the architecture and the pre-training setup.   
 Some OCR models support prompt-based task switching, e.g. [granite-docling](https://huggingface.co/ibm-granite/granite-docling-258M) can parse an entire page with the prompt “Convert this page to Docling” while it can also take prompts like “Convert this formula to LaTeX” along with a page full of formulas.   
