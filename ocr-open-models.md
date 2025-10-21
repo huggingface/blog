@@ -52,7 +52,7 @@ By the end, you’ll know how to choose the right OCR model, start building with
     - [Using Vision Language Models for Document Question Answering](#using-vision-language-models-for-document-question-answering)
   - [Wrapping up](#wrapping-up)
 
-# Brief Introduction to Modern OCR 
+## Brief Introduction to Modern OCR 
 
 Optical Character Recognition (OCR) is one of the earliest and longest running challenges in computer vision.  Many of AI’s first practical applications focused on turning printed text into digital form.
 
