@@ -298,7 +298,7 @@ Here is a simple method of deploying `nanonets` using vLLM as the inference engi
 
 3. Configure the deployment setup within seconds
 
-![Inference Endpoints][https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/resolve/ocr/IE2.png]
+![Inference Endpoints](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/resolve/ocr/IE2.png)
 
 4. After the endpoint is created, you can consume it using the OpenAI client snippet we provided in the previous section.
 
@@ -344,6 +344,6 @@ If you want to learn more about OCR and vision language models, we encourage you
 
 - [Vision Language Models Explained](https://huggingface.co/blog/vlms)  
 - [Vision Language Models 2025 Update](https://huggingface.co/blog/vlms-2025)  
-- \[PP-OCR-v5\](https://huggingface.co/blog/baidu/ppocrv5)  
-- \[SOTA OCR on-device with Core ML and dots.ocr\](https://huggingface.co/blog/dots-ocr-ne)
+- [PP-OCR-v5](https://huggingface.co/blog/baidu/ppocrv5)  
+- [SOTA OCR on-device with Core ML and dots.ocr](https://huggingface.co/blog/dots-ocr-ne)
 
