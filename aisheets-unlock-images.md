@@ -167,7 +167,7 @@ Here is the extracted recipe details:
 \- Lemon flavoring to taste  
 \- Put in mixing bowl and beat for 10 minutes
 
-This is great! But what about more complex images? By default, AI Sheets uses well-balanced models between speed and accuracy, but you can experiment with thousands of models. The above example uses the default vision language model `Qwen/Qwen2.5-VL-7B-Instruct`. 
+This is great! But what about more complex images? By default, AI Sheets uses models with a good balance of speed and accuracy, but you can experiment with thousands of models. The above example uses the default vision language model `Qwen/Qwen2.5-VL-7B-Instruct`. 
 
 Let’s test a SoTA reasoning model, `Qwen/Qwen3-VL-235B-A22B-Reasoning`, with a more challenging image.
 
