@@ -137,7 +137,7 @@ To make things a bit easier, we’re putting together a non-exhaustive compariso
 | [Granite-Docling-258M](https://huggingface.co/ibm-granite/granite-docling-258M) | DocTags | Prompt-based task switching Ability to prompt element locations with location tokens Rich output | 258M | ✅Supports English, Japanese, Arabic and Chinese. |
 | [DeepSeek-OCR](https://huggingface.co/deepseek-ai/DeepSeek-OCR) | Markdown \+ HTML  | Supports general visual understanding Can parse and re-render all charts, tables, and more into HTML Handles handwriting Memory-efficient, solves text through image | 3B | ✅Supports nearly 100 languages |
 
-Here’s a small demo for you to try some of the latest models and compare their outputs.   
+Here’s a [small demo](https://prithivMLmods-Multimodal-OCR3.hf.space) for you to try some of the latest models and compare their outputs.   
 <iframe  
     src="https://prithivMLmods-Multimodal-OCR3.hf.space"  
     frameborder="0"  
