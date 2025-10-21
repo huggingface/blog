@@ -60,7 +60,7 @@ With the surge of [vision-language models](https://huggingface.co/blog/vlms) (VL
 
 ### Model Capabilities
 
-### Transcription
+#### Transcription
 Recent models transcribe texts into a machine-readable format.   
 The input can include: 
 
