@@ -90,7 +90,7 @@ Models use different machine-readable output formats, such as **DocTags**, **HTM
 
 Similarly for tables, cells are converted into a machine-readable format while retaining context from headings and columns. 
 
-![Table Rendering][https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ocr/table-rendering.png]
+![Table Rendering](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ocr/table-rendering.png)
 
 #### Output formats
 Different OCR models have different output formats. Briefly, here are the common output formats used by modern models.   
