@@ -95,6 +95,8 @@ The CLI has evolved from a simple command-line tool into a **comprehensive inter
 
 With autocompletion support and an installer that works across platforms, the CLI now feels as polished as any modern developer tool.
 
+**Note:** The CLI is now included by default - the `[cli]` extra is no longer needed (or available). Just install `huggingface_hub` and you're ready to go.
+
 ### Cleaning House for the Future
 
 Version 1.0 removes legacy patterns that were holding us back. The Git-based `Repository` class is gone. HTTP-based methods like `upload_file()` and `create_commit()` are simpler, more reliable, and better suited for modern workflows. The `HfFolder` token management has been replaced with explicit `login()`, `logout()`, and `get_token()` functions. The old `InferenceApi` class has been superseded by the more feature-complete `InferenceClient`.
