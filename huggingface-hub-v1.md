@@ -11,6 +11,8 @@ TODO:
 
 **TL;DR:** After five years of development, `huggingface_hub` has reached v1.0—a milestone that marks the library's maturity as the Python package powering **200,000 dependent libraries** and providing core functionality for accessing over 2 million models, 400,000+ datasets, and 600,000+ Spaces. This release introduces breaking changes designed to support the next decade of open machine learning, driven by a global community of 280+ contributors and millions of users.
 
+**🚀 We highly recommend upgrading to v1.0 to benefit from major performance improvements and new capabilities.**
+
 ## The Story Behind the Library
 
 Every major library has an origin story. For `huggingface_hub`, it began with a simple idea: **what if sharing machine learning models could be as easy as sharing code on GitHub?**
