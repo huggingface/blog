@@ -24,7 +24,7 @@ You’ll learn:
 
 By the end, you’ll know how to choose the right OCR model, start building with it, and gain deeper insights into document AI. Let’s go\!
 
-# Table-of-Contents 
+## Table-of-Contents 
 
 - [Supercharge your OCR Pipelines with Open Models](#supercharge-your-ocr-pipelines-with-open-models)
   - [Brief Introduction to Modern OCR](#brief-introduction-to-modern-ocr)
