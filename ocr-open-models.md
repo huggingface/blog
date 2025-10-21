@@ -169,10 +169,10 @@ While the past year has seen a surge in open OCR models, this hasn't been matche
 
 Sharing more datasets could unlock even greater advances in open OCR models. There are several promising approaches for creating these datasets:
 
-\- \*\*Synthetic data generation\*\* (e.g., \[isl\_synthetic\_ocr\](https://huggingface.co/datasets/Sigurdur/isl\_synthetic\_ocr))  
-\- \*\*VLM-generated transcriptions\*\* filtered manually or through heuristics  
-\- \*\*Using existing OCR models\*\* to generate training data for new, potentially more efficient models in specific domains  
-\- \*\*Leveraging existing corrected datasets\*\* like the \[Medical History of British India Dataset\](https://huggingface.co/NationalLibraryOfScotland), which contains extensively human-corrected OCR for historic documents
+- **Synthetic data generation** (e.g., [isl_synthetic_ocr](https://huggingface.co/datasets/Sigurdur/isl_synthetic_ocr))  
+- **VLM-generated transcriptions** filtered manually or through heuristics  
+- **Using existing OCR models** to generate training data for new, potentially more efficient models in specific domains  
+- **Leveraging existing corrected datasets** like the [Medical History of British India Dataset](https://huggingface.co/NationalLibraryOfScotland), which contains extensively human-corrected OCR for historic documents
 
 It's worth noting that many such datasets exist but remain unused. Making them more readily available as 'training-ready' datasets carries a considerable potential for the open-source community.
 
