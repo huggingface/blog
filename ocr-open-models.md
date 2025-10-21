@@ -298,29 +298,30 @@ Here is a simple method of deploying `nanonets` using vLLM as the inference engi
 
 3. Configure the deployment setup within seconds
 
-![Inference Endpoints][https://huggingface.co/datasets/huggingface/documentation-images/blob/main/resolve/ocr/IE2.png]
+![Inference Endpoints][https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/resolve/ocr/IE2.png]
 
 4. After the endpoint is created, you can consume it using the OpenAI client snippet we provided in the previous section.
 
-You can learn more about it \[here\](https://huggingface.co/docs/inference-endpoints/engines/vllm).
+You can learn more about it [here](https://huggingface.co/docs/inference-endpoints/engines/vllm).
 
 **Hugging Face Jobs for Batch Inference** 
 
 For many OCR applications, you want to do efficient batch inference, i.e., running a model across thousands of images as cheaply and efficiently as possible. A good approach is to use vLLM's offline inference mode. As discussed above, many recent VLM-based OCR models are supported by vLLM, which efficiently batches images and generates OCR outputs at scale.
 
-To make this even easier, we've created \[uv-scripts/ocr\](https://huggingface.co/datasets/uv-scripts/ocr)—a collection of ready-to-run OCR scripts that work with Hugging Face Jobs. These scripts let you run OCR on any dataset without needing your own GPU. Simply point the script at your input dataset, and it will:
+To make this even easier, we've created [uv-scripts/ocr](https://huggingface.co/datasets/uv-scripts/ocr), a collection of ready-to-run OCR scripts that work with Hugging Face Jobs. These scripts let you run OCR on any dataset without needing your own GPU. Simply point the script at your input dataset, and it will:
 
 \- Process all images in a dataset column using many different open OCR models  
 \- Add OCR results as a new markdown column to the dataset  
 \- Push the updated dataset with OCR results to the Hub
 
-For example, to run OCR on 100 images:  
-\`\`\`bash  
+For example, to run OCR on 100 images:
+
+```bash  
 hf jobs uv run \--flavor l4x1 \\  
   https://huggingface.co/datasets/uv-scripts/ocr/raw/main/nanonets-ocr.py \\  
   your-input-dataset your-output-dataset \\  
   \--max-samples 100  
-\`\`\`
+```
 
 The scripts handle all the vLLM configuration and batching automatically, making batch OCR accessible without infrastructure setup.
 
@@ -329,7 +330,7 @@ The scripts handle all the vLLM configuration and batching automatically, making
 If you are interested in document AI, not just OCR, here are some of our recommendations. 
 
 **Visual Document Retrievers**  
-Visual document retrieval is to retrieve the most relevant top-k documents when given a text query. If you have previously worked with retriever models, the difference is that you search directly on a stack of PDFs. Aside from using them standalone, you can also build multimodal RAG pipelines by combining them with a vision language model (find how to do so \[here\](https://huggingface.co/merve/smol-vision/blob/main/ColPali\_%2B\_Qwen2\_VL.ipynb)). You can find \[all of them on Hugging Face Hub\](https://huggingface.co/models?pipeline\_tag=visual-document-retrieval\&sort=trending).
+Visual document retrieval is to retrieve the most relevant top-k documents when given a text query. If you have previously worked with retriever models, the difference is that you search directly on a stack of PDFs. Aside from using them standalone, you can also build multimodal RAG pipelines by combining them with a vision language model (find how to do so [here](https://huggingface.co/merve/smol-vision/blob/main/ColPali\_%2B\_Qwen2\_VL.ipynb)). You can find [all of them on Hugging Face Hub](https://huggingface.co/models?pipeline\_tag=visual-document-retrieval\&sort=trending).
 
 There are two types of visual document retrievers, single-vector and multi-vector models. Single-vector models are more memory efficient and less performant; meanwhile, multi-vector models are more memory hungry and more performant. Most of these models often come with vLLM and transformers integrations, so you can index documents using them and then do a search easily using a vector DB.
 
