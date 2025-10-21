@@ -310,9 +310,9 @@ For many OCR applications, you want to do efficient batch inference, i.e., runni
 
 To make this even easier, we've created [uv-scripts/ocr](https://huggingface.co/datasets/uv-scripts/ocr), a collection of ready-to-run OCR scripts that work with Hugging Face Jobs. These scripts let you run OCR on any dataset without needing your own GPU. Simply point the script at your input dataset, and it will:
 
-\- Process all images in a dataset column using many different open OCR models  
-\- Add OCR results as a new markdown column to the dataset  
-\- Push the updated dataset with OCR results to the Hub
+- Process all images in a dataset column using many different open OCR models  
+- Add OCR results as a new markdown column to the dataset  
+- Push the updated dataset with OCR results to the Hub
 
 For example, to run OCR on 100 images:
 
