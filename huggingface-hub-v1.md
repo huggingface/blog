@@ -40,13 +40,13 @@ The early releases established the basics. Version [0.0.8](https://github.com/hu
 
 In June 2022, version [0.8.1](https://github.com/huggingface/huggingface_hub/releases/tag/v0.8.1) marked a pivotal moment: we introduced the HTTP Commit API. Instead of requiring Git and Git LFS installations, users could now upload files directly through HTTP requests. The new `create_commit()` API simplified workflows dramatically, especially for large model files that are cumbersome to use with Git LFS. In addition, a git-aware cache file layout was introduced. All libraries (not only transformers, but third party ones as well) would now share the same cache, with explicit versioning and file deduplication.
 
-This wasn't just a technical improvement. It was a philosophical shift. We were no longer building a Git wrapper; we were building purpose-built infrastructure for machine learning artifacts.
+This wasn't just a technical improvement. It was a philosophical shift. We were no longer building a Git wrapper for transformers; we were building purpose-built infrastructure for machine learning artifacts that could power any library in the ML ecosystem.
 
 ### An Expanding API Surface (2022–2024)
 
 As the Hub grew from a model repository into a full platform, `huggingface_hub` kept pace with an expanding API surface. Core repository primitives matured: listing trees, browsing refs and commits, reading files or syncing folders, managing tags, branches, and release cycles. Repository metadata and webhooks rounded up the offering so teams could react to changes in real time.
 
-[Spaces](https://huggingface.co/docs/huggingface_hub/guides/manage-spaces) gained full programmatic control to deploy and manage ML apps (hardware requests, secrets, environment configuration, uploads). To deploy models on production-scale infrastructure, [Inference Endpoints](https://huggingface.co/docs/huggingface_hub/guides/inference_endpoints) were integrated as well. The [Jobs API](https://huggingface.co/docs/huggingface_hub/guides/jobs) came later (Q3 2025) to complete our compute offering.
+In parallel, [Spaces](https://huggingface.co/docs/huggingface_hub/guides/manage-spaces) emerged as a a simple yet powerful way to host and share interactive ML demos directly on the Hub. Over time, `huggingface_hub` gained full programmatic control to deploy and manage Spaces (hardware requests, secrets, environment configuration, uploads). To deploy models on production-scale infrastructure, [Inference Endpoints](https://huggingface.co/docs/huggingface_hub/guides/inference_endpoints) were integrated as well. Finally, the [Jobs API](https://huggingface.co/docs/huggingface_hub/guides/jobs) came later (Q3 2025) to complete our compute offering.
 
 The social and community layers became first-class citizens too: from APIs for [pull requests and comments](https://huggingface.co/docs/huggingface_hub/guides/community), to user and organization info, repository likes, following and followers, all the way through [Collections](https://huggingface.co/docs/huggingface_hub/guides/collections) to curate and share sets of related resources. Everyday ergonomics improved too: seamless authentication in Colab, resumable downloads, reliable uploads of large-scale folders, and more.
 
@@ -69,7 +69,7 @@ Measuring the growth and impact of an open-source library is a tricky task. Numb
 - Used by **60k+** users daily, **550k+** monthly
 - Trusted by **200k+ companies** from startups to Fortune 500
 
-But the real scale becomes clear when you look at the ecosystem. `huggingface_hub` is a **dependency** for over **200,000 repositories** on GitHub and **3,000 packages** on PyPI, ranging from our own ecosystem (transformers, diffusers, datasets, sentence-transformers, lighteval, gradio, peft, trl, smolagents, timm, lerobot, etc.) to major third-party frameworks like Keras, LangChain, PaddleOCR, ChatTTS, YOLO, Google Generative AI, Moshi, NVIDIA NeMo, Open Sora, and countless others. The remarkable part? Most of these integrations happened organically, and we played no role in them. The Hugging Face Hub empowers the ML community in countless ways, yet we're continually humbled by how far it has gone and how widely it's used.
+But the real scale becomes clear when you look at the ecosystem. `huggingface_hub` is a **dependency** for over **200,000 repositories** on GitHub and **3,000 packages** on PyPI, powering everything from major third-party frameworks like Keras, LangChain, PaddleOCR, ChatTTS, YOLO, Google Generative AI, Moshi, NVIDIA NeMo, and Open Sora, to countless smaller libraries and tools across the ML landscape. Our own ecosystem (transformers, diffusers, datasets, sentence-transformers, lighteval, gradio, peft, trl, smolagents, timm, lerobot, etc.) benefits from this foundation as well. The remarkable part? Most of the third-party integrations happened organically, and we played no role in them. The Hugging Face Hub empowers the ML community in countless ways, yet we're continually humbled by how far it has gone and how widely it's used.
 
 
 ## Building for the Next Decade
@@ -78,13 +78,13 @@ Version 1.0 isn't just about reaching a milestone. It's about **building the fou
 
 ### Modern HTTP Infrastructure with httpx and hf_xet
 
-The most significant architectural change in v1.0 is our migration from `requests` to `httpx`. This isn't just dependency churn. It's a fundamental upgrade that brings the library into the modern era of HTTP.
+The most significant architectural change in v1.0 is our migration from `requests` to [`httpx`](https://www.python-httpx.org/). This isn't just dependency churn. It's a fundamental upgrade that brings the library into the modern era of HTTP.
 
 **Why httpx?** The benefits are substantial: native HTTP/2 support for better connection efficiency and true thread safety that enables safe connection reuse across multiple threads. Most importantly, `httpx` provides a unified API for both synchronous and asynchronous operations, eliminating the subtle behavioral differences that existed between our sync and async inference clients.
 
 The migration was designed to be as transparent as possible. Most users won't need to change anything. For those with custom HTTP backends, we've provided clear migration paths from `configure_http_backend()` to `set_client_factory()` and `set_async_client_factory()`.
 
-Additionally, `hf_xet` is now the default package for uploading and downloading files to and from the Hub, replacing `hf_transfer`, which has been removed.
+Additionally, `hf_xet` is now the default package for uploading and downloading files to and from the Hub, replacing the previously optional `hf_transfer`, which has now been fully removed.
 
 ### Agents Made Simple with MCP and Tiny-Agents
 
