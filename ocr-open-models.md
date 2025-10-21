@@ -108,7 +108,7 @@ The right model depends on how you plan to use its outputs:
 * **LLM input or Q\&A**: If the use case involves passing outputs to LLM, pick a model that outputs Markdown and image captions, since they’re closer to natural language.  
 * **Programmatic use**: If you want to pass your outputs to a program (like data analysis), opt for a model that generates structured outputs like JSON.
 
-### Locality Awareness 
+#### Locality Awareness 
 
 Documents can have complex structures, like multi-column text blocks and floating figures. Older OCR models handled these documents by detecting words and then the layout of pages manually in post-processing to have the text rendered in reading order, which is brittle.  Modern OCR models, on the other hand, incorporate layout metadata to help preserve reading order and accuracy. This metadata is called “anchor”, it can come in bounding boxes. This process is also called as “grounding/anchoring” because it helps with hallucination.
 
