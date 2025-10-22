@@ -43,7 +43,7 @@ We're continuously expanding LeRobot's simulation capabilities to provide richer
 
 ![TODO](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/lerobot-release-v040/XXX.png)
 
-### LIBERO Support:
+### LIBERO Support
 LeRobot now officially supports **LIBERO**, one of the largest open benchmarks for Vision-Language-Action (VLA) policies, boasting over 130 tasks! This is a huge step toward building the go-to evaluation hub for VLAs, enabling easy integration and a unified setup for evaluating any VLA policy.
 
 Check out the [LIBERO dataset](https://huggingface.co/datasets/HuggingFaceVLA/libero) and our [docs](https://huggingface.co/docs/lerobot/en/libero) to get started!
