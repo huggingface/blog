@@ -19,10 +19,10 @@ AI models are powerful but they’re also complex digital artifacts that can inc
 As of today HF Hub hosts 2.2 Million Public model artefacts. As we continue to grow into the world’s largest open platform for Machine Learning models and datasets, ensuring that shared assets remain safe is essential.
 
 Threats can take many forms:
-Malicious payloads disguised as model files or archives
-Files that have been compromised before upload
-Binary assets linked to known malware campaigns
-Dependencies or serialized objects that execute unsafe code when loaded
+- Malicious payloads disguised as model files or archives
+- Files that have been compromised before upload
+- Binary assets linked to known malware campaigns
+- Dependencies or serialized objects that execute unsafe code when loaded
 
 By collaborating with VirusTotal, we’re adding an extra layer of protection and visibility by enabling files shared through Hugging Face to be checked against one of the largest and most trusted malware intelligence databases in the world.
 
