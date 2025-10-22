@@ -48,7 +48,7 @@ LeRobot now officially supports **LIBERO**, one of the largest open benchmarks f
 
 Check out the [LIBERO dataset](https://huggingface.co/datasets/HuggingFaceVLA/libero) and our [docs](https://huggingface.co/docs/lerobot/en/libero) to get started!
 
-### Meta-World Integration:
+### Meta-World Integration
 We've integrated Meta-World, a premier benchmark for testing multi-task and generalization abilities in robotic manipulation, featuring over 50 diverse tasks. This integration, along with our standardized use of `gymnasium ≥ 1.0.0` and `mujoco ≥ 3.0.0`, ensures deterministic seeding and a robust simulation foundation.
 
 Train your policies with the [Meta-World dataset](https://huggingface.co/datasets/lerobot/metaworld_mt50) today!
