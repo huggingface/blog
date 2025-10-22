@@ -83,7 +83,7 @@ These tools streamline your workflow, allowing you to curate and optimize your r
 ## Simulation Environments: Expanding Your Training Grounds
 We're continuously expanding LeRobot's simulation capabilities to provide richer and more diverse training environments for your robotic policies.
 
-![TODO](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/lerobot-release-v040/XXX.png)
+![libero-demo](https://huggingface.co/datasets/huggingface/documentation-images/blob/main/lerobot-blog/release-v0.4.0/lerobot-libero-groot-v040.gif)
 
 ### LIBERO Support
 LeRobot now officially supports [LIBERO](https://libero-project.github.io/intro.html), one of the largest open benchmarks for Vision-Language-Action (VLA) policies, boasting over 130 tasks! This is a huge step toward building the go-to evaluation hub for VLAs, enabling easy integration and a unified setup for evaluating any VLA policy.
@@ -149,7 +149,7 @@ Check out the [documentation](https://huggingface.co/docs/lerobot/multi_gpu_trai
 
 ## Policies: Unleashing Open-World Generalization
 
-![TODO](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/lerobot-release-v040/XXX.png)
+![groot-demo](https://huggingface.co/datasets/huggingface/documentation-images/blob/main/lerobot-blog/release-v0.4.0/lerobot-libero-groot2-v040.gif)
 
 ### PI0 and PI0.5
 In a major milestone for open-source robotics, we've integrated **pi0** and **pi0.5** policies by Physical Intelligence into LeRobot! These Vision-Language-Action (VLA) models represent a significant leap towards addressing open-world generalization in robotics.
@@ -191,8 +191,6 @@ Thanks to our powerful new pipeline system, you can now teleoperate your followe
 
 ## The Hugging Face Robot Learning Course
 
-![TODO](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/lerobot-release-v040/XXX.png)
-
 We're launching a comprehensive, self-paced, and entirely **open-source course** designed to make robot learning accessible to everyone! If you're curious about how real-world robots learn, this is the perfect place to start.
 
 In this course, you’ll learn how to:
@@ -208,7 +206,7 @@ Join the [Hugging Face Robotics organization](https://huggingface.co/robotics-co
 
 For those who want to go deeper, we've also published a **hands-on tutorial** on the most recent advancements in robotics. This guide provides self-contained explanations, re-derives modern techniques from first principles, and includes ready-to-use code examples using LeRobot and Hugging Face.
 
-The tutorial itself is hosted in a [Space](https://huggingface.co/spaces/lerobot/robot-learning-tutorial) and it features practical examples using LeRobot, with all models and datasets on the Hugging Hub. You can also check out the [HF paper](https://huggingface.co/spaces/lerobot/robot-learning-tutorial) for a detailed overview.
+The tutorial itself is hosted in a [Space](https://huggingface.co/spaces/lerobot/robot-learning-tutorial) and it features practical examples using LeRobot, with all models and datasets on the Hugging Hub. You can also check out the [HF paper](https://huggingface.co/papers/2510.12403) for a detailed overview.
 
 
 ## Final thoughts from the team
