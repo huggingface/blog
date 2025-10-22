@@ -11,17 +11,17 @@ authors:
 
 We boosted `load_dataset('dataset', streaming=True)`.
 
-Start training on a multi-TB dataset immediately, no download, no 429 “stop requesting!” errors. Super fast: it outruns our local SSDs when training on 64xH100 with 256 workers downloading data.
+Start training on multi-TB datasets immediately, without complex setups, downloading, or 429 “stop requesting!” errors. It's super fast! Outrunning our local SSDs when training on 64xH100 with 256 workers downloading data.
 
 → 100× fewer requests, → 10× faster data resolution → 2x sample/sec, → 0 worker crashes at 256 concurrent workers.
 
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/streaming-dark.gif" width="800" height="auto" alt="Visualization of a dataset being streamed">
 
-# Streaming datasets at scale: How We Made datasets Streaming 100x More Efficient
+# How We Made datasets Streaming 100x More Efficient
 
 Loading data, especially at the terabyte scale, is a major pain in any machine learning workflow. We suffered this while training [SmolLM3](https://huggingface.co/blog/smollm3), at one point we had to wait 3 hours before each run to download enough data. 
 
-We already allowed for streaming in `datasets`, but it wasn't good enough for large scale trainings. That changes today. We spent the past few months improving our backend and particularly focused on streaming datasets to make it way faster and efficient. But, what did we do?
+We already allowed for streaming in `datasets`, but it wasn't optimized for large scale trainings. That changes today. We spent a few months improving the backend, focusing on streaming datasets to make it faster and more efficient. But, what did we do exactly?
 
 ## Streaming: The Same Easy API
 
@@ -40,9 +40,9 @@ Thousands of AI developers around the world use our `datasets` daily, and they s
 
 ## The Challenge: Streaming at Scale
 
-Streaming was a lifesaver to quickly understand a dataset, but to train people were usually downloading the data locally, or using a cloud provider such as S3. That's what we were doing for training [SmolVLM](https://huggingface.co/blog/smolvlm2), we had all of our data on S3 and were streaming directly from it.
+Streaming was a lifesaver to quickly understand a dataset, but to train people were usually downloading the data locally, or using a cloud storage service such as S3. That's what we were doing for training [SmolVLM](https://huggingface.co/blog/smolvlm2), we had all of our data on S3 and were streaming directly from it.
 
-But we wanted to change that. We started experimenting with stremaing directly from the Hub with [nanoVLM](https://github.com/huggingface/nanoVLM) and started uncovering the issues: our test run generated over 100,000 requests in under a minute, which got our IP blocked by the Hub! 😅 The issue comes from every DataLoader worker initializing the dataset independently. This creates a storm of redundant requests. As we dug deeper, we found many unnecessary requests. Our changes ultimately reduced startup requests by a factor of 100. In total, our improvements delivered:
+But we wanted to change that. We started experimenting with streaming directly from the Hub with [nanoVLM](https://github.com/huggingface/nanoVLM) and started uncovering the issues: our test run generated over 100,000 requests in under a minute, which got our IP blocked by the Hub! 😅 The issue comes from every DataLoader worker initializing the dataset independently. As we dug deeper, we found that this creates a storm of redundant requests, many of which are unnecessary. Our changes ultimately reduced startup requests by a factor of 100. In total, our improvements delivered:
 
 - Data files resolution time: 10x faster
 - Startup requests: Up to 100x more efficient
@@ -68,6 +68,7 @@ This is how we can increase the minimum request size when streaming from 32MiB (
 ```python
 import pyarrow
 import pyarrow.dataset
+
 fragment_scan_options = pyarrow.dataset.ParquetFragmentScanOptions(
     cache_options=pyarrow.CacheOptions(
         prefetch_limit=1,
@@ -81,7 +82,9 @@ Together, these improvements can double your data throughput, allowing you to tr
 
 ## How are we faster than plain S3: Xet
 
-Hugging Face uses Xet: a dedupe-based storage which enables fast deduped uploads and downloads. Unlike traditional remote storage, data transfers are faster on Xet because duplicated data is only transferred once. For example: if you're streaming a file that has repeated chunks, you will only download those chunks once, saving bandwidth a increasing the streaming speed. Deduplication for Parquet is enabled through Content Defined Chunking (CDC). Thanks to Parquet CDC and Xet deduplication, streaming datasets on Hugging Face is faster than on any traditional remote storage.
+Hugging Face uses Xet: a dedupe-based storage which enables fast deduped uploads and downloads. Unlike traditional remote storage, data transfers are faster on Xet because duplicated data is only transferred once. For example: uploading a large scale dataset to Hugging Face leverages Xet which accelerates uploads. Once the dataset is uploaded, it can be streamed right away.
+
+Deduplication for Parquet is enabled through [Parquet Content Defined Chunking (CDC)](https://huggingface.co/blog/parquet-cdc). Thanks to Parquet CDC and Xet deduplication, uploading datasets on Hugging Face is faster than on any traditional remote storage.
 
 This is supported by our `pyspark_huggingface` package, a Spark Data Source to read/write HF datasets. It includes Parquet CDC and Xet support. Accelerating data transfers on HF dramatically.
 
@@ -89,7 +92,7 @@ This is supported by our `pyspark_huggingface` package, a Spark Data Source to r
 
 Some data files formats are not supported in `datasets`, and sometimes there is a need for more control, so we made it easy to build a custom streaming pipeline. This was already helpful in the LeRobot library to sample video frames and in the `WebDataset` library to stream TAR archives from Hugging Face.
 
-We improved the `HfFileSystem` in the `huggingface_hub` library to efficiently read files from remote Hugging Face dataset repositories and stream data:
+We improved the [HfFileSystem](https://huggingface.co/docs/huggingface_hub/guides/hf_file_system) in the `huggingface_hub` library to efficiently read files from remote Hugging Face dataset repositories and stream data:
 
 ```python
 from huggingface_hub import HfFileSystem
@@ -110,7 +113,7 @@ We're now using these streaming enhancements in nanoVLM to train the next genera
 
 ## Get Started and See the Difference
 
-These powerful new features are about to land on the main branches of the datasets and huggingface_hub libraries. To take advantage of them, simply update your libraries:
+These powerful new features are about to land on the main branches of the datasets and huggingface_hub libraries. To take advantage of them, simply update your libraries and check out [the documentation](https://huggingface.co/docs/datasets/stream):
 ```Bash
 pip install --upgrade datasets huggingface_hub
 ```
