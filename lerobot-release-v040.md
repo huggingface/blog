@@ -106,7 +106,7 @@ The native integration of these policies in `lerobot` is a huge step forward in 
 ## Robots: A New Era of Hardware Integration with the Plugin System
 Big news for hardware enthusiasts! We've launched a brand-new plugin system to revolutionize how you integrate third-party hardware with LeRobot. Now, connecting any robot, camera, or teleoperator is as simple as a `pip install`, eliminating the need to modify the core library.
 
-### Key Benefits:
+### Key Benefits
 * Extensibility: Develop and integrate custom hardware in separate Python packages.
 * Scalability: Supports a growing ecosystem of devices without bloating the core library.
 * Community-Friendly: Lowers the barrier to entry for community contributions, fostering a more collaborative environment.
