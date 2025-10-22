@@ -28,7 +28,7 @@ By collaborating with VirusTotal, we’re adding an extra layer of protection an
 
 ## How the collaboration works
 
-Whenever you visit a repository page or a file or directory page, the hub will automatically retrieve VirusTotal information about the corresponding files. [Example](https://huggingface.co/Juronuim/xbraw2025/tree/main)
+Whenever you visit a repository page or a file or directory page, the Hub will automatically retrieve VirusTotal information about the corresponding files. [Example](https://huggingface.co/Juronuim/xbraw2025/tree/main)
 
 <img class="block" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/virustotal.png"/>
 
