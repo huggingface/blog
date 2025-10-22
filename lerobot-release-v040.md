@@ -113,7 +113,7 @@ Big news for hardware enthusiasts! We've launched a brand-new plugin system to r
 
 Learn how to create your own plugin in our [documentation](https://huggingface.co/docs/lerobot/integrate_hardware#using-your-own-lerobot-devices-).
 
-### Reachy 2 Integration:
+### Reachy 2 Integration
 Thanks to our new plugin system, we've also added **Reachy 2** from Pollen Robotics to LeRobot! Reachy 2 is available for both real robot control and simulation, enabling you to experiment with teleoperation and autonomous demos right away.
 
 ### Phone Integration
