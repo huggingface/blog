@@ -6779,9 +6779,9 @@
     - community
     - research
 
-- local: dots-ocr-ne 
+- local: dots-ocr-ne
   title: "SOTA OCR on-device with Core ML and dots.ocr"
-  author: FL33TW00D-HF 
+  author: FL33TW00D-HF
   thumbnail: /blog/assets/dots-ocr-ne/dots_header.png
   date: Oct 2, 2025
   tags:
@@ -6810,3 +6810,13 @@
     - gpt-oss
     - open-source
     - LLM
+
+- local: protectai
+  title: "Hugging Face and VirusTotal collaborate to strengthen AI security"
+  author: xcid
+  thumbnail: /blog/assets/virustotal/thumbnail.png
+  date: October 22, 2025
+  tags:
+    - hub
+    - partnerships
+    - security
