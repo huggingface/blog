@@ -84,7 +84,9 @@ Measuring the growth and impact of an open-source library is a tricky task. Numb
 - Used by **60k+** users daily, **550k+** monthly
 - Trusted by **200k+ companies** from startups to Fortune 500
 
-But the real scale becomes clear when you look at the ecosystem. `huggingface_hub` is a **dependency** for over **200,000 repositories** on GitHub and **3,000 packages** on PyPI, powering everything from major third-party frameworks like Keras, LangChain, PaddleOCR, ChatTTS, YOLO, Google Generative AI, Moshi, NVIDIA NeMo, and Open Sora, to countless smaller libraries and tools across the ML landscape. Our own ecosystem (transformers, diffusers, datasets, sentence-transformers, lighteval, gradio, peft, trl, smolagents, timm, lerobot, etc.) benefits from this foundation as well. The remarkable part? Most of the third-party integrations happened organically, and we played no role in them. The Hugging Face Hub empowers the ML community in countless ways, yet we're continually humbled by how far it has gone and how widely it's used.
+But the real scale becomes clear when you look at the ecosystem. `huggingface_hub` is a **dependency** for over **200,000 repositories** on GitHub and **3,000 packages** on PyPI, powering everything from major third-party frameworks like Keras, LangChain, PaddleOCR, ChatTTS, YOLO, Google Generative AI, Moshi, NVIDIA NeMo, and Open Sora, to countless smaller libraries and tools across the ML landscape. Our own ecosystem (transformers, diffusers, datasets, sentence-transformers, lighteval, gradio, peft, trl, smolagents, timm, lerobot, etc.) benefits from this foundation as well. 
+
+The remarkable part? Most of the third-party integrations happened organically, and we played no role in them. The Hugging Face Hub empowers the ML community in countless ways, yet we're continually humbled by how far it has gone and how widely it's used.
 
 
 ## Building for the Next Decade
