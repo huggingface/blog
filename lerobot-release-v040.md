@@ -148,5 +148,5 @@ Beyond these major features, this release is packed with numerous bug fixes, doc
 
 We want to extend a huge **thank you to everyone in the community** for your invaluable contributions, feedback, and support. We're incredibly excited about the future of open-source robotics and can't wait to show you what's next.
 
-Stay tuned for more to come\! <br>
+Stay tuned for more to come! 
 – The LeRobot team ❤️
