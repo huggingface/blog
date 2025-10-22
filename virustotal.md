@@ -16,7 +16,7 @@ TL;DR - Starting today, every one of the 2.2M+ public model and datasets reposit
 ## Why this matters
 
 AI models are powerful but they’re also complex digital artifacts that can include large binary files, serialized data, and dependencies that sometimes carry hidden risks.
-As of today HF Hub hosts 2.2 Million Public model artefacts. As we continue to grow into the world’s largest open platform for Machine Learning models and datasets, ensuring that shared assets remain safe is essential.
+As of today HF Hub hosts 2.2 Million Public model artifacts. As we continue to grow into the world’s largest open platform for Machine Learning models and datasets, ensuring that shared assets remain safe is essential.
 
 Threats can take many forms:
 - Malicious payloads disguised as model files or archives
