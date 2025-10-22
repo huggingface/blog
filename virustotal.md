@@ -3,7 +3,7 @@ title: "Hugging Face and VirusTotal collaborate to strengthen AI security"
 thumbnail: /blog/assets/virustotal/thumbnail.png
 authors:
 - user: xcid
-- user: vtotal
+- user: bquintero
   guest: true
   org: VirusTotal
 ---
