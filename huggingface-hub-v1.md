@@ -18,7 +18,7 @@ authors:
 pip install --upgrade huggingface_hub
 ```
 
-You can find the **[full release notes here](https://github.com/huggingface/huggingface_hub/releases/tag/v1.0.0)**. Give us a star ⭐!
+Major changes in this release include the migration to `httpx` as the backend library, a completely redesigned `hf` CLI featuring a Typer-based interface with a significantly expanded feature set, and full adoption of `hf_xet` for file transfers, replacing the legacy `hf_transfer`. You can find the **[full release notes here](https://github.com/huggingface/huggingface_hub/releases/tag/v1.0.0)**.
 
 > [!TIP]
 > We’ve worked hard to ensure that `huggingface_hub` v1.0.0 remains backward compatible. In practice, most ML libraries should work seamlessly with both v0.x and v1.x versions. The main exception is `transformers`, which explicitly requires `huggingface_hub` v0.x in its v4 releases and v1.x in its new v5 release. For a detailed compatibility overview across libraries, refer to the table in this [issue](https://github.com/huggingface/huggingface_hub/issues/3340).
