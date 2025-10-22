@@ -6791,7 +6791,7 @@
 - local: openvino-vlm
   title: "Get your VLM running in 3 simple steps on Intel CPUs"
   author: ezelanza
-  thumbnail: /blog/assets/optimum_intel/intel_thumbnail.png
+  thumbnail: /blog/assets/optimum_intel/optimum_openvino_thumbnail.png
   date: Oct 15, 2025
   tags:
     - intel
@@ -6807,3 +6807,37 @@
   tags:
     - lerobot
     - robotics
+
+- local: gpt-oss-on-intel-xeon
+  title: "Google Cloud C4 Brings a 70% TCO improvement on GPT OSS with Intel and Hugging Face"
+  author: Jiqing
+  thumbnail: /blog/assets/optimum_intel/intel_thumbnail.png
+  date: Oct 16, 2025
+  tags:
+    - intel
+    - cpu
+    - gpt-oss
+    - open-source
+    - LLM
+
+- local: aisheets-unlock-images
+  title: "Unlock the power of images with AI Sheets"
+  author: dvilasuero
+  thumbnail: /blog/assets/aisheets/aisheets-image.png
+  date: Oct 21, 2025
+  tags:
+    - datasets
+    - open-source
+    - vision
+
+- local: ocr-open-models
+  title: "Supercharge your OCR Pipelines with Open Models"
+  author: merve
+  thumbnail: /blog/assets/ocr-open-models/thumbnail.png
+  date: Oct 21, 2025
+  tags:
+    - ocr
+    - vision
+    - multimodal
+    - vlm
+    - open-source
