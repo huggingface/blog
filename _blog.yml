@@ -6843,8 +6843,8 @@
     - nlp
     - open-source
     - community
-    
-- local: protectai
+
+- local: virustotal
   title: "Hugging Face and VirusTotal collaborate to strengthen AI security"
   author: xcid
   thumbnail: /blog/assets/virustotal/thumbnail.png
