@@ -6800,10 +6800,10 @@
     - inference
 
 - local: lerobot-release-v040
-  title: "LeRobot v0.4.0: XXX"
+  title: "LeRobot v0.4.0: Super Charging OSS Robotics Learning"
   author: imstevenpmwork
   thumbnail: /blog/assets/lerobot-release-v040/thumbnail.png
-  date: Oct 27, 2025
+  date: Oct 24, 2025
   tags:
     - lerobot
     - robotics
