@@ -6832,3 +6832,14 @@
     - multimodal
     - vlm
     - open-source
+
+- local: sentence-transformers-joins-hf
+  title: "Sentence Transformers is joining Hugging Face!"
+  author: tomaarsen
+  thumbnail: /blog/assets/sentence-transformers-joins-hf/thumbnail.png
+  date: Oct 22, 2025
+  tags:
+    - announcement
+    - nlp
+    - open-source
+    - community
