@@ -4,16 +4,19 @@ thumbnail: /blog/assets/streaming_datasets/streaming_datasets.png
 authors:
 - user: andito
 - user: lhoestq
+- user: burtenshaw
 ---
 
 
 ## TLDR
 
-We boosted `load_dataset('dataset', streaming=True)`.
-
-Start training on multi-TB datasets immediately, without complex setups, downloading, or 429 “stop requesting!” errors. It's super fast! Outrunning our local SSDs when training on 64xH100 with 256 workers downloading data.
-
-→ 100× fewer requests, → 10× faster data resolution → 2x sample/sec, → 0 worker crashes at 256 concurrent workers.
+> [!TIP]
+> We boosted `load_dataset('dataset', streaming=True)`.
+> 
+> Start training on multi-TB datasets immediately, without complex setups, downloading, no "disk out of space", or 429 “stop requesting!” errors.   
+> It's super fast! Outrunning our local SSDs when training on 64xH100 with 256 workers downloading data.
+>
+> → 100× fewer requests, → 10× faster data resolution → 2x sample/sec, → 0 worker crashes at 256 concurrent workers.
 
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/streaming-dark.gif" width="800" height="auto" alt="Visualization of a dataset being streamed">
 
@@ -114,6 +117,7 @@ We're now using these streaming enhancements in nanoVLM to train the next genera
 ## Get Started and See the Difference
 
 These powerful new features are about to land on the main branches of the datasets and huggingface_hub libraries. To take advantage of them, simply update your libraries and check out [the documentation](https://huggingface.co/docs/datasets/stream):
+
 ```Bash
 pip install --upgrade datasets huggingface_hub
 ```
