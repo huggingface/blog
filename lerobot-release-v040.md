@@ -124,7 +124,7 @@ Thanks to our powerful new pipeline system, you can now teleoperate your followe
 
 ![TODO](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/lerobot-release-v040/XXX.png)
 
-We're launching a comprehensive, self-paced, and entirely **open-source course** designed to make robot learning accessible to everyone\! If you're curious about how real-world robots learn, this is the perfect place to start.
+We're launching a comprehensive, self-paced, and entirely **open-source course** designed to make robot learning accessible to everyone! If you're curious about how real-world robots learn, this is the perfect place to start.
 
 In this course, you’ll learn how to:
 
