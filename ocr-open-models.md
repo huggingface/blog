@@ -12,7 +12,7 @@ authors:
 ---
 
 > [!TIP]
-> We have added some updates to this blog as the day the blog was released and the following saw two new VLM releases 🫡
+> We have added Chandra and OlmOCR-2 to this blog, as well as OlmOCR Scores of the models 🫡
 
 
 # Supercharge your OCR Pipelines with Open Models
