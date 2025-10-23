@@ -11,6 +11,10 @@ authors:
 - user: pcuenq
 ---
 
+> [!TIP]
+> We have added some updates to this blog as the day the blog was released and the following saw two new VLM releases 🫡
+
+
 # Supercharge your OCR Pipelines with Open Models
 
 TL;DR: The rise of powerful vision-language models has transformed document AI. Each model comes with unique strengths, making it tricky to choose the right one. Open-weight models offer better cost efficiency and privacy. To help you get started with them, we’ve put together this guide.
@@ -122,16 +126,22 @@ We’ve seen an incredible wave of new models this past year. Because so much wo
 
 ### Comparing Latest Models
 
-To make things a bit easier, we’re putting together a non-exhaustive comparison of some of our current favorite models. All of the models below are layout-aware and can parse tables, charts, and math equations. The full list of languages each model supports are detailed in their model cards, so make sure to check them if you’re interested.
+To make things a bit easier, we’re putting together a non-exhaustive comparison of some of our current favorite models. All of the models below are layout-aware and can parse tables, charts, and math equations. The full list of languages each model supports are detailed in their model cards, so make sure to check them if you’re interested. All models below have open-source license except for Chandra having OpenRAIL license and Nanonets license is unclarified. The average scores are taken from model cards of Chandra, OlmOCR, evaluated on OlmOCR Benchmark, which is English-only.
 
-| Model Name | Output formats | Features | Model Size | Multilingual? |
-| :---- | :---- | :---- | :---- | :---- |
-| [Nanonets-OCR2-3B](https://huggingface.co/collections/nanonets/nanonets-ocr2-68ed207f17ee6c31d226319e) | structured Markdown with semantic tagging (plus HTML tables, etc.) | Captions images in the documents<br>Signature & watermark extraction<br>Handles checkboxes, flowcharts, and handwriting | 4B | ✅Supports English, Chinese, French, Arabic and more. |
-| [PaddleOCR-VL](https://huggingface.co/collections/PaddlePaddle/paddleocr-vl-68f0db852483c7af0bc86849) | Markdown, JSON, HTML tables and charts | Handles handwriting, old documents<br>Allows prompting<br>Converts tables & charts to HTML<br>Extracts and inserts images directly | 0.9B | ✅Supports 109 languages |
-| [dots.ocr](https://huggingface.co/rednote-hilab/dots.ocr) | Markdown, JSON | Grounding<br>Extracts and inserts images<br>Handles handwriting | 3B | ✅Multilingual with language info not available |
-| [OlmOCR](https://huggingface.co/allenai/olmOCR-7B-0825) | Markdown, HTML, LaTeX | Grounding<br>Optimized for large-scale batch processing | 8B | ❎English-only |
-| [Granite-Docling-258M](https://huggingface.co/ibm-granite/granite-docling-258M) | DocTags | Prompt-based task switching<br>Ability to prompt element locations with location tokens<br>Rich output | 258M | ✅Supports English, Japanese, Arabic and Chinese. |
-| [DeepSeek-OCR](https://huggingface.co/deepseek-ai/DeepSeek-OCR) | Markdown + HTML | Supports general visual understanding<br>Can parse and re-render all charts, tables, and more into HTML<br>Handles handwriting<br>Memory-efficient, solves text through image | 3B | ✅Supports nearly 100 languages |
+| Model Name | Output formats | Features | Model Size | Multilingual? | Average Score on OlmOCR Benchmark |
+| :---- | :---- | :---- | :---- | :---- | :---- |
+| [Nanonets-OCR2-3B](https://huggingface.co/collections/nanonets/nanonets-ocr2-68ed207f17ee6c31d226319e) | structured Markdown with semantic tagging (plus HTML tables, etc.) | Captions images in the documents<br>Signature & watermark extraction<br>Handles checkboxes, flowcharts, and handwriting | 4B | ✅Supports English, Chinese, French, Arabic and more. | N/A |
+| [PaddleOCR-VL](https://huggingface.co/collections/PaddlePaddle/paddleocr-vl-68f0db852483c7af0bc86849) | Markdown, JSON, HTML tables and charts | Handles handwriting, old documents<br>Allows prompting<br>Converts tables & charts to HTML<br>Extracts and inserts images directly | 0.9B | ✅Supports 109 languages | N/A |
+| [dots.ocr](https://huggingface.co/rednote-hilab/dots.ocr) | Markdown, JSON | Grounding<br>Extracts and inserts images<br>Handles handwriting | 3B | ✅Multilingual with language info not available | 79.1 ± 1.0 |
+| [OlmOCR-2](https://huggingface.co/allenai/olmOCR-2-7B-1025) | Markdown, HTML, LaTeX | Grounding<br>Optimized for large-scale batch processing | 8B | ❎English-only | 82.3 ± 1.1 |
+| [Granite-Docling-258M](https://huggingface.co/ibm-granite/granite-docling-258M) | DocTags | Prompt-based task switching<br>Ability to prompt element locations with location tokens<br>Rich output | 258M | ✅Supports English, Japanese, Arabic and Chinese. | N/A | 
+| [DeepSeek-OCR](https://huggingface.co/deepseek-ai/DeepSeek-OCR) | Markdown, HTML | Supports general visual understanding<br>Can parse and re-render all charts, tables, and more into HTML<br>Handles handwriting<br>Memory-efficient, solves text through image | 3B | ✅Supports nearly 100 languages | 75.4 ± 1.0 |
+| [Chandra](https://huggingface.co/deepseek-ai/DeepSeek-OCR) | Markdown, HTML, JSON | Grounding<br>Extracts and inserts images as is | 9B | ✅Supports 40+ languages | 83.1 ± 0.9 |
+| [Qwen3VL](https://huggingface.co/collections/Qwen/qwen3-vl) | Vision Language Model can output in all formats | Can recognize ancient text<br>Handles handwriting<br>Extracts and inserts images as is | 9B | ✅Supports 32 languages | N/A |
+
+We’ve also added Qwen3-VL by popular demand. Most of the models listed above are fine-tuned versions of Qwen2.5-VL, trained with a few document-specific prompts. Chandra, on the other hand, is a fine-tuned version of Qwen3-VL, which makes it state-of-the-art on OlmOCR-Bench.
+
+While Qwen3-VL itself is a powerful and versatile vision-language model post-trained for document understanding and OCR, it isn’t optimized for a single, universal prompt. In contrast, the other models were fine-tuned using one or a few fixed prompts specifically designed for OCR tasks.
 
 Here’s a [small demo](https://prithivMLmods-Multimodal-OCR3.hf.space) for you to try some of the latest models and compare their outputs.   
 <iframe  
@@ -157,7 +167,7 @@ When testing different OCR models, we've found that the performance across diffe
 
 #### Cost-efficiency
 
-Most OCR models are small, having between 3B and 7B parameters; you can even find models with fewer than 1B parameters, like PaddleOCR-VL. However, the cost also depends on the availability of optimized implementations  inference frameworks. For example, OlmOCR comes with vLLM and SGLang implementations, and the cost per million pages is 190 dollars (assuming on H100 for $2.69/hour). DeepSeek-OCR can process 200k+ pages per day on a single A100 with 40GB VRAM.  With napkin math, we see that the cost per million pages is more or less similar to OlmOCR (although it depends on your A100 provider). If your use case remains unaffected, you can also opt for quantized versions of the models. The cost of running open-source models heavily depends on the hourly cost of the instance and the optimizations the model includes, but it’s guaranteed to be cheaper than many closed-source models out there on a larger scale.
+Most OCR models are small, having between 3B and 7B parameters; you can even find models with fewer than 1B parameters, like PaddleOCR-VL. However, the cost also depends on the availability of optimized implementations  inference frameworks. For example, OlmOCR-2 comes with vLLM and SGLang implementations, and the cost per million pages is 178 dollars (assuming on H100 for $2.69/hour). DeepSeek-OCR can process 200k+ pages per day on a single A100 with 40GB VRAM.  With napkin math, we see that the cost per million pages is more or less similar to OlmOCR (although it depends on your A100 provider). If your use case remains unaffected, you can also opt for quantized versions of the models. The cost of running open-source models heavily depends on the hourly cost of the instance and the optimizations the model includes, but it’s guaranteed to be cheaper than many closed-source models out there on a larger scale.
 
 #### Open OCR Datasets 
 
