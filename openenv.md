@@ -68,7 +68,7 @@ In the current state of the repository, environment creators can create environm
 - RL Post training - pull in environments across collections and use them to train RL agents with TRL, TorchForge+Monarch, VeRL etc.
 - Environment creation - build an environment and ensure that it interops with popular RL tools in the ecosystem, share with collaborators, etc.
 - Reproduction of SOTA methods - easily replicate methods like those from Meta's [Code World Model](https://huggingface.co/papers/2510.02387) by integrating environments for agentic coding and software engineering.
-- Deployment - users can create and environment, train on the same environment and then use the same for inference too (the full pipeline)
+- Deployment - users can create an environment, train on the same environment and then use the same for inference too (the full pipeline)
 
 ## What’s Next
 This is just the beginning. We’re integrating the OpenEnv Hub with Meta’s new **TorchForge RL library**, and collaborating with other open-source RL projects such as **verl**, **TRL**, and **SkyRL** to expand compatibility.
