@@ -6865,3 +6865,15 @@
     - community
     - agents
     - rl
+
+- local: huggingface-hub-v1
+  title: "huggingface_hub v1.0: Five Years of Building the Foundation of Open Machine Learning"
+  author: Wauplin
+  thumbnail: /blog/assets/huggingface-hub-v1/thumbnail.png
+  date: Oct 27, 2025
+  tags:
+    - huggingface_hub
+    - python
+    - announcement
+    - open-source
+    - hub

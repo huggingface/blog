@@ -2,7 +2,7 @@
 title: "huggingface_hub v1.0: Five Years of Building the Foundation of Open Machine Learning"
 thumbnail: /blog/assets/huggingface-hub-v1/thumbnail.png
 authors:
-  - user: wauplin
+  - user: Wauplin
   - user: celinah
   - user: lysandre
   - user: julien-c
