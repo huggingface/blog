@@ -57,7 +57,7 @@ Starting next week, developers can:
 Alongside this, we’re releasing the [OpenEnv 0.1 Spec (RFC)](https://github.com/meta-pytorch/OpenEnv/blob/main/rfcs/002-env-spec.md) to gather community feedback and help shape the standard.
 
 ## The RFCs
-In the current state of the repository, environment creators can create environments using `step()`, `reset()`, `close()` APIs(part of RFCs below). A few examples on how to create such environments can be seen [here](https://github.com/meta-pytorch/OpenEnv/tree/main/src/envs). Environment users can play with local Docker based environments for all environments already available in the repo. Following RFCs are in in-review stage:
+In the current state of the repository, environment creators can create environments using `step()`, `reset()`, `close()` APIs (part of RFCs below). A few examples on how to create such environments can be seen [here](https://github.com/meta-pytorch/OpenEnv/tree/main/src/envs). Environment users can play with local Docker based environments for all environments already available in the repo. Following RFCs are under review:
 
 - RFC 001: Establish architecture for how the core components like Environment, Agent, Task, etc. are related
 - RFC 002: Propose basic env interface, packaging, isolation and communication w/ environment.
