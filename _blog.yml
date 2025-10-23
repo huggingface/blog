@@ -6779,9 +6779,9 @@
     - community
     - research
 
-- local: dots-ocr-ne 
+- local: dots-ocr-ne
   title: "SOTA OCR on-device with Core ML and dots.ocr"
-  author: FL33TW00D-HF 
+  author: FL33TW00D-HF
   thumbnail: /blog/assets/dots-ocr-ne/dots_header.png
   date: Oct 2, 2025
   tags:
@@ -6791,7 +6791,7 @@
 - local: openvino-vlm
   title: "Get your VLM running in 3 simple steps on Intel CPUs"
   author: ezelanza
-  thumbnail: /blog/assets/optimum_intel/intel_thumbnail.png
+  thumbnail: /blog/assets/optimum_intel/optimum_openvino_thumbnail.png
   date: Oct 15, 2025
   tags:
     - intel
@@ -6810,3 +6810,58 @@
     - gpt-oss
     - open-source
     - LLM
+
+- local: aisheets-unlock-images
+  title: "Unlock the power of images with AI Sheets"
+  author: dvilasuero
+  thumbnail: /blog/assets/aisheets/aisheets-image.png
+  date: Oct 21, 2025
+  tags:
+    - datasets
+    - open-source
+    - vision
+
+- local: ocr-open-models
+  title: "Supercharge your OCR Pipelines with Open Models"
+  author: merve
+  thumbnail: /blog/assets/ocr-open-models/thumbnail.png
+  date: Oct 21, 2025
+  tags:
+    - ocr
+    - vision
+    - multimodal
+    - vlm
+    - open-source
+
+- local: sentence-transformers-joins-hf
+  title: "Sentence Transformers is joining Hugging Face!"
+  author: tomaarsen
+  thumbnail: /blog/assets/sentence-transformers-joins-hf/thumbnail.png
+  date: Oct 22, 2025
+  tags:
+    - announcement
+    - nlp
+    - open-source
+    - community
+
+- local: virustotal
+  title: "Hugging Face and VirusTotal collaborate to strengthen AI security"
+  author: XciD
+  thumbnail: /blog/assets/virustotal/thumbnail.png
+  date: October 22, 2025
+  tags:
+    - hub
+    - partnerships
+    - security
+
+- local: openenv
+  title: "Building the Open Agent Ecosystem Together: Introducing OpenEnv"
+  author: spisakjo
+  thumbnail: /blog/assets/openenv/thumbnail.png
+  date: Oct 23, 2025
+  tags:
+    - announcement
+    - open-source
+    - community
+    - agents
+    - rl

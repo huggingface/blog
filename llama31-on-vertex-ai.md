@@ -181,7 +181,7 @@ Then you need to define the configuration for the container, which are the envir
 * `HUGGING_FACE_HUB_TOKEN` the read-access token over the gated repository `meta-llama/Meta-Llama-3.1-405B-Instruct-FP8`, required to download the weights from the Hugging Face Hub.
 * `NUM_SHARD` the number of shards to use i.e. the number of GPUs to use, in this case set to 8 as an A3 instance with 8 x H100 NVIDIA GPUs will be used.
 
-Additionally, as a recommendation you should also define `HF_HUB_ENABLE_HF_TRANSFER=1` to enable a faster download speed via the `hf_transfer` utility, as Meta Llama 3.1 405B is around 400 GiB and downloading the weights may take longer otherwise.
+Additionally, as a recommendation you should also define `HF_XET_HIGH_PERFORMANCE=1` to enable a faster download speed via the `hf_xet` utility, as Meta Llama 3.1 405B is around 400 GiB and downloading the weights may take longer otherwise.
 
 Then you can already register the model within Vertex AI's Model Registry via the `google-cloud-aiplatform` Python SDK as follows:
 
@@ -194,7 +194,7 @@ model = aiplatform.Model.upload(
     serving_container_environment_variables={
         "MODEL_ID": "meta-llama/Meta-Llama-3.1-405B-Instruct-FP8",
         "HUGGING_FACE_HUB_TOKEN": get_token(),
-        "HF_HUB_ENABLE_HF_TRANSFER": "1",
+        "HF_XET_HIGH_PERFORMANCE": "1",
         "NUM_SHARD": "8",
     },
 )
