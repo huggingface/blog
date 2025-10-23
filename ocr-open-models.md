@@ -127,6 +127,7 @@ We’ve seen an incredible wave of new models this past year. Because so much wo
 ### Comparing Latest Models
 
 To make things a bit easier, we’re putting together a non-exhaustive comparison of some of our current favorite models. All of the models below are layout-aware and can parse tables, charts, and math equations. The full list of languages each model supports are detailed in their model cards, so make sure to check them if you’re interested. All models below have open-source license except for Chandra having OpenRAIL license and Nanonets license being unclear. The average scores are taken from model cards of Chandra, OlmOCR, evaluated on OlmOCR Benchmark, which is English-only.
+Many of the models in this collection have been fine-tuned from Qwen2.5-VL or Qwen3-VL, so we also provide results from Qwen3-VL model as a baseline, even if it has not been specifically fine-tuned for OCR tasks.
 
 | Model Name | Output formats | Features | Model Size | Multilingual? | Average Score on OlmOCR Benchmark |
 | :---- | :---- | :---- | :---- | :---- | :---- |
