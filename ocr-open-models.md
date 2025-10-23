@@ -12,7 +12,7 @@ authors:
 ---
 
 > [!TIP]
-> We have added Chandra and OlmOCR-2 to this blog, as well as OlmOCR Scores of the models 🫡
+> We have added [Chandra](https://huggingface.co/datalab-to/chandra) and [OlmOCR-2](https://huggingface.co/allenai/olmOCR-2-7B-1025) to this blog, as well as OlmOCR Scores of the models 🫡
 
 
 # Supercharge your OCR Pipelines with Open Models
