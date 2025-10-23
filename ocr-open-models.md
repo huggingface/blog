@@ -127,7 +127,7 @@ We’ve seen an incredible wave of new models this past year. Because so much wo
 ### Comparing Latest Models
 
 To make things a bit easier, we’re putting together a non-exhaustive comparison of some of our current favorite models. All of the models below are layout-aware and can parse tables, charts, and math equations. The full list of languages each model supports are detailed in their model cards, so make sure to check them if you’re interested. All models below have open-source license except for Chandra having OpenRAIL license and Nanonets license being unclear. The average scores are taken from model cards of Chandra, OlmOCR, evaluated on OlmOCR Benchmark, which is English-only.
-Many of the models in this collection have been fine-tuned from Qwen2.5-VL or Qwen3-VL, so we also provide results from Qwen3-VL model as a baseline, even if it has not been specifically fine-tuned for OCR tasks.
+Many of the models in this collection have been fine-tuned from Qwen2.5-VL or Qwen3-VL, so we also provide Qwen3-VL model below as well. 
 
 | Model Name | Output formats | Features | Model Size | Multilingual? | Average Score on OlmOCR Benchmark |
 | :---- | :---- | :---- | :---- | :---- | :---- |
@@ -139,9 +139,8 @@ Many of the models in this collection have been fine-tuned from Qwen2.5-VL or Qw
 | [DeepSeek-OCR](https://huggingface.co/deepseek-ai/DeepSeek-OCR) | Markdown, HTML | Supports general visual understanding<br>Can parse and re-render all charts, tables, and more into HTML<br>Handles handwriting<br>Memory-efficient, solves text through image | 3B | ✅Supports nearly 100 languages | 75.4 ± 1.0 |
 | [Chandra](https://huggingface.co/deepseek-ai/DeepSeek-OCR) | Markdown, HTML, JSON | Grounding<br>Extracts and inserts images as is | 9B | ✅Supports 40+ languages | 83.1 ± 0.9 |
 | [Qwen3-VL](https://huggingface.co/collections/Qwen/qwen3-vl) | Vision Language Model can output in all formats | Can recognize ancient text<br>Handles handwriting<br>Extracts and inserts images as is | 9B | ✅Supports 32 languages | N/A |
-Most of the models listed above are fine-tuned versions of Qwen2.5-VL, trained with a few document-specific prompts. Chandra, on the other hand, is a fine-tuned version of Qwen3-VL.
 
-While Qwen3-VL itself is a powerful and versatile vision-language model post-trained for document understanding and other tasks, it isn’t optimized for a single, universal OCR prompt. In contrast, the other models were fine-tuned using one or a few fixed prompts specifically designed for OCR tasks.
+While Qwen3-VL itself is a powerful and versatile vision-language model post-trained for document understanding and other tasks, it isn’t optimized for a single, universal OCR prompt. In contrast, the other models were fine-tuned using one or a few fixed prompts specifically designed for OCR tasks. So to use Qwen3-VL, we recommend experimenting with prompts.
 
 Here’s a [small demo](https://prithivMLmods-Multimodal-OCR3.hf.space) for you to try some of the latest models and compare their outputs.   
 <iframe  
