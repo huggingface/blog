@@ -88,4 +88,4 @@ Join us at the PyTorch Conference on Oct 23 for a live demo and walkthrough of t
 
 👉 Check out supporting platforms - [Unsloth](https://github.com/unslothai/unsloth), [TRL](https://huggingface.co/docs/trl/main/en/openenv), [Lightning.AI](http://Lightning.AI)
 
-Cheers!
+Let's build the future of open agents together, one environment at a time 🔥!
