@@ -206,7 +206,7 @@ Join the [Hugging Face Robotics organization](https://huggingface.co/robotics-co
 
 For those who want to go deeper, we've also published a **hands-on tutorial** on the most recent advancements in robotics. This guide provides self-contained explanations, re-derives modern techniques from first principles, and includes ready-to-use code examples using LeRobot and Hugging Face.
 
-The tutorial itself is hosted in a [Space](https://huggingface.co/spaces/lerobot/robot-learning-tutorial) and it features practical examples using LeRobot, with all models and datasets on the Hugging Hub. You can also check out the [HF paper](https://huggingface.co/papers/2510.12403) for a detailed overview.
+The tutorial itself is hosted in a [Space](https://huggingface.co/spaces/lerobot/robot-learning-tutorial) and it features practical examples using LeRobot, with all models and datasets on the Hugging Hub. You can also check out [our paper](https://huggingface.co/papers/2510.12403) for a detailed overview.
 
 
 ## Final thoughts from the team
