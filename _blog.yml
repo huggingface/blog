@@ -6853,3 +6853,15 @@
     - hub
     - partnerships
     - security
+
+- local: openenv
+  title: "Building the Open Agent Ecosystem Together: Introducing OpenEnv"
+  author: spisakjo
+  thumbnail: /blog/assets/openenv/thumbnail.png
+  date: Oct 23, 2025
+  tags:
+    - announcement
+    - open-source
+    - community
+    - agents
+    - rl
