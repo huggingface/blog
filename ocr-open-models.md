@@ -140,7 +140,7 @@ To make things a bit easier, we’re putting together a non-exhaustive compariso
 | [Qwen3-VL](https://huggingface.co/collections/Qwen/qwen3-vl) | Vision Language Model can output in all formats | Can recognize ancient text<br>Handles handwriting<br>Extracts and inserts images as is | 9B | ✅Supports 32 languages | N/A |
 Most of the models listed above are fine-tuned versions of Qwen2.5-VL, trained with a few document-specific prompts. Chandra, on the other hand, is a fine-tuned version of Qwen3-VL.
 
-While Qwen3-VL itself is a powerful and versatile vision-language model post-trained for document understanding and OCR, it isn’t optimized for a single, universal prompt. In contrast, the other models were fine-tuned using one or a few fixed prompts specifically designed for OCR tasks.
+While Qwen3-VL itself is a powerful and versatile vision-language model post-trained for document understanding and other tasks, it isn’t optimized for a single, universal OCR prompt. In contrast, the other models were fine-tuned using one or a few fixed prompts specifically designed for OCR tasks.
 
 Here’s a [small demo](https://prithivMLmods-Multimodal-OCR3.hf.space) for you to try some of the latest models and compare their outputs.   
 <iframe  
