@@ -45,7 +45,14 @@ Modern AI agents can act autonomously across thousands of tasks. However, a larg
 - Seamless access to authenticated tools and APIs
 
 ## The Solution
-To supercharge this next wave of agentic development, Meta-PyTorch and Hugging Face are partnering to launch a Hub for Environments — a shared space where developers can build, share, and explore OpenEnv-compatible environments for both training and deployment.
+To supercharge this next wave of agentic development, Meta-PyTorch and Hugging Face are partnering to launch a Hub for Environments — a shared space where developers can build, share, and explore OpenEnv-compatible environments for both training and deployment. The figure below shows how **OpenEnv** fits in the new post-training stack being developed by **Meta**, with integrations for other libraries like **TRL**, **SkyRL**, and **Unsloth** underway:
+
+
+<p align="center">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/openenv/rl-stack.png" alt="rl_stack" width="500"/>
+</p>
+*Figure: Integrating OpenEnv within the broader PyTorch post-training and deployment stack.*
+
 
 Starting next week, developers can:
 - Visit the new [Environment Hub](https://huggingface.co/openenv) on Hugging Face where we will seed some initial environments
