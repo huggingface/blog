@@ -76,7 +76,7 @@ Join us at the PyTorch Conference on Oct 23 for a live demo and walkthrough of t
 
 👉 Explore the [OpenEnv Hub](https://huggingface.co/openenv) on Hugging Face and start building the environments that will power the next generation of agents. 
 
-👉 Checkout the 0.1 spec which can be found implemented in the [OpenEnv project](https://github.com/meta-pytorch/OpenEnv) → we welcome ideas and contributions to making it better! 
+👉 Check out the 0.1 spec which can be found implemented in the [OpenEnv project](https://github.com/meta-pytorch/OpenEnv) → we welcome ideas and contributions to making it better! 
 
 👉 Engage on the [Discord](https://discord.gg/YsTYBh6PD9) and talk with the community about RL, environments and agentic development
 
