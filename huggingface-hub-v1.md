@@ -21,7 +21,7 @@ pip install --upgrade huggingface_hub
 Major changes in this release include the migration to `httpx` as the backend library, a completely redesigned `hf` CLI featuring a Typer-based interface with a significantly expanded feature set, and full adoption of `hf_xet` for file transfers, replacing the legacy `hf_transfer`. You can find the **[full release notes here](https://github.com/huggingface/huggingface_hub/releases/tag/v1.0.0)**.
 
 > [!TIP]
-> We’ve worked hard to ensure that `huggingface_hub` v1.0.0 remains backward compatible. In practice, most ML libraries should work seamlessly with both v0.x and v1.x versions. The main exception is `transformers`, which explicitly requires `huggingface_hub` v0.x in its v4 releases and v1.x in its new v5 release. For a detailed compatibility overview across libraries, refer to the table in this [issue](https://github.com/huggingface/huggingface_hub/issues/3340).
+> We’ve worked hard to ensure that `huggingface_hub` v1.0.0 remains backward compatible. In practice, most ML libraries should work seamlessly with both v0.x and v1.x versions. The main exception is `transformers`, which explicitly requires `huggingface_hub` v0.x in its v4 releases and v1.x in its upcoming v5 release. For a detailed compatibility overview across libraries, refer to the table in this [issue](https://github.com/huggingface/huggingface_hub/issues/3340).
 
 ## The Story Behind the Library
 
@@ -144,10 +144,10 @@ These changes weren't made lightly. Most deprecations were announced months in a
 We understand that breaking changes are disruptive. That's why we've invested heavily in making the migration as smooth as possible. Our [comprehensive migration guide](https://huggingface.co/docs/huggingface_hub/concepts/migration) provides step-by-step instructions for every change with explanations of why each change was necessary.
 
 Most importantly, we've maintained backward compatibility wherever possible. `HfHubHttpError`, for example, inherits from both the old `requests` and new `httpx` base `HTTPError` classes, ensuring that error handling continues to work across versions.
-With this release, we're fully committing to the future and we will focus exclusively on v1.0 and beyond, ensuring we can deliver the performance, features, and tools the community needs to interact with the Hugging Face Hub. Previous `v0.*` versions will remain available on PyPI, but they will no longer receive updates.
+With this release, we're fully committing to the future and we will focus exclusively on v1.0 and beyond, ensuring we can deliver the performance, features, and tools the community needs to interact with the Hugging Face Hub. Previous `v0.*` versions will remain available on PyPI, but they will only receive vulnerability updates.
 
 > [!TIP]
-> We’ve worked hard to ensure that `huggingface_hub` v1.0.0 remains backward compatible. In practice, most ML libraries should work seamlessly with both v0.x and v1.x versions. The main exception is `transformers`, which explicitly requires `huggingface_hub` v0.x in its v4 releases and v1.x in its new v5 release. For a detailed compatibility overview across libraries, refer to the table in this [issue](https://github.com/huggingface/huggingface_hub/issues/3340).
+> We’ve worked hard to ensure that `huggingface_hub` v1.0.0 remains backward compatible. In practice, most ML libraries should work seamlessly with both v0.x and v1.x versions. The main exception is `transformers`, which explicitly requires `huggingface_hub` v0.x in its v4 releases and v1.x in its upcoming v5 release. For a detailed compatibility overview across libraries, refer to the table in this [issue](https://github.com/huggingface/huggingface_hub/issues/3340).
 
 ## Acknowledgments
 
