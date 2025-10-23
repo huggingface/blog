@@ -139,7 +139,7 @@ accelerate launch \
   $(which lerobot-train) \
   --dataset.repo_id=${HF_USER}/my_dataset \
   --policy.repo_id=${HF_USER}/my_trained_policy \
-    --policy.type=$POLICY_TYPE \
+  --policy.type=$POLICY_TYPE \
   # ... More training configuration flags
 ```
 
