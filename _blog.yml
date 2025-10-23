@@ -6846,7 +6846,7 @@
 
 - local: virustotal
   title: "Hugging Face and VirusTotal collaborate to strengthen AI security"
-  author: xcid
+  author: XciD
   thumbnail: /blog/assets/virustotal/thumbnail.png
   date: October 22, 2025
   tags:
