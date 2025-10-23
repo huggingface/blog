@@ -13,12 +13,17 @@ authors:
 - user: thomwolf
 ---
 
-# LeRobot's v0.4.0 Latest Major Updates!
+# LeRobot v0.4.0: Super Charging OSS Robotics Learning
+
 We're thrilled to announce a series of significant advancements across LeRobot, designed to make open-source robot learning more powerful, scalable, and user-friendly than ever before! From revamped datasets to versatile editing tools, new simulation environments, and a groundbreaking plugin system for hardware, LeRobot is continuously evolving to meet the demands of cutting-edge embodied AI.
+
+## TL;DR
+LeRobot v0.4.0 delivers a major upgrade for open-source robotics, introducing scalable Datasets v3.0, powerful new VLA models like PI0.5 and GR00T N1.5, and a new plugin system for easier hardware integration. The release also adds support for LIBERO and Meta-World simulations, simplified multi-GPU training, and a new Hugging Face Robot Learning Course.
 
 ## Table-of-Contents
 
-- [LeRobot's v0.4.0 Latest Major Updates!](#lerobots-v040-latest-major-updates)
+- [LeRobot v0.4.0: Super Charging OSS Robotics Learning](#lerobot-v040-super-charging-oss-robotics-learning)
+  - [TL;DR](#tldr)
   - [Table-of-Contents](#table-of-contents)
   - [Datasets: Ready for the Next Wave of Large-Scale Robot Learning](#datasets-ready-for-the-next-wave-of-large-scale-robot-learning)
     - [What's New in Datasets v3.0?](#whats-new-in-datasets-v30)
@@ -31,9 +36,7 @@ We're thrilled to announce a series of significant advancements across LeRobot, 
     - [Multi-GPU Training Made Easy](#multi-gpu-training-made-easy)
   - [Policies: Unleashing Open-World Generalization](#policies-unleashing-open-world-generalization)
     - [PI0 and PI0.5](#pi0-and-pi05)
-      - [What makes π₀.₅ revolutionary?](#what-makes-π-revolutionary)
     - [GR00T N1.5](#gr00t-n15)
-      - [What makes GR00T N1.5 a game-changer?](#what-makes-gr00t-n15-a-game-changer)
   - [Robots: A New Era of Hardware Integration with the Plugin System](#robots-a-new-era-of-hardware-integration-with-the-plugin-system)
     - [Key Benefits](#key-benefits)
     - [Reachy 2 Integration](#reachy-2-integration)
@@ -44,10 +47,10 @@ We're thrilled to announce a series of significant advancements across LeRobot, 
 
 
 ## Datasets: Ready for the Next Wave of Large-Scale Robot Learning
-We've completely overhauled our dataset infrastructure with **LeRobotDataset v3.0**, featuring a new chunked episode format and streaming capabilities. This is a game-changer for handling massive datasets like [OXE](https://huggingface.co/collections/lerobot/open-x-embodiment) and [Droid](https://huggingface.co/datasets/lerobot/droid_1.0.1), bringing unparalleled efficiency and scalability.
+We've completely overhauled our dataset infrastructure with **LeRobotDataset v3.0**, featuring a new chunked episode format and streaming capabilities. This is a game-changer for handling massive datasets like [OXE](https://huggingface.co/collections/lerobot/open-x-embodiment) (Open X Embodiment) and [Droid](https://huggingface.co/datasets/lerobot/droid_1.0.1), bringing unparalleled efficiency and scalability.
 
 ### What's New in Datasets v3.0?
-* Chunked Episodes for Massive Scale: Our new format supports datasets at the OXE-level, enabling unprecedented scalability.
+* Chunked Episodes for Massive Scale: Our new format supports datasets at the OXE-level (> 400GB), enabling unprecedented scalability.
 * Efficient Video Storage + Streaming: Enjoy faster loading times and seamless streaming of video data.
 * Unified Parquet Metadata: Say goodbye to scattered JSONs! All episode metadata is now stored in unified, structured Parquet files for easier management and access.
 * Faster Loading & Better Performance: Experience significantly reduced dataset initialization times and more efficient memory usage.
@@ -152,19 +155,17 @@ Check out the [documentation](https://huggingface.co/docs/lerobot/multi_gpu_trai
 ![groot-demo](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/lerobot-blog/release-v0.4.0/lerobot-libero-groot2-v040.gif)
 
 ### PI0 and PI0.5
-In a major milestone for open-source robotics, we've integrated **pi0** and **pi0.5** policies by Physical Intelligence into LeRobot! These Vision-Language-Action (VLA) models represent a significant leap towards addressing open-world generalization in robotics.
+In a major milestone for open-source robotics, we've integrated **pi0** and **pi0.5** policies by Physical Intelligence into LeRobot! These Vision-Language-Action (VLA) models represent a significant leap towards addressing open-world generalization in robotics. But what makes π₀.₅ revolutionary?
 
-#### What makes π₀.₅ revolutionary?
 * Open-World Generalization: Designed to adapt to entirely new environments and situations, generalizing across physical, semantic, and environmental levels.
 * Co-training on Heterogeneous Data: Learns from a diverse mix of multimodal web data, verbal instructions, subtask commands, and multi-environment robot data.
 * Physical Intelligence Collaboration: Huge thanks to the [Physical Intelligence team](https://huggingface.co/physical-intelligence) for their groundbreaking work!
 
-You can find the ported models on the Hugging Face Hub: [pi0.5_base](https://huggingface.co/lerobot/pi05_base), [pi0_base](https://huggingface.co/lerobot/pi0_base), and their Libero-tuned counterparts. For more details, checkout the [Physical Intelligence Reasearch](https://www.physicalintelligence.company/blog/pi05)
+You can find the models on the Hugging Face Hub: [pi0.5_base](https://huggingface.co/lerobot/pi05_base), [pi0_base](https://huggingface.co/lerobot/pi0_base), and their Libero-tuned counterparts. For more details, checkout the [Physical Intelligence Reasearch](https://www.physicalintelligence.company/blog/pi05)
 
 ### GR00T N1.5
-In another exciting development, we've integrated **NVIDIA's GR00T N1.5** into LeRobot, thanks to a fantastic collaboration with the NVIDIA robotics team! This open foundation model is a powerhouse for generalized robot reasoning and skills. As a cross-embodiment model, it takes multimodal input (like language and images) to perform complex manipulation tasks in diverse environments, marking another major leap in generalized robotics.
+In another exciting development, we've integrated **NVIDIA's GR00T N1.5** into LeRobot, thanks to a fantastic collaboration with the NVIDIA robotics team! This open foundation model is a powerhouse for generalized robot reasoning and skills. As a cross-embodiment model, it takes multimodal input (like language and images) to perform complex manipulation tasks in diverse environments, marking another major leap in generalized robotics. But what makes GR00T N1.5 a game-changer?
 
-#### What makes GR00T N1.5 a game-changer?
 * Generalized Reasoning & Skills: Designed as a cross-embodiment foundation model, GR00T N1.5 excels at generalized reasoning and manipulation tasks, with improved language-following ability.
 * Expansive Heterogeneous Training: It learns from a massive dataset combining real captured humanoid data, synthetic data generated by NVIDIA Isaac GR00T Blueprint, and internet-scale video data.
 * NVIDIA Collaboration: We're thrilled to partner with the [NVIDIA team](https://huggingface.co/nvidia) to bring this state-of-the-art model to the open-source LeRobot community!
@@ -182,6 +183,11 @@ Big news for hardware enthusiasts! We've launched a brand-new plugin system to r
 * Community-Friendly: Lowers the barrier to entry for community contributions, fostering a more collaborative environment.
 
 Learn how to create your own plugin in our [documentation](https://huggingface.co/docs/lerobot/integrate_hardware#using-your-own-lerobot-devices-).
+
+```bash
+pip install lerobot_teleoperator_my_awesome_teleop
+lerobot-teleoperate --teleop.type=my_awesome_teleop
+```
 
 ### Reachy 2 Integration
 Thanks to our new plugin system, we've also added [Reachy 2](https://www.pollen-robotics.com/reachy/) from Pollen Robotics to LeRobot! Reachy 2 is available for both real robot control and simulation, enabling you to experiment with teleoperation and autonomous demos right away.
