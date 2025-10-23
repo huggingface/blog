@@ -52,7 +52,7 @@ We've completely overhauled our dataset infrastructure with **LeRobotDataset v3.
 * Unified Parquet Metadata: Say goodbye to scattered JSONs! All episode metadata is now stored in unified, structured Parquet files for easier management and access.
 * Faster Loading & Better Performance: Experience significantly reduced dataset initialization times and more efficient memory usage.
 
-We've also provided a conversion script to easily migrate your existing v2.1 datasets to the new v3.0 format, ensuring a smooth transition. Read more about it in our [blog post](https://huggingface.co/blog/lerobot-datasets-v3). Open-source robotics keeps leveling up!
+We've also provided a conversion script to easily migrate your existing v2.1 datasets to the new v3.0 format, ensuring a smooth transition. Read more about it in our previous [blog post](https://huggingface.co/blog/lerobot-datasets-v3). Open-source robotics keeps leveling up!
 
 ### New Feature: Dataset Editing Tools!
 Working with LeRobot datasets just got a whole lot easier! We've introduced a powerful set of utilities for flexible dataset editing.
