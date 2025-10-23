@@ -213,7 +213,7 @@ The tutorial itself is hosted in a [Space](https://huggingface.co/spaces/lerobot
 
 Beyond these major features, this release is packed with numerous bug fixes, documentation improvements, updated dependencies, more examples and better infrastructure to make your experience with LeRobot smoother and more reliable.
 
-We want to extend a huge **thank you to everyone in the community** for your invaluable contributions, feedback, and support. We're incredibly excited about the future of open-source robotics and can't wait to show you what's next.
+We want to extend a huge **thank you to everyone in the community** for your invaluable contributions, feedback, and support. We're incredibly excited about the future of open-source robotics and can't wait to work with you on what's next!
 
 Stay tuned for more to come 🤗 Get started [here](https://github.com/huggingface/lerobot)!
 – The LeRobot team ❤️
