@@ -34,7 +34,7 @@ First things first: our changes are backwards compatible. You can still stream a
 from datasets import load_dataset
 
 # Stream a dataset instead of downloading it
-dataset = load_dataset("HuggingFaceM4/FineVision_full_shuffled", split="train", streaming=True)
+dataset = load_dataset("HuggingFaceM4/FineVisionMax", split="train", streaming=True)
 # Get the first example
 print(next(iter(dataset)))
 ```
