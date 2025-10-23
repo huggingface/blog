@@ -82,6 +82,6 @@ Join us at the PyTorch Conference on Oct 23 for a live demo and walkthrough of t
 
 👉 Try it out yourself - We created a comprehensive [notebook](https://colab.research.google.com/github/meta-pytorch/OpenEnv/blob/main/examples/OpenEnv_Tutorial.ipynb) that walks you through an end to end example and of course you can easily pip install the package via [PyPI](https://pypi.org/project/openenv-core/). This notebook walks you through the abstractions we’ve built, along with an example of how to use existing integrations and how to add yours - Try it out in Google Colab!
 
-👉 Checkout supporting platforms - Unsloth, TRL, [Lightning.AI](http://Lightning.AI)
+👉 Check out supporting platforms - Unsloth, TRL, [Lightning.AI](http://Lightning.AI)
 
 Cheers!
