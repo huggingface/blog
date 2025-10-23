@@ -47,7 +47,7 @@ Modern AI agents can act autonomously across thousands of tasks. However, a larg
 ## The Solution
 To supercharge this next wave of agentic development, Meta-PyTorch and Hugging Face are partnering to launch a Hub for Environments — a shared space where developers can build, share, and explore OpenEnv-compatible environments for both training and deployment.
 
-Starting next week developers can:
+Starting next week, developers can:
 - Visit the new [Environment Hub](https://huggingface.co/openenv) on Hugging Face where we will seed some initial environments
 - Interact with environments directly as a Human Agent
 - Enlist a model to solve tasks within the environment
