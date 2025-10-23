@@ -83,7 +83,7 @@ These tools streamline your workflow, allowing you to curate and optimize your r
 ## Simulation Environments: Expanding Your Training Grounds
 We're continuously expanding LeRobot's simulation capabilities to provide richer and more diverse training environments for your robotic policies.
 
-![libero-demo](https://huggingface.co/datasets/huggingface/documentation-images/blob/main/lerobot-blog/release-v0.4.0/lerobot-libero-groot-v040.gif)
+![libero-demo](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/lerobot-blog/release-v0.4.0/lerobot-libero-groot-v040.gif)
 
 ### LIBERO Support
 LeRobot now officially supports [LIBERO](https://libero-project.github.io/intro.html), one of the largest open benchmarks for Vision-Language-Action (VLA) policies, boasting over 130 tasks! This is a huge step toward building the go-to evaluation hub for VLAs, enabling easy integration and a unified setup for evaluating any VLA policy.
