@@ -149,7 +149,7 @@ Check out the [documentation](https://huggingface.co/docs/lerobot/multi_gpu_trai
 
 ## Policies: Unleashing Open-World Generalization
 
-![groot-demo](https://huggingface.co/datasets/huggingface/documentation-images/blob/main/lerobot-blog/release-v0.4.0/lerobot-libero-groot2-v040.gif)
+![groot-demo](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/lerobot-blog/release-v0.4.0/lerobot-libero-groot2-v040.gif)
 
 ### PI0 and PI0.5
 In a major milestone for open-source robotics, we've integrated **pi0** and **pi0.5** policies by Physical Intelligence into LeRobot! These Vision-Language-Action (VLA) models represent a significant leap towards addressing open-world generalization in robotics.
