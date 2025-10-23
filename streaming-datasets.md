@@ -122,5 +122,18 @@ These powerful new features are about to land on the main branches of the datase
 pip install --upgrade datasets huggingface_hub
 ```
 
+To celebrate this, we preconcatenated and shuffled all the data sources in FineVision into [FineVisionMax](https://huggingface.co/datasets/HuggingFaceM4/FineVisionMax). You can train a VLM with starting with:
+
+```python
+from datasets import load_dataset
+
+# Stream a dataset instead of downloading it
+dataset = load_dataset("HuggingFaceM4/FineVisionMax", split="train", streaming=True)
+# Get the first example
+print(next(iter(dataset)))
+```
+
+And you can see how we do it at scale in [nanoVLM](https://github.com/huggingface/nanoVLM)!
+
 Happy streaming! 🤗
 
