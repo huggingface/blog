@@ -39,7 +39,7 @@ Agentic environments define everything an agent needs to perform a task: the too
 These environments can be used for both training and deployment, and serve as the foundation for scalable agentic development.
 
 ## The Problem
-Modern AI agents can act autonomously across thousands of tasks. Yet for those tasks to actually run, a large language model isn’t enough — it needs access to the right tools. Exposing millions of tools directly to a model isn’t reasonable (or safe). Instead, we need **agentic environments** — secure, semantically clear sandboxes that define exactly what’s required for a task, and nothing more. These environments handle the critical details:
+Modern AI agents can act autonomously across thousands of tasks. However, a large language model isn’t enough to get those tasks to actually run — it needs access to the right tools. Exposing millions of tools directly to a model isn’t reasonable (or safe). Instead, we need **agentic environments** — secure, semantically clear sandboxes that define exactly what’s required for a task, and nothing more. These environments handle the critical details:
 - Clear semantics about what a task needs
 - Sandboxed execution and safety guarantees
 - Seamless access to authenticated tools and APIs
