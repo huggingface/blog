@@ -52,7 +52,7 @@ Starting next week, developers can:
 - Interact with environments directly as a Human Agent
 - Enlist a model to solve tasks within the environment
 - Inspect which tools the environment exposes and how it defines its observations
-Every environment uploaded to the Hub that conforms to the OpenEnv specification automatically gains this functionality — making it fast and easy to validate and iterate before running full RL training.
+- Every environment uploaded to the Hub that conforms to the OpenEnv specification automatically gains this functionality — making it fast and easy to validate and iterate before running full RL training.
 
 Alongside this, we’re releasing the [OpenEnv 0.1 Spec (RFC)](https://github.com/meta-pytorch/OpenEnv/blob/main/rfcs/002-env-spec.md) to gather community feedback and help shape the standard.
 
