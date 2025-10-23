@@ -62,7 +62,7 @@ In the current state of the repository, environment creators can create environm
 - RFC 001: Establish architecture for how the core components like Environment, Agent, Task, etc. are related
 - RFC 002: Propose basic env interface, packaging, isolation and communication w/ environment.
 - RFC 003: Propose encapsulation of MCP tools through environment abstraction and isolation boundaries
-- RFC 004: Extent tool support to cover unified action schema covering tool calling agents as well as CodeAct paradigm.
+- RFC 004: Extend tool support to cover unified action schema covering tool calling agents as well as CodeAct paradigm.
 
 ## Use cases
 - RL Post training - pull in environments across collections and use them to train RL agents with TRL, TorchForge+Monarch, VeRL etc.
