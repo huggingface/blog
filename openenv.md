@@ -5,6 +5,9 @@ authors:
 - user: spisakjo
   guest: true
   org: openenv
+- user: darktex
+  guest: true
+  org: openenv
 - user: zkwentz
   guest: true
   org: openenv
