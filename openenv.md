@@ -32,7 +32,7 @@ authors:
 
 # Building the Open Agent Ecosystem Together: Introducing OpenEnv
 
-With tools like [TRL](https://github.com/huggingface/trl), [TorchForge](https://github.com/meta-pytorch/torchforge) and [verl](https://github.com/volcengine/verl), we’ve shown how we can scale AI across heterogeneous compute and complex orchestration. But compute is only one side of the coin. The other side is the developer — the people and tools that make agentic systems possible. That’s why Meta and Hugging Face are partnering to launch the OpenEnv Hub — a shared, open community hub for agentic environments.
+With tools like [TRL](https://github.com/huggingface/trl), [TorchForge](https://github.com/meta-pytorch/torchforge) and [verl](https://github.com/volcengine/verl), we’ve shown how we can scale AI across complex compute infrastructure. But compute is only one side of the coin. The other side is the developer community — the people and tools that make agentic systems possible. That’s why Meta and Hugging Face are partnering to launch the OpenEnv Hub — a shared and open community hub for agentic environments.
 
 Agentic environments define everything an agent needs to perform a task: the tools, APIs, credentials, and execution context — and nothing else. They bring clarity, safety, and sandboxed control to agent behavior.
 
