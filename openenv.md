@@ -64,7 +64,7 @@ In the current state of the repository, environment creators can create environm
 ## Use cases
 - RL Post training - pull in environments across collections and use them to train RL agents with TRL, TorchForge+Monarch, VeRL etc.
 - Environment creation - build an environment and ensure that it interops with popular RL tools in the ecosystem, share with collaborators, etc.
-- Reproduction of SOTA methods -
+- Reproduction of SOTA methods - easily replicate methods like those from Meta's [Code World Model](https://huggingface.co/papers/2510.02387) by integrating environments for agentic coding and software engineering.
 - Deployment - users can create and environment, train on the same environment and then use the same for inference too (the full pipeline)
 
 ## What’s Next
@@ -72,9 +72,13 @@ This is just the beginning. We’re integrating the OpenEnv Hub with Meta’s ne
 Join us at the PyTorch Conference on Oct 23 for a live demo and walkthrough of the spec, and stay tuned for our upcoming community meetup on environments, RL post-training, and agentic development.
 
 👉 Explore the [OpenEnv Hub](https://huggingface.co/openenv) on Hugging Face and start building the environments that will power the next generation of agents. 
-👉  Checkout the 0.1 spec which can be found implemented in the [OpenEnv project](https://github.com/meta-pytorch/OpenEnv) → we welcome ideas and contributions to making it better! 
+
+👉 Checkout the 0.1 spec which can be found implemented in the [OpenEnv project](https://github.com/meta-pytorch/OpenEnv) → we welcome ideas and contributions to making it better! 
+
 👉 Engage on the [Discord](https://discord.gg/YsTYBh6PD9) and talk with the community about RL, environments and agentic development
+
 👉 Try it out yourself - We created a comprehensive [notebook](https://colab.research.google.com/github/meta-pytorch/OpenEnv/blob/main/examples/OpenEnv_Tutorial.ipynb) that walks you through an end to end example and of course you can easily pip install the package via [PyPI](https://pypi.org/project/openenv-core/). This notebook walks you through the abstractions we’ve built, along with an example of how to use existing integrations and how to add yours - Try it out in Google Colab!
+
 👉 Checkout supporting platforms - Unsloth, TRL, [Lightning.AI](http://Lightning.AI)
 
 Cheers!
