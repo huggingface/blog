@@ -349,6 +349,8 @@ If you want to learn more about OCR and vision language models, we encourage you
 
 - [Vision Language Models Explained](https://huggingface.co/blog/vlms)  
 - [Vision Language Models 2025 Update](https://huggingface.co/blog/vlms-2025)  
-- [PP-OCR-v5](https://huggingface.co/blog/baidu/ppocrv5)  
+- [Blog on PP-OCR-v5](https://huggingface.co/blog/baidu/ppocrv5)
+- [Tutorial: Fine-tuning Kosmos2.5 on Grounded OCR](https://huggingface.co/merve/smol-vision/blob/main/Grounded_Fine_tuning.ipynb)
+- [Tutorial: Fine-tuning Florence-2 on DocVQA](https://huggingface.co/merve/smol-vision/blob/main/Fine_tune_Florence_2.ipynb)
 - [SOTA OCR on-device with Core ML and dots.ocr](https://huggingface.co/blog/dots-ocr-ne)
 
