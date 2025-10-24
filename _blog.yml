@@ -6799,6 +6799,15 @@
     - quantization
     - inference
 
+- local: lerobot-release-v040
+  title: "LeRobot v0.4.0: Super Charging OSS Robotics Learning"
+  author: imstevenpmwork
+  thumbnail: /blog/assets/lerobot-release-v040/thumbnail.png
+  date: Oct 24, 2025
+  tags:
+    - lerobot
+    - robotics
+
 - local: gpt-oss-on-intel-xeon
   title: "Google Cloud C4 Brings a 70% TCO improvement on GPT OSS with Intel and Hugging Face"
   author: Jiqing
