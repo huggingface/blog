@@ -11,13 +11,11 @@ authors:
 
 ## TLDR
 
-> [!TIP]
-> We boosted `load_dataset('dataset', streaming=True)`.
+> We boosted `load_dataset('dataset', streaming=True)`, streaming datasets without downloading them with one line of code!
 > 
 > Start training on multi-TB datasets immediately, without complex setups, downloading, no "disk out of space", or 429 “stop requesting!” errors.   
 > It's super fast! Outrunning our local SSDs when training on 64xH100 with 256 workers downloading data.
->
-> → 100× fewer requests, → 10× faster data resolution → 2x sample/sec, → 0 worker crashes at 256 concurrent workers.
+> We've improved streaming to have 100x fewer requests, → 10× faster data resolution → 2x sample/sec, → 0 worker crashes at 256 concurrent workers.
 
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/streaming-dark.gif" width="800" height="auto" alt="Visualization of a dataset being streamed">
 
