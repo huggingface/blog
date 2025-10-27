@@ -47,7 +47,7 @@ Thousands of AI developers around the world use `datasets` daily; they should ju
 
 Streaming was a lifesaver to quickly understand a dataset, but to train models, people were usually downloading the data locally, or using a cloud storage service such as S3. That's what we were doing for training [SmolVLM](https://huggingface.co/blog/smolvlm2), we had all of our data on S3 and were streaming directly from it.
 
-But we wanted to change that. We started experimenting with streaming directly from the Hub when we were developing [nanoVLM](https://github.com/huggingface/nanoVLM) and started uncovering the issues: our test run generated over 100,000 requests in under a minute, which got our IP blocked by the Hub! 😅 The issue comes from every `DataLoader` worker initializing the dataset independently. As we dug deeper, we found that this creates a storm of redundant requests, many of which are unnecessary. Our changes ultimately reduced startup requests by a factor of 100. In total, our improvements delivered:
+We wanted to change that, so we decided to use streaming from the Hub when we were developing [nanoVLM](https://github.com/huggingface/nanoVLM). Soon we found a big issue: our test run generated over 100,000 requests in under a minute, which got our IP blocked by the Hub! 😅 This happened because every DataLoader worker was initializing the dataset independently. As we dug deeper, we found that this creates a storm of redundant requests, many of which are unnecessary. Our changes ultimately reduced startup requests by a factor of 100. In total, our improvements delivered:
 
 - Data files resolution time: 10x faster
 - Startup requests: Up to 100x more efficient
