@@ -6886,3 +6886,18 @@
     - announcement
     - open-source
     - hub
+  
+- local: streaming-datasets
+  title: "Streaming datasets at scale"
+  author: andito
+  thumbnail: /blog/assets/streaming_datasets/streaming_datasets.png
+  date: Oct 27, 2025
+  tags:
+    - datasets
+    - xet
+    - hub
+    - parquet
+    - streaming
+    - scale
+    - dataloaders
+    - storage
