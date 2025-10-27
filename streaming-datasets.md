@@ -1,5 +1,5 @@
 ---
-title: Streaming datasets: 100x More Efficient
+title: "Streaming datasets: 100x More Efficient"
 thumbnail: /blog/assets/streaming_datasets/streaming_datasets.png
 authors:
 - user: andito
@@ -20,7 +20,7 @@ authors:
 
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/streaming-dark.gif" width="800" height="auto" alt="Visualization of a dataset being streamed">
 
-## Streaming datasets: 100x More Efficient
+# Streaming datasets: 100x More Efficient
 
 Loading data, especially at the terabyte scale, is a major pain in any machine learning workflow. We suffered this while training [SmolLM3](https://huggingface.co/blog/smollm3), at one point we had to wait 3 hours before each run to download enough data. 
 
