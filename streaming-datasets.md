@@ -92,11 +92,11 @@ Hugging Face uses Xet: a dedupe-based storage which enables fast deduped uploads
 
 Deduplication for Parquet is enabled through [Parquet Content Defined Chunking (CDC)](https://huggingface.co/blog/parquet-cdc). Thanks to Parquet CDC and Xet deduplication, uploading datasets on Hugging Face is faster than on any traditional remote storage.
 
-This is supported by our `pyspark_huggingface` package, a Spark Data Source to read/write HF datasets. It includes Parquet CDC and Xet support. Accelerating data transfers on HF dramatically.
+This is supported by our `pyspark_huggingface` package, a Spark Data Source to read/write HF datasets. It includes Parquet CDC and Xet support, accelerating data transfers on HF dramatically.
 
 ## Need a custom streaming pipeline ?
 
-Some data files formats are not supported in `datasets`, and sometimes there is a need for more control, so we made it easy to build a custom streaming pipeline. This was already helpful in the LeRobot library to sample video frames and in the `WebDataset` library to stream TAR archives from Hugging Face.
+Some data file formats are not supported in `datasets`, and sometimes there is a need for more control, so we made it easy to build custom streaming pipelines. This has been battle-tested in the LeRobot library to sample video frames, and in the `WebDataset` library to stream TAR archives.
 
 We improved the [HfFileSystem](https://huggingface.co/docs/huggingface_hub/guides/hf_file_system) in the `huggingface_hub` library to efficiently read files from remote Hugging Face dataset repositories and stream data:
 
@@ -114,7 +114,7 @@ Passing a `HfFileSystem` to a torch `DataLoader` reuses the cached results from 
 
 ## Push streaming to the limit
 
-We're now using these streaming enhancements in nanoVLM to train the next generation of SmolVLMs. With these tweaks, we achieved better performance from streaming than from training on our cluster's standard hard disks. In fact, streaming is now as fast as reading the data from local SSDs. This data transfer to SSD was the process that used to delay our trainings by three-hours! For more details, check out our GitHub.
+We're now using these streaming enhancements in nanoVLM to train the next generation of SmolVLMs. With these tweaks, we achieve better performance from streaming than from training on our cluster's hierarchical hard disk setup. In fact, streaming is now as fast as reading the data from local SSDs! Previously, transferring data to local SSDs was the process that used to delay our trainings by three-hours. For more details, check out our GitHub.
 
 
 ## Get Started and See the Difference
