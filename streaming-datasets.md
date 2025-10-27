@@ -119,13 +119,13 @@ We're now using these streaming enhancements in nanoVLM to train the next genera
 
 ## Get Started and See the Difference
 
-These powerful new features are about to land on the main branches of the datasets and huggingface_hub libraries. To take advantage of them, simply update your libraries and check out [the documentation](https://huggingface.co/docs/datasets/stream):
+These powerful new features landed in the datasets and huggingface_hub libraries. To take advantage of them, simply update your libraries and check out [the documentation](https://huggingface.co/docs/datasets/stream):
 
 ```Bash
 pip install --upgrade datasets huggingface_hub
 ```
 
-To celebrate this, we preconcatenated and shuffled all the data sources in FineVision into [FineVisionMax](https://huggingface.co/datasets/HuggingFaceM4/FineVisionMax). You can train a VLM with starting with:
+To celebrate this, we preconcatenated and shuffled all the data sources in FineVision into [FineVisionMax](https://huggingface.co/datasets/HuggingFaceM4/FineVisionMax). You can use this single combined dataset to train your VLM – no need to handle multiple datasets manually!
 
 ```python
 from datasets import load_dataset
