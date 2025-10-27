@@ -59,13 +59,13 @@ But we wanted to change that. We started experimenting with streaming directly f
 
 So, what changed? We focused on two phases: startup and streaming.
 
-1. Startup⚡️
+**1. Startup⚡️**
 The initial resolution of data files was creating a ton of requests. We made two major changes:
 - Persistent Data Files Cache: We are now caching the list of data files across all DataLoader workers. The first worker resolves the file list from the Hub. All others workers read directly from this local cache, virtually eliminating startup requests and slashing resolution time. No more request storms!
 - Optimized Resolution Logic: We also minimized the number of API calls required for that initial worker to fetch the file list. We now bundle the necessary requests as efficiently as possible, reducing latency even further. 
 
-2. Streaming 🏎️
-To improve throughput during streaming, we've introduced two new features:
+**2. Streaming 🏎️**
+To improve throughput during streaming itself, we've introduced two new features:
 - Prefetching for Parquet: We enabled prefetching for Parquet datasets. This means that while your model is processing the current chunk of data, the datasets library is already fetching the next chunk in the background. This keeps the data pipeline full and ensures your GPU is never left waiting for data.
 - Configurable Buffering: Advanced users can now fine-tune streaming performance for their specific hardware and network setup. We've exposed options to configure the buffer's block size and the prefetch volume, giving you maximum control to optimize I/O.
 
