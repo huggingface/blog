@@ -6888,7 +6888,7 @@
     - hub
   
 - local: streaming-datasets
-  title: "Streaming datasets at scale"
+  title: "Streaming datasets: 100x More Efficient"
   author: andito
   thumbnail: /blog/assets/streaming_datasets/streaming_datasets.png
   date: Oct 27, 2025
