@@ -25,7 +25,9 @@ authors:
 
 Loading data, especially at the terabyte scale, is a major pain in any machine learning workflow. We suffered this while training [SmolLM3](https://huggingface.co/blog/smollm3), at one point we had to wait 3 hours before each run to download enough data. 
 
-We already allowed for streaming in `datasets`, but it wasn't optimized for large scale trainings. That changes today. We spent a few months improving the backend, focusing on streaming datasets to make it faster and more efficient. But, what did we do exactly?
+Streaming has always been possible in the `datasets` library, but large scale training with massive datasets remained a challenge. That changes today 🔥. We spent a few months improving the backend, focusing on streaming datasets to make it faster and more efficient.
+
+What did we do exactly? ⤵️
 
 ## Streaming: The Same Easy API
 
@@ -40,13 +42,13 @@ dataset = load_dataset("HuggingFaceM4/FineVisionMax", split="train", streaming=T
 print(next(iter(dataset)))
 ```
 
-Thousands of AI developers around the world use our `datasets` daily, and they should only get an improved performance with zero extra work on their end.
+Thousands of AI developers around the world use `datasets` daily; they should just get improved performance with zero extra work.
 
 ## The Challenge: Streaming at Scale
 
 Streaming was a lifesaver to quickly understand a dataset, but to train models, people were usually downloading the data locally, or using a cloud storage service such as S3. That's what we were doing for training [SmolVLM](https://huggingface.co/blog/smolvlm2), we had all of our data on S3 and were streaming directly from it.
 
-But we wanted to change that. We started experimenting with streaming directly from the Hub with [nanoVLM](https://github.com/huggingface/nanoVLM) and started uncovering the issues: our test run generated over 100,000 requests in under a minute, which got our IP blocked by the Hub! 😅 The issue comes from every DataLoader worker initializing the dataset independently. As we dug deeper, we found that this creates a storm of redundant requests, many of which are unnecessary. Our changes ultimately reduced startup requests by a factor of 100. In total, our improvements delivered:
+But we wanted to change that. We started experimenting with streaming directly from the Hub when we were developing [nanoVLM](https://github.com/huggingface/nanoVLM) and started uncovering the issues: our test run generated over 100,000 requests in under a minute, which got our IP blocked by the Hub! 😅 The issue comes from every `DataLoader` worker initializing the dataset independently. As we dug deeper, we found that this creates a storm of redundant requests, many of which are unnecessary. Our changes ultimately reduced startup requests by a factor of 100. In total, our improvements delivered:
 
 - Data files resolution time: 10x faster
 - Startup requests: Up to 100x more efficient
