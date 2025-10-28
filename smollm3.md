@@ -168,7 +168,7 @@ We will release this data mixture along with our full training scripts to enable
 
 ## **Off-policy model alignment with Anchored Preference Optimization (APO)**
 
-After the SFT step, we performed a round of model alignment using a combination of the [Tulu3 preference dataset]([http://](https://huggingface.co/datasets/allenai/llama-3.1-tulu-3-8b-preference-mixture) for non-reasoning mode and new synthetic preference pairs for reasoning mode, that we generated from Qwen3-32B and Qwen3-0.6B. To ensure full coverage of all domains in the non-thinking dataset, we generated complementing thinking mode preference pairs. We selected generations from Qwen3-32B as “chosen” and responses from Qwen3-0.6B as “rejected” for alignment with Anchored Preference Optimization.
+After the SFT step, we performed a round of model alignment using a combination of the [Tulu3 preference dataset](https://huggingface.co/datasets/allenai/llama-3.1-tulu-3-8b-preference-mixture) for non-reasoning mode and new synthetic preference pairs for reasoning mode, that we generated from Qwen3-32B and Qwen3-0.6B. To ensure full coverage of all domains in the non-thinking dataset, we generated complementing thinking mode preference pairs. We selected generations from Qwen3-32B as “chosen” and responses from Qwen3-0.6B as “rejected” for alignment with Anchored Preference Optimization.
 
 <p align="center">
  <img src="https://huggingface.co/datasets/HuggingFaceTB/images/resolve/main/smollm3/image%20(24).png" alt=""  style="width: 80%; height: auto;"><br>
