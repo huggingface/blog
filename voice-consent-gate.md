@@ -3,13 +3,14 @@ title: "Voice Cloning with Consent"
 thumbnail: /blog/assets/voice-consent-gate/
 authors:
 - user: meg
-- user: luciekaffee
+- user: frimelle
 ---
 
 
 
 # Voice Cloning with Consent
 
+_In this blog post, we introduce the idea of a 'voice consent gate' to support voice cloning with consent. We provide [an example Space](https://huggingface.co/spaces/society-ethics/RepeatAfterMe) and [accompanying code](https://huggingface.co/spaces/society-ethics/RepeatAfterMe/tree/main) to start the ball rolling on the idea._
 
 <img src="https://huggingface.co/spaces/society-ethics/RepeatAfterMe/resolve/main/assets/voice_consent_gate.png" alt="Line-drawing/clipart of a gate, where the family name says Consent" width="50%"/>
 
@@ -30,7 +31,7 @@ We provide a basic demo of this idea below:
 
 ## Ethics in Practice: Consent as System Infrastructure
 
-The voice consent gate is a bit of infrastructure we're exploring that provides methods for ethical principles like **consent** to be embedded directly into AI system workflows. By requiring consent to be spoken and recognized before proceeding, the gate turns an ethical principle into a computational condition. This creates a traceable, auditable interaction: An AI model can only run after an unambiguous act of consent.
+The voice consent gate is a piece of infrastructure we're exploring that provides methods for ethical principles like **consent** to be embedded directly into AI system workflows. By requiring consent to be spoken and recognized before proceeding, the gate turns an ethical principle into a computational condition. This creates a traceable, auditable interaction: An AI model can only run after an unambiguous act of consent.
 
 Such design choices matter beyond voice cloning. They illustrate how AI systems can be built to respect autonomy by default, and how transparency and consent can be made functional, not just declarative.
 
