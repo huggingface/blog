@@ -555,7 +555,7 @@ You've seen how easy it is to fetch and use optimized kernels with the Hugging F
     ```
     Ensure you have a compatible PyTorch version and gpu driver installed.
 
-2.  **Browse the Hub:** Explore available kernels on the Hugging Face Hub under the [`kernels` tag](https://huggingface.co/models?other=kernel) or within organizations like [`kernels-community`](https://huggingface.co/kernels-community). Look for kernels relevant to your operations (activations, attention, normalization like LayerNorm/RMSNorm, etc.).
+2.  **Browse the Hub:** Explore available kernels on the Hugging Face Hub under the [`kernels` tag](https://huggingface.co/models?other=kernels) or within organizations like [`kernels-community`](https://huggingface.co/kernels-community). Look for kernels relevant to your operations (activations, attention, normalization like LayerNorm/RMSNorm, etc.).
 
 3.  **Experiment:** Try replacing components in your own models. Use `get_kernel("user-or-org/kernel-name")`. **Crucially, inspect the loaded kernel object** (e.g., `print(dir(loaded_kernel))`) or check its Hub repository documentation to understand how to correctly call its functions/methods and what parameters (weights, biases, inputs, epsilon) it expects.
 
