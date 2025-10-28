@@ -6808,6 +6808,15 @@
     - lerobot
     - robotics
 
+- local: lerobotxnvidia-healthcare
+  title: "Building a Healthcare Robot from Simulation to Deployment with NVIDIA Isaac"
+  author: imstevenpmwork
+  thumbnail: /blog/assets/lerobotxnvidia-healthcare/thumbnail.png
+  date: Oct 29, 2025
+  tags:
+    - lerobot
+    - robotics
+
 - local: gpt-oss-on-intel-xeon
   title: "Google Cloud C4 Brings a 70% TCO improvement on GPT OSS with Intel and Hugging Face"
   author: Jiqing
