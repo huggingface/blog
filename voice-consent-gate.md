@@ -3,7 +3,7 @@ title: "Voice Cloning with Consent"
 thumbnail: /blog/assets/voice-consent-gate/
 authors:
 - user: meg
-- user: luciekaffee
+- user: frimelle
 ---
 
 
