@@ -174,7 +174,7 @@ After the SFT step, we performed a round of model alignment using a combination 
  <img src="https://huggingface.co/datasets/HuggingFaceTB/images/resolve/main/smollm3/image%20(24).png" alt=""  style="width: 80%; height: auto;"><br>
 </p>
 
-[Anchored Preference Optimization](https://arxiv.org/abs/2408.06266) (APO) is a variant of [Direct Preference Optimization](https://arxiv.org/abs/2305.18290) (DPO) that provides a more stable optimization objective. In DPO, the reward function  r_θ(x,y) measures the log-ratio of the probability of sequence during training compared to model at the start of training, the reference model:
+[Anchored Preference Optimization](https://arxiv.org/abs/2408.06266) (APO) is a variant of [Direct Preference Optimization](https://arxiv.org/abs/2305.18290) (DPO) that provides a more stable optimization objective. In DPO, the reward function  r_θ(x,y) measures the log-ratio of the probability of the sequence during training compared to model at the start of training, the reference model:
 
 <p align="center">
  <img src="https://huggingface.co/datasets/HuggingFaceTB/images/resolve/main/smollm3/image%20(25).png" alt=""  style="width: 30%; height: auto;"><br>
