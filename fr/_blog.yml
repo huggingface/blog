@@ -1,9 +1,6 @@
 # "thumbnail" attribute can be GIFs while in the blogpost itself it's better if it's a simple bitmap (because it will be used as a social thumbnail)
 # make sure to optimize your "thumbnail" img with tinypng.com
 - local: open-llm-leaderboard-mmlu
-  title: "Que se passe-t-il avec l'Open LLM Leaderboard ?"
-  author: clefourrier
-  thumbnail: /blog/assets/evaluating-mmlu-leaderboard/thumbnail.png
   date: June 23, 2023
   tags:
     - community
@@ -14,9 +11,6 @@
     - leaderboard
 
 - local: open-llm-leaderboard-drop
-  title: "Open LLM Leaderboard : plongée dans le jeu de données DROP"
-  author: clefourrier
-  thumbnail: /blog/assets/evaluating-mmlu-leaderboard/thumbnail.png
   date: December 1, 2023
   tags:
     - community
@@ -27,10 +21,7 @@
     - leaderboard
 
 - local: evaluation-structured-outputs
-  title: "Améliorer la stabilité des instructions grâce à la génération structurée"
-  author: willkurt
   guest: true
-  thumbnail: /blog/assets/evaluating-mmlu-leaderboard/thumbnail.png
   date: Apr 30, 2024
   tags:
     - evaluation
