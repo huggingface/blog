@@ -29,9 +29,6 @@ for (const lang of ["", "zh/"]) {
 
     z.array(z.object({
       local: z.enum([...localMdFiles] as [string, ...string[]]),
-      title: z.string(),
-      thumbnail: z.string().optional(),
-      author: z.string(),
       guest: z.boolean().optional(),
       date: z.string(),
       tags: z.array(z.string()),
