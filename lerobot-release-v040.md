@@ -1,5 +1,5 @@
 ---
-title: "LeRobot v0.4.0: Super Charging OSS Robotics Learning" 
+title: "LeRobot v0.4.0: Supercharging OSS Robot Learning" 
 thumbnail: /blog/assets/lerobot-release-v040/thumbnail.png
 authors:
 - user: imstevenpmwork
@@ -13,7 +13,7 @@ authors:
 - user: thomwolf
 ---
 
-# LeRobot v0.4.0: Super Charging OSS Robotics Learning
+# LeRobot v0.4.0: Supercharging OSS Robot Learning
 
 We're thrilled to announce a series of significant advancements across LeRobot, designed to make open-source robot learning more powerful, scalable, and user-friendly than ever before! From revamped datasets to versatile editing tools, new simulation environments, and a groundbreaking plugin system for hardware, LeRobot is continuously evolving to meet the demands of cutting-edge embodied AI.
 
@@ -22,7 +22,7 @@ LeRobot v0.4.0 delivers a major upgrade for open-source robotics, introducing sc
 
 ## Table-of-Contents
 
-- [LeRobot v0.4.0: Super Charging OSS Robotics Learning](#lerobot-v040-super-charging-oss-robotics-learning)
+- [LeRobot v0.4.0: Supercharging OSS Robot Learning](#lerobot-v040-super-charging-oss-robotics-learning)
   - [TL;DR](#tldr)
   - [Table-of-Contents](#table-of-contents)
   - [Datasets: Ready for the Next Wave of Large-Scale Robot Learning](#datasets-ready-for-the-next-wave-of-large-scale-robot-learning)
