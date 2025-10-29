@@ -67,9 +67,6 @@ There are a few options for doing this, and we’d love to hear further ideas. F
 - Alternatively, it’s possible to modify the code we provide in the demo to model the speaker’s voice using a variety of _different_ uploaded voice files that the speaker is consenting to – for example, when providing consent for using online recordings. Prompts and consent phrases should be altered accordingly.
 - It’s also possible to save the consent audio to be used by a given system, for example, when the speaker is consenting to have their voice used for arbitrary utterances in the future. This can be done using the `huggingface_hub` upload capability. [Read how to do this here](https://huggingface.co/docs/huggingface_hub/en/guides/upload). Again, prompts and consent phrases for the speaker to say should account for this context of use.
 
-[Check our demo out!](https://huggingface.co/spaces/society-ethics/RepeatAfterMe) 
-
-
 > [!TIP]
 > ### [Check our demo out here!](https://huggingface.co/spaces/society-ethics/RepeatAfterMe) 
 > You can copy the code to suit your own use.
