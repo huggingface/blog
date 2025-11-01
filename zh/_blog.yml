@@ -2292,7 +2292,7 @@
     - research
 
 - local: smolvla
-  title: "SmolVLA：让机器人更懂'看听说做'的轻量化解决方案"
+  title: SmolVLA：让机器人更懂'看听说做'的轻量化解决方案
   author: danaaubakirova
   thumbnail: /blog/assets/smolvla/SmolVLA_thumbnail.png
   date: Jun 3, 2025
@@ -2318,7 +2318,7 @@
     - community
 
 - local: smollm3
-  title: "SmolLM3: 支持多语言与长上下文推理的小模型"
+  title: 'SmolLM3: 支持多语言与长上下文推理的小模型'
   author: loubnabnl
   thumbnail: /blog/assets/smollm3/image.png
   date: July 8, 2025
@@ -2330,7 +2330,7 @@
     - research
 
 - local: zerogpu-aoti
-  title: "ZeroGPU Spaces 加速实践：PyTorch 提前编译全解析"
+  title: ZeroGPU Spaces 加速实践：PyTorch 提前编译全解析
   author: cbensimon
   thumbnail: /blog/assets/zerogpu-aoti/thumbnail.png
   date: Sep 2, 2025
@@ -2345,7 +2345,7 @@
     - image-to-video
 
 - local: faster-transformers
-  title: "来自OpenAI gpt-oss的技巧，你🫵在transformers中也可以使用"
+  title: 来自OpenAI gpt-oss的技巧，你🫵在transformers中也可以使用
   author: ariG23498
   thumbnail: /blog/assets/faster-transformers/thumbnail.png
   date: Sep 11, 2025
@@ -2354,3 +2354,22 @@
     - pytorch
     - optimization
     - guide
+
+- local: lerobot-release-v040
+  title: LeRobot v0.4.0：全面提升开源机器人的学习能力
+  author: imstevenpmwork
+  thumbnail: /blog/assets/lerobot-release-v040/thumbnail.png
+  date: Oct 24, 2025
+  tags:
+    - lerobot
+    - robotics
+
+- local: aisheets-unlock-images
+  title: 用 AI Sheets 解锁图像的力量
+  author: dvilasuero
+  thumbnail: /blog/assets/aisheets/aisheets-image.png
+  date: Oct 21, 2025
+  tags:
+    - datasets
+    - open-source
+    - vision
