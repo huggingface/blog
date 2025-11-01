@@ -2363,3 +2363,13 @@
   tags:
     - lerobot
     - robotics
+
+- local: aisheets-unlock-images
+  title: 用 AI Sheets 解锁图像的力量
+  author: dvilasuero
+  thumbnail: /blog/assets/aisheets/aisheets-image.png
+  date: Oct 21, 2025
+  tags:
+    - datasets
+    - open-source
+    - vision
