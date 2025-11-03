@@ -10,6 +10,10 @@ authors:
 > [!TIP]
 > **TL;DR:** It's easier than ever to generate detailed pictures with state-of-the-art AI models by connecting Claude to Hugging Face Spaces. This article describes how and why, and introduces recently launched models which excel at producing natural images or images that include text.
 
+
+> [!WARNING]
+> Update October 2025: Following an update to Anthropic's [Connector Directory Policy](https://support.claude.com/en/articles/11697096-anthropic-mcp-directory-policy), you will need to use the "Add custom connector" option and set the `Remote MCP server URL` to https://huggingface.co/mcp?login to use Image Generation and other Gradio Spaces from Claude. 
+
 ## Introduction
 
 Recent advances in image generation models have improved their ability to produce realistic outputs and incorporate high quality text. It's easier than ever to use these models by connecting them directly to Claude. 

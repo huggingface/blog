@@ -46,7 +46,7 @@ That’s why we’re very happy to introduce Gaia2, the follow-up to the agentic
 
 Here comes Gaia2, a follow up to GAIA, going way beyond it in terms of capabilities studied! 
 
-Where GAIA was read-only, Gaia2 is now a read-and-write benchmark, focusing on interactive behavior and complexity management. Agents are now evaluated not only on search and retrieval, but also on instruction following over ambiguous or time-sensitive queries, in a noisy and environment with controlled failures - reflecting real-world conditions more than any other simulated environment. We want to test how agents manage tools or APIs that sometimes do not work, plan successions of actions with very specific time frames, and adapt to new events - a whole new range of complexity!
+Where GAIA was read-only, Gaia2 is now a read-and-write benchmark, focusing on interactive behavior and complexity management. Agents are now evaluated not only on search and retrieval, but also on instruction following over ambiguous or time-sensitive queries, in a noisy environment with controlled failures - reflecting real-world conditions more than any other simulated environment. We want to test how agents manage tools or APIs that sometimes do not work, plan successions of actions with very specific time frames, and adapt to new events - a whole new range of complexity!
 
 
 To do this, we use the following task groups (thanks to 1000 brand new human-created scenarios):
@@ -125,7 +125,7 @@ You can also easily customise the environment, by 1) **connecting your tools** (
 
 Here are several use cases that we’ve used ARE for:
 - **Vibe-check any agent** on real or simulated data, to study a variety of setups, with their own rules, tools, content, and verifications
-- Test agent **tool calling and orchestration capabilites**, either with local apps or MCP tools
+- Test agent **tool calling and orchestration capabilities**, either with local apps or MCP tools
 - Generate your own tool-calling trace to **fine-tune tool calling models**
 - Easily gather and **reproduce existing agentic benchmarks** in a unified framework
 - Debug and **study agent to agent interactions on the fly** within the user interface 

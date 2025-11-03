@@ -1258,7 +1258,7 @@
 
 - local: stable_diffusion_jax
   title: "Stable Diffusion in JAX/Flax 🚀"
-  author: pcuenca
+  author: pcuenq
   thumbnail: /blog/assets/108_stable_diffusion_jax/thumbnail.png
   date: Oct 13, 2022
   tags:
@@ -1449,7 +1449,7 @@
 
 - local: diffusers-coreml
   title: "Using Stable Diffusion with Core ML on Apple Silicon"
-  author: pcuenca
+  author: pcuenq
   thumbnail: /blog/assets/diffusers_coreml/thumbnail.png
   date: December 1, 2022
   tags:
@@ -4334,7 +4334,7 @@
 
 - local: keras-hub-integration
   title: "Announcing New Hugging Face and KerasHub integration"
-  thumbnail: /blog/assets/keras-nlp-integration/thumbnail.png
+  thumbnail: /blog/assets/keras-hub-integration/thumbnail.png
   author: ariG23498
   date: Jul 10, 2024
   tags:
@@ -6728,3 +6728,199 @@
     - agentic
     - community
     - open-source
+
+- local: swift-transformers
+  title: "Swift Transformers Reaches 1.0 — and Looks to the Future"
+  author: pcuenq
+  thumbnail: /blog/assets/swift-transformers/swift-transformers-thumb.png
+  date: Sep 26, 2025
+  tags:
+    - swift
+    - transformers
+    - swift-transformers
+    - coreml
+    - apple
+
+- local: vibegame
+  title: "VibeGame: Exploring Vibe Coding Games"
+  author: dylanebert
+  thumbnail: /blog/assets/vibegame/thumbnail.png
+  date: Sep 29, 2025
+  tags:
+    - guide
+    - open-source
+    - generation
+    - agents
+    - web
+
+- local: intel-qwen3-agent
+  title: "Accelerating Qwen3-8B Agent on Intel® Core™ Ultra with Depth-Pruned Draft Models"
+  author: imargulis
+  thumbnail: /blog/assets/intel-qwen3-agent/smolagents-1300-650.png
+  date: Sep 29, 2025
+  tags:
+    - llm
+    - intel
+    - nlp
+    - guide
+    - hub
+
+- local: rteb
+  title: "Introducing RTEB: A New Standard for Retrieval Evaluation"
+  author: fzliu
+  guest: true
+  thumbnail: /blog/assets/rteb/thumbnail.png
+  date: Oct 1, 2025
+  tags:
+    - nlp
+    - evaluation
+    - retrieval
+    - benchmark
+    - community
+    - research
+
+- local: dots-ocr-ne
+  title: "SOTA OCR on-device with Core ML and dots.ocr"
+  author: FL33TW00D-HF
+  thumbnail: /blog/assets/dots-ocr-ne/dots_header.png
+  date: Oct 2, 2025
+  tags:
+    - coreml
+    - apple
+
+- local: openvino-vlm
+  title: "Get your VLM running in 3 simple steps on Intel CPUs"
+  author: ezelanza
+  thumbnail: /blog/assets/optimum_intel/optimum_openvino_thumbnail.png
+  date: Oct 15, 2025
+  tags:
+    - intel
+    - optimum
+    - quantization
+    - inference
+
+- local: lerobot-release-v040
+  title: "LeRobot v0.4.0: Supercharging OSS Robot Learning"
+  author: imstevenpmwork
+  thumbnail: /blog/assets/lerobot-release-v040/thumbnail.png
+  date: Oct 24, 2025
+  tags:
+    - lerobot
+    - robotics
+
+- local: lerobotxnvidia-healthcare
+  title: "Building a Healthcare Robot from Simulation to Deployment with NVIDIA Isaac"
+  author: imstevenpmwork
+  thumbnail: /blog/assets/lerobotxnvidia-healthcare/thumbnail.png
+  date: Oct 29, 2025
+  tags:
+    - lerobot
+    - robotics
+
+- local: gpt-oss-on-intel-xeon
+  title: "Google Cloud C4 Brings a 70% TCO improvement on GPT OSS with Intel and Hugging Face"
+  author: Jiqing
+  thumbnail: /blog/assets/optimum_intel/intel_thumbnail.png
+  date: Oct 16, 2025
+  tags:
+    - intel
+    - cpu
+    - gpt-oss
+    - open-source
+    - LLM
+
+- local: aisheets-unlock-images
+  title: "Unlock the power of images with AI Sheets"
+  author: dvilasuero
+  thumbnail: /blog/assets/aisheets/aisheets-image.png
+  date: Oct 21, 2025
+  tags:
+    - datasets
+    - open-source
+    - vision
+
+- local: ocr-open-models
+  title: "Supercharge your OCR Pipelines with Open Models"
+  author: merve
+  thumbnail: /blog/assets/ocr-open-models/thumbnail.png
+  date: Oct 21, 2025
+  tags:
+    - ocr
+    - vision
+    - multimodal
+    - vlm
+    - open-source
+
+- local: sentence-transformers-joins-hf
+  title: "Sentence Transformers is joining Hugging Face!"
+  author: tomaarsen
+  thumbnail: /blog/assets/sentence-transformers-joins-hf/thumbnail.png
+  date: Oct 22, 2025
+  tags:
+    - announcement
+    - nlp
+    - open-source
+    - community
+
+- local: virustotal
+  title: "Hugging Face and VirusTotal collaborate to strengthen AI security"
+  author: XciD
+  thumbnail: /blog/assets/virustotal/thumbnail.png
+  date: October 22, 2025
+  tags:
+    - hub
+    - partnerships
+    - security
+
+- local: openenv
+  title: "Building the Open Agent Ecosystem Together: Introducing OpenEnv"
+  author: spisakjo
+  thumbnail: /blog/assets/openenv/thumbnail.png
+  date: Oct 23, 2025
+  tags:
+    - announcement
+    - open-source
+    - community
+    - agents
+    - rl
+
+- local: huggingface-hub-v1
+  title: "huggingface_hub v1.0: Five Years of Building the Foundation of Open Machine Learning"
+  author: Wauplin
+  thumbnail: /blog/assets/huggingface-hub-v1/thumbnail.png
+  date: Oct 27, 2025
+  tags:
+    - huggingface_hub
+    - python
+    - announcement
+    - open-source
+    - hub
+  
+- local: streaming-datasets
+  title: "Streaming datasets: 100x More Efficient"
+  author: andito
+  thumbnail: /blog/assets/streaming_datasets/streaming_datasets.png
+  date: Oct 27, 2025
+  tags:
+    - datasets
+    - xet
+    - hub
+    - parquet
+    - streaming
+    - scale
+    - dataloaders
+    - storage
+
+- local: voice-consent-gate
+  title: "Voice Cloning with Consent"
+  author: meg
+  thumbnail: /blog/assets/voice-consent-gate/thumbnail.png
+  date: Oct 28, 2025
+  tags:
+    - ethics
+    - guide
+    - speech
+    - audio
+    - text-to-speech
+    - voice
+    - voice-cloning
