@@ -54,7 +54,7 @@ for (const lang of ["", "zh/"]) {
 
     const frontmatterSchema = z.object({
       title: z.string(),
-      thumbnail: z.string().regex(/\.(jpg|jpeg|gif|png)$/i, "Thumbnail must end with .jpg, .jpeg, .gif, or .png"),
+      thumbnail: z.string().regex(/\.(jpg|jpeg|gif|png|webp)$/i, "Thumbnail must end with .jpg, .jpeg, .gif, .png, or .webp"),
       authors: z.array(z.object({
         user: z.string(),
       })),
