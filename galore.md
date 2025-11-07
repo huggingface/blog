@@ -1,5 +1,5 @@
 ---
-title: "GaLore: Advancing Large Model Training on Consumer-grade Hardware"
+title: 'GaLore: Advancing Large Model Training on Consumer-grade Hardware'
 authors:
 - user: Titus-von-Koeller
 - user: jiaweizhao
@@ -13,6 +13,7 @@ authors:
 - user: amyeroberts
 - user: smangrul
 - user: BenjaminB
+thumbnail: /blog/assets/galore_introduction/thumbnail.png
 ---
 
 # GaLore: Advancing Large Model Training on Consumer-grade Hardware

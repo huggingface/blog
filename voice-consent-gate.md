@@ -1,6 +1,6 @@
 ---
-title: "Voice Cloning with Consent" 
-thumbnail: /blog/assets/voice-consent-gate/
+title: Voice Cloning with Consent
+thumbnail: /blog/assets/voice-consent-gate/thumbnail.png
 authors:
 - user: meg
 - user: frimelle

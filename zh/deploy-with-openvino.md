@@ -24,6 +24,7 @@ translators:
 - user: Zipxuan
 - user: zhongdongy
   proofreader: true
+thumbnail: /blog/assets/deploy-with-openvino/openvino_genai_workflow.png
 ---
 
 # 使用 Optimum-Intel 和 OpenVINO GenAI 优化和部署模型

@@ -1,8 +1,8 @@
 ---
 title: 'Few-shot learning in practice: GPT-Neo and the 🤗 Accelerated Inference API'
-# thumbnail: /blog/assets/22_few_shot_learning_gpt_neo_and_inference_api/thumbnail.png
 authors:
 - user: philschmid
+thumbnail: /blog/assets/22_few_shot_learning_gpt_neo_and_inference_api/few-shot-prompt.png
 ---
 
 # Few-shot learning in practice: GPT-Neo and the 🤗 Accelerated Inference API

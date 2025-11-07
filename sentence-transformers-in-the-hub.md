@@ -1,8 +1,9 @@
 ---
-title: "Sentence Transformers in the Hugging Face Hub"
+title: Sentence Transformers in the Hugging Face Hub
 authors:
 - user: osanseviero
 - user: nreimers
+thumbnail: /blog/assets/95_training_st_models/thumbnail.png
 ---
 
 # Sentence Transformers in the Hugging Face Hub

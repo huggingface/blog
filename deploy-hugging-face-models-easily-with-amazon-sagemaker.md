@@ -1,6 +1,8 @@
 ---
-title: 'Deploy Hugging Face models easily with Amazon SageMaker'
+title: Deploy Hugging Face models easily with Amazon SageMaker
 thumbnail: /blog/assets/17_the_partnership_amazon_sagemaker_and_hugging_face/thumbnail.png
+authors:
+- user: philschmid
 ---
 
 <img src="/blog/assets/17_the_partnership_amazon_sagemaker_and_hugging_face/cover.png" alt="hugging-face-and-aws-logo" class="w-full">

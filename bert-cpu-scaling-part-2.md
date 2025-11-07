@@ -1,5 +1,6 @@
 ---
-title: "Scaling up BERT-like model Inference on modern CPU  - Part 2"
+title: Scaling up BERT-like model Inference on modern CPU  - Part 2
+thumbnail: /blog/assets/35_bert_cpu_scaling_part_2/openmp.png
 authors:
 - user: echarlaix
 - user: jeffboudier

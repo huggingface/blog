@@ -20,6 +20,7 @@ authors:
   guest: true
   org: Intel
 - user: echarlaix
+thumbnail: /blog/assets/deploy-with-openvino/openvino_genai_workflow.png
 ---
 
 # Optimize and deploy models with Optimum-Intel and OpenVINO GenAI

@@ -1,5 +1,5 @@
 ---
-title: "Letting Large Models Debate: The First Multilingual LLM Debate Competition"
+title: 'Letting Large Models Debate: The First Multilingual LLM Debate Competition'
 authors:
 - user: xuanricheng
   guest: true
@@ -35,6 +35,7 @@ authors:
   org: Huggingface
 - user: clefourrier
   org: Huggingface
+thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_flageval.png
 ---
 
 # Letting Large Models Debate: The First Multilingual LLM Debate Competition
