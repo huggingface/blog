@@ -1,10 +1,11 @@
 ---
-title: "Introducing Optimum: The Optimization Toolkit for Transformers at Scale"
+title: 'Introducing Optimum: The Optimization Toolkit for Transformers at Scale'
 authors:
 - user: mfuntowicz
 - user: echarlaix
 - user: michaelbenayoun
 - user: jeffboudier
+thumbnail: /blog/assets/25_hardware_partners_program/carbon_inc_quantizer.png
 ---
 
 

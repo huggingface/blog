@@ -61,8 +61,13 @@ for (const lang of ["", "zh/"]) {
     });
 
     for (const mdFile of localMdFiles) {
+      // Skip special files
+      if (mdFile === "README.md" || mdFile === "CONTRIBUTING.md") {
+        continue;
+      }
+      
       const content = Deno.readTextFileSync("../" + lang + mdFile);
-      const frontmatterMatch = content.match(/^---\n([\s\S]*?)\n---/);
+      const frontmatterMatch = content.match(/^---\r?\n([\s\S]*?)\r?\n---/);
       
       if (!frontmatterMatch) {
         throw new Error(`No frontmatter found in ${lang}${mdFile}`);

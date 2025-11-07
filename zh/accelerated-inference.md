@@ -1,10 +1,12 @@
 ---
-title: "如何成功将 🤗 API 客户的 transformer 模型推理速度加快 100 倍"
+title: 如何成功将 🤗 API 客户的 transformer 模型推理速度加快 100 倍
 thumbnail: /blog/assets/09_accelerated_inference/thumbnail.png
 translators:
 - user: MatrixYao
 - user: zhongdongy
   proofreader: true
+authors:
+- user: Narsil
 ---
 
 # 如何成功将 🤗 API 客户的 transformer 模型推理速度加快 100 倍 

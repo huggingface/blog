@@ -1,6 +1,8 @@
 ---
-title: "Director of Machine Learning Insights [Part 4]"
+title: Director of Machine Learning Insights [Part 4]
 thumbnail: /blog/assets/78_ml_director_insights/part4.png
+authors:
+- user: Violette
 ---
 
 

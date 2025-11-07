@@ -1,4 +1,3 @@
-
 ---
 title: "Open Preference Dataset for Text-to-Image Generation by the 🤗 Community"
 thumbnail: /blog/assets/image_preferences/thumbnail.png

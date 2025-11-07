@@ -1,6 +1,8 @@
 ---
 title: 'The Partnership: Amazon SageMaker and Hugging Face'
 thumbnail: /blog/assets/17_the_partnership_amazon_sagemaker_and_hugging_face/thumbnail.png
+authors:
+- user: philschmid
 ---
 
 <img src="/blog/assets/17_the_partnership_amazon_sagemaker_and_hugging_face/cover.png" alt="hugging-face-and-aws-logo" class="w-full">

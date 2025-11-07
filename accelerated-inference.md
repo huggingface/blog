@@ -1,6 +1,8 @@
 ---
-title: "How we sped up transformer inference 100x for 🤗 API customers"
+title: How we sped up transformer inference 100x for 🤗 API customers
 thumbnail: /blog/assets/09_accelerated_inference/thumbnail.png
+authors:
+- user: Narsil
 ---
 
 # How we sped up transformer inference 100x for 🤗 API customers

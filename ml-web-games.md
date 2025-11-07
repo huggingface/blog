@@ -1,4 +1,3 @@
-
 ---
 title: "Making ML-powered web games with Transformers.js" 
 thumbnail: /blog/assets/ml-web-games/thumbnail.png

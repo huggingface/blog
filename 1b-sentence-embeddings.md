@@ -1,5 +1,6 @@
 ---
-title: "Train a Sentence Embedding Model with 1B Training Pairs"
+title: Train a Sentence Embedding Model with 1B Training Pairs
+thumbnail: /blog/assets/32_1b_sentence_embeddings/model.png
 authors:
 - user: asi
   guest: true

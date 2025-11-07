@@ -1,4 +1,3 @@
-
 ---
 title: "Fixing Gradient Accumulation" 
 thumbnail: /blog/assets/gradient_accumulation/gradient_accumulation.png

@@ -1,6 +1,8 @@
 ---
 title: Introducing Pull Requests and Discussions 🥳
 thumbnail: /blog/assets/76_community_update/thumbnail.png
+authors:
+- user: victor
 ---
 
 # Introducing Pull Requests and Discussions 🥳

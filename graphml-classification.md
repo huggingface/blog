@@ -1,6 +1,8 @@
 ---
-title: "Graph Classification with Transformers" 
+title: Graph Classification with Transformers
 thumbnail: /blog/assets/125_intro-to-graphml/thumbnail_classification.png
+authors:
+- user: clefourrier
 ---
 
 # Graph classification with Transformers
