@@ -44,4 +44,36 @@ for (const lang of ["", "zh/"]) {
       label: z.string(),
     })).parse(parse(Deno.readTextFileSync("../" + relativePath)));
   }
+
+  {
+    console.log(`Validating ${lang}blog post frontmatter`);
+
+    const localMdFiles = [...Deno.readDirSync("../" + lang)].map((entry) =>
+      entry.name
+    ).filter((name) => name.endsWith(".md"));
+
+    const frontmatterSchema = z.object({
+      title: z.string(),
+      thumbnail: z.string().regex(/\.(jpg|jpeg|gif|png)$/i, "Thumbnail must end with .jpg, .jpeg, .gif, or .png"),
+      authors: z.array(z.object({
+        user: z.string(),
+      })),
+    });
+
+    for (const mdFile of localMdFiles) {
+      const content = Deno.readTextFileSync("../" + lang + mdFile);
+      const frontmatterMatch = content.match(/^---\n([\s\S]*?)\n---/);
+      
+      if (!frontmatterMatch) {
+        throw new Error(`No frontmatter found in ${lang}${mdFile}`);
+      }
+
+      try {
+        frontmatterSchema.parse(parse(frontmatterMatch[1]));
+      } catch (error) {
+        console.error(`Error in ${lang}${mdFile}:`, error);
+        throw error;
+      }
+    }
+  }
 }
