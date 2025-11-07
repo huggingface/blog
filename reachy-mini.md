@@ -36,7 +36,7 @@ Reachy Mini measures 11“/28cm in height and 6.3“/16cm in width (approximatel
 | Compute                    | <center>❌<br>Compatible with Mac and Linux<br>(Windows soon)</center>                  | <center>✔️<br>Raspberry Pi 4</center>             |
 | Wifi                       |    <center>❌ </center>                                | <center>✔️</center>|
 | Power supply               | <center>Wired</center> | <center>Wired & Battery</center>                       |
-| Microphones                | <center>2</center>                                     | <center>4</center>                                     |
+| Microphones                | <center>4</center>                                     | <center>4</center>                                     |
 | Speaker 5W                    | <center>✔️</center>                                     | <center>✔️</center>                                     |
 | Camera (wide angle)        | <center>✔️</center>                                     | <center>✔️</center>                                     |
 | Accelerometer              |       <center> ❌  </center>                            | <center>✔️</center>                                     |
