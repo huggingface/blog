@@ -16,7 +16,7 @@ authors:
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a>
 
-**This guide shows how you can fine-tune Segformer, a state-of-the-art semantic segmentation model. Our goal is to build a model for a pizza delivery robot, so it can see where to drive and recognize obstacles 🍕🤖. We'll first label a set of sidewalk images on [Segments.ai](https://segments.ai?utm_source=hf&utm_medium=colab&utm_campaign=sem_seg). Then we'll fine-tune a pre-trained SegFormer model by using [`🤗 transformers`](https://huggingface.co/transformers), an open-source library that offers easy-to-use implementations of state-of-the-art models. Along the way, you'll learn how to work with the Hugging Face Hub, the largest open-source catalog of models and datasets.**
+**This guide shows how you can fine-tune Segformer, a state-of-the-art semantic segmentation model. Our goal is to build a model for a pizza delivery robot, so it can see where to drive and recognize obstacles 🍕🤖. We'll first use an available segmentation dataset from the 🤗 hub. Then we'll fine-tune a pre-trained SegFormer model by using [`🤗 transformers`](https://huggingface.co/transformers), an open-source library that offers easy-to-use implementations of state-of-the-art models. Along the way, you'll learn how to work with the Hugging Face Hub, the largest open-source catalog of models and datasets.**
 
 Semantic segmentation is the task of classifying each pixel in an image. You can see it as a more precise way of classifying an image. It has a wide range of use cases in fields such as medical imaging and autonomous driving. For example, for our pizza delivery robot, it is important to know exactly where the sidewalk is in an image, not just whether there is a sidewalk or not.
 
@@ -41,118 +41,15 @@ huggingface-cli login
 
 ## 1. Create/choose a dataset
 
-The first step in any ML project is assembling a good dataset. In order to train a semantic segmentation model, we need a dataset with semantic segmentation labels. We can either use an existing dataset from the Hugging Face Hub, such as [ADE20k](https://huggingface.co/datasets/scene_parse_150), or create our own dataset.
+The first step in any ML project is assembling a good dataset. In order to train a semantic segmentation model, we need a dataset with semantic segmentation labels. We can either use an existing dataset from the Hugging Face Hub, such as [ADE20k](https://huggingface.co/datasets/scene_parse_150), or create our own dataset by annotating images with corresponding segmentation maps.
 
 For our pizza delivery robot, we could use an existing autonomous driving dataset such as [CityScapes](https://www.cityscapes-dataset.com/) or [BDD100K](https://bdd100k.com/). However, these datasets were captured by cars driving on the road. Since our delivery robot will be driving on the sidewalk, there will be a mismatch between the images in these datasets and the data our robot will see in the real world. 
 
-We don't want our delivery robot to get confused, so we'll create our own semantic segmentation dataset using images captured on sidewalks. We'll show how you can label the images we captured in the next steps. If you just want to use our finished, labeled dataset, you can skip the ["Create your own dataset"](#create-your-own-dataset) section and continue from ["Use a dataset from the Hub"](#use-a-dataset-from-the-hub).
-
-### Create your own dataset
-
-To create your semantic segmentation dataset, you'll need two things: 
-
-1. images covering the situations your model will encounter in the real world
-2. segmentation labels, i.e. images where each pixel represents a class/category.
-
-We went ahead and captured a thousand images of sidewalks in Belgium. Collecting and labeling such a dataset can take a long time, so you can start with a smaller dataset and expand it if the model does not perform well enough.
-
-<figure class="image table text-center m-0 w-full">
-    <medium-zoom background="rgba(0,0,0,.7)" alt="Example images from the sidewalk dataset" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/56_fine_tune_segformer/sidewalk-examples.png"></medium-zoom>
-    <figcaption>Some examples of the raw images in the sidewalk dataset.</figcaption>
-</figure>
-
-To obtain segmentation labels, we need to indicate the classes of all the regions/objects in these images. This can be a time-consuming endeavour, but using the right tools can speed up the task significantly. For labeling, we'll use [Segments.ai](https://segments.ai?utm_source=hf&utm_medium=colab&utm_campaign=sem_seg), since it has smart labeling tools for image segmentation and an easy-to-use Python SDK.
-
-#### Set up the labeling task on Segments.ai
-
-First, create an account at [https://segments.ai/join](https://segments.ai/join?utm_source=hf&utm_medium=colab&utm_campaign=sem_seg). 
-Next, create a new dataset and upload your images. You can either do this from the web interface or via the Python SDK (see the [notebook](https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/56_fine_tune_segformer.ipynb)).
-
-
-#### Label the images
-
-Now that the raw data is loaded, go to [segments.ai/home](https://segments.ai/home) and open the newly created dataset. Click "Start labeling" and create segmentation masks. You can use the ML-powered superpixel and autosegment tools to label faster.
-
-<figure class="image table text-center m-0">
-    <video 
-        alt="Labeling a sidewalk image on Segments.ai"
-        style="max-width: 70%; margin: auto;"
-        autoplay loop autobuffer muted playsinline
-    >
-      <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/56_fine_tune_segformer/sidewalk-labeling-crop.mp4" poster="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/56_fine_tune_segformer/sidewalk-labeling-crop-poster.png" type="video/mp4">
-  </video>
-  <figcaption>Tip: when using the superpixel tool, scroll to change the superpixel size, and click and drag to select segments.</figcaption>
-</figure>
-
-#### Push the result to the Hugging Face Hub
-
-When you're done labeling, create a new dataset release containing the labeled data. You can either do this on the releases tab on Segments.ai, or programmatically through the SDK as shown in the notebook. 
-
-Note that creating the release can take a few seconds. You can check the releases tab on Segments.ai to check if your release is still being created.
-
-Now, we'll convert the release to a [Hugging Face dataset](https://huggingface.co/docs/datasets/package_reference/main_classes.html#datasets.Dataset) via the Segments.ai Python SDK. If you haven't set up the Segments Python client yet, follow the instructions in the "Set up the labeling task on Segments.ai" section of the [notebook](https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/56_fine_tune_segformer.ipynb#scrollTo=9T2Jr9t9y4HD). 
-
-*Note that the conversion can take a while, depending on the size of your dataset.*
-
-
-```python
-from segments.huggingface import release2dataset
-
-release = segments_client.get_release(dataset_identifier, release_name)
-hf_dataset = release2dataset(release)
-```
-
-If we inspect the features of the new dataset, we can see the image column and the corresponding label. The label consists of two parts: a list of annotations and a segmentation bitmap. The annotation corresponds to the different objects in the image. For each object, the annotation contains an `id` and a `category_id`. The segmentation bitmap is an image where each pixel contains the `id` of the object at that pixel. More information can be found in the [relevant docs](https://docs.segments.ai/reference/sample-and-label-types/label-types#segmentation-labels).
-
-For semantic segmentation, we need a semantic bitmap that contains a `category_id` for each pixel. We'll use the `get_semantic_bitmap` function from the Segments.ai SDK to convert the bitmaps to semantic bitmaps. To apply this function to all the rows in our dataset, we'll use [`dataset.map`](https://huggingface.co/docs/datasets/package_reference/main_classes#datasets.Dataset.map). 
-
-
-```python
-from segments.utils import get_semantic_bitmap
-
-def convert_segmentation_bitmap(example):
-    return {
-        "label.segmentation_bitmap":
-            get_semantic_bitmap(
-                example["label.segmentation_bitmap"],
-                example["label.annotations"],
-                id_increment=0,
-            )
-    }
-
-
-semantic_dataset = hf_dataset.map(
-    convert_segmentation_bitmap,
-)
-```
-
-You can also rewrite the `convert_segmentation_bitmap` function to use batches and pass `batched=True` to `dataset.map`. This will significantly speed up the mapping, but you might need to tweak the `batch_size` to ensure the process doesn't run out of memory.
-
-
-The SegFormer model we're going to fine-tune later expects specific names for the features. For convenience, we'll match this format now. Thus, we'll rename the `image` feature to `pixel_values` and the `label.segmentation_bitmap` to `label` and discard the other features.
-
-
-```python
-semantic_dataset = semantic_dataset.rename_column('image', 'pixel_values')
-semantic_dataset = semantic_dataset.rename_column('label.segmentation_bitmap', 'label')
-semantic_dataset = semantic_dataset.remove_columns(['name', 'uuid', 'status', 'label.annotations'])
-```
-
-We can now push the transformed dataset to the Hugging Face Hub. That way, your team and the Hugging Face community can make use of it. In the next section, we'll see how you can load the dataset from the Hub.
-
-
-```python
-hf_dataset_identifier = f"{hf_username}/{dataset_name}"
-
-semantic_dataset.push_to_hub(hf_dataset_identifier)
-```
+We don't want our delivery robot to get confused, so we have created our own semantic segmentation dataset using images captured on sidewalks. It's available at [segments/sidewalk-semantic](https://huggingface.co/datasets/segments/sidewalk-semantic). This can be done using annotation platforms like [CVAT](https://www.cvat.ai/) or[Segments.ai](https://segments.ai/).
 
 ### Use a dataset from the Hub
 
-If you don't want to create your own dataset, but found a suitable dataset for your use case on the Hugging Face Hub, you can define the identifier here. 
-
-For example, you can use the full labeled sidewalk dataset. Note that you can check out the examples [directly in your browser](https://huggingface.co/datasets/segments/sidewalk-semantic).
-
+We'll load the full labeled sidewalk dataset here. Note that you can check out the examples [directly in your browser](https://huggingface.co/datasets/segments/sidewalk-semantic). 
 
 ```python
 hf_dataset_identifier = "segments/sidewalk-semantic"
@@ -449,7 +346,7 @@ We introduced you to some useful tools along the way, such as:
 
 
 *   [Segments.ai](https://segments.ai) for labeling your data
-*   [🤗 datasets](https://huggingface.co/docs/datasets/) for creating and sharing a dataset
+*   [🤗 datasets](https://huggingface.co/docs/datasets/) for loading and sharing a dataset
 *   [🤗 transformers](https://huggingface.co/transformers) for easily fine-tuning a state-of-the-art segmentation model
 *   [Hugging Face Hub](https://huggingface.co/docs/hub/main) for sharing our dataset and model, and for creating an inference widget for our model
 
