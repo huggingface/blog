@@ -12,9 +12,9 @@ authors:
 
 Today, we are happy to announce a new and deeper partnership with Google Cloud, to enable companies to build their own AI with open models.
 
-“_Google has made some of the most impactful contributions to open AI, from the OG transformer to the Gemma models. I believe in a future where all companies will build and customize their own AI. With this new strategic partnership, we’re making it easy to do on Google Cloud._” says Jeff Boudier, at Hugging Face.
+“Google has made some of the most impactful contributions to open AI, from the OG transformer to the Gemma models. I believe in a future where all companies will build and customize their own AI. With this new strategic partnership, we’re making it easy to do on Google Cloud.” says Jeff Boudier, at Hugging Face.
 
-“_Hugging Face has been the driving force enabling companies large and small all over the world to access, use and customize now more than 2 million open models, and we’ve been proud to contribute over 1,000 of our models to the community_”, says Ryan J. Salva, Senior Director of Product Management at Google Cloud. “_Together we will make Google Cloud the best place to build with open models._”
+“Hugging Face has been the driving force enabling companies large and small all over the world to access, use and customize now more than 2 million open models, and we’ve been proud to contribute over 1,000 of our models to the community”, says Ryan J. Salva, Senior Director of Product Management at Google Cloud. “Together we will make Google Cloud the best place to build with open models.”
 
 ## A Partnership for Google Cloud customers
 
