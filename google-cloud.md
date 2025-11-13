@@ -43,7 +43,8 @@ We will ensure all the fruits of our product and engineering collaboration becom
 TPUs, Google custom AI accelerator chips now in their seventh generation, have been steadily improving in performance and software stack maturity. We want to make sure Hugging Face users can fully benefit from the current and the next generations of TPUs when they build AI with open models. We are excited to make TPUs as easy to use as GPUs for Hugging Face models, thanks to native support in our libraries.
 
 Additionally, this new partnership will enable Hugging Face to leverage Google industry-leading security technology to make the millions of open models on Hugging Face more secure. Powered by [Google Threat Intelligence](https://cloud.google.com/security/products/threat-intelligence) and [Mandiant](https://www.mandiant.com/), this joint effort aims to secure models, datasets and Spaces as you use the Hugging Face Hub daily.
-Building the open future of AI together
+
+## Building the open future of AI together
 
 We want to see a future where every company can build their own AI with open models, and control and host it within their own secure infrastructure. We are excited to make this future happen with Google Cloud, and our deep collaboration with Google will accelerate this vision, whether you are using Vertex Model Garden, GKE, Cloud Run or Hugging Face Inference Endpoints. 
 
