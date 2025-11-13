@@ -8,6 +8,8 @@ authors:
 
 # Building for an Open Future - our new partnership with Google Cloud
 
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/google-cloud/google%20cloud%20blogpost%20title.png">
+
 Today, we are happy to announce a new and deeper partnership with Google Cloud, to enable companies to build their own AI with open models.
 
 “_Google has made some of the most impactful contributions to open AI, from the OG transformer to the Gemma models. I believe in a future where all companies will build and customize their own AI_” says Jeff Boudier, at Hugging Face. “_With this new strategic partnership, we will make it easy to do on Google Cloud._”
@@ -19,6 +21,8 @@ Today, we are happy to announce a new and deeper partnership with Google Cloud, 
 Google Cloud customers use open models from Hugging Face in many of its leading AI services. In Vertex AI, the most popular open models are ready to deploy in a couple clicks within Model Garden. Customers who want greater control over their AI infrastructure can find a similar model library available in GKE AI/ML, or use pre-configured environments  maintained by Hugging Face. Customers also run AI inference workloads with Cloud Run GPUs, enabling serverless open model deployments. 
 
 The common thread: we work with Google Cloud to build seamless experiences fully leveraging the unique capabilities of each service to offer choice to the customers.
+
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/google-cloud/google-cloud-partnership.png">
 
 ## The Gateway to Open Models - A Fast Lane for Google Cloud Customers
 
@@ -32,6 +36,8 @@ This CDN Gateway will cache Hugging Face models and datasets directly on Google 
 
 Hugging Face [Inference Endpoints](https://endpoints.huggingface.co/) is the easiest way to go from model to deployment in just a couple clicks. Through this deepened partnership we will bring the unique capabilities and cost performance of Google Cloud to Hugging Face customers, starting with Inference Endpoints. Expect new, newer instances available and price drops!
 
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/google-cloud/inference-endpoints-google-cloud.png">
+
 We will ensure all the fruits of our product and engineering collaboration become easily available to the 10 million AI Builders on Hugging Face. Going from a model page to deploying on Vertex Model Garden or GKE should only take a couple steps. Taking a private model securely hosted in an Enterprise organization on Hugging Face should be as easy as working with public models.
 
 TPUs, Google custom AI accelerator chips now in their seventh generation, have been steadily improving in performance and software stack maturity. We want to make sure Hugging Face users can fully benefit from the current and the next generations of TPUs when they build AI with open models. We are excited to make TPUs as easy to use as GPUs for Hugging Face models, thanks to native support in our libraries.
@@ -42,3 +48,5 @@ Building the open future of AI together
 We want to see a future where every company can build their own AI with open models, and control and host it within their own secure infrastructure. We are excited to make this future happen with Google Cloud, and our deep collaboration with Google will accelerate this vision, whether you are using Vertex Model Garden, GKE, Cloud Run or Hugging Face Inference Endpoints. 
 
 Is there something you want us to create or improve thanks to our partnership with Google? Let us know in the comments!
+
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/google-cloud/mcface-billion-model-served-compressed.png">
