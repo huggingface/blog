@@ -34,7 +34,7 @@ This CDN Gateway will cache Hugging Face models and datasets directly on Google 
 
 ## A partnership for Hugging Face customers
 
-Hugging Face [Inference Endpoints](https://endpoints.huggingface.co/) is the easiest way to go from model to deployment in just a couple clicks. Through this deepened partnership we will bring the unique capabilities and cost performance of Google Cloud to Hugging Face customers, starting with Inference Endpoints. Expect new, newer instances available and price drops!
+Hugging Face [Inference Endpoints](https://endpoints.huggingface.co/) is the easiest way to go from model to deployment in just a couple clicks. Through this deepened partnership we will bring the unique capabilities and cost performance of Google Cloud to Hugging Face customers, starting with Inference Endpoints. Expect more and newer instances available as well as price drops!
 
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/google-cloud/inference-endpoints-google-cloud.png">
 
