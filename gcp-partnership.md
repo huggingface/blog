@@ -10,6 +10,8 @@ authors:
 
 ![Hugging Face and Google partner for open AI collaboration](/blog/assets/173_gcp-partnership/thumbnail.jpg)
 
+> [!TIP]
+> 11/13/2025 Update: we announced a [new and deeper partnership with Google Cloud](https://huggingface.co/blog/google-cloud) to enable companies to build their own AI with open models!
 
 At Hugging Face, we want to enable all companies to build their own AI, leveraging open models and open source technologies. Our goal is to build an open platform, making it easy for data scientists, machine learning engineers and developers to access the latest models from the community, and use them within the platform of their choice.
 
