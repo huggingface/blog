@@ -46,7 +46,7 @@ Additionally, this new partnership will enable Hugging Face to leverage Google i
 
 ## Building the open future of AI together
 
-We want to see a future where every company can build their own AI with open models, and control and host it within their own secure infrastructure. We are excited to make this future happen with Google Cloud, and our deep collaboration with Google will accelerate this vision, whether you are using Vertex Model Garden, GKE, Cloud Run or Hugging Face Inference Endpoints. 
+We want to see a future where every company can build their own AI with open models and host it within their own secure infrastructure, with full control. We are excited to make this future happen with Google Cloud. Our deep collaboration will accelerate this vision, whether you are using Vertex AI Model Garden, Google Kubernetes Engine, Cloud Run or Hugging Face Inference Endpoints.
 
 Is there something you want us to create or improve thanks to our partnership with Google? Let us know in the comments!
 
