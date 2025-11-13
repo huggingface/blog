@@ -28,7 +28,7 @@ The common thread: we work with Google Cloud to build seamless experiences fully
 
 Usage of Hugging Face by Google Cloud customers has grown 10x over the last 3 years, and today, this translates into tens of petabytes of model downloads every month, in billions of requests. 
 
-To make sure Google Cloud customers have the best experience building with models and datasets from Hugging Face, we are working together to create a CDN Gateway for Hugging Face repositories built on top of Hugging Face Xet optimized storage and data transfer technologies, and of Google Cloud advanced storage and networking capabilities. 
+To make sure Google Cloud customers have the best experience building with models and datasets from Hugging Face, we are working together to create a CDN Gateway for Hugging Face repositories built on top of both Hugging Face Xet optimized storage and data transfer technologies, and Google Cloud advanced storage and networking capabilities. 
 
 This CDN Gateway will cache Hugging Face models and datasets directly on Google Cloud to significantly reduce downloading times, and strengthen model supply chain robustness for Google Cloud customers. Whether you’re using Vertex, GKE, Cloud Run or just building your own stack in VMs in Compute Engine, you will benefit from faster time-to-first-token and simplified model governance.
 
