@@ -28,7 +28,7 @@ The common thread: we work with Google Cloud to build seamless experiences fully
 
 Usage of Hugging Face by Google Cloud customers has grown 10x over the last 3 years, and today, this translates into tens of petabytes of model downloads every month, in billions of requests. 
 
-To make sure Google Cloud customers have the best experience building with models and datasets from Hugging Face, we are working together to create a CDN Gateway for Hugging Face repositories built on top of Hugging Face Xet optimized storage and data transfer technologies, and of Google Cloud advanced storage and networking capabilities. 
+To make sure Google Cloud customers have the best experience building with models and datasets from Hugging Face, we are working together to create a CDN Gateway for Hugging Face repositories built on top of both Hugging Face Xet optimized storage and data transfer technologies, and Google Cloud advanced storage and networking capabilities. 
 
 This CDN Gateway will cache Hugging Face models and datasets directly on Google Cloud to significantly reduce downloading times, and strengthen model supply chain robustness for Google Cloud customers. Whether you’re using Vertex, GKE, Cloud Run or just building your own stack in VMs in Compute Engine, you will benefit from faster time-to-first-token and simplified model governance.
 
@@ -43,9 +43,10 @@ We will ensure all the fruits of our product and engineering collaboration becom
 TPUs, Google custom AI accelerator chips now in their seventh generation, have been steadily improving in performance and software stack maturity. We want to make sure Hugging Face users can fully benefit from the current and the next generations of TPUs when they build AI with open models. We are excited to make TPUs as easy to use as GPUs for Hugging Face models, thanks to native support in our libraries.
 
 Additionally, this new partnership will enable Hugging Face to leverage Google industry-leading security technology to make the millions of open models on Hugging Face more secure. Powered by [Google Threat Intelligence](https://cloud.google.com/security/products/threat-intelligence) and [Mandiant](https://www.mandiant.com/), this joint effort aims to secure models, datasets and Spaces as you use the Hugging Face Hub daily.
-Building the open future of AI together
 
-We want to see a future where every company can build their own AI with open models, and control and host it within their own secure infrastructure. We are excited to make this future happen with Google Cloud, and our deep collaboration with Google will accelerate this vision, whether you are using Vertex Model Garden, GKE, Cloud Run or Hugging Face Inference Endpoints. 
+## Building the open future of AI together
+
+We want to see a future where every company can build their own AI with open models and host it within their own secure infrastructure, with full control. We are excited to make this future happen with Google Cloud. Our deep collaboration will accelerate this vision, whether you are using Vertex AI Model Garden, Google Kubernetes Engine, Cloud Run or Hugging Face Inference Endpoints.
 
 Is there something you want us to create or improve thanks to our partnership with Google? Let us know in the comments!
 
