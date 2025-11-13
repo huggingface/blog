@@ -1,6 +1,6 @@
 ---
 title: "Building for an Open Future - our new partnership with Google Cloud" 
-thumbnail: /blog/assets/101_decision-transformers-train/thumbnail.gif
+thumbnail: /blog/assets/google-cloud/google-cloud-thumbnail.png
 authors:
 - user: jeffboudier
 - user: pagezyhf
