@@ -18,7 +18,7 @@ Today, we are happy to announce a new and deeper partnership with Google Cloud, 
 
 ## A Partnership for Google Cloud customers
 
-Google Cloud customers use open models from Hugging Face in many of its leading AI services. In Vertex AI, the most popular open models are ready to deploy in a couple clicks within Model Garden. Customers who want greater control over their AI infrastructure can find a similar model library available in GKE AI/ML, or use pre-configured environments  maintained by Hugging Face. Customers also run AI inference workloads with Cloud Run GPUs, enabling serverless open model deployments. 
+Google Cloud customers use open models from Hugging Face in many of its leading AI services. In Vertex AI, the most popular open models are ready to deploy in a couple clicks within Model Garden. Customers who want greater control over their AI infrastructure can find a similar model library available in GKE AI/ML, or use pre-configured environments maintained by Hugging Face. Customers also run AI inference workloads with Cloud Run GPUs, enabling serverless open model deployments.
 
 The common thread: we work with Google Cloud to build seamless experiences fully leveraging the unique capabilities of each service to offer choice to the customers.
 
