@@ -4977,3 +4977,10 @@
     - text-to-speech
     - voice
     - voice-cloning
+
+- local: gooogle-cloud
+  date: Nov 13, 2025
+  tags:
+    - partnerships
+    - google
+    - announcement
