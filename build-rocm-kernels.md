@@ -236,7 +236,7 @@ extern "C" void run(
 // ...
 ```
 
-### Registering a Native PyTorch Operator 
+#### Registering a Native PyTorch Operator 
 
 This step is key. We’re not just making the function available in Python; we’re turning it into a native PyTorch operator. That means it becomes a first-class part of PyTorch itself, accessible through `torch.ops`.
 
