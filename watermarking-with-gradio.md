@@ -1,6 +1,6 @@
 ---
 title: "Visible Watermarking with Gradio"
-thumbnail: /blog/assets/watermarking_with_gradio/thumbnail.png
+thumbnail: /blog/assets/watermarking-with-gradio/thumbnail.png
 authors:
 - user: meg
 ---
