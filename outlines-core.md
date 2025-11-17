@@ -1,6 +1,6 @@
 ---
 title: "Releasing Outlines-core 0.1.0: structured generation in Rust and Python" 
-thumbnail: /blog/assets/outlines-core/thumbnail.gif
+thumbnail: /blog/assets/outlines-core/thumbnail.png
 authors:
 - user: bwillard
   guest: true

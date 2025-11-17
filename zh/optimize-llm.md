@@ -1,6 +1,6 @@
 ---
 title: "面向生产的 LLM 优化"
-thumbnail: /blog/assets/163_getting_most_out_of_llms/optimize_llm.png
+thumbnail: /blog/assets/163_optimize_llm/optimize_llm.png
 authors:
 - user: patrickvonplaten
 translators:

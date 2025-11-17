@@ -1,6 +1,6 @@
 ---
 title: "Open R1: How to use OlympicCoder locally for coding"
-thumbnail: /blog/assets/olympic-coder-lmstudio/banner.png
+thumbnail: /blog/assets/olympic-coder-lmstudio/banner_correct.png
 authors:
 - user: burtenshaw
 - user: reach-vb

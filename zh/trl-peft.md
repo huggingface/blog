@@ -1,6 +1,6 @@
 ---
 title: "在一张 24 GB 的消费级显卡上用 RLHF 微调 20B LLMs" 
-thumbnail: assets/133_trl_peft/thumbnail.png
+thumbnail: /blog/assets/133_trl_peft/thumbnail.png
 authors:
 - user: edbeeching
 - user: ybelkada

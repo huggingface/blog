@@ -1,6 +1,6 @@
 ---
 title: "Huggy Lingo：利用机器学习改进 Hugging Face Hub 上的语言元数据"
-thumbnail: blog/assets/156_huggylingo/Huggy_Lingo.png
+thumbnail: /blog/assets/156_huggylingo/Huggy_Lingo.png
 authors:
 - user: davanstrien
 translators:

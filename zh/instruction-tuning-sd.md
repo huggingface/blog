@@ -1,6 +1,6 @@
 ---
 title: "使用 InstructPix2Pix 对 Stable Diffusion 进行指令微调" 
-thumbnail: assets/instruction_tuning_sd/thumbnail.png
+thumbnail: /blog/assets/instruction_tuning_sd/thumbnail.png
 authors:
 - user: sayakpaul
 translators:

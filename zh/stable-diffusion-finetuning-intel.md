@@ -1,6 +1,6 @@
 ---
 title: "在英特尔 CPU 上微调 Stable Diffusion 模型"
-thumbnail: /blog/assets/stable-diffusion-finetuning-intel/01.png
+thumbnail: /blog/assets/stable-diffusion-finetuning-intel/screen01.png
 authors:
 - user: juliensimon
 translators:

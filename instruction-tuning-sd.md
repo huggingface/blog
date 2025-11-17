@@ -1,6 +1,6 @@
 ---
 title: "Instruction-tuning Stable Diffusion with InstructPix2Pix" 
-thumbnail: assets/instruction_tuning_sd/thumbnail.png
+thumbnail: /blog/assets/instruction_tuning_sd/thumbnail.png
 authors:
 - user: sayakpaul
 ---

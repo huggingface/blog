@@ -1,6 +1,6 @@
 ---
 title: "Introducing Spaces Dev Mode for a seamless developer experience" 
-thumbnail: /blog/assets/spaces-dev-mode/thumbnail.jpg
+thumbnail: /blog/assets/spaces-dev-mode/thumbnail.png
 authors:
 - user: pagezyhf
 ---

@@ -1,6 +1,6 @@
 ---
 title: "Transformer 模型能够有效地进行时间序列预测 (使用 Autoformer)"
-thumbnail: /blog/assets/148_autoformer/thumbnail.png
+thumbnail: /blog/assets/150_autoformer/thumbnail.png
 authors:
 - user: elisim
   guest: true

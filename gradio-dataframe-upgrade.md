@@ -1,6 +1,6 @@
 ---
 title: "Introducing Gradio's new Dataframe!" 
-thumbnail: /blog/assets/gradio-dataframe-upgrade/thumbnail.png
+thumbnail: /blog/assets/gradio-dataframe-update/thumbnail.png
 authors:
 - user: hmb
 - user: abidlabs
