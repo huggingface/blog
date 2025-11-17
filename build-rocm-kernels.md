@@ -453,11 +453,11 @@ git remote add origin https://huggingface.co/<your-username>/gemm
 
 # Pull the changes (just the default .gitattributes file)
 git pull origin main
-git lfs install
+git xet install
 git checkout -b main
 
-# Update to use LFS for the binary files
-git lfs track "*.so"
+# Update to use Xet for the binary files
+git xet track "*.so"
 
 # Add and commit your changes (being careful to only include the necessary files
 # since our build2cmake command generated a lot of dev-specific files)
