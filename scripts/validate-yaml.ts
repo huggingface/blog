@@ -1,5 +1,6 @@
 // Use `deno fmt` to format this file.
 
+import { join } from "jsr:@std/path@1.0.4";
 import { parse } from "https://deno.land/std@0.194.0/yaml/mod.ts";
 import { z } from "https://deno.land/x/zod@v3.16.1/mod.ts";
 
@@ -91,11 +92,28 @@ for (const lang of ["", "zh/"]) {
         throw new Error(`No frontmatter found in ${lang}${mdFile}`);
       }
 
+      let thumbnail: string;
       try {
-        frontmatterSchema.parse(parse(frontmatterMatch[1]));
+        const metadata = frontmatterSchema.parse(
+          parse(frontmatterMatch[1]),
+        );
+        thumbnail = metadata.thumbnail;
       } catch (error) {
         console.error(`Error in ${lang}${mdFile}:`, error);
         throw error;
+      }
+
+      // Finally, check thumbnail exists in repo.
+      if (!thumbnail.startsWith("/blog/")) {
+        throw new Error(
+          `thumbnail path should start with /blog/, got ${thumbnail} instead`,
+        );
+      }
+      const thumbnailPath = join("..", thumbnail.slice("/blog/".length));
+      try {
+        Deno.statSync(thumbnailPath);
+      } catch {
+        throw new Error(`thumbnail file not found: ${thumbnailPath}`);
       }
     }
   }
