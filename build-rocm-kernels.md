@@ -14,11 +14,9 @@ authors:
 
 Custom kernels are the backbone of high-performance deep learning, enabling GPU operations tailored precisely to your workload; whether that’s image processing, tensor transformations, or other compute-heavy tasks. But compiling these kernels for the right architectures, wiring all the build flags, and integrating them cleanly into PyTorch extensions can quickly become a mess of CMake/Nix, compiler errors, and ABI issues, which is not fun. Hugging Face’s [**kernel-builder**](https://github.com/huggingface/kernel-builder) and [**kernels**](https://github.com/huggingface/kernels) libraries make it easy to share these kernels with the [**kernels-community**](https://huggingface.co/kernels-community), with support for multiple GPU and accelerator backends, including CUDA, ROCm, Metal, and XPU. This ensures your kernels are fast, portable, and seamlessly integrated with PyTorch.
 
-In this guide, we focus on **ROCm-compatible kernels** and walk you through the process of building, testing, and sharing them. You’ll learn how to use **[kernel-builder](https://github.com/huggingface/kernel-builder/tree/main)** to create kernels that run efficiently on AMD GPUs, while following best practices for reproducibility, packaging, and deployment.
+In this guide, we focus exclusively on ROCm-compatible kernels and show how to build, test, and share them using [kernel-builder](https://github.com/huggingface/kernel-builder/tree/main). You’ll learn how to create kernels that run efficiently on AMD GPUs, along with best practices for reproducibility, packaging, and deployment.
 
-This guide walks you through the complete process of building custom ROCm kernels with [**kernel-builder**](https://github.com/huggingface/kernel-builder/tree/main) 🤗.
-
-*Note* : This guide is based on the original kernel-builder guide. In this version, I focus specifically on ROCm-only kernels and go straight to the point. You can find the general guide here:  [A Guide to Building and Scaling Production-Ready CUDA Kernels](https://huggingface.co/blog/kernel-builder)
+This ROCm-specific walkthrough is a streamlined version of the original kernel-builder guide. If you’re looking for the broader CUDA-focused version, you can find it here: [A Guide to Building and Scaling Production-Ready CUDA Kernels](https://huggingface.co/blog/kernel-builder).
 
 ## Build Steps
 
