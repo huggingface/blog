@@ -54,7 +54,10 @@ for (const lang of ["", "zh/"]) {
 
     const frontmatterSchema = z.object({
       title: z.string(),
-      thumbnail: z.string().regex(/\.(jpg|jpeg|gif|png|webp)$/i, "Thumbnail must end with .jpg, .jpeg, .gif, .png, or .webp"),
+      thumbnail: z.string().regex(
+        /\.(jpg|jpeg|gif|png|webp)$/i,
+        "Thumbnail must end with .jpg, .jpeg, .gif, .png, or .webp",
+      ),
       authors: z.array(z.object({
         user: z.string(),
       })),
@@ -65,10 +68,10 @@ for (const lang of ["", "zh/"]) {
       if (mdFile === "README.md" || mdFile === "CONTRIBUTING.md") {
         continue;
       }
-      
+
       const content = Deno.readTextFileSync("../" + lang + mdFile);
       const frontmatterMatch = content.match(/^---\r?\n([\s\S]*?)\r?\n---/);
-      
+
       if (!frontmatterMatch) {
         throw new Error(`No frontmatter found in ${lang}${mdFile}`);
       }
