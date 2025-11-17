@@ -201,7 +201,7 @@ To ensure anyone can build your kernel on any machine, we use a flake.nix file. 
 }
 ```
 
-### Writing the Kernel
+#### Writing the Kernel
 
 Now for the GPU code. Inside `gemm/gemm_launcher.hip`, we define how the GEMM kernel is launched.
 Depending on the configuration, we either call the new optimized `gemm/gemm_kernel` or fall back to the legacy implementation (`gemm/gemm_kernel_legacy`).
