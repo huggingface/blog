@@ -176,7 +176,7 @@ Specification of a kernel named "gemm". You can define multiple kernel sections 
 - **depends** (required): A list of dependencies. We depend on "torch" to use PyTorch's tensor operations.
 - **include** (optional): Include directories relative to the project root. This helps the compiler find header files.
 
-### The `flake.nix` Reproducibility File 
+#### The `flake.nix` Reproducibility File 
 
 To ensure anyone can build your kernel on any machine, we use a flake.nix file. It locks the exact version of the kernel-builder and its dependencies. (You can just copy and paste this example and change the description)
 
