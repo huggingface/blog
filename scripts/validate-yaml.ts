@@ -27,12 +27,13 @@ for (const lang of ["", "zh/"]) {
       name.slice(0, -".md".length)
     );
 
-    z.array(z.object({
-      local: z.enum([...localMdFiles] as [string, ...string[]]),
-      guest: z.boolean().optional(),
-      date: z.string(),
-      tags: z.array(z.string()),
-    })).parse(parse(Deno.readTextFileSync("../" + relativePath)));
+    z.array(
+      z.object({
+        local: z.enum([...localMdFiles] as [string, ...string[]]),
+        date: z.string(),
+        tags: z.array(z.string()),
+      }).strict(),
+    ).parse(parse(Deno.readTextFileSync("../" + relativePath)));
   }
 
   {
