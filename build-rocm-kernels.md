@@ -308,7 +308,7 @@ void gemm(torch::Tensor &out, torch::Tensor const &a, torch::Tensor const &b,
           torch::Tensor const &as, torch::Tensor const &bs);
 ```
 
-### Setting up the `__init__.py` wrapper 
+#### Setting up the `__init__.py` wrapper 
 
 In `torch-ext/gemm/` we need an `__init__.py` file to make this directory a Python package and to expose our custom operator in a user-friendly way. 
 
