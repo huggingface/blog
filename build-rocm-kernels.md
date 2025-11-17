@@ -8,7 +8,7 @@ authors:
 - user: ftyghome
 ---
 
-![Capture d’écran 2025-11-13 à 4.42.06 PM](https://cdn-uploads.huggingface.co/production/uploads/65baa31607366d903890bcf4/3tkF69U2l957oji_jRwlg.png)
+![Easily Build and Share ROCm Kernels with Hugging Face](/blog/assets/build-rocm-kernels/thumbnail.png)
 
 ## Intoduction
 
@@ -51,6 +51,9 @@ and `c` is the output matrix:
 The kernel is precompiled for specific matrix shapes and assumes a transposed memory layout (as required by the competition). To support additional shapes or alternative memory layouts, you must modify the kernel launcher.
 
 So now that we have a high-performance ROCm kernel, the natural question is: how do we integrate it into a real PyTorch workflow and share it with others? That’s exactly what we’ll cover next, using `kernel-builder` and `kernels` to structure, build, and publish the ROCm kernel.
+
+> [!NOTE]  
+> This is a fairly technical guide, but you can still follow it step by step without understanding every detail and everything will work fine. If you’re curious, you can always come back later to dig deeper into the concepts.
 
 ### Step 1: Project Structure
 
