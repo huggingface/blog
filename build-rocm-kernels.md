@@ -20,13 +20,12 @@ This ROCm-specific walkthrough is a streamlined version of the original kernel-b
 
 ## Build Steps
 
-In this guide, we will use the GEMM kernel from [RadeonFlow_Kernels](https://github.com/RadeonFlow/RadeonFlow_Kernels) as an example.
+We will use the GEMM kernel from [RadeonFlow_Kernels](https://github.com/RadeonFlow/RadeonFlow_Kernels) as an example. If you want to go straight to the guide, [click here](#step-1-project-structure).
 
 ### About the kernel 
 
 > [!NOTE]
 > This section was written by the **RadeonFlow GEMM** kernel authors to introduce the kernel.  
-> If you want to go straight to the guide, [click here](#step-1-project-structure).  
 > Authors: [ColorsWind](https://huggingface.co/ColorsWind), [Zesen Liu](https://huggingface.co/ftyghome), and [Andy](https://huggingface.co/jpy794)
 
 
