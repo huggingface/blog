@@ -114,7 +114,7 @@ In our example, `gemm_kernel.h`, `gemm_kernel_legacy.h`, and `transpose_kernel.h
 
 ### Step 2: Configuration Files Setup 
 
-### The `build.toml` Manifest 
+#### The `build.toml` Manifest 
 
 This file orchestrates the entire build. It tells the kernel-builder what to compile and how everything connects. 
 
