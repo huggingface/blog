@@ -12,7 +12,7 @@ authors:
 translators:
 - user: innovation64
 - user: zhongdongy
-  proofread: true
+  proofreader: true
 ---
 
 # nanoVLM: 最简洁、最轻量的纯 PyTorch 视觉-语言模型训练代码库

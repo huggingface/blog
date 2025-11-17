@@ -5,7 +5,7 @@ authors:
 - user: brunatrevelin
 - user: frimelle
 - user: yjernite
-translator:
+translators:
 - user: AdinaY
 ---
 

@@ -6,7 +6,7 @@ authors:
 - user: sayakpaul
 - user: linoyts
 - user: multimodalart
-translator: 
+translators:
 - user: AdinaY
 ---
 

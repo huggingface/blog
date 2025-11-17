@@ -5,7 +5,7 @@ authors:
 - user: danaaubakirova
 - user: Molbap
 - user: Ternaus
-guest: True
+  guest: true
 ---
 # Introducing Multimodal TextImage Augmentation for Document Images
 

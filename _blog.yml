@@ -31,7 +31,6 @@
     - nlp
 
 - local: ray-tune
-  guest: true
   date: November 2, 2020
   tags:
     - open-source-collab
@@ -67,13 +66,11 @@
     - nlp
 
 - local: pytorch-xla
-  guest: true
   date: February 9, 2021
   tags:
     - open-source-collab
 
 - local: ray-rag
-  guest: true
   date: February 10, 2021
   tags:
     - open-source-collab
@@ -97,7 +94,6 @@
     - audio
 
 - local: how-to-deploy-a-pipeline-to-google-clouds
-  guest: true
   date: March 18, 2021
   tags:
     - guide
@@ -109,7 +105,6 @@
     - aws
 
 - local: big-bird
-  guest: true
   date: March 31, 2021
   tags:
     - community
@@ -138,7 +133,6 @@
     - intel
 
 - local: gradio
-  guest: true
   date: May 25, 2021
   tags:
     - open-source-collab
@@ -170,7 +164,6 @@
     - nlp
 
 - local: collaborative-training
-  guest: true
   date: July 15, 2021
   tags:
     - research
@@ -181,7 +174,6 @@
     - guide
 
 - local: graphcore
-  guest: true
   date: September 14, 2021
   tags:
     - graphcore
@@ -203,7 +195,6 @@
     - guide
 
 - local: fine-tune-clip-rsicd
-  guest: true
   date: October 13, 2021
   tags:
     - community
@@ -216,7 +207,6 @@
     - analysis
 
 - local: 1b-sentence-embeddings
-  guest: true
   date: October 25, 2021
   tags:
     - community
@@ -259,7 +249,6 @@
     - research
 
 - local: graphcore-getting-started
-  guest: true
   date: November 30, 2021
   tags:
     - partnerships
@@ -359,7 +348,6 @@
     - nlp
 
 - local: constrained-beam-search
-  guest: true
   date: March 11, 2022
   tags:
     - guide
@@ -450,7 +438,6 @@
     - research
 
 - local: opinion-classification-with-kili
-  guest: true
   date: April 28, 2022
   tags:
     - guide
@@ -537,7 +524,6 @@
     - rl
 
 - local: tapex
-  guest: true
   date: May 23, 2022
   tags:
     - research
@@ -1085,7 +1071,6 @@
     - cv
 
 - local: paddlepaddle
-  guest: true
   date: January 17, 2023
   tags:
     - open-source-collab
@@ -1188,7 +1173,6 @@
     - dreambooth
 
 - local: mantis-case-study
-  guest: true
   date: February 15, 2023
   tags:
     - case-studies
@@ -1287,7 +1271,6 @@
     - stable-diffusion
 
 - local: fl-with-flower
-  guest: true
   date: March 27, 2023
   tags:
     - nlp
@@ -1370,7 +1353,6 @@
     - community
 
 - local: databricks-case-study
-  guest: true
   date: April 26, 2023
   tags:
     - case-studies
@@ -1452,7 +1434,6 @@
     - quantization
 
 - local: dedup
-  guest: true
   date: May 16, 2023
   tags:
     - bigcode
@@ -1744,7 +1725,6 @@
     - diffusers
 
 - local: sd_distillation
-  guest: true
   date: August 1, 2023
   tags:
     - stable-diffusion
@@ -1761,7 +1741,6 @@
     - game-dev
 
 - local: encrypted-llm
-  guest: true
   date: August 02, 2023
   tags:
     - guide
@@ -1798,7 +1777,6 @@
     - nlp
 
 - local: deploy-deepfloydif-using-bentoml
-  guest: true
   date: August 9, 2023
   tags:
     - deployment
@@ -1881,7 +1859,6 @@
     - LLM
 
 - local: t2i-sdxl-adapters
-  guest: true
   date: September 8, 2023
   tags:
     - guide
@@ -1926,7 +1903,6 @@
     - LLM
 
 - local: object-detection-leaderboard
-  guest: true
   date: September 18, 2023
   tags:
     - community
@@ -1944,7 +1920,6 @@
     - game-dev
 
 - local: rocketmoney-case-study
-  guest: true
   date: September 19, 2023
   tags:
     - case-studies
@@ -1975,7 +1950,6 @@
     - nlp
 
 - local: trl-ddpo
-  guest: true
   date: September 29, 2023
   tags:
     - guide
@@ -2135,7 +2109,6 @@
     - optimum
 
 - local: setfit-absa
-  guest: true
   date: December 6, 2023
   tags:
     - research
@@ -2199,7 +2172,6 @@
     - sdxl
 
 - local: amused
-  guest: true
   date: January 4, 2024
   tags:
     - guide
@@ -2208,7 +2180,6 @@
     - diffusers
 
 - local: unsloth-trl
-  guest: true
   date: Jan 10, 2024
   tags:
     - sft
@@ -2217,7 +2188,6 @@
     - qlora
 
 - local: leaderboard-vectara
-  guest: true
   date: Jan 12, 2024
   tags:
     - leaderboard
@@ -2226,7 +2196,6 @@
     - community
 
 - local: sdxl_ort_inference
-  guest: true
   date: Jan 15, 2024
   tags:
     - stable-diffusion
@@ -2245,7 +2214,6 @@
     - research
 
 - local: patchtsmixer
-  guest: true
   date: January 19, 2024
   tags:
     - guide
@@ -2281,7 +2249,6 @@
     - hardware
 
 - local: leaderboard-decodingtrust
-  guest: true
   date: January 26, 2024
   tags:
     - leaderboard
@@ -2290,7 +2257,6 @@
     - research
 
 - local: leaderboard-hallucinations
-  guest: true
   date: January 29, 2024
   tags:
     - leaderboard
@@ -2299,7 +2265,6 @@
     - research
 
 - local: intel-starcoder-quantization
-  guest: true
   date: Jan 30, 2024
   tags:
     - nlp
@@ -2310,7 +2275,6 @@
     - community
 
 - local: leaderboard-patronus
-  guest: true
   date: January 31, 2024
   tags:
     - leaderboard
@@ -2318,7 +2282,6 @@
     - collaboration
 
 - local: patchtst
-  guest: true
   date: February 1, 2024
   tags:
     - guide
@@ -2342,7 +2305,6 @@
     - constitutional-ai
 
 - local: leaderboard-nphardeval
-  guest: true
   date: Feb 2, 2024
   tags:
     - leaderboard
@@ -2351,7 +2313,6 @@
     - research
 
 - local: segmoe
-  guest: true
   date: February 3, 2024
   tags:
     - text-to-image
@@ -2368,7 +2329,6 @@
     - tgi
 
 - local: amd_pervasive_developer_ai_contest
-  guest: true
   date: Feb 14, 2024
   tags:
     - partner
@@ -2395,7 +2355,6 @@
     - lora
 
 - local: leaderboard-upstage
-  guest: true
   date: Feb 20, 2024
   tags:
     - leaderboard
@@ -2424,7 +2383,6 @@
     - guide
 
 - local: leaderboard-haizelab
-  guest: true
   date: Feb 23, 2024
   tags:
     - leaderboard
@@ -2432,7 +2390,6 @@
     - collaboration
 
 - local: gemma-peft
-  guest: true
   date: Feb 23, 2024
   tags:
     - nlp
@@ -2451,7 +2408,6 @@
     - guide
 
 - local: arena-tts
-  guest: true
   date: Feb 27, 2024
   tags:
     - leaderboard
@@ -2467,7 +2423,6 @@
     - LLM
 
 - local: textgen-pipe-gaudi
-  guest: true
   date: Feb 29, 2024
   tags:
     - habana
@@ -2478,7 +2433,6 @@
     - inference
 
 - local: community-datasets
-  guest: true
   date: Mar 4, 2024
   tags:
     - community
@@ -2487,7 +2441,6 @@
     - announcement
 
 - local: leaderboard-contextual
-  guest: true
   date: Mar 5, 2024
   tags:
     - leaderboard
@@ -2503,7 +2456,6 @@
     - research
 
 - local: intel-fast-embedding
-  guest: true
   date: Mar 15, 2024
   tags:
     - nlp
@@ -2555,7 +2507,6 @@
     - llm
 
 - local: arena-lighthouz
-  guest: true
   date: Mar 21, 2024
   tags:
     - leaderboard
@@ -2563,7 +2514,6 @@
     - collaboration
 
 - local: embedding-quantization
-  guest: true
   date: Mar 22, 2024
   tags:
     - nlp
@@ -2579,7 +2529,6 @@
     - community
 
 - local: pollen-vision
-  guest: true
   date: March 25, 2024
   tags:
     - robotics
@@ -2600,7 +2549,6 @@
     - ethics
 
 - local: setfit-optimum-intel
-  guest: true
   date: April 3, 2024
   tags:
     - nlp
@@ -2664,7 +2612,6 @@
     - case-studies
 
 - local: fhe-endpoints
-  guest: true
   date: April 16, 2024
   tags:
     - guide
@@ -2673,7 +2620,6 @@
     - FHE
 
 - local: leaderboard-livecodebench
-  guest: true
   date: Apr 16, 2024
   tags:
     - leaderboard
@@ -2690,7 +2636,6 @@
     - demo
 
 - local: leaderboard-medicalllm
-  guest: true
   date: Apr 19, 2024
   tags:
     - leaderboard
@@ -2714,8 +2659,6 @@
     - generalist
 
 - local: leaderboard-cot
-  guest: true
-  org: logikon
   date: Apr 23, 2024
   tags:
     - leaderboard
@@ -2724,7 +2667,6 @@
     - community
 
 - local: sc2-instruct
-  guest: true
   date: Apr 29, 2024
   tags:
     - nlp
@@ -2733,7 +2675,6 @@
     - LLM
 
 - local: evaluation-structured-outputs
-  guest: true
   date: Apr 30, 2024
   tags:
     - evaluation
@@ -2749,7 +2690,6 @@
     - inference
 
 - local: leaderboard-artificial-analysis
-  guest: true
   date: May 3, 2024
   tags:
     - leaderboard
@@ -2758,7 +2698,6 @@
     - community
 
 - local: leaderboard-hebrew
-  guest: true
   date: May 05, 2024
   tags:
     - nlp
@@ -2796,7 +2735,6 @@
     - benchmark
 
 - local: leaderboard-arabic
-  guest: true
   date: May 14, 2024
   tags:
     - nlp
@@ -2869,7 +2807,6 @@
     - quantization
 
 - local: leaderboard-llamaguard
-  guest: true
   date: May 24, 2024
   tags:
     - nlp
@@ -2878,7 +2815,6 @@
     - LLM
 
 - local: falcon2-11b
-  guest: true
   date: May 24, 2024
   tags:
     - nlp
@@ -2923,7 +2859,6 @@
     - game-dev
 
 - local: leaderboard-artificial-analysis2
-  guest: true
   date: Jun 6, 2024
   tags:
     - leaderboard
@@ -2968,7 +2903,6 @@
     - collaboration
 
 - local: leaderboard-bigcodebench
-  guest: true
   date: Jun 18, 2024
   tags:
     - leaderboard
@@ -3208,7 +3142,6 @@
     - community
 
 - local: falconmamba
-  guest: true
   date: August 12, 2024
   tags:
     - nlp
@@ -3353,7 +3286,6 @@
     - community
 
 - local: leaderboard-finbench
-  guest: true
   date: Oct 4, 2024
   tags:
     - leaderboard
@@ -3369,7 +3301,6 @@
     - xet
 
 - local: dynamic_speculation_lookahead
-  guest: true
   date: October 8, 2024
   tags:
     - research
@@ -3509,7 +3440,6 @@
     - case-studies
 
 - local: universal_assisted_generation
-  guest: true
   date: October 29, 2024
   tags:
     - research
@@ -3550,7 +3480,6 @@
     - ethics
 
 - local: arena-atla
-  guest: true
   date: Nov 19, 2024
   tags:
     - leaderboard
@@ -3560,7 +3489,6 @@
     - evaluation
 
 - local: leaderboard-japanese
-  guest: true
   date: November 20, 2024
   tags:
     - community
@@ -3587,7 +3515,6 @@
     - xet
 
 - local: debate
-  guest: true
   date: November 20, 2024
   tags:
     - community
@@ -3632,7 +3559,6 @@
     - case-studies
 
 - local: leaderboard-3c3h-aragen
-  guest: true
   date: December 04, 2024
   tags:
     - leaderboard
@@ -3680,7 +3606,6 @@
     - bedrock
 
 - local: lematerial
-  guest: true
   date: December 10, 2024
   tags:
     - community
@@ -3713,7 +3638,6 @@
     - research
 
 - local: bamba
-  guest: true
   date: Dec 18, 2024
   tags:
     - research
@@ -3722,7 +3646,6 @@
     - model
 
 - local: modernbert
-  guest: true
   date: December 19, 2024
   tags:
     - nlp
@@ -3731,7 +3654,6 @@
     - open-source-collab
 
 - local: big-bench-audio-release
-  guest: true
   date: December 20, 2024
   tags:
     - leaderboard
@@ -3773,7 +3695,6 @@
     - evaluation
 
 - local: vdr-2b-multilingual
-  guest: true
   date: January 10, 2025
   tags:
     - multimodal
@@ -3884,7 +3805,6 @@
     - community
 
 - local: dabstep
-  guest: True
   date: Feb 4, 2025
   tags:
     - llms
@@ -3908,7 +3828,6 @@
     - smolagents
 
 - local: leaderboard-arabic-v2
-  guest: true
   date: February 10, 2025
   tags:
     - nlp
@@ -3934,7 +3853,6 @@
     - xet
 
 - local: billion-classifications
-  guest: true
   date: Feb 13, 2025
   tags:
     - inference-endpoints
@@ -3976,7 +3894,6 @@
     - vision
 
 - local: smolvlm2
-  guest: true
   date: Feb 20, 2025
   tags:
     - vlm
@@ -4016,7 +3933,6 @@
     - community
 
 - local: smolagents-phoenix
-  guest: true
   date: Feb 28, 2025
   tags:
     - phoenix
@@ -4026,7 +3942,6 @@
     - instrumentation
 
 - local: aya-vision
-  guest: true
   date: March 4, 2025
   tags:
     - multimodal
@@ -4076,8 +3991,6 @@
     - xet
 
 - local: nvidia-physical-ai
-  guest: true
-  org: nvidia
   date: March 18, 2025
   tags:
     - robotics
@@ -4134,7 +4047,6 @@
     - partnerships
 
 - local: scaling-secrets-management
-  guest: true
   date: Mar 31, 2025
   tags:
     - security
@@ -4163,7 +4075,6 @@
     - meta
 
 - local: leaderboard-3c3h-aragen-ifeval
-  guest: true
   date: April 8, 2025
   tags:
     - leaderboard
@@ -4344,7 +4255,6 @@
     - partnerships
 
 - local: liger-grpo
-  guest: true
   date: May 25, 2025
   tags:
     - liger
@@ -4364,7 +4274,6 @@
     - community
 
 - local: vllm-colocate
-  guest: true
   date: June 3, 2025
   tags:
     - vllm
@@ -4574,7 +4483,6 @@
     - open-source
 
 - local: futurebench
-  guest: true
   date: July 17, 2025
   tags:
     - research
@@ -4582,7 +4490,6 @@
     - ai
 
 - local: consilium-multi-llm
-  guest: true
   date: Jul 17, 2025
   tags:
     - multi-agents
@@ -4689,7 +4596,6 @@
     - community
 
 - local: textquests
-  guest: true
   date: Aug 12, 2025
   tags:
     - research
@@ -4861,7 +4767,6 @@
     - hub
 
 - local: rteb
-  guest: true
   date: Oct 1, 2025
   tags:
     - nlp

@@ -59,10 +59,24 @@ for (const lang of ["", "zh/"]) {
         /\.(jpg|jpeg|gif|png|webp)$/i,
         "Thumbnail must end with .jpg, .jpeg, .gif, .png, or .webp",
       ),
-      authors: z.array(z.object({
-        user: z.string(),
-      })),
-    });
+      forceLinkToOtherLanguage: z.string().optional(),
+      authors: z.array(
+        z.object({
+          user: z.string(),
+          guest: z.boolean().optional(),
+          proofreader: z.boolean().optional().describe("only for zh blogs"),
+          org: z.string().optional(),
+        })
+          .strict(),
+      ),
+      translators: z.array(
+        z.object({
+          user: z.string(),
+          proofreader: z.boolean().optional().describe("only for zh blogs"),
+        })
+          .strict(),
+      ).optional().describe("only for zh blogs"),
+    }).strict();
 
     for (const mdFile of localMdFiles) {
       // Skip special files

@@ -25,7 +25,7 @@ authors:
 - user: loubnabnl
 - user: lvwerra
 - user: thomwolf
-translator:
+translators:
 - user: AdinaY
 ---
 
