@@ -8,6 +8,8 @@ authors:
 
 # Remote VAEs for decoding with Inference Endpoints 🤗
 
+_(This post was authored by [hlky](https://github.com/hlky) and Sayak)_
+
 When operating with latent-space diffusion models for high-resolution image and video synthesis, the VAE decoder can consume quite a bit more memory. This makes it hard for the users to run these models on consumer GPUs without going through latency sacrifices and others alike. 
 
 For example, with offloading, there is a device transfer overhead, causing delays in the overall inference latency. Tiling is another solution that lets us operate on so-called “tiles” of inputs. However, it can have a negative impact on the quality of the final image. 
@@ -400,3 +402,4 @@ If you like the idea and feature, please help us with your feedback on how we ca
 1. Open an issue on Diffusers through [this link](https://github.com/huggingface/diffusers/issues/new?template=remote-vae-pilot-feedback.yml). 
 2. Answer the questions and provide any extra info you want. 
 3. Hit submit!
+
