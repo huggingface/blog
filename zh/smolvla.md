@@ -11,7 +11,7 @@ authors:
 - user: pcuenq
 - user: mshukor
 - user: cadene
-translator: 
+translators:
 - user: AdinaY
 ---
 

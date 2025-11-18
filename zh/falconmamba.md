@@ -20,7 +20,7 @@ authors:
 - user: Gkunsch
   guest: true
   org: tiiuae
-translator:
+translators:
 - user: Evinci
 - user: zhongdongy
   proofreader: true

@@ -9,7 +9,6 @@ authors:
 - user: pagezyhf
 - user: merve
 - user: reach-vb
-date: 2025-03-28 
 ---
 
 # 🏎️ Enhance Your Models in 5 Minutes with the Hugging Face Kernel Hub

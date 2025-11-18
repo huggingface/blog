@@ -1,6 +1,6 @@
 ---
 title: "Deep Dive: Vision Transformers On Hugging Face Optimum Graphcore"
-thumbnail: /blog/assets/97_vision_transformers/thumbnail.png
+thumbnail: /blog/assets/97_vision_transformers/thumbnail.jpg
 authors:
 - user: juliensimon
 ---

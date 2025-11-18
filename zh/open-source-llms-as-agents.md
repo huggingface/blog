@@ -5,7 +5,7 @@ authors:
 - user: m-ric
 - user: Jofthomas
 - user: andrewrreed
-translator:
+translators:
 - user: Evinci
 - user: zhongdongy
   proofreader: true

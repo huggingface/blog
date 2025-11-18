@@ -6,7 +6,7 @@ authors:
 - user: meg
 - user: presidio
 - user: omri374
-translator:
+translators:
 - user: Evinci
 - user: zhongdongy
   proofreader: true

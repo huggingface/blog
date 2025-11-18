@@ -1,6 +1,6 @@
 ---
 title: "A failed experiment: Infini-Attention, and why we should keep trying?" 
-thumbnail: ./assets/185_infini_attention/infini_attention_thumbnail.png
+thumbnail: /blog/assets/185_infini_attention/infini_attention_thumbnail.png
 authors:
 - user: neuralink
 - user: lvwerra

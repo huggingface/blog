@@ -13,7 +13,6 @@ authors:
   guest: true
 translators:
 - user: PanEa
-  guest: true
 - user: zhongdongy
   proofreader: true
 ---

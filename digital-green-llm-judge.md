@@ -1,6 +1,6 @@
 ---
 title: "Expert Support case study: Bolstering a RAG app with LLM-as-a-Judge"
-thumbnail: /blog/assets/digital-gren-llm-judge/thumbnail.png
+thumbnail: /blog/assets/digital-green-llm-judge/thumbnail.png
 authors:
   - user: Vinsingh
     guest: true

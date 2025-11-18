@@ -1,4 +1,4 @@
-# "thumbnail" attribute can be GIFs while in the blogpost itself it's better if it's a simple bitmap (because it will be used as a social thumbnail)
+# "thumbnail" are defined in each post metadata
 # make sure to optimize your "thumbnail" img with tinypng.com
 - local: open-llm-leaderboard-mmlu
   date: June 23, 2023
