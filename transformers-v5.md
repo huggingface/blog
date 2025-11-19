@@ -48,9 +48,7 @@ Over the past year, we’ve heavily pushed our modular design as a significant s
 
 We give a deeper overview in our [*Maintain the Unmaintainable*](https://huggingface.co/spaces/transformers-community/Transformers-tenets) blog post, but this ensures long-term a much greater ease of model addition, and a lowered maintenance burden. The resulting lines of code to contribute, and review, therefore drops significantly:
 
-<TODO need to update this image>
-
-<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/transformers_v5/transformers_model_timeline.png" alt="Transformers standardizing model definitions">
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/transformers_v5/modular_timeline.png" alt="Transformers standardizing model definitions">
 
 #### Tooling for Model Conversion
 
