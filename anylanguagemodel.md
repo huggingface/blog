@@ -177,6 +177,8 @@ Sometimes you have to write the API for the framework that doesn't exist yet.
 
 ## Try It Out: chat-ui-swift
 
+![Screenshot of chat-ui-swift app](./assets/anylanguagemodel/chat-ui-swift.png)
+
 To see AnyLanguageModel in action,
 check out [chat-ui-swift](https://github.com/mattt/chat-ui-swift),
 a SwiftUI chat application that demonstrates the library's capabilities.
