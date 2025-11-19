@@ -97,7 +97,7 @@ KV caching is useful when we have one input token, which is a stage we call **de
 
 ## Chunked prefill
 
-Up till now, we have looked at an example of prefill where we have $n=7$ tokens, but in practice initial prompts can be much longer. For instance, when using Cursor, you can add your repository as context before the prompt: this increases the prompt size by a lot. In such cases, the memory needed to store the activations for $n$ tokens can be larger than the available memory on the GPU. Thus we cannot perform prefill in a single forward pass: we have to split the prefill in chunks. This is called **chunked prefill**, and it's going to be one of the components needed to enable efficient inference.
+Up till now, we have looked at an example of prefill where we have $n=7$ tokens, but in practice initial prompts can be much longer. For instance, when using Cursor, you can add your repository to the prompt, where it acts as context: this significantly increases the prompt size. In such cases, the memory needed to store the activations for $n$ tokens can be larger than the available memory on the GPU. Thus we cannot perform prefill in a single forward pass: we have to split the prefill in chunks. This is called **chunked prefill**, and it's going to be one of the components needed to enable efficient inference.
 
 Let's pretend that the available memory is very constrained, and that we can only pass $m=4$ tokens per forward pass. If we have an initial prompt with $n = 7$ tokens, we need to split it in $\lceil n /m \rceil = 2$ chunks (rounding up 7/4 = 1.75 to 2). We illustrate the example below using the same $n$ and $m$ notations:
 
