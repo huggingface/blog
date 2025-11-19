@@ -13,36 +13,39 @@ authors:
 
 ## Introduction
 
-If you've ever used Qwen, Claude, or any other AI chatbot, you've probably noticed something: it takes a while for the first word of the response to appear, and then words appear one-by-one on your screen with (hopefully) a regular and fast-paced frequency. That's because at the heart of it, all LLMs are just fancy next token predictors. They have to ingest your initial prompt to spit out one token, and then ingest that one as well and repeat the process until they feel like they have generated enough.
+If you've ever used Qwen, Claude, or any other AI chatbot, you've probably noticed something: it takes a while for the first word of the response to appear, and then words appear one-by-one on your screen with (hopefully) a regular and fast-paced frequency. That's because at the heart of it, all LLMs are just fancy next token predictors. First comes the **prefill** phase, where they ingest your initial prompt to predict one new token. Then they ingest that one as well, to produce another new token: this is the **decoding** phase. The process is repeated until they feel like they have generated enough.
 
 This generation process is computationally expensive: it requires processing billions of parameters for each token generated. To make these models practical for real-world applications, particularly when serving many users simultaneously, researchers and engineers have developed a range of efficient inference techniques.  
 One of the most impactful optimizations is **continuous batching**, which is the focus of this article. To understand how continuous batching works and why it's so effective, we'll need to build up from the fundamentals of how LLMs process tokens.
 
 ## Attention
 
-In order to understand continuous batching, it’s useful to have a clear understanding of the attention mechanism. In a Llama-like LLM, the neural network processes text by breaking it down into pieces that we call tokens, which are represented by vectors. For simplicity's sake, let's pretend one token corresponds to one word. For each token, the network computes a prediction of what the next token should be. It does this by applying a sequence of operations to each token.
+In order to understand continuous batching, it’s useful to have a clear understanding of the attention mechanism. In a Llama-like LLM, the neural network processes text by breaking it down into pieces that we call tokens, which are represented by vectors. We can think of tokens generally representing a single, simple word. For longer or rare words, several tokens may be used. For each token, the network computes a prediction of what the next token should be. It does this by applying a sequence of operations to each token.
 
 Most operations in the network are **token-wise**: each token is processed independently, and the output for a given token depends only on that token's content, not on any other tokens in the sequence. Operations like this include layer normalization or matrix multiplication. However, to create connections between words in a sentence, we need some operations where tokens can influence each other. 
 
-This is where attention comes in. **Attention layers are the only place where different tokens interact with each other**—something that even seasoned ML practitioners sometimes overlook. Understanding how a network connects tokens together means understanding attention.
+This is where attention comes in. **Attention layers are the only place where different tokens interact with each other**, something that even seasoned ML practitioners sometimes overlook. Understanding how a network connects tokens together means understanding attention.
 
-Let's see how this works in practice. To explain the basics of attention, we'll focus on the case where we have one input prompt. This is the same as saying batch size is 1.
+Let's see how this works in practice. To explain the basics of attention, we'll focus on the case where we have one input prompt, which is the same as saying batch size is 1.
 
 Consider the initial prompt "I am sure this project". It is tokenized as 7 tokens: `[<bos>, I, am, sure, this, pro, ject]`. The `<bos>` token is a special token that is added at the start of the prompt (BoS stands for Beginning of Sequence).  
-As a broad-stroke picture, attention can be represented this way:
+
+Those incoming tokens form a tensor we call $x$, with shape $\left[1, n , d \right]$. This is because batch size is $1$, $n$ is the number of tokens and $d$ is the hidden dimension. 
+
+Those tokens $x$ are then projected by three matrices: the query projection $W_q$,  the key projection $W_k$ and the value projection $W_v$. This produces three tensors $Q$, $K$ and $V$, all of shape $\left[1, n , A \right]$ where $A$ is the dimension of an attention head. We call them respectively the **query, key and value states.** This is represented on the left in the figure below.
+
+![proj_and_mul.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/continuous_batching/proj_and_mul.png)
+
+Next, tensors $Q$ and $K$ are multiplied together to measure similarity between tokens, producing a tensor of shape $\left[ 1, n , n \right]$. This is why we say that attention has quadratic complexity in sequence length. Computing $QK^T$ requires $\mathcal{O} \left( n^2 d \right)$ operations, so the cost is a square of $n$ the sequence length. It is represented on the right in the figure above.
+
+We then apply a boolean **attention mask** to $QK^T$ to control which tokens can interact, as represented in the figure below. In this figure, the attention mask is a **causal mask**, meaning each token only interacts with tokens that came before it. This follows the intuition that a cause must come before its consequence, hence the name causal mask. The attention mask is crucial because it dictates all token interactions in the network. **Set all attention mask values to False and no token will ever interact with another in the whole network.** We'll examine attention masks more closely in a few paragraphs.
+
+![masking_and_softmax.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/continuous_batching/masking_and_softmax.png)
+
+Finally, after applying the attention mask, we take a row-wise softmax and multiply the result by the value projection $V$ to get the output of one attention head, of shape $\left[ 1, n , A \right]$. We offer a visual summary of the whole process in the following figure.
 
 ![attention.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/continuous_batching/attention.png)
 
-
-The incoming tokens, which we will call $x$, represent a tensor of shape $\left[1, n , d \right]$ because batch size is $1$, $n$ is the number of tokens and $d$ is the hidden dimension. 
-
-Those tokens $x$ are then projected by three matrices: the query projection $W_q$,  the key projection $W_k$ and the value projection $W_v$. This produces three tensors $Q$, $K$ and $V$, all of shape $\left[1, n , A \right]$ where $A$ is the dimension of an attention head. We call them respectively the **query, key and value states.** 
-
-Next, tensors $Q$ and $K$ are multiplied together to measure similarity between tokens, producing a tensor of shape $\left[ 1, n , n \right]$. This is why we say that attention has quadratic complexity in sequence length. Computing $QK^T$ requires $\mathcal{O} \left( n^2 d \right)$ operations, so the cost is a square of $n$ the sequence length.
-
-We then apply a boolean **attention mask** to $QK^T$ to control which tokens can interact. In the figure above, the attention mask is a **causal mask**, meaning each token only interacts with tokens that came before it. This follows the intuition that a cause must come before its consequence—hence the name causal mask. The attention mask is crucial because it dictates all token interactions in the network. **Set all attention mask values to False and no token will ever interact with another in the whole network.** We'll examine attention masks more closely in a few paragraphs.
-
-Finally, after applying the attention mask, we take a row-wise softmax and multiply the result by the value projection $V$ to get the output of one attention head, of shape $\left[ 1, n , A \right]$.
 
 We are going to use a lot of attention visualization in this post, so to simplify things, we are going to condense the figure above just a bit.
 
@@ -50,9 +53,8 @@ We are going to use a lot of attention visualization in this post, so to simplif
 
 The attention scores $QK^T$ then have shape $\left[ 1, n_Q , n_K \right]$, and the attention mask has the same shape since it's applied point-wise to the scores.
 
-After applying the attention mask and row-wise softmax, we multiply by $V$. Since we're multiplying a matrix of shape $\left[ 1, n_Q , n_K \right]$ by one of shape $\left[ 1, n_V , A \right]$, the inner dimensions must match: $n_K = n_V$. This means $V$ and $K$ always have the same length, so we can simplify our visualizations by only showing $K$.
-
-Don't worry if this seems abstract—the figures will make it concrete.
+After applying the attention mask and row-wise softmax, we multiply by $V$. Since we're multiplying a matrix of shape $\left[ 1, n_Q , n_K \right]$ by one of shape $\left[ 1, n_V , A \right]$, the inner dimensions must match: $n_K = n_V$. This means $V$ and $K$ always have the same length, so we can simplify our visualizations by only showing $K$.  
+Don't worry if this seems abstract: the figures will make it concrete.
 
 
 Furthermore, since we know that the attention mask is applied to $QK^T$, we know they have the same shape. Instead of representing the attention scores, we will represent the attention mask in its place.
@@ -62,7 +64,7 @@ Finally, since $Q$, $K$ and $V$ are direct projections of $x$, no need to repres
 
 This representation also underlines how we can **read an attention mask.** 
 
-We read the mask row-by-row, which is the same as reading token-by-token: each row corresponds to one token's attention computation. A **green square** at position (row i, column j) means `True`—token j can influence token i. A **white square** means `False`—no interaction allowed.
+We read the mask row-by-row, which is the same as reading token-by-token: each row corresponds to one token's attention computation. A **green square** at position (row i, column j) means `True`: token j can influence token i. A **white square** means `False`: no interaction allowed.
 
 For example, look at the third row for token "*am*". The "*I*" column is green, so "*I*" influences the computation of "*am*". The "*pro*" column is white, so "*pro*" doesn't influence "*am*" . This is causal masking at work: future tokens can't affect past ones.
 
@@ -118,7 +120,7 @@ To batch prompts together, the naive way is to add an axis to both input tensors
 
 ![padding.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/continuous_batching/padding.png)
 
-where the padding tokens `<pad>` are coloured in orange. Then we can perform the forward pass as we used to, with the added dimension of the batch size. This is called **batched generation**—efficient for same-length prompts, but wasteful when lengths vary. It is illustrated below:
+where the padding tokens `<pad>` are coloured in orange. Then we can perform the forward pass as we used to, with the added dimension of the batch size. This is called **batched generation**: efficient for same-length prompts, but wasteful when lengths vary. It is illustrated below:
 
 ![batched_generation.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/continuous_batching/batched_generation.png)
 
@@ -134,7 +136,7 @@ The problem becomes even worse when batch size increases and initial prompts are
 
 Furthermore, practical optimizations like CUDA graphs or `torch.compile` require static tensor shapes. This forces us to pad all prompts to a fixed maximum length, dramatically increasing the padding waste. 
 
-At this point, our main problem is padding, which is a consequence of the axis we added to batch sentences together. Thus, the ideal would be to get rid of this axis entirely—a radical rethinking of batching. If we do so, the only way to batch prompts together is to concatenate them:
+At this point, our main problem is padding, which is a consequence of the axis we added to batch sentences together. Thus, the ideal would be to get rid of this axis entirely, a radical rethinking of batching. If we do so, the only way to batch prompts together is to concatenate them:
 
 ![concatenate.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/continuous_batching/concatenate.png)
 
@@ -153,7 +155,7 @@ For instance, here is one batching strategy used in practice to maximize through
 - We first add all the prompts in decoding phase to the batch, each accounting for 1 token
 - We fill the remaining space with prefill phase prompts, relying on the flexibility of chunked prefill to exactly fill the batch as desired
 
-Furthermore, we can also use dynamic scheduling to remove finished prompts from the batch whenever they finish. This combination of ragged batching and dynamic scheduling is called **continuous batching**—and it's the technique that powers modern LLM serving systems.
+Furthermore, we can also use dynamic scheduling to remove finished prompts from the batch whenever they finish. This combination of ragged batching and dynamic scheduling is called **continuous batching**, and it's the technique that powers modern LLM serving systems.
 
 ![continuous_batching.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/continuous_batching/continuous_batching.png)
 
