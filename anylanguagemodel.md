@@ -3,6 +3,7 @@ title: "Introducing AnyLanguageModel: One API for Local and Remote LLMs on Apple
 #thumbnail: TK
 authors:
 - user: mattt
+  guest: true
 ---
 
 LLMs have become essential tools for building software.
@@ -72,6 +73,7 @@ AnyLanguageModel supports a range of providers:
 - **llama.cpp**: Load GGUF models via the llama.cpp backend
 - **Ollama**: Connect to locally-served models via Ollama's HTTP API
 - **OpenAI, Anthropic, Google Gemini**: Cloud providers for comparison and fallback
+- **Hugging Face Inference Providers**: Hundreds of cloud models powered by world-class [inference providers](https://huggingface.co/docs/inference-providers/en/index).
 
 The focus is on local models that you can download from the [Hugging Face Hub](https://huggingface.co/docs/hub/).
 Cloud providers are included to lower the barrier to getting started and to provide a migration path.
@@ -90,18 +92,18 @@ This might seem counterintuitive.
 Why tie ourselves to Apple's choices?
 A few reasons:
 
-First, Foundation Models is genuinely well-designed.
+1. Foundation Models is genuinely well-designed.
 It leverages Swift features like macros for an ergonomic developer experience,
 and its abstractions around sessions, tools, and generation map well to how LLMs actually work.
 
-Second, it's intentionally limited.
+2. It's intentionally limited.
 Foundation Models represents something like a lowest common denominator for language model capabilities.
 Rather than seeing this as a weakness,
 we treat it as a stable foundation (_hyuk hyuk_).
 Every Swift developer targeting Apple platforms will encounter this API,
 so building on it directly means less conceptual overhead.
 
-Third, it keeps us grounded.
+3. It keeps us grounded.
 Each additional layer of abstraction takes you further from the problem you're actually solving.
 Abstractions are powerful,
 but stack too many and they become a problem in themselves.
@@ -128,7 +130,7 @@ dependencies: [
 ]
 ```
 
-Available traits include `CoreML`, `MLX`, and `Llama`.
+Available traits include `CoreML`, `MLX`, and `Llama` (for llama.cpp / [llama.swift](https://github.com/mattt/llama.swift)).
 By default, no heavy dependencies are included.
 You get the base API plus cloud providers,
 which only require standard `URLSession` networking.
@@ -140,7 +142,7 @@ The [README](https://github.com/mattt/AnyLanguageModel#using-traits-in-xcode-pro
 
 ## Image Support (and API Design Trade-offs)
 
-[Vision-language models](https://huggingface.co/blog/vlms-2025) are incredibly capable.
+[Vision-language models](https://huggingface.co/blog/vlms-2025) are incredibly capable and widely used.
 They can describe images,
 extract text from screenshots,
 analyze charts,
@@ -197,6 +199,7 @@ The core API is stable,
 but we're actively working on bringing the full feature set of Foundation Models to all adapters, namely:
 
 - **Tool calling** across all providers
+- **MCP integration** for tools and elicitations
 - **Guided generation** for structured outputs
 - Performance optimizations for local inference
 
@@ -214,7 +217,7 @@ We'd love your help making this better:
 - **Open issues** — Feature requests, bug reports, questions
 - **Contribute** — PRs are welcome
 
-Links:
+## Links
 
 - [AnyLanguageModel on GitHub](https://github.com/mattt/AnyLanguageModel)
 - [chat-ui-swift on GitHub](https://github.com/mattt/chat-ui-swift)
