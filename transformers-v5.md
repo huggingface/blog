@@ -109,6 +109,10 @@ The same is true for MLX, where the transformers' safetensors files are directly
 
 Finally, we’re pushing the boundaries of local inference and are working hand-in-hand with the `executorch` team to get the transformers models to be available on-device. We’re expanding the coverage to multimodal models (vision, audio).
 
+## Quantization
+
+Quantization is quickly emerging as the standard for state-of-the-art model development. Many SOTA models are now released in low-precision formats such as 8-bit and 4-bit (e.g gpt-oss, Kimi-K2, Deepseek-r1), hardware is increasingly optimized for low-precision workloads, and the community is actively sharing high-quality quantized checkpoints. In v5, we're making quantization a central focus of Transformers support, ensuring full compatibility with all major features, and delivering a reliable framework for training and inference.
+
 ## Conclusion
 
 The overarching theme of this version 5 release is “interoperability”. All refactors, performance improvements, and standardization are aligned with this theme. Train a model with Unsloth/Axolotl/LlamaFactory/MaxText, deploy it with vLLM/SGLang, and export it to llama.cpp/executorch/MLX to run locally\! 
