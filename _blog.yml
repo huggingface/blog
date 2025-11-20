@@ -4859,7 +4859,7 @@
     - announcement
     - open-source
     - hub
-  
+
 - local: streaming-datasets
   date: Oct 27, 2025
   tags:
@@ -4897,3 +4897,11 @@
     - rocm
     - kernels
 
+- local: anylanguagemodel
+  date: Nov 20, 2025
+  tags:
+    - llm
+    - coreml
+    - mlx
+    - community
+    - open-source
