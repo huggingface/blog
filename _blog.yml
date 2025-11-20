@@ -4897,3 +4897,9 @@
     - rocm
     - kernels
 
+- local: open-asr-leaderboard
+  date: Nov 20, 2025
+  tags:
+    - audio
+    - speech
+    - leaderboard
