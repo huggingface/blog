@@ -4905,3 +4905,14 @@
     - mlx
     - community
     - open-source
+
+- local: intel-deepmath
+  date: Nov 20, 2025
+  tags:
+    - llm
+    - reasoning
+    - agents
+    - math
+    - grpo
+
+    
