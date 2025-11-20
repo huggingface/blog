@@ -6,7 +6,6 @@ authors:
   guest: true
 ---
 
-![banner image](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/any-swift-llm/banner.png)
 
 LLMs have become essential tools for building software.
 But for Apple developers, integrating them remains unnecessarily painful.
