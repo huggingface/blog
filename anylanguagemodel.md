@@ -6,6 +6,8 @@ authors:
   guest: true
 ---
 
+![banner image](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/any-swift-llm/banner.png)
+
 LLMs have become essential tools for building software.
 But for Apple developers, integrating them remains unnecessarily painful.
 
@@ -177,7 +179,7 @@ Sometimes you have to write the API for the framework that doesn't exist yet.
 
 ## Try It Out: chat-ui-swift
 
-![Screenshot of chat-ui-swift app](./assets/anylanguagemodel/chat-ui-swift.png)
+![Screenshot of chat-ui-swift app](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/any-swift-llm/chat-ui-swift.png)
 
 To see AnyLanguageModel in action,
 check out [chat-ui-swift](https://github.com/mattt/chat-ui-swift),
