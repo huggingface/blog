@@ -4905,3 +4905,30 @@
     - mlx
     - community
     - open-source
+
+- local: open-asr-leaderboard
+  date: Nov 21, 2025
+  tags:
+    - audio
+    - speech
+    - leaderboard
+
+- local: rapidfireai
+  date: Nov 21, 2025
+  tags:
+    - llm
+    - experimentation
+    - fine-tuning
+    - post-training
+    - trl
+    - rapidfireai
+
+- local: intel-deepmath
+  date: Nov 25, 2025
+  tags:
+    - llm
+    - reasoning
+    - agents
+    - math
+    - grpo
+

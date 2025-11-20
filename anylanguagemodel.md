@@ -1,6 +1,6 @@
 ---
 title: "Introducing AnyLanguageModel: One API for Local and Remote LLMs on Apple Platforms"
-thumbnail: /assets/anylanguagemodel/banner.png
+thumbnail: /blog/assets/anylanguagemodel/banner.png
 authors:
 - user: mattt
   guest: true
