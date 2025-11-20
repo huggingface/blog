@@ -86,8 +86,8 @@ The tradeoff? Parakeet is **English-only,** again reminding us of that multiling
 
 # 🎤 The Show Must Go On
 
-Given how fast ASR is evolving, we’re excited to see what new architectures push performance and efficiency, and how the *Open ASR Leaderboard* continues to serve as a **transparent, community-driven benchmark** for the field.
+Given how fast ASR is evolving, we’re excited to see what new architectures push performance and efficiency, and how the *Open ASR Leaderboard* continues to serve as a **transparent, community-driven benchmark** for the field, and as a reference for other leaderboards ([Russian](https://huggingface.co/spaces/Vikhrmodels/Russian_ASR_Leaderboard), [Arabic](https://huggingface.co/spaces/elmresearchcenter/open_universal_arabic_asr_leaderboard), and [Speech DeepFake Detection](https://huggingface.co/spaces/Speech-Arena-2025/Speech-DF-Arena)).
 
-We’ll keep expanding it with **more models, more languages, and more datasets** so stay tuned 👀
+We’ll keep expanding the *Open ASR LeaderBoard* with **more models, more languages, and more datasets** so stay tuned 👀
 
 👉 **Want to contribute?** Head on over to the [GitHub repo](https://github.com/huggingface/open_asr_leaderboard) to open a *pull request* 🚀
