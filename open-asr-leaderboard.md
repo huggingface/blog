@@ -31,7 +31,7 @@ Over the past two years, the [**Open ASR Leaderboard**](https://huggingface.co/s
 
 As of 21 Nov 2025, the *Open ASR Leaderboard* compares **60+ open and closed-source models** from **18 organizations**, across **11 datasets**.
 
-In a recent [preprint](https://arxiv.org/abs/2510.06961), we dive into the technical setup and highlight some key trends in modern ASR. Here are the big takeaways 👇
+In a recent [preprint](https://hf.co/papers/2510.06961), we dive into the technical setup and highlight some key trends in modern ASR. Here are the big takeaways 👇
 
 ## 1. Conformer encoder 🤝 LLM decoder tops the charts 📈
 
@@ -39,9 +39,9 @@ In a recent [preprint](https://arxiv.org/abs/2510.06961), we dive into the techn
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/open_asr_leaderboard/leaderboard_WER.png" width="1024px" alt="thumbnail" />
 </div>
 
-Models combining [**Conformer encoders**](https://arxiv.org/abs/2005.08100) with **large language model (LLM) decoders** currently lead in English transcription accuracy. For example, **NVIDIA’s [Canary-Qwen-2.5B](https://huggingface.co/nvidia/canary-qwen-2.5b)**, **IBM’s [Granite-Speech-3.3-8B](https://huggingface.co/ibm-granite/granite-speech-3.3-8b)**, and **Microsoft’s [Phi-4-Multimodal-Instruct](https://huggingface.co/microsoft/Phi-4-multimodal-instruct)** achieve the lowest word error rates ([WER](https://huggingface.co/learn/audio-course/en/chapter5/evaluation#word-error-rate)), showing that integrating LLM reasoning can significantly boost ASR accuracy.
+Models combining [**Conformer encoders**](https://huggingface.co/papers/2005.08100) with **large language model (LLM) decoders** currently lead in English transcription accuracy. For example, **NVIDIA’s [Canary-Qwen-2.5B](https://huggingface.co/nvidia/canary-qwen-2.5b)**, **IBM’s [Granite-Speech-3.3-8B](https://huggingface.co/ibm-granite/granite-speech-3.3-8b)**, and **Microsoft’s [Phi-4-Multimodal-Instruct](https://huggingface.co/microsoft/Phi-4-multimodal-instruct)** achieve the lowest word error rates ([WER](https://huggingface.co/learn/audio-course/en/chapter5/evaluation#word-error-rate)), showing that integrating LLM reasoning can significantly boost ASR accuracy.
 
-💡 *Pro-tip: NVIDIA introduced [Fast Conformer](https://arxiv.org/abs/2305.05084), a 2x faster variant of the Conformer, that is used in their Canary and Parakeet suite of models.*
+💡 *Pro-tip: NVIDIA introduced [Fast Conformer](https://huggingface.co/papers/2305.05084), a 2x faster variant of the Conformer, that is used in their Canary and Parakeet suite of models.*
 
 ## 2. Speed–accuracy tradeoffs ⚖️
 
@@ -51,7 +51,7 @@ Models combining [**Conformer encoders**](https://arxiv.org/abs/2005.08100) with
 
 While highly accurate, these LLM decoders tend to be **slower** than simpler approaches. On the *Open ASR Leaderboard*, efficiency is measured using *inverse real-time factor* (RTFx), where higher is better.
 
-For even faster inference, [**CTC**](https://huggingface.co/learn/audio-course/en/chapter3/ctc#ctc-architectures) and [**TDT**](https://arxiv.org/abs/2304.06795) decoders deliver **10–100× faster throughput**, albeit with slightly higher error rates. This makes them ideal for **real-time**, **offline**, or **batch transcription** tasks (such as meetings, lectures, or podcasts).
+For even faster inference, [**CTC**](https://huggingface.co/learn/audio-course/en/chapter3/ctc#ctc-architectures) and [**TDT**](https://huggingface.co/papers/2304.06795) decoders deliver **10–100× faster throughput**, albeit with slightly higher error rates. This makes them ideal for **real-time**, **offline**, or **batch transcription** tasks (such as meetings, lectures, or podcasts).
 
 ## 3. Multilingual 🌍
 
