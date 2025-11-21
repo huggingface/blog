@@ -4905,3 +4905,12 @@
     - mlx
     - community
     - open-source
+
+- local: continuous_batching
+  date: Nov 21, 2025
+  tags:
+    - transformers
+    - pytorch
+    - optimization
+    - inference
+    - feature
