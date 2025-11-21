@@ -4912,3 +4912,13 @@
     - audio
     - speech
     - leaderboard
+
+- local: rapidfireai
+  date: Nov 21, 2025
+  tags:
+    - llm
+    - experimentation
+    - fine-tuning
+    - post-training
+    - trl
+    - rapidfireai
