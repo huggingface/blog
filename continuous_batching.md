@@ -42,7 +42,7 @@ We then apply a boolean **attention mask** to $QK^T$ to control which tokens can
 
 ![masking_and_softmax.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/continuous_batching/masking_and_softmax.png)
 
-Finally, after applying the attention mask, we take a row-wise softmax and multiply the result by the value projection $V$ to get the output of one attention head, of shape $\left[ 1, n , A \right]$. We offer a visual summary of the whole process in the following figure.
+Finally, after applying the attention mask, we take a token-wise softmax (which is the same as saying a row-wise softmax) and multiply the result by the value projection $V$ to get the output of one attention head, of shape $\left[ 1, n , A \right]$. We offer a visual summary of the whole process in the following figure.
 
 ![attention.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/continuous_batching/attention.png)
 
@@ -114,7 +114,7 @@ You should by now be equipped with the tools to understand Continuous Batching.
 
 ## Continuous batching
 
-So far, we have only treated the case of batch size one, i.e. we only generate tokens for one prompt at a time. But in the context of evaluation or model serving, we want to generate tokens for a large number of prompts. To increase the **throughput**, which is the number of generated tokens divided by the time it took to generate them, the best course of action is to generate tokens for a batch of several prompts.
+So far, we have only treated the case of batch size one, i.e. we only generate tokens for one prompt at a time. But in the context of evaluation or model serving, we want to generate tokens for a large number of prompts. To increase the **throughput**, which is the number of tokens generated per second, the best course of action is to generate tokens for a batch of several prompts.
 
 To batch prompts together, the naive way is to add an axis to both input tensors, which will be the batch axis. This way we can pass two prompts and two attention masks, one for each. However, this comes with a constraint on the shape of the inputs: we need all prompts to have the same length (since tensors must be rectangular). To achieve this, we usually add padding on the left so the new token prediction always comes from the rightmost token. We also modify the attention mask of each prompt accordingly. This is shown below:
 
@@ -170,4 +170,4 @@ By removing the batch dimension and using attention masks to control token inter
 
 In the next article in this series, we'll explore efficient KV cache management. If you'd like to see a deep dive on other continuous batching topics, please let us know in the comments!
 
-*Acknowledgement: thanks to Arthur Zucker for producing the initial concept for the figures used in this article, and providing helpful reviews. And equal thanks to Luc Georges for the very thorough and detailed reviews throughout.*
+*Acknowledgement: thanks to Arthur Zucker for producing the initial concept for the figures used in this article. And thanks to Arthur Zucker, Luc Georges, Lysandre Debut and Merve Noyan for all providing helpful reviews.*
