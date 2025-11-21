@@ -1,14 +1,17 @@
 ---
-title: "Announcing RapidFire AI Integration with TRL"
+title: "20x Faster TRL Fine-tuning with RapidFire AI"
 thumbnail: /blog/assets/rapidfireai_intro/thumbnail.png
 authors:
+  - user: kbigdelysh
+    guest: true
+    org: rapidfire-ai-inc
   - user: arunkk09
     guest: true
     org: rapidfire-ai-inc
   - user: qgallouedec
 ---
 
-# Announcing RapidFire AI Integration with TRL
+# 20x Faster TRL Fine-tuning with RapidFire AI
 
 Hugging Face TRL now officially integrates with RapidFire AI to accelerate your fine-tuning and post-training experiments. TRL users can now discover, install, and run RapidFire AI as the fastest way to compare multiple fine-tuning/post-training configurations to customize LLMs without major code changes and without bloating GPU requirements.
 
