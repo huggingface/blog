@@ -1,6 +1,6 @@
 ---
 title: "20x Faster TRL Fine-tuning with RapidFire AI"
-thumbnail: /blog/assets/rapidfireai_intro/thumbnail.png
+thumbnail: /blog/assets/rapidfireai/thumbnail.png
 authors:
 - user: kbigdelysh
   guest: true
