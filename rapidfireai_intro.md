@@ -1,6 +1,6 @@
 ---
 title: "Announcing RapidFire AI Integration with TRL"
-thumbnail: /blog/assets/rapidfireai_intro/thumbnail.gif
+thumbnail: /blog/assets/rapidfireai_intro/thumbnail.png
 authors:
   - user: arunkk09
     guest: true
