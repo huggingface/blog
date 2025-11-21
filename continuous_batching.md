@@ -15,7 +15,7 @@ authors:
 
 If you've ever used Qwen, Claude, or any other AI chatbot, you've probably noticed something: it takes a while for the first word of the response to appear, and then words appear one-by-one on your screen with (hopefully) a regular and fast-paced frequency. That's because at the heart of it, all LLMs are just fancy next token predictors. During generation, first comes the **prefill** phase, where the model ingests your initial prompt to predict one new token. Then they ingest that token as well, to produce another new token: this is the **decoding** phase. The process is repeated until they feel like they have generated enough.
 
-This generation process is computationally expensive: it requires processing billions of parameters for each token generated. To make these models practical for real-world applications, particularly when serving many users simultaneously, researchers and engineers have developed a range of efficient inference techniques.  
+This generation process is computationally expensive: it requires passing the input through billions of parameters for each token generated. To make these models practical for real-world applications, particularly when serving many users simultaneously, researchers and engineers have developed a range of efficient inference techniques.  
 One of the most impactful optimizations is **continuous batching**, which is the focus of this article. To understand how continuous batching works and why it's so effective, we'll need to build up from the fundamentals of how LLMs process tokens.
 
 ## Attention
