@@ -16,7 +16,7 @@ Hugging Face TRL now officially integrates with RapidFire AI to accelerate your 
 
 When fine-tuning or post-training LLMs, teams often do not have the time and/or budget to compare multiple configs even though that can significantly boost eval metrics. RapidFire AI lets you launch multiple TRL configs concurrently--even on a single GPU--and compare them in near real time via a new adaptive, chunk-based scheduling and execution scheme. In internal benchmarks referenced in the TRL page, this delivers ~16–24× higher experimentation throughput than sequentially comparing configs one after another, enabling you to reach much better metrics much faster.
 
-![RapidFire AI Architecture](images/rf-usage.png)
+![RapidFire AI Architecture](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/rapidfireai_intro/rf-usage.png)
 *RapidFire AI establishes live three-way communication between your IDE, a metrics dashboard, and a multi-GPU execution backend*
 
 ## What you get, out of the box
@@ -27,7 +27,7 @@ When fine-tuning or post-training LLMs, teams often do not have the time and/or 
 
 - **Interactive Control Ops (IC Ops)** — From the dashboard itself, you can Stop, Resume, Delete, and Clone-Modify, possibly with Warm-Start, any runs in flight to avoid wasting resources on underperforming configs and double-down on better performing configs--no job restarts, no juggling separate GPUs or clusters, no resource bloat.
 
-![Interactive Control Operations](images/icop-clone.png)
+![Interactive Control Operations](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/rapidfireai_intro/icop-clone.png)
 *Clone promising configurations with modified hyperparameters, optionally warm-starting from the parent's weights, all from the live dashboard*
 
 - **Multi-GPU orchestration** — The RapidFire AI scheduler automatically places and orchestrates configs across available GPUs on chunks of data via effcient shared-memory mechanisms. You focus on your models and eval metrics, not plumbing.
@@ -38,7 +38,7 @@ When fine-tuning or post-training LLMs, teams often do not have the time and/or 
 
 RapidFire AI splits your dataset randomly into "chunks" and cycles LLM configurations through the GPUs at chunk boundaries. You get incremental signal on eval metrics across all configs much more quickly. The automatic checkpointing via an efficient shared-memory-based adapter/model spilling/loading mechanism keeps training smooth, stable, and consistent. Use IC Ops to adapt mid-flight to stop low-performers earlier and clone promising ones with tweaked config knobs, optionally warm-starting from the parent's weights.
 
-![GPU Scheduling Comparison](images/gantt-2gpu.png)
+![GPU Scheduling Comparison](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/rapidfireai_intro/gantt-2gpu.png)
 *Sequential vs. Task Parallel vs. RapidFire AI: The adaptive scheduler maximizes GPU utilization across multiple configs and GPUs. The bottom row shows IC Ops in action—stopping, cloning, and modifying runs mid-flight.*
 
 ## Getting Started
