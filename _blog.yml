@@ -4906,6 +4906,13 @@
     - community
     - open-source
 
+- local: open-asr-leaderboard
+  date: Nov 21, 2025
+  tags:
+    - audio
+    - speech
+    - leaderboard
+
 - local: rapidfireai
   date: Nov 21, 2025
   tags:
