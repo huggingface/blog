@@ -11,12 +11,7 @@ authors:
 
 # Open ASR Leaderboard: Trends and Insights with New Multilingual & Long-Form Tracks
 
-<!-- <div align="center">
-  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/open_asr_leaderboard/thumbnail.png" width="1024px" alt="thumbnail" />
-</div> -->
-
-
-While everyone (and their grandma 👵) is spinning up new ASR models, picking the right one for your use case can feel more overwhelming than choosing your next Netflix show. As of 20 Nov 2025, there are **150 [Audio-Text-to-Text](https://huggingface.co/models?pipeline_tag=audio-text-to-text&sort=trending)** and **27K [ASR models](https://huggingface.co/models?pipeline_tag=automatic-speech-recognition&sort=trending)** on the Hub 🤯
+While everyone (and their grandma 👵) is spinning up new ASR models, picking the right one for your use case can feel more overwhelming than choosing your next Netflix show. As of 21 Nov 2025, there are **150 [Audio-Text-to-Text](https://huggingface.co/models?pipeline_tag=audio-text-to-text&sort=trending)** and **27K [ASR models](https://huggingface.co/models?pipeline_tag=automatic-speech-recognition&sort=trending)** on the Hub 🤯
 
 Most benchmarks focus on **short-form English transcription (<30s),** and overlook other important tasks, such as (1) multilingual performance and (2) model throughput, which can a be deciding factor for long-form audio like meetings and podcasts.
 
@@ -34,7 +29,7 @@ Over the past two years, the [**Open ASR Leaderboard**](https://huggingface.co/s
 
 # Takeaways from 60+ models
 
-As of 20 Nov 2025, the *Open ASR Leaderboard* compares **60+ open and closed-source models** from **18 organizations**, across **11 datasets**.
+As of 21 Nov 2025, the *Open ASR Leaderboard* compares **60+ open and closed-source models** from **18 organizations**, across **11 datasets**.
 
 In a recent [preprint](https://arxiv.org/abs/2510.06961), we dive into the technical setup and highlight some key trends in modern ASR. Here are the big takeaways 👇
 
