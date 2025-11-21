@@ -105,7 +105,7 @@ Let's pretend that the available memory is very constrained, and that we can onl
 
 ![chunked prefill.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/continuous_batching/chunked_prefill.png)
 
-We can do that thanks to the KV cache. We store the KV states during the first prefill split, and during the second prefill split, we concatenate them left of the new KV states. We also adapt the attention mask accordingly. Visually, it looks like we split the non-chunked prefill in the middle.
+We can do that thanks to the KV cache. We store the KV states during the first prefill split, and during the second prefill split, we prepend the stored KV states to the new KV states. We also adapt the attention mask accordingly. Visually, it looks like we split the non-chunked prefill in the middle.
 
 The key insight: cached KV states let us process the prompt incrementally without losing information.
 
