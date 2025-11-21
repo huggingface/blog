@@ -4905,3 +4905,8 @@
     - mlx
     - community
     - open-source
+
+- local: rapidfireai_intro
+  date: Nov 21, 2025
+  tags:
+    - ...
