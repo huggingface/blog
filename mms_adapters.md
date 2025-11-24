@@ -22,7 +22,7 @@ In this blog post, we show how MMS's Adapter training achieves astonishingly low
 
 For low-resource languages, we **strongly** recommend using MMS' Adapter training as opposed to fine-tuning the whole model as is done in ["Fine-tuning XLS-R on Multi-Lingual ASR"](https://huggingface.co/blog/fine-tune-xlsr-wav2vec2). 
 
-In our experiments, MMS' Adapter training is both more memory efficient, more robust and yields better performance for low-resource languages. For medium to high resource languages it can still be advantegous to fine-tune the whole checkpoint instead of using Adapter layers though.
+In our experiments, MMS' Adapter training is both more memory efficient, more robust and yields better performance for low-resource languages. For medium to high resource languages it can still be advantageous to fine-tune the whole checkpoint instead of using Adapter layers though.
 
 ![wav2vec2_structure](/blog/assets/151_mms/mms_map.png)
 
@@ -31,7 +31,7 @@ In our experiments, MMS' Adapter training is both more memory efficient, more ro
 According to https://www.ethnologue.com/ around 3000, or 40% of all "living" languages, are endangered due to fewer and fewer native speakers.
 This trend will only continue in an increasingly globalized world. 
 
-**MMS** is capable of transcribing many languages which are endangered, such as *Ari* or *Kaivi*. In the future, MMS can play a vital role in keeping languages alive by helping the remaining speakers to create written records and communicating in their native tongue.
+**MMS** is capable of transcribing many languages which are endangered, such as *Ari* or *Kaivi*. In the future, MMS can play a vital role in keeping languages alive by helping the remaining speakers to create written records and communicate in their native tongue.
 
 To adapt to 1000+ different vocabularies, **MMS** uses of Adapters - a training method where only a small fraction of model weights are trained.
 
