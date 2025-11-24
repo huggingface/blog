@@ -59,7 +59,7 @@ model = AutoModelForCausalLM.from_pretrained(
 )    
 tokenizer = AutoTokenizer.from_pretrained("meta-llama/Meta-Llama-3-8B-Instruct")
 
-input_text = "Daniel went back to the the the garden. Mary travelled to the kitchen. Sandra journeyed to the kitchen. Sandra went to the hallway. John went to the bedroom. Mary went back to the garden. Where is Mary?\nAnswer:"
+input_text = "Daniel went back to the garden. Mary travelled to the kitchen. Sandra journeyed to the kitchen. Sandra went to the hallway. John went to the bedroom. Mary went back to the garden. Where is Mary?\nAnswer:"
 
 input_ids = tokenizer.encode(input_text, return_tensors="pt").cuda()
 output = model.generate(input_ids, max_new_tokens=10)
