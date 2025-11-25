@@ -15,13 +15,13 @@ authors:
 # Welcome FLUX.2 - BFL’s new open image generation model 🤗
 
 FLUX.2 is the recent series of image generation models from Black Forest Labs, preceded by the [Flux.1](https://huggingface.co/collections/black-forest-labs/flux1) series. It is an entirely new model with a **new architecture** and pre-training done from scratch!
-
+![generation_teaser](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/flux2_blog/teaser_generation.png)
 In this post, we discuss the key changes introduced in FLUX.2, performing inference with it under various setups, and LoRA fine-tuning.
 
 <aside>
 🚨
 
-FLUX.2 is not meant to be a drop-in replacement of FLUX.1, but a new generation model
+FLUX.2 is *not* meant to be a drop-in replacement of FLUX.1, but a new generation model
 
 </aside>
 
@@ -35,7 +35,7 @@ FLUX.2 is not meant to be a drop-in replacement of FLUX.1, but a new generation 
 
 FLUX.2 can be used for both **image-guided** and **text-guided** image generation. Furthermore, it can take multiple images as reference inputs, while producing the final output image. Below, we briefly discuss the key changes introduced in FLUX.2.
 
-TODO: add generations for image-guided and text-guided image generation
+![editing_teaser](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/flux2_blog/teaser_editing.png)
 
 ### Text encoder
 
