@@ -410,7 +410,8 @@ Being both a text-to-image and an image-to-image model, FLUX.2 makes the perfect
 
 Many of these techniques complement each other and can be used together to reduce memory consumption further. However, some techniques may be mutually exclusive, so be sure to check before launching a training run.
 
-- Unfold to check details on the memory-saving techniques used:
+<details>
+<summary>Unfold to check details on the memory-saving techniques used: </summary>
   - **Remote Text Encoder:** to leverage the remote text encoding for training, simply pass `--remote_text_encoder`. Note that you must either be logged in to your Hugging Face account (`hf auth login`) OR pass a token with `--hub_token`.
   - **CPU Offloading:** by passing `--offload` the vae and text encoder to will be offloaded to CPU memory and only moved to GPU when needed.
   - **Latent Caching:** Pre-encode the training images with the vae, and then delete it to free up some memory. To enable `latent_caching` simply pass `--cache_latents`.
@@ -422,6 +423,7 @@ Many of these techniques complement each other and can be used together to reduc
   - **8-bit-Adam Optimizer:** When training with `AdamW`(doesn't apply to `prodigy`) You can pass `--use_8bit_adam` to reduce the memory requirements of training. Make sure to install `bitsandbytes` if you want to do so.
 
 Let’s launch a training run using these memory-saving optimizations.
+</details>
 
 > [!NOTE]
 > Please make sure to check out the [README](https://github.com/huggingface/diffusers/blob/main/examples/dreambooth/README_flux2.md) for prerequisites before starting training.
@@ -459,10 +461,26 @@ accelerate launch train_dreambooth_lora_flux2.py \
   --push_to_hub
 ```
 
-<p>
-  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/flux2_blog/image%201.png" width="35%" />
-  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/flux2_blog/image%202.png" width="35%" />
-</p>
+<table style="text-align: center; margin: auto;">
+  <caption>LoRA finetuning</caption>
+
+  <tr>
+    <td>
+      <img
+        src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/flux2_blog/image%201.png"
+        alt="without LoRA"
+        style="max-width: 100%; height: auto;"
+      />
+    </td>
+    <td>
+      <img
+        src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/flux2_blog/image%202.png"
+        alt="with LoRA"
+        style="max-width: 100%; height: auto;"
+      />
+    </td>
+  </tr>
+</table>
  
 The left image was generated using the pre-trained FLUX.2 model, and the right image was produced the LoRA.
 
