@@ -16,23 +16,25 @@ authors:
 If you've ever used Qwen, Claude, or any other AI chatbot, you've probably noticed something: it takes a while for the first word of the response to appear, and then words appear one-by-one on your screen with (hopefully) a regular and fast-paced frequency. That's because at the heart of it, all LLMs are just fancy next token predictors. During generation, first comes the **prefill** phase, where the model ingests your initial prompt to predict one new token. Then they ingest that token as well, to produce another new token: this is the **decoding** phase. The process is repeated until they feel like they have generated enough.
 
 This generation process is computationally expensive: it requires passing the input through billions of parameters for each token generated. To make these models practical for real-world applications, particularly when serving many users simultaneously, researchers and engineers have developed a range of efficient inference techniques.  
-One of the most impactful optimizations is **continuous batching**, which is the focus of this article. To understand how continuous batching works and why it's so effective, we'll need to build up from the fundamentals of how LLMs process tokens.
+One of the most impactful optimizations is **continuous batching**, which attempts to maximize performance by processing multiple conversations in parallel and swapping them out when they are done.
+
+To understand how continuous batching works and why it's so effective in high-load serving scenarios, we'll build up from the fundamentals of how LLMs process tokens.
 
 ## Attention
 
-In order to understand continuous batching, it’s useful to have a clear understanding of the attention mechanism. In a Llama-like LLM, the neural network processes text by breaking it down into pieces that we call tokens, which are represented by vectors. We can think of tokens generally representing a single, simple word. For longer or rare words, several tokens may be used. For each token, the network computes a prediction of what the next token should be. It does this by applying a sequence of operations to each token.
+The attention mechanism is the central piece of how LLMs work. A language model processes text by breaking it down into pieces that we call tokens. We can conceptually think of "tokens" as "words", but sometimes a word might be composed of several tokens. For each token sequence, the network computes a prediction of what the next token should be.
 
-Most operations in the network are **token-wise**: each token is processed independently, and the output for a given token depends only on that token's content, not on any other tokens in the sequence. Operations like this include layer normalization or matrix multiplication. However, to create connections between words in a sentence, we need some operations where tokens can influence each other. 
+Many operations in the network are **token-wise**: each token is processed independently, and the output for a given token depends only on that token's content, not on any other tokens in the sequence. Operations like this include layer normalization or matrix multiplication. However, to create connections between words in a sentence, we need operations where tokens can influence each other. 
 
-This is where attention comes in. **Attention layers are the only place where different tokens interact with each other**, something that even seasoned ML practitioners sometimes overlook. Understanding how a network connects tokens together means understanding attention.
+This is where attention comes in. **Attention layers are the only place where different tokens interact with each other**. Understanding how a network connects tokens together means understanding attention.
 
 Let's see how this works in practice. To explain the basics of attention, we'll focus on the case where we have one input prompt, which is the same as saying batch size is 1.
 
-Consider the initial prompt "I am sure this project". It is tokenized as 7 tokens: `[<bos>, I, am, sure, this, pro, ject]`. The `<bos>` token is a special token that is added at the start of the prompt (BoS stands for Beginning of Sequence).  
+Consider the initial prompt `I am sure this project`, tokenized as 7 tokens: `[<bos>, I, am, sure, this, pro, ject]`. The `<bos>`, or "Beginning of Sequence", is a special token we add at the start of the prompt to tell the language model that a new conversation starts here.
 
-Those incoming tokens form a tensor we call \\( x \\), with shape \\( \left[1, n , d \right] \\). This is because batch size is \\( 1 \\), \\( n \\) is the number of tokens and \\( d \\) is the hidden dimension. 
+Each token is represented inside the network with a vector of length `d` (the _hidden dimension_). Therefore, the seven incoming tokens form a tensor \\(x\\) with shape \\(\left[1, 7, d \right]\\). `1` is the number of sequences, or batch size, which is just one in our case. `7` is the sequence length, and `d` is the hidden dimension, or the size of each token representation. Going forward, we'll use \\(n\\) instead of `7` as the sequence length.
 
-Those tokens \\( x \\) are then projected by three matrices: the query projection \\( W_q \\),  the key projection \\( W_k \\) and the value projection \\( W_v \\). This produces three tensors \\( Q \\), \\( K \\) and \\( V \\), all of shape \\( \left[1, n , A \right] \\) where \\( A \\) is the dimension of an attention head. We call them respectively the **query, key and value states.** This is represented on the left in the figure below.
+Input tensor \\( x \\) is then projected by three matrices: the query projection \\( W_q \\),  the key projection \\( W_k \\) and the value projection \\( W_v \\). This produces three tensors \\( Q \\), \\( K \\) and \\( V \\), all of shape \\( \left[1, n , A \right] \\), where \\( A \\) is the dimension of the attention head. We call them the **query, key and value states,** respectively. This is represented on the left in the figure below.
 
 ![proj_and_mul.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/continuous_batching/proj_and_mul.png)
 
@@ -49,7 +51,7 @@ Finally, after applying the attention mask, we take a token-wise softmax (which 
 
 We are going to use a lot of attention visualization in this post, so to simplify things, we are going to condense the figure above just a bit.
 
-**Why this matters:** In continuous batching, \\( Q \\), \\( K \\), and \\( V \\) can have different numbers of tokens because we're processing different stages together (prefill and decode). Let's say \\( Q \\) has shape \\( \left[1, n_Q , A \right] \\), \\( K \\) has shape \\( \left[ 1, n_K , A \right] \\), and \\( V \\) has shape \\( \left[ 1, n_V , A \right] \\).
+**Why this matters:** In continuous batching, \\( Q \\), \\( K \\), and \\( V \\) can have different numbers of tokens because, as we'll see, we'll be processing different stages (prefill and decode) at the same time. To make it more general, let's say \\( Q \\) has shape \\( \left[1, n_Q , A \right] \\), \\( K \\) has shape \\( \left[ 1, n_K , A \right] \\), and \\( V \\) has shape \\( \left[ 1, n_V , A \right] \\).
 
 The attention scores \\( QK^T \\) then have shape \\( \left[ 1, n_Q , n_K \right] \\), and the attention mask has the same shape since it's applied point-wise to the scores.
 
@@ -83,7 +85,7 @@ Right off the bat, we notice that the last token does not impact the attention c
 ![cant_see_me.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/continuous_batching/cant_see_me.png)
 
 This follows the idea of the causal mask: since "*will*" comes after all previous tokens, it does not change their attention calculation.
-For text, causal attention is by far the most common. We will focus on that case from now on. But non-causal attention also exists, especially when dealing with images.
+For text generation, causal attention is by far the most common, so we will focus on that case from now on. Keep in mind that non-causal attention schemes can also be used, especially when dealing with images.
 Considering we only need the next-token prediction for the "*will*" token, we can simplify the attention mechanism by only computing the output for this token.
 
 Moreover, we already computed the \\( K \\) and \\( V \\) states for the tokens "*\<bos\>*", … ,  "*ject*" during the previous forward pass: if they have been stored, we do not need to recompute them again. This is the **KV cache**: the list of key and value states created during generation. It essentially allows one to reduce the compute cost of generating token \\( n+1 \\) from \\( \mathcal{O} \left( n^2 \right) \\) to \\( \mathcal{O} \left( n \right) \\) by avoiding recomputation of key and value projections, while paying a memory cost of  \\( \mathcal{O} \left( n \right) \\).
@@ -92,7 +94,7 @@ Moreover, we already computed the \\( K \\) and \\( V \\) states for the tokens 
 
 In the figure above, only the tokens in white are computed: instead of computing the keys and values for 8 tokens, we compute them for 1. You can see that through KV caching, a lot of compute is saved.
 
-Let's be a bit more specific around the cache size, because it's a good opportunity to tour the shapes present in our model. For a model with \\( \mathcal L \\) attention layers and \\( H \\) attention heads with head dimension \\( A \\), the total cache size needed to store one token will be \\( 2 *\mathcal L * AH \\) with a factor of \\( 2 \\) to account for both \\( K \\) and \\( V \\).  
+Let's be a bit more specific about the cache size, because it's a good opportunity to examine the shapes present in our model. For a model with \\( \mathcal L \\) attention layers and \\( H \\) attention heads with head dimension \\( A \\), the total cache size needed to store one token will be \\( 2 *\mathcal L * AH \\) with a factor of \\( 2 \\) to account for both \\( K \\) and \\( V \\).  
 For instance, Llama-2-7B with \\( \mathcal{L}=32 \\) layers, \\( H=32 \\) heads, and \\( A=128 \\) requires \\( 2 \times 32 \times 128 = 8,192 \\) values per token per layer. With `float16` precision, this takes \\( 2AH \times 2 \\) bytes \\( = 16 \\) KB in memory.
 
 KV caching is useful when we want to generate the next token, which is a stage we call **decoding**. But it can also be useful in the **prefill** stage, when we process the initial prompt and have many input tokens. Especially when there are large initial prompts that don't fit in GPU memory all at once.
@@ -110,13 +112,14 @@ We can do that thanks to the KV cache. We store the KV states during the first p
 The key insight: cached KV states let us process the prompt incrementally without losing information.
 
 Although we showed here an example where we split the prefill into 2 chunks, chunked prefill can be used to split the prefill in any way we want, adapting flexibly to memory constraints.  
-You should by now be equipped with the tools to understand Continuous Batching.
+
+We are now finally equipped with all the tools we need to understand Continuous Batching.
 
 ## Continuous batching
 
-So far, we have only treated the case of batch size one, i.e. we only generate tokens for one prompt at a time. But in the context of evaluation or model serving, we want to generate tokens for a large number of prompts. To increase the **throughput**, which is the number of tokens generated per second, the best course of action is to generate tokens for a batch of several prompts.
+In our previous examples we have only considered the case of batch size one, i.e. we only generate tokens for one prompt at a time. In the context of evaluation or model serving, we want to generate tokens for a large number of prompts. To increase the **throughput**, which is the number of tokens generated per second, the best course of action is to generate tokens in parallel for a batch of several prompts.
 
-To batch prompts together, the naive way is to add an axis to both input tensors, which will be the batch axis. This way we can pass two prompts and two attention masks, one for each. However, this comes with a constraint on the shape of the inputs: we need all prompts to have the same length (since tensors must be rectangular). To achieve this, we usually add padding on the left so the new token prediction always comes from the rightmost token. We also modify the attention mask of each prompt accordingly. This is shown below:
+To batch prompts together, the naive way is to add an axis to both input tensors: token sequence and attention mask. However, this comes with a constraint on the shape of the inputs: we need all prompts to have the same length, because tensors must be rectangular. To achieve this, we usually add padding on the left so the new token prediction always comes from the rightmost token. We also modify the attention mask of each prompt accordingly, as shown below:
 
 ![padding.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/continuous_batching/padding.png)
 
@@ -124,11 +127,11 @@ where the padding tokens `<pad>` are coloured in orange. Then we can perform the
 
 ![batched_generation.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/continuous_batching/batched_generation.png)
 
-where `<eos>` means "End Of Sequence", this is a special token to indicate the model has reached the end of generation.
+where `<eos>` means "End Of Sequence", this is a special token to indicate the model has reached the end of generation for the corresponding sequence.
 
-The drawback of batched generation is that if one prompt finishes generation before the other by generating an `<eos>` token, any further generated token is useless. And this goes on until the longest request of the batch finishes. Of course, we can remove the prompts that have reached an `<eos>` token from the batch and save some compute and memory, but saving resources is not the goal here: throughput is. 
+The drawback of batched generation is that if one prompt finishes generation before the other one by generating an `<eos>` token, all further generated token are useless. And this goes on until the longest request of the batch finishes. Of course, we can remove the prompts that have reached an `<eos>` token from the batch and save some compute and memory, but saving resources is not the goal here: throughput is. 
 
-Instead of just removing the finished prompt from the batch, we can replace it with a prompt that's waiting for generation. We will call this **dynamic scheduling**, but it is also called dynamic batching. Dynamic scheduling is great to maintain throughput while ensuring any token generated by a forward pass is relevant. But because of the way we batched prompts together, it has a major drawback: we need a lot of padding when swapping prompts.
+Instead of just removing the finished prompt from the batch, we can replace it with a prompt that's waiting for generation. We will call this **dynamic scheduling**, or dynamic batching. Dynamic scheduling is great to maintain throughput while ensuring any token generated by a forward pass is relevant. But because of the way we batched prompts together, it has a major drawback: we need a lot of padding when swapping prompts.
 
 ![dynamic_batching.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/continuous_batching/dynamic_batching.png)
 
@@ -148,14 +151,16 @@ But we don't want tokens from prompt 0 to interact with the tokens of prompt 1! 
 Although we use different tints of green to illustrate the different parts of the attention mask, this is still a boolean mask with only greens for `True` and white for `False`. 
 This way of batching prompts together is called **ragged batching** (because sequence lengths are 'ragged' or uneven), and it offers the benefit of added throughput without introducing the need for padding tokens.
 
-In the figure above, we batch two full prompts together, although there is no limit to how many prompts can be batched together using ragged batching. The only limit is \\( m \\), the number of tokens we can fit in a batch, with \\( m \\) depending on the available memory on the GPU. 
+In the figure above, we use ragged batching to combine two full prompts together, but we can batch as many as memory allows. The only limit is \\( m \\), the number of tokens we can fit in a batch, with \\( m \\) depending on the available memory on the GPU. 
 
-For instance, here is one batching strategy used in practice to maximize throughput:
-- We try to always reach \\( m \\) tokens per batch
+Ragged batching is one of the key components of continuous batching. To maximize throughput, we can combine prefill and decoding sequences following an algorithm like this:
+- We try to always reach our memory budget of \\( m \\) tokens per batch
 - We first add all the prompts in decoding phase to the batch, each accounting for 1 token
-- We fill the remaining space with prefill phase prompts, relying on the flexibility of chunked prefill to exactly fill the batch as desired
+- We fill the remaining space with prefill phase prompts, relying on the flexibility of chunked prefill to split inputs as needed
 
-Furthermore, we can also use dynamic scheduling to remove finished prompts from the batch whenever they finish. This combination of ragged batching and dynamic scheduling is called **continuous batching**, and it's the technique that powers modern LLM serving systems.
+Dynamic scheduling is the final piece that contributes to the _continuous batching_ technique: we remove finished prompts from the batch as soon as they are done, and replace them with new chunked prompts that correspond to incoming requests.
+
+This combination of ragged batching and dynamic scheduling is called **continuous batching**, and it's the technique that powers modern LLM serving systems.
 
 ![continuous_batching.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/continuous_batching/continuous_batching.png)
 
