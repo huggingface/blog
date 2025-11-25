@@ -11,7 +11,7 @@ authors:
 
 ![Title card](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/continuous_batching/banner.png)
 
-## Introduction
+*TL;DR: in this blog post, starting from attention mechanisms and KV caching, we derive continuous batching by optimizing for throughput.*
 
 If you've ever used Qwen, Claude, or any other AI chatbot, you've probably noticed something: it takes a while for the first word of the response to appear, and then words appear one-by-one on your screen with (hopefully) a regular and fast-paced frequency. That's because at the heart of it, all LLMs are just fancy next token predictors. During generation, first comes the **prefill** phase, where the model ingests your initial prompt to predict one new token. Then they ingest that token as well, to produce another new token: this is the **decoding** phase. The process is repeated until they feel like they have generated enough.
 
@@ -30,35 +30,35 @@ Let's see how this works in practice. To explain the basics of attention, we'll 
 
 Consider the initial prompt "I am sure this project". It is tokenized as 7 tokens: `[<bos>, I, am, sure, this, pro, ject]`. The `<bos>` token is a special token that is added at the start of the prompt (BoS stands for Beginning of Sequence).  
 
-Those incoming tokens form a tensor we call $x$, with shape $\left[1, n , d \right]$. This is because batch size is $1$, $n$ is the number of tokens and $d$ is the hidden dimension. 
+Those incoming tokens form a tensor we call \\( x \\), with shape \\( \left[1, n , d \right] \\). This is because batch size is \\( 1 \\), \\( n \\) is the number of tokens and \\( d \\) is the hidden dimension. 
 
-Those tokens $x$ are then projected by three matrices: the query projection $W_q$,  the key projection $W_k$ and the value projection $W_v$. This produces three tensors $Q$, $K$ and $V$, all of shape $\left[1, n , A \right]$ where $A$ is the dimension of an attention head. We call them respectively the **query, key and value states.** This is represented on the left in the figure below.
+Those tokens \\( x \\) are then projected by three matrices: the query projection \\( W_q \\),  the key projection \\( W_k \\) and the value projection \\( W_v \\). This produces three tensors \\( Q \\), \\( K \\) and \\( V \\), all of shape \\( \left[1, n , A \right] \\) where \\( A \\) is the dimension of an attention head. We call them respectively the **query, key and value states.** This is represented on the left in the figure below.
 
 ![proj_and_mul.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/continuous_batching/proj_and_mul.png)
 
-Next, tensors $Q$ and $K$ are multiplied together to measure similarity between tokens, producing a tensor of shape $\left[ 1, n , n \right]$. This is why we say that attention has quadratic complexity in sequence length. Computing $QK^T$ requires $\mathcal{O} \left( n^2 d \right)$ operations, so the cost is a square of $n$ the sequence length. It is represented on the right in the figure above.
+Next, tensors \\( Q \\) and \\( K \\) are multiplied together to measure similarity between tokens, producing a tensor of shape \\( \left[ 1, n , n \right] \\). This is why we say that attention has quadratic complexity in sequence length. Computing \\( QK^T \\) requires \\( \mathcal{O} \left( n^2 d \right) \\) operations, so the cost is a square of \\( n \\) the sequence length. It is represented on the right in the figure above.
 
-We then apply a boolean **attention mask** to $QK^T$ to control which tokens can interact, as represented in the figure below. In this figure, the attention mask is a **causal mask**, meaning each token only interacts with tokens that came before it. This follows the intuition that a cause must come before its consequence, hence the name causal mask. The attention mask is crucial because it dictates all token interactions in the network. **Set all attention mask values to False and no token will ever interact with another in the whole network.** We'll examine attention masks more closely in a few paragraphs.
+We then apply a boolean **attention mask** to \\( QK^T \\) to control which tokens can interact, as represented in the figure below. In this figure, the attention mask is a **causal mask**, meaning each token only interacts with tokens that came before it. This follows the intuition that a cause must come before its consequence, hence the name causal mask. The attention mask is crucial because it dictates all token interactions in the network. **Set all attention mask values to False and no token will ever interact with another in the whole network.** We'll examine attention masks more closely in a few paragraphs.
 
 ![masking_and_softmax.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/continuous_batching/masking_and_softmax.png)
 
-Finally, after applying the attention mask, we take a token-wise softmax (which is the same as saying a row-wise softmax) and multiply the result by the value projection $V$ to get the output of one attention head, of shape $\left[ 1, n , A \right]$. We offer a visual summary of the whole process in the following figure.
+Finally, after applying the attention mask, we take a token-wise softmax (which is the same as saying a row-wise softmax) and multiply the result by the value projection \\( V \\) to get the output of one attention head, of shape \\( \left[ 1, n , A \right] \\). We offer a visual summary of the whole process in the following figure.
 
 ![attention.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/continuous_batching/attention.png)
 
 
 We are going to use a lot of attention visualization in this post, so to simplify things, we are going to condense the figure above just a bit.
 
-**Why this matters:** In continuous batching, $Q$, $K$, and $V$ can have different numbers of tokens because we're processing different stages together (prefill and decode). Let's say $Q$ has shape $\left[1, n_Q , A \right]$, $K$ has shape $\left[ 1, n_K , A \right]$, and $V$ has shape $\left[ 1, n_V , A \right]$.
+**Why this matters:** In continuous batching, \\( Q \\), \\( K \\), and \\( V \\) can have different numbers of tokens because we're processing different stages together (prefill and decode). Let's say \\( Q \\) has shape \\( \left[1, n_Q , A \right] \\), \\( K \\) has shape \\( \left[ 1, n_K , A \right] \\), and \\( V \\) has shape \\( \left[ 1, n_V , A \right] \\).
 
-The attention scores $QK^T$ then have shape $\left[ 1, n_Q , n_K \right]$, and the attention mask has the same shape since it's applied point-wise to the scores.
+The attention scores \\( QK^T \\) then have shape \\( \left[ 1, n_Q , n_K \right] \\), and the attention mask has the same shape since it's applied point-wise to the scores.
 
-After applying the attention mask and row-wise softmax, we multiply by $V$. Since we're multiplying a matrix of shape $\left[ 1, n_Q , n_K \right]$ by one of shape $\left[ 1, n_V , A \right]$, the inner dimensions must match: $n_K = n_V$. This means $V$ and $K$ always have the same length, so we can simplify our visualizations by only showing $K$.  
+After applying the attention mask and row-wise softmax, we multiply by \\( V \\). Since we're multiplying a matrix of shape \\( \left[ 1, n_Q , n_K \right] \\) by one of shape \\( \left[ 1, n_V , A \right] \\), the inner dimensions must match: \\( n_K = n_V \\). This means \\( V \\) and \\( K \\) always have the same length, so we can simplify our visualizations by only showing \\( K \\).  
 Don't worry if this seems abstract: the figures will make it concrete.
 
 
-Furthermore, since we know that the attention mask is applied to $QK^T$, we know they have the same shape. Instead of representing the attention scores, we will represent the attention mask in its place.
-Finally, since $Q$, $K$ and $V$ are direct projections of $x$, no need to represent $x$. This gives the simplified figure where we only represent $Q$, $K$ and the attention mask:
+Furthermore, since we know that the attention mask is applied to \\( QK^T \\), we know they have the same shape. Instead of representing the attention scores, we will represent the attention mask in its place.
+Finally, since \\( Q \\), \\( K \\) and \\( V \\) are direct projections of \\( x \\), no need to represent \\( x \\). This gives the simplified figure where we only represent \\( Q \\), \\( K \\) and the attention mask:
 
 ![simple_attention.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/continuous_batching/simple_attention.png)
 
@@ -74,7 +74,7 @@ To continue generation, we begin a new forward pass, which would naively look li
 
 ![naive_generate.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/continuous_batching/naive_generate.png)
 
-To compute the attention scores of the new token, we still need the key and value projections of the previous tokens. So we need to repeat the matrix multiplication of the old tokens (in grey in the figure above) with $W_k$ and $W_v$ to retrieve a result that was already computed once before. In other terms, we are wasting compute. Let's see how we can avoid that.
+To compute the attention scores of the new token, we still need the key and value projections of the previous tokens. So we need to repeat the matrix multiplication of the old tokens (in grey in the figure above) with \\( W_k \\) and \\( W_v \\) to retrieve a result that was already computed once before. In other terms, we are wasting compute. Let's see how we can avoid that.
 
 ## KV-cache
 
@@ -86,22 +86,22 @@ This follows the idea of the causal mask: since "*will*" comes after all previou
 For text, causal attention is by far the most common. We will focus on that case from now on. But non-causal attention also exists, especially when dealing with images.
 Considering we only need the next-token prediction for the "*will*" token, we can simplify the attention mechanism by only computing the output for this token.
 
-Moreover, we already computed the $K$ and $V$ states for the tokens "*\<bos\>*", … ,  "*ject*" during the previous forward pass: if they have been stored, we do not need to recompute them again. This is the **KV cache**: the list of key and value states created during generation. It essentially allows one to reduce the compute cost of generating token $n+1$ from $\mathcal{O} \left( n^2 \right)$ to $\mathcal{O} \left( n \right)$ by avoiding recomputation of key and value projections, while paying a memory cost of  $\mathcal{O} \left( n \right)$.
+Moreover, we already computed the \\( K \\) and \\( V \\) states for the tokens "*\<bos\>*", … ,  "*ject*" during the previous forward pass: if they have been stored, we do not need to recompute them again. This is the **KV cache**: the list of key and value states created during generation. It essentially allows one to reduce the compute cost of generating token \\( n+1 \\) from \\( \mathcal{O} \left( n^2 \right) \\) to \\( \mathcal{O} \left( n \right) \\) by avoiding recomputation of key and value projections, while paying a memory cost of  \\( \mathcal{O} \left( n \right) \\).
 
 ![kv_cache.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/continuous_batching/kv_cache.png)
 
 In the figure above, only the tokens in white are computed: instead of computing the keys and values for 8 tokens, we compute them for 1. You can see that through KV caching, a lot of compute is saved.
 
-Let's be a bit more specific around the cache size, because it's a good opportunity to tour the shapes present in our model. For a model with $\mathcal L$ attention layers and $H$ attention heads with head dimension $A$, the total cache size needed to store one token will be $2 *\mathcal L * AH$ with a factor of $2$ to account for both $K$ and $V$.  
-For instance, Llama-2-7B with $\mathcal{L}=32$ layers, $H=32$ heads, and $A=128$ requires $2 \times 32 \times 128 = 8,192$ values per token per layer. With `float16` precision, this takes $2AH \times 2$ bytes $= 16$ KB in memory.
+Let's be a bit more specific around the cache size, because it's a good opportunity to tour the shapes present in our model. For a model with \\( \mathcal L \\) attention layers and \\( H \\) attention heads with head dimension \\( A \\), the total cache size needed to store one token will be \\( 2 *\mathcal L * AH \\) with a factor of \\( 2 \\) to account for both \\( K \\) and \\( V \\).  
+For instance, Llama-2-7B with \\( \mathcal{L}=32 \\) layers, \\( H=32 \\) heads, and \\( A=128 \\) requires \\( 2 \times 32 \times 128 = 8,192 \\) values per token per layer. With `float16` precision, this takes \\( 2AH \times 2 \\) bytes \\( = 16 \\) KB in memory.
 
 KV caching is useful when we want to generate the next token, which is a stage we call **decoding**. But it can also be useful in the **prefill** stage, when we process the initial prompt and have many input tokens. Especially when there are large initial prompts that don't fit in GPU memory all at once.
 
 ## Chunked prefill
 
-Up till now, we have looked at an example of prefill where we have $n=7$ tokens, but in practice initial prompts can be much longer. For instance, when using Cursor, you can add your repository to the prompt, where it acts as context: this significantly increases the prompt size. In such cases, the memory needed to store the activations for $n$ tokens can be larger than the available memory on the GPU. Thus we cannot perform prefill in a single forward pass: we have to split the prefill in chunks. This is called **chunked prefill**, and it's going to be one of the components needed to enable efficient inference.
+Up till now, we have looked at an example of prefill where we have \\( n=7 \\) tokens, but in practice initial prompts can be much longer. For instance, when using Cursor, you can add your repository to the prompt, where it acts as context: this significantly increases the prompt size. In such cases, the memory needed to store the activations for \\( n \\) tokens can be larger than the available memory on the GPU. Thus we cannot perform prefill in a single forward pass: we have to split the prefill in chunks. This is called **chunked prefill**, and it's going to be one of the components needed to enable efficient inference.
 
-Let's pretend that the available memory is very constrained, and that we can only pass $m=4$ tokens per forward pass. If we have an initial prompt with $n = 7$ tokens, we need to split it in $\lceil n /m \rceil = 2$ chunks (rounding up 7/4 = 1.75 to 2). We illustrate the example below using the same $n$ and $m$ notations:
+Let's pretend that the available memory is very constrained, and that we can only pass \\( m=4 \\) tokens per forward pass. If we have an initial prompt with \\( n = 7 \\) tokens, we need to split it in \\( \lceil n /m \rceil = 2 \\) chunks (rounding up 7/4 = 1.75 to 2). We illustrate the example below using the same \\( n \\) and \\( m \\) notations:
 
 ![chunked prefill.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/continuous_batching/chunked_prefill.png)
 
@@ -132,7 +132,7 @@ Instead of just removing the finished prompt from the batch, we can replace it w
 
 ![dynamic_batching.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/continuous_batching/dynamic_batching.png)
 
-The problem becomes even worse when batch size increases and initial prompts are long. The padding cost grows quadratically with both batch size and prompt length. If we have a batch of $B$ prompts that are in decoding phase and one finishes, dynamically introducing a prompt of $n$ initial tokens in the batch requires $(n-1)(B-1)$ padding tokens. For instance, with $B=8$ and $n=100$, we'd need $99 \times 7 = 693$ padding tokens!
+The problem becomes even worse when batch size increases and initial prompts are long. The padding cost grows quadratically with both batch size and prompt length. If we have a batch of \\( B \\) prompts that are in decoding phase and one finishes, dynamically introducing a prompt of \\( n \\) initial tokens in the batch requires \\( (n-1)(B-1) \\) padding tokens. For instance, with \\( B=8 \\) and \\( n=100 \\), we'd need \\( 99 \times 7 = 693 \\) padding tokens!
 
 Furthermore, practical optimizations like CUDA graphs or `torch.compile` require static tensor shapes. This forces us to pad all prompts to a fixed maximum length, dramatically increasing the padding waste. 
 
@@ -148,10 +148,10 @@ But we don't want tokens from prompt 0 to interact with the tokens of prompt 1! 
 Although we use different tints of green to illustrate the different parts of the attention mask, this is still a boolean mask with only greens for `True` and white for `False`. 
 This way of batching prompts together is called **ragged batching** (because sequence lengths are 'ragged' or uneven), and it offers the benefit of added throughput without introducing the need for padding tokens.
 
-In the figure above, we batch two full prompts together, although there is no limit to how many prompts can be batched together using ragged batching. The only limit is $m$, the number of tokens we can fit in a batch, with $m$ depending on the available memory on the GPU. 
+In the figure above, we batch two full prompts together, although there is no limit to how many prompts can be batched together using ragged batching. The only limit is \\( m \\), the number of tokens we can fit in a batch, with \\( m \\) depending on the available memory on the GPU. 
 
 For instance, here is one batching strategy used in practice to maximize throughput:
-- We try to always reach $m$ tokens per batch
+- We try to always reach \\( m \\) tokens per batch
 - We first add all the prompts in decoding phase to the batch, each accounting for 1 token
 - We fill the remaining space with prefill phase prompts, relying on the flexibility of chunked prefill to exactly fill the batch as desired
 
