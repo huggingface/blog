@@ -27,9 +27,9 @@ FLUX.2 is *not* meant to be a drop-in replacement of FLUX.1, but a new generatio
 
 **Table of contents**
 
-- FLUX.2 introduction
-- Inference with Diffusers
-- LoRA fine-tuning
+- [FLUX.2 introduction](#flux2-a-brief-introduction)
+- [Inference with Diffusers](#inference-with-diffusers)
+- [LoRA fine-tuning](#lora-fine-tuning)
 
 ## FLUX.2: A Brief Introduction
 
