@@ -4922,3 +4922,12 @@
     - post-training
     - trl
     - rapidfireai
+
+- local: continuous_batching
+  date: Nov 25, 2025
+  tags:
+    - transformers
+    - pytorch
+    - optimization
+    - inference
+    - feature
