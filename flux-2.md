@@ -4,6 +4,7 @@ thumbnail: /blog/assets/flux2/thumbnail.png
 authors:
   - user: YiYiXu
   - user: dg845
+  - user: sayakpaul
   - user: OzzyGT
   - user: dn6
   - user: ariG23498
