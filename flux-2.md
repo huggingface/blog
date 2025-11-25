@@ -178,7 +178,8 @@ The example below uses a combination of local and remote inference. Additionally
 
 You can run this snippet on a GPU with 18 GB of VRAM:
 
-- Unfold
+<details>
+  <summary>Show code</summary>
 
   ```python
   from diffusers import Flux2Pipeline, Flux2Transformer2DModel
@@ -239,10 +240,12 @@ You can run this snippet on a GPU with 18 GB of VRAM:
   for idx, image in enumerate(out.images):
       image.save(f"flux_out_{idx}.png")
   ```
+</details>
 
 For GPUs with even lower VRAM, we have `group_offloading`, which allows GPUs with as little as 8GB of **free** VRAM to use this model. However, you'll need 32GB of **free** RAM. Alternatively, if you're willing to sacrifice some speed, you can set `low_cpu_mem_usage=True` to reduce the RAM requirement to just 10GB.
 
-- Unfold
+<details>
+  <summary>Show code</summary>
 
   ```python
   import io
@@ -305,6 +308,7 @@ For GPUs with even lower VRAM, we have `group_offloading`, which allows GPUs wit
   ).images[0]
 
   ```
+</details>
 
 > [!NOTE]
 
@@ -324,7 +328,8 @@ To check how different quantizations affect an image, you can play with the play
 
 FLUX.2 supports using multiple images as inputs, allowing you to use up to 10 images. However, keep in mind that each additional image will require more VRAM. You can reference the images by index (e.g., image 1, image 2) or by natural language (e.g., the kangaroo, the turtle). For optimal results, the best approach is to use a combination of both methods.
 
-- Unfold
+<details>
+  <summary>Show code</summary>
 
   ```python
   import torch
@@ -359,6 +364,7 @@ FLUX.2 supports using multiple images as inputs, allowing you to use up to 10 im
 
   image.save(f"./flux2_t2i.png")
   ```
+</details>
 
 ![kangaroo.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/flux2_blog/kangaroo.png)
 
@@ -371,14 +377,14 @@ FLUX.2 supports using multiple images as inputs, allowing you to use up to 10 im
 Being both a text-to-image and an image-to-image model, FLUX.2 makes the perfect fine-tuning candidate for many use-cases! However, as inference alone takes more than 80GB of VRAM, LoRA fine-tuning is even more challenging to run on consumer GPUs. To squeeze in as much memory saving as we can, we utilize some of the inference optimizations described above for training as well, together with shared memory saving techniques, to substantially reduce memory consumption. To train it you can use either the diffusers code below or [Ostris' AI Toolkit](https://github.com/ostris/ai-toolkit)
 
 > [!NOTE]
-
 > We provide both text-to-image and image-to-image training scripts, for the purpose of this blog will focus on a text-to-image training example.
 
 ### Memory optimizations for fine-tuning
 
 Many of these techniques complement each other and can be used together to reduce memory consumption further. However, some techniques may be mutually exclusive, so be sure to check before launching a training run.
 
-- Unfold to check details on the memory-saving techniques used:
+<details>
+  <summary>Unfold to check details on the memory-saving techniques used:</summary>
   - **Remote Text Encoder:** to leverage the remote text encoding for training, simply pass `--remote_text_encoder`. Note that you must either be logged in to your Hugging Face account (`hf auth login`) OR pass a token with `--hub_token`.
   - **CPU Offloading:** by passing `--offload` the vae and text encoder to will be offloaded to CPU memory and only moved to GPU when needed.
   - **Latent Caching:** Pre-encode the training images with the vae, and then delete it to free up some memory. To enable `latent_caching` simply pass `--cache_latents`.
@@ -388,6 +394,7 @@ Many of these techniques complement each other and can be used together to reduc
       > **NF4 training** with `bitsandbytes`: Alternatively, you can use 8-bit or 4-bit quantization with `bitsandbytes` by passing:- `--bnb_quantization_config_path` with a corresponding path to a json file containing your config. see below for more details.
   - **Gradient Checkpointing and Accumulation:** `--gradient accumulation` refers to the number of updates steps to accumulate before performing a backward/update pass.by passing a value > 1 you can reduce the amount of backward/update passes and hence also memory reqs.\* with `--gradient checkpointing` we can save memory by not storing all intermediate activations during the forward pass.Instead, only a subset of these activations (the checkpoints) are stored and the rest is recomputed as needed during the backward pass. Note that this comes at the expanse of a slower backward pass.
   - **8-bit-Adam Optimizer:** When training with `AdamW`(doesn't apply to `prodigy`) You can pass `--use_8bit_adam` to reduce the memory requirements of training. Make sure to install `bitsandbytes` if you want to do so.
+</details>
 
 Let’s launch a training run using these memory saving optimizations.
 
