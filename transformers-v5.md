@@ -48,6 +48,8 @@ We give a deeper overview in our [*Maintain the Unmaintainable*](https://hugging
 
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/transformers_v5/modular_timeline.png" alt="Transformers standardizing model definitions">
 
+While we respect the “One model, one file” philosophy, we continue introducing some abstractions making the management of common helpers simpler. The prime example of this is the introduction of the `AttentionInterface`, which offers a centralized abstraction for attention methods. The \`eager\` method will remain in the modeling file; others, such as FA1/2/3, FlexAttention, or SDPA, are moved to the interface.
+
 #### Tooling for Model Conversion
 
 We’re building tooling to help us identify which existing model architecture a new model resembles. This feature uses machine learning to find code similarities between independent modeling files. Going further, we aim to automate the conversion process by opening a draft PR for the model to be integrated into our transformers format. This process reduces manual effort and ensures consistency.
@@ -63,10 +65,6 @@ Alongside this work, we’re simplifying the tokenization and processing files: 
 We’ll be using `tokenizers` as our primary tokenization backend, same as we do for models with PyTorch. We’ll offer alternatives for Sentencepiece or MistralCommon backed tokenizers, which will be non-default but will be supported. Image processors will now only exist with their fast variant, that depends on the `torchvision` backend.
 
 Finally, we’re sunsetting our Flax/TensorFlow support in favor of focusing solely on PyTorch going forward.
-
-#### Abstractions and Simplifications
-
-While we respect the “One model, one file” philosophy, we continue introducing some abstractions making the management of common helpers simpler. The prime example of this is the introduction of the `AttentionInterface`, which offers a centralized abstraction for attention methods. The \`eager\` method will remain in the modeling file; others, such as FA1/2/3, FlexAttention, or SDPA, are moved to the interface.
 
 ## Training
 
