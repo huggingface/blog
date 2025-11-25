@@ -74,15 +74,15 @@ Training remains a big focus of the team as we head into v5: whereas previously 
 
 ### Pre-training at scale
 
-Supporting pre-training meant reworking the initialization of our models, ensuring that they worked at scale with different parallelism paradigms, and shipping support for optimized kernels with both the forward, and backward passes optimized.
+Supporting pre-training meant reworking the initialization of our models, ensuring that they worked at scale with different parallelism paradigms, and shipping support for optimized kernels for both the forward and backward passes.
 
 Going forward, we’re excited to have extended compatibility with torchtitan, megatron, nanotron, as well as any other pre-training tool that is interested in collaborating with us.
 
 ### Fine-tuning & Post-training
 
-We continue collaborating closely with all fine-tuning tools in the Python ecosystem. We aim to continue providing model implementations compatible with Unsloth, Axolotl, LlamaFactory, TRL and others in the PyTorch ecosystem; but we are also working with tools such as MaxText, in the Jax ecosystem, to have good interoperability between their frameworks and `transformers`.
+We continue collaborating closely with all fine-tuning tools in the Python ecosystem. We aim to continue providing model implementations compatible with [Unsloth](https://huggingface.co/unsloth), [Axolotl](https://huggingface.co/axolotl-ai-co), [LlamaFactory](https://huggingface.co/llamafactory), [TRL](https://huggingface.co/docs/trl/en/index) and others in the PyTorch ecosystem; but we are also working with tools such as MaxText, in the Jax ecosystem, to have good interoperability between their frameworks and `transformers`.
 
-All fine-tuning and post-training tools should have the possibility to rely on transformers for model definitions; further enabling Agentic use-cases through OpenEnv or the Prime Environment Hub.
+All fine-tuning and post-training tools can now rely on transformers for model definitions; further enabling Agentic use-cases through [OpenEnv](https://huggingface.co/openenv) or the Prime Environment Hub.
 
 ## Inference
 
@@ -113,10 +113,10 @@ Quantization is quickly emerging as the standard for state-of-the-art model deve
 
 ## Conclusion
 
-The overarching theme of this version 5 release is “interoperability”. All refactors, performance improvements, and standardization are aligned with this theme. Train a model with Unsloth/Axolotl/LlamaFactory/MaxText, deploy it with vLLM/SGLang, and export it to llama.cpp/executorch/MLX to run locally\! 
+The overarching theme of this version 5 release is “interoperability”. All refactors, performance improvements, and standardization are aligned with this theme. v5 plays nicely and end-to-end with the growing ecosystem:  train a model with Unsloth/Axolotl/LlamaFactory/MaxText deploy it with vLLM/SGLang, and export it to llama.cpp/executorch/MLX to run locally\! 
 
 Version 5 is undeniably an accomplishment of the past five years by a very large number of people in our community. We also see it as a promise, and as a beacon of the direction we want to go.
 
-We took it as an opportunity to greatly clean up the toolkit and isolate what mattered; we now have a clean slate on top of which it is much simpler to build. Thanks to the many changes of the community and the team, improvements in performance, usability, and readability, will be much simpler to ship.
+We took it as an opportunity to clean up the toolkit and isolate what mattered; we now have a clean slate on top of which to build. Thanks to the many changes from the community and team, improvements in performance, usability, and readability, will be simpler to ship.
 
 Now that v5.0.0's first RC is out there, we'll be eagerly awaiting your [feedback](https://github.com/huggingface/transformers/issues/40822).
