@@ -26,6 +26,7 @@ In this post, we discuss the key changes introduced in FLUX.2, performing infere
 
 - [FLUX.2 introduction](#flux2-a-brief-introduction)
 - [Inference with Diffusers](#inference-with-diffusers)
+- [Advanced Prompting](#advanced-prompting)
 - [LoRA fine-tuning](#lora-fine-tuning)
 
 ## FLUX.2: A Brief Introduction
@@ -398,6 +399,124 @@ image.save(f"./flux2_t2i.png")
   </tr>
 </table>
 
+## Advanced Prompting
+FLUX.2 supports advanced prompting techniques like structured JSON prompting, precise hex color control, and multi-reference image editing.
+Aside for the added control, this also allows for flexibility in changing specific attributes while maintaining others overall the same.  
+For example, let's start with this json as the base schema (taken from the [official FLUX.2 prompting guide](https://docs.bfl.ai/guides/prompting_guide_flux2)): 
+```json
+{
+  "scene": "overall scene description",
+  "subjects": [
+    {
+      "description": "detailed subject description",
+      "position": "where in frame",
+      "action": "what they're doing"
+    }
+  ],
+  "style": "artistic style",
+  "color_palette": ["#hex1", "#hex2", "#hex3"],
+  "lighting": "lighting description",
+  "mood": "emotional tone",
+  "background": "background details",
+  "composition": "framing and layout",
+  "camera": {
+    "angle": "camera angle",
+    "lens": "lens type",
+    "depth_of_field": "focus behavior"
+  }
+}
+```
+Building up on that, let's turn it into a prompt for a shot of a good old fashion walkman on a carpet (simply pass this prompt to your chosen diffusers inference example from above):
+ ```python
+prompt = """
+{
+  "scene": "Professional studio product photography setup with soft-textured carpet surface",
+  "subjects": [
+    {
+      "description": "Old silver Walkman placed on a carpet in the middle of an empty room",
+      "pose": "Stationary, lying flat",
+      "position": "Center foreground on carpeted surface",
+      "color_palette": ["brushed silver", "dark gray accents"]
+    }
+  ],
+  "style": "Ultra-realistic product photography with commercial quality",
+  "color_palette": ["brushed silver", "neutral beige", "soft white highlights"],
+  "lighting": "Three-point softbox setup creating soft, diffused highlights with no harsh shadows",
+  "mood": "Clean, professional, minimalist",
+  "background": "Soft-textured carpet surface with subtle studio backdrop suggesting an empty room",
+  "composition": "rule of thirds",
+  "camera": {
+    "angle": "high angle",
+    "distance": "medium shot",
+    "focus": "Sharp focus on metallic Walkman textures and physical controls",
+    "lens-mm": 85,
+    "f-number": "f/5.6",
+    "ISO": 200
+  }
+}
+
+"""
+```
+![walkman](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/flux2_blog/walkman.png)
+ 
+Now, let's change the color of the carpet to a specific teal-blue shade (#367588) and add wired headphones plugged into the walkman:
+
+```python
+prompt = """
+{
+  "scene": "Professional studio product photography setup with soft-textured carpet surface",
+  "subjects": [
+    {
+      "description": "Old silver Walkman placed on a teal-blue carpet (#367588) in the middle of an empty room, with wired headphones plugged in",
+      "pose": "Stationary, lying flat",
+      "position": "Center foreground on carpeted surface",
+      "color_palette": ["brushed silver", "dark gray accents", "#367588"]
+    },
+    {
+      "description": "Wired headphones connected to the Walkman, cable loosely coiled on the carpet",
+      "pose": "Stationary",
+      "position": "Next to and partially in front of the Walkman on the carpet",
+      "color_palette": ["dark gray", "soft black", "#367588"]
+    }
+  ],
+  "style": "Ultra-realistic product photography with commercial quality",
+  "color_palette": ["brushed silver", "#367588", "neutral beige", "soft white highlights"],
+  "lighting": "Three-point softbox setup creating soft, diffused highlights with no harsh shadows",
+  "mood": "Clean, professional, minimalist",
+  "background": "Soft-textured teal-blue carpet surface (#367588) with subtle studio backdrop suggesting an empty room",
+  "composition": "rule of thirds",
+  "camera": {
+    "angle": "high angle",
+    "distance": "medium shot",
+    "focus": "Sharp focus on metallic Walkman textures, wired headphones, and carpet fibers",
+    "lens-mm": 85,
+    "f-number": "f/5.6",
+    "ISO": 200
+  }
+}
+"""
+```
+<table style="width: 100%; text-align: center; margin: auto;">
+  <tr>
+    <td style="width: 30%;">
+      <img
+        src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/flux2_blog/teal_hex.png"
+        alt="Small teal hex image"
+        style="max-width: 100%; height: auto;"
+      />
+    </td>
+    <td style="width: 70%;">
+      <img
+        src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/flux2_blog/wired_walkman_2.png"
+        alt="Wired walkman image"
+        style="max-width: 100%; height: auto;"
+      />
+    </td>
+  </tr>
+</table>
+
+The carpet color now matches the hex code provided, and the headphones have been with small changes to the overall scene.
+Check out the prompting guide for more examples and details: https://docs.bfl.ai/guides/prompting_guide_flux2
 
 ## LoRA fine-tuning
 
