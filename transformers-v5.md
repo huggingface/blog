@@ -1,5 +1,5 @@
 ---
-title: "The Transformers Library: standardizing model definitions"
+title: "Transformers v5: Simple model definitions powering the AI ecosystem"
 thumbnail: /blog/assets/transformers-model-definition/transformers-thumbnail.png
 authors:
   - user: lysandre
