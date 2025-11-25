@@ -8,23 +8,21 @@ authors:
   - user: reach-vb
 ---
 
-# Transformers v5
+# Transformers v5: Simple model definitions powering the AI ecosystem
 
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/transformers_v5/transformers-thumbnail.png" alt="Transformers standardizing model definitions">
 
-***Transformers v5: Simple model definitions powering the AI ecosystem***
 
-## Intro
 
-Transformers' version v4.0.0rc-1, the initial release candidate for version 4, was released on November 19th, 2020\. Five years later, we release v5.0.0rc-1.
+Transformers' version v4.0.0rc-1, the initial release candidate for version 4, was released on November 19th, 2020. Five years later, we now release v5.0.0rc-1.
 
-Today, with the launch of v5, Transformers is downloaded over **3 million times per day via pip** \- up from just **20,000/day** in v4. Altogether, it has now surpassed **1.2 billion installs**.
+Today, as we launch v5, Transformers is installed more than **3 million times each day** via pip - up from **20,000/day** in v4 🤯. Altogether, it has now surpassed **1.2 billion installs**!
 
 The ecosystem has expanded from **40 model architectures in v4** to **over 400 today**, and the community has contributed **more than 750,000 model checkpoints on the Hub** compatible with Transformers, up from roughly **1,000** at the time of v4.
 
-This growth is linked to the growth of the field and the now mainstream access of AI, no doubt; as a leading model-definition library in the ecosystem, we need to continuously evolve and adapt the library to continue being relevant. Reinvention is key for longevity in AI.
+This growth is powered by the evolution of the field and the now mainstream access to AI. As a leading model-definition library in the ecosystem, we need to continuously evolve and adapt the library to continue being relevant. Reinvention is key for longevity in AI.
 
-We’re lucky to be working with a great number of libraries and apps working with transformers, in no specific order: llama.cpp, MLX, onnxruntime, Jan, LMStudio, vLLM, SGLang, Unsloth, LlamaFactory , dLLM, MaxText, TensorRT, Argmax, among many other friends.
+We’re fortunate to collaborate with many libraries and apps built on transformers, in no specific order: llama.cpp, MLX, onnxruntime, Jan, LMStudio, vLLM, SGLang, Unsloth, LlamaFactory , dLLM, MaxText, TensorRT, Argmax, among many other friends.
 
 For v5, we wanted to work on several notable aspects: simplicity, training, inference, and production. We detail the work that went into them in this post.
 
@@ -34,7 +32,7 @@ The first focus of the team was on simplicity. Working on transformers, we see t
 
 ### Model Additions
 
-Transformers, at the core, remains a model architecture toolkit: we aim to have all recent architectures, and to act as the “source of truth” of such model definitions in the ecosystem. We’ve been adding between 1 and 3 new architectures to the toolkit every week over the past 5 years, as can be seen in the timeline below:
+Transformers, at the core, remains a model architecture toolkit. We aim to have all recent architectures and to be the “source of truth” for model definitions. We’ve been adding between 1 and 3 new architectures every week for 5 years, shown in the timeline below:
 
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/transformers_v5/transformers_model_timeline.png" alt="Transformers standardizing model definitions">
 
