@@ -15,11 +15,12 @@ authors:
 # Welcome FLUX.2 - BFL’s new open image generation model 🤗
 
 FLUX.2 is the recent series of image generation models from Black Forest Labs, preceded by the [Flux.1](https://huggingface.co/collections/black-forest-labs/flux1) series. It is an entirely new model with a **new architecture** and pre-training done from scratch!
-
+![generation_teaser](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/flux2_blog/teaser_generation.png)
 In this post, we discuss the key changes introduced in FLUX.2, performing inference with it under various setups, and LoRA fine-tuning.
 
 >[!IMPORTANT]
 >🚨 FLUX.2 is not meant to be a drop-in replacement of FLUX.1, but a new generation model
+
 
 **Table of contents**
 
@@ -30,6 +31,8 @@ In this post, we discuss the key changes introduced in FLUX.2, performing infere
 ## FLUX.2: A Brief Introduction
 
 FLUX.2 can be used for both **image-guided** and **text-guided** image generation. Furthermore, it can take multiple images as reference inputs, while producing the final output image. Below, we briefly discuss the key changes introduced in FLUX.2.
+
+![editing_teaser](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/flux2_blog/teaser_editing.png)
 
 ### Text encoder
 
@@ -445,25 +448,12 @@ accelerate launch train_dreambooth_lora_flux2.py \
   --push_to_hub
 ```
 
-<table style="text-align: center; margin: auto;">
-  <caption>LoRA Results</caption>
-  <tr>
-    <td>
-      <img
-        src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/flux2_blog/image%201.png"
-        alt="First image"
-        style="max-width: 100%; height: auto;"
-      />
-    </td>
-    <td>
-      <img
-        src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/flux2_blog/image%202.png"
-        alt="Second image"
-        style="max-width: 100%; height: auto;"
-      />
-    </td>
-  </tr>
-</table>
+<p>
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/flux2_blog/image%201.png" width="45%" />
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/flux2_blog/image%202.png" width="45%" />
+</p>
+ 
+The left image was generated using the pre-trained FLUX.2 model, and the right image was produced the LoRA.
 
 In case your hardware isn’t compatible with FP8 training, you can use QLoRA with `bitsandbytes`. You first need to define a `config.json` file like so:
 
