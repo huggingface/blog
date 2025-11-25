@@ -28,7 +28,7 @@ For v5, we wanted to work on several notable aspects: simplicity, training, infe
 
 ## Simplicity
 
-The first focus of the team was on simplicity. Working on transformers, we see the code as the product. We want our model integrations to be clean so that other libraries in the ecosystem may depend on our model definitions and understand what’s really happening under the hood,how models differ from each other, and what are the key features of each new model. Simplicity results in wider standardization, generality, and wider support.
+The first focus of the team was on simplicity. Working on transformers, we see the code as the product. We want our model integrations to be clean, so that the ecosystem may depend on our model definitions and understand what’s really happening under the hood, how models differ from each other, and the key features of each new model. Simplicity results in wider standardization, generality, and wider support.
 
 ### Model Additions
 
@@ -44,23 +44,23 @@ We’ve worked on improving that model-addition process.
 
 Over the past year, we’ve heavily pushed our modular design as a significant step forward. This allows for easier maintenance, faster integration, and better collaboration across the community. 
 
-We give a deeper overview in our [*Maintain the Unmaintainable*](https://huggingface.co/spaces/transformers-community/Transformers-tenets) blog post, but this ensures long-term a much greater ease of model addition, and a lowered maintenance burden. The resulting lines of code to contribute, and review, therefore drops significantly:
+We give a deeper overview in our [*Maintain the Unmaintainable*](https://huggingface.co/spaces/transformers-community/Transformers-tenets) blog post. For brevity, we aim to achieve a much easier model contribution process, as well as a lower maintenance burden. One metric we can highlight is that the number of lines of code to contribute (and review), drop significantly when modular is used:
 
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/transformers_v5/modular_timeline.png" alt="Transformers standardizing model definitions">
 
 #### Tooling for Model Conversion
 
-We’re building tooling to help us identify which existing model architecture a new model resembles; this uses machine learning to find code similarities between independent modeling files. Going further, we aim to automate the conversion process by opening a draft PR for the model to be integrated into our transformers format. This reduces manual effort and ensures consistency.
+We’re building tooling to help us identify which existing model architecture a new model resembles. This feature uses machine learning to find code similarities between independent modeling files. Going further, we aim to automate the conversion process by opening a draft PR for the model to be integrated into our transformers format. This process reduces manual effort and ensures consistency.
 
 ### Code Reduction
 
 #### Streamlining Modeling & Tokenization/Processing Files
 
-We’ve significantly refactored the modeling and tokenization files; modeling files have been greatly improved thanks to the modular approach mentioned above, but also thanks to significant standardization across models. This process contributes to abstracting most of the tools that don’t make up a model, so that the modeling code only contains the relevant parts for a model’s forward/backward passes.
+We’ve significantly refactored the modeling and tokenization files. Modeling files have been greatly improved thanks to the modular approach mentioned above, on top of standardization across models. Standardization contributes to abstracting most of the tools that don’t make up a model, so that the modeling code only contains the relevant parts for a model’s forward/backward passes.
 
-Alongside this work, we’re simplifying the tokenization and processing files: going forward, we’ll only focus on the `tokenizers` backend, removing the concept of “Fast” and “Slow” tokenizers***.*** 
+Alongside this work, we’re simplifying the tokenization and processing files: going forward, we’ll only focus on the `tokenizers` backend, removing the concept of “Fast” and “Slow” tokenizers.
 
-We’ll be using `tokenizers` as our primary tokenization backend, same as we do for models with torch. We’ll offer alternatives for Sentencepiece-backed or MistralCommon-backed tokenizers, which will be non-default but will be supported. Image processors will now only exist with their fast variant, that depends on the `torchvision` backend.
+We’ll be using `tokenizers` as our primary tokenization backend, same as we do for models with torch. We’ll offer alternatives for Sentencepiece or MistralCommon backed tokenizers, which will be non-default but will be supported. Image processors will now only exist with their fast variant, that depends on the `torchvision` backend.
 
 Finally, we’re sunsetting our Flax/TensorFlow support in favor of focusing solely on `torch` going forward.
 
