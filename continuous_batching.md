@@ -70,9 +70,9 @@ We read the mask row-by-row, which is the same as reading token-by-token: each r
 
 For example, look at the third row for token "*am*". The "*I*" column is green, so "*I*" influences the computation of "*am*". The "*pro*" column is white, so "*pro*" doesn't influence "*am*" . This is causal masking at work: future tokens can't affect past ones.
 
-The last layer of the model outputs a token prediction for each input token. In our context, generating the continuation of a single prompt, we only care about the next token prediction from the last token. The last token is "*ject*" in the figure above, and the associated predicton is "*will*".
+The last layer of the model outputs a token prediction for each input token. In our context, generating the continuation of a single prompt, we only care about the next token prediction from the last token. The last token is "*ject*" in the figure above, and the associated prediction is "*will*".
 
-The process we just described, where we take an entiere input sequence, pass it through multiple attention layers and compute a score for the next token, is called **prefill**. This is because, as we'll see in a moment, much of the computation we performed can be cached and reused – hence, we are _prefilling_ the cache. Thanks to the use of this cache, sequence generation can proceed using much less compute in a phase called **decoding**. In the decoding phase, generating one new token will be much faster than the initial full-sequence computation. Let's see why.
+The process we just described, where we take an entire input sequence, pass it through multiple attention layers and compute a score for the next token, is called **prefill**. This is because, as we'll see in a moment, much of the computation we performed can be cached and reused – hence, we are _prefilling_ the cache. Thanks to the use of this cache, sequence generation can proceed using much less compute in a phase called **decoding**. In the decoding phase, generating one new token will be much faster than the initial full-sequence computation. Let's see why.
 
 To continue generation, we begin a new forward pass, which would naively look like this:
 
