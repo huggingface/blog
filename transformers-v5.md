@@ -60,9 +60,9 @@ We’ve significantly refactored the modeling and tokenization files. Modeling f
 
 Alongside this work, we’re simplifying the tokenization and processing files: going forward, we’ll only focus on the `tokenizers` backend, removing the concept of “Fast” and “Slow” tokenizers.
 
-We’ll be using `tokenizers` as our primary tokenization backend, same as we do for models with torch. We’ll offer alternatives for Sentencepiece or MistralCommon backed tokenizers, which will be non-default but will be supported. Image processors will now only exist with their fast variant, that depends on the `torchvision` backend.
+We’ll be using `tokenizers` as our primary tokenization backend, same as we do for models with PyTorch. We’ll offer alternatives for Sentencepiece or MistralCommon backed tokenizers, which will be non-default but will be supported. Image processors will now only exist with their fast variant, that depends on the `torchvision` backend.
 
-Finally, we’re sunsetting our Flax/TensorFlow support in favor of focusing solely on `torch` going forward.
+Finally, we’re sunsetting our Flax/TensorFlow support in favor of focusing solely on PyTorch going forward.
 
 #### Abstractions and Simplifications
 
