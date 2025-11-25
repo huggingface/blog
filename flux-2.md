@@ -83,13 +83,13 @@ from diffusers import Flux2Pipeline
 import torch
 
 repo_id = "black-forest-labs/FLUX.2-dev"
-pipe = Flux2Pipeline.from_pretrained(path, torch_dtype=torch.bfloat16)
+pipe = Flux2Pipeline.from_pretrained(repo_id, torch_dtype=torch.bfloat16)
 pipe.enable_model_cpu_offload()
 
 image = pipe(
     prompt="dog dancing near the sun",
-    num_inference_steps=50,
-    guidance_scale=2.5,
+    num_inference_steps=50, # 28 is a good trade-off
+    guidance_scale=4,
     height=1024,
     idth=1024
 ).images[0]
