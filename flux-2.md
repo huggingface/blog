@@ -368,7 +368,8 @@ image.save(f"./flux2_t2i.png")
 </details><br>
 
 <table style="text-align: center; margin: auto;">
-  <caption>Comparison of the Two Figures</caption>
+  <caption>multi image input</caption>
+
   <tr>
     <td>
       <img
@@ -378,6 +379,16 @@ image.save(f"./flux2_t2i.png")
       />
     </td>
     <td>
+      <img
+        src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/flux2_blog/kangaroo.png"
+        alt="Kangaroo image"
+        style="max-width: 100%; height: auto;"
+      />
+    </td>
+  </tr>
+
+  <tr>
+    <td colspan="2">
       <img
         src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/flux2_blog/two_images_result.png"
         alt="Two images result"
@@ -449,8 +460,8 @@ accelerate launch train_dreambooth_lora_flux2.py \
 ```
 
 <p>
-  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/flux2_blog/image%201.png" width="45%" />
-  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/flux2_blog/image%202.png" width="45%" />
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/flux2_blog/image%201.png" width="35%" />
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/flux2_blog/image%202.png" width="35%" />
 </p>
  
 The left image was generated using the pre-trained FLUX.2 model, and the right image was produced the LoRA.
