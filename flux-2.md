@@ -92,7 +92,7 @@ image = pipe(
     num_inference_steps=50, # 28 is a good trade-off
     guidance_scale=4,
     height=1024,
-    idth=1024
+    width=1024
 ).images[0]
 ```
 
@@ -114,7 +114,7 @@ image = pipe(
     num_inference_steps=50,
     guidance_scale=2.5,
     height=1024,
-    idth=1024
+    width=1024
 ).images[0]
 ```
 
