@@ -15,13 +15,13 @@ authors:
 # Welcome FLUX.2 - BFL’s new open image generation model 🤗
 
 FLUX.2 is the recent series of image generation models from Black Forest Labs, preceded by the [Flux.1](https://huggingface.co/collections/black-forest-labs/flux1) series. It is an entirely new model with a **new architecture** and pre-training done from scratch!
-
+![generation_teaser](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/flux2_blog/teaser_generation.png)
 In this post, we discuss the key changes introduced in FLUX.2, performing inference with it under various setups, and LoRA fine-tuning.
 
 <aside>
 🚨
 
-FLUX.2 is not meant to be a drop-in replacement of FLUX.1, but a new generation model
+FLUX.2 is *not* meant to be a drop-in replacement of FLUX.1, but a new generation model
 
 </aside>
 
@@ -35,7 +35,7 @@ FLUX.2 is not meant to be a drop-in replacement of FLUX.1, but a new generation 
 
 FLUX.2 can be used for both **image-guided** and **text-guided** image generation. Furthermore, it can take multiple images as reference inputs, while producing the final output image. Below, we briefly discuss the key changes introduced in FLUX.2.
 
-TODO: add generations for image-guided and text-guided image generation
+![editing_teaser](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/flux2_blog/teaser_editing.png)
 
 ### Text encoder
 
@@ -392,7 +392,6 @@ Many of these techniques complement each other and can be used together to reduc
 Let’s launch a training run using these memory saving optimizations.
 
 > [!NOTE]
-
 > Please make sure to check out the [README](https://github.com/huggingface/diffusers/blob/main/examples/dreambooth/README_flux2.md) for prerequisites before starting training.
 
 For this example, we’ll use `multimodalart/1920-raider-waite-tarot-public-domain` dataset with the following configuration using FP8 training. Feel free to experiment more with the hyper-parameters and share your results 🤗
@@ -428,9 +427,12 @@ For this example, we’ll use `multimodalart/1920-raider-waite-tarot-public-doma
   --push_to_hub
 ```
 
-![image.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/flux2_blog/image%201.png)
-
-![image.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/flux2_blog/image%202.png)
+<p>
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/flux2_blog/image%201.png" width="45%" />
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/flux2_blog/image%202.png" width="45%" />
+</p>
+ 
+The left image was generated using the pre-trained FLUX.2 model, and the right image was produced the LoRA.
 
 In case your hardware isn’t compatible with FP8 training, you can use QLoRA with `bitsandbytes`. You first need to define a `config.json` file like so:
 
