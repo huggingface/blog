@@ -392,7 +392,6 @@ Many of these techniques complement each other and can be used together to reduc
 Let’s launch a training run using these memory saving optimizations.
 
 > [!NOTE]
-
 > Please make sure to check out the [README](https://github.com/huggingface/diffusers/blob/main/examples/dreambooth/README_flux2.md) for prerequisites before starting training.
 
 For this example, we’ll use `multimodalart/1920-raider-waite-tarot-public-domain` dataset with the following configuration using FP8 training. Feel free to experiment more with the hyper-parameters and share your results 🤗
@@ -428,9 +427,12 @@ For this example, we’ll use `multimodalart/1920-raider-waite-tarot-public-doma
   --push_to_hub
 ```
 
-![image.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/flux2_blog/image%201.png)
-
-![image.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/flux2_blog/image%202.png)
+<p>
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/flux2_blog/image%201.png" width="45%" />
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/flux2_blog/image%202.png" width="45%" />
+</p>
+ 
+The left image was generated using the pre-trained FLUX.2 model, and the right image was produced the LoRA.
 
 In case your hardware isn’t compatible with FP8 training, you can use QLoRA with `bitsandbytes`. You first need to define a `config.json` file like so:
 
