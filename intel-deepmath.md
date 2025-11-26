@@ -5,26 +5,30 @@ authors:
 - user: danf
   guest: true
   org: Intel
+- user: mber
+  guest: true
+  org: Intel
+- user: moshew
+  guest: true
+  org: Intel
+
 ---
 
-<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/intel-deepmath/deepmath-figure.jpg" style="width:600" alt="An LLM is using a calculator to answer questions." />
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/intel-deepmath/deepmath-figure.jpg" width=700 alt="An LLM is using a calculator to answer questions." />
 
 # DeepMath: A Lightweight Math Reasoning Agent for LLMs
-
-*By Intel AI — Daniel Fleischer, Moshe Berchansky, Moshe Wasserblat*
-
 
 Large language models (LLMs) have made impressive strides in reasoning tasks, yet mathematical problem-solving remains a challenge. Traditional "chain-of-thought" reasoning often produces verbose explanations and error-prone arithmetic. **DeepMath** tackles this by combining a small Python executor with a fine-tuned LLM, enabling concise, computation-driven reasoning.
 
 ## The Big Idea
 
-DeepMath is built on **Qwen3-4B Thinking** and fine-tuned with **GRPO (Group Relative Policy Optimization)**. Instead of verbose text, the model emits **tiny Python snippets** for intermediate steps, runs them in a secure sandbox, and folds the results back into its reasoning, reducing errors and output length.
+DeepMath is built on **[Qwen3-4B Thinking](https://huggingface.co/Qwen/Qwen3-4B-Thinking-2507)** and fine-tuned with **GRPO (Group Relative Policy Optimization)**. Instead of verbose text, the model emits **tiny Python snippets** for intermediate steps, runs them in a secure sandbox, and folds the results back into its reasoning, reducing errors and output length.
 
 ✅ No file I/O, no network calls, strict timeouts.
 
 ✅ Safe, deterministic, and auditable.
 
-We evaluate DeepMath on four math datasets: **MATH500, AIME, HMMT, and HLE,** and show that:
+We evaluate DeepMath on four math datasets: **[MATH500](https://huggingface.co/datasets/HuggingFaceH4/MATH-500), [AIME](https://huggingface.co/datasets/opencompass/AIME2025), [HMMT](https://huggingface.co/datasets/MathArena/hmmt_feb_2025), and [HLE](https://huggingface.co/datasets/cais/hle),** and show that:
 
 - The math agent alone improves accuracy and reduces verbosity.
 
@@ -32,7 +36,7 @@ We evaluate DeepMath on four math datasets: **MATH500, AIME, HMMT, and HLE,** an
 
 - Combining the agent with GRPO yields the largest gains.
 
-👉 Code and evaluation scripts: <https://github.com/IntelLabs/DeepMath>
+👉 Code and evaluation scripts: <https://github.com/IntelLabs/DeepMath> \
 👉 Model: <https://huggingface.co/Intel/deepmath-v1>
 
 ## Why DeepMath?
@@ -52,10 +56,10 @@ DeepMath implements both. The model learns to generate short Python snippets, wh
 - Inference: based on [SmolAgents](https://github.com/huggingface/smolagents/), a math agent was created. vLLM is used as the inference engine.
 - Training: based on the GRPO trainer in [TRL](https://github.com/huggingface/trl), we modified TRL's vLLM client and server to generate GRPO completions using our DeepMath agent.
 
-<figure>
-<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/intel-deepmath/trl-grpo-vllm-deepmath.png" style="width:400" alt="Changes to vLLM client and server in TRL library." />
-<figcaption><p>Figure 1: The vLLM client and server were modified to use the DeepMath agent in generating the candidates, while using the vLLM backend.</p></figcaption>
-</figure>
+<p align="center">
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/intel-deepmath/trl-grpo-vllm-deepmath.png" width=600 alt="Changes to vLLM client and server in TRL library." /><br>
+<em>Figure 1: The vLLM client and server were modified to use the DeepMath agent in generating the candidates, while using the vLLM backend.</em>
+</p>
 
 - **Agent Interface:** During inference, the model can output normal tokens or special agent calls containing Python snippets.
 
@@ -69,10 +73,10 @@ DeepMath implements both. The model learns to generate short Python snippets, wh
 
   - **Interpretability:** Snippets are readable and auditable.
 
-<figure>
-<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/intel-deepmath/output-example.png" style="width:700" alt="Output example: it contains a short python snippet as well as its output which is used in the reasoning process."/>
-<figcaption><p>Figure 2: Output example where python code is generated, evaluated and the answer is inserted into the trace and used for context.</p></figcaption>
-</figure>
+<p align="center">
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/intel-deepmath/output-example.png" width=800 alt="Output example: it contains a short python snippet as well as its output which is used in the reasoning process."/><br>
+<em>Figure 2: Output example where python code is generated, evaluated and the answer is inserted into the trace and used for context.</em>
+</p>
 
 ## Training with GRPO
 
@@ -98,7 +102,9 @@ We benchmarked DeepMath against baselines on four datasets. Metrics include:
 
 - **Mean output length** (brevity).
 
-<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/intel-deepmath/main-results.png" style="width:800" alt="Main results table."/>
+<p align="center">
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/intel-deepmath/main-results.png" width=1000 alt="Main results table."/>
+</p>
 
 **Key Insight:** DeepMath reduces output length by up to **66%** while improving accuracy on challenging datasets.
 
@@ -116,9 +122,7 @@ DeepMath demonstrates a practical and lightweight way to combine a small executo
 
 ## Try It Yourself
 
-Check out the GitHub repo and share your feedback! Contributions welcome. 🚀
-
-<https://github.com/intel/DeepMath>.
+Check out the [GitHub repo](https://github.com/IntelLabs/DeepMath) and share your feedback! Contributions welcome. 🚀
 
 ## Citation
 
