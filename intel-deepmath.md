@@ -11,7 +11,6 @@ authors:
 - user: moshew
   guest: true
   org: Intel
-
 ---
 
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/intel-deepmath/deepmath-figure.jpg" width=700 alt="An LLM is using a calculator to answer questions." />

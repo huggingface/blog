@@ -4923,12 +4923,29 @@
     - trl
     - rapidfireai
 
-- local: intel-deepmath
+- local: continuous_batching
   date: Nov 25, 2025
+  tags:
+    - transformers
+    - pytorch
+    - optimization
+    - inference
+    - feature
+
+- local: flux-2
+  date: Nov 25, 2025
+  tags:
+    - diffusers
+    - flux
+    - quantization
+    - black-forest-labs
+    - lora
+
+- local: intel-deepmath
+  date: Nov 26, 2025
   tags:
     - llm
     - reasoning
     - agents
     - math
     - grpo
-
