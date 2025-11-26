@@ -660,4 +660,4 @@ accelerate launch train_dreambooth_lora_flux2.py \
 - Diffusers [documentation](https://huggingface.co/docs/diffusers/main/en/api/pipelines/flux2)
 - FLUX.2 official [demo](https://huggingface.co/spaces/black-forest-labs/FLUX.2-dev)
 - FLUX.2 on the [Hub](https://hf.co/black-forest-labs/FLUX.2-dev)
-- FLUX.2 original [codebase](https://github.com/black-forest-labs/flux2-dev)
+- FLUX.2 original [codebase](https://github.com/black-forest-labs/flux2)
