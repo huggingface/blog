@@ -36,8 +36,7 @@ FLUX.2 can be used for both **image-guided** and **text-guided** image generatio
 
 ### Text encoder
 
-First, instead of two text encoders as in Flux.1, it uses a single text encoder — [Mistral Small 3.1](https://mistral.ai/news/mistral-small-3-1). Using a single text encoder greatly simplifies the process of computing prompt embeddings. The pipeline allows for a `max_sequence_length` of 512. Instead of using a single layer output for
-the prompt embedding, FLUX.2 stacks outputs from intermediate layers, which have been [known](https://www.arxiv.org/abs/2505.10046) to be more beneficial. 
+First, instead of two text encoders as in Flux.1, it uses a single text encoder — [Mistral Small 3.1](https://mistral.ai/news/mistral-small-3-1). Using a single text encoder greatly simplifies the process of computing prompt embeddings. The pipeline allows for a `max_sequence_length` of 512. Instead of using a single-layer output for the prompt embedding, FLUX.2 stacks outputs from intermediate layers, which have been [known](https://www.arxiv.org/abs/2505.10046) to be more beneficial. 
 
 ### DiT
 
