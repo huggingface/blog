@@ -36,7 +36,8 @@ FLUX.2 can be used for both **image-guided** and **text-guided** image generatio
 
 ### Text encoder
 
-First, instead of two text encoders as in Flux.1, it uses a single text encoder — [Mistral Small 3.1](https://mistral.ai/news/mistral-small-3-1). Using a single text encoder greatly simplifies the process of computing prompt embeddings. The pipeline allows for a `max_sequence_length` of 512.
+First, instead of two text encoders as in Flux.1, it uses a single text encoder — [Mistral Small 3.1](https://mistral.ai/news/mistral-small-3-1). Using a single text encoder greatly simplifies the process of computing prompt embeddings. The pipeline allows for a `max_sequence_length` of 512. Instead of using a single layer output for
+the prompt embedding, FLUX.2 stacks outputs from intermediate layers, which have been [known](https://www.arxiv.org/abs/2505.10046) to be more beneficial. 
 
 ### DiT
 
@@ -62,7 +63,7 @@ The key DiT changes from Flux.1 to FLUX.2 are as follows:
 
 ### Misc
 
-- A new Autoencoder
+- A new Autoencoder aka `AutoencoderKLFlux2`
 - Better way to incorporate resolution-dependent timestep schedules
 
 ## Inference With Diffusers
@@ -165,6 +166,8 @@ image.save("flux2_t2i_nf4.png")
 ```
   
 </details>
+
+Notice that we're using a repository that contains the NF4-quantized versions of the FLUX.2 DiT and the Mistral text encoder.
 
 **Local + remote**
 
