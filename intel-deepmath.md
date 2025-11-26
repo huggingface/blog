@@ -13,7 +13,9 @@ authors:
   org: Intel
 ---
 
+<p align="center">
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/intel-deepmath/deepmath-figure.jpg" width=700 alt="An LLM is using a calculator to answer questions." />
+</p>
 
 # DeepMath: A Lightweight Math Reasoning Agent for LLMs
 
@@ -21,7 +23,7 @@ Large language models (LLMs) have made impressive strides in reasoning tasks, ye
 
 ## The Big Idea
 
-DeepMath is built on **[Qwen3-4B Thinking](https://huggingface.co/Qwen/Qwen3-4B-Thinking-2507)** and fine-tuned with **GRPO (Group Relative Policy Optimization)**. Instead of verbose text, the model emits **tiny Python snippets** for intermediate steps, runs them in a secure sandbox, and folds the results back into its reasoning, reducing errors and output length.
+[DeepMath](https://huggingface.co/Intel/deepmath-v1) is built on **[Qwen3-4B Thinking](https://huggingface.co/Qwen/Qwen3-4B-Thinking-2507)** and fine-tuned with **GRPO (Group Relative Policy Optimization)**. Instead of verbose text, the model emits **tiny Python snippets** for intermediate steps, runs them in a secure sandbox, and folds the results back into its reasoning, reducing errors and output length.
 
 ✅ No file I/O, no network calls, strict timeouts.
 
@@ -91,7 +93,7 @@ We fine-tune the model using **GRPO**, a reward-based optimization that balances
 
 - **In-context Learning**: we include 4 solved examples where the trace contains agent calls and executor outputs, so the model learns the syntax and the call/response pattern.
 
-- **Dataset**: we used [OpenMathReasoning](https://huggingface.co/datasets/nvidia/OpenMathReasoning) dataset, the tool-usage subset. Note that GRPO only uses the <u>problem</u>, not the solution in the data. Choosing this dataset ensures problems benefit form tool use.
+- **Dataset**: we used [OpenMathReasoning](https://huggingface.co/datasets/nvidia/OpenMathReasoning) dataset, the tool-usage subset. Note that GRPO only uses the <u>problem</u>, not the solution in the data. Choosing this dataset ensures problems benefit from tool use.
 
 ## Evaluation
 
