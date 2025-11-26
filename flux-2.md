@@ -19,8 +19,7 @@ FLUX.2 is the recent series of image generation models from Black Forest Labs, p
 In this post, we discuss the key changes introduced in FLUX.2, performing inference with it under various setups, and LoRA fine-tuning.
 
 >[!IMPORTANT]
->🚨 FLUX.2 is not meant to be a drop-in replacement of FLUX.1, but a new generation model
-
+>🚨 FLUX.2 is not meant to be a drop-in replacement of FLUX.1, but a new image generation and editing model.
 
 **Table of contents**
 
@@ -37,7 +36,7 @@ FLUX.2 can be used for both **image-guided** and **text-guided** image generatio
 
 ### Text encoder
 
-First, instead of two text encoders as in Flux.1, it uses a single text encoder — [Mistral Small 3.1](https://mistral.ai/news/mistral-small-3-1). Using a single text encoder greatly simplifies the process of computing prompt embeddings. The pipeline allows for a `max_sequence_length` of 512.
+First, instead of two text encoders as in Flux.1, it uses a single text encoder — [Mistral Small 3.1](https://mistral.ai/news/mistral-small-3-1). Using a single text encoder greatly simplifies the process of computing prompt embeddings. The pipeline allows for a `max_sequence_length` of 512. Instead of using a single-layer output for the prompt embedding, FLUX.2 stacks outputs from intermediate layers, which have been [known](https://www.arxiv.org/abs/2505.10046) to be more beneficial. 
 
 ### DiT
 
@@ -45,25 +44,25 @@ FLUX.2 follows the same general [multimodel diffusion transformer](https://arxiv
 
 The key DiT changes from Flux.1 to FLUX.2 are as follows:
 
-1. Time and guidance information (in the form of [AdaLayerNorm-Zero](https://arxiv.org/pdf/2212.09748) modulation parameters) is shared across all double-stream and single-stream transformer blocks, respectively, rather than having individual modulation parameters for each block as in Flux.1.
-2. None of the layers in the model use `bias` parameters. In particular, neither the attention nor feedforward (FF) sub-blocks of either transformer block use `bias` parameters in any of their layers.
-3. In Flux.1, the single-stream transformer blocks fused the attention output projection with the FF output projection. FLUX.2 single-stream blocks also fuse the attention QKV projections with the FF input projection, creating a [fully parallel transformer block](https://arxiv.org/pdf/2302.05442):
+* Time and guidance information (in the form of [AdaLayerNorm-Zero](https://arxiv.org/pdf/2212.09748) modulation parameters) is shared across all double-stream and single-stream transformer blocks, respectively, rather than having individual modulation parameters for each block as in Flux.1.
+* None of the layers in the model use `bias` parameters. In particular, neither the attention nor feedforward (FF) sub-blocks of either transformer block use `bias` parameters in any of their layers.
+* In Flux.1, the single-stream transformer blocks fused the attention output projection with the FF output projection. FLUX.2 single-stream blocks also fuse the attention QKV projections with the FF input projection, creating a [fully parallel transformer block](https://arxiv.org/pdf/2302.05442):
 
-<figure>
-  <img
-    src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/flux2_blog/image.png"
-    alt="Figure taken from the ViT-22B paper."
-  />
-  <figcaption>Figure taken from the ViT-22B paper.</figcaption>
-</figure>
+  <figure>
+    <img
+      src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/flux2_blog/image.png"
+      alt="Figure taken from the ViT-22B paper."
+    />
+    <figcaption>Figure taken from the ViT-22B paper.</figcaption>
+  </figure>
 
-Note that compared to the `ViT-22B` block depicted above, FLUX.2 uses a [SwiGLU](https://arxiv.org/abs/2002.05202)-style MLP activation rather than a GELU activation (and also doesn’t use `bias` parameters).
+  Note that compared to the `ViT-22B` block depicted above, FLUX.2 uses a [SwiGLU](https://arxiv.org/abs/2002.05202)-style MLP activation rather than a GELU activation (and also doesn’t use `bias` parameters).
 
-1. A larger proportion of the transformer blocks in FLUX.2 are single-stream blocks (`8` double-stream blocks to `48` single-stream blocks, compared to `19`/`38` for Flux.1). This also means that single-stream blocks make up a larger proportion of the DiT parameters: `Flux.1[dev]-12B` has ~54% of its total parameters in the double-stream blocks, whereas `FLUX.2[dev]-32B` has ~24% of its parameters in the double-stream blocks (and ~73% in the single-stream blocks).
+* A larger proportion of the transformer blocks in FLUX.2 are single-stream blocks (`8` double-stream blocks to `48` single-stream blocks, compared to `19`/`38` for Flux.1). This also means that single-stream blocks make up a larger proportion of the DiT parameters: `Flux.1[dev]-12B` has ~54% of its total parameters in the double-stream blocks, whereas `FLUX.2[dev]-32B` has ~24% of its parameters in the double-stream blocks (and ~73% in the single-stream blocks).
 
 ### Misc
 
-- A new Autoencoder
+- A new Autoencoder aka `AutoencoderKLFlux2`
 - Better way to incorporate resolution-dependent timestep schedules
 
 ## Inference With Diffusers
@@ -166,6 +165,8 @@ image.save("flux2_t2i_nf4.png")
 ```
   
 </details>
+
+Notice that we're using a repository that contains the NF4-quantized versions of the FLUX.2 DiT and the Mistral text encoder.
 
 **Local + remote**
 
@@ -369,7 +370,7 @@ image.save(f"./flux2_t2i.png")
 </details><br>
 
 <table style="text-align: center; margin: auto;">
-  <caption>multi image input</caption>
+  <caption>Multi-image input</caption>
 
   <tr>
     <td>
@@ -403,6 +404,7 @@ image.save(f"./flux2_t2i.png")
 FLUX.2 supports advanced prompting techniques like structured JSON prompting, precise hex color control, and multi-reference image editing.
 Aside for the added control, this also allows for flexibility in changing specific attributes while maintaining others overall the same.  
 For example, let's start with this json as the base schema (taken from the [official FLUX.2 prompting guide](https://docs.bfl.ai/guides/prompting_guide_flux2)): 
+
 ```json
 {
   "scene": "overall scene description",
@@ -426,8 +428,10 @@ For example, let's start with this json as the base schema (taken from the [offi
   }
 }
 ```
+
 Building up on that, let's turn it into a prompt for a shot of a good old fashion walkman on a carpet (simply pass this prompt to your chosen diffusers inference example from above):
- ```python
+
+```python
 prompt = """
 {
   "scene": "Professional studio product photography setup with soft-textured carpet surface",
@@ -516,7 +520,9 @@ prompt = """
 </table>
 
 The carpet color now matches the hex code provided, and the headphones have been with small changes to the overall scene.
-Check out the prompting guide for more examples and details: https://docs.bfl.ai/guides/prompting_guide_flux2
+
+> [!NOTE]
+> Check out the [official prompting guide](https://docs.bfl.ai/guides/prompting_guide_flux2) for more examples and details.
 
 ## LoRA fine-tuning
 
@@ -531,23 +537,23 @@ Many of these techniques complement each other and can be used together to reduc
 
 <details>
 <summary>Unfold to check details on the memory-saving techniques used: </summary>
-  - **Remote Text Encoder:** to leverage the remote text encoding for training, simply pass `--remote_text_encoder`. Note that you must either be logged in to your Hugging Face account (`hf auth login`) OR pass a token with `--hub_token`.
-  - **CPU Offloading:** by passing `--offload` the vae and text encoder to will be offloaded to CPU memory and only moved to GPU when needed.
-  - **Latent Caching:** Pre-encode the training images with the vae, and then delete it to free up some memory. To enable `latent_caching` simply pass `--cache_latents`.
-  - **QLoRA**: Low Precision Training with Quantization - using 8-bit or 4-bit quantization. You can use the following flags:
-    **FP8 training** with `torchao`: enable FP8 training by passing `--do_fp8_training`.
-    - > [!IMPORTANT] Since we are utilizing FP8 tensor cores, we need CUDA GPUs with compute capability at least 8.9 or greater. > If you're looking for memory-efficient training on relatively older cards, we encourage you to check out other trainers like `SimpleTuner`, `ai-toolkit`, etc.
-      > **NF4 training** with `bitsandbytes`: Alternatively, you can use 8-bit or 4-bit quantization with `bitsandbytes` by passing:- `--bnb_quantization_config_path` with a corresponding path to a json file containing your config. see below for more details.
-  - **Gradient Checkpointing and Accumulation:** `--gradient accumulation` refers to the number of updates steps to accumulate before performing a backward/update pass.by passing a value > 1 you can reduce the amount of backward/update passes and hence also memory reqs.\* with `--gradient checkpointing` we can save memory by not storing all intermediate activations during the forward pass.Instead, only a subset of these activations (the checkpoints) are stored and the rest is recomputed as needed during the backward pass. Note that this comes at the expanse of a slower backward pass.
-  - **8-bit-Adam Optimizer:** When training with `AdamW`(doesn't apply to `prodigy`) You can pass `--use_8bit_adam` to reduce the memory requirements of training. Make sure to install `bitsandbytes` if you want to do so.
 
-Let’s launch a training run using these memory-saving optimizations.
+- **Remote Text Encoder:** to leverage the remote text encoding for training, simply pass `--remote_text_encoder`. Note that you must either be logged in to your Hugging Face account (`hf auth login`) OR pass a token with `--hub_token`.
+- **CPU Offloading:** by passing `--offload` the vae and text encoder to will be offloaded to CPU memory and only moved to GPU when needed.
+- **Latent Caching:** Pre-encode the training images with the vae, and then delete it to free up some memory. To enable `latent_caching` simply pass `--cache_latents`.
+- **QLoRA**: Low Precision Training with Quantization - using 8-bit or 4-bit quantization. You can use the following flags:
+  - **FP8 training** with `torchao`: enable FP8 training by passing `--do_fp8_training`.
+  Since we are utilizing FP8 tensor cores, we need CUDA GPUs with compute capability at least 8.9 or greater. If you're looking for memory-efficient training on relatively older cards, we encourage you to check out other trainers like `SimpleTuner`, `ai-toolkit`, etc.
+  - **NF4 training** with `bitsandbytes`: Alternatively, you can use 8-bit or 4-bit quantization with `bitsandbytes` by passing:- `--bnb_quantization_config_path` with a corresponding path to a json file containing your config. see below for more details.
+- **Gradient Checkpointing and Accumulation:** `--gradient accumulation` refers to the number of updates steps to accumulate before performing a backward/update pass.by passing a value > 1 you can reduce the amount of backward/update passes and hence also memory reqs.\* with `--gradient checkpointing` we can save memory by not storing all intermediate activations during the forward pass.Instead, only a subset of these activations (the checkpoints) are stored and the rest is recomputed as needed during the backward pass. Note that this comes at the expanse of a slower backward pass.
+- **8-bit-Adam Optimizer:** When training with `AdamW`(doesn't apply to `prodigy`) You can pass `--use_8bit_adam` to reduce the memory requirements of training. Make sure to install `bitsandbytes` if you want to do so.
+
 </details>
 
 > [!NOTE]
 > Please make sure to check out the [README](https://github.com/huggingface/diffusers/blob/main/examples/dreambooth/README_flux2.md) for prerequisites before starting training.
 
-For this example, we’ll use `multimodalart/1920-raider-waite-tarot-public-domain` dataset with the following configuration using FP8 training. Feel free to experiment more with the hyper-parameters and share your results 🤗
+For this example, we’ll use [`multimodalart/1920-raider-waite-tarot-public-domain`](https://huggingface.co/datasets/multimodalart/1920-raider-waite-tarot-public-domain) dataset with the following configuration using FP8 training. Feel free to experiment more with the hyper-parameters and share your results 🤗
 
 ```bash
 accelerate launch train_dreambooth_lora_flux2.py \
@@ -582,21 +588,26 @@ accelerate launch train_dreambooth_lora_flux2.py \
 
 <table style="text-align: center; margin: auto;">
   <caption>LoRA finetuning</caption>
-
   <tr>
     <td>
-      <img
-        src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/flux2_blog/image%201.png"
-        alt="without LoRA"
-        style="max-width: 100%; height: auto;"
-      />
+      <figure style="margin: 0;">
+        <img
+          src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/flux2_blog/image%201.png"
+          alt="Pre-trained FLUX.2"
+          style="max-width: 100%; height: auto;"
+        />
+        <figcaption>Pre-trained FLUX.2</figcaption>
+      </figure>
     </td>
     <td>
-      <img
-        src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/flux2_blog/image%202.png"
-        alt="with LoRA"
-        style="max-width: 100%; height: auto;"
-      />
+      <figure style="margin: 0;">
+        <img
+          src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/flux2_blog/image%202.png"
+          alt="LoRA fine-tuned FLUX.2"
+          style="max-width: 100%; height: auto;"
+        />
+        <figcaption>LoRA fine-tuned FLUX.2</figcaption>
+      </figure>
     </td>
   </tr>
 </table>
@@ -615,7 +626,7 @@ In case your hardware isn’t compatible with FP8 training, you can use QLoRA wi
 And then pass its path to `--bnb_quantization_config_path`:
 
 ```bash
-!accelerate launch train_dreambooth_lora_flux2.py \
+accelerate launch train_dreambooth_lora_flux2.py \
   --pretrained_model_name_or_path="black-forest-labs/FLUX.2-dev"  \
   --mixed_precision="bf16" \
   --gradient_checkpointing \
@@ -648,4 +659,4 @@ And then pass its path to `--bnb_quantization_config_path`:
 - Diffusers [documentation](https://huggingface.co/docs/diffusers/main/en/api/pipelines/flux2)
 - FLUX.2 official [demo](https://huggingface.co/spaces/black-forest-labs/FLUX.2-dev)
 - FLUX.2 on the [Hub](https://hf.co/black-forest-labs/FLUX.2-dev)
-- FLUX.2 original [codebase](https://github.com/black-forest-labs/flux2-dev)
+- FLUX.2 original [codebase](https://github.com/black-forest-labs/flux2)
