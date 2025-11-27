@@ -12,7 +12,7 @@ authors:
 
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/transformers_v5/transformers-thumbnail.png" alt="Transformers standardizing model definitions">
 
-Transformers' version v4.0.0rc-1, the initial release candidate for version 4, was released on November 19th, 2020. Five years later, we now release v5.0.0rc-1.
+Transformers' version v4.0.0rc-1, the initial release candidate for version 4, was released on November 19th, 2020. Five years later, we now release v5.0.0rc-0.
 
 Today, as we launch v5, Transformers is installed more than **3 million times each day** via pip - up from **20,000/day** in v4 🤯. Altogether, it has now surpassed **1.2 billion installs**!
 
