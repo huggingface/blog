@@ -74,7 +74,9 @@ Alongside this work, we’re simplifying the tokenization and processing files: 
 
 We’ll be using `tokenizers` as our primary tokenization backend, same as we do for models with PyTorch. We’ll offer alternatives for Sentencepiece or MistralCommon backed tokenizers, which will be non-default but will be supported. Image processors will now only exist with their fast variant, that depends on the `torchvision` backend.
 
-Finally, we’re sunsetting our Flax/TensorFlow support in favor of focusing solely on PyTorch going forward.
+Finally, we’re sunsetting our Flax/TensorFlow support in favor of focusing on PyTorch as the sole backend; however, 
+we're also working with partners in the Jax ecosystem to ensure we have compatibility between our models and this
+ecosystem.
 
 > _With its v5 release, transformers is going all in on PyTorch. Transformers acts as a source of truth and 
 > foundation for modeling across the field; we've been working with the team to ensure good performance 
