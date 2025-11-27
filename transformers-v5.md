@@ -39,7 +39,12 @@ The first focus of the team was on simplicity. Working on transformers, we see t
 
 Transformers, at the core, remains a model architecture toolkit. We aim to have all recent architectures and to be the “source of truth” for model definitions. We’ve been adding between 1 and 3 new architectures every week for 5 years, shown in the timeline below:
 
-<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/transformers_v5/transformers_model_timeline.png" alt="Transformers standardizing model definitions">
+<iframe
+    src="https://yonigozlan-Transformers-Timeline.hf.space"
+    frameborder="0"
+    width="850"
+    height="450"
+></iframe>
 
 [*https://huggingface.co/spaces/yonigozlan/Transformers-Timeline*](https://huggingface.co/spaces/yonigozlan/Transformers-Timeline)
 
