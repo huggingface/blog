@@ -41,8 +41,6 @@ Transformers, at the core, remains a model architecture toolkit. We aim to have 
 
 <iframe src="https://yonigozlan-Transformers-Timeline.hf.space" frameborder="0" width="850" height="450"></iframe>
 
-[*https://huggingface.co/spaces/yonigozlan/Transformers-Timeline*](https://huggingface.co/spaces/yonigozlan/Transformers-Timeline)
-
 We’ve worked on improving that model-addition process.
 
 #### Modular Approach 
@@ -133,6 +131,11 @@ Recently, we've been working hand in hand with the most popular inference engine
 We've also been working very closely with ONNXRuntime, [llama.cpp](https://github.com/ggml-org/llama.cpp) and [MLX](https://github.com/ml-explore/mlx) so that the implementations between `transformers` and these modeling libraries have great interoperability. For example, thanks to a significant community effort, it's now very easy to [load GGUF files in `transformers`](https://huggingface.co/docs/transformers/en/gguf) for further fine-tuning. Conversely, transformers models can be easily [converted to GGUF files](https://github.com/ggml-org/llama.cpp/blob/master/convert_hf_to_gguf.py) for use with llama.cpp.
 
 The same is true for MLX, where the transformers' safetensors files are directly compatible with MLX's models.
+
+> _It’s hard to overstate the importance of Transformers (and datasets, tokenizers, etc) to the open-source and 
+> overall AI ecosystem. I can’t count the number of times I’ve personally used Transformers as a source-of-truth._
+> 
+> _-- Awni Hannun, MLX_
 
 Finally, we’re pushing the boundaries of local inference and are working hand-in-hand with the `executorch` team to get the transformers models to be available on-device. We’re expanding the coverage to multimodal models (vision, audio).
 
