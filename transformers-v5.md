@@ -96,7 +96,7 @@ Going forward, we’re excited to have extended compatibility with torchtitan, m
 
 ### Fine-tuning & Post-training
 
-We continue collaborating closely with all fine-tuning tools in the Python ecosystem. We aim to continue providing model implementations compatible with [Unsloth](https://huggingface.co/unsloth), [Axolotl](https://huggingface.co/axolotl-ai-co), [LlamaFactory](https://huggingface.co/llamafactory), [TRL](https://huggingface.co/docs/trl/en/index) and others in the PyTorch ecosystem; but we are also working with tools such as MaxText, in the Jax ecosystem, to have good interoperability between their frameworks and `transformers`.
+We continue collaborating closely with all fine-tuning tools in the Python ecosystem. We aim to continue providing model implementations compatible with [Unsloth](https://huggingface.co/unsloth), [Axolotl](https://huggingface.co/axolotl-ai-co), [LlamaFactory](https://huggingface.co/llamafactory), [TRL](https://huggingface.co/docs/trl/en/index) and others in the PyTorch ecosystem; but we are also working with tools such as [MaxText](https://github.com/AI-Hypercomputer/maxtext), in the JAX ecosystem, to have good interoperability between their frameworks and `transformers`.
 
 All fine-tuning and post-training tools can now rely on transformers for model definitions; further enabling Agentic use-cases through [OpenEnv](https://huggingface.co/openenv) or the Prime Environment Hub.
 
