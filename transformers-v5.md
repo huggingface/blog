@@ -1,6 +1,6 @@
 ---
 title: "Transformers v5: Simple model definitions powering the AI ecosystem"
-thumbnail: /blog/assets/transformers-model-definition/transformers-thumbnail.png
+thumbnail: /blog/assets/transformers_v5/transformers-thumbnail.png
 authors:
   - user: lysandre
   - user: ArthurZ

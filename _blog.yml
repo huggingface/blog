@@ -4897,3 +4897,13 @@
     - rocm
     - kernels
 
+- local: transformers-v5
+  date: Nov 28, 2025
+  tags:
+    - transformers
+    - v5
+    - community
+    - python
+    - announcement
+    - open-source
+
