@@ -51,7 +51,7 @@ We give a deeper overview in our [*Maintain the Unmaintainable*](https://hugging
 
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/transformers_v5/modular_timeline.png" alt="Transformers standardizing model definitions">
 
-While we respect the “One model, one file” philosophy, we continue introducing some abstractions making the management of common helpers simpler. The prime example of this is the introduction of the `AttentionInterface`, which offers a centralized abstraction for attention methods. The \`eager\` method will remain in the modeling file; others, such as FA1/2/3, FlexAttention, or SDPA, are moved to the interface.
+While we respect the “One model, one file” philosophy, we continue introducing some abstractions making the management of common helpers simpler. The prime example of this is the introduction of the `AttentionInterface`, which offers a centralized abstraction for attention methods. The `eager` method will remain in the modeling file; others, such as FA1/2/3, FlexAttention, or SDPA, are moved to the interface.
 
 > _Over the past couple of years, the increasing amount of 0-day support for new model architectures and
 > standardization of attention handling has helped to simplify our support for post-training modern LLMs._
