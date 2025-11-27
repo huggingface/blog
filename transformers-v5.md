@@ -82,7 +82,7 @@ ecosystem.
 >
 > _We're excited to continue pushing for this in the future across training, inference, and deployment._
 >
-> _-- Matt white, Executive Director, PyTorch Foundation. GM of AI, Linux Foundation_
+> _-- Matt White, Executive Director, PyTorch Foundation. GM of AI, Linux Foundation_
 
 ## Training
 
@@ -129,6 +129,10 @@ Recently, we've been working hand in hand with the most popular inference engine
 
 
 We've also been working very closely with ONNXRuntime, [llama.cpp](https://github.com/ggml-org/llama.cpp) and [MLX](https://github.com/ml-explore/mlx) so that the implementations between `transformers` and these modeling libraries have great interoperability. For example, thanks to a significant community effort, it's now very easy to [load GGUF files in `transformers`](https://huggingface.co/docs/transformers/en/gguf) for further fine-tuning. Conversely, transformers models can be easily [converted to GGUF files](https://github.com/ggml-org/llama.cpp/blob/master/convert_hf_to_gguf.py) for use with llama.cpp.
+
+> _The Transformers framework is the go-to place for reference AI model implementations. The framework plays a crucial role in enabling modern AI across the entire stack. The team and the community behind the project truly understand and embrace the sprit of the open-source development and collaboration._
+> 
+> _-- Georgi Gerganov, ggml-org_
 
 The same is true for MLX, where the transformers' safetensors files are directly compatible with MLX's models.
 
