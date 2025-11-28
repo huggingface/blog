@@ -33,11 +33,11 @@ The first focus of the team was on simplicity. Working on transformers, we see t
 > _Transformers is the backbone of hundreds of thousands of projects, Unsloth included. We build on Transformers to
 > help people fine-tune and train models efficiently, whether that’s BERT, text-to-speech (TTS), or others; to run
 > fast inference for reinforcement learning (RL) even when models aren’t yet supported in other libraries. We're
-> excited for Transformers v5 and are supper happy to be working with the Hugging Face team!_
+> excited for Transformers v5 and are super happy to be working with the Hugging Face team!_
 >
 >_-- Michael Han at Unsloth_
 
-Transformers, at the core, remains a model architecture toolkit. We aim to have all recent architectures and to be the “source of truth” for model definitions. We’ve been adding between 1 and 3 new architectures every week for 5 years, shown in the timeline below:
+Transformers, at the core, remains a model architecture toolkit. We aim to have all recent architectures and to be the “source of truth” for model definitions. We’ve been adding between 1 - 3 new models every week for 5 years, shown in the timeline below:
 
 <iframe src="https://yonigozlan-Transformers-Timeline.hf.space" frameborder="0" width="850" height="450"></iframe>
 
@@ -47,7 +47,7 @@ We’ve worked on improving that model-addition process.
 
 Over the past year, we’ve heavily pushed our modular design as a significant step forward. This allows for easier maintenance, faster integration, and better collaboration across the community. 
 
-We give a deeper overview in our [*Maintain the Unmaintainable*](https://huggingface.co/spaces/transformers-community/Transformers-tenets) blog post. For brevity, we aim to achieve a much easier model contribution process, as well as a lower maintenance burden. One metric we can highlight is that the number of lines of code to contribute (and review), drop significantly when modular is used:
+We give a deeper overview in our [*Maintain the Unmaintainable*](https://huggingface.co/spaces/transformers-community/Transformers-tenets) blog post. For brevity, we aim to achieve a much easier model contribution process, as well as a lower maintenance burden. One metric we can highlight is that the number of lines of code to contribute (and review), drop significantly when [modular](https://huggingface.co/docs/transformers/en/modular_transformers) is used:
 
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/transformers_v5/modular_timeline.png" alt="Transformers standardizing model definitions">
 
@@ -70,7 +70,7 @@ We’ve significantly refactored the modeling and tokenization files. Modeling f
 
 Alongside this work, we’re simplifying the tokenization and processing files: going forward, we’ll only focus on the `tokenizers` backend, removing the concept of “Fast” and “Slow” tokenizers.
 
-We’ll be using `tokenizers` as our primary tokenization backend, same as we do for models with PyTorch. We’ll offer alternatives for Sentencepiece or MistralCommon backed tokenizers, which will be non-default but will be supported. Image processors will now only exist with their fast variant, that depends on the `torchvision` backend.
+We'll use tokenizers as our main tokenization backend, just as we do for PyTorch-based models. We’ll offer alternatives for Sentencepiece or MistralCommon backed tokenizers, which will be non-default but will be supported. Image processors will now only exist with their fast variant, which depends on the torchvision backend.
 
 Finally, we’re sunsetting our Flax/TensorFlow support in favor of focusing on PyTorch as the sole backend; however, 
 we're also working with partners in the Jax ecosystem to ensure we have compatibility between our models and this
@@ -113,7 +113,7 @@ Alongside this effort, we ship two new APIs dedicated to inference:
 
 We see this as a major step forward for use-cases such as evaluation, where a great number of inference requests are done simultaneously. We don’t aim to do specialized optimizations like the dedicated inference engines (vLLM, SGLang, TensorRT LLM). Instead, we aim to be perfectly inter-compatible with these, as detailed in the next section.
 
-> _The Transformers backend in vllm has been very enabling to get more architectures, like BERT and other encoders, available to more users. We've been working with the Transformers team to ensure many models are available across modalities with the best performance possible. This is just the start of our collaboration: we're happy to see the Transformers team will have this as a focus going in to version 5._
+> _The Transformers backend in vllm has been very enabling to get more architectures, like BERT and other encoders, available to more users. We've been working with the Transformers team to ensure many models are available across modalities with the best performance possible. This is just the start of our collaboration: we're happy to see the Transformers team will have this as a focus going into version 5._
 >
 > _-- Harry Mellor at vLLM_
 
