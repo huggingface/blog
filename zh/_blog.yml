@@ -1688,3 +1688,12 @@
     - datasets
     - open-source
     - vision
+
+- local: ocr-open-models
+  date: Oct 21, 2025
+  tags:
+    - ocr
+    - vision
+    - multimodal
+    - vlm
+    - open-source
