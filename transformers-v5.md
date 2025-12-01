@@ -113,7 +113,7 @@ Alongside this effort, we ship two new APIs dedicated to inference:
 
 We see this as a major step forward for use-cases such as evaluation, where a great number of inference requests are done simultaneously. We don’t aim to do specialized optimizations like the dedicated inference engines (vLLM, SGLang, TensorRT LLM). Instead, we aim to be perfectly inter-compatible with these, as detailed in the next section.
 
-> _The Transformers backend in vllm has been very enabling to get more architectures, like BERT and other encoders, available to more users. We've been working with the Transformers team to ensure many models are available across modalities with the best performance possible. This is just the start of our collaboration: we're happy to see the Transformers team will have this as a focus going into version 5._
+> _The Transformers backend in vLLM has been very enabling to get more architectures, like BERT and other encoders, available to more users. We've been working with the Transformers team to ensure many models are available across modalities with the best performance possible. This is just the start of our collaboration: we're happy to see the Transformers team will have this as a focus going into version 5._
 >
 > _-- Harry Mellor at vLLM_
 
