@@ -4859,7 +4859,7 @@
     - announcement
     - open-source
     - hub
-  
+
 - local: streaming-datasets
   date: Oct 27, 2025
   tags:
@@ -4897,8 +4897,52 @@
     - rocm
     - kernels
 
+- local: anylanguagemodel
+  date: Nov 20, 2025
+  tags:
+    - llm
+    - coreml
+    - mlx
+    - community
+    - open-source
+
+- local: open-asr-leaderboard
+  date: Nov 21, 2025
+  tags:
+    - audio
+    - speech
+    - leaderboard
+
+- local: rapidfireai
+  date: Nov 21, 2025
+  tags:
+    - llm
+    - experimentation
+    - fine-tuning
+    - post-training
+    - trl
+    - rapidfireai
+
+- local: continuous_batching
+  date: Nov 25, 2025
+  tags:
+    - transformers
+    - pytorch
+    - optimization
+    - inference
+    - feature
+
+- local: flux-2
+  date: Nov 25, 2025
+  tags:
+    - diffusers
+    - flux
+    - quantization
+    - black-forest-labs
+    - lora
+
 - local: transformers-v5
-  date: Nov 28, 2025
+  date: Dec 1, 2025
   tags:
     - transformers
     - v5
@@ -4906,4 +4950,3 @@
     - python
     - announcement
     - open-source
-

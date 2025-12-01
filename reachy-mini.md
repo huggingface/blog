@@ -30,6 +30,10 @@ Reachy Mini measures 11“/28cm in height and 6.3“/16cm in width (approximatel
 
 >[!NOTE]
 >Reachy Mini is currently in an early development phase. We’re sharing it as-is, without warranties or guarantees, to engage with early adopters and gather feedback.
+>
+>For multiple-unit orders (+10 units), please contact **sales@pollen-robotics.com**
+>
+>Privacy: Reachy Mini does not store, transmit, or process personal data by default. Any use of its camera or microphone functions is fully under the user's control. Pollen Robotics and Hugging Face do not collect or access any user data from the robot.
 
 |                      | Reachy Mini Lite                      | Reachy Mini                           |
 |----------------------------|---------------------------------------|---------------------------------------|
@@ -43,7 +47,7 @@ Reachy Mini measures 11“/28cm in height and 6.3“/16cm in width (approximatel
 | Head movement<br>(6 Degrees of Freedom)      | <center>✔️</center>                                     | <center>✔️</center>                                     |
 | Full body rotation         | <center>✔️</center>                                     | <center>✔️</center>                                     |
 | 2 animated antennas        | <center>✔️</center>                                     | <center>✔️</center>                                     |
-| Delivery                   | <center>Starting September 2025</center>                      | <center>Rolling out in batches<br>from November 2025 through 2026</center>                |
+| Delivery                   | <center>~90 days</center>                      | <center>~90 days</center>                |
 | Price                      | <center>$299 (+ taxes + shipping)</center>                  | <center>$449 (+ taxes + shipping)</center>                  |
 |                            | <center><a href="https://buy.stripe.com/6oUfZj78P1a5e6b0FS73G02" target="_blank" style="padding:10px 15px; background-color:#2E4787; color:white; text-decoration:none; border-radius:5px;">Order the lite version</a></center> | <center><a href="https://buy.stripe.com/9B65kFfFlaKFbY34W873G03" target="_blank" style="padding:10px 15px; background-color:#2E4787; color:white; text-decoration:none; border-radius:5px;">Order the wireless version</a></center> |
 

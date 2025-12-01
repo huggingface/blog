@@ -127,7 +127,7 @@ Using the cleaned notebooks, we generated question–answer pairs using [Qwen3-3
 1. Generate the question and answer.  
 2. Ask another LLM (with access to the notebook) to check whether the answer was correct. 
 
-The complete prompting strategy and implementation is available in [`qa_generation.py`](https://github.com/huggingface/jupyter-agent/blob/main/data/pipelines/qa_generation.py).
+The complete prompting strategy and implementation is available in [`generate_qa.py`](https://github.com/huggingface/jupyter-agent/blob/main/data/pipelines/generate_qa.py).
 
 ### 6. Trace generation
 Finally we want to generate clean code execution traces since even the original notebooks after processing are often open ended and verbose with lots of irrelevant parts. However, we want our Jupyter Agent to get to the result efficiently. To generate cleaner notebook traces for training we generated traces synthetically based on the original notebooks.  
