@@ -167,5 +167,4 @@ Version 5 is undeniably an accomplishment of the past five years by a very large
 
 We took it as an opportunity to clean up the toolkit and isolate what mattered; we now have a clean slate on top of which to build. Thanks to the many changes from the community and team, improvements in performance, usability, and readability, will be simpler to ship.
 
-Now that v5.0.0's first RC is out there, we'll be eagerly awaiting your [feedback](https://github.com/huggingface/transformers/issues/40822).
-
+Now that v5.0.0's first RC is out there, we'll be eagerly awaiting your feedback. Please check our [release notes](https://github.com/huggingface/transformers/releases/tag/v5.0.0rc0) for all the technical details, and we'll be awaiting your feedback in our [GitHub issues](https://github.com/huggingface/transformers/issues)!
