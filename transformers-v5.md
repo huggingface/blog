@@ -147,6 +147,8 @@ Finally, we’re pushing the boundaries of local inference and are working hand-
 
 Quantization is quickly emerging as the standard for state-of-the-art model development. Many SOTA models are now released in low-precision formats such as 8-bit and 4-bit (e.g gpt-oss, Kimi-K2, Deepseek-r1), hardware is increasingly optimized for low-precision workloads, and the community is actively sharing high-quality quantized checkpoints. In v5, we're making quantization a central focus of Transformers support, ensuring full compatibility with all major features, and delivering a reliable framework for training and inference.
 
+We introduce a significant change to the way we load weights in our models; and with this, we move to quantization being a first-class citizen.
+
 > _Our collaboration with the Transformers team was highly productive, marked by their proactive code reviews, 
 > feedback, and technical expertise. Their support was crucial in integrating TorchAO, expanding quantization 
 > features, and improving documentation for broader adoption in the V5._
