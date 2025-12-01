@@ -30,7 +30,9 @@ Reachy Mini measures 11“/28cm in height and 6.3“/16cm in width (approximatel
 
 >[!NOTE]
 >Reachy Mini is currently in an early development phase. We’re sharing it as-is, without warranties or guarantees, to engage with early adopters and gather feedback.
->For mulptiple-unit orders (+10 units), please contact **sales@pollen-robotics.com**
+>
+>For multiple-unit orders (+10 units), please contact **sales@pollen-robotics.com**
+>
 >Privacy: Reachy Mini does not store, transmit, or process personal data by default. Any use of its camera or microphone functions is fully under the user's control. Pollen Robotics and Hugging Face do not collect or access any user data from the robot.
 
 |                      | Reachy Mini Lite                      | Reachy Mini                           |
