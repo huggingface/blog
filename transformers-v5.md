@@ -115,7 +115,7 @@ We see this as a major step forward for use-cases such as evaluation, where a gr
 
 > _The Transformers backend in vLLM has been very enabling to get more architectures, like BERT and other encoders, available to more users. We've been working with the Transformers team to ensure many models are available across modalities with the best performance possible. This is just the start of our collaboration: we're happy to see the Transformers team will have this as a focus going into version 5._
 >
-> _-- Harry Mellor at vLLM_
+> _-- Simon Mo, Harry Mellor at vLLM_
 
 
 > _Standardization is key to accelerating AI innovation. Transformers v5 empowers the SGLang team to spend less time on model reimplementation and more time on kernel optimization. We look forward to building a more efficient and unified AI ecosystem together!_
