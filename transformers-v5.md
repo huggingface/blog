@@ -1,0 +1,170 @@
+---
+title: "Transformers v5: Simple model definitions powering the AI ecosystem"
+thumbnail: /blog/assets/transformers_v5/transformers-thumbnail.png
+authors:
+  - user: lysandre
+  - user: ArthurZ
+  - user: cyrilvallez
+  - user: reach-vb
+---
+
+# Transformers v5: Simple model definitions powering the AI ecosystem
+
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/transformers_v5/transformers-thumbnail.png" alt="Transformers standardizing model definitions">
+
+Transformers' version v4.0.0rc-1, the initial release candidate for version 4, was released on November 19th, 2020. Five years later, we now release v5.0.0rc-0.
+
+Today, as we launch v5, Transformers is installed more than **3 million times each day** via pip - up from **20,000/day** in v4 🤯. Altogether, it has now surpassed **1.2 billion installs**!
+
+The ecosystem has expanded from **40 model architectures in v4** to **over 400 today**, and the community has contributed **more than 750,000 model checkpoints on the Hub** compatible with Transformers, up from roughly **1,000** at the time of v4.
+
+This growth is powered by the evolution of the field and the now mainstream access to AI. As a leading model-definition library in the ecosystem, we need to continuously evolve and adapt the library to continue being relevant. Reinvention is key for longevity in AI.
+
+We’re fortunate to collaborate with many libraries and apps built on transformers, in no specific order: llama.cpp, MLX, onnxruntime, Jan, LMStudio, vLLM, SGLang, Unsloth, LlamaFactory , dLLM, MaxText, TensorRT, Argmax, among many other friends.
+
+For v5, we wanted to work on several notable aspects: simplicity, training, inference, and production. We detail the work that went into them in this post.
+
+## Simplicity
+
+The first focus of the team was on simplicity. Working on transformers, we see the code as the product. We want our model integrations to be clean, so that the ecosystem may depend on our model definitions and understand what’s really happening under the hood, how models differ from each other, and the key features of each new model. Simplicity results in wider standardization, generality, and wider support.
+
+### Model Additions
+
+> _Transformers is the backbone of hundreds of thousands of projects, Unsloth included. We build on Transformers to
+> help people fine-tune and train models efficiently, whether that’s BERT, text-to-speech (TTS), or others; to run
+> fast inference for reinforcement learning (RL) even when models aren’t yet supported in other libraries. We're
+> excited for Transformers v5 and are super happy to be working with the Hugging Face team!_
+>
+>_-- Michael Han at Unsloth_
+
+Transformers, at the core, remains a model architecture toolkit. We aim to have all recent architectures and to be the “source of truth” for model definitions. We’ve been adding between 1 - 3 new models every week for 5 years, shown in the timeline below:
+
+<iframe src="https://yonigozlan-Transformers-Timeline.hf.space" frameborder="0" width="850" height="450"></iframe>
+
+We’ve worked on improving that model-addition process.
+
+#### Modular Approach 
+
+Over the past year, we’ve heavily pushed our modular design as a significant step forward. This allows for easier maintenance, faster integration, and better collaboration across the community. 
+
+We give a deeper overview in our [*Maintain the Unmaintainable*](https://huggingface.co/spaces/transformers-community/Transformers-tenets) blog post. For brevity, we aim to achieve a much easier model contribution process, as well as a lower maintenance burden. One metric we can highlight is that the number of lines of code to contribute (and review), drop significantly when [modular](https://huggingface.co/docs/transformers/en/modular_transformers) is used:
+
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/transformers_v5/modular_timeline.png" alt="Transformers standardizing model definitions">
+
+While we respect the “One model, one file” philosophy, we continue introducing some abstractions making the management of common helpers simpler. The prime example of this is the introduction of the `AttentionInterface`, which offers a centralized abstraction for attention methods. The `eager` method will remain in the modeling file; others, such as FA1/2/3, FlexAttention, or SDPA, are moved to the interface.
+
+> _Over the past couple of years, the increasing amount of 0-day support for new model architectures and
+> standardization of attention handling has helped to simplify our support for post-training modern LLMs._
+>
+> _-- Wing Lian, Axolotl_
+
+#### Tooling for Model Conversion
+
+We’re building tooling to help us identify which existing model architecture a new model resembles. This feature uses machine learning to find code similarities between independent modeling files. Going further, we aim to automate the conversion process by opening a draft PR for the model to be integrated into our transformers format. This process reduces manual effort and ensures consistency.
+
+### Code Reduction
+
+#### Streamlining Modeling & Tokenization/Processing Files
+
+We’ve significantly refactored the modeling and tokenization files. Modeling files have been greatly improved thanks to the modular approach mentioned above, on top of standardization across models. Standardization contributes to abstracting most of the tools that don’t make up a model, so that the modeling code only contains the relevant parts for a model’s forward/backward passes.
+
+Alongside this work, we’re simplifying the tokenization and processing files: going forward, we’ll only focus on the `tokenizers` backend, removing the concept of “Fast” and “Slow” tokenizers.
+
+We'll use tokenizers as our main tokenization backend, just as we do for PyTorch-based models. We’ll offer alternatives for Sentencepiece or MistralCommon backed tokenizers, which will be non-default but will be supported. Image processors will now only exist with their fast variant, which depends on the torchvision backend.
+
+Finally, we’re sunsetting our Flax/TensorFlow support in favor of focusing on PyTorch as the sole backend; however, 
+we're also working with partners in the Jax ecosystem to ensure we have compatibility between our models and this
+ecosystem.
+
+> _With its v5 release, transformers is going all in on PyTorch. Transformers acts as a source of truth and 
+> foundation for modeling across the field; we've been working with the team to ensure good performance 
+> across the stack._
+>
+> _We're excited to continue pushing for this in the future across training, inference, and deployment._
+>
+> _-- Matt White, Executive Director, PyTorch Foundation. GM of AI, Linux Foundation_
+
+## Training
+
+Training remains a big focus of the team as we head into v5: whereas previously we would focus heavily on fine-tuning rather than pre-training/full-training at scale, we’ve recently done significant work to improve our support for the latter as well.
+
+### Pre-training at scale
+
+Supporting pre-training meant reworking the initialization of our models, ensuring that they worked at scale with different parallelism paradigms, and shipping support for optimized kernels for both the forward and backward passes.
+
+Going forward, we’re excited to have extended compatibility with torchtitan, megatron, nanotron, as well as any other pre-training tool that is interested in collaborating with us.
+
+### Fine-tuning & Post-training
+
+We continue collaborating closely with all fine-tuning tools in the Python ecosystem. We aim to continue providing model implementations compatible with [Unsloth](https://huggingface.co/unsloth), [Axolotl](https://huggingface.co/axolotl-ai-co), [LlamaFactory](https://huggingface.co/llamafactory), [TRL](https://huggingface.co/docs/trl/en/index) and others in the PyTorch ecosystem; but we are also working with tools such as [MaxText](https://github.com/AI-Hypercomputer/maxtext), in the JAX ecosystem, to have good interoperability between their frameworks and `transformers`.
+
+All fine-tuning and post-training tools can now rely on transformers for model definitions; further enabling Agentic use-cases through [OpenEnv](https://huggingface.co/openenv) or the Prime Environment Hub.
+
+## Inference
+
+We’re putting a significant focus on inference for v5, with several paradigm changes: the introduction of specialized kernels, cleaner defaults, new APIs, support for optimized inference engines.
+
+Similarly to training, we’ve been putting some effort in packaging `kernels` so that they’re automatically used in case your hardware and software permits it. If you haven’t heard of `kernels` before, we recommend taking a look at this [doc](https://huggingface.co/docs/kernels/basic-usage).
+
+Alongside this effort, we ship two new APIs dedicated to inference:
+
+- We ship support for continuous batching and paged attention mechanisms. This has now been used internally for some time, and we’re working on finalizing the rough edges and writing usage guides.  
+- We introduce `transformers serve` as the new transformers-specific serving system, which deploys an OpenAI API-compatible server.
+
+We see this as a major step forward for use-cases such as evaluation, where a great number of inference requests are done simultaneously. We don’t aim to do specialized optimizations like the dedicated inference engines (vLLM, SGLang, TensorRT LLM). Instead, we aim to be perfectly inter-compatible with these, as detailed in the next section.
+
+> _The Transformers backend in vLLM has been very enabling to get more architectures, like BERT and other encoders, available to more users. We've been working with the Transformers team to ensure many models are available across modalities with the best performance possible. This is just the start of our collaboration: we're happy to see the Transformers team will have this as a focus going into version 5._
+>
+> _-- Simon Mo, Harry Mellor at vLLM_
+
+
+> _Standardization is key to accelerating AI innovation. Transformers v5 empowers the SGLang team to spend less time on model reimplementation and more time on kernel optimization. We look forward to building a more efficient and unified AI ecosystem together!_
+>
+>_-- Chenyang Zhao at SGLang_
+
+
+### Production & Local
+
+Recently, we've been working hand in hand with the most popular inference engines for them to use `transformers` as a backend. The value added is significant: as soon as a model is added to `transformers`, it becomes available in these inference engines, *while taking advantage of the strengths each engine provides*: inference optimizations, specialized kernels, dynamic batching, etc.
+
+
+We've also been working very closely with ONNXRuntime, [llama.cpp](https://github.com/ggml-org/llama.cpp) and [MLX](https://github.com/ml-explore/mlx) so that the implementations between `transformers` and these modeling libraries have great interoperability. For example, thanks to a significant community effort, it's now very easy to [load GGUF files in `transformers`](https://huggingface.co/docs/transformers/en/gguf) for further fine-tuning. Conversely, transformers models can be easily [converted to GGUF files](https://github.com/ggml-org/llama.cpp/blob/master/convert_hf_to_gguf.py) for use with llama.cpp.
+
+> _The Transformers framework is the go-to place for reference AI model implementations. The framework plays a crucial role in enabling modern AI across the entire stack. The team and the community behind the project truly understand and embrace the sprit of the open-source development and collaboration._
+> 
+> _-- Georgi Gerganov, ggml-org_
+
+The same is true for MLX, where the transformers' safetensors files are directly compatible with MLX's models.
+
+> _It’s hard to overstate the importance of Transformers (and datasets, tokenizers, etc) to the open-source and 
+> overall AI ecosystem. I can’t count the number of times I’ve personally used Transformers as a source-of-truth._
+> 
+> _-- Awni Hannun, MLX_
+
+Finally, we’re pushing the boundaries of local inference and are working hand-in-hand with the `executorch` team to get the transformers models to be available on-device. We’re expanding the coverage to multimodal models (vision, audio).
+
+## Quantization
+
+Quantization is quickly emerging as the standard for state-of-the-art model development. Many SOTA models are now released in low-precision formats such as 8-bit and 4-bit (e.g gpt-oss, Kimi-K2, Deepseek-r1), hardware is increasingly optimized for low-precision workloads, and the community is actively sharing high-quality quantized checkpoints. In v5, we're making quantization a central focus of Transformers support, ensuring full compatibility with all major features, and delivering a reliable framework for training and inference.
+
+We introduce a significant change to the way we load weights in our models; and with this, we move to quantization being a first-class citizen.
+
+> _Our collaboration with the Transformers team was highly productive, marked by their proactive code reviews, 
+> feedback, and technical expertise. Their support was crucial in integrating TorchAO, expanding quantization 
+> features, and improving documentation for broader adoption in the V5._
+> 
+> _-- Jerry Zhang at TorchAO_
+
+> _We're excited that v5 has made quantization a first-class citizen. It provides the foundation for bitsandbytes to better support key features like TP and MoEs, and also makes it easier to integrate new quantization methods._
+>
+> _-- Matthew Douglas & Titus von Koeller, bitsandbytes_
+
+## Conclusion
+
+The overarching theme of this version 5 release is “interoperability”. All refactors, performance improvements, and standardization are aligned with this theme. v5 plays nicely and end-to-end with the growing ecosystem:  train a model with Unsloth/Axolotl/LlamaFactory/MaxText deploy it with vLLM/SGLang, and export it to llama.cpp/executorch/MLX to run locally\! 
+
+Version 5 is undeniably an accomplishment of the past five years by a very large number of people in our community. We also see it as a promise, and as a beacon of the direction we want to go.
+
+We took it as an opportunity to clean up the toolkit and isolate what mattered; we now have a clean slate on top of which to build. Thanks to the many changes from the community and team, improvements in performance, usability, and readability, will be simpler to ship.
+
+Now that v5.0.0's first RC is out there, we'll be eagerly awaiting your feedback. Please check our [release notes](https://github.com/huggingface/transformers/releases/tag/v5.0.0rc0) for all the technical details, and we'll be awaiting your feedback in our [GitHub issues](https://github.com/huggingface/transformers/issues)!

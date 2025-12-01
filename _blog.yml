@@ -4940,3 +4940,13 @@
     - quantization
     - black-forest-labs
     - lora
+
+- local: transformers-v5
+  date: Dec 1, 2025
+  tags:
+    - transformers
+    - v5
+    - community
+    - python
+    - announcement
+    - open-source
