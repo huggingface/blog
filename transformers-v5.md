@@ -20,7 +20,7 @@ The ecosystem has expanded from **40 model architectures in v4** to **over 400 t
 
 This growth is powered by the evolution of the field and the now mainstream access to AI. As a leading model-definition library in the ecosystem, we need to continuously evolve and adapt the library to continue being relevant. Reinvention is key for longevity in AI.
 
-We’re fortunate to collaborate with many libraries and apps built on transformers, in no specific order: llama.cpp, MLX, onnxruntime, Jan, LMStudio, vLLM, SGLang, Unsloth, LlamaFactory , dLLM, MaxText, TensorRT, Argmax, among many other friends.
+We’re fortunate to collaborate with many libraries and apps built on transformers, in no specific order: llama.cpp, MLX, onnxruntime, Jan, LMStudio, vLLM, SGLang, Unsloth, LlamaFactory, dLLM, MaxText, TensorRT, Argmax, among many other friends.
 
 For v5, we wanted to work on several notable aspects: simplicity, training, inference, and production. We detail the work that went into them in this post.
 
@@ -130,7 +130,7 @@ Recently, we've been working hand in hand with the most popular inference engine
 
 We've also been working very closely with ONNXRuntime, [llama.cpp](https://github.com/ggml-org/llama.cpp) and [MLX](https://github.com/ml-explore/mlx) so that the implementations between `transformers` and these modeling libraries have great interoperability. For example, thanks to a significant community effort, it's now very easy to [load GGUF files in `transformers`](https://huggingface.co/docs/transformers/en/gguf) for further fine-tuning. Conversely, transformers models can be easily [converted to GGUF files](https://github.com/ggml-org/llama.cpp/blob/master/convert_hf_to_gguf.py) for use with llama.cpp.
 
-> _The Transformers framework is the go-to place for reference AI model implementations. The framework plays a crucial role in enabling modern AI across the entire stack. The team and the community behind the project truly understand and embrace the sprit of the open-source development and collaboration._
+> _The Transformers framework is the go-to place for reference AI model implementations. The framework plays a crucial role in enabling modern AI across the entire stack. The team and the community behind the project truly understand and embrace the spirit of the open-source development and collaboration._
 > 
 > _-- Georgi Gerganov, ggml-org_
 
@@ -145,7 +145,7 @@ Finally, we’re pushing the boundaries of local inference and are working hand-
 
 ## Quantization
 
-Quantization is quickly emerging as the standard for state-of-the-art model development. Many SOTA models are now released in low-precision formats such as 8-bit and 4-bit (e.g gpt-oss, Kimi-K2, Deepseek-r1), hardware is increasingly optimized for low-precision workloads, and the community is actively sharing high-quality quantized checkpoints. In v5, we're making quantization a central focus of Transformers support, ensuring full compatibility with all major features, and delivering a reliable framework for training and inference.
+Quantization is quickly emerging as the standard for state-of-the-art model development. Many SOTA models are now released in low-precision formats such as 8-bit and 4-bit (e.g., gpt-oss, Kimi-K2, Deepseek-r1), hardware is increasingly optimized for low-precision workloads, and the community is actively sharing high-quality quantized checkpoints. In v5, we're making quantization a central focus of Transformers support, ensuring full compatibility with all major features, and delivering a reliable framework for training and inference.
 
 We introduce a significant change to the way we load weights in our models; and with this, we move to quantization being a first-class citizen.
 
