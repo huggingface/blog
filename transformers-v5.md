@@ -39,13 +39,13 @@ The first focus of the team was on simplicity. Working on transformers, we see t
 
 Transformers, at the core, remains a model architecture toolkit. We aim to have all recent architectures and to be the “source of truth” for model definitions. We’ve been adding between 1 - 3 new models every week for 5 years, shown in the timeline below:
 
-<iframe src="https://yonigozlan-Transformers-Timeline.hf.space" frameborder="0" width="850" height="450"></iframe>
+<iframe src="https://yonigozlan-transformers-timeline.hf.space" frameborder="0" width="125%" height="1150" style="transform: scale(0.8); transform-origin: left top; max-width: 125%; height: 1150px; margin-bottom: -230px;"></iframe>
 
 We’ve worked on improving that model-addition process.
 
-#### Modular Approach 
+#### Modular Approach
 
-Over the past year, we’ve heavily pushed our modular design as a significant step forward. This allows for easier maintenance, faster integration, and better collaboration across the community. 
+Over the past year, we’ve heavily pushed our modular design as a significant step forward. This allows for easier maintenance, faster integration, and better collaboration across the community.
 
 We give a deeper overview in our [*Maintain the Unmaintainable*](https://huggingface.co/spaces/transformers-community/Transformers-tenets) blog post. For brevity, we aim to achieve a much easier model contribution process, as well as a lower maintenance burden. One metric we can highlight is that the number of lines of code to contribute (and review), drop significantly when [modular](https://huggingface.co/docs/transformers/en/modular_transformers) is used:
 
@@ -72,12 +72,12 @@ Alongside this work, we’re simplifying the tokenization and processing files: 
 
 We'll use tokenizers as our main tokenization backend, just as we do for PyTorch-based models. We’ll offer alternatives for Sentencepiece or MistralCommon backed tokenizers, which will be non-default but will be supported. Image processors will now only exist with their fast variant, which depends on the torchvision backend.
 
-Finally, we’re sunsetting our Flax/TensorFlow support in favor of focusing on PyTorch as the sole backend; however, 
+Finally, we’re sunsetting our Flax/TensorFlow support in favor of focusing on PyTorch as the sole backend; however,
 we're also working with partners in the Jax ecosystem to ensure we have compatibility between our models and this
 ecosystem.
 
-> _With its v5 release, transformers is going all in on PyTorch. Transformers acts as a source of truth and 
-> foundation for modeling across the field; we've been working with the team to ensure good performance 
+> _With its v5 release, transformers is going all in on PyTorch. Transformers acts as a source of truth and
+> foundation for modeling across the field; we've been working with the team to ensure good performance
 > across the stack._
 >
 > _We're excited to continue pushing for this in the future across training, inference, and deployment._
@@ -108,7 +108,7 @@ Similarly to training, we’ve been putting some effort in packaging `kernels` s
 
 Alongside this effort, we ship two new APIs dedicated to inference:
 
-- We ship support for continuous batching and paged attention mechanisms. This has now been used internally for some time, and we’re working on finalizing the rough edges and writing usage guides.  
+- We ship support for continuous batching and paged attention mechanisms. This has now been used internally for some time, and we’re working on finalizing the rough edges and writing usage guides.
 - We introduce `transformers serve` as the new transformers-specific serving system, which deploys an OpenAI API-compatible server.
 
 We see this as a major step forward for use-cases such as evaluation, where a great number of inference requests are done simultaneously. We don’t aim to do specialized optimizations like the dedicated inference engines (vLLM, SGLang, TensorRT LLM). Instead, we aim to be perfectly inter-compatible with these, as detailed in the next section.
@@ -131,14 +131,14 @@ Recently, we've been working hand in hand with the most popular inference engine
 We've also been working very closely with ONNXRuntime, [llama.cpp](https://github.com/ggml-org/llama.cpp) and [MLX](https://github.com/ml-explore/mlx) so that the implementations between `transformers` and these modeling libraries have great interoperability. For example, thanks to a significant community effort, it's now very easy to [load GGUF files in `transformers`](https://huggingface.co/docs/transformers/en/gguf) for further fine-tuning. Conversely, transformers models can be easily [converted to GGUF files](https://github.com/ggml-org/llama.cpp/blob/master/convert_hf_to_gguf.py) for use with llama.cpp.
 
 > _The Transformers framework is the go-to place for reference AI model implementations. The framework plays a crucial role in enabling modern AI across the entire stack. The team and the community behind the project truly understand and embrace the spirit of the open-source development and collaboration._
-> 
+>
 > _-- Georgi Gerganov, ggml-org_
 
 The same is true for MLX, where the transformers' safetensors files are directly compatible with MLX's models.
 
-> _It’s hard to overstate the importance of Transformers (and datasets, tokenizers, etc) to the open-source and 
+> _It’s hard to overstate the importance of Transformers (and datasets, tokenizers, etc) to the open-source and
 > overall AI ecosystem. I can’t count the number of times I’ve personally used Transformers as a source-of-truth._
-> 
+>
 > _-- Awni Hannun, MLX_
 
 Finally, we’re pushing the boundaries of local inference and are working hand-in-hand with the `executorch` team to get the transformers models to be available on-device. We’re expanding the coverage to multimodal models (vision, audio).
@@ -149,10 +149,10 @@ Quantization is quickly emerging as the standard for state-of-the-art model deve
 
 We introduce a significant change to the way we load weights in our models; and with this, we move to quantization being a first-class citizen.
 
-> _Our collaboration with the Transformers team was highly productive, marked by their proactive code reviews, 
-> feedback, and technical expertise. Their support was crucial in integrating TorchAO, expanding quantization 
+> _Our collaboration with the Transformers team was highly productive, marked by their proactive code reviews,
+> feedback, and technical expertise. Their support was crucial in integrating TorchAO, expanding quantization
 > features, and improving documentation for broader adoption in the V5._
-> 
+>
 > _-- Jerry Zhang at TorchAO_
 
 > _We're excited that v5 has made quantization a first-class citizen. It provides the foundation for bitsandbytes to better support key features like TP and MoEs, and also makes it easier to integrate new quantization methods._
@@ -161,7 +161,7 @@ We introduce a significant change to the way we load weights in our models; and 
 
 ## Conclusion
 
-The overarching theme of this version 5 release is “interoperability”. All refactors, performance improvements, and standardization are aligned with this theme. v5 plays nicely and end-to-end with the growing ecosystem:  train a model with Unsloth/Axolotl/LlamaFactory/MaxText deploy it with vLLM/SGLang, and export it to llama.cpp/executorch/MLX to run locally\! 
+The overarching theme of this version 5 release is “interoperability”. All refactors, performance improvements, and standardization are aligned with this theme. v5 plays nicely and end-to-end with the growing ecosystem:  train a model with Unsloth/Axolotl/LlamaFactory/MaxText deploy it with vLLM/SGLang, and export it to llama.cpp/executorch/MLX to run locally\!
 
 Version 5 is undeniably an accomplishment of the past five years by a very large number of people in our community. We also see it as a promise, and as a beacon of the direction we want to go.
 
