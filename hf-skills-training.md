@@ -141,6 +141,12 @@ The model will be pushed to Hub automatically. Should I submit?
 
 This is your chance to adjust anything. Change the output repo name, pick different hardware, or ask Claude to modify training parameters. Once you approve, the agent submits the job.
 
+For example, you can ask the agent to try a test run:
+
+```
+Do a quick test run on 100 examples.
+```
+
 ### Track Progress
 
 After submission, you get job details:
@@ -220,7 +226,7 @@ The dataset has 'chosen' and 'rejected' columns.
 GRPO is a reinforcement learning task that is proven to be effective on verifiable tasks like solving math problems, writing code, or any task with a programmatic success criterion.
 
 ```
-Train a math reasoning model using GRPO on the openai/gsm8k dataset.
+Train a math reasoning model using GRPO on the openai/gsm8k dataset based on Qwen3-0.6B.
 ```
 
 The model generates responses, receives rewards based on correctness, and learns from the outcomes. This is more complex than SFT or DPO, but the configuration is similar.
@@ -244,7 +250,7 @@ For **large models (7B+)**, this HF skills job is not suitable.
 When testing a workflow, start small:
 
 ```
-Do a quick demo run on Qwen-0.5B with 100 examples.
+Do a quick test run to SFT Qwen-0.6B with 100 examples of my-org/support-conversations.
 ```
 
 Th coding agent configures minimal training—enough to verify your pipeline works without real cost.
@@ -252,7 +258,7 @@ Th coding agent configures minimal training—enough to verify your pipeline wor
 For production, be explicit:
 
 ```
-Train for production on the full dataset.
+SFT Qwen-0.6B for production on the full my-org/support-conversations.
 Checkpoints every 500 steps, 3 epochs, cosine learning rate.
 ```
 
