@@ -1,5 +1,5 @@
 ---
-title: "DeepMath: A Lightweight Math Reasoning Agent for LLMs"
+title: "DeepMath: A lightweight math reasoning Agent with SmolAgents"
 thumbnail: /blog/assets/intel-deepmath/banner.png
 authors:
 - user: danf
@@ -17,38 +17,32 @@ authors:
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/intel-deepmath/deepmath-figure.jpg" width=700 alt="An LLM is using a calculator to answer questions." />
 </p>
 
-# DeepMath: A Lightweight Math Reasoning Agent for LLMs
+# DeepMath: A lightweight math reasoning Agent with SmolAgents
 
-Large language models (LLMs) have made impressive strides in reasoning tasks, yet mathematical problem-solving remains a challenge. Traditional "chain-of-thought" reasoning often produces verbose explanations and error-prone arithmetic. **DeepMath** tackles this by combining a small Python executor with a fine-tuned LLM, enabling concise, computation-driven reasoning.
+*By Intel AI Software Group*
 
-## The Big Idea
-
-[DeepMath](https://huggingface.co/Intel/deepmath-v1) is built on **[Qwen3-4B Thinking](https://huggingface.co/Qwen/Qwen3-4B-Thinking-2507)** and fine-tuned with **GRPO (Group Relative Policy Optimization)**. Instead of verbose text, the model emits **tiny Python snippets** for intermediate steps, runs them in a secure sandbox, and folds the results back into its reasoning, reducing errors and output length.
-
-✅ No file I/O, no network calls, strict timeouts.
-
-✅ Safe, deterministic, and auditable.
+[DeepMath](https://huggingface.co/Intel/deepmath-v1) is an aligned math reasoning agent built on **[Qwen3-4B Thinking](https://huggingface.co/Qwen/Qwen3-4B-Thinking-2507)** and fine-tuned with **GRPO (Group Relative Policy Optimization)**. Instead of verbose text, the model emits **tiny Python snippets** for intermediate steps, runs them in a secure sandbox, and folds the results back into its reasoning, reducing errors and output length. The agent is implemented using the **[SmolAgents framework](https://github.com/huggingface/smolagents)**.
 
 We evaluate DeepMath on four math datasets: **[MATH500](https://huggingface.co/datasets/HuggingFaceH4/MATH-500), [AIME](https://huggingface.co/datasets/opencompass/AIME2025), [HMMT](https://huggingface.co/datasets/MathArena/hmmt_feb_2025), and [HLE](https://huggingface.co/datasets/cais/hle),** and show that:
 
-- The math agent alone improves accuracy and reduces verbosity.
+- 🤖 The math agent alone reduces output lengths by up to 66%, while often improving accuracy.
 
-- GRPO training alone biases outputs toward brevity and correctness.
-
-- Combining the agent with GRPO yields the largest gains.
+- ⚡ GRPO training improves the agent performance even further, in almost all benchmarks.
 
 👉 Code and evaluation scripts: <https://github.com/IntelLabs/DeepMath> \
 👉 Model: <https://huggingface.co/Intel/deepmath-v1>
 
 ## Why DeepMath?
 
-LLMs often struggle with numeric precision and produce unnecessarily long reasoning chains. Two opportunities stand out:
+Large language models (LLMs) have advanced reasoning capabilities, but mathematical problem-solving remains challenging; chain-of-thought traces can be lengthy and prone to arithmetic mistakes. Recent works[^1][^2] demonstrate that small models can reach strong performance, and other studies[^3] investigate tool use to improve reliability. What those papers generally do not emphasize is reducing trace verbosity or explicitly training models to prefer short, computation-oriented traces executed in a constrained, auditable environment.
+
+We focused on two goals:
 
 1. **Offload deterministic computation** to a safe executor.
 
 2. **Train models to prefer concise, computation-oriented traces** over verbose text.
 
-DeepMath implements both. The model learns to generate short Python snippets, which are executed in a sandbox and reintegrated into the context. GRPO fine-tuning encourages this behavior by rewarding correctness and encouraging shoter outputs.
+**DeepMath** tackles this by combining a small Python executor with a fine-tuned LLM, enabling concise, computation-driven reasoning. The model learns to generate short Python snippets, which are executed in a sandbox and reintegrated into the context. GRPO fine-tuning encourages this behavior by rewarding correctness and encouraging shorter outputs.
 
 ## How It Works
 
@@ -99,13 +93,17 @@ We fine-tune the model using **GRPO**, a reward-based optimization that balances
 
 We benchmarked DeepMath against baselines on four datasets. Metrics include:
 
-- **majority@16** (robustness across samples).
+- **majority@16**: robustness across samples, as used in previous math reasoning works, see references.
 
-- **Mean output length** (brevity).
+- **Mean output length**: brevity.
 
 <p align="center">
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/intel-deepmath/main-results.png" width=1000 alt="Main results table."/>
 </p>
+
+- We compare a baseline configuration (Qwen3-4B-Thinking-2507, no agenting) with our DeepMath model. As ablation, we evaluate the agentic framework we developed running with the untrained Qwen3 model, denoted by **+Agent**. Additionally, we examine whether the GRPO training (for agentic use) improves non-agentic inference, denoted by **+GRPO**. Thus the two ablations are independent, not additive.
+
+- We observe the agentic inference reduces output lengths, with mixed accuracy results. The DeepMath model is both GRPO-trained and run in agentic mode, and shows the highest accuracy with shortened traces. We conclude **both GRPO training and agentic inference are needed** for best results.
 
 **Key Insight:** DeepMath reduces output length by up to **66%** while improving accuracy on challenging datasets.
 
@@ -146,3 +144,11 @@ If you use DeepMath in your research, please cite:
 - **Generalization**: evaluated on contest-style math; results may not transfer to open-ended mathematical creativity or formal proofs.
 
 - Executing generated code is inherently risky. DeepMath uses strict sandboxing and resource limits, but any deployment should carefully manage attack surfaces and enforce rate limits.
+
+## References
+
+[^1]: Luo, Michael, Sijun Tan, Justin Wong, et al. 2025. “DeepScaleR: Surpassing O1-Preview with a 1.5B Model by Scaling RL.” <https://pretty-radio-b75.notion.site/DeepScaleR-Surpassing-O1-Preview-with-a-1-5B-Model-by-Scaling-RL-19681902c1468005bed8ca303013a4e2>
+
+[^2]: Liu, Mingjie, Shizhe Diao, Ximing Lu, et al. 2025. “ProRL: Prolonged Reinforcement Learning Expands Reasoning Boundaries in Large Language Models.” arXiv:2505.24864. Preprint, arXiv, May 30. <https://doi.org/10.48550/arXiv.2505.24864>
+
+[^3]: Moshkov, Ivan, Darragh Hanley, Ivan Sorokin, et al. 2025. “AIMO-2 Winning Solution: Building State-of-the-Art Mathematical Reasoning Models with OpenMathReasoning Dataset.” arXiv:2504.16891. Preprint, arXiv, April 23. <https://doi.org/10.48550/arXiv.2504.16891>
