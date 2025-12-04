@@ -4950,3 +4950,16 @@
     - python
     - announcement
     - open-source
+
+- local: hf-skills-training
+  date: Dec 4, 2025
+  tags:
+    - llm
+    - fine-tuning
+    - open-source
+    - community
+    - training
+    - Claude
+    - Codex
+    - Gemini
+    - agents
