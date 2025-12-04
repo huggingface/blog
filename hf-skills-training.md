@@ -18,7 +18,7 @@ We gave Claude the ability to fine-tune language models using a new tool called 
 With this skill, you can tell Claude things like:
 
 ```
-Fine-tune Qwen3-0.6B on the dataset trl-lib/Capybara
+Fine-tune Qwen3-0.6B on the dataset open-r1/codeforces-cots
 ```
 
 And Claude will:
