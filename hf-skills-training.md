@@ -8,6 +8,8 @@ authors:
 
 # We Got Claude to Fine-Tune an Open Source LLM
 
+![banner](https://raw.githubusercontent.com/huggingface/blog/refs/heads/main/assets/hf-skills-training/thumbnail.png)
+
 We gave Claude the ability to fine-tune language models using a new tool called [Hugging Face Skills](https://hf-learn.short.gy/gh-hf-skills). Not just write training scripts, but to actually submit jobs to cloud GPUs, monitor progress, and push finished models to the Hugging Face Hub. This tutorial shows you how it works and how to use it yourself.
 
 > [!NOTE]
@@ -16,7 +18,7 @@ We gave Claude the ability to fine-tune language models using a new tool called 
 With this skill, you can tell Claude things like:
 
 ```
-Fine-tune Qwen3-0.6B on the dataset trl-lib/Capybara
+Fine-tune Qwen3-0.6B on the dataset open-r1/codeforces-cots
 ```
 
 And Claude will:
