@@ -4941,8 +4941,31 @@
     - black-forest-labs
     - lora
 
+- local: transformers-v5
+  date: Dec 1, 2025
+  tags:
+    - transformers
+    - v5
+    - community
+    - python
+    - announcement
+    - open-source
+
+- local: hf-skills-training
+  date: Dec 4, 2025
+  tags:
+    - llm
+    - fine-tuning
+    - open-source
+    - community
+    - training
+    - Claude
+    - Codex
+    - Gemini
+    - agents
+
 - local: intel-deepmath
-  date: Nov 26, 2025
+  date: Dec 4, 2025
   tags:
     - llm
     - reasoning

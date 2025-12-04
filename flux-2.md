@@ -280,7 +280,7 @@ def remote_text_encoder(prompts: str | list[str]):
   return _encode_single(prompts).to("cuda")
 
 transformer = Flux2Transformer2DModel.from_pretrained(
-  transformer_id, subfolder="transformer", torch_dtype=torch_dtype, device_map="cpu"
+  repo_id, subfolder="transformer", torch_dtype=torch_dtype, device_map="cpu"
 )
 
 pipe = Flux2Pipeline.from_pretrained(
