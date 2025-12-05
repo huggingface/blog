@@ -76,7 +76,7 @@ The auto-detection follows the same conventions as the Python `huggingface_hub` 
 5. `~/.cache/huggingface/token` (standard HF CLI location)
 6. `~/.huggingface/token` (fallback location)
 
-This means if you've already logged in with `huggingface-cli login`,
+This means if you've already logged in with `hf auth login`,
 swift-huggingface will automatically find and use that token.
 
 ## OAuth for User-Facing Apps
