@@ -40,6 +40,7 @@ It provides:
 
 - **Complete Hub API coverage** — models, datasets, spaces, collections, discussions, and more
 - **Robust file operations** — progress tracking, resume support, and proper error handling
+- **Python-compatible cache** — share downloaded models between Swift and Python clients
 - **Flexible authentication** — a `TokenProvider` pattern that makes credential sources explicit
 - **OAuth support** — first-class support for user-facing apps that need to authenticate users
 - **Xet storage backend support** _(Coming soon!)_ — chunk-based deduplication for significantly faster downloads
@@ -160,6 +161,66 @@ let modelDir = try await client.downloadSnapshot(
 
 The snapshot function tracks metadata for each file,
 so subsequent calls only download files that have changed.
+
+## Shared Cache with Python
+
+Remember the second problem we mentioned?
+_"No shared cache with the Python ecosystem."_
+That's now solved.
+
+swift-huggingface implements a Python-compatible cache structure
+that allows seamless sharing between Swift and Python clients:
+
+```
+~/.cache/huggingface/hub/
+├── models--deepseek-ai--DeepSeek-V3.2/
+│   ├── blobs/
+│   │   └── <etag>           # actual file content
+│   ├── refs/
+│   │   └── main             # contains commit hash
+│   └── snapshots/
+│       └── <commit_hash>/
+│           └── config.json  # symlink → ../../blobs/<etag>
+```
+
+This means:
+
+- **Download once, use everywhere.**
+  If you've already downloaded a model with `huggingface-cli` or the Python library,
+  swift-huggingface will find it automatically.
+- **Content-addressed storage.**
+  Files are stored by their ETag in the `blobs/` directory.
+  If two revisions share the same file, it's only stored once.
+- **Symlinks for efficiency.**
+  Snapshot directories contain symlinks to blobs,
+  minimizing disk usage while maintaining a clean file structure.
+
+The cache location follows the same environment variable conventions as Python:
+
+1. `HF_HUB_CACHE` environment variable
+2. `HF_HOME` environment variable + `/hub`
+3. `~/.cache/huggingface/hub` (default)
+
+You can also use the cache directly:
+
+```swift
+let cache = HubCache.default
+
+// Check if a file is already cached
+if let cachedPath = cache.cachedFilePath(
+    repo: "deepseek-ai/DeepSeek-V3.2",
+    kind: .model,
+    revision: "main",
+    filename: "config.json"
+) {
+    let data = try Data(contentsOf: cachedPath)
+    // Use cached file without any network request
+}
+```
+
+To prevent race conditions when multiple processes access the same cache,
+swift-huggingface uses file locking
+([`flock(2)`](https://man7.org/linux/man-pages/man2/flock.2.html)).
 
 ## Before and After
 
