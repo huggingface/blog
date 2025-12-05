@@ -186,7 +186,7 @@ that allows seamless sharing between Swift and Python clients:
 This means:
 
 - **Download once, use everywhere.**
-  If you've already downloaded a model with `huggingface-cli` or the Python library,
+  If you've already downloaded a model with the `hf` CLI or the Python library,
   swift-huggingface will find it automatically.
 - **Content-addressed storage.**
   Files are stored by their ETag in the `blobs/` directory.
