@@ -175,7 +175,7 @@ How's my training job doing?
 
 Then the agent fetches the logs and summarizes progress.
 
-<iframe src="https://evalstate-demo-training-dashboard.hf.space?project=huggingface&runs=evalstate-1761780361&sidebar=hidden&navbar=hidden" style="width:1600px; height:500px; border:0;"></iframe>
+<iframe src="https://evalstate-demo-training-dashboard.hf.space?project=huggingface&runs=evalstate-1761780361&sidebar=hidden&navbar=hidden" style="width:100%; height:500px; border:0;"></iframe>
 
 ### Use Your Model
 
