@@ -105,8 +105,11 @@ hf auth login
 export HF_TOKEN=hf_your_write_access_token_here
 ```
 
-> ![NOTE] 
-> Configure Hugging Face MCP Server to use your write token by sending it in either the `HF_TOKEN` or `Authorization: Bearer` HTTP Headers. 
+> [!NOTE] 
+> Configure Hugging Face MCP Server to use your write token by sending it in either the `HF_TOKEN` or `Authorization: Bearer` HTTP Headers.
+> 
+> For Claude Code : `claude mcp add --transport http hf-skills https://huggingface.co/mcp?bouquet=skills --header "Authorization: Bearer $HF_TOKEN"`
+
 
 ## Your First Training Run
 
