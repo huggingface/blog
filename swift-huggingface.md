@@ -337,7 +337,7 @@ Add swift-huggingface to your project:
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/huggingface/swift-huggingface.git", from: "0.3.0")
+    .package(url: "https://github.com/huggingface/swift-huggingface.git", from: "0.4.0")
 ]
 ```
 
