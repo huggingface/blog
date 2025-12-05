@@ -3,7 +3,6 @@ title: "Introducing swift-huggingface: The Complete Swift Client for Hugging Fac
 thumbnail: /blog/assets/swift-huggingface/banner.png
 authors:
 - user: mattt
-  guest: true
 ---
 
 Today, we're announcing [swift-huggingface](https://github.com/huggingface/swift-huggingface),
