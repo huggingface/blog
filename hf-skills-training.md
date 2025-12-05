@@ -361,9 +361,9 @@ The skill is open source. You can extend it, customize it for your workflows, or
 
 ## Resources
 
-- [SKILL.md](https://github.com/huggingface/skills/blob/main/hf-llm-trainer/SKILL.md) — Full skill documentation
-- [Training Methods](https://github.com/huggingface/skills/blob/main/hf-llm-trainer/references/training_methods.md) — SFT, DPO, GRPO explained
-- [Hardware Guide](https://github.com/huggingface/skills/blob/main/hf-llm-trainer/references/hardware_guide.md) — GPU selection and costs
+- [SKILL.md](https://github.com/huggingface/skills/blob/main/hf-llm-trainer/skills/model-trainer/SKILL.md) — Full skill documentation
+- [Training Methods](https://github.com/huggingface/skills/blob/main/hf-llm-trainer/skills/model-trainer/references/training_methods.md) — SFT, DPO, GRPO explained
+- [Hardware Guide](https://github.com/huggingface/skills/blob/main/hf-llm-trainer/skills/model-trainer/references/hardware_guide.md) — GPU selection and costs
 - [TRL Documentation](https://huggingface.co/docs/trl) — The underlying training library
 - [Hugging Face Jobs](https://huggingface.co/docs/huggingface_hub/guides/jobs) — Cloud training infrastructure
 - [Trackio](https://huggingface.co/docs/trackio) — Real-time training monitoring
