@@ -323,8 +323,11 @@ Check the [README](https://github.com/huggingface/swift-huggingface) for a full 
 We're actively working on two fronts:
 
 **Integration with swift-transformers.**
-We have a [pull request in progress](https://github.com/huggingface/swift-transformers) to replace `HubApi` with swift-huggingface.
-This will bring reliable downloads to everyone using swift-transformers, mlx-swift-examples, and the broader ecosystem.
+We have a [pull request in progress](https://github.com/huggingface/swift-transformers/pull/297) to replace `HubApi` with swift-huggingface.
+This will bring reliable downloads to everyone using swift-transformers,
+[mlx-swift-lm](https://github.com/ml-explore/mlx-swift-lm),
+and the broader ecosystem.
+If you maintain a Swift-based library or app and want help adopting swift-huggingface, reach out — we're happy to help.
 
 **Faster downloads with Xet.**
 We're adding support for the [Xet storage backend](https://huggingface.co/docs/hub/storage-backends),
