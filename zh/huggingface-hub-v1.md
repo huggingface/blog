@@ -29,7 +29,7 @@ pip install --upgrade huggingface_hub
 
 查看完整的 [v1.0 发布说明](https://github.com/huggingface/huggingface_hub/releases/tag/v1.0.0)
 
-> [!提示]
+> [!TIP]
 > 我们尽可能确保 v1.0.0 与旧版本兼容。大多数机器学习库无需修改即可兼容 v0.x 和 v1.x。主要例外是 `transformers`：v4 版本依赖 v0.x，计划中的 v5 将转向 v1.x。查看此 [issue](https://github.com/huggingface/huggingface_hub/issues/3340) 获取详细的库兼容性表。
 
 ## 背后的故事
