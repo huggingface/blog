@@ -21,7 +21,7 @@ authors:
 
 *By Intel AI Software Group*
 
-[DeepMath](https://huggingface.co/Intel/deepmath-v1) is an aligned math reasoning agent built on **[Qwen3-4B Thinking](https://huggingface.co/Qwen/Qwen3-4B-Thinking-2507)** and fine-tuned with **GRPO (Group Relative Policy Optimization)**. Instead of verbose text, the model emits **tiny Python snippets** for intermediate steps, runs them in a secure sandbox, and folds the results back into its reasoning, reducing errors and output length. The agent is implemented using the **[SmolAgents framework](https://github.com/huggingface/smolagents)**.
+[DeepMath](https://huggingface.co/Intel/deepmath-v1) is an aligned math reasoning agent built on **[Qwen3-4B Thinking](https://huggingface.co/Qwen/Qwen3-4B-Thinking-2507)** and fine-tuned with **GRPO (Group Relative Policy Optimization)**. Instead of verbose text, the model emits **tiny Python snippets** for intermediate steps, runs them in a secure sandbox, and folds the results back into its reasoning, reducing errors and output length. The agent is implemented using the **[smolagents library](https://github.com/huggingface/smolagents)**.
 
 We evaluate DeepMath on four math datasets: **[MATH500](https://huggingface.co/datasets/HuggingFaceH4/MATH-500), [AIME](https://huggingface.co/datasets/opencompass/AIME2025), [HMMT](https://huggingface.co/datasets/MathArena/hmmt_feb_2025), and [HLE](https://huggingface.co/datasets/cais/hle),** and show that:
 
@@ -48,7 +48,7 @@ We focused on two goals:
 
 - Base model: [Qwen3-4B Thinking](https://huggingface.co/Qwen/Qwen3-4B-Thinking-2507).
 - Executor constraints: sandboxed environment, allow-list of imported modules, per-snippet timeout.
-- Inference: based on [SmolAgents](https://github.com/huggingface/smolagents/), a math agent was created. vLLM is used as the inference engine.
+- Inference: based on [smolagents](https://github.com/huggingface/smolagents/), a math agent was created. [vLLM](https://github.com/vllm-project/vLLM) is used as the inference engine.
 - Training: based on the GRPO trainer in [TRL](https://github.com/huggingface/trl), we modified TRL's vLLM client and server to generate GRPO completions using our DeepMath agent.
 
 <p align="center">
@@ -87,7 +87,7 @@ We fine-tune the model using **GRPO**, a reward-based optimization that balances
 
 - **In-context Learning**: we include 4 solved examples where the trace contains agent calls and executor outputs, so the model learns the syntax and the call/response pattern.
 
-- **Dataset**: we used [OpenMathReasoning](https://huggingface.co/datasets/nvidia/OpenMathReasoning) dataset, the tool-usage subset. Note that GRPO only uses the <u>problem</u>, not the solution in the data. Choosing this dataset ensures problems benefit from tool use.
+- **Dataset**: we used the Tool-Integrated Reasoning (TIR) subset of the [OpenMathReasoning](https://huggingface.co/datasets/nvidia/OpenMathReasoning) dataset. Note that GRPO only uses the <u>problem</u>, not the solution in the data. This dataset was chosen to ensure the problems benefit from the external tool.
 
 ## Evaluation
 
@@ -101,7 +101,7 @@ We benchmarked DeepMath against baselines on four datasets. Metrics include:
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/intel-deepmath/main-results.png" width=1000 alt="Main results table."/>
 </p>
 
-- We compare a baseline configuration (Qwen3-4B-Thinking-2507, no agenting) with our DeepMath model. As ablation, we evaluate the agentic framework we developed running with the untrained Qwen3 model, denoted by **+Agent**. Additionally, we examine whether the GRPO training (for agentic use) improves non-agentic inference, denoted by **+GRPO**. Thus the two ablations are independent, not additive.
+- We compare a baseline configuration ([Qwen3-4B-Thinking-2507](https://huggingface.co/Qwen/Qwen3-4B-Thinking-2507), no agenting) with our DeepMath model. As ablation, we evaluate the agentic framework we developed running with the untrained Qwen3 model, denoted by **+Agent**. Additionally, we examine whether the GRPO training (for agentic use) improves non-agentic inference, denoted by **+GRPO**. Thus the two ablations are independent, not additive.
 
 - We observe the agentic inference reduces output lengths, with mixed accuracy results. The DeepMath model is both GRPO-trained and run in agentic mode, and shows the highest accuracy with shortened traces. We conclude **both GRPO training and agentic inference are needed** for best results.
 
