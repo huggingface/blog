@@ -105,8 +105,11 @@ hf auth login
 export HF_TOKEN=hf_your_write_access_token_here
 ```
 
-> ![NOTE] 
-> Configure Hugging Face MCP Server to use your write token by sending it in either the `HF_TOKEN` or `Authorization: Bearer` HTTP Headers. 
+> [!NOTE] 
+> Configure Hugging Face MCP Server to use your write token by sending it in either the `HF_TOKEN` or `Authorization: Bearer` HTTP Headers.
+> 
+> For Claude Code : `claude mcp add --transport http hf-skills https://huggingface.co/mcp?bouquet=skills --header "Authorization: Bearer $HF_TOKEN"`
+
 
 ## Your First Training Run
 
@@ -175,7 +178,8 @@ How's my training job doing?
 
 Then the agent fetches the logs and summarizes progress.
 
-<iframe src="https://evalstate-demo-training-dashboard.hf.space?project=huggingface&runs=evalstate-1761780361&sidebar=hidden&navbar=hidden" style="width:1600px; height:500px; border:0;"></iframe>
+Click [here](https://evalstate-trackio.hf.space/?project=qwen-hyperparam-sweep&runs=bs16-lr1e-5,bs16-lr5e-5,bs16-lr1e-4,bs16-lr2e-5) for an example Trackio dashboard with some completed runs.
+
 
 ### Use Your Model
 
@@ -361,9 +365,9 @@ The skill is open source. You can extend it, customize it for your workflows, or
 
 ## Resources
 
-- [SKILL.md](https://github.com/huggingface/skills/blob/main/hf-llm-trainer/SKILL.md) — Full skill documentation
-- [Training Methods](https://github.com/huggingface/skills/blob/main/hf-llm-trainer/references/training_methods.md) — SFT, DPO, GRPO explained
-- [Hardware Guide](https://github.com/huggingface/skills/blob/main/hf-llm-trainer/references/hardware_guide.md) — GPU selection and costs
+- [SKILL.md](https://github.com/huggingface/skills/blob/main/hf-llm-trainer/skills/model-trainer/SKILL.md) — Full skill documentation
+- [Training Methods](https://github.com/huggingface/skills/blob/main/hf-llm-trainer/skills/model-trainer/references/training_methods.md) — SFT, DPO, GRPO explained
+- [Hardware Guide](https://github.com/huggingface/skills/blob/main/hf-llm-trainer/skills/model-trainer/references/hardware_guide.md) — GPU selection and costs
 - [TRL Documentation](https://huggingface.co/docs/trl) — The underlying training library
 - [Hugging Face Jobs](https://huggingface.co/docs/huggingface_hub/guides/jobs) — Cloud training infrastructure
 - [Trackio](https://huggingface.co/docs/trackio) — Real-time training monitoring

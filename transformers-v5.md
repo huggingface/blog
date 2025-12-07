@@ -141,7 +141,7 @@ The same is true for MLX, where the transformers' safetensors files are directly
 >
 > _-- Awni Hannun, MLX_
 
-Finally, we’re pushing the boundaries of local inference and are working hand-in-hand with the `executorch` team to get the transformers models to be available on-device. We’re expanding the coverage to multimodal models (vision, audio).
+Finally, we’re pushing the boundaries of local inference and are working hand-in-hand with the [executorch](https://github.com/pytorch/executorch) team to get the transformers models to be available on-device. We’re expanding the coverage to multimodal models (vision, audio) through [optimum](https://github.com/huggingface/optimum-executorch).
 
 ## Quantization
 

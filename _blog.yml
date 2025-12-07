@@ -4972,3 +4972,12 @@
     - agents
     - math
     - grpo
+
+- local: swift-huggingface
+  date: Dec 5, 2025
+  tags:
+    - swift
+    - hub
+    - open-source
+    - community
+
