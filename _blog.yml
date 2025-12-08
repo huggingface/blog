@@ -4964,6 +4964,15 @@
     - Gemini
     - agents
 
+- local: intel-deepmath
+  date: Dec 4, 2025
+  tags:
+    - llm
+    - reasoning
+    - agents
+    - math
+    - grpo
+
 - local: swift-huggingface
   date: Dec 5, 2025
   tags:
@@ -4971,3 +4980,4 @@
     - hub
     - open-source
     - community
+
