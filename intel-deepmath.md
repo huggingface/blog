@@ -1,5 +1,5 @@
 ---
-title: "DeepMath: A lightweight math reasoning Agent with SmolAgents"
+title: "DeepMath: A lightweight math reasoning Agent with smolagents"
 thumbnail: /blog/assets/intel-deepmath/banner.png
 authors:
 - user: danf
@@ -17,7 +17,7 @@ authors:
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/intel-deepmath/deepmath-figure.jpg" width=700 alt="An LLM is using a calculator to answer questions." />
 </p>
 
-# DeepMath: A lightweight math reasoning Agent with SmolAgents
+# DeepMath: A lightweight math reasoning Agent with smolagents
 
 *By Intel AI Software Group*
 
