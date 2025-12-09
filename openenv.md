@@ -66,7 +66,6 @@ In the current state of the repository, environment creators can create environm
 - [RFC 001:](https://github.com/meta-pytorch/OpenEnv/blob/main/rfcs/001-abstractions.md) Establish architecture for how the core components like Environment, Agent, Task, etc. are related
 - [RFC 002:](https://github.com/meta-pytorch/OpenEnv/blob/main/rfcs/002-env-spec.md) Propose basic env interface, packaging, isolation and communication w/ environment.
 - [RFC 003:](https://github.com/meta-pytorch/OpenEnv/blob/main/rfcs/003-mcp-support.md) Propose encapsulation of MCP tools through environment abstraction and isolation boundaries
-- [RFC 004:](https://github.com/meta-pytorch/OpenEnv/blob/main/rfcs/004-actions-as-tool-calls.md) Extend tool support to cover unified action schema covering tool calling agents as well as CodeAct paradigm.
 
 ## Use cases
 - RL Post training: pull in environments across collections and use them to train RL agents with TRL, TorchForge+Monarch, VeRL etc.

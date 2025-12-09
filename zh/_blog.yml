@@ -1697,3 +1697,12 @@
     - multimodal
     - vlm
     - open-source
+
+- local: huggingface-hub-v1
+  date: Oct 27, 2025
+  tags:
+    - huggingface_hub
+    - python
+    - announcement
+    - open-source
+    - hub
