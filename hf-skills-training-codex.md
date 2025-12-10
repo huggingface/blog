@@ -10,13 +10,13 @@ authors:
 
 ![banner](https://huggingface.co/datasets/hf-skills/images/resolve/main/skills-codex-training-banner.png)
 
-Building on our work to get [Claude Code](https://huggingface.co/blog/hf-skills-training) to train open source models, we are now getting [Codex](https://developers.openai.com/codex/) to go further. We gave Codex access to the [Hugging Face Skills](https://github.com/huggingface/skills) repository. Which contains skills for Machine Learning and AI tasks like training or evaluating models. With HF skills, a coding agent can:
+Building on our work to get [Claude Code](https://huggingface.co/blog/hf-skills-training) to train open source models, we are now getting [Codex](https://developers.openai.com/codex/) to go further. We gave Codex access to the [Hugging Face Skills](https://github.com/huggingface/skills) repository, which contains skills for Machine Learning and AI tasks such as training or evaluating models. With HF skills, a coding agent can:
 
-- Fine-tune and RL language models
-- Review, explain, and act on training metrics in Trackio
+- Fine-tune and apply RL alignment on language models
+- Review, explain, and act on live training metrics from Trackio
 - Evaluate checkpoints and act on evaluation results
 - Create reports from experiments
-- Quantize models to GGUF for local deployment
+- Export to and quantize models with GGUF for local deployment
 - Publish models to the Hub
 
 This tutorial dives even deeper and shows you how it works and how to use it yourself. So let's get started. 
@@ -29,6 +29,7 @@ This tutorial dives even deeper and shows you how it works and how to use it you
 > ```bash
 > git clone https://github.com/huggingface/skills.git
 > cd skills
+> codex .
 > ```
 
 With `HF-skills`, you can tell Codex something like:
@@ -49,11 +50,11 @@ And Codex will:
 
 The model trains on Hugging Face GPUs while you do other things. When it's done, your fine-tuned model appears on the Hub, ready to use.
 
-This isn't a toy demo. The extension supports the same training methods used in production: supervised fine-tuning, direct preference optimization, and reinforcement learning with verifiable rewards. You can train models from 0.5B to 70B parameters, convert them to GGUF for local deployment, and run multi-stage pipelines that combine different techniques.
+This isn't a toy demo. The extension supports the same training methods used in production: supervised fine-tuning, direct preference optimization, and reinforcement learning with verifiable rewards. You can train models from 0.5B to 7B parameters, convert them to GGUF for local deployment, and run multi-stage pipelines that combine different techniques.
 
 ## GOAL: End-to-end Machine Learning experiments
 
-We explored this single prompt approach in the Claude Code tutorial. However, we can now go further and get Codex to do end-to-end Machine Learning experiments. For example, Codex should be able to monitor progress, evaluate the models, and maintain an up to date training report. This will allow engineers to delegate experiments to Codex and review reports in a more hands-off way. I will also allow Codex to make more decisions on its own based on the training report and evaluation results.
+We explored this single prompt approach in the Claude Code tutorial. However, we can now go further and get OpenAI Codex to do end-to-end Machine Learning experiments. For example, Codex should be able to monitor progress, evaluate the models, and maintain an up to date training report. This will allow engineers to delegate experiments to Codex and review reports in a more hands-off way. It will also allow Codex to make more decisions on its own based on the training report and evaluation results.
 
 So let's get started!
 
@@ -70,9 +71,6 @@ Before starting, you'll need:
 Codex is OpenAI's AI coding agent included in ChatGPT Plus, Pro, Business, Edu, and Enterprise plans. Codex brings AI assistance directly into your development workflow.
 
 See the [Codex documentation](https://developers.openai.com/codex/) for installation and setup instructions.
-
-> [!NOTE]
-> Codex is available in ChatGPT Plus, Pro, Business, Edu, and Enterprise plans. It provides AI-powered code generation and assistance directly in your IDE or terminal.
 
 ### Install the Hugging Face Skills
 
@@ -116,7 +114,7 @@ Then start Codex and you'll be directed to the Hugging Face MCP authentication p
 
 ## Your first AI Experiment
 
-Let's walk through a complete example. We'll fine-tune a small model to improve code solving abilities, using the open-r1/codeforces-cots dataset and the openai_humaneval benchmark.
+Let's walk through a complete example. We'll fine-tune a small model to improve code solving abilities, using the [open-r1/codeforces-cots](https://huggingface.co/datasets/open-r1/codeforces-cots) dataset and the [openai_humaneval](https://huggingface.co/datasets/openai/openai_humaneval) benchmark.
 
 ### Instruct Codex to do an end-to-end fine-tuning experiment
 
@@ -125,7 +123,7 @@ Start Codex in your project directory. Then give it a simple and clear instructi
 ```
 Start a new fine-tuning experiment to improve code solving abilities on using SFT. 
 - Maintain a report for the experiment. 
-- Evaluate models the openai_humaneval benchmark
+- Evaluate models with the openai_humaneval benchmark
 - Use the open-r1/codeforces-cots dataset
 ```
 
@@ -347,14 +345,14 @@ model = AutoModelForCausalLM.from_pretrained("burtenshaw/qwen3-codeforces-cots-s
 tokenizer = AutoTokenizer.from_pretrained("burtenshaw/qwen3-codeforces-cots-sft")
 ```
 
-Transformers is great as a standard, but let's convert the model to GGUF for local deployment. The training skill also has instructions and scripts to convert the model to GGUF.
+Transformers is great as a standard, and we can easily convert the trained model to GGUF for local deployment. This is because the training skill contains instructions and support scripts to convert models to GGUF.
 
 ```
 Convert my fine-tuned model to GGUF with Q4_K_M quantization.
 Push to username/my-model-gguf.
 ```
 
-Codex submits a conversion to convert to GGUF, applies quantization, and pushes to Hub. If we trained a LoRA adapter, it will merge the LoRA adapters into the base model.
+Codex then converts to GGUF, applies quantization, and pushes to the Hub. If we trained a LoRA adapter, it will merge the LoRA adapters into the base model.
 
 Then use it locally:
 
