@@ -39,15 +39,15 @@ This isn't a toy demo. The skill supports the same training methods used in prod
 
 Before starting, you'll need:
 
-- A Hugging Face account with a [Pro](https://hf.co/pro) or [Team](https://hf.co/enterprise) plan (Jobs require a paid plan)
+- A Hugging Face account with a [Pro](https://hf.co/pro) or [Team / Enterprise](https://hf.co/enterprise) plan (Jobs require a paid plan)
 - A write-access token from [huggingface.co/settings/tokens](https://huggingface.co/settings/tokens)
 - A coding agent like Claude Code, OpenAI Codex, or Google's Gemini CLI
 
-Hugging Face skills are compatible with Claude Code, Codex, and Gemini CLI. With integrations Cursor, Windsurf, and Continue, on the way.
+Hugging Face skills are compatible with Claude Code, Codex, and Gemini CLI. With integrations on the way for Cursor, Windsurf, and Continue.
 
 ### Claude Code
 
-1. Register the repository as a plugin marketplace:  
+1. Register the repository as a marketplace plugin:
    
 ```
 /plugin marketplace add huggingface/skills
@@ -95,7 +95,7 @@ gemini extensions install https://github.com/huggingface/skills.git --consent
 
 ### Connect to Hugging Face
 
-You will to authenticate you Hugging Face account with a [write-access token](https://huggingface.co/settings/tokens) so that the job can create a model repo. 
+You have to authenticate to your Hugging Face account with a [write-access token](https://huggingface.co/settings/tokens) so that the job can create a model repo. 
 
 Set up your token:
 
@@ -105,8 +105,11 @@ hf auth login
 export HF_TOKEN=hf_your_write_access_token_here
 ```
 
-> ![NOTE] 
-> Configure Hugging Face MCP Server to use your write token by sending it in either the `HF_TOKEN` or `Authorization: Bearer` HTTP Headers. 
+> [!NOTE] 
+> Configure Hugging Face MCP Server to use your write token by sending it in either the `HF_TOKEN` or `Authorization: Bearer` HTTP Headers.
+> 
+> For Claude Code : `claude mcp add --transport http hf-skills https://huggingface.co/mcp?bouquet=skills --header "Authorization: Bearer $HF_TOKEN"`
+
 
 ## Your First Training Run
 
@@ -175,7 +178,7 @@ How's my training job doing?
 
 Then the agent fetches the logs and summarizes progress.
 
-<iframe src="https://evalstate-demo-training-dashboard.hf.space?project=huggingface&runs=evalstate-1761780361&sidebar=hidden&navbar=hidden" style="width:1600px; height:500px; border:0;"></iframe>
+<iframe src="https://evalstate-demo-training-dashboard.hf.space?project=huggingface&runs=evalstate-1761780361&sidebar=hidden&navbar=hidden" style="width:100%; height:500px; border:0;"></iframe>
 
 ### Use Your Model
 
@@ -355,15 +358,15 @@ Some things to try:
 - Train a reasoning model with GRPO on math or code
 - Convert a model to GGUF and run it with Ollama
 
-The skill is open source. You can extend it, customize it for your workflows, or use it as a starting point for other training scenarios.
+The [skill is open source](https://hf-learn.short.gy/gh-hf-skills). You can extend it, customize it for your workflows, or use it as a starting point for other training scenarios.
 
 ---
 
 ## Resources
 
-- [SKILL.md](https://github.com/huggingface/skills/blob/main/hf-llm-trainer/SKILL.md) — Full skill documentation
-- [Training Methods](https://github.com/huggingface/skills/blob/main/hf-llm-trainer/references/training_methods.md) — SFT, DPO, GRPO explained
-- [Hardware Guide](https://github.com/huggingface/skills/blob/main/hf-llm-trainer/references/hardware_guide.md) — GPU selection and costs
+- [SKILL.md](https://github.com/huggingface/skills/blob/main/hf-llm-trainer/skills/model-trainer/SKILL.md) — Full skill documentation
+- [Training Methods](https://github.com/huggingface/skills/blob/main/hf-llm-trainer/skills/model-trainer/references/training_methods.md) — SFT, DPO, GRPO explained
+- [Hardware Guide](https://github.com/huggingface/skills/blob/main/hf-llm-trainer/skills/model-trainer/references/hardware_guide.md) — GPU selection and costs
 - [TRL Documentation](https://huggingface.co/docs/trl) — The underlying training library
 - [Hugging Face Jobs](https://huggingface.co/docs/huggingface_hub/guides/jobs) — Cloud training infrastructure
 - [Trackio](https://huggingface.co/docs/trackio) — Real-time training monitoring

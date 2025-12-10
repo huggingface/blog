@@ -1718,3 +1718,4 @@
     - scale
     - dataloaders
     - storage
+    - hub
