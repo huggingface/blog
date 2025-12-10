@@ -178,8 +178,7 @@ How's my training job doing?
 
 Then the agent fetches the logs and summarizes progress.
 
-Click [here](https://evalstate-trackio.hf.space/?project=qwen-hyperparam-sweep&runs=bs16-lr1e-5,bs16-lr5e-5,bs16-lr1e-4,bs16-lr2e-5) for an example Trackio dashboard with some completed runs.
-
+<iframe src="https://evalstate-demo-training-dashboard.hf.space?project=huggingface&runs=evalstate-1761780361&sidebar=hidden&navbar=hidden" style="width:100%; height:500px; border:0;"></iframe>
 
 ### Use Your Model
 
