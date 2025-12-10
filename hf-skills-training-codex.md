@@ -8,7 +8,7 @@ authors:
 
 # Codex is Open Sourcing AI models
 
-![banner](https://huggingface.co/datasets/hf-skills/images/resolve/main/skills-codex-training-banner.png)
+![banner](https://huggingface.co/blog/assets/hf-skills-training/thumbnail-codex.png)
 
 Building on our work to get [Claude Code](https://huggingface.co/blog/hf-skills-training) to train open source models, we are now getting [Codex](https://developers.openai.com/codex/) to go further. We gave Codex access to the [Hugging Face Skills](https://github.com/huggingface/skills) repository, which contains skills for Machine Learning and AI tasks such as training or evaluating models. With HF skills, a coding agent can:
 
