@@ -1730,6 +1730,12 @@
     - voice
     - voice-cloning
 
+- local: lerobotxnvidia-healthcare
+  date: Oct 29, 2025
+  tags:
+    - lerobot
+    - robotics
+
 - local: google-cloud
   date: Nov 13, 2025
   tags:
