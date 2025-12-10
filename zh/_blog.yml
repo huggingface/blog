@@ -1706,3 +1706,15 @@
     - announcement
     - open-source
     - hub
+
+- local: streaming-datasets
+  date: Oct 27, 2025
+  tags:
+    - datasets
+    - xet
+    - hub
+    - parquet
+    - streaming
+    - scale
+    - dataloaders
+    - storage
