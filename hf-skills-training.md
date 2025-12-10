@@ -108,7 +108,7 @@ export HF_TOKEN=hf_your_write_access_token_here
 > [!NOTE] 
 > Configure Hugging Face MCP Server to use your write token by sending it in either the `HF_TOKEN` or `Authorization: Bearer` HTTP Headers.
 > 
-> For Claude Code : `claude mcp add --transport http hf-skills https://huggingface.co/mcp?bouquet=skills --header "Authorization: Bearer $HF_TOKEN"`
+> For Claude Code: `claude mcp add --transport http hf-skills https://huggingface.co/mcp?bouquet=skills --header "Authorization: Bearer $HF_TOKEN"`
 
 
 ## Your First Training Run
@@ -258,7 +258,7 @@ When testing a workflow, start small:
 Do a quick test run to SFT Qwen-0.6B with 100 examples of my-org/support-conversations.
 ```
 
-Th coding agent configures minimal training—enough to verify your pipeline works without real cost.
+The coding agent configures minimal training—enough to verify your pipeline works without real cost.
 
 For production, be explicit:
 
