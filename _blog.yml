@@ -4993,3 +4993,13 @@
     - Codex
     - Gemini
     - agents
+
+- local: ulysses
+  date: Dec 11, 2025
+  tags:
+    - guide
+    - distributed-training
+    - accelerate
+    - transformers
+    - trl
+    - long-context
