@@ -369,7 +369,7 @@ For **large models (7B+)**, this HF skills job is not suitable for this scale ye
 
 ## What's Next
 
-We've shown that Codex can handle the full lifecycle of model fine-tuning: validating data, selecting hardware, generating scripts, submitting jobs, monitoring progress, and converting outputs. This turns what used to be a specialized skill into something you can do through conversation.
+We've shown that Codex can handle the full lifecycle of model fine-tuning: validating data, selecting hardware, generating scripts, submitting jobs, monitoring progress, and converting outputs.
 
 Some things to try:
 
