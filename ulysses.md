@@ -11,7 +11,7 @@ authors:
 
 Training large language models on long sequences has become essential for building capable AI systems. As models are increasingly used for tasks like document analysis, code understanding, and complex reasoning, the need to process sequences of hundreds of thousands—or even millions—of tokens has grown dramatically. However, training with such long contexts presents significant memory challenges: a single attention matrix for a 128k sequence with 32 attention heads would require approximately 1TB of activation memory!
 
-Ulysses Sequence Parallelism (also known as ALST - Arctic Long Sequence Training) provides an elegant solution by distributing the attention computation across multiple GPUs through head parallelism. In this post, we'll explore how Ulysses works and how it's been integrated across the Hugging Face ecosystem—from Accelerate to the Transformers Trainer and TRL's SFTTrainer.
+Ulysses Sequence Parallelism (part of ALST - Arctic Long Sequence Training) provides an elegant solution by distributing the attention computation across multiple GPUs through head parallelism. In this post, we'll explore how Ulysses works and how it's been integrated across the Hugging Face ecosystem—from Accelerate to the Transformers Trainer and TRL's SFTTrainer.
 
 ## Contents
 
