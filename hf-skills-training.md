@@ -128,6 +128,9 @@ The coding agent analyzes your request and prepares a training configuration. Fo
 >[!NOTE]
 > The `open-r1/codeforces-cots` dataset is a dataset of codeforces problems and solutions. It is a good dataset for instruction tuning a model to solve hard coding problems.
 
+>[!NOTE]
+> This works for vision language models too! You can simply run "Fine-tune Qwen/Qwen3-VL-2B-Instruct on llava-instruct-mix"
+
 ### Review Before Submitting
 
 Before your coding agent submits anything, you'll see the configuration:
@@ -225,6 +228,9 @@ The dataset has 'chosen' and 'rejected' columns.
 
 > [!WARNING]
 > DPO is sensitive to dataset format. It requires columns named exactly `chosen` and `rejected`, or a `prompt` column with the input. The agent validates this first and shows you how to map columns if your dataset uses different names.
+
+> [!NOTE]
+> You can run DPO using Skills on vision language models too! Try it out with [openbmb/RLAIF-V-Dataset](http://hf.co/datasets/openbmb/RLAIF-V-Dataset). Claude will apply minor modifications but will succeed in training.
 
 ### Group Relative Policy Optimization (GRPO)
 
