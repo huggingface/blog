@@ -91,16 +91,16 @@ Authenticate with Hugging Face using the `hf auth login` command and a write-acc
 hf auth login
 ```
 
-> [!TIP]
-> Codex supports [MCP (Model Context Protocol)](https://developers.openai.com/codex/) servers. You can configure the Hugging Face MCP server for additional Hub integration capabilities. You can add the Hugging Face MCP server to your Codex configuration by adding the following to your `~/.codex/config.toml` file:
->
-> ```toml
-> [mcp_servers.huggingface]
-> command = "npx"
-> args = ["-y", "mcp-remote", "https://huggingface.co/mcp?login"]
-> ```
->
-> Configure Hugging Face MCP Server to use relevant MCP servers like Jobs in the [Settings](https://huggingface.co/settings/mcp) page.
+
+Codex supports [MCP (Model Context Protocol)](https://developers.openai.com/codex/) servers. You can configure the Hugging Face MCP server for additional Hub integration capabilities. You can add the Hugging Face MCP server to your Codex configuration by adding the following to your `~/.codex/config.toml` file:
+
+```toml
+[mcp_servers.huggingface]
+command = "npx"
+args = ["-y", "mcp-remote", "https://huggingface.co/mcp?login"]
+```
+
+Configure Hugging Face MCP Server to use relevant MCP servers like Jobs in the [Settings](https://huggingface.co/settings/mcp) page.
 
 Then start Codex and you'll be directed to the Hugging Face MCP authentication page.
 
