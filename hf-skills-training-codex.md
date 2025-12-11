@@ -108,6 +108,9 @@ Then start Codex and you'll be directed to the Hugging Face MCP authentication p
 
 Let's walk through a complete example. We'll fine-tune a small model to improve code solving abilities, using the [open-r1/codeforces-cots](https://huggingface.co/datasets/open-r1/codeforces-cots) dataset and the [openai_humaneval](https://huggingface.co/datasets/openai/openai_humaneval) benchmark.
 
+>[!NOTE]
+> The `open-r1/codeforces-cots` dataset is a dataset of codeforces problems and solutions. It is a good dataset for instruction tuning a model to solve hard coding problems.
+
 ### Instruct Codex to do an end-to-end fine-tuning experiment
 
 Start Codex in your project directory. Then give it a simple and clear instruction:
@@ -184,9 +187,6 @@ Pending (lighteval `openai_humaneval` for base + checkpoints)
 ```
 
 </details>
-
->[!NOTE]
-> The `open-r1/codeforces-cots` dataset is a dataset of codeforces problems and solutions. It is a good dataset for instruction tuning a model to solve hard coding problems.
 
 ### Updating the Training Report
 
