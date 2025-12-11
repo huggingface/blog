@@ -22,15 +22,7 @@ Building on our work to get [Claude Code](https://huggingface.co/blog/hf-skills-
 This tutorial dives even deeper and shows you how it works and how to use it yourself. So let's get started. 
 
 > [!NOTE]
-> Codex uses `AGENTS.md` files—packaged instructions, scripts, and domain knowledge—to accomplish specialized tasks. However, 'HF-skills' is completely agnostic to most major coding agents like Claude Code, Codex, or Gemini CLI. As well as any agent that uses `AGENTS.md`. 
->
-> We can install the skills directly from the repository. Codex will automatically detect the `AGENTS.md` file in the repository. For example:
->
-> ```bash
-> git clone https://github.com/huggingface/skills.git
-> cd skills
-> codex .
-> ```
+> Codex uses `AGENTS.md` files to accomplish specialized tasks, whilst Claude Code uses 'Skills'. Fortunately, 'HF-skills' is compatible with both approaches and works with major coding agents like Claude Code, Codex, or Gemini CLI.
 
 With `HF-skills`, you can tell Codex something like:
 
