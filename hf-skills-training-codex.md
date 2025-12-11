@@ -310,7 +310,6 @@ Trackio will monitor the training and evaluation scores for you by running evalu
 Are models outperforming the base model?
 ```
 
-<!-- TODO: Add evals table -->
 ```sh
 | Model | Benchmark | Score | Evaluation Job Link | Model Link |
 |-----------|-----------|-------|---------------------|------------|
