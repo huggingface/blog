@@ -190,7 +190,7 @@ Pending (lighteval `openai_humaneval` for base + checkpoints)
 
 ### Updating the Training Report
 
-As the experiment progresses, Codex will update the report with the latest information and each run report. You can update the report by editing the `training_reports/<model>-<dataset>-<method>.md` file.
+As the experiment progresses, Codex will update the report with the latest information and each run report. You can view the report in `training_reports/<model>-<dataset>-<method>.md` file.
 
 For example, codex will update the title of the report to `sft-a10g` - `TBD` - `In Progress` when the experiment is in progress.
 
