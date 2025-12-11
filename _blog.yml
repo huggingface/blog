@@ -4994,7 +4994,7 @@
     - Gemini
     - agents
 
-- local: ulysses
+- local: ulysses-sp
   date: Dec 11, 2025
   tags:
     - guide
