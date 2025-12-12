@@ -4995,7 +4995,7 @@
     - agents
 
 - local: dell-enterprise-security
-  date: Dec 11, 2025
+  date: Dec 17, 2025
   tags:
     - announcement
     - dell

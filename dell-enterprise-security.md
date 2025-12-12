@@ -1,14 +1,15 @@
 ---
-title: "Security and Performance for Dell On-Prem AI Builders"
+title: "Security, Governance, and Performance for Dell On-Prem AI Builders"
 thumbnail: /blog/assets/dell-enterprise-hub/thumbnail.jpg
 authors:
   - user: pagezyhf
   - user: alvarobartt
   - user: juanjucm
   - user: jeffboudier
+  - user: balaattdell
 ---
 
-# Security, Governance and Performance Updates for Dell On-Prem AI Builders
+# Security, Governance and Performance for Dell On-Prem AI Builders
 
 ![Dell Enterprise Hub updates](/blog/assets/dell-enterprise-hub/thumbnail.jpg)
 
@@ -50,7 +51,7 @@ Looking ahead, Dell Enterprise Hub will offer more opinionated choices defining 
 
 Another major update in Dell Enterprise Hub is the introduction of container versioning, and the decoupling of containers and model weights, to improve AI developer experience and lifecycle management. Without Dell Enterprise Hub, enterprises need to continuously patch base images, upgrade inference engines, rotate models and archive older assets, often under strict compliance requirements. To make that easier, Dell Enterprise Hub now implements **decoupled container architecture with explicit versioning**.
 
-Historically, many Dell Enterprise Hub containers shipped with the model weights within the container. This made the “first run” very straightforward, but it also led to large images and tighter coupling between the model and the runtime environment. From now on, new containers added to Dell Enterprise Hub are provided **without pre-downloaded weights, by default pulled from the Hugging Face Hub on runtime**. If required, it is still possible to download the model weights in advance and mount them into the container.
+Historically, many Dell Enterprise Hub containers shipped with the model weights within the container. This made the “first run” very straightforward, but it also led to large images and tighter coupling between the model and the runtime environment. From now on, new containers added to Dell Enterprise Hub are provided **without pre-downloaded weights**, by default pulled from the Hugging Face Hub on runtime. If required, it is still possible to download the model weights in advance and mount them into the container.
 
 Additionnaly, instead of relying on a single `latest` tag for containers, Dell Enterprise Hub now exposes **versioned tags**. This means you can pin an exact container tag in production, test a newer container in staging, and move between them on your own schedule. The tags include the inference engine name and version to make debugging and experimentation more transparent.
 
@@ -60,6 +61,6 @@ Additionnaly, instead of relying on a single `latest` tag for containers, Dell E
 
 These changes are another step towards making Dell Enterprise Hub the easiest way to run open models and applications on Dell platforms, fully on-premise and under your control.
 
-We will continue to add support for new models, new modalities and new Dell platforms. Expect improved configurations built around real-world latency and throughput requirements, and a deeper integration between the Dell Enterprise Hub and Hugging Face Enterprise.
+We will continue to add support for new models, new modalities and new Dell platforms. Expect improved configurations built around real-world latency and throughput requirements, and a deeper integration between the Dell Enterprise Hub and [Hugging Face Enterprise](https://huggingface.co/enterprise).
 
 To follow along, make sure to follow the [Dell Technologies organization](https://huggingface.co/DellTechnologies)!
