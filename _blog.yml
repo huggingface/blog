@@ -4994,7 +4994,7 @@
     - Gemini
     - agents
 
-- local: deh-2025
+- local: dell-enterprise-security
   date: Dec 11, 2025
   tags:
     - announcement
