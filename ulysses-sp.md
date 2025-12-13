@@ -9,7 +9,7 @@ authors:
 
 # Ulysses Sequence Parallelism: Training with Million-Token Contexts
 
-Training large language models on long sequences has become essential for building capable AI systems. As models are increasingly used for tasks like document analysis, code understanding, and complex reasoning, and RAG workloads, the need to process sequences of hundreds of thousands—or even millions—of tokens has grown dramatically. However, training with such long contexts presents significant accelerator memory size-related challenges: a single attention matrix for a 128k sequence with 32 attention heads would require approximately 1TB of activation memory!
+Training large language models on long sequences has become essential for building capable AI systems. As models are increasingly used for tasks like document analysis, code understanding, and complex reasoning, and RAG workloads, the need to process sequences of hundreds of thousands—or even millions—of tokens has grown dramatically. However, training with such long contexts presents significant memory challenges. Consider the attention scores tensor for a 128k sequence with 32 heads: that's `128k × 128k × 32 × 2 bytes ≈ 1TB` just for the attention weights in bf16—and this doesn't even include Q, K, V projections or gradients!
 
 Ulysses Sequence Parallelism (part of [the Arctic Long Sequence Training (ALST) protocol](https://arxiv.org/abs/2506.13996)) provides an elegant solution by distributing the attention computation across multiple GPUs through attention head parallelism. In this post, we'll explore how Ulysses works and how it's been integrated across the Hugging Face ecosystem—from Accelerate to the Transformers Trainer and TRL's SFTTrainer.
 
