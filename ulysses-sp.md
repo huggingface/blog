@@ -423,9 +423,9 @@ Additionally, you can enable [`TiledMLP`](https://www.deepspeed.ai/tutorials/uly
 
 Both of these would require you to do very minor tweaks to your training script and aren't yet available as flags in the HF tool ecosphere, but they are oh so well worth it ;)
 
-### 8. Monitor Token Distribution
+### 8. Token Distribution Across Ranks
 
-Ensure tokens are reasonably distributed across SP ranks to avoid load imbalance. If some ranks consistently have few valid tokens, consider adjusting your data preprocessing.
+You don't need to worry about manually balancing tokens across SP ranks—the loss aggregation code handles uneven distributions gracefully (including ranks with zero valid tokens). With random batching over a reasonably sized dataset, the distribution evens out statistically over training.
 
 ## Requirements
 
