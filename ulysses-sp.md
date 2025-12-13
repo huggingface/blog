@@ -150,6 +150,9 @@ accelerator.backward(loss)
 > [!NOTE]
 > The loss aggregation ensures correct gradients when tokens are unevenly distributed across ranks (e.g., when some ranks contain only padding or masked out prompt tokens).
 
+> [!TIP]
+> Both Ulysses and Ring Attention use `position_ids` instead of `attention_mask` for causal masking. A 4D attention mask at these sequence lengths would be just as prohibitive as the attention scores themselves—at 128k tokens, that's another ~1TB tensor. Position IDs achieve the same causal behavior with O(n) memory instead of O(n²).
+
 ## Integration with Transformers Trainer
 
 The Transformers Trainer provides seamless Ulysses integration through `TrainingArguments.parallelism_config`.
