@@ -320,21 +320,21 @@ Both Ulysses and Ring Attention enable long-context training, but they have diff
 | **Communication** | Two `all-to-all`s per layer | P2P ring communication |
 | **Sequence Divisibility** | `sp_size` | `cp_size * 2` |
 | **Head Constraint** | `num_heads >= sp_size` | None |
-| **Best For** | High-bandwidth interconnects | Extremely long sequences (1M+) |
+| **Network Sensitivity** | Benefits from high-bandwidth (NVLink, IB) | More tolerant of varying network conditions |
 
 ### When to Choose Ulysses
 
-- **High-bandwidth interconnects**: NVLink or InfiniBand provide low-latency all-to-all
-- **Many attention heads**: Model architecture has sufficient heads to split
-- **Moderate sequence lengths**: Up to ~500k tokens
+- **High-bandwidth interconnects**: NVLink or InfiniBand provide low-latency all-to-all (the ALST paper demonstrates 15M tokens on 32 H100s)
+- **Many attention heads**: Model architecture has sufficient heads to split across GPUs
+- **Lower communication volume**: All-to-all is more bandwidth-efficient than ring exchange
 - **DeepSpeed ZeRO integration**: Already using DeepSpeed for training
 
 ### When to Choose Ring Attention
 
-- **Extremely long sequences**: 1M+ tokens where communication volume becomes prohibitive
-- **Limited attention heads**: Ring Attention is not constrained by head count
-- **Network topology constraints**: P2P ring is more tolerant of varying network conditions
+- **Limited attention heads**: Ring Attention is not constrained by head count (`num_heads >= cp_size` not required)
+- **Varied network topologies**: P2P ring communication is more tolerant of heterogeneous network conditions
 - **FSDP2 integration**: Using PyTorch native distributed training
+- **Simpler communication pattern**: Ring-based exchange may be easier to debug
 
 ## Best Practices
 
