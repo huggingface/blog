@@ -9,7 +9,7 @@ authors:
 
 # Ulysses Sequence Parallelism: Training with Million-Token Contexts
 
-Training large language models on long sequences has become essential for building capable AI systems. As models are increasingly used for tasks like document analysis, code understanding, and complex reasoning, and RAG workloads, the need to process sequences of hundreds of thousands—or even millions—of tokens has grown dramatically. To put this in perspective, an average book is roughly 250k tokens—so training on multi-document contexts or book-length inputs requires handling sequences well beyond what fits on a single GPU. However, training with such long contexts presents significant memory challenges. Consider the attention scores tensor for a 128k sequence with 32 heads: that's `128k × 128k × 32 × 2 bytes ≈ 1TB` just for the attention weights in bf16—and this doesn't even include Q, K, V projections or gradients!
+Training large language models on long sequences has become essential for building capable AI systems. As models are increasingly used for tasks like document analysis, code understanding, and complex reasoning, and RAG workloads, the need to process sequences of hundreds of thousands—or even millions—of tokens has grown dramatically. To put this in perspective, an average book is roughly 250k tokens—so training on multi-document contexts or book-length inputs requires handling sequences well beyond what fits on a single GPU. However, training with such long contexts presents significant memory challenges—the attention computation scales quadratically with sequence length, quickly exceeding GPU memory for contexts beyond tens of thousands of tokens.
 
 Ulysses Sequence Parallelism (part of [the Arctic Long Sequence Training (ALST) protocol](https://arxiv.org/abs/2506.13996)) provides an elegant solution by distributing the attention computation across multiple GPUs through attention head parallelism. In this post, we'll explore how Ulysses works and how it's been integrated across the Hugging Face ecosystem—from Accelerate to the Transformers Trainer and TRL's SFTTrainer.
 
@@ -417,7 +417,7 @@ Remember: `dp_replicate_size × dp_shard_size × sp_size = num_processes`
 
 ### 7. Liger-Kernel
 
-If your desired model architecuture is supported by [Liger-Kernel](https://github.com/linkedin/Liger-Kernel) - it will allow you to massively extend the possible sequence length. The main memory saving will come from `FusedLinearCrossEntropy` which skips manifesting the full logits tensor during loss calculation.
+If your desired model architecture is supported by [Liger-Kernel](https://github.com/linkedin/Liger-Kernel) - it will allow you to massively extend the possible sequence length. The main memory saving will come from `FusedLinearCrossEntropy` which skips manifesting the full logits tensor during loss calculation.
 
 Additionally, you can enable [`TiledMLP`](https://www.deepspeed.ai/tutorials/ulysses-alst-sequence-parallelism/#tiled-mlp-computation) to enable an even longer sequence length since like `FusedLinearCrossEntropy` it'll save a lot of working memory.
 
@@ -433,7 +433,7 @@ You don't need to worry about manually balancing tokens across SP ranks—the lo
 |-----------|-----------------|
 | DeepSpeed | 0.18.1 |
 | Accelerate | 1.12.0 |
-| Transformers | 4.48.0 |
+| Transformers | 5 |
 | TRL | 0.18.0 |
 | Flash Attention | 2.0.0 (recommended) |
 
