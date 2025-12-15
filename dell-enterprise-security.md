@@ -11,7 +11,7 @@ authors:
 
 # Security, Governance and Performance for Dell On-Prem AI Builders
 
-![Dell Enterprise Hub updates](/blog/assets/dell-enterprise-hub/thumbnail.jpg)
+![Dell Enterprise Hub updates](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/deh-2025/thumbnail.jpg)
 
 A year ago we introduced the [Dell Enterprise Hub](https://dell.huggingface.co), a new experience from Hugging Face to make it easy to train and deploy open models on-premise using Dell platforms.
 
