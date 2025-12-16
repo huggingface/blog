@@ -323,7 +323,7 @@ Both Ulysses and Ring Attention enable long-context training, but they have diff
 | **Communication** | Two `all-to-all`s per layer | P2P ring communication |
 | **Comm volume per GPU** | O(total_seq x hidden / sp_size) | O(total_seq x hidden) |
 | **Sequence Divisibility** | `sp_size` | `cp_size * 2` |
-| **Head Constraint** | `num_heads >= sp_size` | None |
+| **Num Head Constraint** | `num_heads >= sp_size` | None |
 
 ### When to Choose Ulysses
 
