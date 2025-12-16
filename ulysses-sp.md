@@ -321,9 +321,9 @@ Both Ulysses and Ring Attention enable long-context training, but they have diff
 | **Backend** | DeepSpeed ZeRO | PyTorch FSDP2 |
 | **Attention Support** | FlashAttention 2/3, SDPA | SDPA only |
 | **Communication** | Two `all-to-all`s per layer | P2P ring communication |
+| **Comm volume per GPU** | O(total_seq x hidden / sp_size) | O(total_seq x hidden) |
 | **Sequence Divisibility** | `sp_size` | `cp_size * 2` |
 | **Head Constraint** | `num_heads >= sp_size` | None |
-| **Network Sensitivity** | Benefits from high-bandwidth (NVLink, IB) | More tolerant of varying network conditions |
 
 ### When to Choose Ulysses
 
