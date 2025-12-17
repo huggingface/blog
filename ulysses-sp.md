@@ -325,19 +325,11 @@ Both Ulysses and Ring Attention enable long-context training, but they have diff
 | **Sequence Divisibility** | `sp_size` | `cp_size * 2` |
 | **Num Head Constraint** | `num_heads >= sp_size` | None |
 
-### When to Choose Ulysses
+### When to Choose Ulysses vs Ring Attention
 
-- **High-bandwidth interconnects**: NVLink or InfiniBand provide low-latency all-to-all (the ALST paper demonstrates 15M tokens on 32 H100s)
-- **Many attention heads**: Model architecture has sufficient heads to split across GPUs
-- **Lower communication volume**: All-to-all is more bandwidth-efficient than ring exchange
-- **DeepSpeed ZeRO integration**: Already using DeepSpeed for training
+If you can use Deepspeed and the model has a sufficient number of attention heads (`num_heads >= sp_size`) choose Ulysses SP because it'll be more performance efficient on a normal network and it'll be about on par with Ring Attention if you have the worst possible network and the bisectional bandwidth of the network is equal to per link bandwidth.
 
-### When to Choose Ring Attention
-
-- **Limited attention heads**: Ring Attention is not constrained by head count (`num_heads >= cp_size` not required)
-- **Varied network topologies**: P2P ring communication is more tolerant of heterogeneous network conditions
-- **FSDP2 integration**: Using PyTorch native distributed training
-- **Simpler communication pattern**: Ring-based exchange may be easier to debug
+If you either have to use FSDP or there are not enough attention heads to support Ulysses SP, then choose Ring Attention.
 
 ## Best Practices
 
