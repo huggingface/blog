@@ -421,13 +421,11 @@ You don't need to worry about manually balancing tokens across SP ranks—the lo
 
 ## Requirements
 
-| Component | Minimum Version |
-|-----------|-----------------|
-| DeepSpeed | 0.18.1 |
-| Accelerate | 1.12.0 |
-| Transformers | 5 |
-| TRL | 0.18.0 |
-| Flash Attention | 2.0.0 (recommended) |
+- HF Accelerate: `deepspeed>=0.18.1 accelerate>=1.12`
+- HF Trainer: `deepspeed>=0.18.1 accelerate>=1.12 transformers>=5.0`
+- HF TRL:  `deepspeed>=0.18.1 accelerate>=1.12 transformers>=5.0 trl>=0.18.0`
+
+In all of the above ideally use `flash_attention_2` for Ampere GPUs, and `flash_attention_3` for Hopper GPUs.
 
 ## Resources
 
