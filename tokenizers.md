@@ -37,18 +37,11 @@ Before diving into the changes, let's quickly cover what tokenization does and h
 
 ## What is tokenization?
 
-<iframe
-	src="https://xenova-the-tokenizer-playground.static.hf.space"
-	frameborder="0"
-	width="850"
-	height="450"
-></iframe>
-
-Language models don't read raw text. They consume sequences of integers usually called **token IDs or input IDs**. Tokenization is the process of converting raw text into these token IDs.
+Language models don't read raw text. They consume sequences of integers usually called **token IDs or input IDs**. Tokenization is the process of converting raw text into these token IDs. (Try the tokenization playground [here](https://huggingface.co/spaces/Xenova/the-tokenizer-playground) to visualize tokenization.)
 
 Tokenization is a broad concept used across natural language processing and text processing generally. This post focuses specifically on tokenization for Large Language Models (LLMs) using the [`transformers`](https://github.com/huggingface/transformers) and [`tokenizers`](https://github.com/huggingface/tokenizers) libraries.
 
-```py
+```python
 from transformers import AutoTokenizer
 tokenizer = AutoTokenizer.from_pretrained("HuggingFaceTB/SmolLM3-3B")
 
@@ -67,7 +60,7 @@ print(tokenizer.convert_ids_to_tokens(tokens["input_ids"]))
 
 A **token** is the smallest string unit the model sees. It can be a character, word, or subword chunk like "play" or "##ing" ("##" is a pattern, don't worry if you don't completely understand it now 🤗). The **vocabulary** maps each unique token to the token ID.
 
-```py
+```python
 from transformers import AutoTokenizer
 
 tokenizer = AutoTokenizer.from_pretrained("HuggingFaceTB/SmolLM3-3B")
@@ -95,7 +88,7 @@ Each component is *independent*. You can swap [normalizers](https://huggingface.
 > [!NOTE]
 > You can access the rust based tokenizer through `_tokenizer`. We go in more depth about it in [this section](#tokenizersbackend-wraps-the-tokenizers-library)
 
-```py
+```python
 from transformers import AutoTokenizer
 
 tokenizer = AutoTokenizer.from_pretrained("google/gemma-3-270m-it")
@@ -122,7 +115,7 @@ The following algorithms dominate modern language model tokenizers:
 
 1. **Byte Pair Encoding (BPE)** iteratively merges the most frequent character pairs. This algorithm is deterministic and widely used. (Read more about [BPE](https://huggingface.co/learn/llm-course/en/chapter6/5))
 
-```py
+```python
 from transformers import AutoTokenizer
 
 tokenizer = AutoTokenizer.from_pretrained("openai/gpt-oss-20b")
@@ -133,7 +126,7 @@ print(tokenizer._tokenizer.model)
 
 2. **Unigram** takes a probabilistic approach, selecting the most likely segmentation from a large initial vocabulary. This is more flexible than the strict BPE. (Read more about [Unigram](https://huggingface.co/learn/llm-course/en/chapter6/7))
 
-```py
+```python
 from transformers import AutoTokenizer
 
 tokenizer = AutoTokenizer.from_pretrained("google-t5/t5-base")
@@ -144,7 +137,7 @@ print(tokenizer._tokenizer.model)
 
 3. **WordPiece** resembles BPE but uses different merge criteria based on likelihood. (Read more about [WordPiece](https://huggingface.co/learn/llm-course/en/chapter6/6))
 
-```py
+```python
 from transformers import AutoTokenizer
 
 tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
@@ -159,7 +152,7 @@ The [`tokenizers`](https://github.com/huggingface/tokenizers) library is a Rust-
 
 Consider what happens when you use `tokenizers` directly with the [`SmolLM3-3B`](http://hf.co/HuggingFaceTB/SmolLM3-3B) model:
 
-```py
+```python
 from tokenizers import Tokenizer
 
 tokenizer = Tokenizer.from_pretrained("HuggingFaceTB/SmolLM3-3B")
@@ -182,7 +175,7 @@ The `transformers` library bridges this gap. The library is primarily known as a
 
 Here's the same tokenization with the `transformers` wrapper:
 
-```py
+```python
 from transformers import AutoTokenizer
 
 tokenizer = AutoTokenizer.from_pretrained("HuggingFaceTB/SmolLM3-3B")
@@ -248,7 +241,7 @@ Every tokenizer in `transformers` ultimately inherits from `PreTrainedTokenizerB
 
 The class stores the Rust tokenizer object internally:
 
-```py
+```python
 class TokenizersBackend(PreTrainedTokenizerBase):
     def __init__(self, tokenizer_object, ...):
         self._tokenizer = tokenizer_object  # The Rust tokenizer
@@ -257,7 +250,7 @@ class TokenizersBackend(PreTrainedTokenizerBase):
 
 When you call encoding methods on a `TokenizersBackend` tokenizer, the class delegates the actual tokenization to the Rust backend:
 
-```py
+```python
 def _batch_encode_plus(self, batch_text_or_text_pairs, ...):
     encodings = self._tokenizer.encode_batch(batch_text_or_text_pairs, ...)
     ...
@@ -295,7 +288,7 @@ Model-specific tokenizers that inherit from `PythonBackend` (or its alias `PreTr
 
 The backend wraps a SentencePiece processor:
 
-```py
+```python
 class SentencePieceBackend(PythonBackend):
     def __init__(self, vocab_file, ...):
         self.sp_model = spm.SentencePieceProcessor()
@@ -314,7 +307,7 @@ The SentencePiece backend inherits from `PythonBackend` rather than directly fro
 
 [`AutoTokenizer`](https://github.com/huggingface/transformers/blob/7f52a2a4ea8ab49b7f069df7fac58a5b280d4919/src/transformers/models/auto/tokenization_auto.py#L531) is the recommended entry point for loading tokenizers. It automatically determines which tokenizer class to use for a given model and returns an instance of that class.
 
-```py
+```python
 from transformers import AutoTokenizer
 
 tokenizer = AutoTokenizer.from_pretrained("gpt2")
@@ -326,7 +319,7 @@ Behind the scenes, `AutoTokenizer` performs these steps:
 2. **Identify the model type.** The configuration contains metadata that [identifies the model type](https://huggingface.co/openai-community/gpt2/blob/main/config.json#L12) (e.g., "gpt2", "llama", "bert").  
 3. **Look up the tokenizer class.** `AutoTokenizer` maintains a mapping called [`TOKENIZER_MAPPING_NAMES`](https://github.com/huggingface/transformers/blob/7f52a2a4ea8ab49b7f069df7fac58a5b280d4919/src/transformers/models/auto/tokenization_auto.py#L64) that maps model types to tokenizer class names:
 
-```py
+```python
 TOKENIZER_MAPPING_NAMES = {
     "gpt2": "GPT2Tokenizer",
     "llama": "LlamaTokenizer",
@@ -391,7 +384,7 @@ v5 treats tokenizer architecture (normalizer, pre-tokenizer, model type, post-pr
 
 **With `nn.Module`, you define layers first:**
 
-```py
+```python
 from torch import nn
 
 model = nn.Sequential(
@@ -403,7 +396,7 @@ model = nn.Sequential(
 
 **V5 tokenizers follow the same pattern:**
 
-```py
+```python
 from transformers import LlamaTokenizer
 
 # Instantiate the architecture
@@ -445,7 +438,7 @@ Users now have one clear entry point. Advanced users who need to customize can s
 
 Suppose you want a tokenizer that behaves exactly like LLaMA's – same normalization, same pre-tokenization, same BPE model type – but trained on a domain-specific corpus (medical text, legal documents, a new language). In v4, this required manually reconstructing the tokenizer pipeline from low-level `tokenizers` library primitives. In v5, you can instantiate the architecture directly and call `train`:
 
-```py
+```python
 from transformers import LlamaTokenizer
 from datasets import load_dataset
 
