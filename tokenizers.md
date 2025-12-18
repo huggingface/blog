@@ -6,6 +6,8 @@ authors:
 - user: ariG23498
 - user: ArthurZ
 - user: sergiopaniego
+- user: merve
+- user: pcuenq
 ---
 
 # Tokenization in Transformers v5: Simpler, Clearer, and More Modular
@@ -33,9 +35,6 @@ authors:
 
 Before diving into the changes, let's quickly cover what tokenization does and how the pieces fit together.
 
-> [!NOTE]
-> Tokenization is a broad concept used across natural language processing and text processing generally. This post focuses specifically on tokenization for Large Language Models (LLMs) using the [`transformers`](https://github.com/huggingface/transformers) and [`tokenizers`](https://github.com/huggingface/tokenizers) libraries.
-
 ## What is tokenization?
 
 <iframe
@@ -47,9 +46,10 @@ Before diving into the changes, let's quickly cover what tokenization does and h
 
 Language models don't read raw text. They consume sequences of integers usually called **token IDs or input IDs**. Tokenization is the process of converting raw text into these token IDs.
 
+Tokenization is a broad concept used across natural language processing and text processing generally. This post focuses specifically on tokenization for Large Language Models (LLMs) using the [`transformers`](https://github.com/huggingface/transformers) and [`tokenizers`](https://github.com/huggingface/tokenizers) libraries.
+
 ```py
 from transformers import AutoTokenizer
-# Let's use a tokenizer that was already trained:
 tokenizer = AutoTokenizer.from_pretrained("HuggingFaceTB/SmolLM3-3B")
 
 text = "Hello world"
@@ -62,7 +62,10 @@ print(tokenizer.convert_ids_to_tokens(tokens["input_ids"]))
 # ['Hello', 'Ġworld']
 ```
 
-A **token** is the smallest string unit the model sees. It can be a character, word, or subword chunk like "play" or "##ing". The **vocabulary** maps each unique token to the token ID.
+> [!NOTE]
+>  `Ġworld` (above) is a single token that represents the character sequence " world" (with the space).
+
+A **token** is the smallest string unit the model sees. It can be a character, word, or subword chunk like "play" or "##ing" ("##" is a pattern, don't worry if you don't completely understand it now 🤗). The **vocabulary** maps each unique token to the token ID.
 
 ```py
 from transformers import AutoTokenizer
@@ -73,12 +76,7 @@ print(tokenizer.vocab)
 # {'ÎĹÎľ': 106502, 'ĠPeel': 89694, '.languages': 91078, ...}
 ```
 
-Two numbers matter:
-
-* **Vocabulary size of the tokenizer**: how many unique tokens exist in the vocabulary of the tokenizer  
-* **Context length of the model**: how many tokens the model was trained to attend to at once, and can process in a single forward pass.
-
-A good tokenizer *compresses* text into the smallest amount of tokens. Fewer tokens means more usable context without increasing model size.Training a tokenizer boils down to finding the best compression rules for your datasets. For example if you work on Chinese corpus you can sometimes find [very nice surprises 😉](https://x.com/suchenzang/status/1697862650053660721).
+A good tokenizer *compresses* text into the smallest amount of tokens. Fewer tokens means more usable context without increasing model size. Training a tokenizer boils down to finding the best compression rules for your datasets. For example, if you work on Chinese corpus you can sometimes find [very nice surprises 😉](https://x.com/suchenzang/status/1697862650053660721).
 
 ## The tokenization pipeline
 
@@ -87,12 +85,15 @@ Tokenization happens in stages. Each stage transforms text before passing it to 
 | Stage | Purpose | Example |
 | :---: | :---: | :---: |
 | **Normalizer** | Standardizes text (lowercasing, unicode normalization, whitespace cleanup) | `"HELLO World"` → `"hello world"` |
-| **Pre-tokenizer** | Splits text into preliminary chunks | `"hello world"` → `["hello", "world"]` |
-| **Model** | Applies the tokenization algorithm (BPE, Unigram, etc.) | `["hello", "world"]` → `[9906, 1917]` |
+| **Pre-tokenizer** | Splits text into preliminary chunks | `"hello world"` → `["hello", " world"]` |
+| **Model** | Applies the tokenization algorithm (BPE, Unigram, etc.) | `["hello", " world"]` → `[9906, 1917]` |
 | **Post-processor** | Adds special tokens (BOS, EOS, padding) | `[9906, 1917]` → `[1, 9906, 1917, 2]` |
 | **Decoder** | Converts token IDs back to text | `[9906, 1917]` → `"hello world"` |
 
-Each component is *independent*. You can swap normalizers or change the algorithm without rewriting everything else.
+Each component is *independent*. You can swap [normalizers](https://huggingface.co/docs/tokenizers/en/api/normalizers) or change the [algorithm](https://huggingface.co/docs/tokenizers/en/api/models) without rewriting everything else.
+
+> [!NOTE]
+> You can access the rust based tokenizer through `_tokenizer`. We go in more depth about it in [this section](#tokenizersbackend-wraps-the-tokenizers-library)
 
 ```py
 from transformers import AutoTokenizer
@@ -154,10 +155,7 @@ print(tokenizer._tokenizer.model)
 
 ## Accessing tokenizers through transformers
 
-The [`tokenizers`](https://github.com/huggingface/tokenizers) library is a Rust-based tokenization engine. It is fast, efficient, and completely model-agnostic. The library handles the mechanics of converting text into token IDs. The `tokenizers` library is a general-purpose tool. It implements the tokenization algorithms, but does not implement the conventions that connect those algorithms to specific models.
-
->[!TIP]
-> `tokenizers` is what PyTorch is to `transformers`
+The [`tokenizers`](https://github.com/huggingface/tokenizers) library is a Rust-based tokenization engine. It is fast, efficient, and completely language model agnostic. The library handles the mechanics of converting text into token IDs and back. The `tokenizers` library is a general-purpose tool that implements the tokenization algorithms, but does not implement the conventions that connect those algorithms to specific language models.
 
 Consider what happens when you use `tokenizers` directly with the [`SmolLM3-3B`](http://hf.co/HuggingFaceTB/SmolLM3-3B) model:
 
@@ -176,7 +174,7 @@ print(encodings.tokens)
 
 The output is raw tokenization. You get token IDs and the string pieces they correspond to. Nothing more.
 
-Now consider what's missing. The `SmolLM3-3B` is a *conversational model*. When you interact with it, you typically structure your input as a conversation with roles like "user" and "assistant." The model expects special formatting tokens to indicate these roles. The raw `tokenizers` library has no concept of any of this.
+Now consider what's missing. The `SmolLM3-3B` is a *conversational model*. When you interact with it, you typically structure your input as a conversation with roles like "user" and "assistant". The language model expects special formatting tokens to indicate these roles. The raw `tokenizers` library has no concept of any of this.
 
 ### How do you bridge the gap between raw tokenization and model requirements?
 
@@ -209,16 +207,18 @@ print(text)
 model_inputs = tokenizer([text], return_tensors="pt")
 ```
 
+Notice how the special tokens like `<|im_start>` and `<|im_end>` are applied to the prompt before tokenizing. This is useful for the model to learn where a new sequence starts and ends.
+
 The `transformers` tokenizer adds everything the raw library lacks:
 
 * **Chat template application.** The `apply_chat_template` method formats conversations according to the model's expected format, inserting the correct special tokens and delimiters.  
 * **Automatic special token insertion.** Beginning-of-sequence and end-of-sequence tokens are added where the model expects them.  
 * **Truncation to context length.** You can specify `truncation=True` and the tokenizer will respect the model's maximum sequence length.  
 * **Batch encoding with padding.** Multiple inputs can be padded to the same length with the correct padding token and direction.  
-* **Return format options.** You can request PyTorch tensors (`return_tensors="pt"`), TensorFlow tensors, or NumPy arrays.
+* **Return format options.** You can request PyTorch tensors (`return_tensors="pt"`), NumPy arrays and others.
 
 > [!NOTE]
-> More than adding, `transformers` defines the API for tokenization that is now most commonly used is the entire ML! (`encode`, `decode`, `convert_tokens_to_ids`, etc.)
+> `transformers` implements the tokenization API that is most commonly used in the entire ML community (`encode`, `decode`, `convert_tokens_to_ids`, etc.)
 
 ## The tokenizer class hierarchy in transformers
 
@@ -260,8 +260,7 @@ When you call encoding methods on a `TokenizersBackend` tokenizer, the class del
 ```py
 def _batch_encode_plus(self, batch_text_or_text_pairs, ...):
     encodings = self._tokenizer.encode_batch(batch_text_or_text_pairs, ...)
-    # Convert Rust Encoding objects to transformers BatchEncoding
-    return BatchEncoding(...)
+    ...
 ```
 
 The Rust backend performs computationally intensive work, while the Python wrapper adds the model-aware features on top.
@@ -324,7 +323,7 @@ tokenizer = AutoTokenizer.from_pretrained("gpt2")
 Behind the scenes, `AutoTokenizer` performs these steps:
 
 1. **Download the tokenizer configuration.** The `from_pretrained` method fetches `tokenizer_config.json` from the Hub (or from a local directory).  
-2. **Identify the model type.** The configuration contains metadata that identifies the model type (e.g., "gpt2", "llama", "bert").  
+2. **Identify the model type.** The configuration contains metadata that [identifies the model type](https://huggingface.co/openai-community/gpt2/blob/main/config.json#L12) (e.g., "gpt2", "llama", "bert").  
 3. **Look up the tokenizer class.** `AutoTokenizer` maintains a mapping called [`TOKENIZER_MAPPING_NAMES`](https://github.com/huggingface/transformers/blob/7f52a2a4ea8ab49b7f069df7fac58a5b280d4919/src/transformers/models/auto/tokenization_auto.py#L64) that maps model types to tokenizer class names:
 
 ```py
@@ -416,11 +415,11 @@ tokenizer.train(files=["my_corpus.txt"])
 
 The tokenizer class now explicitly declares its structure. Looking at `LlamaTokenizer` in v5, you can immediately see:
 
-* It uses **BPE** as its tokenization model  
+* [It uses **BPE**](https://github.com/huggingface/transformers/blob/0a8465420eecbac1c6d7dd9f45c08dd96b8c5027/src/transformers/models/llama/tokenization_llama.py#L92) as its tokenization model
 * It may add a **prefix space** before text  
 * Its special tokens (`unk`, `bos`, `eos`) sit at specific vocabulary positions  
-* It does **not normalize** input text  
-* Its decoder replaces the metaspace character `▁` with spaces
+* [It does **not normalize**](https://github.com/huggingface/transformers/blob/0a8465420eecbac1c6d7dd9f45c08dd96b8c5027/src/transformers/models/llama/tokenization_llama.py#L121) input text  
+* [Its decoder](https://github.com/huggingface/transformers/blob/0a8465420eecbac1c6d7dd9f45c08dd96b8c5027/src/transformers/models/llama/tokenization_llama.py#L122) replaces the metaspace character `▁` with spaces
 
 | ![v5 llama](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/tokenizers/v5-llama.png) |
 | :--: |
@@ -465,9 +464,9 @@ trained_tokenizer = tokenizer.train_new_from_iterator(
     show_progress=True,
 )
 
-trained_tokenizer.save_pretrained("./my_custom_tokenizer")
+trained_tokenizer.push_to_hub("my_custom_tokenizer")
 
-tokenizer = LlamaTokenizer.from_pretrained("./my_custom_tokenizer")
+tokenizer = LlamaTokenizer.from_pretrained("my_custom_tokenizer")
 ```
 
 The resulting tokenizer will have your custom vocabulary and merge rules, but will process text identically to how a standard LLaMA tokenizer would with the same whitespace handling, same special token conventions, same decoding behavior.
@@ -492,3 +491,9 @@ Transformers v5 brings three improvements to tokenization:
 3. **Trainable templates** that let you create custom tokenizers matching any model's design
 
 The wrapper layer between `tokenizers` and Transformers remains essential. It adds model awareness, context lengths, chat templates, special tokens, that raw tokenization doesn't provide. V5 just makes that layer clearer and more customizable.
+
+If you are looking to learn more about tokenization here are some resources:
+- [Let's build the GPT Tokenizer](https://youtu.be/zduSFxRajkE?si=ZAfCjZjpyPHsnyfF)
+- [Gotchas in Tokenizer Behavior Every Developer Should Know](https://huggingface.co/blog/qgallouedec/gotchas-in-tokenizer-behavior)
+- [Chat Templates](https://huggingface.co/blog/chat-templates)
+- [A list of resoruces we have gathered from the community!](https://x.com/ariG23498/status/1999058214906888237)
