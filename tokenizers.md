@@ -235,7 +235,7 @@ The `transformers` library organizes tokenizers into a class hierarchy. At the t
 The base class handles functionality that doesn't depend on the tokenization backend:
 
 * **Special token properties.** Properties like `bos_token`, `eos_token`, `pad_token`, and `unk_token` are defined here. These properties provide access to the special tokens that models use to mark sequence boundaries and handle unknown inputs.  
-* **Encoding interface.** The `__call__` method, `encode`, `encode_plus`, and `batch_encode_plus` methods are defined here. These methods accept text input and return token IDs along with attention masks and other metadata.  
+* **Encoding interface.** The `__call__` method, `encode`, and `encode_plus` methods are defined here. These methods accept text input and return token IDs along with attention masks and other metadata.  
 * **Decoding interface.** The `decode` and `batch_decode` methods convert token IDs back to text.  
 * **Serialization.** The `save_pretrained` and `from_pretrained` methods handle downloading the correct files, reading information, saving tokenizers to disk etc.  
 * **Chat template support.** The `apply_chat_template` method lives here, formatting conversations according to Jinja templates stored in the tokenizer configuration.
