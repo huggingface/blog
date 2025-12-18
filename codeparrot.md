@@ -2,7 +2,7 @@
 title: Training CodeParrot 🦜 from Scratch
 thumbnail: /blog/assets/40_codeparrot/thumbnail.png
 authors:
-- user: Leandro
+- user: lvwerra
 ---
 
 # Training CodeParrot 🦜 from Scratch
