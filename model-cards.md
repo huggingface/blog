@@ -4,7 +4,7 @@ thumbnail: /blog/assets/121_model-cards/thumbnail.png
 authors:
 - user: Ezi
 - user: Marissa
-- user: Meg
+- user: meg
 ---
 
 # Model Cards

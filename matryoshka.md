@@ -3,7 +3,7 @@ title: "🪆 Introduction to Matryoshka Embedding Models"
 thumbnail: /blog/assets/matryoshka/thumbnail.png
 authors:
 - user: tomaarsen
-- user: xenova
+- user: Xenova
 - user: osanseviero
 ---
 

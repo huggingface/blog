@@ -2,7 +2,7 @@
 title: "Towards Encrypted Large Language Models with FHE" 
 thumbnail: /blog/assets/encrypted-llm/thumbnail.png
 authors:
-- user: RomanBredehoft
+- user: romanbredehoft-zama
   guest: true
 - user: jfrery-zama
   guest: true

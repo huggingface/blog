@@ -8,7 +8,7 @@ authors:
   guest: true
 - user: PierreRouanet
   guest: true
-- user: revellsi
+- user: revelsi
   guest: true
 ---
 

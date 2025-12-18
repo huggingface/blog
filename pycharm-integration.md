@@ -2,7 +2,7 @@
 title: "Hugging Face + PyCharm"
 thumbnail: /blog/assets/pycharm-integration/thumbnail.png
 authors:
-- user: rocketknight1
+- user: Rocketknight1
 ---
 
 # Hugging Face + PyCharm

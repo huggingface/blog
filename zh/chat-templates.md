@@ -2,7 +2,7 @@
 title: "聊天模板：无声性能杀手的终结" 
 thumbnail: /blog/assets/chat-templates/thumbnail.png
 authors:
-- user: rocketknight1
+- user: Rocketknight1
 translators:
 - user: MatrixYao
 - user: zhongdongy
