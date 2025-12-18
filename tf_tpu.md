@@ -2,7 +2,7 @@
 title: "Training a language model with 🤗 Transformers using TensorFlow and TPUs"
 thumbnail: /blog/assets/tf_tpu_training/thumbnail.png
 authors:
-- user: rocketknight1
+- user: Rocketknight1
 - user: sayakpaul
 ---
 

@@ -2,7 +2,7 @@
 title: "蛋白质深度学习" 
 thumbnail: /blog/assets/119_deep_learning_with_proteins/folding_example.png
 authors:
-- user: rocketknight1
+- user: Rocketknight1
 translators:
 - user: MatrixYao
 - user: zhongdongy

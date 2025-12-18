@@ -13,7 +13,7 @@ authors:
 - user: mortimerp9
   guest: true
   org: meta-agents-research-environments
-- user: xcid
+- user: XciD
 - user: tfrere
 - user: evijit
   org: hfpolicy

@@ -3,7 +3,7 @@ title: "ControlNet in 🧨 Diffusers"
 thumbnail: /blog/assets/controlnet/thumbnail.png 
 authors:
 - user: sayakpaul
-- user: yiyixu
+- user: YiYiXu
 - user: patrickvonplaten
 ---
 

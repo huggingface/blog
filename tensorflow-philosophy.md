@@ -2,7 +2,7 @@
 title: "Hugging Face's TensorFlow Philosophy"
 thumbnail: /blog/assets/96_tensorflow_philosophy/thumbnail.png
 authors:
-- user: rocketknight1
+- user: Rocketknight1
 ---
 
 # Hugging Face's TensorFlow Philosophy

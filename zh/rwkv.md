@@ -2,7 +2,7 @@
 title: "RWKV -- transformer 与 RNN 的强强联合" 
 thumbnail: /blog/assets/142_rwkv/rwkv_thumbnail.png
 authors:
-- user: BLinkDL
+- user: BlinkDL
 - user: Hazzzardous
 - user: sgugger
 - user: RWKV

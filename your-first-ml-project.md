@@ -2,7 +2,7 @@
 title: 'Liftoff! How to get started with your first ML project 🚀'
 thumbnail: /blog/assets/84_first_ml_project/thumbnail.png
 authors:
-- user: nimaboscarino
+- user: NimaBoscarino
 ---
 
 # Liftoff! How to get started with your first ML project 🚀

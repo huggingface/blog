@@ -3,7 +3,7 @@ title: "使用 🧨 Diffusers 实现 ControlNet 高速推理"
 thumbnail: /blog/assets/controlnet/thumbnail.png 
 authors:
 - user: sayakpaul
-- user: yiyixu
+- user: YiYiXu
 - user: patrickvonplaten
 translators:
 - user: SuSung-boy

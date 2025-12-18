@@ -33,7 +33,7 @@ authors:
 - user: davidamczyk
   guest: true
   org: CIIRC-NLP
-- user: janH
+- user: JanH
   guest: true
   org: CIIRC-NLP
 - user: jsedivy
