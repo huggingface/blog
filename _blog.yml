@@ -4995,7 +4995,7 @@
     - agents
 
 - local: tokenizers
-  date: Dec 17, 2025
+  date: Dec 18, 2025
   tags:
     - tokenizers
     - transformers
