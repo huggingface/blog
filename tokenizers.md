@@ -429,7 +429,9 @@ This transparency was impossible in v4, where the same information was buried in
 
 ### One file, one backend, one recommended path
 
-v5 consolidates the two-file system *into a single file per model*. `LlamaTokenizer` now inherits from `TokenizersBackend`, which wraps the fast Rust tokenizer by default. The slow Python backend (`PythonBackend`) and SentencePiece backend (`SentencePieceBackend`) still exist for models that need them, but **Rust-backed tokenization is the preferred default**.
+v5 consolidates the two-file system *into a single file per model*. `LlamaTokenizer` now inherits from `TokenizersBackend`, which wraps the Rust-based tokenizer that was previously exposed as the “fast” implementation and is now the default.
+
+The former “slow” Python implementation lives explicitly behind `PythonBackend`, and `SentencePieceBackend` remains for models that require it, but **Rust-backed tokenization is the preferred default**.
 
 This change eliminates:
 
