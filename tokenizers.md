@@ -180,7 +180,7 @@ Now consider what's missing. The `SmolLM3-3B` is a *conversational model*. When 
 
 ### How do you bridge the gap between raw tokenization and model requirements?
 
-The `transformers` library bridges this gap. The library is primarily known as a model repository (containing model definitions), but it also provides a tokenizer abstraction layer that wraps the raw `tokenizers` backend and adds model-aware functionality.
+The `transformers` library bridges this gap. The library is primarily known as a model definition library, but it also provides a tokenizer abstraction layer that wraps the raw `tokenizers` backend and adds model-aware functionality.
 
 Here's the same tokenization with the `transformers` wrapper:
 
