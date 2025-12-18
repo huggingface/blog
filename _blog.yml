@@ -4993,3 +4993,11 @@
     - Codex
     - Gemini
     - agents
+
+- local: tokenizers
+  date: Dec 18, 2025
+  tags:
+    - tokenizers
+    - transformers
+    - open-source
+    - tokenization
