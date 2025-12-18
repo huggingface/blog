@@ -25,11 +25,11 @@ authors:
 - [Accessing `tokenizers` through `transformers`](#accessing-tokenizers-through-transformers)
 - [The Tokenizer Class Hierarchy in `transformers`](#the-tokenizer-class-hierarchy-in-transformers)
 - [`AutoTokenizer` Automatically Selects the Correct Tokenizer Class](#autotokenizer-automatically-selects-the-correct-tokenizer-class)
-- [v5 Seperates Tokenizer Architecture from Trained Vocab](#v5-separates-tokenizer-architecture-from-trained-vocab)
+- [v5 Separates Tokenizer Architecture from Trained Vocab](#v5-separates-tokenizer-architecture-from-trained-vocab)
 - [Summary](#summary)
 
 > [!TIP]
-> For experts: If you're already familiar with the concepts and want to understand the changes in v5, go to [v5 Seperates Tokenizer Architecture from Trained Vocab](#v5-separates-tokenizer-architecture-from-trained-vocab)
+> For experts: If you're already familiar with the concepts and want to understand the changes in v5, go to [v5 Separates Tokenizer Architecture from Trained Vocab](#v5-separates-tokenizer-architecture-from-trained-vocab)
 
 Before diving into the changes, let's quickly cover what tokenization does and how the pieces fit together.
 
@@ -119,7 +119,7 @@ print(f"{tokenizer._tokenizer.decoder=}")
 
 The following algorithms dominate modern language model tokenizers:
 
-1. **Byte Pair Encoding (BPE)** iteratively merges the most frequent character pairs. This algorithm is deterministic and widely used. (Read mre about [BPE](https://huggingface.co/learn/llm-course/en/chapter6/5))
+1. **Byte Pair Encoding (BPE)** iteratively merges the most frequent character pairs. This algorithm is deterministic and widely used. (Read more about [BPE](https://huggingface.co/learn/llm-course/en/chapter6/5))
 
 ```py
 from transformers import AutoTokenizer
@@ -226,7 +226,7 @@ The `transformers` library organizes tokenizers into a class hierarchy. At the t
 
 | ![class hierarchy](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/tokenizers/hierarchy.png) |
 | :--: |
-| The class hierarchy for tokenziers inside transformers |
+| The class hierarchy for tokenizers inside transformers |
 
 ### `PreTrainedTokenizerBase` defines the common interface for all tokenizers
 
