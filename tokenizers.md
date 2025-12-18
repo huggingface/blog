@@ -491,4 +491,4 @@ If you are looking to learn more about tokenization here are some resources:
 - [Let's build the GPT Tokenizer](https://youtu.be/zduSFxRajkE?si=ZAfCjZjpyPHsnyfF)
 - [Gotchas in Tokenizer Behavior Every Developer Should Know](https://huggingface.co/blog/qgallouedec/gotchas-in-tokenizer-behavior)
 - [Chat Templates](https://huggingface.co/blog/chat-templates)
-- [A list of resoruces we have gathered from the community!](https://x.com/ariG23498/status/1999058214906888237)
+- [A list of resources we have gathered from the community!](https://x.com/ariG23498/status/1999058214906888237)
