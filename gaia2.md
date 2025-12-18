@@ -4,7 +4,7 @@ thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_mare_gaia2.png
 authors:
 - user: clefourrier
   org: OpenEvals
-- user: gmialon
+- user: gregmialz
   guest: true
   org: meta-agents-research-environments
 - user: mlcu

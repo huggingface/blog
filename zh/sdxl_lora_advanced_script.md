@@ -2,7 +2,7 @@
 title: "全世界 LoRA 训练脚本，联合起来!"
 thumbnail: /blog/assets/dreambooth_lora_sdxl/thumbnail.png
 authors:
-- user: LinoyTsaban
+- user: linoyts
 - user: multimodalart
 translators:
 - user: MatrixYao

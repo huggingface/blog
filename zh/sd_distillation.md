@@ -2,10 +2,12 @@
 title: "开源 SD-Small 和 SD-Tiny 知识蒸馏代码与权重"
 thumbnail: /blog/assets/distill_sd/thumbnail.png
 authors:
-- user: harishsegmind
+- user: harishp
   guest: true
+  org: segmind
 - user: Warlord-K
   guest: true
+  org: segmind
 - user: Gothos
   guest: true
 translators:
