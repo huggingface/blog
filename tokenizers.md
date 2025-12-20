@@ -197,10 +197,10 @@ print(text)
 # Give me a brief explanation of gravity in simple terms.<|im_end|>
 # <|im_start|>assistant
 
-model_inputs = tokenizer([text], return_tensors="pt")
+model_inputs = tokenizer([text], add_special_tokens=False, return_tensors="pt")
 ```
 
-Notice how the special tokens like `<|im_start>` and `<|im_end>` are applied to the prompt before tokenizing. This is useful for the model to learn where a new sequence starts and ends.
+Notice how the special tokens like `<|im_start|>` and `<|im_end|>` are applied to the prompt before tokenizing. This is useful for the model to learn where a new sequence starts and ends.
 
 The `transformers` tokenizer adds everything the raw library lacks:
 
