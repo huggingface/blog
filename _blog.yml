@@ -5001,3 +5001,13 @@
     - transformers
     - open-source
     - tokenization
+
+- local: nvidia-reachy-mini
+  date: Jan 5, 2026
+  tags:
+    - partnerships
+    - nvidia
+    - robotics
+    - reachy
+    - agents
+    - hardware
