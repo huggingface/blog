@@ -21,6 +21,8 @@ But what if you could bring your own agent to life, right at your desk? An AI bu
 
 In the CES keynote today, Jensen Huang showed us how we can do exactly that, using the processing power of NVIDIA [DGX Spark](https://www.nvidia.com/en-us/products/workstations/dgx-spark/) with [Reachy Mini](https://huggingface.co/spaces/pollen-robotics/Reachy_Mini) to create your own little office R2D2 you can talk to and collaborate with.
 
+![Video exerpt from NVIDIA CES 2026 Keynote showing Reachy Mini agentic workflow](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/nvidia-reachy-mini/nvidia%20ces%20keynote%20-%20reachy%20demo.mp4)
+
 This blog post provides a step-by-step guide to replicate this amazing experience at home using a DGX Spark and [Reachy Mini](https://huggingface.co/spaces/pollen-robotics/Reachy_Mini).
 
 ![Reachy Mini and DGX Spark on a desk](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/nvidia-reachy-mini/reachy-mini-dgx-spark.png)
