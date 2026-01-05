@@ -15,15 +15,15 @@ authors:
 
 ![NVIDIA creates real world agents with DGX Spark and Reachy Mini at the CES 2026 Keynote](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/nvidia-reachy-mini/nvidia-reachy-mini-compressed.png)
 
-Today at CES 2026, NVIDIA unveiled a world of new open models to enable the future of agents, online and in the real world. From new [Nemotron reasoning LLMs](https://huggingface.co/collections/nvidia/nvidia-nemotron-v3) to the new [Gr00T VLA](https://huggingface.co/nvidia/GR00T-N1.6-3B) and [Cosmos world foundation models](https://huggingface.co/collections/nvidia/cosmos-reason2), all the building blocks are here today for AI Builders to build their own agents.
+Today at CES 2026, NVIDIA unveiled a world of new open models to enable the future of agents, online and in the real world. From the recently released [NVIDIA Nemotron](https://huggingface.co/collections/nvidia/nvidia-nemotron-v3) reasoning LLMs to the new [NVIDIA Isaac GR00T N1.6](https://huggingface.co/nvidia/GR00T-N1.6-3B) open reasoning VLA and [NVIDIA Cosmos world foundation models](https://huggingface.co/collections/nvidia/cosmos-reason2), all the building blocks are here today for AI Builders to build their own agents.
 
 But what if you could bring your own agent to life, right at your desk? An AI buddy that can be useful to you and process your data privately?
 
-In the CES keynote today, Jensen Huang showed us how we can do exactly that, using the processing power of [DGX Spark](https://www.nvidia.com/en-us/products/workstations/dgx-spark/) with [Reachy Mini](https://www.pollen-robotics.com/reachy-mini/) to create your own little office R2D2 you can talk to and collaborate with.
-
-\<EMBED KEYNOTE VIDEO RECORDING\>
+In the CES keynote today, Jensen Huang showed us how we can do exactly that, using the processing power of NVIDIA [DGX Spark](https://www.nvidia.com/en-us/products/workstations/dgx-spark/) with [Reachy Mini](https://www.pollen-robotics.com/reachy-mini/) to create your own little office R2D2 you can talk to and collaborate with.
 
 This blog post provides a step-by-step guide to replicate this amazing experience at home using a DGX Spark and [Reachy Mini](https://www.pollen-robotics.com/reachy-mini/).
+
+![Reachy Mini and DGX Spark on a desk](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/nvidia-reachy-mini/reachy-mini-dgx-spark.png)
 
 Let’s dive in!
 
@@ -49,7 +49,7 @@ Feel free to adapt the recipe and make it your own \- you have many ways to inte
 
 Turning an AI agent from a simple chat interface into something you can interact with naturally makes conversations feel more real. When an AI agent can see through a camera, speak out loud, and perform actions, the experience becomes more engaging. That’s what Reachy Mini makes possible.
 
-Reachy Mini is designed to be hackable. With access to sensors, actuators, and APIs, you can easily wire it into your existing agent stack, by simulation or real hardware controlled directly from Python. 
+Reachy Mini is designed to be customizable. With access to sensors, actuators, and APIs, you can easily wire it into your existing agent stack, by simulation or real hardware controlled directly from Python. 
 
 This post focuses on composing existing building blocks rather than reinventing them. We combine open models for reasoning and vision, an agent framework for orchestration, and tool handlers for actions. Each component is loosely coupled, making it easy to swap models, change routing logic, or add new behaviors.
 
@@ -258,13 +258,13 @@ Here are a few simple prompts to help you test your personal assistant. You can 
 
 ## Where to go next
 
-Instead of a  "black-box" assistant, this builds a foundation for a private, hackable system where you can control both the intelligence and the hardware. You can inspect, extend, and run it locally, with full visibility into data flow, tool permissions, and how the robot perceives and acts.
+Instead of a "black-box" assistant, this builds a foundation for a private, hackable system where you can control both the intelligence and the hardware. You can inspect, extend, and run it locally, with full visibility into data flow, tool permissions, and how the robot perceives and acts.
 
 Depending on your goals, here are a few directions to explore next:
 
 * Optimize for performance: Use the [LLM Router developer example](https://github.com/NVIDIA-AI-Blueprints/llm-router/tree/experimental) to balance cost, latency, and quality by intelligently directing queries between different models.  
-* Check out the tutorial for building a voice-powered RAG agent (NEED LINK) with guardrails using Nemotron open models.   
+* Check out the tutorial for building a voice-powered RAG agent with guardrails using Nemotron open models.   
 * Master the hardware: Explore the Reachy Mini SDK and simulation docs to design and test advanced robotic behaviors before deploying to your physical system.  
 * Explore and contribute to the [apps](https://huggingface.co/spaces/pollen-robotics/Reachy_Mini#apps) built by the community for Reachy.
 
-Want to try it right away? Spin up [the full environment here](https://brev.nvidia.com/launchable/deploy?launchableID=env-37ZZY950tDIuCQSSHXIKSGpRbFJ). One click and you're running.
+Want to try it right away? Deploy [the full environment here](https://brev.nvidia.com/launchable/deploy?launchableID=env-37ZZY950tDIuCQSSHXIKSGpRbFJ). One click and you're running.
