@@ -244,7 +244,7 @@ At this point, you can start interacting with your agent\!
 
 ## Try these example prompts
 
-Here are a few simple prompts to help you test your personal assistant. You can start  with these and then experiment by adding your own  to see how the agent responds\!
+Here are a few simple prompts to help you test your personal assistant. You can start with these and then experiment by adding your own to see how the agent responds\!
 
 **Text-only prompts (routes to the fast text model)**
 
