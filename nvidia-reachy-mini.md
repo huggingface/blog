@@ -19,9 +19,9 @@ Today at CES 2026, NVIDIA unveiled a world of new open models to enable the futu
 
 But what if you could bring your own agent to life, right at your desk? An AI buddy that can be useful to you and process your data privately?
 
-In the CES keynote today, Jensen Huang showed us how we can do exactly that, using the processing power of NVIDIA [DGX Spark](https://www.nvidia.com/en-us/products/workstations/dgx-spark/) with [Reachy Mini](https://www.pollen-robotics.com/reachy-mini/) to create your own little office R2D2 you can talk to and collaborate with.
+In the CES keynote today, Jensen Huang showed us how we can do exactly that, using the processing power of NVIDIA [DGX Spark](https://www.nvidia.com/en-us/products/workstations/dgx-spark/) with [Reachy Mini](https://huggingface.co/spaces/pollen-robotics/Reachy_Mini) to create your own little office R2D2 you can talk to and collaborate with.
 
-This blog post provides a step-by-step guide to replicate this amazing experience at home using a DGX Spark and [Reachy Mini](https://www.pollen-robotics.com/reachy-mini/).
+This blog post provides a step-by-step guide to replicate this amazing experience at home using a DGX Spark and [Reachy Mini](https://huggingface.co/spaces/pollen-robotics/Reachy_Mini).
 
 ![Reachy Mini and DGX Spark on a desk](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/nvidia-reachy-mini/reachy-mini-dgx-spark.png)
 
