@@ -177,7 +177,7 @@ llms:
 
 ## Step 4: Add a Pipecat bot for real-time voice \+ vision 
 
-Now we go real time. [Pipecat](https://www.pipecat.ai/) is a framework designed for low-latency voice/multimodal agents: it orchestrates audio/video streams, AI services, and transports so you can build natural conversations.  In this repo, the bot service is responsible for:
+Now we go real time. [Pipecat](https://www.pipecat.ai/) is a framework designed for low-latency voice/multimodal agents: it orchestrates audio/video streams, AI services, and transports so you can build natural conversations. In this repo, the bot service is responsible for:
 
 * Capturing vision (robot camera)  
 * Speech recognition \+ text-to-speech  
