@@ -79,7 +79,7 @@ ELEVENLABS_API_KEY=your_elevenlabs_api_key_here
 
 ## Step 1: Build a chat interface
 
-Start by getting a basic LLM chat workflow running through NeMo Agent Toolkit’s API server. NeMo Agent Toolkit supports running workflows via \`nat serve\` and providing a config file. The [config file](https://github.com/brevdev/reachy-personal-assistant/blob/main/nat/src/ces_tutorial/config.yml) passed here contains all the necessary setup information for the agent, which includes the models used for chat, image understanding, as well as the router model used by the agent. The [NeMo Agent Toolkit UI](https://github.com/NVIDIA/NeMo-Agent-Toolkit-UI) can connect over HTTP/WebSocket so you can chat with your workflow like a standard chat product.  In this implementation, the NeMo Agent Toolkit server is launched on port 8001 (so your bot can call it, and the UI can too): 
+Start by getting a basic LLM chat workflow running through NeMo Agent Toolkit’s API server. NeMo Agent Toolkit supports running workflows via \`nat serve\` and providing a config file. The [config file](https://github.com/brevdev/reachy-personal-assistant/blob/main/nat/src/ces_tutorial/config.yml) passed here contains all the necessary setup information for the agent, which includes the models used for chat, image understanding, as well as the router model used by the agent. The [NeMo Agent Toolkit UI](https://github.com/NVIDIA/NeMo-Agent-Toolkit-UI) can connect over HTTP/WebSocket so you can chat with your workflow like a standard chat product. In this implementation, the NeMo Agent Toolkit server is launched on port 8001 (so your bot can call it, and the UI can too): 
 
 ```shell
 cd nat
