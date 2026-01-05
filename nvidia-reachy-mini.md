@@ -1,6 +1,6 @@
 ---
 title: "NVIDIA brings agents to life with DGX Spark and Reachy Mini" 
-thumbnail: /blog/assets/nvidia-reachy-mini/nvidia-reachy-mini-compressed.png
+thumbnail: /blog/assets/nvidia-reachy-mini/new_thumbnail.png
 authors:
 - user: jeffboudier
 - user: nader-at-nvidia
@@ -13,7 +13,7 @@ authors:
 
 # NVIDIA brings agents to life with DGX Spark and Reachy Mini
 
-![NVIDIA creates real world agents with DGX Spark and Reachy Mini at the CES 2026 Keynote](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/nvidia-reachy-mini/nvidia-reachy-mini-compressed.png)
+![NVIDIA creates real world agents with DGX Spark and Reachy Mini at the CES 2026 Keynote](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/nvidia-reachy-mini/new_thumbnail.png)
 
 Today at CES 2026, NVIDIA unveiled a world of new open models to enable the future of agents, online and in the real world. From the recently released [NVIDIA Nemotron](https://huggingface.co/collections/nvidia/nvidia-nemotron-v3) reasoning LLMs to the new [NVIDIA Isaac GR00T N1.6](https://huggingface.co/nvidia/GR00T-N1.6-3B) open reasoning VLA and [NVIDIA Cosmos world foundation models](https://huggingface.co/collections/nvidia/cosmos-reason2), all the building blocks are here today for AI Builders to build their own agents.
 
