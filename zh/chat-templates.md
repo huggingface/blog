@@ -124,11 +124,11 @@ tokenizer.chat_template = "{% for message in messages %}{{'<|im_start|>' + messa
 
 在类级别设置默认聊天模板，用于告诉 `ConversationPipeline` 等类在模型没有聊天模板时如何格式化输入，这样做 **纯粹是为了向后兼容**。我们强烈建议你在任何聊天模型上显式设置聊天模板，即使默认聊天模板是合适的。这可以确保默认聊天模板中的任何未来的更改或弃用都不会破坏你的模型。尽管我们将在可预见的将来保留默认聊天模板，但我们希望随着时间的推移将所有模型转换为显式聊天模板，届时默认聊天模板可能会被完全删除。
 
-有关如何设置和应用聊天模板的详细信息，请参阅 [技术文档](https://huggingface.co/docs/transformers/main/en/chat_templated)。
+有关如何设置和应用聊天模板的详细信息，请参阅 [技术文档](https://huggingface.co/docs/transformers/main/en/chat_templating)。
 
 ## 我该如何开始使用模板？
 
-很简单！如果分词器设置了 `chat_template` 属性，则它已准备就绪。你可以在 `ConversationPipeline` 中使用该模型和分词器，也可以调用 `tokenizer.apply_chat_template()` 来格式化聊天以进行推理或训练。请参阅我们的 [开发者指南](https://huggingface.co/docs/transformers/main/en/chat_templated) 或 [如何应用聊天模板的文档](https://huggingface.co/docs/transformers/main/en/internal/tokenization_utils#transformers.PreTrainedTokenizerBase.apply_chat_template) 以了解更多！
+很简单！如果分词器设置了 `chat_template` 属性，则它已准备就绪。你可以在 `ConversationPipeline` 中使用该模型和分词器，也可以调用 `tokenizer.apply_chat_template()` 来格式化聊天以进行推理或训练。请参阅我们的 [开发者指南](https://huggingface.co/docs/transformers/main/en/chat_templating) 或 [如何应用聊天模板的文档](https://huggingface.co/docs/transformers/main/en/internal/tokenization_utils#transformers.PreTrainedTokenizerBase.apply_chat_template) 以了解更多！
 
 如果分词器没有 `chat_template` 属性，它可能仍然可以工作，但它将使用该模型类的默认聊天模板。正如我们上面提到的，这是脆弱的，并且当类模板与模型实际训练的内容不匹配时，它同样会导致静默错误。如果你想使用没有 `chat_template` 的 checkpoint，我们建议检查模型卡等文档以确保使用正确的格式，然后为该格式添加正确的 `chat_template` 。即使默认聊天模板是正确的，我们也建议这样做 - 它可以使模型面向未来，并且还可以清楚地表明该模板是存在的且是适用的。
 
