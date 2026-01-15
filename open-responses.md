@@ -145,7 +145,7 @@ Open Responses extends and improves the Responses API, providing richer and more
 
 ![acceptance test](https://huggingface.co/huggingface/documentation-images/resolve/main/openresponses/image2.png)
 
-You can try Open Responses with [Hugging Face Inference Providers](https://huggingface.co/docs/inference-providers/index) today. We have an early access version available for use on [Hugging Face Spaces](https://evalstate-openresponses.hf.space/v1) \- try it with your Client and Open Responses Compliance Tool today!
+You can try Open Responses with [Hugging Face Inference Providers](https://huggingface.co/docs/inference-providers/index) today. We have an early access version available for use on [Hugging Face Spaces](https://huggingface.co/spaces/evalstate/openresponses) \- try it with your Client and Open Responses Compliance Tool today!
   
 
 
