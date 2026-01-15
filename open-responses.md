@@ -100,7 +100,7 @@ Here’s the difference between Open Response and Responses for reasoning deltas
 
 ### Open Responses for Routing
 
-Open Responses distinguishes between “Model Providers” \- those who provide inference, and “Routers” \- intermediaries who orchestrate between multiple providers. 
+Open Responses distinguishes between “Model Providers” - those who provide inference, and “Routers” - intermediaries who orchestrate between multiple providers. 
 
 Clients can now specify a Provider along with provider-specific API options when making requests, allowing intermediary Routers to orchestrate requests between upstream providers.
 
