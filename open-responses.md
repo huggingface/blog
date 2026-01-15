@@ -39,7 +39,7 @@ We’ll briefly explore the core changes that impact most community members. If 
 
 ### Client Requests to Open Responses
 
-Client requests to Open Responses are similar to the existing Responses API:
+Client requests to Open Responses are similar to the existing Responses API. Below we demonstrate a request to the Open Responses API using curl. We're calling a proxy endpoint that routes to Inference Providers using the Open Responses API schema.
 
 ```diff
  curl https://evalstate-openresponses.hf.space/v1/responses \
