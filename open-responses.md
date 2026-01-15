@@ -1,5 +1,5 @@
 ---
-title: "Open Responses: What we need to know" 
+title: "Open Responses: What you need to know" 
 thumbnail: /blog/assets/openresponses/thumbnail.png
 authors:
 - user: evalstate  
@@ -127,8 +127,6 @@ For internally-hosted tools, the provider manages the entire loop; executing too
 
 Clients control loop behavior via `max_tool_calls` to cap iterations and `tool_choice` to constrain which tools are invocable:
 
-json
-
 ```json
 {
   "model": "zai-org/GLM-4.7",
@@ -145,9 +143,9 @@ The response contains all intermediate items: tool calls, results, reasoning.
 
 Open Responses extends and improves the Responses API, providing richer and more detailed content definitions, compatibility, and deployment options. It also provides a standard way to execute sub-agent loops during primary inference calls, opening up powerful capabilities for AI Applications. We are looking forward to working with the Open Responses team **and the community at large** on future development of the specification. 
 
-![acceptance test][https://huggingface.co/huggingface/documentation-images/resolve/main/openresponses/image2.png]
+![acceptance test](https://huggingface.co/huggingface/documentation-images/resolve/main/openresponses/image2.png)
 
-You can try Open Responses with [Hugging Face Inference Providers](https://huggingface.co/docs/inference-providers/index) today. We have an early access version available for use on [Hugging Face spaces](https://evalstate-openresponses.hf.space/v1) \- try it with your Client and Open Responses Compliance tool today!
+You can try Open Responses with [Hugging Face Inference Providers](https://huggingface.co/docs/inference-providers/index) today. We have an early access version available for use on [Hugging Face Spaces](https://evalstate-openresponses.hf.space/v1) \- try it with your Client and Open Responses Compliance Tool today!
   
 
 
