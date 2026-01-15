@@ -132,7 +132,7 @@ json
 
 ```json
 {
-  "model": "gpt-4o",
+  "model": "zai-org/GLM-4.7",
   "input": "Find Q3 sales data and email a summary to the team",
   "tools": [...],
   "max_tool_calls": 5,
