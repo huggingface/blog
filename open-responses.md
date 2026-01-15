@@ -12,7 +12,7 @@ authors:
 
 Open Responses is a new and open inference standard. Initiated by OpenAI, built by the open source AI community, and backed by the Hugging Face ecosystem, Open Responses is based on the Responses API and is designed for the future of Agents. In this blog post, we’ll look at how Open Responses works and why the open source community should use Open Responses.
 
-The era of the chatbot is long gone, and agents dominate inference workloads. Developers are shifting toward autonomous systems that reason, plan, and act over long time horizons. Despite this shift, much of the ecosystem still uses the **Chat Completion** format, which is designed for turn-based conversations and falls short for agentic use cases compared to the **Responses format**, which is closed and not as widely adopted. The **Chat Completion** format has become a de facto standard despite the alternatives.
+The era of the chatbot is long gone, and agents dominate inference workloads. Developers are shifting toward autonomous systems that reason, plan, and act over long-time horizons. Despite this shift, much of the ecosystem still uses the **Chat Completion** format, which was designed for turn-based conversations and falls short for agentic use cases. The **Responses format** was designed to address these limitations, but it is closed and not as widely adopted. The **Chat Completion** format is still the de facto standard despite the alternatives.
 
 This mismatch between the agentic workflow requirements and entrenched interfaces motivates the need for an open inference standard. Over the coming months, we will collaborate with the community and inference providers to implement and adapt Open Responses to a shared format, practically capable of replacing chat completions. 
 
@@ -22,7 +22,7 @@ Open Responses builds on the direction OpenAI has set with their  [*Responses AP
 - Create Video content through a separate task-based endpoint  
 - Run agentic loops on the provider side, executing tool calls autonomously and returning the final result.
 
-# What is Open Responses?
+## What is Open Responses?
 
 Open Responses extends and open-sources the Responses API,  making it more accessible for builders and routing providers to interoperate and collaborate on shared interests. 
 
@@ -31,7 +31,7 @@ Some of the key points are:
 - Stateless by default, supporting encrypted reasoning for providers that require it.  
 - Standardized model configuration parameters.  
 - Streaming is modeled as a series of semantic events, not raw text or object deltas.  
-- Works as both a routing layer and a model provider endpoint. Routers can provide custom tools and agent loops, and forward requests to upstream providers.
+- Extensible via configurable parameters specific to certain model providers.
 
 ## What do we need to know to build with Open Responses?
 
@@ -40,8 +40,6 @@ We’ll briefly explore the core changes that impact most community members. If 
 ### Client Requests to Open Responses
 
 Client requests to Open Responses are similar to the existing Responses API:
-
-````shell
 
 ```diff
  curl https://evalstate-openresponses.hf.space/v1/responses \
@@ -54,14 +52,13 @@ Client requests to Open Responses are similar to the existing Responses API:
          "input": "explain the theory of life"
        }'
 ```
-````
 
 ### Changes for Inference Clients and Providers
 
 Clients that already support the Responses API can migrate to Open Responses with relatively little effort. The main changes are:
 
 - Migrating reasoning streams to use extendable “reasoning” chunks rather than “reasoning\_text”.  
-- Implementing richer state changes and payloads \- for example, a hosted Code Interpreter can send a specific \`interpreting\` state to improve Agent/User observability.
+- Implementing richer state changes and payloads - for example, a hosted Code Interpreter can send a specific `interpreting` state to improve Agent/User observability.
 
 For Model Providers, implementing the changes for Open Responses should be straightforward if they already adhere to the Responses API specification. For Routers, there is now the opportunity to standardize on a consistent endpoint and support configuration options for customization where needed. 
 
@@ -109,7 +106,7 @@ Clients can now specify a Provider along with provider-specific API options when
 
 ### Tools
 
-Open Responses natively supports two categories of tools, internal and external. Externally hosted tools are implemented outside the model provider’s system. For example, client side functions to be executed or MCP servers. Internally hosted tools are within the model provider’s system. For example, OpenAI’s file search or Google Drive integration. The model calls, executes, and retrieves results entirely within the provider's infrastructure, requiring no developer intervention.
+Open Responses natively supports two categories of tools: internal and external. Externally hosted tools are implemented outside the model provider’s system. For example, client side functions to be executed, or MCP servers. Internally hosted tools are within the model provider’s system. For example, OpenAI’s file search or Google Drive integration. The model calls, executes, and retrieves results entirely within the provider's infrastructure, requiring no developer intervention.
 
 ### Sub Agent Loops
 
@@ -144,11 +141,11 @@ The response contains all intermediate items: tool calls, results, reasoning.
 
 ## Next Steps
 
-Open Responses extends and improves the Responses API, providing richer and more detailed content definitions, compatibility, and deployment options. It also provides a standard way to execute sub-agent loops during primary inference calls, opening up powerful capabilities for AI Applications. We are looking forward to working with the Open Responses team **and community** on future development of the specification. 
+Open Responses extends and improves the Responses API, providing richer and more detailed content definitions, compatibility, and deployment options. It also provides a standard way to execute sub-agent loops during primary inference calls, opening up powerful capabilities for AI Applications. We are looking forward to working with the Open Responses team **and the community at large** on future development of the specification. 
 
 ![acceptance test][https://huggingface.co/huggingface/documentation-images/resolve/main/openresponses/image2.png]
 
-You can try Open Responses with [Hugging Face Inference Providers](https://huggingface.co/docs/inference-providers/index) today. We have an early access version available for use on [Hugging Face spaces](https://evalstate-openresponses.hf.space/v1) \- try it with your Client and Open Responses Compliance tool today.
+You can try Open Responses with [Hugging Face Inference Providers](https://huggingface.co/docs/inference-providers/index) today. We have an early access version available for use on [Hugging Face spaces](https://evalstate-openresponses.hf.space/v1) \- try it with your Client and Open Responses Compliance tool today!
   
 
 
