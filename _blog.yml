@@ -5011,3 +5011,15 @@
     - reachy
     - agents
     - hardware
+
+- local: open-responses
+  date: Jan 15, 2026
+  tags:
+    - open-responses
+    - responses
+    - open-source
+    - community
+    - inference
+    - agents
+    - mcp
+    - inference-providers
