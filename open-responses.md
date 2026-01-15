@@ -10,7 +10,7 @@ authors:
 
 <!-- TODO: @burtenshaw: fancy thumbnail -->
 
-Open Responses is a new and open inference standard. Initiated by OpenAI, built by the open source AI community, and backed by the Hugging Face ecosystem. Open Responses is based on the Responses API and fits for the future of Agents. In this blog post, we’ll look at how Open Responses works and why the open source community should use Open Responses.
+Open Responses is a new and open inference standard. Initiated by OpenAI, built by the open source AI community, and backed by the Hugging Face ecosystem, Open Responses is based on the Responses API and is designed for the future of Agents. In this blog post, we’ll look at how Open Responses works and why the open source community should use Open Responses.
 
 The era of the chatbot is long gone, and agents dominate inference workloads. Developers are shifting toward autonomous systems that reason, plan, and act over long time horizons. Despite this shift, much of the ecosystem still uses the **Chat Completion** format, which is designed for turn-based conversations and falls short for agentic use cases compared to the **Responses format**, which is closed and not as widely adopted. The **Chat Completion** format has become a de facto standard despite the alternatives.
 
