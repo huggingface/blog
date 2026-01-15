@@ -112,7 +112,9 @@ Open Responses natively supports two categories of tools: internal and external.
 
 Open Responses formalizes the agentic loop which is usually made up of a repeating cycle of reasoning, tool invocation, and response generation that enables models to autonomously complete multi-step tasks.
 
-![process diagram][https://huggingface.co/huggingface/documentation-images/resolve/main/openresponses/image1.png]
+![process diagram](https://huggingface.co/huggingface/documentation-images/resolve/main/openresponses/image1.png)
+
+[image source: openresponses.org](https://www.openresponses.org/specification#the-agentic-loop)
 
 The loop operates as follows:
 
