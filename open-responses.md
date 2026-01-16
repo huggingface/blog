@@ -8,8 +8,6 @@ authors:
 - user: pcuenq
 ---
 
-<!-- TODO: @burtenshaw: fancy thumbnail -->
-
 Open Responses is a new and open inference standard. Initiated by OpenAI, built by the open source AI community, and backed by the Hugging Face ecosystem, Open Responses is based on the Responses API and is designed for the future of Agents. In this blog post, we’ll look at how Open Responses works and why the open source community should use Open Responses.
 
 The era of the chatbot is long gone, and agents dominate inference workloads. Developers are shifting toward autonomous systems that reason, plan, and act over long-time horizons. Despite this shift, much of the ecosystem still uses the **Chat Completion** format, which was designed for turn-based conversations and falls short for agentic use cases. The **Responses format** was designed to address these limitations, but it is closed and not as widely adopted. The **Chat Completion** format is still the de facto standard despite the alternatives.
@@ -56,9 +54,6 @@ Client requests to Open Responses are similar to the existing Responses API. Bel
 ### Changes for Inference Clients and Providers
 
 Clients that already support the Responses API can migrate to Open Responses with relatively little effort. The main changes are:
-
-Clients that already support the Responses API can migrate to Open Responses with relatively little effort. The main
-changes involve how reasoning content is exposed:
 
 - Expanded reasoning visibility: Open Responses formalizes three optional fields for reasoning items: `content` (raw
 reasoning traces), `encrypted_content` (provider-specific protected content), and `summary` (sanitized from raw traces).
@@ -107,7 +102,7 @@ data: { "delta": "Determined user wants restaurant recommendations", ... }
 
 ### Open Responses for Routing
 
-Open Responses distinguishes between “Model Providers” - those who provide inference, and “Routers” - intermediaries who orchestrate between multiple providers. 
+Open Responses distinguishes between “Model Providers” — those who provide inference — and “Routers” — intermediaries who orchestrate between multiple providers.
 
 Clients can now specify a Provider along with provider-specific API options when making requests, allowing intermediary Routers to orchestrate requests between upstream providers.
 
