@@ -66,7 +66,8 @@ reasoning traces), `encrypted_content` (provider-specific protected content), an
 OpenAI models used to only expose `summary` and `encrypted_content`. With Open Responses, providers may expose their raw reasoning via the API. 
 Clients migrating from providers that previously returned only summaries and encrypted content will now have the
 opportunity to receive and handle raw reasoning streams when supported by their chosen provider.
-- Implementing richer state changes and payloads: for example Open Responses enables more detailed observability—for example, a hosted Code Interpreter can send a specific `interpreting` state to improve agent and user visibility during long-running operations.
+
+- Implementing richer state changes and payloads, including more detailed observability—for example, a hosted Code Interpreter can send a specific `interpreting` state to improve agent and user visibility during long-running operations.
 
 For Model Providers, implementing the changes for Open Responses should be straightforward if they already adhere to the Responses API specification. For Routers, there is now the opportunity to standardize on a consistent endpoint and support configuration options for customization where needed. 
 
