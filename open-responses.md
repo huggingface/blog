@@ -57,8 +57,17 @@ Client requests to Open Responses are similar to the existing Responses API. Bel
 
 Clients that already support the Responses API can migrate to Open Responses with relatively little effort. The main changes are:
 
-- Migrating reasoning streams to use extendable “reasoning” chunks rather than “reasoning\_text”.  
-- Implementing richer state changes and payloads - for example, a hosted Code Interpreter can send a specific `interpreting` state to improve Agent/User observability.
+Clients that already support the Responses API can migrate to Open Responses with relatively little effort. The main
+changes involve how reasoning content is exposed:
+
+- Expanded reasoning visibility: Open Responses formalizes three optional fields for reasoning items: `content` (raw
+reasoning traces), `encrypted_content` (provider-specific protected content), and `summary` (sanitized from raw traces).
+
+OpenAI models used to only expose `summary` and `encrypted_content`. With Open Responses, providers may expose their raw reasoning via the API. 
+Clients migrating from providers that previously returned only summaries and encrypted content will now have the
+opportunity to receive and handle raw reasoning streams when supported by their chosen provider.
+
+- Implementing richer state changes and payloads, including more detailed observability—for example, a hosted Code Interpreter can send a specific `interpreting` state to improve agent and user visibility during long-running operations.
 
 For Model Providers, implementing the changes for Open Responses should be straightforward if they already adhere to the Responses API specification. For Routers, there is now the opportunity to standardize on a consistent endpoint and support configuration options for customization where needed. 
 
@@ -83,19 +92,17 @@ You can see how to stream reasoning chunks below.
 
 ```
 
-Here’s the difference between Open Response and Responses for reasoning deltas:
+Here’s the difference between getting an Open Response and using OpenAI Responses for reasoning deltas:
 
-```diff
-{
-  "delta": " heres what i'm thinking",
-  "sequence_number": 12,
-+ "type": "response.reasoning.delta",
-- "type": "response.reasoning_text.delta",
-  "item_id": "msg_cbfb8a361f26c0ed0cb133b3c2387279b3d54149a262f3a7",
-  "output_index": 0,
-  "obfuscation": "0HG8OhAdaLQBg",
-  "content_index": 0
-}
+```json
+// Open weight models stream raw reasoning
+event: response.reasoning.delta
+data: { "delta": "User asked: 'Where should I eat...' Step 1: Parse location...", ... }
+
+// Models with encrypted reasoning send summaries, or sent as a convenience by Open Weight models
+event: response.reasoning_summary_text.delta
+data: { "delta": "Determined user wants restaurant recommendations", ... }
+
 ```
 
 ### Open Responses for Routing
