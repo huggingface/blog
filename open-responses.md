@@ -53,7 +53,8 @@ Client requests to Open Responses are similar to the existing Responses API. Bel
 
 ### Changes for Inference Clients and Providers
 
-Clients that already support the Responses API can migrate to Open Responses with relatively little effort. The main changes are:
+Clients that already support the Responses API can migrate to Open Responses with relatively little effort. The main
+changes involve how reasoning content is exposed:
 
 - Expanded reasoning visibility: Open Responses formalizes three optional fields for reasoning items: `content` (raw
 reasoning traces), `encrypted_content` (provider-specific protected content), and `summary` (sanitized from raw traces).
