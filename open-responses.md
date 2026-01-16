@@ -60,9 +60,10 @@ Clients that already support the Responses API can migrate to Open Responses wit
 Clients that already support the Responses API can migrate to Open Responses with relatively little effort. The main
 changes involve how reasoning content is exposed:
 
-- Expanded reasoning visibility: Open Responses formalizes three optional fields for reasoning items: content (raw
-reasoning traces), encrypted_content (provider-specific protected content), and summary (sanitized from raw traces).
-For users used to using OpenAI's models only the summary and encrypted_content were visible. With Open Responses, open weight models will expose their raw reasoning via the API. 
+- Expanded reasoning visibility: Open Responses formalizes three optional fields for reasoning items: `content` (raw
+reasoning traces), `encrypted_content` (provider-specific protected content), and `summary` (sanitized from raw traces).
+
+OpenAI models used to only expose `summary` and `encrypted_content`. With Open Responses, providers may expose their raw reasoning via the API. 
 Clients migrating from providers that previously returned only summaries and encrypted content will now have the
 opportunity to receive and handle raw reasoning streams when supported by their chosen provider.
 - Implementing richer state changes and payloads: for example Open Responses enables more detailed observability—for example, a hosted Code Interpreter can send a specific `interpreting` state to improve agent and user visibility during long-running operations.
