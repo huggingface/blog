@@ -1,6 +1,6 @@
 ---
 title: "Introducing Waypoint-1: Real-time interactive video diffusion from Overworld"
-thumbnail: /blog/assets/waypoint-1/waypoint-1.gif
+thumbnail: /blog/assets/overworld/overworld_image.png
 authors:
 - user: lapp0
 - user: LouisCastricato
