@@ -5024,7 +5024,7 @@
     - mcp
     - inference-providers
 
-- local: overworld-waypoint
+- local: waypoint-1
   date: Jan 20, 2026
   tags:
     - announcement
