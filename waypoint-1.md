@@ -68,6 +68,13 @@ for controller_input in [
     img = engine.gen_frame(ctrl=controller_input)
 ```
 
-## Come Build with World Engine
+## Build with World Engine
 
 We’re running a `world_engine` hackathon on 1/20/2026 - You can RSVP [here](https://luma.com/klpa49os). Teams of 2-4 are welcome and the prize is a 5090 GPU on the spot. We’d love to see what you can come up with to extend the world_engine and it should be a great event to meet like-minded founders, engineers, hackers and investors. We hope you can join us at 10am PST on January 20th for 8 hours of friendly competition!
+
+## Stay in Touch
+
+- [Website](http://over.world)
+- [Discord (Developers)](https://discord.gg/mc6t9jjrR8)
+- [Discord (Models/Players)](https://discord.gg/MEmQa7Wux4)
+- [X/Twitter](https://x.com/overworld_ai)
