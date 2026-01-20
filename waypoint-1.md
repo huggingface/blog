@@ -11,11 +11,11 @@ authors:
 
 # Waypoint-1: Real-time interactive video diffusion from [Overworld](http://over.world)
 
-## Waypoint-1 **Weights** on the Hub:
- - https://huggingface.co/overworld/Waypoint-1-Small
- - https://huggingface.co/overworld/Waypoint-1-Medium
+## Waypoint-1 **Weights** on the Hub
+ - [Waypoint-1-Small](https://huggingface.co/overworld/Waypoint-1-Small)
+ - [Waypoint-1-Medium](https://huggingface.co/overworld/Waypoint-1-Medium)
 
-## Try it Out:
+## Try it Out
 **Overworld Stream:** https://overworld.stream
 
 ## What is Waypoint-1?
