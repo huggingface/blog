@@ -3,10 +3,20 @@ title: "Introducing Waypoint-1: Real-time interactive video diffusion from Overw
 thumbnail: /blog/assets/overworld/overworld_image.png
 authors:
 - user: lapp0
+  guest: true
+  org: overworld
 - user: LouisCastricato
+  guest: true
+  org: overworld
 - user: ScottieFox
+  guest: true
+  org: overworld
 - user: shahbuland
+  guest: true
+  org: overworld
 - user: xAesthetics
+  guest: true
+  org: overworld
 ---
 
 # Waypoint-1: Real-time interactive video diffusion from [Overworld](http://over.world)
@@ -19,12 +29,12 @@ authors:
  - [Waypoint-1-Small](https://huggingface.co/overworld/Waypoint-1-Small)
  - [Waypoint-1-Medium](https://huggingface.co/overworld/Waypoint-1-Medium)
 
-## Try it Out
+## Try Out The Model
 **Overworld Stream:** https://overworld.stream
 
 ## What is Waypoint-1?
 
-Waypoint-1 is over.world (Overworld’s) real-time-interactive video diffusion model, controllable and prompted via text, mouse, and keyboard. You can give the model some frames, run the model, and have it create a world you can step into and interact with.
+Waypoint-1 is Overworld’s real-time-interactive video diffusion model, controllable and prompted via text, mouse, and keyboard. You can give the model some frames, run the model, and have it create a world you can step into and interact with.
 
 The backbone of the model is a frame-causal rectified flow transformer trained on 10,000 hours of diverse video game footage paired with control inputs and text captions. Waypoint-1 is a latent model, meaning that it is trained on compressed frames.
 
@@ -39,7 +49,7 @@ While diffusion forcing presents a strong baseline, randomly noising all frames 
 
 ## The Inference Library: [WorldEngine](https://github.com/Wayfarer-Labs/world_engine)
 
-WorldEngine is Overworld’s high‑performance inference library for interactive world model streaming. It provides the core tooling for building inference applications in pure Python, optimized for low latency, high throughput, extensibility, and developer simplicity. The runtime loop is designed for interactivity: it consumes context frame images, keyboard/mouse inputs, and text, and outputs image frames for real‑time streaming.
+[WorldEngine](https://github.com/Wayfarer-Labs/world_engine) is Overworld’s high‑performance inference library for interactive world model streaming. It provides the core tooling for building inference applications in pure Python, optimized for low latency, high throughput, extensibility, and developer simplicity. The runtime loop is designed for interactivity: it consumes context frame images, keyboard/mouse inputs, and text, and outputs image frames for real‑time streaming.
 
 On Waypoint‑1‑Small (2.3B) running on a 5090, WorldEngine sustains ~30,000 token‑passes/sec (single denoising pass; 256 tokens per frame) and achieves 30 FPS at 4 steps or 60 FPS at 2 steps
 
