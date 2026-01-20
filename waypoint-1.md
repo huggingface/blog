@@ -51,7 +51,7 @@ Performance comes from four targeted optimizations:
 from world_engine import WorldEngine, CtrlInput
 
 # Create inference engine
-engine = WorldEngine("overworld/Waypoint-1-Small", device="cuda")
+engine = WorldEngine("Overworld/Waypoint-1-Small", device="cuda")
 
 # Specify a prompt
 engine.set_prompt("A game where you herd goats in a beautiful valley")
