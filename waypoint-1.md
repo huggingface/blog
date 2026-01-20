@@ -11,6 +11,10 @@ authors:
 
 # Waypoint-1: Real-time interactive video diffusion from [Overworld](http://over.world)
 
+<p align="center">
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/overworld-waypoint.gif" alt="waypoint launch grid" width=70%>
+</p>
+
 ## Waypoint-1 **Weights** on the Hub
  - [Waypoint-1-Small](https://huggingface.co/overworld/Waypoint-1-Small)
  - [Waypoint-1-Medium](https://huggingface.co/overworld/Waypoint-1-Medium)
