@@ -5023,3 +5023,10 @@
     - agents
     - mcp
     - inference-providers
+
+- local: overworld-waypoint
+  date: Jan 20, 2026
+  tags:
+    - announcement
+    - diffusion
+    - world-model
