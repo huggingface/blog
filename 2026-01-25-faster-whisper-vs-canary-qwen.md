@@ -1,19 +1,15 @@
 ---
-
 title: "Faster-Whisper vs. NVIDIA Canary-Qwen-2.5B: A Practical Comparison for Speech-to-Text"
-thumbnail: /blog/assets/faster-whisper-canary.png
 authors:
-
-- name: Norwood Systems
-  url: [https://huggingface.co/norwoodsystems](https://huggingface.co/norwoodsystems)
-  tags:
-- speech-recognition
-- automatic-speech-recognition
-- whisper
-- nvidia
-- llm
-- inference
-
+  - name: Norwood Systems
+    url: https://huggingface.co/norwooodsystems
+tags:
+  - speech-recognition
+  - automatic-speech-recognition
+  - whisper
+  - nvidia
+  - llm
+  - inference
 ---
 
 Speech-to-text (STT) systems are increasingly expected to deliver not only fast and accurate transcription, but also seamless integration into downstream workflows. Two popular—but fundamentally different—approaches have emerged in this space:
