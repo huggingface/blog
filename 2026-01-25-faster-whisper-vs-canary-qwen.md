@@ -4,15 +4,15 @@ title: "Faster-Whisper vs. NVIDIA Canary-Qwen-2.5B: A Practical Comparison for S
 thumbnail: /blog/assets/faster-whisper-canary.png
 authors:
 
-* name: Norwood Systems
+- name: Norwood Systems
   url: [https://huggingface.co/norwoodsystems](https://huggingface.co/norwoodsystems)
   tags:
-* speech-recognition
-* automatic-speech-recognition
-* whisper
-* nvidia
-* llm
-* inference
+- speech-recognition
+- automatic-speech-recognition
+- whisper
+- nvidia
+- llm
+- inference
 
 ---
 
