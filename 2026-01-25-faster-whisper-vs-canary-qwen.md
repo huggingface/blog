@@ -137,13 +137,13 @@ This design enables not only high-quality transcription, but also **punctuation,
 
 | Use Case                       | Faster-Whisper | Canary-Qwen-2.5B |
 | ------------------------------ | -------------- | ---------------- |
-| Simple transcription           | ✅              | ✅                |
-| Multilingual ASR               | ✅              | ❌                |
-| Low-latency / edge             | ✅              | ⚠                |
-| Transcript summarization / Q&A | ❌              | ✅                |
-| Enterprise speech analytics    | ⚠              | ⭐                |
-| Large batch processing         | 🚀             | 🚀               |
+| Simple transcription           | yes             | yes               |
+| Multilingual ASR               | yes             | no                |
+| Low-latency / edge             | yes             | limited                |
+| Transcript summarization / Q&A | no              | yes               |
+| Enterprise speech analytics    | limited              | preferred                |
 
+  
 ---
 
 ## Final Recommendation
