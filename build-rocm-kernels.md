@@ -434,7 +434,15 @@ rsync -av --delete --chmod=Du+w,Fu+w result/ build/
 
 #### Pushing to the Hugging Face Hub 
 
-Pushing the build artifacts to the Hub will make it straightforward for other developers to use your kernel. 
+Pushing the build artifacts to the Hub will make it straightforward for other developers to use your kernel.  We can use the `kernels upload` command for this: 
+
+
+```bash
+kernels upload <path_to_kernel> --repo_id hub-username/img2gray
+```
+
+<details>
+<summary>You can also follow a standard git-based process for the upload. 
 
 First, create a new repo: 
 
@@ -469,6 +477,9 @@ git add \
 git commit -m "feat: Created a compliant gemm kernel"
 git push -u origin main
 ```
+
+</details>
+
 Fantastic! Your kernel is now on the Hugging Face Hub, ready for others to use and fully compliant with the kernels library. 
 
 ### Step 5: Let's use it :) 
