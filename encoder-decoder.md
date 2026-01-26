@@ -366,10 +366,10 @@ $$ f_{\theta_{\text{enc}}}: \mathbf{X}_{1:n} \to \mathbf{\overline{X}}_{1:n}. $$
 
 The transformer-based decoder part then models the conditional
 probability distribution of the target vector sequence
-\\(\mathbf{Y}_{1:n}\\) given the sequence of encoded hidden states
+\\(\mathbf{Y}_{1:m}\\) given the sequence of encoded hidden states
 \\(\mathbf{\overline{X}}_{1:n}\\):
 
-$$ p_{\theta_{dec}}(\mathbf{Y}_{1:n} | \mathbf{\overline{X}}_{1:n}).$$
+$$ p_{\theta_{dec}}(\mathbf{Y}_{1:m} | \mathbf{\overline{X}}_{1:n}).$$
 
 By Bayes\' rule, this distribution can be factorized to a product of
 conditional probability distribution of the target vector \\(\mathbf{y}_i\\)
@@ -377,7 +377,7 @@ given the encoded hidden states \\(\mathbf{\overline{X}}_{1:n}\\) and all
 previous target vectors \\(\mathbf{Y}_{0:i-1}\\):
 
 $$
-p_{\theta_{dec}}(\mathbf{Y}_{1:n} | \mathbf{\overline{X}}_{1:n}) = \prod_{i=1}^{n} p_{\theta_{\text{dec}}}(\mathbf{y}_i | \mathbf{Y}_{0: i-1}, \mathbf{\overline{X}}_{1:n}). $$
+p_{\theta_{dec}}(\mathbf{Y}_{1:m} | \mathbf{\overline{X}}_{1:n}) = \prod_{i=1}^{m} p_{\theta_{\text{dec}}}(\mathbf{y}_i | \mathbf{Y}_{0: i-1}, \mathbf{\overline{X}}_{1:n}). $$
 
 The transformer-based decoder hereby maps the sequence of encoded hidden
 states \\(\mathbf{\overline{X}}_{1:n}\\) and all previous target vectors
