@@ -1,3 +1,12 @@
+---
+title: "We Got Claude to Build CUDA Kernels and teach open models!"
+thumbnail: /blog/assets/upskill/thumbnail.png
+authors:
+- user: burtenshaw
+- user: evalstate
+---
+
+
 # We Got Claude to Build CUDA Kernels and teach open models!
 
 The best thing about agent skills is upskilling your agents on hard problems. There are two ways to look at that: 1. You can take Opus 4.5 or other SOTA models and tackle the hardest problems out there. 2. You can take models that run on your laptop and upskill them to harder problems. In this blog post, we’ll show you how to take on the latter. 
