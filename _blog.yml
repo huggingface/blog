@@ -5030,3 +5030,12 @@
     - announcement
     - diffusion
     - world-model
+
+- local: upskill
+  date: Jan 28, 2026
+  tags:
+    - upskill
+    - agent-skills
+    - agentic
+    - community
+    - open-source
