@@ -4,6 +4,8 @@ thumbnail: /blog/assets/upskill/thumbnail.png
 authors:
 - user: burtenshaw
 - user: evalstate
+- user: merve
+- user: pcuenq
 ---
 
 
