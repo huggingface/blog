@@ -52,17 +52,21 @@ With `upskill` we can pass a skill and a set of models to the `eval` command and
 
 In this case, we might want to iterate further on the `gpt-oss` skills by regenerating the skill. We can do  `upskill generate –from {skill}`.
 
-There is more to agent skills than model performance. Often agents can reach a given accuracy with or without a skill, they just need to consume more tokens to get there. For recurring tasks, we want to optimize agents to use less tokens to achieve the same accuracy. The results below reveal another dimension to the skill. Some models are significantly reducing their performance token usage, whilst others are using more tokens **with** the skill. For example, with kimi the skill is clearly effective in terms of accuracy and token usage. However, for Claude Opus 4.5 there is no clear performance increase and an increase in token usage.
+There is more to agent skills than model performance. Often agents can reach a given accuracy with or without a skill, they just need to consume more tokens to get there. For recurring tasks, we want to optimize agents to use less tokens to achieve the same accuracy. The results below reveal another dimension to the skill. Some models are significantly reducing their performance token usage, whilst others are using more tokens **with** the skill. For example, with [`moonshotai/Kimi-K2-Thinking`](https://huggingface.co/moonshotai/Kimi-K2-Thinking) the skill is clearly effective in terms of accuracy and token usage. However, for Claude Opus 4.5 there is no clear performance increase and an increase in token usage, so you would not want to use this skill with Claude Opus 4.5.
 
 ![token usage](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/upskill-blog/tokens.png)
 
-**tldr;** try out evals models with skills on your regular tasks!
-
-We could also choose to improve the skill by regenerating them. We could either do this ad hoc within our favorite agent harness, or using `upskill generate –from {skill|trace}` . We can then evaluate the latest skill to check improvements. 
+**tldr;** try out and evaluate models with the skills you create. Use `upskill eval` or a similar tool to evaluate the models performance with and without skills.
 
 That’s the high level end to end of upskilling your coding agents on hard problems. Try out upskill now like this:
 
 ```shell
+# install upskill
+pip install upskill
+
+# or use uvx 
+uvx upskill --help
+
 # generate a skill based on an agent trace
 upskill generate "write nvidia kernels" --from ./trace.md
 # evaluate models on a skill
@@ -168,8 +172,8 @@ The skill is saved as a directory following the [Agent Skills specification](htt
 └── skill_meta.json    # Metadata and test cases
 ```
 
-<detail>  
-Open `SKILL.md` to see what upskill generated:
+<details>
+<summary>Open `SKILL.md` to see what upskill generated:</summary>
 
 ```
 ---
@@ -211,7 +215,7 @@ capabilities = ["9.0"]
 ...
 ```
 
-</detail>
+</details>
 
 ### Evaluate on a Different Model
 
@@ -246,16 +250,14 @@ This is the core value proposition: use expensive models to create skills, then 
 
 ## How the evaluation in upskill works
 
-upskill uses a teacher-student approach to evaluate models.
+upskill uses a teacher-student approach to evaluate models where the teacher model generates test cases for the student model to be evaluated on.
 
 1. **Teacher model** (Opus) generates the skill  
 2. **Test cases** (Opus) are generated automatically from the task description  
 3. **Student model** (local) is evaluated with and without the skill  
 4. **Skill lift** measures the improvement
 
-
-
-Test cases are simple input/output pairs that verify the agent understands the task:
+If you pass an existing skill to `upskill eval`, it will generate test cases for the skill and evaluate the model on them. Test cases are simple input/output pairs that verify the agent understands the task:
 
 ```json
 {
