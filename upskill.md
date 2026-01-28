@@ -7,15 +7,17 @@ authors:
 ---
 
 
-# We Got Claude to Build CUDA Kernels and teach open models!
+# We got Claude to teach open models how to write CUDA kernels!
 
-The best thing about agent skills is upskilling your agents on hard problems. There are two ways to look at that: 1. You can take Opus 4.5 or other SOTA models and tackle the hardest problems out there. 2. You can take models that run on your laptop and upskill them to harder problems. In this blog post, we’ll show you how to take on the latter. 
+The best thing about agent skills is _upskilling_ your agents on hard problems. There are two ways to look at that: 
+1. You can take Opus 4.5 or other SOTA models and tackle the hardest problems out there. 
+2. You can take models that run on your laptop and upskill them to harder problems. In this blog post, we’ll show you how to take on the latter. 
 
-This blog post walks through the process of using a new tool, `upskill`, to generate and evaluate agent skills with large models and use with smaller models. We will benchmark `upskill` on the task of writing CUDA kernels for `diffusers` model, but it’s generally useful for cutting costs or using smaller models on hard problems. 
+This blog post walks through the process of using a new tool, `upskill`, to generate and evaluate agent skills with large models and use them with smaller models. We will benchmark `upskill` on the task of writing CUDA kernels for [`diffusers`](https://huggingface.co/docs/diffusers/en/index) models, but the process is generally useful for cutting costs, or using smaller models on hard and domain-specific problems. 
 
 ## What are agent skills?
 
-In case you missed it, agent skills are taking the coding agent game by storm. In fact, they’re a reasonably straightforward concept. We can see them as model context in file form. The file format makes them easy to generate, share, and review. In short, they’re an excellent medium to share skill across model or tool.  
+In case you missed it, agent skills are taking the coding agent game by storm. In fact, they’re a straightforward concept to define model context as files, like instructions as markdown and code as scripts. The file format makes them easy to generate, share, and review. In short, they’re an practical medium to share capabilities across models and tools, and they're most useful in specific domains or hard problems. Not stuff the model can do well anyway. 
 
 We tried out simple skill based on existing documentation and we find that for some models it improved performace, but not all. In fact, for some models it even degraded performance and/or increased token usage. Check out the plot below to see the performance of the model with and without the skill.
 
