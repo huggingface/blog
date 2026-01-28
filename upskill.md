@@ -19,6 +19,7 @@ This blog post walks through the process of using a new tool, `upskill`, to gene
 
 In case you missed it, agent skills are taking the coding agent game by storm. In fact, they’re a straightforward concept to define model context as files, like instructions as markdown and code as scripts. The file format makes them easy to generate, share, and review. In short, they’re an practical medium to share capabilities across models and tools, and they're most useful in specific domains or hard problems. Not stuff the model can do well anyway. 
 
+This post showcases this process by using Claude to generate a Skill file that can be used by open source models for a complex and specialized task: write CUDA kernels.
 We tried out simple skill based on existing documentation and we find that for some models it improved performace, but not all. In fact, for some models it even degraded performance and/or increased token usage. Check out the plot below to see the performance of the model with and without the skill.
 
 ![plot of model performance](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/upskill-blog/skill-plot.png)
