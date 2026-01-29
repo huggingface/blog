@@ -144,38 +144,6 @@ node = InferenceNode(
 )
 ```
 
-### Scatter and Gather
-
-Need to process a list of items in parallel? For instance, assume you’re building a podcast generator, if one node outputs a script with 5 lines of dialogue:
-
-`[ {"text": "Welcome to the show!", "speaker": "host"}, {"text": "Thanks for having me.", "speaker": "guest"}, {"text": "Let's dive in.", "speaker": "host"}, *# ... etc* ]`
-
-You want to convert each line to audio separately (scatter) and combine all the audio clips to one clip (gather). Use `.each` to scatter and `.all()` to gather:
-
-```py
-# Generate a script with multiple lines
-script = FnNode(fn=generate_script, inputs={...}, outputs={"lines": gr.JSON()})
-
-# Process each line individually (scatter)
-tts = FnNode(
-    fn=text_to_speech,
-    inputs={
-        "text": script.lines.each["text"],
-        "speaker": script.lines.each["speaker"],
-    },
-    outputs={"audio": gr.Audio()},
-)
-
-# Combine all results (gather)
-final = FnNode(
-    fn=combine_audio,
-    inputs={"audio_files": tts.audio.all()},
-    outputs={"audio": gr.Audio()},
-)
-```
-
-> [!TIP]
-> This feature is experimental.
 
 ### Sharing Your Workflows
 
