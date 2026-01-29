@@ -11,7 +11,7 @@ authors:
 
 # Introducing Daggr: Chain apps programmatically, inspect visually
 
-**TL;DR:** [Daggr](https://github.com/gradio-app/daggr) is a new, open-source Python library for building AI workflows that connect Gradio apps, ML models, and custom functions. It automatically generates a visual canvas where you can inspect intermediate outputs, rerun individual steps, and manage state for complex pipelines—all in a few lines of Python code.
+**TL;DR:** [Daggr](https://github.com/gradio-app/daggr) is a new, open-source Python library for building AI workflows that connect Gradio apps, ML models, and custom functions. It automatically generates a visual canvas where you can inspect intermediate outputs, rerun individual steps, and manage state for complex pipelines, all in a few lines of Python code!
 
 ![demo](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/daggr-blog/daggr.mp4)
 
