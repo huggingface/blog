@@ -237,7 +237,6 @@ downscaler = FnNode(
 We will now write the `InferenceNode` with the Flux model.
 
 ```py
-
 flux_enhancer = InferenceNode(
    model="black-forest-labs/FLUX.2-klein-4B:fal-ai",
    inputs={
@@ -252,7 +251,6 @@ flux_enhancer = InferenceNode(
        "image": gr.Image(label="3D-Ready Enhanced Image"),
    },
 )
-
 ```
 
 > [!TIP]  
@@ -261,7 +259,6 @@ flux_enhancer = InferenceNode(
 Last node is 3D generation with querying the Trellis.2 Space on Hugging Face. 
 
 ```py
-
 trellis_3d = GradioNode(
    "microsoft/TRELLIS.2",
    api_name="/image_to_3d",
@@ -274,7 +271,6 @@ trellis_3d = GradioNode(
        "glb": gr.HTML(label="3D Asset (GLB preview)"),
    },
 )
-
 ```
 
 Chaining them together and launching the app is as simple as follows.
