@@ -5039,3 +5039,9 @@
     - agentic
     - community
     - open-source
+
+- local: daggr
+  date: Jan 29, 2026
+  tags:
+    - gradio
+    - daggr
