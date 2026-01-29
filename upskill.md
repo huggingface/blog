@@ -32,7 +32,7 @@ Now, let's walk through how you can use `upskill` to upskill your agents on hard
 
 First, we use Claude Code to build a kernel interactively and export the trace. We worked through the process by instructing, validating, and adding documentation links. This somewhat naive process is important to reveal the models' initial challenges. In fact, you can iterate on this multiple times, by trying to solve the task with draft versions of the skill, and experimenting with smaller models. Each time, you can instruct the agent to improve the skill and test it on the smaller model.
 
-Here's an [example of the skill](https://huggingface.co/hf-skills/h100-diffusers-kernel-builder) that we created and have been using to build kernels. We started from this [agent trace](https://huggingface.co/hf-skills/h100-diffusers-kernel-builder/blob/main/trace.md) where the agent was able to build a kernel, but not without some help.
+Here's an [example of the skill](https://huggingface.co/hf-skills/h100-diffusers-kernel-builder) that we created and have been using to build kernels. We started from this [agent trace](https://huggingface.co/hf-skills/h100-diffusers-kernel-builder/blob/main/agent-trace.txt) where the agent was able to build a kernel, but not without some help.
 
 # 2. Make an agent skill from the trace
 
