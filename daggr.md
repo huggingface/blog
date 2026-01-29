@@ -96,7 +96,7 @@ graph.launch()
 
 That's it. Run this script and you get a visual canvas served on port 7860 launched automatically, as well as a shareable live link, showing both nodes connected, with inputs you can modify and outputs you can inspect at each step.
 
-![App](https://huggingface.co/datasets/huggingface/documentation-images/blob/main/daggr-blog/app1.png)
+![App](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/daggr-blog/app1.png)
 
 ### Node Types
 
