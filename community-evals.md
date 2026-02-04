@@ -1,6 +1,6 @@
 ---
 title: "Community Evals: Because we're done trusting black-box leaderboards over the community"
-thumbnail: /blog/assets/community-evals/thumbnail.png
+thumbnail: /blog/assets/eval-results/thumbnail.png
 authors:
 - user: burtenshaw
 - user: SaylorTwift
