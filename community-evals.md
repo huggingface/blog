@@ -39,7 +39,7 @@ We are going to take evaluations on the Hugging Face Hub in a new direction by d
 
 ![model image](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/eval-results-blog/model.png)
 
-To learn more about, check out the [docs](https://huggingface.co/docs/hub/eval-results).
+To learn more about evaluation results, check out the [docs](https://huggingface.co/docs/hub/eval-results).
 
 ## **Why This Matters**
 
