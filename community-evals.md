@@ -3,9 +3,17 @@ title: "Community Evals: Because we're done trusting black-box leaderboards over
 thumbnail: /blog/assets/community-evals/thumbnail.png
 authors:
 - user: burtenshaw
+- user: SaylorTwift
+- user: kramp
+- user: merve
+- user: julien-c
+- user: davanstrien
 ---
 
-# **Community Evals: Because we're done trusting black-box leaderboards over the community**
+<!-- TODO: add your name to the authors list -->
+<!-- we need a thumbnail for this blog post -->
+
+# Community Evals: Because we're done trusting black-box leaderboards over the community
 
 **TL;DR:** Benchmark datasets on Hugging Face can now host leaderboards. Models store their own eval scores. Everything links together. The community can submit results via PR. Verified badges prove that the results can be reproduced.
 
@@ -23,8 +31,7 @@ We are going to take evaluations on the Hugging Face Hub in a new direction by d
 
 **For Benchmarks:** Dataset repos can now register as benchmarks ([MMLU-Pro](https://huggingface.co/datasets/TIGER-Lab/MMLU-Pro), [GPQA](https://huggingface.co/datasets/Idavidrein/gpqa), [HLE](https://huggingface.co/datasets/cais/hle) are already live). They automatically aggregate reported results from across the hub and display leaderboards in the dataset card. The benchmark defines the eval spec via `eval.yaml`, based on [Inspect AI](https://inspect.aisi.org.uk/), so anyone can reproduce it. The reported results need to align with the task definition. 
 
-<!-- TODO: @burtenshaw screenshot of https://huggingface.co/datasets/cais/hle when ready -->
-![][image1]
+![benchmark image](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/eval-results-blog/benchmark.png)
 
 **For Models:** Eval scores live in `.eval_results/*.yaml` in the model repo. They appear on the model card and are fed into benchmark datasets. Both the model author’s results **and open pull requests** for results will be aggregated. Model authors will be able to close score PR and hide results. 
 
