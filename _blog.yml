@@ -5045,3 +5045,12 @@
   tags:
     - gradio
     - daggr
+
+- local: community-evals
+  date: Feb 4, 2026
+  tags:
+    - evaluation
+    - leaderboard
+    - community
+    - hub
+    - open-source
