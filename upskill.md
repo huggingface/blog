@@ -19,7 +19,7 @@ This blog post walks through the process of using a new tool, `upskill`, to gene
 
 ## What are agent skills?
 
-In case you missed it, agent skills are taking the coding agent game by storm. In fact, they’re a straightforward concept to define model context as files, like instructions as markdown and code as scripts. The file format makes them easy to generate, share, and review. In short, they’re an practical medium to share capabilities across models and tools, and they're most useful in specific domains or hard problems. Not stuff the model can do well anyway. 
+In case you missed it, agent skills are taking the coding agent game by storm. In fact, they’re a straightforward concept to define model context as files, like instructions as markdown and code as scripts. The file format makes them easy to generate, share, and review. In short, they’re a practical medium to share capabilities across models and tools, and they're most useful in specific domains or hard problems. Not stuff the model can do well anyway. 
 
 This post showcases this process by using Claude to generate a Skill file that can be used by open source models for a complex and specialized task: write CUDA kernels.
 We first tried a simple skill based on existing documentation, and we found that it improved performance for some others, but not all. In fact, it could even degrade performance or increase token usage for some models. Check out the plot below to see the performance of the model with and without the basic skill.
@@ -28,13 +28,13 @@ We first tried a simple skill based on existing documentation, and we found that
 
 Now, let's walk through how you can use `upskill` to upskill your agents on hard problems, and measure performance.
 
-# 1. Get the teacher (Claude Opus 4.5) to build a kernel
+## 1. Get the teacher (Claude Opus 4.5) to build a kernel
 
 First, we use Claude Code to build a kernel interactively and export the trace. We worked through the process by instructing, validating, and adding documentation links. This somewhat naive process is important to reveal the models' initial challenges. In fact, you can iterate on this multiple times, by trying to solve the task with draft versions of the skill, and experimenting with smaller models. Each time, you can instruct the agent to improve the skill and test it on the smaller model.
 
-Here's an [example of the skill](https://huggingface.co/hf-skills/h100-diffusers-kernel-builder) that we created and have been using to build kernels. We started from this [agent trace](https://huggingface.co/hf-skills/h100-diffusers-kernel-builder/blob/main/trace.md) where the agent was able to build a kernel, but not without some help.
+Here's an [example of the skill](https://huggingface.co/hf-skills/h100-diffusers-kernel-builder) that we created and have been using to build kernels. We started from this [agent trace](https://huggingface.co/hf-skills/h100-diffusers-kernel-builder/blob/main/agent-trace.txt) where the agent was able to build a kernel, but not without some help.
 
-# 2. Make an agent skill from the trace
+## 2. Make an agent skill from the trace
 
 Once the teacher model has performed the task, we need them to make a skill. There are a number of effective ways to do this.
 
@@ -42,7 +42,7 @@ Once the teacher model has performed the task, we need them to make a skill. The
 - Use [Anthropic ‘skill creator’ skill](https://github.com/anthropics/skills/blob/main/skills/skill-creator/SKILL.md) either within the agent session or with an exported trace and a new agent session.  
 - Use the `upskill` tool to create a skill based on the trace.
 
-In most cases, the first 2 options result in functional skills. However, the performance of an agent with the skill is unknown. That’s where `upskill` is useful, because it will also generate test cases for your skill based on the trace. It then compares the results under both scenarios: using the trace, or applying the skill. We see below that the original model (Claude Opus)l met the same performance with and without the skill. This means the skill captured the task _for this model_. Great!
+In most cases, the first 2 options result in functional skills. However, the performance of an agent with the skill is unknown. That’s where `upskill` is useful, because it will also generate test cases for your skill based on the trace. It then compares the results under both scenarios: using the trace, or applying the skill. We see below that the original model (Claude Opus) met the same performance with and without the skill. This means the skill captured the task _for this model_. Great!
 
 ![terminal evaluation](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/upskill-blog/terminal.png)
 
@@ -54,7 +54,7 @@ With `upskill` we can pass a skill and a set of models to the `eval` command and
 
 ![performance evaluation](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/upskill-blog/accuracy.png)
 
-In this case, we might want to iterate further on the `gpt-oss` skills by regenerating the skill. We can do  `upskill generate –from {skill}`.
+In this case, we might want to iterate further on the `gpt-oss` skills by regenerating the skill. We can do `upskill generate --from {skill}`.
 
 There is more to agent skills than model performance. Often agents can reach a given accuracy with or without a skill, they just need to consume more tokens to get there. For recurring tasks, we want to optimize agents to use less tokens to achieve the same accuracy. The results below reveal another dimension to the skill. Some models are significantly reducing their performance token usage, whilst others are using more tokens **with** the skill. For example, with [`moonshotai/Kimi-K2-Thinking`](https://huggingface.co/moonshotai/Kimi-K2-Thinking) the skill is clearly effective in terms of accuracy and token usage. However, for Claude Opus 4.5 there is no clear performance increase and an increase in token usage, so you would not want to use this skill with Claude Opus 4.5.
 
@@ -83,7 +83,7 @@ upskill generate "parse YAML"
     --eval-base-url http://localhost:8080/v1
 ```
 
-# Deep dive tutorial into building kernels with agent skills
+## Deep dive tutorial into building kernels with agent skills
 
 We have a high level understanding of how we can upskill an agent. Let’s now look at the use case we solved for writing CUDA kernels.
 
@@ -135,7 +135,7 @@ upskill generate "build optimized CUDA kernels for PyTorch using HuggingFace ker
 Above we used upskill, but it could in fact be any agent or chat tool and an exported trace. 
 
 ```shell
-upskill generate "write kernels" —-from <agent-trace>.md
+upskill generate "write kernels" --from <agent-trace>.md
 ```
 
 Also, we could start from an existing skill and add to it:
