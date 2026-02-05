@@ -40,6 +40,11 @@ We are going to take evaluations on the Hugging Face Hub in a new direction by d
 
 To learn more about evaluation results, check out the [docs](https://huggingface.co/docs/hub/eval-results).
 
+<figure class="image flex flex-col items-center text-center m-0 w-full">
+   <video src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/eval-results/screen-recording.mp4" controls></video>
+   <figcaption>Model scores in the Hub</figcaption>
+</figure>
+
 ## Why This Matters
 
 Decentralizing evaluation will expose scores that already exist across the community in sources like model cards and papers. By exposing these scores, the community can build on top of them to aggregate, track, and understand scores across the field. Also, all scores will be exposed via Hub APIs, making it easy to aggregate and build curated leaderboards, dashboards, etc.
