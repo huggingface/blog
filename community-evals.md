@@ -6,8 +6,9 @@ authors:
 - user: SaylorTwift
 - user: kramp
 - user: merve
-- user: julien-c
 - user: davanstrien
+- user: nielsr
+- user: julien-c
 ---
 
 # Community Evals: Because we're done trusting black-box leaderboards over the community
