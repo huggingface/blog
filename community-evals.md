@@ -12,7 +12,7 @@ authors:
 
 # Community Evals: Because we're done trusting black-box leaderboards over the community
 
-![banner](https://raw.githubusercontent.com/huggingface/blog/refs/heads/main/assets/eval-results/banner.png)
+![banner](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/eval-results-blog/banner.png)
 
 **TL;DR:** Benchmark datasets on Hugging Face can now host leaderboards. Models store their own eval scores. Everything links together. The community can submit results via PR. Verified badges prove that the results can be reproduced.
 
