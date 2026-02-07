@@ -5054,3 +5054,12 @@
     - community
     - hub
     - open-source
+
+- local: arabic-dataset-quality
+  date: Feb 7, 2026
+  tags:
+    - datasets
+    - nlp
+    - community
+    - research
+    - open-source
