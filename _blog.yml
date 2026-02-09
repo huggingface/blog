@@ -5054,3 +5054,12 @@
     - community
     - hub
     - open-source
+
+- local: transformersjs-v4
+  date: Feb 9, 2026
+  tags:
+    - announcement
+    - transformers.js
+    - transformers
+    - javascript
+    - webgpu
