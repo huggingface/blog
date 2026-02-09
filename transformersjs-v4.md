@@ -10,7 +10,7 @@ authors:
 
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/transformersjs-v4/thumbnail-wide.png" alt="Overview" width="100%">
 
-We're excited to announce that Transformers.js v4 (preview) is now available on NPM! After nearly a year of development (starting in March 2025), we're finally ready for you to test it out. Previously, users had to install v4 directly from source via GitHub, but now it's as simple as running a single command!
+We're excited to announce that Transformers.js v4 (preview) is now available on NPM! After nearly a year of development (we started in March 2025 🤯), we're finally ready for you to test it out. Previously, users had to install v4 directly from source via GitHub, but now it's as simple as running a single command!
 
 ```sh
 npm i @huggingface/transformers@next
@@ -22,17 +22,17 @@ We'll continue publishing v4 releases under the `next` tag on NPM until the full
 
 The biggest change is undoubtedly the adoption of a new WebGPU Runtime, completely rewritten in C++. We've worked closely with the ONNX Runtime team to thoroughly test this runtime across our ~200 supported model architectures, as well as many new v4-exclusive architectures.
 
-In addition to better operator support (for performance, accuracy, and coverage), this new WebGPU runtime allows the same library (and code) to be used across a wide variety of JavaScript environments, including browsers, server-side runtimes, and desktop applications. That's right, you can now run WebGPU-accelerated models directly in Node, Bun, and Deno!
+In addition to better operator support (for performance, accuracy, and coverage), this new WebGPU runtime allows the same transformers.js code to be used across a wide variety of JavaScript environments, including browsers, server-side runtimes, and desktop applications. That's right, you can now run WebGPU-accelerated models directly in Node, Bun, and Deno!
 
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/transformersjs-v4/webgpu.png" alt="WebGPU Overview" width="100%">
 
-We've proven that it's possible to run state-of-the-art AI models 100% locally in the browser, and now we're focused on performance: making these models run as fast as possible, even in resource-constrained environments. This required completely rethinking our export strategy, especially for large language models. We achieve this by re-implementing new models operation by operation, leveraging specialized ONNX Runtime [Contrib Operators](https://github.com/microsoft/onnxruntime/blob/main/docs/ContribOperators.md) like [com.microsoft.GroupQueryAttention](https://github.com/microsoft/onnxruntime/blob/main/docs/ContribOperators.md#com.microsoft.GroupQueryAttention), [com.microsoft.MatMulNBits](https://github.com/microsoft/onnxruntime/blob/main/docs/ContribOperators.md#com.microsoft.MatMulNBits), and [com.microsoft.QMoE](https://github.com/microsoft/onnxruntime/blob/main/docs/ContribOperators.md#com.microsoft.QMoE) to maximize performance.
+We've proven that it's possible to run state-of-the-art AI models 100% locally in the browser, and now we're focused on performance: making these models run as fast as possible, even in resource-constrained environments. This required completely rethinking our export strategy, especially for large language models. We achieve this by re-implementing new models operation by operation, leveraging specialized ONNX Runtime [Contrib Operators](https://github.com/microsoft/onnxruntime/blob/main/docs/ContribOperators.md) like [com.microsoft.GroupQueryAttention](https://github.com/microsoft/onnxruntime/blob/main/docs/ContribOperators.md#com.microsoft.GroupQueryAttention), [com.microsoft.MatMulNBits](https://github.com/microsoft/onnxruntime/blob/main/docs/ContribOperators.md#com.microsoft.MatMulNBits), or [com.microsoft.QMoE](https://github.com/microsoft/onnxruntime/blob/main/docs/ContribOperators.md#com.microsoft.QMoE) to maximize performance.
 
-For example, by utilizing the [com.microsoft.MultiHeadAttention](https://github.com/microsoft/onnxruntime/blob/main/docs/ContribOperators.md#com.microsoft.MultiHeadAttention) operator, we were able to achieve a ~4x speedup for BERT-based embedding models.
+For example, adopting the [com.microsoft.MultiHeadAttention](https://github.com/microsoft/onnxruntime/blob/main/docs/ContribOperators.md#com.microsoft.MultiHeadAttention) operator, we were able to achieve a ~4x speedup for BERT-based embedding models.
 
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/transformersjs-v4/speedups.png" alt="Optimized ONNX Exports" width="100%">
 
-Finally, this update enables full offline support by caching WASM files locally in the browser, allowing users to run Transformers.js applications without an internet connection after the initial download.
+This update enables full offline support by caching WASM files locally in the browser, allowing users to run Transformers.js applications without an internet connection after the initial download.
 
 ## Repository Restructuring
 
