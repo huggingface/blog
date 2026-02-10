@@ -129,7 +129,9 @@ With Ulysses, each GPU computes loss on different parts of the sequence. The los
 ```python
 sp_size = parallelism_config.sp_size
 if sp_size > 1:
-    sp_group = accelerator.torch_device_mesh["sp"].get_group()
+    from deepspeed.utils import groups
+
+    sp_group = groups._get_sequence_parallel_group()
 
     # Gather losses and token counts from all SP ranks
     losses_per_rank = torch.distributed.nn.functional.all_gather(loss, group=sp_group)
