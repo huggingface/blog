@@ -1,6 +1,6 @@
 ---
 title: "Evaluating Tool-Using Agents in Production-Oriented Environments with OpenEnv"
-date: 2026-02-10
+date: 2026-02-11
 thumbnail: /blog/assets/openenv-turing/thumbnail.png
 authors:
   - user: christian-washington
