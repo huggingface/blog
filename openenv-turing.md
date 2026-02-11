@@ -1,19 +1,16 @@
 ---
-title: "Evaluating Agents in Production-Oriented Environments with OpenEnv"
-date: 2026-02-11
+title: "OpenEnv in Practice: Evaluating Tool-Using Agents in Real-World Environments"
 thumbnail: /blog/assets/openenv-turing/thumbnail.png
 authors:
   - user: christian-washington
     guest: true
+    org: TuringEnterprises
   - user: ankitjasuja
     guest: true
   - user: santoshsahturing
     guest: true
   - user: lewtun
   - user: burtenshaw
-  - org: Turing
-  - org: Meta
-  - org: HuggingFace
 ---
 
 AI agents often perform impressively in controlled research settings, yet struggle when deployed in real-world systems where they must reason across multiple steps, interact with real tools and APIs, operate under partial information, and recover from errors in stateful, permissioned environments—highlighting a persistent gap between research success and production reliability.
@@ -26,7 +23,7 @@ In this post, we explore how OpenEnv works in practice, why calendars serve as a
 
 OpenEnv is a framework for evaluating AI agents against **real systems rather than simulations**. It provides a standardized way to connect agents to real tools and workflows while preserving the structure needed for consistent and reliable evaluation.
 
-OpenEnv uses a gym-oriented API (`reset`, `step`, `action`, `observations`) as well as a standard MCP tool call interface. This gives agents a consistent interface across domains and simulation to production environments. 
+OpenEnv uses a gym-oriented API (`reset`, `step`, `action`, `observations`) like [OpenAI's Gymnasium](https://github.com/openai/gym). Also, OpenEnv uses a standard MCP tool call interface to connect to envs which provides a consistent interface across domains and simulation to production environments.
 
 The environments maintain state across multiple actions—enabling long-horizon reasoning—and can connect directly to real APIs and tools such as browsers, code repositories, or calendars. This shifts evaluation from *"Can this work in a controlled demo?"* to *"Can this operate reliably in the real world?"*
 
