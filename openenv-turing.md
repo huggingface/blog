@@ -1,5 +1,5 @@
 ---
-title: "Evaluating Tool-Using Agents in Production-Oriented Environments with OpenEnv"
+title: "Evaluating Agents in Production-Oriented Environments with OpenEnv"
 date: 2026-02-11
 thumbnail: /blog/assets/openenv-turing/thumbnail.png
 authors:
@@ -20,7 +20,7 @@ authors:
 
 AI agents often perform impressively in controlled research settings, yet struggle when deployed in real-world systems where they must reason across multiple steps, interact with real tools and APIs, operate under partial information, and recover from errors in stateful, permissioned environments—highlighting a persistent gap between research success and production reliability.
 
-[OpenEnv](https://github.com/meta-pytorch/OpenEnv) is an open-source framework from Meta and Hugging Face designed to address this challenge by standardizing how agents interact with real environments. As part of this collaboration, Turing contributed a production-grade calendar management [environment](https://github.com/meta-pytorch/OpenEnv/pull/335) to study tool-using agents under realistic constraints such as access control, temporal reasoning, and multi-agent coordination.
+[OpenEnv](https://github.com/meta-pytorch/OpenEnv) is an open-source framework from Meta and Hugging Face designed to address this challenge by standardizing how agents interact with real environments. As part of this collaboration, Turing contributed a production-grade calendar management [environment](https://huggingface.co/spaces/TuringEnterprises/calendar-gym/blob/main/README.md) to study tool-using agents under realistic constraints such as access control, temporal reasoning, and multi-agent coordination.
 
 In this post, we explore how OpenEnv works in practice, why calendars serve as a powerful benchmark for real-world agent evaluation, and what our findings reveal about the current limitations of tool-using agents.
 
@@ -35,7 +35,7 @@ By supporting persistent interactions and realistic constraints, OpenEnv helps b
 ### How OpenEnv Works (High Level)
 
 * **Standardized agent–environment interface**
-  Agents interact with environments through a consistent API, making it easier to compare approaches across domains.
+  Agents interact with environments through a consistent API, making it easier to compare approaches across domains. OpenEnv uses a gym orientated API with reset, step, action, and observations entities.
 
 * **Stateful, persistent sessions**
   Environments maintain context across multiple actions, enabling long-horizon reasoning and multi-step workflows.
@@ -151,7 +151,7 @@ For a deeper dive into the Calendar Gym’s design, benchmarking methodology, an
 
 ---
 
-## Appendix: Using the Calendar Gym (Code Examples)
+## Tutorial: Using the Calendar Gym
 
 ### Connecting to the Environment
 
