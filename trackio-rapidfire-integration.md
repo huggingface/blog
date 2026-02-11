@@ -1,3 +1,15 @@
+---
+title: "New Trackio Integration: From LLM Observability to Rapid Experimentation and Real-Time Control"
+thumbnail: /blog/assets/trackio-rapidfire-integration/rapidfire-trackio-rag-screenshot.png
+authors:
+- user: qgallouedec
+- user: matsallarfai
+- user: Humaira188
+- user: arunkk09
+- user: kbigdelysh
+- user: rapidfire-ai-inc
+---
+
 # **New Trackio Integration: From LLM Observability to Rapid Experimentation and Real-Time Control**
 
 ## **TL;DR**
