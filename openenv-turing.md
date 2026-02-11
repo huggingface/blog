@@ -5,10 +5,12 @@ authors:
   - user: christian-washington
     guest: true
     org: TuringEnterprises
-  - user: ankitjasuja
+  - user: ajasuja
     guest: true
-  - user: santoshsahturing
+    org: TuringEnterprises
+  - user: santosh-iima
     guest: true
+    org: TuringEnterprises
   - user: lewtun
   - user: burtenshaw
 ---
