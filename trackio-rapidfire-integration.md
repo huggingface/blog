@@ -73,7 +73,7 @@ This integration marks the first use of Trackio for RAG pipeline optimization. A
 
 Results can be compared side by side across retrieval metrics, accuracy, latency, and inference cost--making tradeoffs immediately visible.
 
-![Trackio dashboard showing RapidFire AI RAG metrics](/blog/assets/trackio-rapidfire-integration/rapidfire-trackio-rag-screenshot.png)
+![Trackio dashboard showing RapidFire AI RAG metrics](https://github.com/user-attachments/assets/141c51b3-e579-40b2-83ee-6f2dc8824b28)
 
 *Trackio dashboard comparing 4 RAG pipeline configurations on retrieval metrics (F1 Score, NDCG@5, MRR, Recall) across different chunk sizes and reranking parameters.*
 
@@ -87,7 +87,7 @@ For fine-tuning and post-training workflows, RapidFire AI wraps around Hugging F
 
 Each resulting model is evaluated using consistent metrics, enabling clear and reproducible comparisons.
 
-![Trackio dashboard showing RapidFire AI fine-tuning metrics](/blog/assets/trackio-rapidfire-integration/trackio-screenshot-sft.png)
+![Trackio dashboard showing RapidFire AI fine-tuning metrics](https://github.com/user-attachments/assets/422da293-04b1-46cd-b887-6a30a862cab3)
 
 *Trackio dashboard comparing 4 fine-tuning runs with different hyperparameters. The plots show training loss, validation loss, learning rate schedules, and ROUGE-L scores—making it easy to identify which configuration (Run 4, in orange) achieves the lowest loss and best generation quality.*
 
