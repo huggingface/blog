@@ -260,7 +260,6 @@ rmsnorm = get_kernel("your-org/your-kernel")
 
 The skill and the Hub are complementary. The skill handles development. The Hub handles distribution. Build a kernel with the skill, validate it with the benchmark scripts, publish it to the Hub, and it becomes a one-liner for everyone else.
 
----
 
 ## Resources
 
