@@ -131,13 +131,13 @@ We tested this on two real targets.
 
 ## Benchmarking the kernels: Diffusers (LTX-Video on H100)
 
-The agent built RMSNorm, RoPE 3D, GEGLU, and AdaLN kernels for [LTX-Video](https://huggingface.co/Lightricks/LTX-Video), a video generation pipeline from `diffusers`. The full example is at `examples/ltx_video/`.
+The agent built RMSNorm, RoPE 3D, GEGLU, and AdaLN kernels for [LTX-Video](https://huggingface.co/Lightricks/LTX-Video), a video generation pipeline from `diffusers`. The full example is at `examples/ltx_video/`. We optimized the RMSNorm kernel for H100. Both benchmarks were run on H100 80GB HBM3 at precision BFloat16.
 
 If you want to check out the generated kernel, got to [this example](https://github.com/burtenshaw/kernel-skill/tree/main/examples/ltx_video)
 
-**Hardware:** NVIDIA H100 80GB HBM3 | **Precision:** BFloat16
+### Isolated RMSNorm benchmark
 
-### RMSNorm micro-benchmark
+First, we compare the isolated RMSNorm kernel performance against the PyTorch baseline. This is the main speedup in the optimized pipeline.
 
 | Shape | Custom (ms) | PyTorch (ms) | Speedup |
 | :---- | :---: | :---: | :---: |
@@ -149,9 +149,11 @@ If you want to check out the generated kernel, got to [this example](https://git
 | [1x8192x2048] | 0.083 | 0.150 | **1.81x** |
 | [4x4096x3072] | 0.173 | 0.393 | **2.26x** |
 
-**Average speedup: 1.88x** | Bandwidth efficiency: 34.7% of H100 theoretical (3,350 GB/s)
+**Average speedup: 1.88x** and a bandwidth efficiency: 34.7% of H100 theoretical (3,350 GB/s)
 
 ### End-to-end video generation (49 frames, 30 steps, H100 80GB)
+
+Next, we compare the end-to-end video generation performance of the optimized kernels against the baseline (no compile) and the `torch.compile` baseline.
 
 | Configuration | Time (s) | it/s | Speedup |
 | :---- | :---: | :---: | :---: |
@@ -163,13 +165,13 @@ RMSNorm accounts for ~5% of total compute in LTX-Video. The remaining time is sp
 
 ## Benchmarking the kernels: Transformers (Qwen3-8B on H100)
 
-The agent built an RMSNorm kernel for [Qwen3-8B](https://huggingface.co/Qwen/Qwen3-8B), a large language model from `transformers` with 65 RMSNorm modules across 32 layers. The full example is at `examples/qwen3_8b/`.
+The agent built an RMSNorm kernel for [Qwen3-8B](https://huggingface.co/Qwen/Qwen3-8B), a large language model from `transformers` with 65 RMSNorm modules across 32 layers. The full example is at `examples/qwen3_8b/`. We optimized the RMSNorm kernel for H100. Both benchmarks were run on H100 80GB HBM3 at precision BFloat16.
 
 If you want to explore the kernel, check it out [here.](https://github.com/burtenshaw/kernel-skill/tree/main/examples/qwen3_8b)
 
-**Hardware:** NVIDIA H100 80GB HBM3 | **Precision:** BFloat16 | **Hidden size:** 4096
+### Isolated RMSNorm benchmark
 
-### RMSNorm micro-benchmark
+Once again, we compare the isolated RMSNorm kernel performance against the PyTorch baseline. 
 
 | Shape | Custom (ms) | PyTorch (ms) | Speedup |
 | :---- | :---: | :---: | :---: |
@@ -182,7 +184,7 @@ If you want to explore the kernel, check it out [here.](https://github.com/burte
 | [8x256x4096] | 0.045 | 0.092 | **2.06x** |
 | [1x8192x4096] | 0.109 | 0.269 | **2.47x** |
 
-**Average speedup: 1.94x** | Peak: **2.47x** at 8192 sequence length | Bandwidth efficiency: 22.3%
+**Average speedup: 1.94x** and a bandwidth efficiency: 22.3% of H100 theoretical (3,350 GB/s)
 
 Speedup scales with sequence length: 1.58x at 128 tokens, 2.47x at 8192 tokens. For long-context inference, the custom kernel roughly halves RMSNorm latency.
 
