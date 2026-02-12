@@ -5065,7 +5065,7 @@
     - webgpu
 
 - local: openenv-turing
-  date: Feb 11, 2026
+  date: Feb 12, 2026
   tags:
     - announcement
     - open-source
