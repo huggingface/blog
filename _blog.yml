@@ -5063,3 +5063,12 @@
     - transformers
     - javascript
     - webgpu
+
+- local: openenv-turing
+  date: Feb 12, 2026
+  tags:
+    - announcement
+    - open-source
+    - community
+    - agents
+    - rl
