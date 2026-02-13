@@ -5063,3 +5063,22 @@
     - transformers
     - javascript
     - webgpu
+
+- local: openenv-turing
+  date: Feb 12, 2026
+  tags:
+    - announcement
+    - open-source
+    - community
+    - agents
+    - rl
+
+- local: custom-cuda-kernels-agent-skills
+  date: Feb 13, 2026
+  tags:
+    - open-source
+    - cuda
+    - kernels
+    - agent-skills
+    - community
+    - agents
