@@ -284,6 +284,9 @@ rmsnorm = get_kernel("your-org/your-kernel")
 
 The skill and the Hub are complementary. The skill handles development. The Hub handles distribution. Build a kernel with the skill, validate it with the benchmark scripts, publish it to the Hub, and it becomes a one-liner for everyone else.
 
+## Conclusion
+
+We built an agent skill that teaches coding agents how to write production CUDA kernels. Then we pointed Claude and Codex at two real targets: a **diffusers** pipeline and a **transformers** model. The agents produced working kernels for both, with correct PyTorch bindings and benchmarks, end to end. We benchmarked the kernels and found that the optimized kernels can provide a speedup in both isolated and end-to-end performance.
 
 ## Resources
 
