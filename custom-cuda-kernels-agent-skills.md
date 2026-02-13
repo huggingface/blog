@@ -139,6 +139,11 @@ If you want to check out the generated kernel, got to [this example](https://git
 
 First, we compare the isolated RMSNorm kernel performance against the PyTorch baseline. This is the main speedup in the optimized pipeline.
 
+![isolated rmsnorm benchmark ltx-video](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/kernels-skill-benchmark/rmsnorm_ltx_video.png)
+
+<details>
+<summary>Table</summary>
+
 | Shape | Custom (ms) | PyTorch (ms) | Speedup |
 | :---- | :---: | :---: | :---: |
 | [1x1024x2048] | 0.039 | 0.064 | **1.64x** |
@@ -151,9 +156,16 @@ First, we compare the isolated RMSNorm kernel performance against the PyTorch ba
 
 **Average speedup: 1.88x** and a bandwidth efficiency: 34.7% of H100 theoretical (3,350 GB/s)
 
+</details>
+
 ### End-to-end video generation (49 frames, 30 steps, H100 80GB)
 
 Next, we compare the end-to-end video generation performance of the optimized kernels against the baseline (no compile) and the `torch.compile` baseline.
+
+![e2e benchmark ltx-video](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/kernels-skill-benchmark/e2e_ltx_video.png)
+
+<details>
+<summary>Table</summary>
 
 | Configuration | Time (s) | it/s | Speedup |
 | :---- | :---: | :---: | :---: |
@@ -161,6 +173,8 @@ Next, we compare the end-to-end video generation performance of the optimized ke
 | **Generated Optimized Kernels** | 2.70 | 13.52 | **1.06x** |
 | Baseline + torch.compile | 2.14 | 19.05 | 1.34x |
 | Optimized + torch.compile | 2.01 | 18.45 | 1.43x |
+
+</details>
 
 RMSNorm accounts for ~5% of total compute in LTX-Video. The remaining time is spent in attention, linear projections, and VAE decode. The 6% end-to-end speedup from a single kernel type is consistent with that profile.
 
@@ -174,6 +188,13 @@ If you want to explore the kernel, check it out [here.](https://github.com/burte
 
 Once again, we compare the isolated RMSNorm kernel performance against the PyTorch baseline. 
 
+![isolated rmsnorm benchmark qwen3-8b](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/kernels-skill-benchmark/rmsnorm_qwen3.png)
+
+**Average speedup: 1.94x** and a bandwidth efficiency: 22.3% of H100 theoretical (3,350 GB/s)
+
+<details>
+<summary>Table</summary>
+
 | Shape | Custom (ms) | PyTorch (ms) | Speedup |
 | :---- | :---: | :---: | :---: |
 | [1x128x4096] | 0.040 | 0.062 | **1.58x** |
@@ -185,7 +206,7 @@ Once again, we compare the isolated RMSNorm kernel performance against the PyTor
 | [8x256x4096] | 0.045 | 0.092 | **2.06x** |
 | [1x8192x4096] | 0.109 | 0.269 | **2.47x** |
 
-**Average speedup: 1.94x** and a bandwidth efficiency: 22.3% of H100 theoretical (3,350 GB/s)
+</details>
 
 Speedup scales with sequence length: 1.58x at 128 tokens, 2.47x at 8192 tokens. For long-context inference, the custom kernel roughly halves RMSNorm latency.
 
