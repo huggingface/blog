@@ -5072,3 +5072,14 @@
     - community
     - agents
     - rl
+
+- local: custom-cuda-kernels-agent-skills
+  date: Feb 13, 2026
+  tags:
+    - open-source
+    - cuda
+    - kernels
+    - agent-skills
+    - community
+    - agents
+
