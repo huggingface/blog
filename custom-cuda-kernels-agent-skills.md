@@ -290,11 +290,8 @@ We built an agent skill that teaches coding agents how to write production CUDA 
 
 ## Resources
 
-- [CUDA Kernels Skill (SKILL.md)](http://.claude/skills/cuda-kernels/SKILL.md)  
-- [LTX-Video Example](http://examples/ltx_video/)  
-- [Qwen3-8B Example](http://examples/qwen3_8b/)  
+- [CUDA Kernels Skill in `kernels`]([http://.claude/skills/cuda-kernels/SKILL.md](https://github.com/huggingface/kernels/tree/main/skills/cuda-kernels))  
 - [HuggingFace Kernel Hub Blog](https://huggingface.co/blog/hello-hf-kernels)  
-- [Kernels Hub in TRL](https://huggingface.co/docs/trl/en/kernels_hub)  
 - [We Got Claude to Fine-Tune an Open Source LLM](https://huggingface.co/blog/hf-skills-training)  
 - [We Got Claude to Teach Open Models](https://huggingface.co/blog/upskill)  
 - [HuggingFace Kernels Community](https://huggingface.co/kernels-community)
