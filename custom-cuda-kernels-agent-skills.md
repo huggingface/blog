@@ -39,7 +39,8 @@ First, let's show how to use the skill right away, then we'll dive into the deta
 The skill ships with the `kernels` library. Install it into your coding agent with a single command:
 
 ```shell
-pip install kernels
+# we need to install kernels from main for this
+pip install git+https://github.com/huggingface/kernels.git
 kernels skills add cuda-kernels --claude
 ```
 
