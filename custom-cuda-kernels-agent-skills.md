@@ -160,6 +160,7 @@ Next, we compare the end-to-end video generation performance of the optimized ke
 | Baseline (no compile) | 2.87 | 12.58 | 1.00x |
 | **Generated Optimized Kernels** | 2.70 | 13.52 | **1.06x** |
 | Baseline + torch.compile | 2.14 | 19.05 | 1.34x |
+| Optimized + torch.compile | 2.01 | 18.45 | 1.43x |
 
 RMSNorm accounts for ~5% of total compute in LTX-Video. The remaining time is spent in attention, linear projections, and VAE decode. The 6% end-to-end speedup from a single kernel type is consistent with that profile.
 
