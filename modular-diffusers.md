@@ -322,3 +322,5 @@ Below are all the important links pertaining to Modular Diffusers:
 - [Mellon x Modular Diffusers](https://www.notion.so/Mellon-x-Modular-Diffusers-2fd1384ebcac819993d8f9ae94c7e866?pvs=21)
 - [Collection](https://www.notion.so/huggingface2/link-to-collection) of custom blocks
 - [Collection](https://huggingface.co/collections/diffusers/modular-pipelines) of community pipelines with Modular Diffusers
+
+_Thanks to Chun Te Lee for working on the thumbnail of this post._
