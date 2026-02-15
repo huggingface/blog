@@ -18,11 +18,11 @@ In this post, we'll walk through how Modular Diffusers works — from the famili
 
 **Table of contents**
 
-- [Quickstart](about:blank#quickstart)
-- [Modular Repositories](https://www.notion.so/Modular-Diffusers-blog-post-3021384ebcac80ff9da1f452b2f5d237?pvs=21)
-- [Custom Blocks](about:blank#custom-blocks)
-- [Community Pipelines](https://www.notion.so/Modular-Diffusers-blog-post-3021384ebcac80ff9da1f452b2f5d237?pvs=21)
-- [Integration with Mellon](about:blank#integration-with-mellon)
+- [Quickstart](#quickstart)
+- [Modular Repositories](#modular-repositories)
+- [Custom Blocks](#custom-blocks)
+- [Community Pipelines](#community-pipelines)
+- [Integration with Mellon](#integration-with-mellon)
 
 ## Quickstart
 
@@ -55,7 +55,7 @@ Behind the scenes, this pipeline is composed of multiple blocks working together
 print(pipe.blocks)
 ```
 
-```python
+```bash
 Flux2KleinAutoBlocks(
   ...
   Sub-Blocks:
@@ -81,21 +81,17 @@ text_pipe = text_blocks.init_pipeline("black-forest-labs/FLUX.2-klein-4B")
 # load the text_encoder, or reuse already loaded components: text_pipe.update_components(text_encoder=pipe.text_encoder)
 text_pipe.load_components(torch_dtype=torch.bfloat16)
 text_pipe.to("cuda")
-prompt_embeds = text_pipe(
-		prompt="a serene landscape at sunset"
-		).prompt_embeds
+prompt_embeds = text_pipe(prompt="a serene landscape at sunset").prompt_embeds
 		
 # create a new pipeline from the remaining blocks
 # it now accepts prompt_embeds directly instead of prompt
 remaining_pipe = blocks.init_pipeline("black-forest-labs/FLUX.2-klein-4B")
 remaining_pipe.load_components(torch_dtype=torch.bfloat16)
 remaining_pipe.to("cuda")
-image = remaining_pipe(
-    prompt_embeds=prompt_embeds, num_inference_steps=4,
-).images[0]
+image = remaining_pipe(prompt_embeds=prompt_embeds, num_inference_steps=4).images[0]
 ```
 
-For more on the different block types, composition patterns, lazy loading, and efficiently managing model memory across pipelines with `ComponentsManager`, check out the [Modular Diffusers documentation.](https://huggingface.co/docs/diffusers/en/modular_diffusers/overview)
+For more on the different block types, composition patterns, lazy loading, and efficiently managing model memory across pipelines with `ComponentsManager`, check out the [Modular Diffusers documentation.](https://huggingface.co/docs/diffusers/en/modular_diffusers/overview).
 
 ## Modular Repositories
 
@@ -230,7 +226,7 @@ pipeline.update_components(controlnet=controlnet)
 image = load_image("https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/astronaut.jpg")
 output = pipeline(
     prompt="an astronaut hatching from an egg, detailed, fantasy, Pixar, Disney",
-    image=path/to/image),
+    image=path/to/image
 ).images[0]
 ```
 
@@ -261,8 +257,8 @@ from diffusers import ModularPipeline
 
 pipe = ModularPipeline.from_pretrained("krea/krea-realtime-video", trust_remote_code=True)
 pipe.load_components(
-		trust_remote_code=True, 
-		device_map="cuda",
+    trust_remote_code=True, 
+    device_map="cuda",
     torch_dtype={"default": torch.bfloat16, "vae": torch.float16}
 )
 ```
@@ -275,12 +271,9 @@ Check out the full [collection of community pipelines](https://huggingface.co/co
 
 ## Integration with Mellon
 
-<aside>
-💡
 
-**Mellon is in early development and not ready for production use yet. Consider this a sneak peek of how the integration works!**
-
-</aside>
+> [!TIP]
+> 💡 Mellon is in early development and not ready for production use yet. Consider this a sneak peek of how the integration works!
 
 [Mellon](https://github.com/cubiq/Mellon) is a visual workflow interface integrated with Modular Diffusers. If you're familiar with node-based tools like ComfyUI, you'll feel right at home — but there are some key differences:
 
@@ -307,7 +300,6 @@ Gemini expands your short prompt into a detailed description before generating t
 
 This is just one example. For a detailed walkthrough, check out the [Mellon x Modular Diffusers guide](https://www.notion.so/Mellon-x-Modular-Diffusers-2fd1384ebcac819993d8f9ae94c7e866?pvs=21).
 
----
 
 ## Conclusion
 
