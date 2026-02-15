@@ -5083,3 +5083,14 @@
     - community
     - agents
 
+- local: modular-diffusers
+  date: Feb 16, 2026
+  tags:
+    - open-source
+    - diffusers
+    - generative
+    - guide
+    - diffusion
+    - text-to-image
+    - text-to-video
+
