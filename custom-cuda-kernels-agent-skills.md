@@ -40,7 +40,9 @@ The skill ships with the `kernels` library. Install it into your coding agent wi
 
 ```shell
 # we need to install kernels from main for this
-pip install git+https://github.com/huggingface/kernels.git
+git clone git+https://github.com/huggingface/kernels.git
+cd kernels
+pip install .
 kernels skills add cuda-kernels --claude
 ```
 
