@@ -58,6 +58,8 @@ Mostly, we hope to make the Hub an active place to build and share reproducible 
 
 ## **Get Started**
 
+**Read the docs:** To learn more about evaluation results, check out the [docs](https://huggingface.co/docs/hub/eval-results).
+
 **Add eval results:** Publish the evals you conducted as YAML files in `.eval_results/` on any model repo.
 
 **Check out the scores** on the [benchmark dataset](https://huggingface.co/datasets?benchmark=benchmark:official&sort=trending).
