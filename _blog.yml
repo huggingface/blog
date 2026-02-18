@@ -5083,3 +5083,13 @@
     - community
     - agents
 
+- local: gradio-html-one-shot-apps
+  date: Feb 18, 2026
+  tags:
+    - gradio
+    - claude
+    - html
+    - python
+    - spaces
+    - vibe-coding
+    - community
