@@ -11,7 +11,7 @@ authors:
 
 **Gradio 6** quietly shipped a very powerful feature: **`gr.HTML`** now supports custom templates, scoped CSS, and JavaScript interactivity. Which means you can build pretty much any web component — and Claude (or any other frontier LLM) can generate the whole thing in one shot: frontend, backend, and state management, all in a single Python file.
 
-We tested this by building different types of apps. Each one is a single Python file, no build step, deployable to Huggingface Spaces in seconds.
+We tested this by building different types of apps. Each one is a single Python file, no build step, deployable to Hugging Face Spaces in seconds.
 
 ## Productivity Apps
 
@@ -87,7 +87,7 @@ Now `Heatmap()` works like `gr.Image()` or `gr.Slider()` — use it in Blocks, w
 
 When you ask your LLM to build a custom component, single-file output is everything. No "now create the styles file" or "wire this into your build config." Just one Python file that runs immediately.
 
-The feedback loop becomes: describe what you want → get code → `gradio app.py` → see it working → describe what to fix → repeat. Each cycle takes seconds with [gradio's reload mode](https://www.gradio.app/guides/developing-faster-with-reload-mode).
+The feedback loop becomes: describe what you want → get code → `gradio app.py` → see it working → describe what to fix → repeat. Each cycle takes seconds with [Gradio's reload mode](https://www.gradio.app/guides/developing-faster-with-reload-mode).
 
 
 [Deploy to Spaces](https://www.gradio.app/guides/sharing-your-app#hosting-on-hf-spaces) with `gradio deploy` or [share a temporary link](https://www.gradio.app/guides/sharing-your-app#sharing-demos) with `demo.launch(share=True)`. Within a few seconds from an idea to a live app.
