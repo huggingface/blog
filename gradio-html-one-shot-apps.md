@@ -9,7 +9,7 @@ authors:
 
 # One-Shot Any Web App with Gradio's gr.HTML
 
-**Gradio 6** quietly shipped a very powerful feature: **`gr.HTML`** now supports custom templates, scoped CSS, and JavaScript interactivity. Which means you can build pretty much any web component — and Claude can generate the whole thing in one shot: frontend, backend, and state management, all in a single Python file.
+**Gradio 6** quietly shipped a very powerful feature: **`gr.HTML`** now supports custom templates, scoped CSS, and JavaScript interactivity. Which means you can build pretty much any web component — and Claude (or any other frontier LLM) can generate the whole thing in one shot: frontend, backend, and state management, all in a single Python file.
 
 We tested this by building different types of apps. Each one is a single Python file, no build step, deployable to Huggingface Spaces in seconds.
 
@@ -85,7 +85,7 @@ Now `Heatmap()` works like `gr.Image()` or `gr.Slider()` — use it in Blocks, w
 
 ## Why This Matters for Vibe Coding
 
-When you ask Claude to build a custom component, single-file output is everything. No "now create the styles file" or "wire this into your build config." Just one Python file that runs immediately.
+When you ask your LLM to build a custom component, single-file output is everything. No "now create the styles file" or "wire this into your build config." Just one Python file that runs immediately.
 
 The feedback loop becomes: describe what you want → get code → `gradio app.py` → see it working → describe what to fix → repeat. Each cycle takes seconds with [gradio's reload mode](https://www.gradio.app/guides/developing-faster-with-reload-mode).
 
@@ -97,7 +97,7 @@ The feedback loop becomes: describe what you want → get code → `gradio app.p
 
 Gradio ships with 32 interactive components, but sometimes your perfect AI web app needs something special. That's where `gr.HTML` comes in. 
 
-If you’ve got an idea, try building it with `gr.HTML`: describe what you want to Claude, generate the code, run it. You might be surprised what you can ship in 5 minutes.
+If you’ve got an idea, try building it with `gr.HTML`: describe what you want to your LLM, generate the code, run it. You might be surprised what you can ship in 5 minutes.
 
 
 Suggested reading:
