@@ -206,3 +206,4 @@ For a full overview of Hugging Face Spaces pricing, check out the guide [here](h
 - [Hugging Face Skills Repository](https://github.com/huggingface/skills)
 - [Free credits for Unsloth Jobs Explorers](https://huggingface.co/unsloth-jobs)
 - [Unsloth Tutorial on Hugging Face Jobs](https://unsloth.ai/docs/basics/inference-and-deployment/deploying-with-hugging-face-jobs)
+- [Example Unsloth Jobs scripts](https://huggingface.co/datasets/unsloth/jobs)
