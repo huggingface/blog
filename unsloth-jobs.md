@@ -64,11 +64,11 @@ Check out the [training script](https://huggingface.co/datasets/unsloth/jobs/blo
 
 ## Installing the Skill
 
-First, install the skill with your coding agent.
+Hugging Face model training skill lowers barrier of entry to train a model by simply prompting. First, install the skill with your coding agent.
 
 ### Claude Code
 
-Claude Code discovers skills through its [plugin system](https://code.claude.com/docs/en/discover-plugins).
+Claude Code discovers skills through its [plugin system](https://code.claude.com/docs/en/discover-plugins), so we need to install the Hugging Face skills first. To do so:
 
 1. Add the marketplace:
 
@@ -88,7 +88,7 @@ Claude Code discovers skills through its [plugin system](https://code.claude.com
 /plugin install hugging-face-model-trainer@huggingface-skills
 ```
 
-For more details, see the [Claude Code plugins docs](https://code.claude.com/docs/en/discover-plugins) and the [Skills docs](https://code.claude.com/docs/en/skills).
+For more details, see the [documentation](https://huggingface.co/docs/hub/en/agents-skills) on using the hub with skills or the Claude Code [Skills docs](https://code.claude.com/docs/en/skills).
 
 ### Codex
 
