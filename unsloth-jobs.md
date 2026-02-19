@@ -20,6 +20,8 @@ authors:
 
 This blog post covers how to use [Unsloth](https://github.com/unslothai/unsloth) and [`LiquidAI/LFM2.5-1.2B-Instruct`](https://huggingface.co/LiquidAI/LFM2.5-1.2B-Instruct) for fast LLM fine-tuning through coding agents like Claude Code and Codex. Unsloth provides ~2x faster training and ~60% less VRAM usage compared to standard methods, so training small models can cost just a few dollars.
 
+Why a small model? Small language models like LFM2.5-1.2B-Instruct are ideal candidates for fine-tuning. They are cheap to train, fast to iterate on, and increasingly competitive with much larger models on focused tasks. LFM2.5-1.2B-Instruct runs under 1GB of memory and is optimized for on-device deployment, so what you fine-tune can be served on CPUs, phones, and laptops.
+
 <figure class="image flex flex-col items-center text-center m-0 w-full">
 <video controls width="100%" height="auto">
   <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/unsloth-jobs/unsloth-jobs.mp4" type="video/mp4" />
@@ -141,7 +143,7 @@ from trl import SFTTrainer, SFTConfig
 from datasets import load_dataset
 
 model, tokenizer = FastLanguageModel.from_pretrained(
-    "Qwen/Qwen2.5-0.5B",
+    "LiquidAI/LFM2.5-1.2B-Instruct",
     load_in_4bit=True,
     max_seq_length=2048,
 )
@@ -155,10 +157,11 @@ model = FastLanguageModel.get_peft_model(
         "q_proj",
         "k_proj",
         "v_proj",
-        "o_proj",
-        "gate_proj",
-        "up_proj",
-        "down_proj",
+        "out_proj",
+        "in_proj",
+        "w1",
+        "w2",
+        "w3",
     ],
 )
 
