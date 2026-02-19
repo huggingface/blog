@@ -52,12 +52,13 @@ Next you can run the following command to submit a job:
 
 ```text
 hf jobs uv run https://huggingface.co/datasets/unsloth/jobs/resolve/main/sft-lfm2.5.py \
-    --flavor a10g-small --secrets HF_TOKEN --timeout 4h \
-    -- --dataset mlabonne/FineTome-100k \
-        --num-epochs 1 \
-        --eval-split 0.2 \
-        --output-repo your-username/lfm-finetuned
-```
+    --flavor a10g-small  \
+    --secrets HF_TOKEN  \
+    --timeout 4h \
+    --dataset mlabonne/FineTome-100k \
+    --num-epochs 1 \
+    --eval-split 0.2 \
+    --output-repo your-username/lfm-finetuned
 
 Check out the [training script](https://huggingface.co/datasets/unsloth/jobs/blob/main/sft-lfm2.5.py) and [Hugging Face Jobs documentation](https://huggingface.co/docs/hub/jobs) for more details.
 
