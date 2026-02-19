@@ -28,10 +28,10 @@ authors:
 
   ## You will need
 
-  We are giving away free credits to train the model on Hugging Face Jobs. Join the [Unsloth Jobs Explorers](https://huggingface.co/unsloth-jobs) to claim your free credits and pro subscription.
+  We are giving away free credits to fine-tune models on Hugging Face Jobs. Join the [Unsloth Jobs Explorers](https://huggingface.co/unsloth-jobs) organization to claim your free credits and one-month Pro subscription.
 
   - A [Hugging Face](https://huggingface.co) account (required for HF Jobs) 
-  - Billing setup but you won't need to pay anything.
+  - Billing setup (but you won't need to pay anything).
   - A Hugging Face token with write permissions
   - A coding agent (`Open Code`, `Claude Code`, or `Codex`)
 
@@ -77,7 +77,7 @@ For more details, see the [Codex Skills docs](https://developers.openai.com/code
 
 ### Anything else
 
-A generic install is simply to clone the [skills repository](https://github.com/huggingface/skills) and copy the [skill](https://github.com/huggingface/skills/tree/main/skills/hugging-face-model-trainer) to your agent's skills directory.
+A generic install method is simply to clone the [skills repository](https://github.com/huggingface/skills) and copy the [skill](https://github.com/huggingface/skills/tree/main/skills/hugging-face-model-trainer) to your agent's skills directory.
 
 ```text
 git clone https://github.com/huggingface/skills.git
