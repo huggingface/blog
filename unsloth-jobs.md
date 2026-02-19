@@ -16,24 +16,24 @@ authors:
 - user: evalstate
 ---
 
-  # Train AI models with Unsloth and Hugging Face Jobs for FREE
+# Train AI models with Unsloth and Hugging Face Jobs for FREE
 
-  This blog post covers how to use [Unsloth](https://github.com/unslothai/unsloth) and [`LiquidAI/LFM2.5-1.2B-Instruct`](https://huggingface.co/LiquidAI/LFM2.5-1.2B-Instruct) for fast LLM fine-tuning through coding agents like Claude Code and Codex. Unsloth provides ~2x faster training and ~60% less VRAM usage compared to standard methods, so training small models can cost just a few dollars.
+This blog post covers how to use [Unsloth](https://github.com/unslothai/unsloth) and [`LiquidAI/LFM2.5-1.2B-Instruct`](https://huggingface.co/LiquidAI/LFM2.5-1.2B-Instruct) for fast LLM fine-tuning through coding agents like Claude Code and Codex. Unsloth provides ~2x faster training and ~60% less VRAM usage compared to standard methods, so training small models can cost just a few dollars.
 
 <figure class="image flex flex-col items-center text-center m-0 w-full">
-  <video controls width="100%" height="auto">
-    <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/unsloth-jobs/unsloth-jobs.mp4" type="video/mp4" />
-  </video>
+<video controls width="100%" height="auto">
+  <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/unsloth-jobs/unsloth-jobs.mp4" type="video/mp4" />
+</video>
 </figure>
 
-  ## You will need
+## You will need
 
-  We are giving away free credits to fine-tune models on Hugging Face Jobs. Join the [Unsloth Jobs Explorers](https://huggingface.co/unsloth-jobs) organization to claim your free credits and one-month Pro subscription.
+We are giving away free credits to fine-tune models on Hugging Face Jobs. Join the [Unsloth Jobs Explorers](https://huggingface.co/unsloth-jobs) organization to claim your free credits and one-month Pro subscription.
 
-  - A [Hugging Face](https://huggingface.co) account (required for HF Jobs) 
-  - Billing setup (but you won't need to pay anything).
-  - A Hugging Face token with write permissions
-  - A coding agent (`Open Code`, `Claude Code`, or `Codex`)
+- A [Hugging Face](https://huggingface.co) account (required for HF Jobs) 
+- Billing setup (but you won't need to pay anything).
+- A Hugging Face token with write permissions
+- A coding agent (`Open Code`, `Claude Code`, or `Codex`)
 
 ## Installing the Skill
 
