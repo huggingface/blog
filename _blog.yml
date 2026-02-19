@@ -5093,3 +5093,14 @@
     - spaces
     - vibe-coding
     - community
+
+- local: unsloth-jobs
+  date: Feb 20, 2026
+  tags:
+    - llm
+    - fine-tuning
+    - training
+    - agents
+    - Codex
+    - Claude
+    - open-source
