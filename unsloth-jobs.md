@@ -33,7 +33,7 @@ Why a small model? Small language models like LFM2.5-1.2B-Instruct are ideal can
 We are giving away free credits to fine-tune models on Hugging Face Jobs. Join the [Unsloth Jobs Explorers](https://huggingface.co/unsloth-jobs) organization to claim your free credits and one-month Pro subscription.
 
 - A [Hugging Face](https://huggingface.co) account (required for HF Jobs) 
-- Billing setup (but you won't need to pay anything).
+- Billing setup (for verification, you can monitor your usage and manage your billing in your [billing page](https://huggingface.co/settings/billing)).
 - A Hugging Face token with write permissions
 - (optional) A coding agent (`Open Code`, `Claude Code`, or `Codex`)
 
