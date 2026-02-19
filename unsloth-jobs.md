@@ -39,7 +39,7 @@ We are giving away free credits to fine-tune models on Hugging Face Jobs. Join t
 
 ## Run the Job
 
-If you want to train a model using HF Jobs and Unsloth, you do not need a coding agent. You can simply use the `hf jobs` CLI to submit a job.
+If you want to train a model using HF Jobs and Unsloth, you can simply use the `hf jobs` CLI to submit a job.
 
 First, you need to install the `hf` CLI. You can do this by running the following command:
 
