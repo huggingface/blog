@@ -18,7 +18,7 @@ authors:
 
 # Train AI models with Unsloth and Hugging Face Jobs for FREE
 
-This blog post covers how to use [Unsloth](https://github.com/unslothai/unsloth) and [`LiquidAI/LFM2.5-1.2B-Instruct`](https://huggingface.co/LiquidAI/LFM2.5-1.2B-Instruct) for fast LLM fine-tuning through coding agents like Claude Code and Codex. Unsloth provides ~2x faster training and ~60% less VRAM usage compared to standard methods, so training small models can cost just a few dollars.
+This blog post covers how to use [Unsloth](https://github.com/unslothai/unsloth) and Hugging Face Jobs for fast LLM fine-tuning (specifically [`LiquidAI/LFM2.5-1.2B-Instruct`](https://huggingface.co/LiquidAI/LFM2.5-1.2B-Instruct) ) through coding agents like Claude Code and Codex. Unsloth provides ~2x faster training and ~60% less VRAM usage compared to standard methods, so training small models can cost just a few dollars.
 
 Why a small model? Small language models like LFM2.5-1.2B-Instruct are ideal candidates for fine-tuning. They are cheap to train, fast to iterate on, and increasingly competitive with much larger models on focused tasks. LFM2.5-1.2B-Instruct runs under 1GB of memory and is optimized for on-device deployment, so what you fine-tune can be served on CPUs, phones, and laptops.
 
