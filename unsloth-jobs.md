@@ -33,7 +33,31 @@ We are giving away free credits to fine-tune models on Hugging Face Jobs. Join t
 - A [Hugging Face](https://huggingface.co) account (required for HF Jobs) 
 - Billing setup (but you won't need to pay anything).
 - A Hugging Face token with write permissions
-- A coding agent (`Open Code`, `Claude Code`, or `Codex`)
+- (optional) A coding agent (`Open Code`, `Claude Code`, or `Codex`)
+
+## Run the Job
+
+If you want to train a model using HF Jobs and Unsloth, you do not need a coding agent. You can simply use the `hf jobs` CLI to submit a job.
+
+First, you need to install the `hf` CLI. You can do this by running the following command:
+
+```
+# mac or linux
+curl -LsSf https://hf.co/cli/install.sh | bash
+```
+
+Next you can run the following command to submit a job:
+
+```text
+hf jobs uv run https://huggingface.co/datasets/unsloth/jobs/resolve/main/sft-lfm2.5.py \
+    --flavor a10g-small --secrets HF_TOKEN --timeout 4h \
+    -- --dataset mlabonne/FineTome-100k \
+        --num-epochs 1 \
+        --eval-split 0.2 \
+        --output-repo your-username/lfm-finetuned
+```
+
+Check out the [training script](https://huggingface.co/datasets/unsloth/jobs/blob/main/sft-lfm2.5.py) and [Hugging Face Jobs documentation](https://huggingface.co/docs/hub/jobs) for more details.
 
 ## Installing the Skill
 
@@ -89,7 +113,7 @@ mkdir -p ~/.agents/skills && cp -R skills/skills/hugging-face-model-trainer ~/.a
 Once the skill is installed, ask your coding agent to train a model:
 
 ```text
-Train LiquidAI/LFM2.5-1.2B-Instruct on trl-lib/Capybara using Unsloth on HF Jobs
+Train LiquidAI/LFM2.5-1.2B-Instruct on mlabonne/FineTome-100k using Unsloth on HF Jobs
 ```
 
 The agent will generate a training script based on an [example in the skill](https://github.com/huggingface/skills/blob/main/skills/hugging-face-model-trainer/scripts/unsloth_sft_example.py), submit the training to HF Jobs, and provide a monitoring link via Trackio.
