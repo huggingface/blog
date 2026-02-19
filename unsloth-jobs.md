@@ -22,11 +22,7 @@ This blog post covers how to use [Unsloth](https://github.com/unslothai/unsloth)
 
 Why a small model? Small language models like LFM2.5-1.2B-Instruct are ideal candidates for fine-tuning. They are cheap to train, fast to iterate on, and increasingly competitive with much larger models on focused tasks. LFM2.5-1.2B-Instruct runs under 1GB of memory and is optimized for on-device deployment, so what you fine-tune can be served on CPUs, phones, and laptops.
 
-<figure class="image flex flex-col items-center text-center m-0 w-full">
-<video controls width="100%" height="auto">
-  <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/unsloth-jobs/unsloth-jobs.mp4" type="video/mp4" />
-</video>
-</figure>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Gh5P4niIFNA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## You will need
 
