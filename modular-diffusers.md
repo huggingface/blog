@@ -10,11 +10,9 @@ authors:
 
 # Introducing Modular Diffusers - Composable Building Blocks for Diffusion Pipelines
 
-The `DiffusionPipeline` class in Diffusers has been great for establishing a standard interface for popular diffusion workflows. But one piece of feedback we've consistently heard from the community is that pipelines are too monolithic to extend and build on top of. 
+Modular Diffusers introduces a new way to build diffusion pipelines by composing reusable blocks. Instead of writing entire pipelines from scratch, you can now mix and match building blocks to create custom workflows tailored to your specific needs! This complements the existing `DiffusionPipeline` class, providing a more flexible way to create custom diffusion pipelines.
 
-Modular Diffusers is our answer to that! It introduces a new way to build diffusion pipelines by composing reusable blocks. Instead of writing entire pipelines from scratch, you can now mix and match building blocks to create custom workflows tailored to your specific needs.
-
-In this post, we'll walk through how Modular Diffusers works — from the familiar API to run a modular pipeline, to building fully custom blocks and composing them into your own workflow. We'll also show how it integrates with Mellon, a node-based visual workflow interface - we've built a set of nodes powered by Modular Diffusers blocks ourselves just to make sure the architecture works well as a backbone for visual workflow tools.
+In this post, we'll walk through how Modular Diffusers works — from the familiar API to run a modular pipeline, to building fully custom blocks and composing them into your own workflow. We'll also show how it integrates with Mellon, a node-based visual workflow interface that you can use to wire Modular Diffusers blocks together.
 
 **Table of contents**
 
@@ -26,7 +24,7 @@ In this post, we'll walk through how Modular Diffusers works — from the famili
 
 ## Quickstart
 
-Getting started with Modular Diffusers is straightforward. Here is a simple example using pre-built blocks
+Getting started with Modular Diffusers is straightforward. Here is a simple example of how to run inference  for `FLUX.2 Klein 4B` using pre-built blocks
 
 ```python
 import torch
@@ -49,7 +47,7 @@ image = pipe(
 image.save("output.png")
 ```
 
-Behind the scenes, this pipeline is composed of multiple blocks working together — text encoding, image encoding, denoising, and decoding. You can inspect them directly:
+Behind the scenes, this pipeline is composed of multiple blocks working together — text encoding, image encoding, denoising, and decoding. You can inspect each of them directly:
 
 ```python
 print(pipe.blocks)
@@ -66,7 +64,9 @@ Flux2KleinAutoBlocks(
 )
 ```
 
-Each block is self-contained, with its own defined inputs and outputs. You can take any block and run it independently as its own pipeline, or add, remove, and swap blocks freely, they will dynamically recompose to work with whatever blocks remain. When you're ready to run, convert your blocks into a pipeline and load the components.
+In this example, you get the same generation results as if you had loaded the standard `DiffusionPipeline`, but the pipeline is very different under the hood: it's made of flexible _blocks_ that you can combine in different ways.
+
+Each block is self-contained, with its own defined inputs and outputs. You can take any block and run it independently as its own pipeline, or add, remove, and swap blocks freely, they will dynamically recompose to work with whatever blocks remain. When you're ready to run, use `.init_pipeline()` to convert your blocks into a runnable pipeline, and `.load_components()` to load the model weights.
 
 ```python
 # get a copy of the blocks
@@ -124,7 +124,7 @@ A modular repository doesn't duplicate any model weights. Instead, it references
 }
 ```
 
-Modular repositories can also host custom pipeline blocks as Python code and visual UI configurations for tools like Mellon — all in one place. 
+Modular repositories can also host custom pipeline blocks as Python code and visual UI configurations for tools like [Mellon](https://huggingface.co/docs/diffusers/main/en/modular_diffusers/mellon) — all in one place. 
 
 ## Custom Blocks
 
@@ -178,7 +178,7 @@ Let's use this block with Qwen's ControlNet workflow. Extract the ControlNet wor
 # Create Qwen Image pipeline
 pipe = ModularPipeline.from_pretrained("Qwen/Qwen-Image")
 
-print(pipe.blocks.workflow_names)
+print(pipe.blocks.available_workflows)
 #       Supported workflows:
 #        - `text2image`: requires `prompt`
 #        - `image2image`: requires `prompt`, `image`
@@ -188,7 +188,7 @@ print(pipe.blocks.workflow_names)
 
 # Extract the ControlNet workflow — it expects a condition_image input
 blocks = pipe.blocks.get_workflow("controlnet_text2image")
-# Show the blocks the consist this workflow
+# Show the blocks this workflow uses
 print(blocks)
 
 # Insert depth block at the beginning — its output (condition_image)

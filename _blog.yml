@@ -5084,7 +5084,7 @@
     - agents
 
 - local: modular-diffusers
-  date: Feb 16, 2026
+  date: Feb 20, 2026
   tags:
     - open-source
     - diffusers
@@ -5093,4 +5093,6 @@
     - diffusion
     - text-to-image
     - text-to-video
+    - modular-diffusers
+    
 
