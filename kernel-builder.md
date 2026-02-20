@@ -334,11 +334,28 @@ mkdir -p build
 rsync -av --delete --chmod=Du+w,Fu+w result/ build/
 ```
 
+#### System Card for the Kernel
+
+Documenting how to use the kernel is just as important! We provide a utility to generate a system card for a given kernel, utilizing
+information from the `build.toml` and metadata. This system card provides a reasonable starting point and is meant to be edited afterward by the kernel
+developer.
+
+To generate the card, use the `kernels create-and-upload-card ...` command. Check out the [docs](https://huggingface.co/docs/kernels/en/cli#kernels-create-and-upload-card) to know more.
+
 #### Pushing to the Hugging Face Hub
 
-Pushing the build artifacts to the Hub will make it straightforward for other developers to use your kernel, as we saw in [our previous post](https://huggingface.co/blog/hello-hf-kernels).
+Pushing the build artifacts to the Hub will make it straightforward for other developers to use your kernel, as we saw in [our previous post](https://huggingface.co/blog/hello-hf-kernels). We provide a `kernels upload` command for this purpose:
 
-First, create a new repo:
+```bash
+kernels upload build --repo_id="hub-username/kernel"
+```
+
+This will trigger an upload of the `"build"` directory to the `"hub-username/kernel"` repo. Check out the [docs](https://huggingface.co/docs/kernels/en/cli#kernels-upload) to know more.
+
+<summary>
+<details>Unfold for the alternative approach</details>
+
+  First, create a new repo:
 
 ```bash
 hf repo create img2gray
@@ -372,6 +389,8 @@ git add \
 git commit -m "feat: Created a compliant img2gray kernel"
 git push -u origin main
 ```
+
+</summary>
 
 Fantastic! Your kernel is now on the Hugging Face Hub, ready for others to use and fully compliant with the `kernels` library. Our kernel and all of its build variants are now available at [drbh/img2gray](https://huggingface.co/drbh/img2gray/tree/main/build).
 
