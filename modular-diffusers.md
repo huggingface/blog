@@ -17,14 +17,14 @@ In this post, we'll walk through how Modular Diffusers works — from the famili
 **Table of contents**
 
 - [Quickstart](#quickstart)
-- [Modular Repositories](#modular-repositories)
 - [Custom Blocks](#custom-blocks)
+- [Modular Repositories](#modular-repositories)
 - [Community Pipelines](#community-pipelines)
 - [Integration with Mellon](#integration-with-mellon)
 
 ## Quickstart
 
-Getting started with Modular Diffusers is straightforward. Here is a simple example of how to run inference  for `FLUX.2 Klein 4B` using pre-built blocks
+Getting started with Modular Diffusers is straightforward. Here is a simple example of how to run inference  for `FLUX.2 Klein 4B` using pre-built blocks:
 
 ```python
 import torch
@@ -93,42 +93,10 @@ image = remaining_pipe(prompt_embeds=prompt_embeds, num_inference_steps=4).image
 
 For more on the different block types, composition patterns, lazy loading, and efficiently managing model memory across pipelines with `ComponentsManager`, check out the [Modular Diffusers documentation.](https://huggingface.co/docs/diffusers/en/modular_diffusers/overview).
 
-## Modular Repositories
-
-When you call `ModularPipeline.from_pretrained`, it works with any existing Diffusers repo out of the box. But Modular Diffusers also introduces Modular Repositories.
-
-A modular repository doesn't duplicate any model weights. Instead, it references components directly from their original model repos. For example, [diffusers/flux2-bnb-4bit-modular](https://huggingface.co/diffusers/flux2-bnb-4bit-modular) contains no model weights at all — it loads a quantized transformer from one repo and the remaining components from another.
-
-```json
-// diffusers/flux2-bnb-4bit-modular/modular_model_index.json
-{
-	"transformer": [
-		null, 
-		null, 
-		{
-			"pretrained_model_name_or_path": "diffusers/FLUX.2-dev-bnb-4bit",
-			"subfolder": "transformer",
-			"type_hint": ["diffusers", "Flux2Transformer2DModel"]
-		}
-	],
-	"vae": [
-		null, 
-		null, 
-		{
-			"pretrained_model_name_or_path": "black-forest-labs/FLUX.2-dev",
-			"subfolder": "vae",
-			"type_hint": ["diffusers", "AutoencoderKLFlux2"]
-		}
-	],
-	...
-}
-```
-
-Modular repositories can also host custom pipeline blocks as Python code and visual UI configurations for tools like [Mellon](https://huggingface.co/docs/diffusers/main/en/modular_diffusers/mellon) — all in one place. 
 
 ## Custom Blocks
 
-So far we've been working with pre-built blocks. But where Modular Diffusers really shines is in creating your own custom blocks. A custom block is a Python class that defines its components, inputs, outputs, and computation logic — and once defined, you can use it with any workflow.
+Advanced workflows demand flexible cusotmization. Where Modular Diffusers really shines is in creating your own custom blocks. A custom block is a Python class that defines its components, inputs, outputs, and computation logic — and once defined, you can use it with any workflow.
 
 ### Writing a Custom Block
 
@@ -226,7 +194,7 @@ pipeline.update_components(controlnet=controlnet)
 image = load_image("https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/astronaut.jpg")
 output = pipeline(
     prompt="an astronaut hatching from an egg, detailed, fantasy, Pixar, Disney",
-    image=path/to/image
+    image=PATH_TO_IMAGE,
 ).images[0]
 ```
 
@@ -234,7 +202,11 @@ output = pipeline(
 
 You can publish your custom block to the Hub so anyone can load it with `trust_remote_code=True`. We've created a [template](https://huggingface.co/diffusers/custom-block-template) to get you started — check out the [Building Custom Blocks guide](https://huggingface.co/docs/diffusers/main/en/modular_diffusers/custom_blocks#quick-start-with-template) for the full walkthrough.
 
-The `DepthProcessorBlock` from this example is published at [diffusers/depth-processor-custom-block](https://huggingface.co/diffusers/depth-processor-custom-block) — you can load and use it directly:
+```python
+pipeline.save_pretrained(local_dir, repo_id="your-username/your-block-name", push_to_hub=True)
+```
+
+The `DepthProcessorBlock` from this post is published at [diffusers/depth-processor-custom-block](https://huggingface.co/diffusers/depth-processor-custom-block) — you can load and use it directly:
 
 ```python
 from diffusers import ModularPipelineBlocks
@@ -244,7 +216,40 @@ depth_block = ModularPipelineBlocks.from_pretrained(
 )
 ```
 
-We've published a collection of ready-to-use custom blocks [here](https://www.notion.so/huggingface2/link-to-collection).
+We've published a collection of ready-to-use custom blocks [here](https://huggingface.co/collections/diffusers/modular-diffusers-custom-blocks).
+
+## Modular Repositories
+
+When you call `ModularPipeline.from_pretrained`, it works with any existing Diffusers repo out of the box. But Modular Diffusers also introduces Modular Repositories.
+
+A modular repository doesn't duplicate any model weights. Instead, it references components directly from their original model repos. For example, [diffusers/flux2-bnb-4bit-modular](https://huggingface.co/diffusers/flux2-bnb-4bit-modular) contains no model weights at all — it loads a quantized transformer from one repo and the remaining components from another.
+
+```json
+// diffusers/flux2-bnb-4bit-modular/modular_model_index.json
+{
+	"transformer": [
+		null, 
+		null, 
+		{
+			"pretrained_model_name_or_path": "diffusers/FLUX.2-dev-bnb-4bit",
+			"subfolder": "transformer",
+			"type_hint": ["diffusers", "Flux2Transformer2DModel"]
+		}
+	],
+	"vae": [
+		null, 
+		null, 
+		{
+			"pretrained_model_name_or_path": "black-forest-labs/FLUX.2-dev",
+			"subfolder": "vae",
+			"type_hint": ["diffusers", "AutoencoderKLFlux2"]
+		}
+	],
+	...
+}
+```
+
+Modular repositories can also host custom pipeline blocks as Python code and visual UI configurations for tools like [Mellon](https://huggingface.co/docs/diffusers/main/en/modular_diffusers/mellon) — all in one place.
 
 ## Community Pipelines
 
@@ -270,7 +275,6 @@ These pipelines showcase what's possible when you have a composable, block-based
 Check out the full [collection of community pipelines](https://huggingface.co/collections/diffusers/modular-pipelines) for more.
 
 ## Integration with Mellon
-
 
 > [!TIP]
 > 💡 Mellon is in early development and not ready for production use yet. Consider this a sneak peek of how the integration works!
@@ -312,7 +316,7 @@ Below are all the important links pertaining to Modular Diffusers:
 - [Overview](https://huggingface.co/docs/diffusers/main/en/modular_diffusers/overview) of Modular Diffusers, including all the important links already
 - [Mellon](https://github.com/cubiq/Mellon)
 - [Mellon x Modular Diffusers](https://www.notion.so/Mellon-x-Modular-Diffusers-2fd1384ebcac819993d8f9ae94c7e866?pvs=21)
-- [Collection](https://www.notion.so/huggingface2/link-to-collection) of custom blocks
+- [Collection](https://huggingface.co/collections/diffusers/modular-diffusers-custom-blocks) of custom blocks
 - [Collection](https://huggingface.co/collections/diffusers/modular-pipelines) of community pipelines with Modular Diffusers
 
-_Thanks to Chun Te Lee for working on the thumbnail of this post._
+_Thanks to Chun Te Lee for working on the thumbnail of this post. Thanks to Poli, Pedro, Lysandre, Linoy, Aritra, and Steven for their thoughtful reviews._
