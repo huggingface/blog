@@ -363,7 +363,7 @@ The models will drive the vehicle with LeRobot driver in two modes
     journal = {https://www.yaak.ai/blog/buildling-spatial-intelligence-part1},
     year = {2024},
 }
-@article{yaak2024si-01,
+@article{yaak2024si-02,
     author = {Yaak team},
     title ={Building spatial intelligence part - 2},
     journal = {https://www.yaak.ai/blog/building-spatial-intelligence-part-2},
