@@ -5104,3 +5104,11 @@
     - Codex
     - Claude
     - open-source
+
+- local: ggml-joins-hf
+  date: Feb 20, 2026
+  tags:
+    - community
+    - open-source
+    - llm
+    - local-ai

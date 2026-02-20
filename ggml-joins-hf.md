@@ -1,3 +1,15 @@
+---
+title: "GGML and llama.cpp join HF to ensure the long-term progress of Local AI"
+thumbnail: /blog/assets/ggml-joins-hf/ggml-joins-hf.png
+authors:
+- user: ggerganov
+- user: ngxson
+- user: allozaur
+- user: lysandre
+- user: victor
+- user: julien-c
+---
+
 # GGML and llama.cpp join HF to ensure the long-term progress of Local AI
 
 We are super happy to announce that GGML, creators of Llama.cpp, are joining HF in order to keep future AI open. 🔥
@@ -8,6 +20,9 @@ We've been working with Georgi and team for quite some time (we even have awesom
 
 llama.cpp is the fundamental building block for local inference, and transformers is the fundamental building block for model definition, so this is basically a match made in heaven. ❤️
 
+<p align="center">
+  <img src="/blog/assets/ggml-joins-hf/ggml-joins-hf.png" alt="GGML joins Hugging Face">
+</p>
 
 ### What will change for llama.cpp, the open source project and the community?
 
