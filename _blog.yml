@@ -5083,6 +5083,19 @@
     - community
     - agents
 
+- local: modular-diffusers
+  date: Feb 20, 2026
+  tags:
+    - open-source
+    - diffusers
+    - generative
+    - guide
+    - diffusion
+    - text-to-image
+    - text-to-video
+    - modular-diffusers
+    
+
 - local: gradio-html-one-shot-apps
   date: Feb 18, 2026
   tags:
