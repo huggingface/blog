@@ -5112,3 +5112,13 @@
     - open-source
     - llm
     - local-ai
+
+- local: moe-transformers
+  date: Feb 25, 2026
+  tags:
+    - mixture-of-experts
+    - optimization
+    - transformers
+    - transformers-internal
+    - inference
+    - speed
