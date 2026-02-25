@@ -100,10 +100,6 @@ Most tooling in the ecosystem, including model loading, device placement, quanti
 Making MoEs **first-class citizens** in `transformers` means redesigning parts of the loading pipeline, execution model, and distributed abstractions not just adding new model classes. In the rest of this post, we’ll focus on how the `transformers` library has evolved to support sparse architectures across:
 
 * [Weight Loading Refactor](#weight-loading-refactor)
-* [The loading pipeline under the hood](#the-loading-pipeline-under-the-hood)
-* [Why this is a MoE feature, not just a loader feature](#why-this-is-a-moe-feature,-not-just-a-loader-feature)
-* [Where quantization fits in](#where-quantization-fits-in)
-* [Benchmark](#benchmark)
 * [Expert Backend](#expert-backend)
 * [Expert Parallelism](#expert-parallelism)
 * [Training MoEs with transformers](#training-moes-with-transformers)
@@ -211,7 +207,7 @@ This ensures:
 - Quantization operates on final runtime tensors  
 - Kernel dispatch uses the correct layout
 
-## Where Quantization Fits In
+### Where Quantization Fits In
 
 MoEs amplify the importance of quantization.
 
@@ -223,7 +219,7 @@ The refactor establishes a clean contract:
 
 This is crucial because quantizing “per expert” only makes sense once experts exist in a predictable packed layout.
 
-## Benchmark
+### Benchmark
 
 To evaluate the improvements introduced by the new weight-loading pipeline, we benchmarked the v4 vs v5 versions of `transformers`. The focus is on loading speed of large MoE models, which is often a bottleneck in training and inference.
 
