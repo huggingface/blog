@@ -28,7 +28,7 @@ Over the past few years, scaling dense language models has driven most progress 
 This is where Mixture of Experts (MoEs) enter the picture.
 
 > [!TIP]
-> If you're already familiar with MoEs and want to jump straight into the engineering work, you can head directly to [Transformers and MoEs](#transformers-and-moes).
+> If you're already familiar with MoEs and want to jump straight into the engineering work done in transformers, you can head directly to [Transformers and MoEs](#transformers-and-moes).
 
 ## From Dense to Sparse: What Are MoEs?
 
@@ -40,19 +40,15 @@ A Mixture of Experts model keeps the Transformer backbone, but replaces certain 
 
 Different tokens activate different experts, based on their hidden representations.
 
-> **Model capacity depends on total parameters, but inference cost depends on active parameters.**
+> **Model capacity depends on total parameters, but inference speed depends on active parameters.**
 
 This is the key idea.
 
-For example, [DeepSeek-V3](https://huggingface.co/deepseek-ai/DeepSeek-V3):
+For example, take [gpt-oss-20b](https://huggingface.co/openai/gpt-oss-20b). It has 21B total parameters, but uses 4 active experts per token, out of a total of 32 experts. Considering the shared components plus the active experts, this model uses ~3.6B active parameters per token. Running this model on an M3 Ultra Mac, which has a memory bandwidth of about 800 GB, we could estimate generation speed as ~ `800 / (3.6 * 2)` in `bfloat16`, where each parameter takes 2 bytes. This yields about 111 tokens per second. The actual performance number we get is ~115 tok/s, which is very close to the back-of-the-envelope calculation.
 
-- **671B total parameters**
-- **37B active parameters per token**
-- [256 routed experts](https://huggingface.co/deepseek-ai/DeepSeek-V3/blob/main/config.json#L26)
-- [8 activated per token](https://huggingface.co/deepseek-ai/DeepSeek-V3/blob/main/config.json#L30)
-- [1 always-on shared expert](https://huggingface.co/deepseek-ai/DeepSeek-V3/blob/main/config.json#L27)
+This super fast speed confirms the model works approximately as a 3.6B parameter one, but it has the same capacity (or quality) as a 21B parameter model.
 
-For any given token, only ~5.5% of parameters are active. In practice, it behaves closer to a 37B dense model at inference — while retaining the learning capacity of a 671B model.
+(Note: speed would be even faster if we used kernels for the native mxfp4 quantization the model uses).
 
 MoEs are attractive for these reasons:
 
@@ -86,9 +82,9 @@ MoEs are attractive for these reasons:
     - [DeepSeek V2](https://huggingface.co/deepseek-ai/DeepSeek-V2)
     - [Mixtral-8x7B](https://huggingface.co/mistralai/Mixtral-8x7B-v0.1)
 
-    | ![2 year timeline of MoE model addition in the transformers package](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/moe-transformers/moe_2y_timeline.png) |
+    | ![2-year timeline of MoE model addition in the transformers package](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/moe-transformers/moe_2y_timeline.png) |
     | :--: |
-    | Figure 3: 2 year timeline of MoE model addition to the `transformers` library. DeepSeek R1 marks a clear inflection point. |
+    | Figure 3: 2-year timeline of MoE model addition to the `transformers` library. DeepSeek R1 marks a clear inflection point. |
 
     Closed labs use MoEs too — ChatGPT has long been [*rumored*](https://x.com/soumithchintala/status/1671267150101721090) to use a sparse architecture, and the open [gpt-oss models](https://huggingface.co/collections/openai/gpt-oss) certainly do.
 
@@ -99,7 +95,7 @@ MoEs are conceptually elegant, but systemically demanding.
 
 ## Transformers and MoEs
 
-Most tooling in the ecosystem including model loading, device placement, quantization, and backend execution was originally designed for **dense** models. MoEs challenge these assumptions.
+Most tooling in the ecosystem, including model loading, device placement, quantization, and backend execution was originally designed for **dense** models. MoEs challenge these assumptions.
 
 Making MoEs **first-class citizens** in `transformers` means redesigning parts of the loading pipeline, execution model, and distributed abstractions not just adding new model classes. In the rest of this post, we’ll focus on how the `transformers` library has evolved to support sparse architectures across:
 
@@ -124,7 +120,7 @@ model.layers.3.mlp.experts.0.gate_proj.weight
 model.layers.3.mlp.experts.255.gate_proj.weight
 ```
 
-Each expert has its own set of weight matrices, essentially 256 (0 to 255) small feed-forward networks saved side by side.
+Each expert has its own set of weight matrices, essentially 256 (0 to 255 total experts) small feed-forward networks saved side by side.
 
 At runtime, however, GPUs execute optimized kernels. Modern MoE kernels such as [grouped GEMMs and fused MoE implementations](https://huggingface.co/kernels-community/megablocks) are designed to process *all experts in a single operation*, not by looping over them one at a time.
 
@@ -137,7 +133,7 @@ So we have a mismatch:
 
 Bridging this gap systematically is what the [weight loading refactor](https://github.com/huggingface/transformers/pull/41580) enables.
 
-With the [weight loading refactor](https://huggingface.co/docs/transformers/main/en/weightconverter), the mental model shifted from:
+With the introduction of a [generic WeightConverter](https://huggingface.co/docs/transformers/main/en/weightconverter), the mental model shifted from:
 
 > A checkpoint already matches my runtime layout; loading is mostly a key-by-key copy.
 
@@ -157,7 +153,7 @@ source key patterns → target key(s) + operations
 
 Primitive operations (chunk, concatenate, etc.) are composable. Two that are particularly useful for MoEs:
 
-- [`MergeModulelist`](https://github.com/huggingface/transformers/blob/main/src/transformers/core_model_loading.py)"
+- [`MergeModulelist`](https://github.com/huggingface/transformers/blob/main/src/transformers/core_model_loading.py):
 
     Stacks per-expert tensors into a single packed tensor:
 
@@ -169,7 +165,7 @@ Primitive operations (chunk, concatenate, etc.) are composable. Two that are par
 
     This makes expert packing a **first-class operation** at load time.
 
-- [`SplitModulelist`](https://github.com/huggingface/transformers/blob/main/src/transformers/core_model_loading.py):
+- [`SplitModulelist`](https://github.com/huggingface/transformers/blob/b71de73468429eb02da18caa50e9b5200400a4ed/src/transformers/core_model_loading.py#L208):
     
     Performs the reverse operation when needed.
 
@@ -228,6 +224,8 @@ The refactor establishes a clean contract:
 This is crucial because quantizing “per expert” only makes sense once experts exist in a predictable packed layout.
 
 ## Benchmark
+
+To evaluate the improvements introduced by the new weight-loading pipeline, we benchmarked the v4 vs v5 versions of `transformers`. The focus is on loading speed of large MoE models, which is often a bottleneck in training and inference.
 
 We benchmarked v4 vs v5 using:
 
@@ -388,7 +386,7 @@ Each device:
 
 Since each token activates only a few experts, this enables scaling to massive model sizes without increasing per-device memory or computation.
 
-Expert parallelism is enabled via:
+Expert parallelism is enabled via `enable_expert_parallel`:
 
 ```python
 import torch
@@ -408,13 +406,13 @@ When `enable_expert_parallel=True`, the model switches from the standard tensor-
 
 ### Core Components
 
-1. [`GroupedGemmParallel`](https://github.com/huggingface/transformers/blob/main/src/transformers/integrations/tensor_parallel.py)
+1. [`GroupedGemmParallel`](https://github.com/huggingface/transformers/blob/b71de73468429eb02da18caa50e9b5200400a4ed/src/transformers/integrations/tensor_parallel.py#L934)
 
     - Splits expert weights along the expert dimension (`dim=0`)
     - Each device loads only `num_experts / num_devices`
     - Requires the number of devices to evenly divide the total number of experts
 
-2. [`RouterParallel`](https://github.com/huggingface/transformers/blob/main/src/transformers/integrations/tensor_parallel.py)
+2. [`RouterParallel`](https://github.com/huggingface/transformers/blob/b71de73468429eb02da18caa50e9b5200400a4ed/src/transformers/integrations/tensor_parallel.py#L977)
 
     - Remaps global expert indices to local indices
     - Masks out experts not assigned to the current rank
@@ -445,7 +443,7 @@ torchrun --nproc-per-node N
 
 Where `N` evenly divides the total number of experts.
 
-## Training MoEs with Transformers {#training-moes-with-transformers}
+## Training MoEs with Transformers
 
 MoEs are excellent for scaling inference — but training them is significantly more complex.
 
@@ -459,7 +457,7 @@ The challenges include:
 To address this, we collaborated with **Unsloth** to enable significantly faster Mixture-of-Experts training:
 
 - ~12× faster MoE training  
-- >35% VRAM reduction  
+- \>35% VRAM reduction  
 - ~6× longer context  
 - 12–30× overall speedup compared to v4  
 
@@ -469,7 +467,7 @@ We leverage:
 - Standardization around PyTorch’s `torch._grouped_mm`  
 - Custom Triton grouped-GEMM + LoRA kernels  
 
-Unsloth builds on top of the Transformers optimizations to push performance further.
+Unsloth builds on top of the Transformers (and TRL) optimizations to push performance further.
 
 > [!TIP]
 > For full details, we recommend reading: [Unsloth’s official guide](https://unsloth.ai/docs/new/faster-moe)
