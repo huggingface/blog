@@ -15,7 +15,7 @@ authors:
 
 ## Introduction
 
-Over the past few years, scaling dense language models has driven most progress in LLMs. From early models like [ULMFiT](https://nlp.fast.ai/classification/2018/05/15/introducing-ulmfit.html) (~30M parameters), GPT-2 (1.5B parameters, which at the time was considered "too dangerous to release" 🧌), and eventually to today’s hundred-billion–parameter systems, the recipe was simple:
+Over the past few years, scaling dense language models has driven most progress in LLMs. From early models like the original [ULMFiT](https://nlp.fast.ai/classification/2018/05/15/introducing-ulmfit.html) (~30M parameters) or GPT-2 (1.5B parameters, which at the time was considered "too dangerous to release" 🧌), and eventually to today’s hundred-billion–parameter systems, the recipe was simple:
 
 > More data + more parameters gives better performance.
 
@@ -73,17 +73,9 @@ MoEs are attractive for these reasons:
 
 3. Industry Adoption
 
-    Recent major MoE releases include:
+    Recent major MoE releases of open models that happened in the past few weeks include [Qwen 3.5](https://huggingface.co/collections/Qwen/qwen35), [MiniMax M2](https://huggingface.co/collections/MiniMaxAI/minimax-m2), [GLM-5](https://huggingface.co/collections/zai-org/glm-5), or [Kimi K2.5](https://huggingface.co/collections/moonshotai/kimi-k25).
 
-    - [Qwen](https://huggingface.co/collections/Qwen/qwen35)
-    - [MiniMax](https://huggingface.co/collections/MiniMaxAI/minimax-m2)
-    - [Z.ai](https://huggingface.co/collections/zai-org/glm-5)
-    - [Moonshot AI](https://huggingface.co/collections/moonshotai/kimi-k25)
-
-    The trend accelerated after the success of [DeepSeek R1](https://huggingface.co/deepseek-ai/DeepSeek-R1) in January 2025, building on earlier systems like:
-
-    - [DeepSeek V2](https://huggingface.co/deepseek-ai/DeepSeek-V2)
-    - [Mixtral-8x7B](https://huggingface.co/mistralai/Mixtral-8x7B-v0.1)
+    The trend accelerated after the success of [DeepSeek R1](https://huggingface.co/deepseek-ai/DeepSeek-R1) in January 2025, building on earlier systems like [DeepSeek V2](https://huggingface.co/deepseek-ai/DeepSeek-V2). Another early MoE was [Mixtral-8x7B](https://huggingface.co/mistralai/Mixtral-8x7B-v0.1), released in December 2023.
 
     | ![2-year timeline of MoE model addition in the transformers package](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/moe-transformers/moe_2y_timeline.png) |
     | :--: |
@@ -291,7 +283,7 @@ Launch with:
 torchrun --nproc-per-node N script.py
 ```
 
-Where `N` evenly divides the total number of experts.
+Where `N` evenly divides the total number of experts, and possibly matches the number of GPUs in your node.
 
 When `enable_expert_parallel=True`, the model switches from the standard tensor-parallel (TP) plan to an expert-parallel (EP) plan with specialized sharding strategies.
 
@@ -308,7 +300,7 @@ MoEs are excellent for scaling inference, but training them is significantly mor
 MoEs have a Massive parameter count, the distributed expert communication is complicated, there are routing in-stabilities that need to be handled. To address this, we collaborated with **Unsloth** to enable significantly faster Mixture-of-Experts training:
 
 - ~12× faster MoE training
-- >35% VRAM reduction
+- \>35% VRAM reduction
 - ~6× longer context
 - 12–30× overall speedup compared to v4
 
