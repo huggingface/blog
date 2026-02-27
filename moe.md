@@ -11,7 +11,7 @@ authors:
 ---
 
 > [!IMPORTANT]
-> There is a second iteration (Feb 2026) of the blog post where we cover how the `transformers` library has built around MoEs to make them "first class citizens" of the library and the Hub. Here is the link to the post: [hf.co/blog/moe-transformers](hf.co/blog/moe-transformers)
+> There is a second iteration (Feb 2026) of the blog post where we cover how the `transformers` library has built around MoEs to make them "first class citizens" of the library and the Hub. Here is the link to the post: [Mixture of Experts (MoEs) in Transformers](https://huggingface.co/blog/moe-transformers)
 
 # Mixture of Experts Explained
 
