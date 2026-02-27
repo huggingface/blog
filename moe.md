@@ -10,6 +10,9 @@ authors:
 - user: pcuenq
 ---
 
+> [!IMPORTANT]
+> There is a second iteration (Feb 2026) of the blog post where we cover how the `transformers` librarary has built around MoEs to make them the "first class citizen" of the library and the Hub. Here is the link to the post: [hf.co/blog/moe-transformers](hf.co/blog/moe-transformers)
+
 # Mixture of Experts Explained
 
 With the release of Mixtral 8x7B ([announcement](https://mistral.ai/news/mixtral-of-experts/), [model card](https://huggingface.co/mistralai/Mixtral-8x7B-v0.1)), a class of transformer has become the hottest topic in the open AI community: Mixture of Experts, or MoEs for short. In this blog post, we take a look at the building blocks of MoEs, how they’re trained, and the tradeoffs to consider when serving them for inference. 
