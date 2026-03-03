@@ -225,17 +225,17 @@ A modular repository is able to reference components from their original model r
 // diffusers/flux2-bnb-4bit-modular/modular_model_index.json
 {
 	"transformer": [
-		null, 
-		null, 
+		"diffusers", 
+		"Flux2Transformer2DModel", 
 		{
-			"pretrained_model_name_or_path": "diffusers/FLUX.2-dev-bnb-4bit",
+			"pretrained_model_name_or_path": "diffusers/flux2-bnb-4bit-modular",
 			"subfolder": "transformer",
 			"type_hint": ["diffusers", "Flux2Transformer2DModel"]
 		}
 	],
 	"vae": [
-		null, 
-		null, 
+		"diffusers", 
+		"AutoencoderKLFlux2", 
 		{
 			"pretrained_model_name_or_path": "black-forest-labs/FLUX.2-dev",
 			"subfolder": "vae",
