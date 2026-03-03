@@ -219,7 +219,7 @@ We've published a collection of ready-to-use custom blocks [here](https://huggin
 
 `ModularPipeline.from_pretrained` works with any existing Diffusers repo out of the box, but Modular Diffusers also introduces a new kind of repo: the Modular Repository.
 
-A modular repository doesn't duplicate any model weights. Instead, it references components from their original model repos. For example, [diffusers/flux2-bnb-4bit-modular](https://huggingface.co/diffusers/flux2-bnb-4bit-modular) contains no model weights at all — it loads a quantized transformer from one repo and the remaining components from another.
+A modular repository is able to reference components from their original model repos. For example, [diffusers/flux2-bnb-4bit-modular](https://huggingface.co/diffusers/flux2-bnb-4bit-modular) contains a quantized transformer and loads the remaining components from the original repo.
 
 ```json
 // diffusers/flux2-bnb-4bit-modular/modular_model_index.json
