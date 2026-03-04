@@ -5084,7 +5084,7 @@
     - agents
 
 - local: modular-diffusers
-  date: Feb 20, 2026
+  date: March 04, 2026
   tags:
     - open-source
     - diffusers
