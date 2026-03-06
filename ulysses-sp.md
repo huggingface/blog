@@ -380,17 +380,6 @@ If the model is huge, you can offload the params as well by adding to the above:
     device: cpu
 ```
 
-
-### 4. Enable Gradient Checkpointing
-
-Reduce memory further with gradient checkpointing:
-
-```python
-training_args = SFTConfig(
-    gradient_checkpointing=True,
-)
-```
-
 ### 5. Use memory fragmentation-friendly PyTorch allocator
 
 This environment variable will allow for a longer sequence length:
