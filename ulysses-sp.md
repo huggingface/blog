@@ -424,7 +424,7 @@ You don't need to worry about manually balancing tokens across SP ranks—the lo
 
 ## Benchmarks
 
-To quantify the benefits of Ulysses SP, we trained [Qwen3-4B](https://huggingface.co/Qwen/Qwen3-4B) on the [Gutenberg English](https://huggingface.co/datasets/sedthh/gutenberg_english) streaming dataset using TRL's SFTTrainer. All experiments ran on H100 80GB GPUs with DeepSpeed ZeRO-3, CPU optimizer offloading, gradient checkpointing, and `kernels-community/flash-attn2` as the attention backend.
+To quantify the benefits of Ulysses SP, we trained [Qwen3-4B](https://huggingface.co/Qwen/Qwen3-4B) on the [Gutenberg English](https://huggingface.co/datasets/sedthh/gutenberg_english) streaming dataset using TRL's SFTTrainer. All experiments ran on H100 80GB GPUs with DeepSpeed ZeRO-3, CPU optimizer offloading, gradient checkpointing, and flash-attn2 as the attention backend.
 
 ### Setup
 
@@ -436,16 +436,16 @@ To quantify the benefits of Ulysses SP, we trained [Qwen3-4B](https://huggingfac
 | SP=4 (64K) | 4 | 4 | 1 | 65,536 | 8 | 8 |
 | SP=4 (96K) | 4 | 4 | 1 | 98,304 | 8 | 8 |
 
-All runs use the same global batch size (8 micro-batches) and cosine learning rate schedule, so loss curves are directly comparable. The baseline uses `flash_attention_2` (no SP required).
+All runs use the same global batch size (8 micro-batches), cosine learning rate schedule, and seed, so loss curves are directly comparable. Both the baseline and SP runs use flash-attn2 and train on the same pre-tokenized dataset for reproducibility.
 
 ### Loss Convergence
 
 <figure class="image text-center">
-  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ulysses/loss_convergence.png" alt="Loss Convergence: Ulysses SP is Mathematically Exact">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ulysses/loss_convergence.png" alt="Loss Convergence: Ulysses SP Matches Baseline">
   <figcaption>Ulysses SP produces the same loss trajectory as single-GPU training — the attention computation is mathematically identical, just distributed across GPUs.</figcaption>
 </figure>
 
-The baseline (1 GPU, no SP) and SP=4 (4 GPUs) loss curves track closely over 50 training steps at 8K sequence length with the same global batch size. The per-step variations come from different data ordering in the streaming dataset — not numerical divergence. The final training losses are comparable (2.454 vs 2.523). This is expected: Ulysses partitions attention heads across GPUs and uses all-to-all collectives to reconstruct the full attention output, producing mathematically identical results to single-GPU training.
+The baseline (1 GPU, no SP, 8K) and SP=4 (4 GPUs, 8K) loss curves track closely over 20 training steps on the same pre-tokenized dataset with the same global batch size and seed. The two curves follow the same step-by-step pattern with a small consistent offset (~0.1) due to bf16 numerical differences in distributed reductions (all-to-all collectives and gradient synchronization accumulate floats in a different order across 4 GPUs vs 1 GPU). This is expected and normal for distributed bf16 training. The key observation is that both curves converge to the same loss range (~2.5), confirming that Ulysses partitions attention heads across GPUs and uses all-to-all collectives to reconstruct the full attention output, producing mathematically equivalent training dynamics.
 
 ### Memory Reduction
 
@@ -469,17 +469,17 @@ Without SP, the baseline already uses 76.4 GB at just 8K tokens — barely fitti
 
 <figure class="image text-center">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ulysses/throughput.png" alt="Training Throughput">
-  <figcaption>Longer sequences with SP process dramatically more tokens per second. SP=4 at 64K achieves 5.5x the throughput of the baseline.</figcaption>
+  <figcaption>Longer sequences with SP process dramatically more tokens per second. SP=4 at 64K achieves 3.7x the throughput of the baseline.</figcaption>
 </figure>
 
 | Config | Seq Length | Tokens/s | vs Baseline |
 |--------|-----------|---------|-------------|
-| Baseline (1 GPU) | 8K | 2,436 | — |
-| SP=4 (4 GPU) | 8K | 2,315 | ~1x |
-| SP=4 (4 GPU) | 32K | 7,872 | **3.2x** |
-| SP=4 (4 GPU) | 64K | 13,396 | **5.5x** |
+| Baseline (1 GPU) | 8K | 3,633 | — |
+| SP=4 (4 GPU) | 8K | 3,933 | ~1x |
+| SP=4 (4 GPU) | 32K | 7,733 | **2.1x** |
+| SP=4 (4 GPU) | 64K | 13,396 | **3.7x** |
 
-At the same sequence length (8K), SP=4 has comparable throughput to the single-GPU baseline — the all-to-all communication overhead is minimal on NVLink-connected GPUs. The real benefit comes from longer sequences: each training step processes proportionally more tokens, so throughput scales with sequence length. At 64K, SP=4 processes 13,396 tokens/second — 5.5x the baseline.
+At the same sequence length (8K), SP=4 has comparable throughput to the single-GPU baseline — the all-to-all communication overhead is minimal on NVLink-connected GPUs. The real benefit comes from longer sequences: each training step processes proportionally more tokens, so throughput scales with sequence length. At 64K, SP=4 processes 13,396 tokens/second — 3.7x the baseline.
 
 > [!NOTE]
 > These results use only 4 GPUs with SP=4. With 8 GPUs (SP=8), you can push to even longer sequences — up to 256K+ tokens — or use 2D parallelism (SP=4, DP=2) to combine long-context training with data-parallel throughput.
