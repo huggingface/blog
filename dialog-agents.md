@@ -5,7 +5,7 @@ authors:
 - user: nazneen
 - user: natolambert
 - user: VictorSanh
-- user: ThomWolf
+- user: thomwolf
 ---
 
 

@@ -30,10 +30,10 @@ authors:
 - user: Adamiros
   guest: true
   org: CIIRC-NLP
-- user: davidamczyk
+- user: davidadamczyk
   guest: true
   org: CIIRC-NLP
-- user: janH
+- user: JanH
   guest: true
   org: CIIRC-NLP
 - user: jsedivy

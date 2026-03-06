@@ -2,7 +2,7 @@
 title: "Chat Templates: An End to the Silent Performance Killer" 
 thumbnail: /blog/assets/chat-templates/thumbnail.png
 authors:
-- user: rocketknight1
+- user: Rocketknight1
 ---
 
 # Chat Templates

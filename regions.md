@@ -6,7 +6,7 @@ authors:
 - user: rtrm
 - user: XciD
 - user: michellehbn
-- user: violette
+- user: Violette
 - user: julien-c
 ---
 

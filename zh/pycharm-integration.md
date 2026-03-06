@@ -2,7 +2,7 @@
 title: "Hugging Face 与 PyCharm 深度集成：轻松引入丰富的 AI 模型"
 thumbnail: /blog/assets/pycharm-integration/thumbnail.png
 authors:
-- user: rocketknight1
+- user: Rocketknight1
 translators:
 - user: chenglu
 ---

@@ -2,7 +2,7 @@
 title: 'Building a Playlist Generator with Sentence Transformers'
 thumbnail: /blog/assets/87_playlist_generator/thumbnail.png
 authors:
-- user: nimaboscarino
+- user: NimaBoscarino
 ---
 
 # Building a Playlist Generator with Sentence Transformers

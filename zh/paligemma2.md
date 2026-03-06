@@ -8,9 +8,8 @@ authors:
   org: google
 - user: pcuenq
 - user: ariG23498
-- user: xiaodouzi666
+translators:
 - user: zhongdongy
-  proofreader: true
 ---
 
 # PaliGemma 2 简介

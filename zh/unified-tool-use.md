@@ -2,7 +2,7 @@
 title: "对 LLM 工具使用进行统一"
 thumbnail: /blog/assets/unified-tool-use/thumbnail.png
 authors:
-- user: rocketknight1
+- user: Rocketknight1
 translators:
 - user: MatrixYao
 - user: zhongdongy

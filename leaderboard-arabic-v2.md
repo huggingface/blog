@@ -14,7 +14,7 @@ authors:
 - user: amztheory
   guest: true
   org: tiiuae
-- user: Basma-b
+- user: basma-b
   guest: true
   org: tiiuae
 - user: rcojocaru

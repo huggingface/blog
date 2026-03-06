@@ -2,7 +2,7 @@
 title: "Hugging Face x LangChain：全新 LangChain 合作伙伴包" 
 thumbnail: /blog/assets/langchain_huggingface/thumbnail.png
 authors:
-- user: jofthomas
+- user: Jofthomas
 - user: kkondratenko
   guest: true
 - user: efriis

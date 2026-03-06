@@ -2,7 +2,7 @@
 title: "Introducing RWKV - An RNN with the advantages of a transformer" 
 thumbnail: /blog/assets/142_rwkv/rwkv_thumbnail.png
 authors:
-- user: BLinkDL
+- user: BlinkDL
   guest: true
 - user: Hazzzardous
   guest: true

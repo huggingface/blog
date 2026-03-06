@@ -2,10 +2,12 @@
 title: "Open-sourcing Knowledge Distillation Code and Weights of SD-Small and SD-Tiny"
 thumbnail: /blog/assets/distill_sd/thumbnail.png
 authors:
-- user: harishsegmind
+- user: harishp
   guest: true
+  org: segmind
 - user: Warlord-K
   guest: true
+  org: segmind
 - user: Gothos
   guest: true
 ---

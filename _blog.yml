@@ -4994,8 +4994,150 @@
     - Gemini
     - agents
 
+- local: tokenizers
+  date: Dec 18, 2025
+  tags:
+    - tokenizers
+    - transformers
+    - open-source
+    - tokenization
+
+- local: nvidia-reachy-mini
+  date: Jan 5, 2026
+  tags:
+    - partnerships
+    - nvidia
+    - robotics
+    - reachy
+    - agents
+    - hardware
+
+- local: open-responses
+  date: Jan 15, 2026
+  tags:
+    - open-responses
+    - responses
+    - open-source
+    - community
+    - inference
+    - agents
+    - mcp
+    - inference-providers
+
+- local: waypoint-1
+  date: Jan 20, 2026
+  tags:
+    - announcement
+    - diffusion
+    - world-model
+
+- local: upskill
+  date: Jan 28, 2026
+  tags:
+    - upskill
+    - agent-skills
+    - agentic
+    - community
+    - open-source
+
+- local: daggr
+  date: Jan 29, 2026
+  tags:
+    - gradio
+    - daggr
+
+- local: community-evals
+  date: Feb 4, 2026
+  tags:
+    - evaluation
+    - leaderboard
+    - community
+    - hub
+    - open-source
+
+- local: transformersjs-v4
+  date: Feb 9, 2026
+  tags:
+    - announcement
+    - transformers.js
+    - transformers
+    - javascript
+    - webgpu
+
+- local: openenv-turing
+  date: Feb 12, 2026
+  tags:
+    - announcement
+    - open-source
+    - community
+    - agents
+    - rl
+
+- local: custom-cuda-kernels-agent-skills
+  date: Feb 13, 2026
+  tags:
+    - open-source
+    - cuda
+    - kernels
+    - agent-skills
+    - community
+    - agents
+
+- local: modular-diffusers
+  date: March 05, 2026
+  tags:
+    - open-source
+    - diffusers
+    - generative
+    - guide
+    - diffusion
+    - text-to-image
+    - text-to-video
+    - modular-diffusers
+    
+
+- local: gradio-html-one-shot-apps
+  date: Feb 18, 2026
+  tags:
+    - gradio
+    - claude
+    - html
+    - python
+    - spaces
+    - vibe-coding
+    - community
+
+- local: unsloth-jobs
+  date: Feb 20, 2026
+  tags:
+    - llm
+    - fine-tuning
+    - training
+    - agents
+    - Codex
+    - Claude
+    - open-source
+
+- local: ggml-joins-hf
+  date: Feb 20, 2026
+  tags:
+    - community
+    - open-source
+    - llm
+    - local-ai
+
+- local: moe-transformers
+  date: Feb 26, 2026
+  tags:
+    - mixture-of-experts
+    - optimization
+    - transformers
+    - transformers-internal
+    - inference
+    - speed
+    
 - local: ulysses-sp
-  date: Dec 11, 2025
+  date: Mar 07, 2026
   tags:
     - guide
     - distributed-training
