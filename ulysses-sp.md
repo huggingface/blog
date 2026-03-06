@@ -344,7 +344,7 @@ Always ensure your sequence length is divisible by `sp_size`:
 ```python
 training_args = SFTConfig(
     pad_to_multiple_of=4,  # For sp_size=4
-    max_seq_length=32768,  # Must be divisible by 4
+    max_length=32768,  # Must be divisible by 4
 )
 ```
 
