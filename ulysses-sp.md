@@ -288,7 +288,7 @@ accelerate launch --config_file alst_ulysses_4gpu.yaml \
     trl/scripts/sft.py \
     --model_name_or_path meta-llama/Llama-3.1-8B \
     --dataset_name trl-lib/Capybara \
-    --max_seq_length 32768 \
+    --max_length 32768 \
     --packing \
     --pad_to_multiple_of 2 \
     --gradient_checkpointing \
