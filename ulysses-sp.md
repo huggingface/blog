@@ -412,11 +412,17 @@ Remember: `dp_replicate_size × dp_shard_size × sp_size = num_processes`
 
 ### 7. Liger-Kernel
 
-If your desired model architecture is supported by [Liger-Kernel](https://github.com/linkedin/Liger-Kernel) - it will allow you to massively extend the possible sequence length. The main memory saving will come from `FusedLinearCrossEntropy` which skips manifesting the full logits tensor during loss calculation.
+If your desired model architecture is supported by [Liger-Kernel](https://github.com/linkedin/Liger-Kernel), it is fully compatible with Ulysses SP and can be enabled with a single flag:
 
-Additionally, you can enable [`TiledMLP`](https://www.deepspeed.ai/tutorials/ulysses-alst-sequence-parallelism/#tiled-mlp-computation) to enable an even longer sequence length since like `FusedLinearCrossEntropy` it'll save a lot of working memory.
+```python
+training_args = SFTConfig(
+    use_liger_kernel=True,
+)
+```
 
-Both of these would require you to do very minor tweaks to your training script and aren't yet available as flags in the HF tool ecosphere, but they are oh so well worth it ;)
+The main memory saving comes from `FusedLinearCrossEntropy` which skips manifesting the full logits tensor during loss calculation. The savings grow with longer sequences where the logits tensor is larger.
+
+Additionally, you can enable [`TiledMLP`](https://www.deepspeed.ai/tutorials/ulysses-alst-sequence-parallelism/#tiled-mlp-computation) to further extend sequence length — like `FusedLinearCrossEntropy`, it saves working memory by tiling large matrix operations.
 
 ### 8. Token Distribution Across Ranks
 
