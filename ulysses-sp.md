@@ -249,6 +249,7 @@ trainer = SFTTrainer(
     args=training_args,
     train_dataset=dataset,
 )
+trainer.train()
 ```
 
 ### Key SFTConfig Parameters for Ulysses
