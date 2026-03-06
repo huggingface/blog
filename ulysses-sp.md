@@ -22,6 +22,7 @@ Ulysses Sequence Parallelism (part of [the Arctic Long Sequence Training (ALST) 
 - [Integration with TRL's SFTTrainer](#integration-with-trl-sfttrainer)
 - [Comparing Ulysses and Ring Attention](#comparing-ulysses-and-ring-attention)
 - [Best Practices](#best-practices)
+- [Benchmarks](#benchmarks)
 - [Resources](#resources)
 
 ## The Challenge of Long Sequence Training
@@ -42,7 +43,7 @@ Ulysses Sequence Parallelism (introduced in the [DeepSpeed Ulysses paper](https:
 
 <figure class="image text-center">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ulysses/ulysses_overview.png" alt="Ulysses Sequence Parallelism Overview">
-  <figcaption>Ulysses splits input sequences along the sequence dimension and uses all-to-all communication to exchange key-value pairs, enabling each GPU to compute a subset of attention heads. (<b><i>Source: <a href="https://arxiv.org/abs/2309.14509">DeepSpeed Ulysses Paper</a></i></b>)</figcaption>
+  <figcaption>Ulysses splits input sequences along the sequence dimension and uses all-to-all communication to exchange key-value pairs, enabling each GPU to compute a subset of attention heads. (<b><i>Source: <a href="https://www.snowflake.com/en/engineering-blog/ulysses-low-latency-llm-inference/">Snowflake Engineering Blog</a></i></b>)</figcaption>
 </figure>
 
 Here's how it works:
@@ -420,6 +421,68 @@ Both of these would require you to do very minor tweaks to your training script 
 ### 8. Token Distribution Across Ranks
 
 You don't need to worry about manually balancing tokens across SP ranks—the loss aggregation code handles uneven distributions gracefully (including ranks with zero valid tokens). With random batching over a reasonably sized dataset, the distribution evens out statistically over training.
+
+## Benchmarks
+
+To quantify the benefits of Ulysses SP, we trained [Qwen3-4B](https://huggingface.co/Qwen/Qwen3-4B) on the [Gutenberg English](https://huggingface.co/datasets/sedthh/gutenberg_english) streaming dataset using TRL's SFTTrainer. All experiments ran on H100 80GB GPUs with DeepSpeed ZeRO-3, CPU optimizer offloading, gradient checkpointing, and `kernels-community/flash-attn2` as the attention backend.
+
+### Setup
+
+| Config | GPUs | SP | DP | Seq Length | Grad Acc | Global Batch |
+|--------|------|----|----|-----------|----------|-------------|
+| Baseline | 1 | 1 | 1 | 8,192 | 8 | 8 |
+| SP=4 | 4 | 4 | 1 | 8,192 | 8 | 8 |
+| SP=4 (32K) | 4 | 4 | 1 | 32,768 | 8 | 8 |
+| SP=4 (64K) | 4 | 4 | 1 | 65,536 | 8 | 8 |
+| SP=4 (96K) | 4 | 4 | 1 | 98,304 | 8 | 8 |
+
+All runs use the same global batch size (8 micro-batches) and cosine learning rate schedule, so loss curves are directly comparable. The baseline uses `flash_attention_2` (no SP required).
+
+### Loss Convergence
+
+<figure class="image text-center">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ulysses/loss_convergence.png" alt="Loss Convergence: Ulysses SP is Mathematically Exact">
+  <figcaption>Ulysses SP produces the same loss trajectory as single-GPU training — the attention computation is mathematically identical, just distributed across GPUs.</figcaption>
+</figure>
+
+The baseline (1 GPU, no SP) and SP=4 (4 GPUs) loss curves track closely over 50 training steps at 8K sequence length with the same global batch size. The per-step variations come from different data ordering in the streaming dataset — not numerical divergence. The final training losses are comparable (2.454 vs 2.523). This is expected: Ulysses partitions attention heads across GPUs and uses all-to-all collectives to reconstruct the full attention output, producing mathematically identical results to single-GPU training.
+
+### Memory Reduction
+
+<figure class="image text-center">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ulysses/memory_usage.png" alt="Peak GPU Memory per Rank">
+  <figcaption>SP=4 reduces per-GPU memory by 3.3x at the same sequence length, enabling training at up to 96K tokens on 4× H100 80GB. At 128K, the model OOMs.</figcaption>
+</figure>
+
+| Config | Seq Length | Peak Memory | Notes |
+|--------|-----------|-------------|-------|
+| Baseline (1 GPU) | 8K | 76.4 GB | Near H100 limit |
+| SP=4 (4 GPU) | 8K | 23.4 GB | **3.3x reduction** |
+| SP=4 (4 GPU) | 32K | 35.0 GB | 4x longer, 1.5x more memory |
+| SP=4 (4 GPU) | 64K | 50.5 GB | 8x longer, fits comfortably |
+| SP=4 (4 GPU) | 96K | 66.0 GB | **12x longer**, still fits |
+| SP=4 (4 GPU) | 128K | OOM | Exceeds 80 GB limit |
+
+Without SP, the baseline already uses 76.4 GB at just 8K tokens — barely fitting on an H100. With SP=4, the same 8K sequence uses only 23.4 GB per GPU, freeing up memory to scale sequence length. The memory savings compound: at 96K tokens (12x longer than the baseline), peak memory is 66 GB — still within the H100's capacity. At 128K, the model requires ~81 GB and OOMs, establishing the practical limit for this configuration.
+
+### Throughput
+
+<figure class="image text-center">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ulysses/throughput.png" alt="Training Throughput">
+  <figcaption>Longer sequences with SP process dramatically more tokens per second. SP=4 at 64K achieves 5.5x the throughput of the baseline.</figcaption>
+</figure>
+
+| Config | Seq Length | Tokens/s | vs Baseline |
+|--------|-----------|---------|-------------|
+| Baseline (1 GPU) | 8K | 2,436 | — |
+| SP=4 (4 GPU) | 8K | 2,315 | ~1x |
+| SP=4 (4 GPU) | 32K | 7,872 | **3.2x** |
+| SP=4 (4 GPU) | 64K | 13,396 | **5.5x** |
+
+At the same sequence length (8K), SP=4 has comparable throughput to the single-GPU baseline — the all-to-all communication overhead is minimal on NVLink-connected GPUs. The real benefit comes from longer sequences: each training step processes proportionally more tokens, so throughput scales with sequence length. At 64K, SP=4 processes 13,396 tokens/second — 5.5x the baseline.
+
+> [!NOTE]
+> These results use only 4 GPUs with SP=4. With 8 GPUs (SP=8), you can push to even longer sequences — up to 256K+ tokens — or use 2D parallelism (SP=4, DP=2) to combine long-context training with data-parallel throughput.
 
 ## Requirements
 
