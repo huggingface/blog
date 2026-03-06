@@ -9,9 +9,9 @@ authors:
 
 # Ulysses Sequence Parallelism: Training with Million-Token Contexts
 
-Training large language models on long sequences has become essential for building capable AI systems. As models are increasingly used for tasks like document analysis, code understanding, and complex reasoning, and RAG workloads, the need to process sequences of hundreds of thousands—or even millions—of tokens has grown dramatically. To put this in perspective, an average book is roughly 250k tokens—so training on multi-document contexts or book-length inputs requires handling sequences well beyond what fits on a single GPU. However, training with such long contexts presents significant memory challenges—the attention computation scales quadratically with sequence length, quickly exceeding GPU memory for contexts beyond tens of thousands of tokens.
+Training large language models on long sequences has become essential for building capable AI systems. As models are increasingly used for tasks like document analysis, code understanding, complex reasoning, and RAG workloads, the need to process sequences of hundreds of thousands—or even millions—of tokens has grown dramatically. To put this in perspective, an average book is roughly 250k tokens—so training on multi-document contexts or book-length inputs requires handling sequences well beyond what fits on a single GPU. However, training with such long contexts presents significant memory challenges—the attention computation scales quadratically with sequence length, quickly exceeding GPU memory for contexts beyond tens of thousands of tokens.
 
-Ulysses Sequence Parallelism (part of [the Arctic Long Sequence Training (ALST) protocol](https://arxiv.org/abs/2506.13996)) provides an elegant solution by distributing the attention computation across multiple GPUs through attention head parallelism. In this post, we'll explore how Ulysses works and how it's been integrated across the Hugging Face ecosystem—from Accelerate to the Transformers Trainer and TRL's SFTTrainer.
+Ulysses Sequence Parallelism (part of the [Arctic Long Sequence Training (ALST) protocol](https://huggingface.co/papers/2506.13996)) provides an elegant solution by distributing the attention computation across multiple GPUs through attention head parallelism. In this post, we'll explore how Ulysses works and how it's been integrated across the Hugging Face ecosystem—from Accelerate to the Transformers Trainer and TRL's SFTTrainer.
 
 ## Contents
 
@@ -27,7 +27,7 @@ Ulysses Sequence Parallelism (part of [the Arctic Long Sequence Training (ALST) 
 
 ## The Challenge of Long Sequence Training
 
-The attention mechanism in transformers scales quadratically with sequence length. For a sequence of length \\( n \\), the attention computation requires \\( O(n^2) \\) memory to store the attention scores. While optimized implementations like [FlashAttention](https://arxiv.org/abs/2205.14135) significantly reduce this overhead, training with very long sequences (32k+ tokens) still pushes the limits of single-GPU memory.
+The attention mechanism in transformers scales quadratically with sequence length. For a sequence of length  \\( n \\), the attention computation requires  \\( O(n^2) \\) memory to store the attention scores. While optimized implementations like [FlashAttention](https://arxiv.org/abs/2205.14135) significantly reduce this overhead, training with very long sequences (32k+ tokens) still pushes the limits of single-GPU memory.
 
 Consider these scenarios where long-context training is essential:
 - **Document understanding**: Processing entire books, legal documents, or research papers
@@ -39,7 +39,7 @@ Traditional data parallelism doesn't help here—each GPU still needs to process
 
 ## How Ulysses Works
 
-Ulysses Sequence Parallelism (introduced in the [DeepSpeed Ulysses paper](https://arxiv.org/abs/2309.14509)) takes a clever approach: in addition to splitting on the sequence dimension, it also partitions the attention heads across GPUs.
+Ulysses Sequence Parallelism (introduced in the [DeepSpeed Ulysses paper](https://huggingface.co/papers/2309.14509)) takes a clever approach: in addition to splitting on the sequence dimension, it also partitions the attention heads across GPUs.
 
 <figure class="image text-center">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ulysses/ulysses_overview.png" alt="Ulysses Sequence Parallelism Overview">
@@ -48,7 +48,7 @@ Ulysses Sequence Parallelism (introduced in the [DeepSpeed Ulysses paper](https:
 
 Here's how it works:
 
-1. **Sequence Sharding**: The input sequence is split along the sequence dimension across \\( P \\) GPUs. Each GPU \\( i \\) holds tokens \\( [i \cdot n/P, (i+1) \cdot n/P) \\).
+1. **Sequence Sharding**: The input sequence is split along the sequence dimension across  \\( P \\) GPUs. Each GPU  \\( i \\) holds tokens  \\( [i \cdot n/P, (i+1) \cdot n/P) \\).
 
 2. **QKV Projection**: Each GPU computes the query, key, and value projections for its local sequence chunk.
 
@@ -64,12 +64,12 @@ The key insight is that attention heads are independent—each head can be compu
 
 ### Communication Complexity
 
-Ulysses requires two all-to-all operations per attention layer, with total communication volume of \\( O(n \cdot d / P) \\) per GPU, where:
+Ulysses requires two all-to-all operations per attention layer, with total communication volume of  \\( O(n \cdot d / P) \\) per GPU, where:
 - \\( n \\) is the sequence length
 - \\( d \\) is the hidden dimension
 - \\( P \\) is the parallelism degree
 
-This is more efficient than Ring Attention's \\( O(n^2 / P) \\) communication requirements when sequence lengths are moderate (up to ~500k tokens) and high-bandwidth interconnects (NVLink, InfiniBand) are available.
+This is more efficient than Ring Attention's  \\( O(n^2 / P) \\) communication requirements when sequence lengths are moderate (up to ~500k tokens) and high-bandwidth interconnects (NVLink, InfiniBand) are available.
 
 ## Integration with Accelerate
 
@@ -154,7 +154,7 @@ accelerator.backward(loss)
 > The loss aggregation ensures correct gradients when tokens are unevenly distributed across ranks (e.g., when some ranks contain only padding or masked out prompt tokens).
 
 > [!TIP]
-> Both Ulysses and Ring Attention use `position_ids` instead of `attention_mask` for causal masking. A 4D attention mask at these sequence lengths would be just as prohibitive as the attention scores themselves—at 128k tokens, that's another ~1TB tensor. Position IDs achieve the same causal behavior with O(n) memory instead of O(n²).
+> Both Ulysses and Ring Attention use `position_ids` instead of `attention_mask` for causal masking. A 4D attention mask at these sequence lengths would be just as prohibitive as the attention scores themselves—at 128k tokens, that's another ~1TB tensor. Position IDs achieve the same causal behavior with  \\( O(n) \\) memory instead of  \\( O(n^2) \\).
 
 ## Integration with Transformers Trainer
 
@@ -371,6 +371,7 @@ deepspeed_config:
   offload_optimizer:
     device: cpu
 ```
+
 If the model is huge, you can offload the params as well by adding to the above:
 
 ```yaml
@@ -494,7 +495,7 @@ At the same sequence length (8K), SP=4 has comparable throughput to the single-G
 
 - HF Accelerate: `deepspeed>=0.18.1 accelerate>=1.12`
 - HF Trainer: `deepspeed>=0.18.1 accelerate>=1.12 transformers>=5.0`
-- HF TRL:  `deepspeed>=0.18.1 accelerate>=1.12 transformers>=5.0 trl>=0.18.0`
+- HF TRL: `deepspeed>=0.18.1 accelerate>=1.12 transformers>=5.0 trl>=0.18.0`
 
 In all of the above ideally use `flash_attention_2` for Ampere GPUs, and `flash_attention_3` for Hopper GPUs.
 
@@ -510,8 +511,8 @@ In all of the above ideally use `flash_attention_2` for Ampere GPUs, and `flash_
 - [TRL Accelerate Configs](https://github.com/huggingface/trl/tree/main/examples/accelerate_configs)
 
 ### Papers
-- [Arctic Long Sequence Training: Scalable And Efficient Training For Multi-Million Token Sequences](https://arxiv.org/abs/2506.13996)
-- [DeepSpeed Ulysses: System Optimizations for Enabling Training of Extreme Long Sequence Transformer Models](https://arxiv.org/abs/2309.14509)
+- [Arctic Long Sequence Training: Scalable And Efficient Training For Multi-Million Token Sequences](https://huggingface.co/papers/2506.13996)
+- [DeepSpeed Ulysses: System Optimizations for Enabling Training of Extreme Long Sequence Transformer Models](https://huggingface.co/papers/2309.14509)
 
 
 ### Related Blog Posts
