@@ -257,7 +257,7 @@ trainer.train()
 | Parameter | Description |
 |-----------|-------------|
 | `pad_to_multiple_of` | Must equal `sp_size` to ensure sequence divisibility |
-| `max_seq_length` | Global sequence length (before splitting across GPUs) |
+| `max_length` | Global sequence length (before splitting across GPUs) |
 | `packing` | Enable sequence packing for efficient GPU utilization |
 | `attn_implementation` | Use `"flash_attention_2"` for best performance |
 
