@@ -208,9 +208,7 @@ Use an accelerate config file or command-line arguments:
 accelerate launch \
     --config_file deepspeed_ulysses.yaml \
     train.py \
-    --per_device_train_batch_size 1 \
-    --gradient_checkpointing True \
-    --bf16 True
+    --per_device_train_batch_size 1
 ```
 
 ## Integration with TRL SFTTrainer
