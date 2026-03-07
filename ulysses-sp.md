@@ -176,11 +176,8 @@ parallelism_config = ParallelismConfig(
 )
 
 training_args = TrainingArguments(
-    output_dir="./output",
     parallelism_config=parallelism_config,
     per_device_train_batch_size=1,
-    gradient_checkpointing=True,
-    bf16=True,
 )
 ```
 
