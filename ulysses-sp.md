@@ -282,8 +282,7 @@ accelerate launch --config_file alst_ulysses_4gpu.yaml \
     --max_length 32768 \
     --packing \
     --pad_to_multiple_of 2 \
-    --per_device_train_batch_size 1 \
-    --output_dir ./output
+    --per_device_train_batch_size 1
 ```
 
 ### Shift Labels Handling
