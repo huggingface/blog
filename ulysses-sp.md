@@ -229,13 +229,10 @@ parallelism_config = ParallelismConfig(
 )
 
 training_args = SFTConfig(
-    output_dir="./output",
+    ...,
     parallelism_config=parallelism_config,
-    max_seq_length=32768,
-    packing=True,  # Efficient sequence packing
+    max_length=32768,
     pad_to_multiple_of=2,  # Must equal sp_size
-    gradient_checkpointing=True,
-    attn_implementation="flash_attention_2",
     per_device_train_batch_size=1,
 )
 
@@ -253,8 +250,7 @@ trainer.train()
 |-----------|-------------|
 | `pad_to_multiple_of` | Must equal `sp_size` to ensure sequence divisibility |
 | `max_length` | Global sequence length (before splitting across GPUs) |
-| `packing` | Enable sequence packing for efficient GPU utilization |
-| `attn_implementation` | Use `"flash_attention_2"` for best performance |
+| `packing` | Works well with SP — packing reduces padding waste, especially for variable-length sequences |
 
 ### Accelerate Config File
 
