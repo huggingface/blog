@@ -73,7 +73,7 @@ This is more efficient than Ring Attention's  \\( O(n^2 / P) \\) communication r
 
 ## Integration with Accelerate
 
-Accelerate provides the foundation for Ulysses sequence parallelism through its `ParallelismConfig` class and DeepSpeed integration.
+Accelerate provides the foundation for Ulysses sequence parallelism through its [`ParallelismConfig`](https://huggingface.co/docs/accelerate/package_reference/utilities#accelerate.utils.ParallelismConfig) class and DeepSpeed integration.
 
 ### Configuration
 
@@ -158,7 +158,7 @@ accelerator.backward(loss)
 
 ## Integration with Transformers Trainer
 
-The Transformers Trainer provides seamless Ulysses integration through `TrainingArguments.parallelism_config`.
+The Transformers [`Trainer`](https://huggingface.co/docs/transformers/main_classes/trainer) provides seamless Ulysses integration through [`TrainingArguments.parallelism_config`](https://huggingface.co/docs/transformers/main_classes/trainer#transformers.TrainingArguments.parallelism_config).
 
 ### Configuration
 
@@ -210,7 +210,7 @@ accelerate launch \
 
 ## Integration with TRL SFTTrainer
 
-TRL's SFTTrainer builds on the Transformers Trainer and adds specific optimizations for supervised fine-tuning with long sequences.
+TRL's [`SFTTrainer`](https://huggingface.co/docs/trl/sft_trainer) builds on the Transformers Trainer and adds specific optimizations for supervised fine-tuning with long sequences.
 
 ### Configuration
 
