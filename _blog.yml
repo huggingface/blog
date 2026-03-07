@@ -5094,7 +5094,7 @@
     - text-to-image
     - text-to-video
     - modular-diffusers
-    
+
 
 - local: gradio-html-one-shot-apps
   date: Feb 18, 2026
@@ -5135,3 +5135,11 @@
     - transformers-internal
     - inference
     - speed
+
+- local: async-rl-training-landscape
+  date: March 8, 2026
+  tags:
+    - llm
+    - analysis
+    - rl
+    - open-source
