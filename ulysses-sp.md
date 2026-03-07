@@ -27,7 +27,7 @@ Ulysses Sequence Parallelism (part of the [Arctic Long Sequence Training (ALST) 
 
 ## The Challenge of Long Sequence Training
 
-The attention mechanism in transformers scales quadratically with sequence length. For a sequence of length  \\( n \\), the attention computation requires  \\( O(n^2) \\) memory to store the attention scores. While optimized implementations like [FlashAttention](https://arxiv.org/abs/2205.14135) significantly reduce this overhead, training with very long sequences (32k+ tokens) still pushes the limits of single-GPU memory.
+The attention mechanism in transformers scales quadratically with sequence length. For a sequence of length  \\( n \\), the attention computation requires  \\( O(n^2) \\) memory to store the attention scores. While optimized implementations like [FlashAttention](https://huggingface.co/papers/2205.14135) significantly reduce this overhead, training with very long sequences (32k+ tokens) still pushes the limits of single-GPU memory.
 
 Consider these scenarios where long-context training is essential:
 - **Document understanding**: Processing entire books, legal documents, or research papers
