@@ -319,9 +319,7 @@ Both Ulysses and Ring Attention enable long-context training, but they have diff
 
 ### When to Choose Ulysses vs Ring Attention
 
-If you can use Deepspeed and the model has a sufficient number of attention heads (`num_heads >= sp_size`) choose Ulysses SP because it'll be more performance efficient on a normal network and it'll be about on par with Ring Attention if you have the worst possible network and the bisectional bandwidth of the network is equal to per link bandwidth.
-
-If you either have to use FSDP or there are not enough attention heads to support Ulysses SP, then choose Ring Attention.
+Since switching between the two only requires changing the accelerate config, we recommend trying both and comparing performance and memory usage on your specific setup. The main constraint is that Ulysses requires `num_heads >= sp_size`, while Ring Attention has no such limitation.
 
 ## Best Practices
 
