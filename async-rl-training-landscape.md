@@ -137,7 +137,7 @@ There is no free lunch here, this setup is highly scalable but it does introduce
 | **Atropos**       | NousResearch   | [github.com/NousResearch/atropos](https://github.com/NousResearch/atropos)               |       878 |
 | **TorchForge**    | Meta           | [github.com/meta-pytorch/torchforge](https://github.com/meta-pytorch/torchforge)         |       632 |
 | **Tunix**         | Google         | [github.com/google/tunix](https://github.com/google/tunix)                               |     2,175 |
-| **AReaL**         | inclusionAI    | [github.com/inclusionAI/AReaL](https://github.com/inclusionAI/AReaL)                     |     4,338 |
+| **AReaL**         | inclusionAI/Ant Group    | [github.com/inclusionAI/AReaL](https://github.com/inclusionAI/AReaL)                     |     4,338 |
 | **ART**           | OpenPipe       | [github.com/OpenPipe/ART](https://github.com/OpenPipe/ART)                               |     8,952 |
 | **open-instruct** | AI2 (AllenAI)  | [github.com/allenai/open-instruct](https://github.com/allenai/open-instruct)             |     3,611 |
 
