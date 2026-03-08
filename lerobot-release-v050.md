@@ -1,65 +1,237 @@
 ---
-title: "LeRobot v0.5.0: XYZ" 
+title: "LeRobot v0.5.0: Scaling Every Dimension"
 thumbnail: /blog/assets/lerobot-release-v050/thumbnail.png
 authors:
-- user: imstevenpmwork
-- user: aractingi
-- user: pepijn223
-- user: CarolinePascal
-- user: jadechoghari
-- user: lilkm
-- user: nepyope
-- user: Nico-robot
-- user: VirgileBatto
-- user: thomwolf
+  - user: imstevenpmwork
+  - user: aractingi
+  - user: pepijn223
+  - user: CarolinePascal
+  - user: jadechoghari
+  - user: lilkm
+  - user: nepyope
+  - user: Nico-robot
+  - user: VirgileBatto
+  - user: thomwolf
 ---
 
-# LeRobot v0.5.0: Draft
+# LeRobot v0.5.0: Scaling Every Dimension
 
-### Hardware
-* Earth Rover added support
-* OMX robot added support
-* Consolidated SO100 and SO101 (including bi manual setup)
-* Unitree G1 Humanoid support, locomotion & manipulation
-* Added support for Can Bus motors (RobStride & Damaio)
-* OpenArm robot support & OpenArm Mini
-* Remote camera support via ZMQ
-### Software & API
-* Improved installation steps
-* Docs have versioning now
-* Remote rerun viewer added support
-* 3rd-party policies compatibility
-* Gr00t supported for async_inference
-* Camera API got extended for supporting high frequency datasets
-* Better typing + dependencies bumped
-* Pytorch version bump to suppoert blackwell chips
-* Transformers v5 migration!
-* Remote rerun visualization
-* Bunch of bug fixes & improvements
-* Python3.12 bump
-### AI & Policies
-* Real time chunking added support
-* X-VLA policy added
-* SARM added
-* Wall-X policy added
-* PEFT added support
-* Autoregressive VLAs PI0FAST policy re-introduced
-### Datasets
-* Streaming encoding for 0 wait between episodes recording
-* 10x image training performance, encoding time 3x faster
-* Improved cpu usage & dataset compression at recording time
-* Added tool to convert image datasets to videos
-* Plenty of fixes and improvements in the dataset tools
-* Expose more options to the user for dataset recording and encoding
-### Simulation Envs & Benchmarks
-* Envhub added functionality
-* LeIsaac × LeRobot EnvHub
-* Nvidia IsaacLab Arena support
-### Community
-* Modernized readme
-* Modernized Discord server
-* Clean template for issues, PRs, contributing and security
-* Automated labelling of GH tickets & PRs
-### Other projects
-* LeRobot visualizer got a refresh
-* Task annotation space
+With over 200 commits and over 50 new contributors since v0.4.0, LeRobot v0.5.0 is our biggest release yet — expanding in every direction at once. More robots (including our first humanoid), more policies (including the comeback of autoregressive VLAs), faster datasets, simulation environments you can load straight from the Hub, and a modernized codebase running on Python 3.12 and Transformers v5. Whether you're training policies in simulation or deploying them on real hardware, v0.5.0 has something for you.
+
+## TL;DR
+
+LeRobot v0.5.0 adds full Unitree G1 humanoid support (whole-body control models), new policies including Pi0Fast autoregressive VLAs and Real-Time Chunking for responsive inference, and streaming video encoding that eliminates wait times between recording episodes. The release also introduces EnvHub for loading simulation environments from the Hugging Face Hub, NVIDIA IsaacLab-Arena integration, and a major codebase modernization with Python 3.12+, Transformers v5, and third-party policy plugins.
+
+## Table of Contents
+
+- [LeRobot v0.5.0: Scaling Every Dimension](#lerobot-v050-scaling-every-dimension)
+  - [TL;DR](#tldr)
+  - [Table of Contents](#table-of-contents)
+  - [Hardware: More Robots Than Ever](#hardware-more-robots-than-ever)
+    - [Unitree G1 Humanoid](#unitree-g1-humanoid)
+    - [OpenArm \& OpenArm Mini](#openarm--openarm-mini)
+    - [More Robots](#more-robots)
+    - [CAN Bus Motors](#can-bus-motors)
+  - [Policies: A Growing Model Zoo](#policies-a-growing-model-zoo)
+    - [Pi0Fast: Autoregressive VLAs](#pi0fast-autoregressive-vlas)
+    - [Real-Time Chunking (RTC)](#real-time-chunking-rtc)
+    - [Wall-X](#wall-x)
+    - [X-VLA](#x-vla)
+    - [SARM](#sarm)
+    - [PEFT Support](#peft-support)
+  - [Datasets: Faster Recording, Faster Training](#datasets-faster-recording-faster-training)
+    - [Streaming Video Encoding](#streaming-video-encoding)
+    - [10x Image Training, 3x Encoding](#10x-image-training-3x-encoding)
+    - [New Dataset Tools](#new-dataset-tools)
+  - [Simulation: Environments from the Hub](#simulation-environments-from-the-hub)
+    - [EnvHub](#envhub)
+    - [NVIDIA IsaacLab-Arena](#nvidia-isaaclab-arena)
+  - [Codebase: A Modern Foundation](#codebase-a-modern-foundation)
+  - [Community \& Ecosystem](#community--ecosystem)
+  - [Final Thoughts](#final-thoughts)
+
+## Hardware: More Robots Than Ever
+
+LeRobot v0.5.0 dramatically expands the roster of supported hardware — from arms and mobile robots to a full humanoid.
+
+### Unitree G1 Humanoid
+
+The biggest hardware addition in this release: **full Unitree G1 humanoid support**. This is LeRobot's first humanoid integration, and it's comprehensive:
+
+- **Locomotion**: Walk, navigate, and move through environments.
+- **Manipulation**: Perform dexterous object manipulation tasks.
+- **Teleoperation**: Control the G1 remotely with an intuitive teleoperation interface.
+- **Whole-Body Control (WBC)**: Coordinate locomotion and manipulation simultaneously for complex, real-world tasks.
+
+The G1 integration represents a major step toward general-purpose robotics within LeRobot — moving beyond tabletop arms into full-body embodied AI.
+
+### OpenArm & OpenArm Mini
+
+We've added support for the **OpenArm** robot and its companion **OpenArm Mini** teleoperator. OpenArm is a capable robot arm with full LeRobot integration, and the Mini serves as its natural teleoperation device. Both support **bi-manual configurations**, enabling dual-arm setups for more complex manipulation tasks.
+
+### More Robots
+
+The hardware ecosystem keeps growing:
+
+- **Earth Rover**: Our first mobile robot integration, bringing LeRobot to outdoor navigation and ground-level robotics.
+- **OMX Robot**: A new robot arm with configurable gripper settings and calibration support.
+- **SO-100/SO-101 Consolidation**: We've unified the SO-100 and SO-101 implementations into a single, cleaner codebase — including bi-manual setups. Less code duplication, easier maintenance, same great robots.
+
+### CAN Bus Motors
+
+New motor controller support via CAN bus opens the door to higher-performance actuators:
+
+- **RobStride**: A CAN-based motor controller for high-torque applications.
+- **Damiao**: Another CAN bus motor controller, expanding the range of compatible hardware.
+
+These additions mean LeRobot can now drive a wider variety of professional-grade actuators beyond the existing Dynamixel and Feetech ecosystem.
+
+## Policies: A Growing Model Zoo
+
+This release brings six new policies and techniques into LeRobot, pushing the boundaries of what's possible with open-source robot learning.
+
+### Pi0Fast: Autoregressive VLAs
+
+**Pi0Fast** brings autoregressive Vision-Language-Action models to LeRobot with FAST (Fine-grained Action Sequence Tokenization). Unlike the flow-matching approach of Pi0, Pi0Fast uses an autoregressive action expert (based on Gemma 300M) that generates discretized action tokens, enabling:
+
+- **FAST tokenization**: Actions are tokenized for autoregressive decoding, with a dedicated [FAST action tokenizer](https://huggingface.co/lerobot/fast-action-tokenizer).
+- **Flexible decoding**: Configurable temperature and max decoding steps for balancing speed and quality.
+- **RTC-compatible**: Works with Real-Time Chunking for responsive inference.
+
+```bash
+lerobot-train \
+  --policy.type=pi0_fast \
+  --dataset.repo_id=lerobot/aloha_sim_insertion_human \
+  --policy.device=cuda
+```
+
+### Real-Time Chunking (RTC)
+
+**Real-Time Chunking** is an inference-time technique from Physical Intelligence that makes flow-matching policies dramatically more responsive. Instead of waiting for a full action chunk to finish before replanning, RTC continuously blends new predictions with in-progress actions, producing smoother and more reactive behavior.
+
+RTC is not a standalone policy — it's an enhancement that plugs into existing flow-matching policies:
+
+- **Pi0** and **Pi0.5**: Configure via `--policy.rtc_config.enabled=true`
+- **SmolVLA**: Same simple flag to enable
+- **Pi0Fast**: Also supported
+
+This is a game-changer for real-world deployment where latency matters. Read the [original paper](https://arxiv.org/abs/2506.07339) for the technical details.
+
+### Wall-X
+
+**Wall-X** is a new VLA policy built on **Qwen2.5-VL** with flow-matching action prediction. It combines the strong vision-language understanding of Qwen2.5-VL with a flow-matching head for cross-embodiment robotic control.
+
+```bash
+pip install -e ".[wall_x]"
+lerobot-train --policy.type=wall_x --dataset.repo_id=lerobot/aloha_sim_insertion_human
+```
+
+### X-VLA
+
+**X-VLA** brings a **Florence2-based** VLA to LeRobot. Built on Microsoft's Florence-2 vision-language model, X-VLA offers an alternative backbone for VLA policies, expanding the diversity of foundation models available for robot learning. Check out the [training guide](https://huggingface.co/docs/lerobot/xvla) for setup instructions.
+
+### SARM
+
+**SARM (Stage-Aware Reward Modeling)** tackles one of the hardest problems in robot learning: long-horizon tasks. Instead of a single binary reward at the end, SARM learns stage-aware rewards that provide feedback at intermediate stages of a task. This makes it much easier to train policies for complex, multi-step manipulation sequences.
+
+### PEFT Support
+
+You can now **fine-tune large VLAs using LoRA** (and other PEFT methods) without modifying the core training pipeline. PEFT configuration lives at the policy level, making it straightforward to adapt massive foundation models to your specific robot and task with a fraction of the compute.
+
+```bash
+lerobot-train \
+  --policy.type=pi0 \
+  --policy.peft_config.use_peft=true \
+  --dataset.repo_id=lerobot/aloha_sim_insertion_human
+```
+
+## Datasets: Faster Recording, Faster Training
+
+The dataset pipeline gets major performance improvements in this release, making both data collection and training significantly faster.
+
+### Streaming Video Encoding
+
+Previously, recording a dataset meant waiting after each episode for video encoding to finish. **No more.** With streaming video encoding, frames are encoded in real-time as they're captured — meaning **zero wait time between episodes**. Just finish one episode and immediately start the next.
+
+Streaming encoding also supports **hardware encoder auto-detection**, so if your system has a GPU-accelerated video encoder, LeRobot will use it automatically:
+
+```python
+dataset = LeRobotDataset.create(
+    repo_id="my/dataset",
+    fps=30,
+    video_backend="auto",       # Auto-detect best HW encoder
+    streaming_encoding=True,    # Encode in real-time
+)
+```
+
+### 10x Image Training, 3x Encoding
+
+Under the hood, we've fixed key data access bottlenecks and overhauled image processing:
+
+- **10x faster image training**: Improved image transform support and fixed data access bottlenecks that were silently slowing down training.
+- **3x faster encoding**: Parallel encoding is now the default across all platforms, with dynamic compression levels that adapt to your dataset type (video vs. image), when not using streaming.
+- **Better CPU utilization**: More efficient resource usage during recording and dataset creation.
+
+### New Dataset Tools
+
+The dataset editing toolkit continues to grow:
+
+- **Subtask support**: Annotate and query subtasks within episodes for hierarchical task learning.
+- **Image-to-video conversion**: Convert existing image-based datasets to video format for better storage efficiency, with support for multiple episodes per video file.
+- **More editing operations**: New `info` operation for inspecting datasets, task modification tools, and numerous fixes to existing operations (splitting, merging, feature editing).
+- **Expose more options**: Configurable video codecs, tolerance settings, and metadata buffer sizes for fine-grained control over dataset creation.
+
+## Simulation: Environments from the Hub
+
+### EnvHub
+
+**EnvHub** is a new way to use simulation environments in LeRobot: load them directly from the Hugging Face Hub. Instead of installing environment packages locally and wiring up registration, you can now point LeRobot at a Hub repository and it handles everything — downloading the environment code, registering it with Gymnasium, and making it available for training and evaluation.
+
+Hub environments use `HubEnvConfig`, which downloads and executes remote `make_env` functions:
+
+```bash
+lerobot-train \
+  --env.type=hub \
+  --env.hub_path="username/my-custom-env" \
+  --policy.type=act
+```
+
+This lowers the barrier for sharing custom simulation environments with the community. Package your environment, push it to the Hub, and anyone can train on it.
+
+### NVIDIA IsaacLab-Arena
+
+We've integrated **NVIDIA IsaacLab-Arena**, bringing GPU-accelerated simulation to LeRobot. IsaacLab-Arena provides a collection of manipulation tasks running on NVIDIA's Isaac Sim, offering massively parallel environment instances for fast reinforcement learning. The integration includes dedicated pre/post-processing steps and full compatibility with LeRobot's training pipeline. Check out the [documentation](https://huggingface.co/docs/lerobot/envhub_isaaclab_arena) and the [LeIsaac x LeRobot EnvHub tutorial](https://huggingface.co/docs/lerobot/envhub_leisaac) to get started.
+
+## Codebase: A Modern Foundation
+
+This release includes a sweeping modernization of LeRobot's foundation:
+
+- **Python 3.12+**: LeRobot now requires Python 3.12 as the minimum version, enabling modern syntax and better performance.
+- **Transformers v5**: We've migrated to Hugging Face Transformers v5, staying current with the latest model ecosystem.
+- **3rd-party policy plugins**: Just like v0.4.0's hardware plugin system, you can now register custom policies as installable packages — `pip install lerobot_policy_mypolicy` and use it with `--policy.type=mypolicy`. No core library changes needed.
+- **Remote Rerun visualization**: Visualize your robot's telemetry remotely using Rerun, with compressed image support for bandwidth-efficient streaming.
+- **Installation improvements**: Added `uv` installation instructions, clarified setup steps, and improved dependency management. Sequential install steps are now clearly documented.
+- **Documentation versioning**: Docs are now versioned, so you can always find documentation matching your installed release.
+- **PyTorch version bump**: Updated PyTorch version bounds to support NVIDIA Blackwell GPUs.
+
+## Community & Ecosystem
+
+- **Modernized README**: A refreshed README with better structure, dynamic content, and clearer getting-started instructions.
+- **Modernized Discord**: Updated the most vibrant community hub with a better channel organization.
+- **GitHub templates & automated labeling**: New issue templates, PR templates, contributing guidelines, and automatic labeling of tickets and PRs — making it easier for everyone to contribute.
+- **ICLR 2026 paper acceptance**: The LeRobot paper [has been accepted at ICLR 2026](https://openreview.net/forum?id=CiZMMAFQR3)!
+- **LeRobot Visualizer refresh**: The visualization tool got a refresh with new dataset visualization badges and improved functionality. [Check it out !](https://huggingface.co/spaces/lerobot/visualize_dataset?path=%2Fimstevenpmwork%2Fthanos_picking_power_gem%2Fepisode_0)
+- **LeRobot Annotation Studio**: A HuggingFace Space designed for easily annotate every moment of your dataset with natural language subtasks. [Check it out !](https://huggingface.co/spaces/lerobot/annotate)
+
+## Final Thoughts
+
+Beyond these headline features, v0.5.0 includes hundreds of bug fixes, documentation improvements, CI/CD enhancements, and quality-of-life improvements across the entire codebase. From better type checking to more robust test infrastructure, we're investing in the foundations that make LeRobot reliable and maintainable as it scales.
+
+We want to extend a huge **thank you to everyone in the community** — contributors, users, and collaborators alike — for helping LeRobot grow into what it is today. Every bug report, PR, and discussion makes this project better.
+
+Stay tuned for more to come 🤗 Get started [here](https://github.com/huggingface/lerobot)!
+– The LeRobot team ❤️
+
+
+> [!IMPORTANT]
+> There's a big surprise coming just right around the corner, stay tuned! 👕
