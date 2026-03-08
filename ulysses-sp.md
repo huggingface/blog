@@ -419,7 +419,7 @@ To quantify the benefits of Ulysses SP, we trained [Qwen3-4B](https://huggingfac
 | SP=4 (64K) | 4 | 4 | 1 | 65,536 | 8 | 8 |
 | SP=4 (96K) | 4 | 4 | 1 | 98,304 | 8 | 8 |
 
-All runs use the same global batch size (8 micro-batches), cosine learning rate schedule, and seed, so loss curves are directly comparable. Both the baseline and SP runs use flash-attn2 and train on the same pre-tokenized dataset for reproducibility.
+The benchmark runs in the table above use the same global batch size (8 micro-batches), cosine learning-rate schedule, and seed, so those benchmark loss curves are directly comparable.
 
 ### Loss Curve Matching Diagnostics (4 GPU)
 
@@ -442,10 +442,10 @@ For fair comparison, `GAS` must scale with `SP`:
 
 <figure class="image text-center">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ulysses/gutenberg_canonical_loss_dp4_vs_sp4.png" alt="Canonical loss on Gutenberg for DP=4 vs SP=4">
-  <figcaption>On Gutenberg text (20 steps), canonical loss matches exactly between <code>DP=4,SP=1,GAS=1</code> and <code>DP=1,SP=4,GAS=4</code>.</figcaption>
+  <figcaption>On Gutenberg text (20 steps), canonical loss matches within logging precision between <code>DP=4,SP=1,GAS=1</code> and <code>DP=1,SP=4,GAS=4</code>.</figcaption>
 </figure>
 
-Measured over 20 steps on 4 GPUs:
+Measured over 20 steps on 4 GPUs in controlled equivalence harnesses:
 
 | Harness | Metric | DP vs SP setting | Mean abs diff | Max abs diff |
 |--------|--------|-------------------|---------------|--------------|
