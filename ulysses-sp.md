@@ -64,12 +64,12 @@ The key insight is that attention heads are independent—each head can be compu
 
 ### Communication Complexity
 
-Ulysses requires two all-to-all operations per attention layer, with total communication volume of  \\( O(n \cdot d / P) \\) per GPU, where:
+Ulysses requires two all-to-all operations per attention layer, with total communication volume of \\( O(n \cdot d / P) \\) per GPU, where:
 - \\( n \\) is the sequence length
 - \\( d \\) is the hidden dimension
 - \\( P \\) is the parallelism degree
 
-This is more efficient than Ring Attention's  \\( O(n^2 / P) \\) communication requirements when sequence lengths are moderate (up to ~500k tokens) and high-bandwidth interconnects (NVLink, InfiniBand) are available.
+Ring Attention has the same asymptotic communication volume — \\( O(n \cdot d) \\) total across \\( P-1 \\) ring steps — but pays it in sequential point-to-point transfers rather than a single collective. In practice, Ulysses benefits from lower latency on high-bandwidth interconnects (NVLink, InfiniBand) because all-to-all can exploit full bisectional bandwidth in a single step, whereas Ring Attention serializes over \\( P-1 \\) hops.
 
 ## Integration with Accelerate
 
@@ -421,14 +421,49 @@ To quantify the benefits of Ulysses SP, we trained [Qwen3-4B](https://huggingfac
 
 All runs use the same global batch size (8 micro-batches), cosine learning rate schedule, and seed, so loss curves are directly comparable. Both the baseline and SP runs use flash-attn2 and train on the same pre-tokenized dataset for reproducibility.
 
-### Loss Convergence
+### Loss Curve Matching Diagnostics (4 GPU)
+
+To verify SP-vs-DP loss equivalence, we ran controlled 4-GPU A/B experiments with identical seed, model, optimizer, learning-rate schedule, and data order.
+
+#### Methodology for Fair DP vs SP Comparison
+
+Compared setups:
+
+- `DP=4, SP=1, GAS=1` (baseline)
+- `DP=1, SP=4, GAS=4` (Ulysses SP)
+
+For fair comparison, `GAS` must scale with `SP`:
+
+- Ulysses SP splits the sequence across `SP` ranks, so each SP rank sees roughly `1/SP` of the sequence tokens per micro-step.
+- If `GAS` is unchanged, each optimizer step in SP aggregates fewer total tokens than the DP baseline.
+- Setting `GAS=SP` keeps effective tokens per optimizer step matched:
+  - DP tokens/step: `dp_world_size * micro_batch * seq_len * GAS = 4 * B * L * 1`
+  - SP tokens/step: `dp_world_size * micro_batch * (L/SP) * GAS * SP_ranks = 1 * B * (L/4) * 4 * 4 = 4 * B * L`
 
 <figure class="image text-center">
-  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ulysses/loss_convergence.png" alt="Loss Convergence: Ulysses SP Matches Baseline">
-  <figcaption>Ulysses SP produces the same loss trajectory as single-GPU training — the attention computation is mathematically identical, just distributed across GPUs.</figcaption>
+  <img src="/blog/assets/ulysses/loss_matching_trainer_vs_sft.png" alt="4-GPU loss matching diagnostics for Trainer vs SFTTrainer">
+  <figcaption>On 4 GPUs, <code>Trainer</code> shows close SP-vs-DP loss matching, while <code>SFTTrainer</code> shows a stable logging offset under the same seed/config.</figcaption>
 </figure>
 
-The baseline (1 GPU, no SP, 8K) and SP=4 (4 GPUs, 8K) loss curves track closely over 20 training steps on the same pre-tokenized dataset with the same global batch size and seed. The two curves follow the same step-by-step pattern with a small consistent offset (~0.1) due to bf16 numerical differences in distributed reductions (all-to-all collectives and gradient synchronization accumulate floats in a different order across 4 GPUs vs 1 GPU). This is expected and normal for distributed bf16 training. The key observation is that both curves converge to the same loss range (~2.5), confirming that Ulysses partitions attention heads across GPUs and uses all-to-all collectives to reconstruct the full attention output, producing mathematically equivalent training dynamics.
+<figure class="image text-center">
+  <img src="/blog/assets/ulysses/sft_trl_loss_vs_canonical.png" alt="SFTTrainer logged loss vs canonical loss under DP=4 and SP=4">
+  <figcaption>In local <code>trl</code> runs, the raw <code>loss</code> curves have a fixed offset, while a canonical globally token-normalized NLL metric overlaps almost exactly between DP and SP.</figcaption>
+</figure>
+
+<figure class="image text-center">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ulysses/gutenberg_canonical_loss_dp4_vs_sp4.png" alt="Canonical loss on Gutenberg for DP=4 vs SP=4">
+  <figcaption>On Gutenberg text (20 steps), canonical loss matches exactly between <code>DP=4,SP=1,GAS=1</code> and <code>DP=1,SP=4,GAS=4</code>.</figcaption>
+</figure>
+
+Measured over 20 steps on 4 GPUs:
+
+| Harness | Metric | DP vs SP setting | Mean abs diff | Max abs diff |
+|--------|--------|-------------------|---------------|--------------|
+| `Trainer` | `loss` | DP=4, SP=1 vs DP=1, SP=4 | 0.0054 | 0.0131 |
+| `SFTTrainer` | logged `loss` | DP=4, SP=1 vs DP=1, SP=4 | 0.0811 | 0.0812 |
+| `SFTTrainer` | canonical NLL | DP=4, SP=1 vs DP=1, SP=4 | 0.000004 | 0.000005 |
+
+Takeaway: under matched token budget, SP and non-SP match on canonical token-normalized loss. The remaining difference is in trainer-reported logging (`loss`), not in the underlying cross-entropy objective.
 
 ### Memory Reduction
 
