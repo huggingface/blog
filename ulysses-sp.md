@@ -441,16 +441,6 @@ For fair comparison, `GAS` must scale with `SP`:
   - SP tokens/step: `dp_world_size * micro_batch * (L/SP) * GAS * SP_ranks = 1 * B * (L/4) * 4 * 4 = 4 * B * L`
 
 <figure class="image text-center">
-  <img src="/blog/assets/ulysses/loss_matching_trainer_vs_sft.png" alt="4-GPU loss matching diagnostics for Trainer vs SFTTrainer">
-  <figcaption>On 4 GPUs, <code>Trainer</code> shows close SP-vs-DP loss matching, while <code>SFTTrainer</code> shows a stable logging offset under the same seed/config.</figcaption>
-</figure>
-
-<figure class="image text-center">
-  <img src="/blog/assets/ulysses/sft_trl_loss_vs_canonical.png" alt="SFTTrainer logged loss vs canonical loss under DP=4 and SP=4">
-  <figcaption>In local <code>trl</code> runs, the raw <code>loss</code> curves have a fixed offset, while a canonical globally token-normalized NLL metric overlaps almost exactly between DP and SP.</figcaption>
-</figure>
-
-<figure class="image text-center">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ulysses/gutenberg_canonical_loss_dp4_vs_sp4.png" alt="Canonical loss on Gutenberg for DP=4 vs SP=4">
   <figcaption>On Gutenberg text (20 steps), canonical loss matches exactly between <code>DP=4,SP=1,GAS=1</code> and <code>DP=1,SP=4,GAS=4</code>.</figcaption>
 </figure>
