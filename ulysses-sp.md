@@ -455,14 +455,14 @@ Takeaway: under matched token budget, SP and non-SP match on canonical token-nor
 
 | Config | Seq Length | Peak Memory | Notes |
 |--------|-----------|-------------|-------|
-| Baseline (1 GPU) | 8K | 76.4 GB | Near H100 limit |
-| SP=4 (4 GPU) | 8K | 23.4 GB | **3.3x reduction** |
-| SP=4 (4 GPU) | 32K | 35.0 GB | 4x longer, 1.5x more memory |
-| SP=4 (4 GPU) | 64K | 50.5 GB | 8x longer, fits comfortably |
-| SP=4 (4 GPU) | 96K | 66.0 GB | **12x longer**, still fits |
+| DP=4 (4 GPU) | 8K | 22.4 GB | Baseline — no SP |
+| SP=4 (4 GPU) | 8K | 22.8 GB | Similar memory at same seq length |
+| SP=4 (4 GPU) | 32K | 35.0 GB | 4x longer than DP baseline |
+| SP=4 (4 GPU) | 64K | 50.5 GB | 8x longer than DP baseline |
+| SP=4 (4 GPU) | 96K | 66.0 GB | **12x longer than DP baseline** |
 | SP=4 (4 GPU) | 128K | OOM | Exceeds 80 GB limit |
 
-Without SP, the baseline already uses 76.4 GB at just 8K tokens — barely fitting on an H100. With SP=4, the same 8K sequence uses only 23.4 GB per GPU, freeing up memory to scale sequence length. The memory savings compound: at 96K tokens (12x longer than the baseline), peak memory is 66 GB — still within the H100's capacity. At 128K, the model requires ~81 GB and OOMs, establishing the practical limit for this configuration.
+At 8K tokens, DP=4 and SP=4 use nearly the same memory per GPU (~22 GB with ZeRO-3). The advantage of SP is that it enables scaling to much longer sequences: at 96K tokens (12x longer), peak memory is 66 GB — still within the H100's 80 GB capacity. At 128K, the model OOMs, establishing the practical limit for this configuration. DP=4 without SP cannot scale beyond 8K for this model.
 
 ### Throughput
 
