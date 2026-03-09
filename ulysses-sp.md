@@ -478,7 +478,7 @@ At 8K tokens, DP=4 and SP=4 use nearly the same memory per GPU (~22 GB with ZeRO
 | SP=4 (4 GPU) | 32K | 7,733 | **2.1x** |
 | SP=4 (4 GPU) | 64K | 13,396 | **3.7x** |
 
-At the same sequence length (8K), SP=4 has comparable throughput to the single-GPU baseline — the all-to-all communication overhead is minimal on NVLink-connected GPUs. The real benefit comes from longer sequences: each training step processes proportionally more tokens, so throughput scales with sequence length. At 64K, SP=4 processes 13,396 tokens/second — 3.7x the baseline.
+At the same sequence length (8K), SP=4 has comparable throughput to the single-GPU baseline — the all-to-all communication overhead is minimal on NVLink-connected GPUs. The real benefit comes from longer sequences: as sequence length grows, the quadratic attention computation dominates over communication and other overheads, making each training step increasingly compute-efficient. Each step also processes proportionally more tokens, so throughput scales with sequence length. At 64K, SP=4 processes 13,396 tokens/second — 3.7x the baseline.
 
 > [!NOTE]
 > These results use only 4 GPUs with SP=4. With 8 GPUs (SP=8), you can push to even longer sequences — up to 256K+ tokens — or use 2D parallelism (SP=4, DP=2) to combine long-context training with data-parallel throughput.
