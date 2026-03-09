@@ -404,11 +404,11 @@ To quantify the benefits of Ulysses SP, we trained [Qwen3-4B](https://huggingfac
 
 | Config | GPUs | SP | DP | Seq Length | Grad Acc | Global Batch |
 |--------|------|----|----|-----------|----------|-------------|
-| Baseline | 1 | 1 | 1 | 8,192 | 8 | 8 |
-| SP=4 | 4 | 4 | 1 | 8,192 | 8 | 8 |
-| SP=4 (32K) | 4 | 4 | 1 | 32,768 | 8 | 8 |
-| SP=4 (64K) | 4 | 4 | 1 | 65,536 | 8 | 8 |
-| SP=4 (96K) | 4 | 4 | 1 | 98,304 | 8 | 8 |
+| Baseline | 1 | 1 | 1 | 8K | 8 | 8 |
+| SP=4 | 4 | 4 | 1 | 8K | 8 | 8 |
+| SP=4 | 4 | 4 | 1 | 32K | 8 | 8 |
+| SP=4 | 4 | 4 | 1 | 64K | 8 | 8 |
+| SP=4 | 4 | 4 | 1 | 96K | 8 | 8 |
 
 The benchmark runs in the table above use the same global batch size (8 micro-batches), cosine learning-rate schedule, and seed, so those benchmark loss curves are directly comparable.
 
