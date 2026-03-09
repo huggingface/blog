@@ -51,7 +51,7 @@ Here's how it works:
 
 2. **QKV Projection**: Each GPU computes the query, key, and value projections for its local sequence chunk.
 
-3. **All-to-All Communication**: An all-to-all collective operation redistributes the data so that each GPU now holds *all* sequence positions, but only for a subset of attention heads.
+3. **All-to-All Communication**: An all-to-all collective operation redistributes the data so that each GPU holds *all* sequence positions after the projections, but only for a subset of attention heads.
 
 4. **Local Attention**: Each GPU computes attention for its assigned heads using standard attention mechanisms (FlashAttention or SDPA).
 
