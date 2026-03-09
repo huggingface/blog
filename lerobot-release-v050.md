@@ -3,13 +3,13 @@ title: "LeRobot v0.5.0: Scaling Every Dimension"
 thumbnail: /blog/assets/lerobot-release-v050/thumbnail.png
 authors:
   - user: imstevenpmwork
-  - user: aractingi
   - user: pepijn223
-  - user: CarolinePascal
   - user: jadechoghari
+  - user: CarolinePascal
   - user: lilkm
   - user: nepyope
   - user: Nico-robot
+  - user: aractingi
   - user: VirgileBatto
   - user: thomwolf
 ---
@@ -63,6 +63,8 @@ The biggest hardware addition in this release: **full Unitree G1 humanoid suppor
 - **Whole-Body Control (WBC)**: Coordinate locomotion and manipulation simultaneously for complex, real-world tasks.
 
 The G1 integration represents a major step toward general-purpose robotics within LeRobot — moving beyond tabletop arms into full-body embodied AI. Try it out yourself by following the [documentation](https://huggingface.co/docs/lerobot/unitree_g1).
+
+![unitree-boss](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/lerobot-blog/release-v0.5.0/unitree_bosswalk.JPG)
 
 ### OpenArm & OpenArm Mini
 
@@ -137,6 +139,8 @@ lerobot-train \
 ### SARM
 
 **SARM (Stage-Aware Reward Modeling)** tackles one of the hardest problems in robot learning: long-horizon tasks. Instead of using a single global linear progress signal over the whole episode, it models progress in a stage-aware manner by predicting both the task stage and the progress within that stage. This makes it much easier to train policies for complex, multi-step manipulation tasks. Start experimenting with it by following the [documentation](https://huggingface.co/docs/lerobot/sarm).
+
+![sarm-community](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/lerobot-blog/release-v0.5.0/sarm_community.gif)
 
 ### PEFT Support
 
@@ -223,6 +227,8 @@ This release modernizes the codebase:
 - **ICLR 2026 paper acceptance**: The LeRobot paper [has been accepted to ICLR 2026](https://openreview.net/forum?id=CiZMMAFQR3)!
 - **LeRobot Visualizer refresh**: The visualization tool got a refresh with new dataset visualization badges and improved functionality. [Check it out !](https://huggingface.co/spaces/lerobot/visualize_dataset?path=%2Fimstevenpmwork%2Fthanos_picking_power_gem%2Fepisode_0)
 - **LeRobot Annotation Studio**: A HuggingFace Space designed to easily annotate every moment of your dataset with natural language subtasks. [Check it out !](https://huggingface.co/spaces/lerobot/annotate)
+
+![visualizer](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/lerobot-blog/release-v0.5.0/visualizer.gif)
 
 ## Final Thoughts
 
