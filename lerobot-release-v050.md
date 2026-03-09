@@ -16,11 +16,11 @@ authors:
 
 # LeRobot v0.5.0: Scaling Every Dimension
 
-With over 200 commits and over 50 new contributors since v0.4.0, LeRobot v0.5.0 is our biggest release yet — expanding in every direction at once. More robots (including our first humanoid), more policies (including the comeback of autoregressive VLAs), faster datasets, simulation environments you can load straight from the Hub, and a modernized codebase running on Python 3.12 and Transformers v5. Whether you're training policies in simulation or deploying them on real hardware, v0.5.0 has something for you.
+With over 200 merged PRs and over 50 new contributors since v0.4.0, LeRobot v0.5.0 is our biggest release yet — expanding in every direction at once. More robots (including our first humanoid), more policies (including the comeback of autoregressive VLAs), faster datasets, simulation environments you can load straight from the Hub, and a modernized codebase running on Python 3.12 and Transformers v5. Whether you're training policies in simulation or deploying them on real hardware, v0.5.0 has something for you.
 
 ## TL;DR
 
-LeRobot v0.5.0 adds full Unitree G1 humanoid support (whole-body control models), new policies including Pi0Fast autoregressive VLAs and Real-Time Chunking for responsive inference, and streaming video encoding that eliminates wait times between recording episodes. The release also introduces EnvHub for loading simulation environments from the Hugging Face Hub, NVIDIA IsaacLab-Arena integration, and a major codebase modernization with Python 3.12+, Transformers v5, and third-party policy plugins.
+LeRobot v0.5.0 adds full Unitree G1 humanoid support (whole-body control models), new policies –including Pi0-FAST autoregressive VLAs and Real-Time Chunking for responsive inference–, and streaming video encoding that eliminates wait times between recording episodes. The release also introduces EnvHub for loading simulation environments from the Hugging Face Hub, NVIDIA IsaacLab-Arena integration, and a major codebase modernization with Python 3.12+, Transformers v5, and third-party policy plugins.
 
 ## Table of Contents
 
@@ -33,7 +33,7 @@ LeRobot v0.5.0 adds full Unitree G1 humanoid support (whole-body control models)
     - [More Robots](#more-robots)
     - [CAN Bus Motors](#can-bus-motors)
   - [Policies: A Growing Model Zoo](#policies-a-growing-model-zoo)
-    - [Pi0Fast: Autoregressive VLAs](#pi0fast-autoregressive-vlas)
+    - [Pi0-FAST: Autoregressive VLAs](#pi0fast-autoregressive-vlas)
     - [Real-Time Chunking (RTC)](#real-time-chunking-rtc)
     - [Wall-X](#wall-x)
     - [X-VLA](#x-vla)
@@ -90,13 +90,13 @@ These additions mean LeRobot can now drive a wider variety of professional-grade
 
 This release brings six new policies and techniques into LeRobot, pushing the boundaries of what's possible with open-source robot learning.
 
-### Pi0Fast: Autoregressive VLAs
+### Pi0-FAST: Autoregressive VLAs
 
-**Pi0Fast** brings autoregressive Vision-Language-Action models to LeRobot with FAST (Fine-grained Action Sequence Tokenization). Unlike the flow-matching approach of Pi0, Pi0Fast uses an autoregressive action expert (based on Gemma 300M) that generates discretized action tokens, enabling:
+**Pi0-FAST** brings autoregressive Vision-Language-Action models to LeRobot with FAST (Frequency-space Action Sequence Tokenization). Unlike the flow-matching approach of Pi0, Pi0-FAST uses an autoregressive action expert (based on Gemma 300M) that generates discretized action tokens, enabling:
 
 - **FAST tokenization**: Actions are tokenized for autoregressive decoding, with a dedicated [FAST action tokenizer](https://huggingface.co/lerobot/fast-action-tokenizer).
 - **Flexible decoding**: Configurable temperature and max decoding steps for balancing speed and quality.
-- **RTC-compatible**: Works with Real-Time Chunking for responsive inference.
+- **RTC-compatible**: Works with Real-Time Chunking (see [next section](#real-time-chunking-rtc)) for responsive inference.
 
 ```bash
 lerobot-train \
@@ -107,7 +107,7 @@ lerobot-train \
 
 ### Real-Time Chunking (RTC)
 
-**Real-Time Chunking** is an inference-time technique from Physical Intelligence that makes flow-matching policies dramatically more responsive. Instead of waiting for a full action chunk to finish before replanning, RTC continuously blends new predictions with in-progress actions, producing smoother and more reactive behavior.
+**Real-Time Chunking** is an inference-time technique from [Physical Intelligence](https://www.pi.website) that makes flow-matching policies dramatically more responsive. Instead of waiting for a full action chunk to finish before replanning, RTC continuously blends new predictions with in-progress actions, producing smoother and more reactive behavior.
 
 RTC is not a standalone policy — it's an enhancement that plugs into existing flow-matching policies:
 
@@ -122,8 +122,10 @@ This is a game-changer for real-world deployment where latency matters. Read the
 **Wall-X** is a new VLA policy built on **Qwen2.5-VL** with flow-matching action prediction. It combines the strong vision-language understanding of Qwen2.5-VL with a flow-matching head for cross-embodiment robotic control.
 
 ```bash
-pip install -e ".[wall_x]"
-lerobot-train --policy.type=wall_x --dataset.repo_id=lerobot/aloha_sim_insertion_human
+pip install -e "lerobot[wall_x]"
+lerobot-train \
+  --policy.type=wall_x \
+  --dataset.repo_id=lerobot/aloha_sim_insertion_human
 ```
 
 ### X-VLA
@@ -164,7 +166,7 @@ dataset = LeRobotDataset.create(
 )
 ```
 
-### 10x Image Training, 3x Encoding
+### 10x Faster Image Training, 3x Faster Encoding
 
 Under the hood, we've fixed key data access bottlenecks and overhauled image processing:
 
@@ -181,9 +183,7 @@ The dataset editing toolkit continues to grow:
 - **More editing operations**: New `info` operation for inspecting datasets, task modification tools, and numerous fixes to existing operations (splitting, merging, feature editing).
 - **Expose more options**: Configurable video codecs, tolerance settings, and metadata buffer sizes for fine-grained control over dataset creation.
 
-## Simulation: Environments from the Hub
-
-### EnvHub
+## EnvHub: Environments from the Hub
 
 **EnvHub** is a new way to use simulation environments in LeRobot: load them directly from the Hugging Face Hub. Instead of installing environment packages locally and wiring up registration, you can now point LeRobot at a Hub repository and it handles everything — downloading the environment code, registering it with Gymnasium, and making it available for training and evaluation.
 
@@ -204,7 +204,7 @@ We've integrated **NVIDIA IsaacLab-Arena**, bringing GPU-accelerated simulation 
 
 ## Codebase: A Modern Foundation
 
-This release includes a sweeping modernization of LeRobot's foundation:
+This release modernizes the codebase:
 
 - **Python 3.12+**: LeRobot now requires Python 3.12 as the minimum version, enabling modern syntax and better performance.
 - **Transformers v5**: We've migrated to Hugging Face Transformers v5, staying current with the latest model ecosystem.
@@ -219,9 +219,9 @@ This release includes a sweeping modernization of LeRobot's foundation:
 - **Modernized README**: A refreshed README with better structure, dynamic content, and clearer getting-started instructions.
 - **Modernized Discord**: Updated the most vibrant community hub with a better channel organization.
 - **GitHub templates & automated labeling**: New issue templates, PR templates, contributing guidelines, and automatic labeling of tickets and PRs — making it easier for everyone to contribute.
-- **ICLR 2026 paper acceptance**: The LeRobot paper [has been accepted at ICLR 2026](https://openreview.net/forum?id=CiZMMAFQR3)!
+- **ICLR 2026 paper acceptance**: The LeRobot paper [has been accepted to ICLR 2026](https://openreview.net/forum?id=CiZMMAFQR3)!
 - **LeRobot Visualizer refresh**: The visualization tool got a refresh with new dataset visualization badges and improved functionality. [Check it out !](https://huggingface.co/spaces/lerobot/visualize_dataset?path=%2Fimstevenpmwork%2Fthanos_picking_power_gem%2Fepisode_0)
-- **LeRobot Annotation Studio**: A HuggingFace Space designed for easily annotate every moment of your dataset with natural language subtasks. [Check it out !](https://huggingface.co/spaces/lerobot/annotate)
+- **LeRobot Annotation Studio**: A HuggingFace Space designed to easily annotate every moment of your dataset with natural language subtasks. [Check it out !](https://huggingface.co/spaces/lerobot/annotate)
 
 ## Final Thoughts
 
