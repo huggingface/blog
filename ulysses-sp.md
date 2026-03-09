@@ -153,7 +153,7 @@ accelerator.backward(loss)
 > The loss aggregation ensures correct gradients when tokens are unevenly distributed across ranks (e.g., when some ranks contain only padding or masked out prompt tokens).
 
 > [!TIP]
-> Both Ulysses and Ring Attention use `position_ids` instead of `attention_mask` for causal masking. A 4D attention mask at these sequence lengths would be just as prohibitive as the attention scores themselves—at 128k tokens, that's another ~1TB tensor. Position IDs achieve the same causal behavior with  \\( O(n) \\) memory instead of  \\( O(n^2) \\).
+> Both Ulysses and Ring Attention use `position_ids` instead of `attention_mask` for causal masking during training. A 4D attention mask at these sequence lengths would be just as prohibitive as the attention scores themselves—at 128k tokens, that's another ~1TB tensor. Position IDs achieve the same causal behavior with  \\( O(n) \\) memory instead of  \\( O(n^2) \\). During evaluation/inference, DeepSpeed's SP attention layer can bypass the SP operations entirely (via `disable_in_eval`) and fall back to the model's default attention implementation.
 
 ## Integration with Transformers Trainer
 
