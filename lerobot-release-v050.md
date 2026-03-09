@@ -136,7 +136,7 @@ lerobot-train \
 
 ### SARM
 
-**SARM (Stage-Aware Reward Modeling)** tackles one of the hardest problems in robot learning: long-horizon tasks. Instead of a single binary reward at the end, SARM learns stage-aware rewards that provide a progress indication at intermediate stages of a task. This makes it much easier to train policies for complex, multi-step manipulation sequences. Try it out by following the [documentation](https://huggingface.co/docs/lerobot/sarm).
+**SARM (Stage-Aware Reward Modeling)** tackles one of the hardest problems in robot learning: long-horizon tasks. Instead of using a single global linear progress signal over the whole episode, it models progress in a stage-aware manner by predicting both the task stage and the progress within that stage. This makes it much easier to train policies for complex, multi-step manipulation tasks. Start experimenting with it by following the [documentation](https://huggingface.co/docs/lerobot/sarm).
 
 ### PEFT Support
 
