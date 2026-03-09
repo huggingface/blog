@@ -23,6 +23,8 @@ authors:
 - **We surveyed 16 open-source libraries** that implement this pattern and compared them across 7 axes: orchestration primitives, buffer design, weight sync protocols, staleness management, partial rollout handling, LoRA support, and distributed training backends.
 - **Key findings:** Ray dominates orchestration (8/16 surveyed libraries). NCCL broadcast is the default weight transport. Staleness management ranges from "just drop old samples" to sophisticated importance-sampling correction. LoRA training is sparsly supported. Distributed MoE support is the emerging differentiator.
 
+Or, if you'd rather skip straight to the good part — [here's the full comparison table](#4-global-overview-sixteen-libraries-at-a-glance) (no reading required, we won't judge).
+
 But seriously, if you stick around, you might learn a thing or two about why your GPUs are idle 60% of the time.
 
 </blockquote>
@@ -415,6 +417,7 @@ LoRA on dense models is well-understood (Axis 6): attach adapters to attention p
 
 ## 4. Global Overview: Sixteen Libraries at a Glance
 
+> [!NOTE]
 > **Note:** This overview reflects the state of these libraries as of March 2026. The ecosystem is evolving rapidly; specific features, backends, and integrations may change in the near future.
 
 | Library           | Org            | Orchestration Type                                       | Inference Server       | Weight Sync                                 | Staleness Management     | Partial Rollout                     | Training Backend                      | Dist. Parallelism                                                        | LoRA Support                               |
