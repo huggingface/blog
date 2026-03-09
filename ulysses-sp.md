@@ -388,7 +388,7 @@ training_args = SFTConfig(
 )
 ```
 
-The main memory saving comes from `FusedLinearCrossEntropy` which skips manifesting the full logits tensor during loss calculation. The savings grow with longer sequences where the logits tensor is larger.
+The main memory saving comes from `FusedLinearCrossEntropy` which avoids materializing the full logits tensor during loss calculation. The savings grow with longer sequences where the logits tensor is larger.
 
 Additionally, you can enable [`TiledMLP`](https://www.deepspeed.ai/tutorials/ulysses-alst-sequence-parallelism/#tiled-mlp-computation) to further extend sequence length — like `FusedLinearCrossEntropy`, it saves working memory by tiling large matrix operations.
 
