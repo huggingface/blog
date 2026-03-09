@@ -62,15 +62,21 @@ But seriously, if you stick around, you might learn a thing or two about why you
 
 ## 1. Motivation: From synchronous RL training to async architectures
 
-Async RL training has become a necessity for scaling post-training to the demands of modern reasoning models. [TRL](https://github.com/huggingface/trl) is one of the most widely used libraries for model post-training. The current `GRPOTrainer` implements the full GRPO training loop, prompt sampling, autoregressive generation, reward scoring, advantage computation, forward+backward pass, and optimizer update, in a single, synchronous `training_step()` call. This design is simple, correct, and easy to debug.
+Async RL training has emerged as the dominant paradigm for post-training at scale. Several trends in modern post-training have made synchronous training loops nearly impossible to scale:
 
-More specifically, TRL's current training loop is organized around synchronous phase boundaries, which makes overlapping generation, training, and weight synchronisation difficult. Generation must complete before training begins. Training must complete before the next generation starts. Then, the weight synchronization between the inference engine and the trainer blocks both sides before we can do another pass.
+- **Long rollouts from reasoning models.** Chain-of-thought training produces very long rollouts, and a single synchronous generation batch can take hours to complete on a single GPU. During all of that time, training GPUs sit completely idle.
+- **Value-function-free trainers like GRPO** use group-relative advantages. This means generating up to G times more rollouts per prompt, and the entire batch is gated by the slowest completion in the group.
+- **The rise of agentic RL training.** When models interact with tools, sandboxes, and external environments across multi-turn trajectories, rollout lengths and latencies become highly variable. A simple API call might return in seconds while a complex reasoning chain with tool use can run for minutes or hours. MiniMax's [Forge](https://www.minimax.io/news/forge-scalable-agent-rl-framework-and-algorithm) framework, used to train MiniMax-M2.5, illustrates the scale this reaches in practice: context lengths up to 200K tokens, over a hundred thousand distinct agent scaffolds and environments, and daily throughput on the order of millions of samples. At this scale, any synchronous barrier between generation and training becomes a severe bottleneck. The straggler problem alone (where a handful of slow rollouts block an entire batch) can idle hundreds of GPUs.
 
-To build an async trainer that is both scalable and simple to use, we benchmarked and surveyed sixteen top open-source libraries that were built from the ground up around an asynchronous training strategy. We dissect their architectures across **seven axes** of comparison to extract the design principles that inform TRL's next generation of async trainers. This survey also informs the ongoing effort of designing a robust and simple async trainer for TRL.
+The open-source ecosystem has converged on a common architectural response: disaggregate inference from training onto separate GPU pools, connect them with a rollout buffer, and let both sides run concurrently.
 
-The need for async infrastructure extends beyond RL of course: **On-policy distillation**, where a student model generates sequences and a teacher model scores them, is structurally identical to GRPO with one substitution: the reward function is replaced by a teacher model forward pass. Everything in this survey that applies to async GRPO applies equally to async distillation, and we return to this point in Section 5.
+We are developing a new async trainer for [TRL](https://github.com/huggingface/trl), one of the most widely used libraries for model post-training. To guide our design, we surveyed **sixteen open-source libraries** that were built from the ground up around asynchronous training and compared them across **seven axes**: orchestration primitives, buffer design, weight sync protocols, staleness management, partial rollout handling, LoRA support, and distributed training backends. This article distills the design principles we extracted from that survey.
+
+The need for async infrastructure also extends beyond RL. **On-policy distillation**, where a student generates sequences and a teacher scores them, is structurally identical to GRPO with one substitution: the reward function is replaced by a teacher forward pass. Everything in this survey applies equally to async distillation, and we return to this point in Section 5.
 
 ### 1.1 How TRL Does RL Training Today
+
+TRL's current `GRPOTrainer` implements the full GRPO loop (prompt sampling, generation, reward scoring, advantage computation, gradient update, and weight sync) in a single synchronous `training_step()` call. This design is simple and correct, but it cannot overlap generation with training, leaving significant GPU utilisation on the table.
 
 Looking at the `GRPOTrainer`, we have the following phases sequentially within each training step:
 
