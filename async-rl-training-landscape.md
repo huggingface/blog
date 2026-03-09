@@ -13,6 +13,20 @@ authors:
 
 ---
 
+<blockquote style="background-color: #f0f7ff; border-left: 4px solid #4a90d9; padding: 1em 1.5em; margin: 1.5em 0; border-radius: 4px;">
+
+**TL;DR** -- For those of you who don't have time to read 5,000 words about async RL plumbing (we get it, you have models to train):
+
+- **The problem:** In synchronous RL training, generation dominates wall-clock time -- a single batch of 32K-token rollouts on a 32B model can take *hours* -- while training GPUs sit idle waiting.
+- **The solution everyone converged on:** Disaggregate inference and training onto different GPU pools, connect them with a rollout buffer and transfer weights asynchronously, never let either side wait for the other.
+- **We surveyed 16 open-source libraries** that implement this pattern and compared them across 7 axes: orchestration primitives, buffer design, weight sync protocols, staleness management, partial rollout handling, LoRA support, and distributed training backends.
+- **Key findings:** Ray dominates orchestration (8/16 surveyed libraries). NCCL broadcast is the default weight transport. Staleness management ranges from "just drop old samples" to sophisticated importance-sampling correction. LoRA training is sparsly supported. Distributed MoE support is the emerging differentiator.
+
+But seriously, if you stick around, you might learn a thing or two about why your GPUs are idle 60% of the time.
+</blockquote>
+
+---
+
 # The Landscape of Async RL Training frameworks
 
 <details>
