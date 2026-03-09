@@ -68,14 +68,14 @@ The G1 integration represents a major step toward general-purpose robotics withi
 
 ### OpenArm & OpenArm Mini
 
-We've added support for the **OpenArm** robot and its companion **OpenArm Mini** teleoperator. OpenArm is a capable robot arm with full LeRobot integration, and the Mini serves as its natural teleoperation device. Both support **bi-manual configurations**, enabling dual-arm setups for more complex manipulation tasks. Check it out in the [documentation](https://huggingface.co/docs/lerobot/openarm).
+We've added support for the [**OpenArm**](https://openarm.dev) robot and its companion **OpenArm Mini** teleoperator. OpenArm is a capable robot arm with full LeRobot integration, and the Mini serves as its natural teleoperation device. Both support **bi-manual configurations**, enabling dual-arm setups for more complex manipulation tasks. Check it out in the [documentation](https://huggingface.co/docs/lerobot/openarm).
 
 ### More Robots
 
 The hardware ecosystem keeps growing:
 
-- **Earth Rover**: Our first mobile robot integration, bringing LeRobot to outdoor navigation and ground-level robotics.
-- **OMX Robot**: A new robot arm with configurable gripper settings and calibration support.
+- [**Earth Rover**](https://shop.frodobots.com/products/miniplus): Our first mobile robot integration, bringing LeRobot to outdoor navigation and ground-level robotics.
+- [**OMX Robot**](https://ai.robotis.com/omx/hardware_omx.html): A new robot arm with configurable gripper settings and calibration support.
 - **SO-100/SO-101 Consolidation**: We've unified the SO-100 and SO-101 implementations into a single, cleaner codebase — including bi-manual setups. Less code duplication, easier maintenance, same great robots.
 
 ### CAN Bus Motors
