@@ -157,25 +157,17 @@ accelerator.backward(loss)
 
 ## Integration with Transformers Trainer
 
-The Transformers [`Trainer`](https://huggingface.co/docs/transformers/main_classes/trainer) provides seamless Ulysses integration through [`TrainingArguments.parallelism_config`](https://huggingface.co/docs/transformers/main_classes/trainer#transformers.TrainingArguments.parallelism_config).
+The Transformers [`Trainer`](https://huggingface.co/docs/transformers/main_classes/trainer) provides seamless Ulysses integration through [`TrainingArguments.parallelism_config`](https://huggingface.co/docs/transformers/main_classes/trainer#transformers.TrainingArguments.parallelism_config). It handles all the SP-specific details automatically—dataloader wrapping, sequence sharding, and loss aggregation—so you don't need to write any of the custom loss code shown above.
 
 ### Configuration
 
+Just pass the same `parallelism_config` from above into `TrainingArguments`:
+
 ```python
 from transformers import TrainingArguments
-from accelerate.utils import ParallelismConfig, DeepSpeedSequenceParallelConfig
-
-parallelism_config = ParallelismConfig(
-    sp_backend="deepspeed",
-    sp_size=4,
-    sp_handler=DeepSpeedSequenceParallelConfig(
-        sp_seq_length_is_variable=True,
-        sp_attn_implementation="flash_attention_2",
-    ),
-)
 
 training_args = TrainingArguments(
-    parallelism_config=parallelism_config,
+    parallelism_config=parallelism_config,  # same ParallelismConfig as above
     per_device_train_batch_size=1,
 )
 ```
