@@ -4,7 +4,6 @@ thumbnail: /blog/assets/ulysses/thumbnail.png
 authors:
 - user: kashif
 - user: stas
-
 ---
 
 # Ulysses Sequence Parallelism: Training with Million-Token Contexts
