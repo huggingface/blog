@@ -140,7 +140,7 @@ Every library in this survey has independently converged on the same architectur
 
 The inference pool runs continuously, feeding completed rollouts into a buffer. The training pool pulls from the buffer, computes gradient updates, and periodically pushes new weights back to the inference pool to keep it in sync. The two loops run at their own pace, decoupled by the buffer.
 
-There is no free lunch here; this setup is highly scalable, but it introduces a new class of problems: staleness (rollouts generated under an old policy), weight synchronisation overhead, partial rollout handling, etc. The rest of this article dissects in detail how current open-source libraries address these issues.
+This setup is highly scalable, but it introduces a new class of problems: staleness (rollouts generated under an old policy), weight synchronisation overhead, partial rollout handling, etc. The rest of this article dissects in detail how current open-source libraries address these issues.
 
 ---
 
