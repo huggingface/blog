@@ -110,11 +110,11 @@ lerobot-train \
 
 RTC is not a standalone policy — it's an enhancement that plugs into existing flow-matching policies (Pi0 family, SmolVLA & Diffusion). Configure it via `--policy.rtc_config.enabled=true`.
 
-This is a game-changer for real-world deployment where latency matters. Read the [original paper](https://arxiv.org/abs/2506.07339) for the technical details and our [documentation](https://huggingface.co/docs/lerobot/rtc).
+This is a game-changer for real-world deployment where latency matters. Read the [original paper](https://huggingface.co/papers/2506.07339) for the technical details and our [documentation](https://huggingface.co/docs/lerobot/rtc).
 
 ### Wall-X
 
-**Wall-X** is a new VLA policy built on **Qwen2.5-VL** with flow-matching action prediction. It combines the strong vision-language understanding of Qwen2.5-VL with a flow-matching head for cross-embodiment robotic control.
+**Wall-X** is a new VLA policy built on [**Qwen2.5-VL**](https://huggingface.co/collections/Qwen/qwen25-vl) with flow-matching action prediction. It combines the strong vision-language understanding of Qwen2.5-VL with a flow-matching head for cross-embodiment robotic control.
 
 ```bash
 pip install lerobot[wall_x]
@@ -218,9 +218,8 @@ This release modernizes the codebase:
 
 ## Community & Ecosystem
 
-- **Modernized README**: A refreshed README with better structure, dynamic content, and clearer getting-started instructions.
 - **Modernized Discord**: Updated the most vibrant community hub with a better channel organization.
-- **GitHub templates & automated labeling**: New issue templates, PR templates, contributing guidelines, and automatic labeling of tickets and PRs — making it easier for everyone to contribute.
+- **GitHub README, templates & automated labeling**: A refreshed README, new issue and PR templates, contributing guidelines, and automatic labeling of tickets — making it easier for everyone to contribute.
 - **ICLR 2026 paper acceptance**: The LeRobot paper [has been accepted to ICLR 2026](https://openreview.net/forum?id=CiZMMAFQR3)!
 - **LeRobot Visualizer refresh**: The visualization tool got a refresh with new dataset visualization badges and improved functionality. [Check it out !](https://huggingface.co/spaces/lerobot/visualize_dataset?path=%2Fimstevenpmwork%2Fthanos_picking_power_gem%2Fepisode_0)
 - **LeRobot Annotation Studio**: A HuggingFace Space designed to easily annotate every moment of your dataset with natural language subtasks. [Check it out !](https://huggingface.co/spaces/lerobot/annotate)
