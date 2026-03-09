@@ -489,7 +489,7 @@ At the same sequence length (8K), SP=4 has comparable throughput to the single-G
 - HF Trainer: `deepspeed>=0.18.1 accelerate>=1.12 transformers>=5.0`
 - HF TRL: `deepspeed>=0.18.1 accelerate>=1.12 transformers>=5.0 trl>=0.18.0`
 
-In all of the above ideally use `flash_attention_2` for Ampere GPUs, and `flash_attention_3` for Hopper GPUs.
+Use `flash_attention_2` for Ampere GPUs, or `flash_attention_3` for Hopper GPUs. Wait for `flash_attention_4` on Blackwell 🕰.
 
 ## Resources
 
