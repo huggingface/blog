@@ -72,7 +72,7 @@ Ring Attention has the same asymptotic communication volume — \\( O(n \cdot d)
 
 ## Integration with Accelerate
 
-Accelerate provides the foundation for Ulysses sequence parallelism through its [`ParallelismConfig`](https://huggingface.co/docs/accelerate/package_reference/utilities#accelerate.utils.ParallelismConfig) class and DeepSpeed integration.
+Accelerate provides the foundation for Ulysses sequence parallelism through its [`ParallelismConfig`](https://huggingface.co/docs/accelerate/concept_guides/sequence_parallelism#alstulysses-sp-backend-configuration) class and DeepSpeed integration.
 
 ### Configuration
 
