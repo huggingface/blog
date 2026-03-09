@@ -38,7 +38,7 @@ Traditional data parallelism doesn't help here—each GPU still needs to process
 
 ## How Ulysses Works
 
-Ulysses Sequence Parallelism (introduced in the [DeepSpeed Ulysses paper](https://huggingface.co/papers/2309.14509)) takes a clever approach: in addition to splitting on the sequence dimension, it also partitions the attention heads across GPUs.
+Ulysses Sequence Parallelism (SP), introduced in the [DeepSpeed Ulysses paper](https://huggingface.co/papers/2309.14509), takes a clever approach: in addition to splitting on the sequence dimension, it also partitions the attention heads across GPUs.
 
 <figure class="image text-center">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ulysses/ulysses_overview.png" alt="Ulysses Sequence Parallelism Overview">
