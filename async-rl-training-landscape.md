@@ -146,22 +146,22 @@ There is no free lunch here, this setup is highly scalable but it does introduce
 
 | Library           | Organisation          | Repo                                                                                     | GitHub ⭐ (Mar. '26) |
 | ----------------- | --------------------- | ---------------------------------------------------------------------------------------- | -------------------: |
-| **PipelineRL**    | ServiceNow            | [github.com/ServiceNow/PipelineRL](https://github.com/ServiceNow/PipelineRL)             |                  374 |
-| **verl**          | ByteDance             | [github.com/verl-project/verl](https://github.com/verl-project/verl)                     |               19,673 |
-| **SkyRL**         | NovaSky-AI            | [github.com/NovaSky-AI/SkyRL](https://github.com/NovaSky-AI/SkyRL)                       |                1,664 |
-| **verifiers-rl**  | PrimeIntellect        | [github.com/PrimeIntellect-ai/verifiers](https://github.com/PrimeIntellect-ai/verifiers) |                3,876 |
-| **SLIME**         | THUDM                 | [github.com/THUDM/slime](https://github.com/THUDM/slime)                                 |                4,595 |
-| **NeMo-RL**       | NVIDIA                | [github.com/NVIDIA-NeMo/RL](https://github.com/NVIDIA-NeMo/RL)                           |                1,383 |
-| **MILES**         | radixark              | [github.com/radixark/miles](https://github.com/radixark/miles)                           |                  950 |
-| **PRIME-RL**      | PrimeIntellect        | [github.com/PrimeIntellect-ai/prime-rl](https://github.com/PrimeIntellect-ai/prime-rl)   |                1,114 |
-| **ROLL**          | Alibaba               | [github.com/alibaba/ROLL](https://github.com/alibaba/ROLL)                               |                2,921 |
-| **OAT**           | SAIL-SG               | [github.com/sail-sg/oat](https://github.com/sail-sg/oat)                                 |                  637 |
-| **Atropos**       | NousResearch          | [github.com/NousResearch/atropos](https://github.com/NousResearch/atropos)               |                  878 |
-| **TorchForge**    | Meta                  | [github.com/meta-pytorch/torchforge](https://github.com/meta-pytorch/torchforge)         |                  632 |
-| **Tunix**         | Google                | [github.com/google/tunix](https://github.com/google/tunix)                               |                2,175 |
 | **AReaL**         | inclusionAI/Ant Group | [github.com/inclusionAI/AReaL](https://github.com/inclusionAI/AReaL)                     |                4,338 |
 | **ART**           | CoreWeave             | [github.com/OpenPipe/ART](https://github.com/OpenPipe/ART)                               |                8,952 |
+| **Atropos**       | NousResearch          | [github.com/NousResearch/atropos](https://github.com/NousResearch/atropos)               |                  878 |
+| **MILES**         | radixark              | [github.com/radixark/miles](https://github.com/radixark/miles)                           |                  950 |
+| **NeMo-RL**       | NVIDIA                | [github.com/NVIDIA-NeMo/RL](https://github.com/NVIDIA-NeMo/RL)                           |                1,383 |
+| **OAT**           | SAIL-SG               | [github.com/sail-sg/oat](https://github.com/sail-sg/oat)                                 |                  637 |
 | **open-instruct** | AI2 (AllenAI)         | [github.com/allenai/open-instruct](https://github.com/allenai/open-instruct)             |                3,611 |
+| **PipelineRL**    | ServiceNow            | [github.com/ServiceNow/PipelineRL](https://github.com/ServiceNow/PipelineRL)             |                  374 |
+| **PRIME-RL**      | PrimeIntellect        | [github.com/PrimeIntellect-ai/prime-rl](https://github.com/PrimeIntellect-ai/prime-rl)   |                1,114 |
+| **ROLL**          | Alibaba               | [github.com/alibaba/ROLL](https://github.com/alibaba/ROLL)                               |                2,921 |
+| **SkyRL**         | NovaSky-AI            | [github.com/NovaSky-AI/SkyRL](https://github.com/NovaSky-AI/SkyRL)                       |                1,664 |
+| **SLIME**         | THUDM                 | [github.com/THUDM/slime](https://github.com/THUDM/slime)                                 |                4,595 |
+| **TorchForge**    | Meta                  | [github.com/meta-pytorch/torchforge](https://github.com/meta-pytorch/torchforge)         |                  632 |
+| **Tunix**         | Google                | [github.com/google/tunix](https://github.com/google/tunix)                               |                2,175 |
+| **verl**          | ByteDance             | [github.com/verl-project/verl](https://github.com/verl-project/verl)                     |               19,673 |
+| **verifiers-rl**  | PrimeIntellect        | [github.com/PrimeIntellect-ai/verifiers](https://github.com/PrimeIntellect-ai/verifiers) |                3,876 |
 
 ---
 
@@ -280,22 +280,22 @@ These strategies are orthogonal: a system can use version rejection alone, depth
 
 | Library           | Version Rejection | Depth Bounding | IS Correction | Key Config / Notes                                                                                                   |
 | ----------------- | :---------------: | :------------: | :-----------: | -------------------------------------------------------------------------------------------------------------------- |
-| **PipelineRL**    |        ✅         |       ❌       |      ❌       | `max_lag`, integer version tag per sample; drop if age exceeds threshold                                             |
-| **verl**          |        ❌         |       ❌       |      ✅       | Clipped TIS ratio; optional OPSM                                                                                     |
-| **SkyRL**         |        ❌         |       ✅       |      ❌       | `max_staleness_steps`, capacity gate blocks new rollouts when exceeded                                               |
-| **verifiers-rl**  |        ❌         |       ✅       |      ❌       | Depth=1 FIFO + sync every step; staleness impossible by construction                                                 |
-| **SLIME**         |        ❌         |       ❌       |      ✅       | TIS + OPSM (off-policy masking for partial rollouts)                                                                 |
-| **NeMo-RL**       |        ✅         |       ❌       |      ❌       | `max_trajectory_age_steps`, per-sample version drop                                                                  |
-| **MILES**         |        ❌         |       ❌       |      ✅       | TIS + OPSM                                                                                                           |
-| **PRIME-RL**      |        ✅         |       ✅       |      ✅       | Full hybrid: `max_async_level` version gap + `max_off_policy_steps` cancellation + IPO trust-region IS               |
-| **ROLL**          |        ❌         |       ❌       |      ✅       | Richest IS suite: TIS, TOPR, CISPO, Kimi15, six off-policy loss variants                                             |
-| **OAT**           |        ❌         |       ❌       |      ✅       | Clipped TIS ratio                                                                                                    |
-| **Atropos**       |        ❌         |       ✅       |      ❌       | `max_batches_offpolicy`, ceiling on buffered batches                                                                 |
-| **TorchForge**    |        ✅         |       ❌       |      ❌       | `max_policy_age`, per-sample version tag; hard drop                                                                  |
-| **Tunix**         |        ❌         |       ✅       |      ❌       | Bounded queue + sync per step; staleness structurally limited                                                        |
 | **AReaL**         |        ❌         |       ✅       |      ⚠️       | `max_head_offpolicyness` capacity formula; optional `use_decoupled_loss` adds IS weight capped at 5.0                |
 | **ART**           |         —         |       —        |       —       | Synchronous; all rollouts collected before training; no staleness by design                                          |
+| **Atropos**       |        ❌         |       ✅       |      ❌       | `max_batches_offpolicy`, ceiling on buffered batches                                                                 |
+| **MILES**         |        ❌         |       ❌       |      ✅       | TIS + OPSM                                                                                                           |
+| **NeMo-RL**       |        ✅         |       ❌       |      ❌       | `max_trajectory_age_steps`, per-sample version drop                                                                  |
+| **OAT**           |        ❌         |       ❌       |      ✅       | Clipped TIS ratio                                                                                                    |
 | **open-instruct** |        ❌         |       ✅       |      ⚠️       | `async_steps` cap (default 1, production 8); optional `--truncated_importance_sampling_ratio_cap ρ` adds clipped TIS |
+| **PipelineRL**    |        ✅         |       ❌       |      ❌       | `max_lag`, integer version tag per sample; drop if age exceeds threshold                                             |
+| **PRIME-RL**      |        ✅         |       ✅       |      ✅       | Full hybrid: `max_async_level` version gap + `max_off_policy_steps` cancellation + IPO trust-region IS               |
+| **ROLL**          |        ❌         |       ❌       |      ✅       | Richest IS suite: TIS, TOPR, CISPO, Kimi15, six off-policy loss variants                                             |
+| **SkyRL**         |        ❌         |       ✅       |      ❌       | `max_staleness_steps`, capacity gate blocks new rollouts when exceeded                                               |
+| **SLIME**         |        ❌         |       ❌       |      ✅       | TIS + OPSM (off-policy masking for partial rollouts)                                                                 |
+| **TorchForge**    |        ✅         |       ❌       |      ❌       | `max_policy_age`, per-sample version tag; hard drop                                                                  |
+| **Tunix**         |        ❌         |       ✅       |      ❌       | Bounded queue + sync per step; staleness structurally limited                                                        |
+| **verl**          |        ❌         |       ❌       |      ✅       | Clipped TIS ratio; optional OPSM                                                                                     |
+| **verifiers-rl**  |        ❌         |       ✅       |      ❌       | Depth=1 FIFO + sync every step; staleness impossible by construction                                                 |
 
 > ✅ = yes, ❌ = no, ⚠️ = optional / configurable, — = not applicable (synchronous)
 
@@ -330,22 +330,22 @@ LoRA is arguably the most practically consequential axis for teams with limited 
 
 | Library           | LoRA Supported             | Mode Restriction                 | LoRA Backend                                   | Adapter-Only Sync                                                                                 |
 | ----------------- | -------------------------- | -------------------------------- | ---------------------------------------------- | ------------------------------------------------------------------------------------------------- |
-| **PipelineRL**    | ✅ Yes                     | Non-colocated                    | HF `peft`                                      | ❌ No (full NCCL broadcast)                                                                       |
-| **verl**          | ✅ Yes (most complete)     | Both                             | `peft` (FSDP) / Megatron-Bridge (Megatron)     | ✅ Yes (unmerged adapter sync)                                                                    |
-| **SkyRL**         | ✅ Yes                     | Both                             | `peft` (FSDP) / Megatron-Bridge (Megatron)     | ✅ Yes (filesystem-based adapter sync)                                                            |
-| **verifiers-rl**  | ✅ Yes (via prime-rl)      | Disaggregated                    | HF `peft` + FSDP2 + vLLM                       | ✅ Yes (vLLM LoRA serving)                                                                        |
-| **SLIME**         | ❌ No                      | —                                | —                                              | ❌ No                                                                                             |
-| **NeMo-RL**       | ✅ Partial\*               | Both                             | Custom (not `peft`)                            | ❌ No evidence                                                                                    |
-| **MILES**         | ✅ Yes                     | Both (colocated + disaggregated) | Megatron-Bridge                                | ✅ Yes (adapter sync config for SGLang)                                                           |
-| **PRIME-RL**      | ✅ Yes                     | Disaggregated                    | Custom MultiLoRA (not `peft`)                  | ✅ Yes (adapter-only state dict extraction)                                                       |
-| **ROLL**          | ✅ Partial†                | DeepSpeed backend only           | HF `peft` / TRL                                | ❌ No evidence                                                                                    |
-| **OAT**           | ✅ Yes                     | Both                             | HF `peft`                                      | ✅ Yes (LoRA-only sync mode)                                                                      |
-| **Atropos**       | ✅ Yes                     | Disaggregated                    | HF `peft`                                      | ✅ Yes (`lora_only` / `lora_restart` modes)                                                       |
-| **TorchForge**    | ❌ No                      | —                                | —                                              | ❌ No                                                                                             |
-| **Tunix**         | ✅ Yes                     | Both                             | qwix (JAX-native)                              | ✅ Yes (auto-detected)                                                                            |
 | **AReaL**         | ✅ Yes                     | FSDP2 only (not Megatron/Archon) | HF `peft`                                      | ✅ Yes (disk-based sync; only trainable params transferred; vLLM adapter hot-swap)                |
 | **ART**           | ✅ Yes (primary design)    | Both (shared + dedicated GPU)    | Unsloth/`peft` (default); custom Megatron LoRA | ✅ Yes (only adapter saved/loaded; in-process or HTTP adapter hot-swap; base weights never moved) |
+| **Atropos**       | ✅ Yes                     | Disaggregated                    | HF `peft`                                      | ✅ Yes (`lora_only` / `lora_restart` modes)                                                       |
+| **MILES**         | ✅ Yes                     | Both (colocated + disaggregated) | Megatron-Bridge                                | ✅ Yes (adapter sync config for SGLang)                                                           |
+| **NeMo-RL**       | ✅ Partial\*               | Both                             | Custom (not `peft`)                            | ❌ No evidence                                                                                    |
+| **OAT**           | ✅ Yes                     | Both                             | HF `peft`                                      | ✅ Yes (LoRA-only sync mode)                                                                      |
 | **open-instruct** | ⚠️ Code exists, not wired‡ | —                                | HF `peft` (SFT/DPO only)                       | ❌ No (LoRA not applied in the RL trainer)                                                        |
+| **PipelineRL**    | ✅ Yes                     | Non-colocated                    | HF `peft`                                      | ❌ No (full NCCL broadcast)                                                                       |
+| **PRIME-RL**      | ✅ Yes                     | Disaggregated                    | Custom MultiLoRA (not `peft`)                  | ✅ Yes (adapter-only state dict extraction)                                                       |
+| **ROLL**          | ✅ Partial†                | DeepSpeed backend only           | HF `peft` / TRL                                | ❌ No evidence                                                                                    |
+| **SkyRL**         | ✅ Yes                     | Both                             | `peft` (FSDP) / Megatron-Bridge (Megatron)     | ✅ Yes (filesystem-based adapter sync)                                                            |
+| **SLIME**         | ❌ No                      | —                                | —                                              | ❌ No                                                                                             |
+| **TorchForge**    | ❌ No                      | —                                | —                                              | ❌ No                                                                                             |
+| **Tunix**         | ✅ Yes                     | Both                             | qwix (JAX-native)                              | ✅ Yes (auto-detected)                                                                            |
+| **verl**          | ✅ Yes (most complete)     | Both                             | `peft` (FSDP) / Megatron-Bridge (Megatron)     | ✅ Yes (unmerged adapter sync)                                                                    |
+| **verifiers-rl**  | ✅ Yes (via prime-rl)      | Disaggregated                    | HF `peft` + FSDP2 + vLLM                       | ✅ Yes (vLLM LoRA serving)                                                                        |
 
 \* NeMo-RL: LoRA for GRPO and DPO is supported only on the DTensor backend; the Megatron Core backend is SFT-only (RL LoRA listed as "coming soon"). Uses a custom DTensor-compatible LoRA module (not `peft`), optionally with Triton kernels.
 
@@ -375,22 +375,22 @@ This axis cuts across every other axis. The choice of training backend determine
 
 | Library           | Training Backend           | Parallelism            | HF Model Loading    | MoE / EP Support |
 | :---------------- | :------------------------- | :--------------------- | :------------------ | :--------------- |
-| **PipelineRL**    | DeepSpeed                  | DP, SP                 | ✅ Direct           | ❌               |
-| **verl**          | FSDP, Megatron             | DP, SP, TP, PP, CP, EP | ✅ Direct / Convert | ✅               |
-| **SkyRL**         | FSDP, Megatron             | DP, SP, TP, PP, EP     | ✅ Direct / Convert | ✅               |
-| **verifiers-rl**  | DeepSpeed                  | DP                     | ✅ Direct           | ❌               |
-| **SLIME**         | Megatron                   | DP, TP, PP, SP         | 🔄 Convert          | ✅               |
-| **NeMo-RL**       | FSDP2, Megatron            | DP, SP, TP, PP, CP, EP | ✅ Direct / Convert | ✅               |
-| **MILES**         | Megatron, FSDP2            | DP, TP, PP             | 🔄 Convert          | ✅               |
-| **PRIME-RL**      | FSDP2                      | DP, TP, CP, EP         | ✅ Direct           | ✅               |
-| **ROLL**          | DeepSpeed, Megatron, FSDP2 | DP, SP, TP, PP, CP, EP | ✅ Direct / Convert | ✅               |
-| **OAT**           | DeepSpeed                  | DP, TP                 | ✅ Direct           | ❌               |
-| **Atropos**       | PyTorch Native, TRL        | DP                     | ✅ Direct           | ❌               |
-| **TorchForge**    | FSDP2                      | DP, TP, CP             | ✅ via TorchTitan   | ❌               |
-| **Tunix**         | JAX/XLA                    | DP, TP                 | ❌ Custom Flax      | ❌               |
 | **AReaL**         | FSDP2, Megatron, Archon    | DP, SP, TP, PP, CP, EP | ✅ Direct / Convert | ✅               |
 | **ART**           | Unsloth, Megatron          | DP, TP, EP             | ✅ Direct / Convert | ✅               |
+| **Atropos**       | PyTorch Native, TRL        | DP                     | ✅ Direct           | ❌               |
+| **MILES**         | Megatron, FSDP2            | DP, TP, PP             | 🔄 Convert          | ✅               |
+| **NeMo-RL**       | FSDP2, Megatron            | DP, SP, TP, PP, CP, EP | ✅ Direct / Convert | ✅               |
+| **OAT**           | DeepSpeed                  | DP, TP                 | ✅ Direct           | ❌               |
 | **open-instruct** | DeepSpeed                  | DP, SP                 | ✅ Direct           | ❌               |
+| **PipelineRL**    | DeepSpeed                  | DP, SP                 | ✅ Direct           | ❌               |
+| **PRIME-RL**      | FSDP2                      | DP, TP, CP, EP         | ✅ Direct           | ✅               |
+| **ROLL**          | DeepSpeed, Megatron, FSDP2 | DP, SP, TP, PP, CP, EP | ✅ Direct / Convert | ✅               |
+| **SkyRL**         | FSDP, Megatron             | DP, SP, TP, PP, EP     | ✅ Direct / Convert | ✅               |
+| **SLIME**         | Megatron                   | DP, TP, PP, SP         | 🔄 Convert          | ✅               |
+| **TorchForge**    | FSDP2                      | DP, TP, CP             | ✅ via TorchTitan   | ❌               |
+| **Tunix**         | JAX/XLA                    | DP, TP                 | ❌ Custom Flax      | ❌               |
+| **verl**          | FSDP, Megatron             | DP, SP, TP, PP, CP, EP | ✅ Direct / Convert | ✅               |
+| **verifiers-rl**  | DeepSpeed                  | DP                     | ✅ Direct           | ❌               |
 
 The training backend creates direct implications for async RL library design:
 
@@ -419,22 +419,22 @@ LoRA on dense models is well-understood (Axis 6): attach adapters to attention p
 
 | Library           | Org            | Orchestration Type                                       | Inference Server       | Weight Sync                                 | Staleness Management     | Partial Rollout                     | Training Backend                      | Dist. Parallelism                                                        | LoRA Support                               |
 | ----------------- | -------------- | -------------------------------------------------------- | ---------------------- | ------------------------------------------- | ------------------------ | ----------------------------------- | ------------------------------------- | ------------------------------------------------------------------------ | ------------------------------------------ |
-| **PipelineRL**    | ServiceNow     | Native Python + Pub/Sub (asyncio + Redis/JSONL)          | vLLM                   | NCCL pg + HTTP notify                       | Version rejection        | ✅ Implicit continuation            | DeepSpeed ZeRO-3                      | ZeRO-3 DP + Ring SP; ZeRO++ available                                    | ✅ `peft` (Full sync)                      |
-| **verl**          | ByteDance      | Distributed Actor (Ray)                                  | vLLM, SGLang           | NCCL + checkpoint-engine buckets            | IS correction            | ✅ Explicit save/resume             | FSDP1/FSDP2 or Megatron-Core          | FSDP: ZeRO-2/3/HSDP + Ulysses SP; Megatron: TP×PP×VPP×CP×EP×ETP          | ✅ `peft` / Megatron-Bridge (Adapter-only) |
-| **SkyRL**         | NovaSky-AI     | Distributed Actor (Ray) + Native Python                  | vLLM, SGLang           | NCCL pg                                     | Depth bounding           | 🟧 Abort + retry with prefix        | FSDP/FSDP2 or Megatron-Bridge         | FSDP: ZeRO shard + Ulysses SP; Megatron: full 5D via bridge; JAX backend | ✅ `peft` / Megatron-Bridge (Adapter-only) |
-| **verifiers-rl**  | PrimeIntellect | Native Python (threading + asyncio)                      | vLLM                   | PyNCCL broadcast                            | Depth bounding (depth=1) | ❌ No                               | DeepSpeed ZeRO-3 (Accelerate)         | ZeRO-3 DP only; no TP/PP                                                 | ✅ `peft` (Adapter-only)                   |
-| **SLIME**         | THUDM          | Distributed Actor (Ray)                                  | SGLang                 | NCCL pg, bucketed                           | IS correction            | 🟧 Abort + recycle to buffer        | Megatron-LM                           | TP×PP×DP; Megatron→HF conversion; MoE EP all-gather                      | ❌ No                                      |
-| **NeMo-RL**       | NVIDIA         | Distributed Actor (Ray)                                  | vLLM, SGLang, Megatron | NCCL OR CUDA IPC-ZMQ OR HTTP                | Version rejection        | ✅ In-flight continuation           | DTensor (FSDP2+TP) or Megatron-Bridge | DTensor: TP+SP+CP+FSDP2; Megatron: TP×PP×CP×EP×ETP + FSDP2               | 🟧 Custom (No adapter-only sync)           |
-| **MILES**         | radixark       | Distributed Actor (Ray)                                  | SGLang                 | NCCL OR CUDA IPC                            | IS correction            | 🟧 Abort + recycle to buffer        | Megatron-LM (primary); FSDP2          | Megatron: TP×PP×DP; FSDP2 available; colocated CUDA IPC                  | ✅ Megatron-Bridge (Adapter-only)          |
-| **PRIME-RL**      | PrimeIntellect | Native Python (asyncio + FS/ZMQ)                         | vLLM                   | Filesystem safetensors + HTTP OR NCCL       | Version + depth + IS     | 🟧 Group cancellation               | FSDP2 (exclusively)                   | FSDP2 per-block + TP + CP + EP; pp=1                                     | ✅ Custom MultiLoRA (Adapter-only)         |
-| **ROLL**          | Alibaba        | Distributed Actor (Ray)                                  | vLLM, SGLang           | NCCL via dedicated update group             | IS correction            | ❌ No                               | DeepSpeed ZeRO or Megatron or FSDP2   | DS: ZeRO+Ulysses SP; Megatron: TP×PP×CP×EP; FSDP2: HSDP+Ulysses          | 🟧 `peft` (DeepSpeed only)                 |
-| **OAT**           | SAIL-SG        | Distributed Actor (Ray)                                  | vLLM                   | NCCL per-param + ZeRO-3 gather              | IS correction            | ❌ No                               | DeepSpeed ZeRO-2/3                    | ZeRO-2 / ZeRO-3 DP; AutoTP                                               | ✅ `peft` (Adapter-only)                   |
-| **Atropos**       | NousResearch   | HTTP Microservices (FastAPI)                             | vLLM, SGLang, OpenAI   | FS checkpoint + vLLM restart                | Depth bounding           | ❌ No                               | Single-GPU PyTorch; TRL/Accelerate    | None (native); FSDP/ZeRO via TRL adapter                                 | ✅ `peft` (Adapter-only)                   |
-| **TorchForge**    | Meta           | Distributed Actor (Monarch)                              | vLLM                   | torchstore + shared memory prefetch         | Version rejection        | ❌ No                               | FSDP2 via TorchTitan                  | FSDP2 + TP; CP partial; PP not yet implemented                           | ❌ No                                      |
-| **Tunix**         | Google         | Native Python (ThreadPoolExecutor + asyncio); JAX-native | vLLM, SGLang, JAX      | Cross-mesh reshard                          | Depth bounding           | ❌ No                               | JAX/XLA 2D mesh                       | 2D JAX mesh: FSDP + TP; no PP; TPU-primary                               | ✅ qwix / QLoRA (Adapter-only)             |
 | **AReaL**         | inclusionAI    | Native Python (asyncio + HTTP RPC); pluggable Ray/Slurm  | vLLM, SGLang           | NCCL chunked OR filesystem safetensors      | Depth + IS (optional)    | 🟧 Soft pause (in-flight complete)  | FSDP2 or Megatron-LM or Archon        | FSDP2: DP+SP+TP; Megatron: TP+SP+PP+CP+EP; Archon: FSDP2+TP+SP+PP+EP     | ✅ `peft` (Adapter-only)                   |
 | **ART**           | OpenPipe       | Native Python (asyncio + mp child processes)             | vLLM                   | LoRA adapter swap (no full weight transfer) | Synchronous (none)       | ❌ No                               | Unsloth (single-GPU); Megatron-LM     | None (Unsloth); TP×EP×DP (Megatron)                                      | ✅ `peft` / Megatron LoRA (Adapter-only)   |
+| **Atropos**       | NousResearch   | HTTP Microservices (FastAPI)                             | vLLM, SGLang, OpenAI   | FS checkpoint + vLLM restart                | Depth bounding           | ❌ No                               | Single-GPU PyTorch; TRL/Accelerate    | None (native); FSDP/ZeRO via TRL adapter                                 | ✅ `peft` (Adapter-only)                   |
+| **MILES**         | radixark       | Distributed Actor (Ray)                                  | SGLang                 | NCCL OR CUDA IPC                            | IS correction            | 🟧 Abort + recycle to buffer        | Megatron-LM (primary); FSDP2          | Megatron: TP×PP×DP; FSDP2 available; colocated CUDA IPC                  | ✅ Megatron-Bridge (Adapter-only)          |
+| **NeMo-RL**       | NVIDIA         | Distributed Actor (Ray)                                  | vLLM, SGLang, Megatron | NCCL OR CUDA IPC-ZMQ OR HTTP                | Version rejection        | ✅ In-flight continuation           | DTensor (FSDP2+TP) or Megatron-Bridge | DTensor: TP+SP+CP+FSDP2; Megatron: TP×PP×CP×EP×ETP + FSDP2               | 🟧 Custom (No adapter-only sync)           |
+| **OAT**           | SAIL-SG        | Distributed Actor (Ray)                                  | vLLM                   | NCCL per-param + ZeRO-3 gather              | IS correction            | ❌ No                               | DeepSpeed ZeRO-2/3                    | ZeRO-2 / ZeRO-3 DP; AutoTP                                               | ✅ `peft` (Adapter-only)                   |
 | **open-instruct** | AI2 (AllenAI)  | Distributed Actor (Ray)                                  | vLLM                   | NCCL broadcast; optional in-flight updates  | Depth + IS (optional)    | 🟧 Drain-or-inflight (configurable) | DeepSpeed ZeRO-0/2/3                  | ZeRO-3 DP + Ulysses SP; vLLM TP (inference only)                         | ❌ No                                      |
+| **PipelineRL**    | ServiceNow     | Native Python + Pub/Sub (asyncio + Redis/JSONL)          | vLLM                   | NCCL pg + HTTP notify                       | Version rejection        | ✅ Implicit continuation            | DeepSpeed ZeRO-3                      | ZeRO-3 DP + Ring SP; ZeRO++ available                                    | ✅ `peft` (Full sync)                      |
+| **PRIME-RL**      | PrimeIntellect | Native Python (asyncio + FS/ZMQ)                         | vLLM                   | Filesystem safetensors + HTTP OR NCCL       | Version + depth + IS     | 🟧 Group cancellation               | FSDP2 (exclusively)                   | FSDP2 per-block + TP + CP + EP; pp=1                                     | ✅ Custom MultiLoRA (Adapter-only)         |
+| **ROLL**          | Alibaba        | Distributed Actor (Ray)                                  | vLLM, SGLang           | NCCL via dedicated update group             | IS correction            | ❌ No                               | DeepSpeed ZeRO or Megatron or FSDP2   | DS: ZeRO+Ulysses SP; Megatron: TP×PP×CP×EP; FSDP2: HSDP+Ulysses          | 🟧 `peft` (DeepSpeed only)                 |
+| **SkyRL**         | NovaSky-AI     | Distributed Actor (Ray) + Native Python                  | vLLM, SGLang           | NCCL pg                                     | Depth bounding           | 🟧 Abort + retry with prefix        | FSDP/FSDP2 or Megatron-Bridge         | FSDP: ZeRO shard + Ulysses SP; Megatron: full 5D via bridge; JAX backend | ✅ `peft` / Megatron-Bridge (Adapter-only) |
+| **SLIME**         | THUDM          | Distributed Actor (Ray)                                  | SGLang                 | NCCL pg, bucketed                           | IS correction            | 🟧 Abort + recycle to buffer        | Megatron-LM                           | TP×PP×DP; Megatron→HF conversion; MoE EP all-gather                      | ❌ No                                      |
+| **TorchForge**    | Meta           | Distributed Actor (Monarch)                              | vLLM                   | torchstore + shared memory prefetch         | Version rejection        | ❌ No                               | FSDP2 via TorchTitan                  | FSDP2 + TP; CP partial; PP not yet implemented                           | ❌ No                                      |
+| **Tunix**         | Google         | Native Python (ThreadPoolExecutor + asyncio); JAX-native | vLLM, SGLang, JAX      | Cross-mesh reshard                          | Depth bounding           | ❌ No                               | JAX/XLA 2D mesh                       | 2D JAX mesh: FSDP + TP; no PP; TPU-primary                               | ✅ qwix / QLoRA (Adapter-only)             |
+| **verl**          | ByteDance      | Distributed Actor (Ray)                                  | vLLM, SGLang           | NCCL + checkpoint-engine buckets            | IS correction            | ✅ Explicit save/resume             | FSDP1/FSDP2 or Megatron-Core          | FSDP: ZeRO-2/3/HSDP + Ulysses SP; Megatron: TP×PP×VPP×CP×EP×ETP          | ✅ `peft` / Megatron-Bridge (Adapter-only) |
+| **verifiers-rl**  | PrimeIntellect | Native Python (threading + asyncio)                      | vLLM                   | PyNCCL broadcast                            | Depth bounding (depth=1) | ❌ No                               | DeepSpeed ZeRO-3 (Accelerate)         | ZeRO-3 DP only; no TP/PP                                                 | ✅ `peft` (Adapter-only)                   |
 
 ---
 
