@@ -15,7 +15,8 @@ authors:
 
 # The Landscape of Async RL Training frameworks
 
-**Table of contents**
+<details>
+<summary><b>Click to expand Table of Contents</b></summary>
 
 - [1. Motivation: From synchronous RL training to async architectures](#1-motivation-from-synchronous-rl-training-to-async-architectures)
   - [1.1 How TRL Does RL Training Today](#11-how-trl-does-rl-training-today)
@@ -43,6 +44,8 @@ authors:
   - [1. Bounded Queue with Per-Token `model_version` (No Double-Buffering)](#1-bounded-queue-with-per-token-model_version-no-double-buffering)
   - [2. NCCL Weight Sync with Packed Transfers](#2-nccl-weight-sync-with-packed-transfers)
   - [3. Partial Rollout Support for Agentic Workloads](#3-partial-rollout-support-for-agentic-workloads)
+</details>
+
 
 ## 1. Motivation: From synchronous RL training to async architectures
 
