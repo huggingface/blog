@@ -198,11 +198,11 @@ lerobot-train \
   --policy.type=act
 ```
 
-This lowers the barrier for sharing custom simulation environments with the community. Package your environment, push it to the Hub, and anyone can train on it. Check out the [documentation](https://huggingface.co/docs/lerobot/envhub) to learn more.
+This lowers the barrier for sharing custom simulation environments with the community. Package your environment, push it to the Hub, and anyone can train on it. Check out the [documentation](https://huggingface.co/docs/lerobot/envhub) to learn more. Here's an example to get started: [LeIsaac x LeRobot EnvHub tutorial](https://huggingface.co/docs/lerobot/envhub_leisaac).
 
 ### NVIDIA IsaacLab-Arena
 
-We've integrated **NVIDIA IsaacLab-Arena**, bringing GPU-accelerated simulation to LeRobot. IsaacLab-Arena provides a collection of manipulation tasks running on NVIDIA's Isaac Sim, offering massively parallel environment instances for fast reinforcement learning. The integration includes dedicated pre/post-processing steps and full compatibility with LeRobot's training pipeline. Check out the [documentation](https://huggingface.co/docs/lerobot/envhub_isaaclab_arena) and the [LeIsaac x LeRobot EnvHub tutorial](https://huggingface.co/docs/lerobot/envhub_leisaac) to get started.
+We've integrated **NVIDIA IsaacLab-Arena**, bringing GPU-accelerated simulation to LeRobot. IsaacLab-Arena provides a collection of manipulation tasks running on NVIDIA's Isaac Sim, offering massively parallel environment instances for fast reinforcement learning. The integration includes dedicated pre/post-processing steps and full compatibility with LeRobot's training pipeline. Check out the [documentation](https://huggingface.co/docs/lerobot/envhub_isaaclab_arena).
 
 ## Codebase: A Modern Foundation
 
