@@ -197,7 +197,7 @@ The table above makes a striking pattern visible: **eight of the sixteen librari
 
 4. **Object store for zero-copy data transfer.** Rollout data can be large, tens of GB per batch for very long-context reasoning. Ray's shared-memory object store enables zero-copy transfer between actors on the same node, avoiding serialisation overhead that usually comes with the `multiprocessing.Queue` approaches.
 
-5. **Ecosystem maturity.** Ray has been battle-tested at scale since 2017, with production deployments at thousands of GPUs. The debugging overhead is real (Ray Dashboard, distributed stack traces, placement group failures), but the alternative, building equivalent coordination from scratch, is worse at multi-node scale.
+5. **Ecosystem maturity.** Ray has been battle-tested at scale since 2017, with production deployments at thousands of GPUs. The debugging overhead is real (Ray Dashboard, distributed stack traces, placement group failures), but the alternative, building equivalent coordination from scratch, is worse at multi-node scale. That said, Ray is a heavy dependency: it pulls in its own scheduler, object store, and dashboard, adding operational complexity that not every team needs. This is exactly why libraries like PRIME-RL, PipelineRL, and AReaL opted for lightweight native-Python coordination (asyncio, threading, Redis streams) instead — when you control the full stack and your deployment topology is fixed, the simplicity and debuggability of vanilla Python often outweigh the conveniences Ray provides.
 
 The cost is a hard dependency on a non-trivial runtime. This trade-off can be worthwhile especially for production-scale training (64+ GPUs, multi-day runs, complicated reward computation).
 
