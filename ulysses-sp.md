@@ -362,7 +362,7 @@ If the model is huge, you can offload the params as well by adding to the above:
 This environment variable will allow for a longer sequence length:
 
 ```bash
-export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
+export PYTORCH_ALLOC_CONF=expandable_segments:True
 ```
 
 ### 6. 2D Parallelism Configuration
