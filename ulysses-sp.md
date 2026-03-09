@@ -68,7 +68,7 @@ Ulysses requires two all-to-all operations per attention layer, with total commu
 - \\( d \\) is the hidden dimension
 - \\( P \\) is the parallelism degree
 
-Ring Attention has the same asymptotic communication volume — \\( O(n \cdot d) \\) total across \\( P-1 \\) ring steps — but pays it in sequential point-to-point transfers rather than a single collective. In practice, Ulysses benefits from lower latency on high-bandwidth interconnects (NVLink, InfiniBand) because all-to-all can exploit full bisectional bandwidth in a single step, whereas Ring Attention serializes over \\( P-1 \\) hops.
+Ring Attention communicates \\( O(n \cdot d) \\) per GPU — a factor of \\( P \\) more — via \\( P-1 \\) sequential point-to-point transfers around the ring. Ulysses also benefits from lower latency because all-to-all can exploit full bisectional bandwidth in a single collective step, whereas Ring Attention serializes over \\( P-1 \\) hops.
 
 ## Integration with Accelerate
 
