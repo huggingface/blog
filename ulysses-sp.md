@@ -373,8 +373,8 @@ Balance SP and DP for your GPU count:
 |------|-----------|-----------------|----------|
 | 4 | 2 | 2 | Balanced throughput and sequence length |
 | 4 | 4 | 1 | Maximum sequence length |
-| 8 | 2 | 4 | Large-scale with longer sequences |
-| 8 | 4 | 2 | Emphasis on sequence length |
+| 8 | 2 | 4 | Higher throughput with moderate sequence length |
+| 8 | 4 | 2 | Longer sequences with moderate throughput |
 
 Remember: `dp_replicate_size × dp_shard_size × sp_size = num_processes`
 
