@@ -183,7 +183,7 @@ training_args = TrainingArguments(
 
 3. **Batch Size Calculation**: The effective data parallel world size accounts for SP:
    ```python
-   dp_world_size = world_size // tp_size // cp_size // sp_size
+   dp_world_size = world_size // sp_size
    ```
 
 4. **Dataloader Length Adjustment**: Training step calculations are adjusted for SP's effect on iteration count
