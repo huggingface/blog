@@ -33,7 +33,7 @@ LeRobot v0.5.0 adds full Unitree G1 humanoid support (whole-body control models)
     - [More Robots](#more-robots)
     - [CAN Bus Motors](#can-bus-motors)
   - [Policies: A Growing Model Zoo](#policies-a-growing-model-zoo)
-    - [Pi0-FAST: Autoregressive VLAs](#pi0fast-autoregressive-vlas)
+    - [Pi0-FAST: Autoregressive VLAs](#pi0-fast-autoregressive-vlas)
     - [Real-Time Chunking (RTC)](#real-time-chunking-rtc)
     - [Wall-X](#wall-x)
     - [X-VLA](#x-vla)
@@ -41,10 +41,9 @@ LeRobot v0.5.0 adds full Unitree G1 humanoid support (whole-body control models)
     - [PEFT Support](#peft-support)
   - [Datasets: Faster Recording, Faster Training](#datasets-faster-recording-faster-training)
     - [Streaming Video Encoding](#streaming-video-encoding)
-    - [10x Image Training, 3x Encoding](#10x-image-training-3x-encoding)
+    - [10x Faster Image Training, 3x Faster Encoding](#10x-faster-image-training-3x-faster-encoding)
     - [New Dataset Tools](#new-dataset-tools)
-  - [Simulation: Environments from the Hub](#simulation-environments-from-the-hub)
-    - [EnvHub](#envhub)
+  - [EnvHub: Environments from the Hub](#envhub-environments-from-the-hub)
     - [NVIDIA IsaacLab-Arena](#nvidia-isaaclab-arena)
   - [Codebase: A Modern Foundation](#codebase-a-modern-foundation)
   - [Community \& Ecosystem](#community--ecosystem)
@@ -63,11 +62,11 @@ The biggest hardware addition in this release: **full Unitree G1 humanoid suppor
 - **Teleoperation**: Control the G1 remotely with an intuitive teleoperation interface.
 - **Whole-Body Control (WBC)**: Coordinate locomotion and manipulation simultaneously for complex, real-world tasks.
 
-The G1 integration represents a major step toward general-purpose robotics within LeRobot — moving beyond tabletop arms into full-body embodied AI.
+The G1 integration represents a major step toward general-purpose robotics within LeRobot — moving beyond tabletop arms into full-body embodied AI. Try it out yourself by following the [documentation](https://huggingface.co/docs/lerobot/unitree_g1).
 
 ### OpenArm & OpenArm Mini
 
-We've added support for the **OpenArm** robot and its companion **OpenArm Mini** teleoperator. OpenArm is a capable robot arm with full LeRobot integration, and the Mini serves as its natural teleoperation device. Both support **bi-manual configurations**, enabling dual-arm setups for more complex manipulation tasks.
+We've added support for the **OpenArm** robot and its companion **OpenArm Mini** teleoperator. OpenArm is a capable robot arm with full LeRobot integration, and the Mini serves as its natural teleoperation device. Both support **bi-manual configurations**, enabling dual-arm setups for more complex manipulation tasks. Check it out in the [documentation](https://huggingface.co/docs/lerobot/openarm).
 
 ### More Robots
 
@@ -79,9 +78,9 @@ The hardware ecosystem keeps growing:
 
 ### CAN Bus Motors
 
-New motor controller support via CAN bus opens the door to higher-performance actuators:
+New motor controller support via CAN (Controller Area Network) bus opens the door to higher-performance actuators:
 
-- **RobStride**: A CAN-based motor controller for high-torque applications.
+- [**RobStride**](https://github.com/RobStride/Product_Information): A CAN-based motor controller for high-torque applications.
 - **Damiao**: Another CAN bus motor controller, expanding the range of compatible hardware.
 
 These additions mean LeRobot can now drive a wider variety of professional-grade actuators beyond the existing Dynamixel and Feetech ecosystem.
@@ -92,7 +91,7 @@ This release brings six new policies and techniques into LeRobot, pushing the bo
 
 ### Pi0-FAST: Autoregressive VLAs
 
-**Pi0-FAST** brings autoregressive Vision-Language-Action models to LeRobot with FAST (Frequency-space Action Sequence Tokenization). Unlike the flow-matching approach of Pi0, Pi0-FAST uses an autoregressive action expert (based on Gemma 300M) that generates discretized action tokens, enabling:
+**Pi0-FAST** brings autoregressive Vision-Language-Action models to [LeRobot with FAST (Frequency-space Action Sequence Tokenization)](https://huggingface.co/docs/lerobot/pi0fast). Unlike the flow-matching approach of Pi0, Pi0-FAST uses an autoregressive action expert (based on Gemma 300M) that generates discretized action tokens, enabling:
 
 - **FAST tokenization**: Actions are tokenized for autoregressive decoding, with a dedicated [FAST action tokenizer](https://huggingface.co/lerobot/fast-action-tokenizer).
 - **Flexible decoding**: Configurable temperature and max decoding steps for balancing speed and quality.
@@ -109,20 +108,16 @@ lerobot-train \
 
 **Real-Time Chunking** is an inference-time technique from [Physical Intelligence](https://www.pi.website) that makes flow-matching policies dramatically more responsive. Instead of waiting for a full action chunk to finish before replanning, RTC continuously blends new predictions with in-progress actions, producing smoother and more reactive behavior.
 
-RTC is not a standalone policy — it's an enhancement that plugs into existing flow-matching policies:
+RTC is not a standalone policy — it's an enhancement that plugs into existing flow-matching policies (Pi0 family, SmolVLA & Diffusion). Configure it via `--policy.rtc_config.enabled=true`.
 
-- **Pi0** and **Pi0.5**: Configure via `--policy.rtc_config.enabled=true`
-- **SmolVLA**: Same simple flag to enable
-- **Pi0Fast**: Also supported
-
-This is a game-changer for real-world deployment where latency matters. Read the [original paper](https://arxiv.org/abs/2506.07339) for the technical details.
+This is a game-changer for real-world deployment where latency matters. Read the [original paper](https://arxiv.org/abs/2506.07339) for the technical details and our [documentation](https://huggingface.co/docs/lerobot/rtc).
 
 ### Wall-X
 
 **Wall-X** is a new VLA policy built on **Qwen2.5-VL** with flow-matching action prediction. It combines the strong vision-language understanding of Qwen2.5-VL with a flow-matching head for cross-embodiment robotic control.
 
 ```bash
-pip install -e "lerobot[wall_x]"
+pip install lerobot[wall_x]
 lerobot-train \
   --policy.type=wall_x \
   --dataset.repo_id=lerobot/aloha_sim_insertion_human
@@ -130,15 +125,22 @@ lerobot-train \
 
 ### X-VLA
 
-**X-VLA** brings a **Florence2-based** VLA to LeRobot. Built on Microsoft's Florence-2 vision-language model, X-VLA offers an alternative backbone for VLA policies, expanding the diversity of foundation models available for robot learning. Check out the [training guide](https://huggingface.co/docs/lerobot/xvla) for setup instructions.
+**X-VLA** brings a **Florence2-based** VLA to LeRobot. Built on Microsoft's Florence-2 vision-language model, X-VLA offers an alternative backbone for VLA policies, expanding the diversity of foundation models available for robot learning. Check out the [training guide](https://huggingface.co/docs/lerobot/xvla) for setup instructions and the [base model](https://huggingface.co/lerobot/xvla-base).
+
+```bash
+pip install lerobot[xvla]
+lerobot-train \
+  --policy.type=xvla \
+  --dataset.repo_id=lerobot/bimanual-so100-handover-cube
+```
 
 ### SARM
 
-**SARM (Stage-Aware Reward Modeling)** tackles one of the hardest problems in robot learning: long-horizon tasks. Instead of a single binary reward at the end, SARM learns stage-aware rewards that provide feedback at intermediate stages of a task. This makes it much easier to train policies for complex, multi-step manipulation sequences.
+**SARM (Stage-Aware Reward Modeling)** tackles one of the hardest problems in robot learning: long-horizon tasks. Instead of a single binary reward at the end, SARM learns stage-aware rewards that provide a progress indication at intermediate stages of a task. This makes it much easier to train policies for complex, multi-step manipulation sequences. Try it out by following the [documentation](https://huggingface.co/docs/lerobot/sarm).
 
 ### PEFT Support
 
-You can now **fine-tune large VLAs using LoRA** (and other PEFT methods) without modifying the core training pipeline. PEFT configuration lives at the policy level, making it straightforward to adapt massive foundation models to your specific robot and task with a fraction of the compute.
+You can now **fine-tune large VLAs using LoRA** (and other PEFT methods) without modifying the core training pipeline. PEFT configuration lives at the policy level, making it straightforward to adapt massive foundation models to your specific robot and task with a fraction of the compute. Learn more reading the [documentation](https://huggingface.co/docs/lerobot/peft_training).
 
 ```bash
 lerobot-train \
@@ -196,7 +198,7 @@ lerobot-train \
   --policy.type=act
 ```
 
-This lowers the barrier for sharing custom simulation environments with the community. Package your environment, push it to the Hub, and anyone can train on it.
+This lowers the barrier for sharing custom simulation environments with the community. Package your environment, push it to the Hub, and anyone can train on it. Check out the [documentation](https://huggingface.co/docs/lerobot/envhub) to learn more.
 
 ### NVIDIA IsaacLab-Arena
 
@@ -208,9 +210,9 @@ This release modernizes the codebase:
 
 - **Python 3.12+**: LeRobot now requires Python 3.12 as the minimum version, enabling modern syntax and better performance.
 - **Transformers v5**: We've migrated to Hugging Face Transformers v5, staying current with the latest model ecosystem.
-- **3rd-party policy plugins**: Just like v0.4.0's hardware plugin system, you can now register custom policies as installable packages — `pip install lerobot_policy_mypolicy` and use it with `--policy.type=mypolicy`. No core library changes needed.
+- **3rd-party policy plugins**: Just like v0.4.0's hardware plugin system, you can now register custom policies as installable packages — `pip install lerobot_policy_mypolicy` and use it with `--policy.type=mypolicy`. No core library changes needed. Learn how to do it by following the [documentation](https://huggingface.co/docs/lerobot/bring_your_own_policies).
 - **Remote Rerun visualization**: Visualize your robot's telemetry remotely using Rerun, with compressed image support for bandwidth-efficient streaming.
-- **Installation improvements**: Added `uv` installation instructions, clarified setup steps, and improved dependency management. Sequential install steps are now clearly documented.
+- **Installation improvements**: Added `uv` [installation instructions](https://huggingface.co/docs/lerobot/installation), clarified setup steps, and improved dependency management. Sequential install steps are now clearly documented.
 - **Documentation versioning**: Docs are now versioned, so you can always find documentation matching your installed release.
 - **PyTorch version bump**: Updated PyTorch version bounds to support NVIDIA Blackwell GPUs.
 
