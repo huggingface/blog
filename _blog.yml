@@ -4796,6 +4796,12 @@
     - lerobot
     - robotics
 
+- local: lerobot-release-v050
+  date: Mar 09, 2026
+  tags:
+    - lerobot
+    - robotics
+
 - local: lerobotxnvidia-healthcare
   date: Oct 29, 2025
   tags:
@@ -5135,9 +5141,19 @@
     - transformers-internal
     - inference
     - speed
-
+    
+- local: ulysses-sp
+  date: Mar 09, 2026
+  tags:
+    - guide
+    - distributed-training
+    - accelerate
+    - transformers
+    - trl
+    - long-context
+    
 - local: async-rl-training-landscape
-  date: March 8, 2026
+  date: March 10, 2026
   tags:
     - llm
     - analysis
