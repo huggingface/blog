@@ -124,7 +124,7 @@ The `prepare()` call:
 
 ### Loss Aggregation
 
-With Ulysses, each GPU computes loss on different parts of the sequence. The losses must be aggregated properly, weighted by the number of valid tokens per rank:
+With Ulysses, each GPU computes loss on different parts of the sequence. The losses must be aggregated properly, weighted by the number of valid tokens per rank. If you're using the Transformers `Trainer` or TRL's `SFTTrainer`, this is handled automatically—the code below is only needed when writing a custom Accelerate training loop:
 
 ```python
 sp_size = parallelism_config.sp_size
