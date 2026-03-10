@@ -128,6 +128,8 @@ Because they are built on Xet, Buckets are not just easier to use than forcing e
 
 If you already use the Hub, Buckets let you keep more of your workflow in one place. If you come from S3-style storage, they give you a familiar model with better alignment to ML artifacts and a clear path toward final publication on the Hub.
 
+Buckets are included in existing [Hub storage plans](https://huggingface.co/docs/hub/en/storage-limits#storage-plans). Free accounts come with storage to get started, and PRO and Enterprise plans offer higher limits. See the [storage page](https://huggingface.co/storage) for details.
+
 Read more and try it yourself:
 
 - [Storage overview](https://huggingface.co/storage)
