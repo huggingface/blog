@@ -112,6 +112,38 @@ for item in list_bucket_tree(
 
 This makes it straightforward to integrate Buckets into training scripts, data pipelines, or any service that manages artifacts programmatically. The Python client also supports batch uploads, selective downloads, deletes, and bucket moves for when you need finer control.
 
+## Filesystem integration
+
+Buckets also work through `HfFileSystem`, the [fsspec](https://filesystem-spec.readthedocs.io/)-compatible filesystem in `huggingface_hub`. This means you can list, read, write, and glob Bucket contents using standard filesystem operations — and any library that supports fsspec can access Buckets directly.
+
+```python
+from huggingface_hub import hffs
+
+# List files in a bucket directory
+hffs.ls("buckets/username/my-training-bucket/checkpoints", detail=False)
+
+# Glob for specific files
+hffs.glob("buckets/username/my-training-bucket/**/*.parquet")
+
+# Read a file directly
+with hffs.open("buckets/username/my-training-bucket/config.yaml", "r") as f:
+    print(f.read())
+```
+
+Because fsspec is the standard Python interface for remote filesystems, libraries like pandas, Polars, and Dask can read from and write to Buckets using `hf://` paths with no extra setup:
+
+```python
+import pandas as pd
+
+# Read a CSV directly from a Bucket
+df = pd.read_csv("hf://buckets/username/my-training-bucket/results.csv")
+
+# Write results back
+df.to_csv("hf://buckets/username/my-training-bucket/summary.csv")
+```
+
+This makes it easy to plug Buckets into existing data workflows without changing how your code reads or writes files.
+
 ## From Buckets to versioned repos
 
 Buckets are intentionally not the final stop in the lifecycle of an artifact. They are the fast, mutable place where artifacts live while they are still in motion. Once something becomes a stable deliverable, it belongs in a model or dataset repo with documentation, version history, and a clean public or internal interface.
