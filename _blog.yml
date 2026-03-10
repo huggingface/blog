@@ -5100,7 +5100,7 @@
     - text-to-image
     - text-to-video
     - modular-diffusers
-    
+
 
 - local: gradio-html-one-shot-apps
   date: Feb 18, 2026
@@ -5151,3 +5151,11 @@
     - transformers
     - trl
     - long-context
+    
+- local: async-rl-training-landscape
+  date: March 10, 2026
+  tags:
+    - llm
+    - analysis
+    - rl
+    - open-source
