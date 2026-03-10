@@ -1,3 +1,21 @@
+---
+title: "Introducing Storage Buckets on the Hugging Face Hub" 
+thumbnail: /blog/assets/storage-buckets/buckets-annoucement.png
+authors:
+- user: Wauplin
+- user: coyotte508
+- user: XciD
+- user: victor
+- user: julien-c
+- user: lhoestq
+- user: pierric
+- user: Sylvestre
+- user: hlarcher
+- user: rajatarya
+- user: seanses
+- user: assafvayner
+---
+
 # Introducing Storage Buckets on the Hugging Face Hub
 
 Model and dataset repos are great for publishing final artifacts. But production ML generates a constant stream of intermediate files (checkpoints, optimizer states, processed shards, logs, traces, etc.) that change often, arrive from many jobs at once, and rarely need version control.
@@ -12,8 +30,8 @@ Model and dataset repos are great for publishing final artifacts. But production
 
 Git starts to feel like the wrong abstraction pretty quickly when you're dealing with:
 
-- a training cluster writing checkpoints and optimizer states throughout a run
-- data pipelines processing raw datasets iteratively
+- Training clusters writing checkpoints and optimizer states throughout a run
+- Data pipelines processing raw datasets iteratively
 - Agents storing traces, memory, and shared knowledge graphs
 
 The storage need in all these cases is the same: write fast, overwrite when needed, sync directories, remove stale files, and keep things moving.
