@@ -92,8 +92,6 @@ or browse it directly on the Hub at `https://huggingface.co/buckets/username/my-
 
 That is the whole loop. Create a bucket, sync your working data into it, check on it when you need to, and save the versioned repo for when something is worth publishing. For one-off operations, `hf buckets cp` copies individual files and `hf buckets remove` cleans up stale objects.
 
-TODO: Add a terminal screenshot showing `hf buckets sync --dry-run`, followed by the Bucket page in the browser.
-
 ## Using Buckets from Python
 
 Everything above also works from Python via [`huggingface_hub`](https://github.com/huggingface/huggingface_hub) (available since [v1.5.0](https://github.com/huggingface/huggingface_hub/releases/tag/v1.5.0)). The API follows the same pattern: create, sync, inspect.
