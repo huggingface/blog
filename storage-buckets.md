@@ -148,11 +148,9 @@ This makes it easy to plug Buckets into existing data workflows without changing
 
 ## From Buckets to versioned repos
 
-Buckets are intentionally not the final stop in the lifecycle of an artifact. They are the fast, mutable place where artifacts live while they are still in motion. Once something becomes a stable deliverable, it belongs in a model or dataset repo with documentation, version history, and a clean public or internal interface.
+Buckets are the fast, mutable place where artifacts live while they are still in motion. Once something becomes a stable deliverable, it usually belongs to a versioned model or dataset repo.
 
-That boundary is already useful today, and it is going to become even more powerful. On the roadmap, we plan to make it possible to transfer data directly between Buckets and model or dataset repos, in both directions. We are not putting a timeline on that here, but the use cases are clear. A team could keep frequent checkpoints in a Bucket and promote the final weights into a model repo. A distributed cluster could write processed shards into a Bucket all day and commit them into a dataset repo once the dataset is complete. The working layer and the publishing layer would stay separate, while still fitting into one continuous Hub-native workflow.
-
-TODO: Add a simple workflow diagram showing Bucket -> model repo and cluster -> Bucket -> dataset repo.
+On the roadmap, we plan to support direct transfers between Buckets and repos in both directions: promote final checkpoint weights into a model repo, or commit processed shards into a dataset repo once a pipeline completes. The working layer and the publishing layer stay separate, but fit into one continuous Hub-native workflow.
 
 ## Trusted by launch partners
 
