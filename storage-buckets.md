@@ -10,7 +10,7 @@ Git starts to feel like the wrong abstraction pretty quickly when you're dealing
 
 - a training cluster writing checkpoints and optimizer states throughout a run
 - data pipelines processing raw datasets iteratively
-- agents storing traces, memory, and shared knowledge graphs
+- Agents storing traces, memory, and shared knowledge graphs
 
 The storage need in all these cases is the same: write fast, overwrite when needed, sync directories, remove stale files, and keep things moving.
 
@@ -22,7 +22,7 @@ Buckets are built on [Xet](https://huggingface.co/docs/hub/en/xet), Hugging Face
 
 Instead of treating files as monolithic blobs, Xet breaks content into chunks and deduplicates across them. Upload a processed dataset that’s mostly similar to the raw one? Many chunks already exist. Store successive checkpoints where large parts of the model are frozen? Same story. Buckets skip the bytes that are already there, which means less bandwidth, faster transfers, and more efficient storage.
 
-This is a natural fit for ML workloads. Training pipelines constantly produce families of related artifacts — raw and processed data, successive checkpoints, agent traces and derived summaries — and Xet is designed to take advantage of that overlap.
+This is a natural fit for ML workloads. Training pipelines constantly produce families of related artifacts — raw and processed data, successive checkpoints, Agent traces and derived summaries — and Xet is designed to take advantage of that overlap.
 
 For Enterprise customers, billing is based on deduplicated storage, so shared chunks directly reduce the billed footprint. Deduplication helps with both speed and cost.
 
@@ -162,7 +162,7 @@ A huge thank you to Jasper, Arcee, IBM, and PixAI for testing early versions, su
 
 ## Conclusion and resources
 
-Storage Buckets bring a missing storage layer to the Hub. They give you a Hub-native place for the mutable, high-throughput side of ML: checkpoints, processed data, agent traces, logs, and everything else that is useful before it becomes final.
+Storage Buckets bring a missing storage layer to the Hub. They give you a Hub-native place for the mutable, high-throughput side of ML: checkpoints, processed data, Agent traces, logs, and everything else that is useful before it becomes final.
 
 Because they are built on Xet, Buckets are not just easier to use than forcing everything through Git. They are also more efficient for the kinds of related artifacts ML systems produce all the time. That means faster transfers, better deduplication, and on Enterprise plans, billing that benefits from the deduplicated footprint.
 
