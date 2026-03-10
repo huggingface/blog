@@ -4,9 +4,9 @@
 
 TODO: Add hero visual showing Buckets as the working storage layer on the Hub, next to versioned model and dataset repos.
 
-Model repos and dataset repos are great for final artifacts — things you publish, document, version, and share. But production ML creates a lot of files before anything is ready to be published: raw inputs, processed shards, rolling checkpoints, optimizer states, embeddings, logs, traces, caches, and all the operational data that keeps a pipeline moving. Those files change constantly, often come from many jobs at once, and most of the time don’t benefit from a Git history on every update.
+Model and dataset repos are great for publishing final artifacts. But production ML generates a constant stream of intermediate files (checkpoints, optimizer states, processed shards, logs, traces, etc.) that change often, arrive from many jobs at once, and rarely need version control.
 
-**Storage Buckets** are a new repo type on the Hub designed for exactly this. They work much closer to object storage like S3: mutable, simple, and high-throughput. You can browse them on the Hub, script them from Python, and manage them with the `hf` CLI. And because they are backed by [Xet](https://huggingface.co/docs/hub/en/xet), they are especially efficient for ML artifacts that share a lot of content with one another.
+**Storage Buckets** are a new Hub repo type for exactly this: mutable, S3-like object storage you can browse on the Hub, script from Python, or manage with the `hf` CLI. And because they are backed by [Xet](https://huggingface.co/docs/hub/en/xet), they are especially efficient for ML artifacts that share content across files.
 
 ## Why we built Buckets
 
