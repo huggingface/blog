@@ -506,8 +506,6 @@ DeepSeek-V3.2's **Keep Sampling Mask** solution: record the truncation mask duri
 
 **Implications for library design:** Both Keep Routing and Keep Sampling Mask require the inference server to return _additional metadata_ alongside token logprobs, routing decisions, and sampling masks. The current API contract between inference servers (vLLM, SGLang) and trainers is `(token_ids, logprobs, finish_reason)`. Extending this to `(token_ids, logprobs, finish_reason, expert_routing, sampling_mask)` is a breaking change to every library's data flow.
 
-Routing and sampling mismatches are RL-specific headaches. But the _structural_ pattern of async generation-scoring-training extends beyond RL -- on-policy distillation faces the exact same pipeline challenges, just with a teacher model where the reward function used to be.
-
 ### 5.5 Distillation: The Same Async Problem Under a Different Name
 
 On-policy distillation, where a student model generates sequences, and a teacher model scores them with token-level logprobs, is structurally the same as the async coordination problem in GRPO.
@@ -515,8 +513,6 @@ On-policy distillation, where a student model generates sequences, and a teacher
 Every design axis in this survey, rollout buffers, weight sync protocols, staleness management, and partial rollout handling, applies identically to distillation. The generation pool produces student rollouts, the teacher scores them (replacing the verifier), and the trainer computes a backward pass with either an advantage-modified GRPO loss or a standalone KL objective. Self-distillation adds one more coordination requirement: the teacher is a frozen snapshot of the student from step _N−k_, so the system must periodically checkpoint the policy and hot-swap the teacher server without disrupting the pipeline, a primitive that no library has fully automated.
 
 **The practical implication for library design is that async RL infrastructure should not be built as a GRPO-specific system**. The generation--scoring--training pipeline is a general pattern that covers RL with outcome rewards, RL with process rewards, on-policy distillation, and self-distillation. Libraries like **SLIME, MILES, PRIME-RL, AReaL, and NeMo-RL** already support both GRPO and on-policy distillation precisely because their async scaffolding treats the reward/scoring phase as a pluggable component rather than a hardcoded verifier call. Any async trainer that aspires to generality should do the same: define the scoring phase as an interface (an HTTP endpoint, a Ray actor, or a co-located forward pass), and let the buffer, staleness, and weight-sync machinery operate identically regardless of what fills it.
-
-With the landscape mapped and the emerging pressures identified, the natural question is: what would _we_ actually build?
 
 ---
 
