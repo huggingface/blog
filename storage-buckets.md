@@ -1,9 +1,5 @@
 # Introducing Storage Buckets on the Hugging Face Hub
 
-**TL;DR:**  Storage Buckets are a new repo type on the Hub providing S3-like object storage, powered by the Xet storage backend. Unlike git-based versioned repositories, buckets are designed for use cases where you need simple, fast, mutable storage — training checkpoints, logs, intermediate artifacts, or any large collection of files that doesn’t need version control. Now available to everyone on the Hub.
-
-TODO: Add hero visual showing Buckets as the working storage layer on the Hub, next to versioned model and dataset repos.
-
 Model and dataset repos are great for publishing final artifacts. But production ML generates a constant stream of intermediate files (checkpoints, optimizer states, processed shards, logs, traces, etc.) that change often, arrive from many jobs at once, and rarely need version control.
 
 **Storage Buckets** are a new Hub repo type for exactly this: mutable, S3-like object storage you can browse on the Hub, script from Python, or manage with the `hf` CLI. And because they are backed by [Xet](https://huggingface.co/docs/hub/en/xet), they are especially efficient for ML artifacts that share content across files.
@@ -153,6 +149,14 @@ Buckets are intentionally not the final stop in the lifecycle of an artifact. Th
 That boundary is already useful today, and it is going to become even more powerful. On the roadmap, we plan to make it possible to transfer data directly between Buckets and model or dataset repos, in both directions. We are not putting a timeline on that here, but the use cases are clear. A team could keep frequent checkpoints in a Bucket and promote the final weights into a model repo. A distributed cluster could write processed shards into a Bucket all day and commit them into a dataset repo once the dataset is complete. The working layer and the publishing layer would stay separate, while still fitting into one continuous Hub-native workflow.
 
 TODO: Add a simple workflow diagram showing Bucket -> model repo and cluster -> Bucket -> dataset repo.
+
+## Trusted by launch partners
+
+Before opening Buckets to everyone, we ran a private beta with a small group of launch partners.
+
+<logos parners>
+
+A huge thank you to Jasper, Arcee, IBM, and PixAI for testing early versions, surfacing bugs, and sharing feedback that directly shaped this feature.
 
 ## Conclusion and resources
 
