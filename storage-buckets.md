@@ -30,7 +30,9 @@ This is a natural fit for ML workloads. Training pipelines constantly produce fa
 
 For Enterprise customers, billing is based on deduplicated storage, so shared chunks directly reduce the billed footprint. Deduplication helps with both speed and cost.
 
-TODO: Add diagram from hf.co/storage.
+<div class="flex justify-center">
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/hub/buckets/buckets-xet-dedup.png"/>
+</div>
 
 ## Pre-warming: bringing data close to compute
 
@@ -39,6 +41,10 @@ Buckets live on the Hub, which means global storage by default. But not every wo
 Pre-warming lets you bring hot data closer to the cloud provider and region where your compute runs. Instead of data traveling across regions on every read, you declare where you need it and Buckets make sure it's already there when your jobs start. This is especially useful for training clusters that need fast access to large datasets or checkpoints, and for multi-region setups where different parts of a pipeline run in different clouds.
 
 We are partnering with AWS and GCP to start with, more more cloud providers coming in the future.
+
+<div class="flex justify-center">
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/hub/buckets/buckets-cdn-prewarm.png"/>
+</div>
 
 ## A bucket workflow from the CLI
 
