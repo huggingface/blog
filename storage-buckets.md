@@ -196,7 +196,8 @@ Buckets are included in existing [Hub storage plans](https://huggingface.co/docs
 Read more and try it yourself:
 
 - [Buckets guide](https://huggingface.co/docs/huggingface_hub/en/guides/buckets)
-- [Installation guide](https://huggingface.co/docs/huggingface_hub/en/installation)
+- [Hub documentation](https://huggingface.co/docs/hub/storage-buckets)
+- CLI [Installation guide](https://huggingface.co/docs/huggingface_hub/en/installation)
 - CLI [guide](https://huggingface.co/docs/huggingface_hub/en/guides/cli) and [reference](https://huggingface.co/docs/huggingface_hub/en/package_reference/cli)
 - [Example Bucket on the Hub](https://huggingface.co/buckets/julien-c/my-training-bucket)
 - [Storage pricing](https://huggingface.co/pricing#storage)
