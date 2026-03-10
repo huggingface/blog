@@ -90,7 +90,7 @@ TODO: Add a terminal screenshot showing `hf buckets sync --dry-run`, followed by
 
 ## Using Buckets from Python
 
-Everything above also works from Python via the `huggingface_hub` library. The API follows the same pattern: create, sync, inspect.
+Everything above also works from Python via [`huggingface_hub`](https://github.com/huggingface/huggingface_hub) (available since [v1.5.0](https://github.com/huggingface/huggingface_hub/releases/tag/v1.5.0)). The API follows the same pattern: create, sync, inspect.
 
 ```python
 from huggingface_hub import create_bucket, list_bucket_tree, sync_bucket
@@ -111,6 +111,8 @@ for item in list_bucket_tree(
 ```
 
 This makes it straightforward to integrate Buckets into training scripts, data pipelines, or any service that manages artifacts programmatically. The Python client also supports batch uploads, selective downloads, deletes, and bucket moves for when you need finer control.
+
+Bucket support is also available in JavaScript via [`@huggingface/hub`](https://www.npmjs.com/package/@huggingface/hub) (since v2.10.5), so you can integrate Buckets into Node.js services and web applications as well.
 
 ## Filesystem integration
 
