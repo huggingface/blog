@@ -64,11 +64,10 @@ We are partnering with AWS and GCP to start with, more more cloud providers comi
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/hub/buckets/buckets-cdn-prewarm.png"/>
 </div>
 
-## A bucket workflow from the CLI
+## Getting started
 
-Enough about what Buckets are and why they exist. Let's see how they actually work in practice.
+You can get a bucket up and running in under 2 minutes with the `hf` CLI. First thing is to install it and log in:
 
-Install the `hf` CLI and log in:
 
 ```bash
 curl -LsSf https://hf.co/cli/install.sh | bash
