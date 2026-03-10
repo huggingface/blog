@@ -168,7 +168,7 @@ A huge thank you to Jasper, Arcee, IBM, and PixAI for testing early versions, su
 
 Storage Buckets bring a missing storage layer to the Hub. They give you a Hub-native place for the mutable, high-throughput side of ML: checkpoints, processed data, Agent traces, logs, and everything else that is useful before it becomes final.
 
-Because they are built on Xet, Buckets are not just easier to use than forcing everything through Git. They are also more efficient for the kinds of related artifacts ML systems produce all the time. That means faster transfers, better deduplication, and on Enterprise plans, billing that benefits from the deduplicated footprint.
+Because they are built on Xet, Buckets are not just easier to use than forcing everything through Git. They are also more efficient for the kinds of related artifacts AI systems produce all the time. That means faster transfers, better deduplication, and on Enterprise plans, billing that benefits from the deduplicated footprint.
 
 If you already use the Hub, Buckets let you keep more of your workflow in one place. If you come from S3-style storage, they give you a familiar model with better alignment to AI artifacts and a clear path toward final publication on the Hub.
 
