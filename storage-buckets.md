@@ -154,7 +154,9 @@ TODO: Add a simple workflow diagram showing Bucket -> model repo and cluster -> 
 
 Before opening Buckets to everyone, we ran a private beta with a small group of launch partners.
 
-<logos parners>
+<div class="flex justify-center">
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/hub/buckets/buckets-launch-partners.png"/>
+</div>
 
 A huge thank you to Jasper, Arcee, IBM, and PixAI for testing early versions, surfacing bugs, and sharing feedback that directly shaped this feature.
 
