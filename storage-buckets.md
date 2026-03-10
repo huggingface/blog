@@ -4,6 +4,10 @@ Model and dataset repos are great for publishing final artifacts. But production
 
 **Storage Buckets** are a new Hub repo type for exactly this: mutable, S3-like object storage you can browse on the Hub, script from Python, or manage with the `hf` CLI. And because they are backed by [Xet](https://huggingface.co/docs/hub/en/xet), they are especially efficient for ML artifacts that share content across files.
 
+<div class="flex justify-center">
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/hub/buckets/buckets-annoucement.png"/>
+</div>
+
 ## Why we built Buckets
 
 Git starts to feel like the wrong abstraction pretty quickly when you're dealing with:
@@ -30,11 +34,11 @@ TODO: Add diagram from hf.co/storage.
 
 ## Pre-warming: bringing data close to compute
 
-Buckets live on the Hub, which means global storage by default. But not every workload can afford to pull data from wherever it happens to live — for distributed training and large-scale pipelines, storage location directly affects throughput.
+Buckets live on the Hub, which means global storage by default. But not every workload can afford to pull data from wherever it happens to live, for distributed training and large-scale pipelines, storage location directly affects throughput.
 
 Pre-warming lets you bring hot data closer to the cloud provider and region where your compute runs. Instead of data traveling across regions on every read, you declare where you need it and Buckets make sure it's already there when your jobs start. This is especially useful for training clusters that need fast access to large datasets or checkpoints, and for multi-region setups where different parts of a pipeline run in different clouds.
 
-TODO: Add a map or architecture figure showing one Bucket pre-warmed into specific cloud regions.
+We are partnering with AWS and GCP to start with, more more cloud providers coming in the future.
 
 ## A bucket workflow from the CLI
 
