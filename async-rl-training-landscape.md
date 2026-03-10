@@ -74,7 +74,7 @@ The open-source ecosystem has converged on a common architectural response: disa
 
 We are developing a new async trainer for [TRL](https://github.com/huggingface/trl), one of the most widely used libraries for model post-training. To guide our design, we surveyed **sixteen open-source libraries** that were built from the ground up around asynchronous training and compared them across **seven axes**: orchestration primitives, buffer design, weight sync protocols, staleness management, partial rollout handling, LoRA support, and distributed training backends. This article distills the design principles we extracted from that survey.
 
-Beyond RL, the need for async infrastructure is increasingly evident. For example, o**n-policy distillation**, where a student generates sequences and a teacher scores them, mirrors GRPO but swaps the reward function for a teacher forward pass. Recognizing this structural similarity, everything in this survey applies equally to async distillation. We'll return to this broader point in Section 5.
+Beyond RL, the need for async infrastructure is increasingly evident. For example, **on-policy distillation**, where a student generates sequences and a teacher scores them, mirrors GRPO but swaps the reward function for a teacher forward pass. Recognizing this structural similarity, everything in this survey applies equally to async distillation. We'll return to this broader point in Section 5.
 
 ### 1.1 How TRL Does RL Training Today
 
@@ -118,7 +118,7 @@ Concurrency, asynchronicity, and parallelism are distinct concepts that often ge
 
 ### 1.3 The Generation Bottleneck
 
-In RL training for reasoning models, **autoregressive generation dominates wall-clock time**. A single rollout for a math or coding task can produce 8K–64K tokens of chain-of-thought reasoning (see [QED-Nano rollout lengths](https://huggingface.co/spaces/lm-provers/qed-nano-blogpost#outcome-reward-rl-with-long-response-lengths])).
+In RL training for reasoning models, **autoregressive generation dominates wall-clock time**. A single rollout for a math or coding task can produce 8K–64K tokens of chain-of-thought reasoning (see [QED-Nano rollout lengths](https://huggingface.co/spaces/lm-provers/qed-nano-blogpost#outcome-reward-rl-with-long-response-lengths)).
 
 To ground this concretely, consider [vLLM benchmarks on a single H100 80GB GPU](https://www.databasemart.com/blog/vllm-gpu-benchmark-h100) (bf16, no quantisation, offline throughput mode). A **7B model** (DeepSeek-R1-Distill-Qwen-7B) achieves ~6,300 output tokens/s aggregate throughput; a **32B model** (DeepSeek-R1-Distill-Qwen-32B) drops to ~1,200 output tokens/s. These are _total_ throughput across all concurrent requests, the number the inference engine can push through per second, regardless of how many sequences share the GPU.
 
@@ -174,7 +174,7 @@ To make sense of the rapidly expanding ecosystem of async RL libraries, we propo
 - **Axis 1 – Orchestration & Concurrency Primitive:** how distributed components are coordinated (Ray actors, asyncio, pub/sub, HTTP).
 - **Axis 2 – Rollout Buffer Design:** how rollouts flow from inference to training.
 - **Axis 3 – Weight Synchronisation Protocol:** how updated weights reach inference servers, and whether the system must pause to accept them or continue generating.
-- **Axis 4 – Staleness Management:** how off-policy rollouts are handled : version rejection, depth bounding, or importance-sampling correction.
+- **Axis 4 – Staleness Management:** how off-policy rollouts are handled: version rejection, depth bounding, or importance-sampling correction.
 - **Axis 5 – Partial Rollout Handling:** what happens to in-flight generations when a weight update arrives mid-sequence.
 - **Axis 6 – LoRA Training Support:** General LoRA support and whether adapter-only parameters can be trained and synced, enabling sub-millisecond weight transfers.
 - **Axis 7 – Distributed Training Backend & Parallelism:** what parallelism strategy is used for training, constraining max model size.
@@ -488,7 +488,7 @@ Single-agent GRPO trains one policy generating G completions per prompt. Emergin
 
 **Straggler dynamics change qualitatively.** In single-agent GRPO, the straggler is the longest completion in a group, a tail event in a unimodal length distribution. In multi-agent pipelines, the straggler is the _product_ of two or more length distributions. In a Proposer/Solver multi-agent architecture, if each has a 90th percentile completion time (5× the median), the joint 90th percentile is roughly 25× the median.
 
-**RL on swarms of agents implies a new unit of work.** Today, the atomic unit in every library is a single (prompt, completion, reward) triple. In multi-agent training, the atomic unit becomes an _episode_, a directed graph of turns, tool calls, and inter-agent messages. Buffer design, staleness tracking, and advantage computation all need to operate over episodes. Replaying or forking episodes could also be.
+**RL on swarms of agents implies a new unit of work.** Today, the atomic unit in every library is a single (prompt, completion, reward) triple. In multi-agent training, the atomic unit becomes an _episode_, a directed graph of turns, tool calls, and inter-agent messages. Buffer design, staleness tracking, and advantage computation all need to operate over episodes. Replaying or forking episodes could also be necessary.
 
 Straggler problems across agents are bad enough when the model is at least internally consistent. With MoE architectures, even a single model can disagree with itself across inference and training frameworks and this raises a new set of emerging problems in RL training.
 
@@ -540,7 +540,7 @@ Beyond vLLM's built-in engine, we will explore high-performance weight packing l
 
 ### 3. Partial Rollout Support for Agentic Workloads
 
-Multi-turn tool-use tasks in complex environments can take minutes per rollout. Without a mechanism to handle in-flight rollouts during weight updates, sync windows become pipeline stalls. We will probably explore two strategies experimentally :
+Multi-turn tool-use tasks in complex environments can take minutes per rollout. Without a mechanism to handle in-flight rollouts during weight updates, sync windows become pipeline stalls. We will probably explore two strategies experimentally:
 
 - **Prefix-resume**: when weights update mid-rollout, save the KV cache prefix and resume generation from the checkpoint under the new policy. This preserves partial work but requires support from the inference engine for mid-sequence weight swaps.
 - **Abort-and-retry**: discard in-flight rollouts that exceed a staleness threshold and re-queue the prompt. Simpler to implement, but wastes compute proportional to the average rollout length at the time of abort.
