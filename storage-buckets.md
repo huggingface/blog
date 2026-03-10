@@ -18,9 +18,9 @@ authors:
 
 # Introducing Storage Buckets on the Hugging Face Hub
 
-Model and dataset repos are great for publishing final artifacts. But production ML generates a constant stream of intermediate files (checkpoints, optimizer states, processed shards, logs, traces, etc.) that change often, arrive from many jobs at once, and rarely need version control.
+Hugging Face Models and Datasets repos are great for publishing final artifacts. But production ML generates a constant stream of intermediate files (checkpoints, optimizer states, processed shards, logs, traces, etc.) that change often, arrive from many jobs at once, and rarely need version control.
 
-**Storage Buckets** are a new Hub repo type for exactly this: mutable, S3-like object storage you can browse on the Hub, script from Python, or manage with the `hf` CLI. And because they are backed by [Xet](https://huggingface.co/docs/hub/en/xet), they are especially efficient for ML artifacts that share content across files.
+**Storage Buckets** are built exactly for this: mutable, S3-like object storage you can browse on the Hub, script from Python, or manage with the `hf` CLI. And because they are backed by [Xet](https://huggingface.co/docs/hub/en/xet), they are especially efficient for ML artifacts that share content across files.
 
 <div class="flex justify-center">
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/hub/buckets/buckets-annoucement.png"/>
