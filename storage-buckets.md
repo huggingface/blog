@@ -180,4 +180,4 @@ Read more and try it yourself:
 - [Installation guide](https://huggingface.co/docs/huggingface_hub/en/installation)
 - CLI [guide](https://huggingface.co/docs/huggingface_hub/en/guides/cli) and [reference](https://huggingface.co/docs/huggingface_hub/en/package_reference/cli)
 - [Example Bucket on the Hub](https://huggingface.co/buckets/julien-c/my-training-bucket)
-- [Storage overview](https://huggingface.co/storage)
+- [Storage pricing](https://huggingface.co/pricing#storage)
