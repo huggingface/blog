@@ -14,20 +14,17 @@ authors:
 
 # Keep the Tokens Flowing: Lessons from 16 Open-Source RL Libraries
 
-<blockquote style="background-color: #f0f7ff; border-left: 4px solid #4a90d9; padding: 1em 1.5em; margin: 1.5em 0; border-radius: 4px;">
-
-**TL;DR** -- For those of you who don't have time to read 5,000 words about async RL plumbing (we get it, you have models to train):
-
-- **The problem:** In synchronous RL (reinforcement learning) training, data generation (model inference to create data samples) dominates wall-clock time -- a single batch of 32K-token rollouts on a 32B (32-billion parameter) model can take _hours,_ while the GPUs used for training remain idle.
-- **The solution everyone converged on:** Disaggregate (separate) inference and training onto different GPU pools, connect them with a rollout buffer (temporary storage for model outputs), and transfer weights asynchronously (without waiting), so neither side waits for the other.
-- **We surveyed 16 open-source libraries** that implement this pattern and compared them across 7 axes: orchestration primitives, buffer design, weight sync protocols, staleness management, partial rollout handling, LoRA support, and distributed training backends.
-- **Key findings:** Ray dominates orchestration (8/16 surveyed distributed computing libraries). The NCCL (NVIDIA Collective Communications Library) broadcast is the default method for transferring model weights. Staleness management refers to how outdated data samples are handled, ranging from simply dropping old samples to using advanced importance-sampling correction. LoRA (Low-Rank Adaptation) training is sparsely supported. Distributed MoE (Mixture of Experts) support is the emerging differentiator.
-
-If you'd rather skip straight to the good part, [here's the full comparison table](#4-global-overview-sixteen-libraries-at-a-glance) (no reading required, we won't judge).
-
-But seriously, if you stick around, you might learn a thing or two about why your GPUs are idle 60% of the time.
-
-</blockquote>
+> [!NOTE] 
+> **TL;DR** -- For those of you who don't have time to read 5,000 words about async RL plumbing (we get it, you have models to train):
+>
+> - **The problem:** In synchronous RL (reinforcement learning) training, data generation (model inference to create data samples) dominates wall-clock time -- a single batch of 32K-token rollouts on a 32B (32-billion parameter) model can take _hours,_ while the GPUs used for training remain idle.
+> - **The solution everyone converged on:** Disaggregate (separate) inference and training onto different GPU pools, connect them with a rollout buffer (temporary storage for model outputs), and transfer weights asynchronously (without waiting), so neither side waits for the other.
+> - **We surveyed 16 open-source libraries** that implement this pattern and compared them across 7 axes: orchestration primitives, buffer design, weight sync protocols, staleness management, partial rollout handling, LoRA support, and distributed training backends.
+> - **Key findings:** Ray dominates orchestration (8/16 surveyed distributed computing libraries). The NCCL (NVIDIA Collective Communications Library) broadcast is the default method for transferring model weights. Staleness management refers to how outdated data samples are handled, ranging from simply dropping old samples to using advanced importance-sampling correction. LoRA (Low-Rank Adaptation) training is sparsely supported. Distributed MoE (Mixture of Experts) support is the emerging differentiator.
+>
+> If you'd rather skip straight to the good part, [here's the full comparison table](#4-global-overview-sixteen-libraries-at-a-glance) (no reading required, we won't judge).
+>
+> But seriously, if you stick around, you might learn a thing or two about why your GPUs are idle 60% of the time.
 
 ---
 
