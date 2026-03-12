@@ -19,9 +19,14 @@ jobs:
       - name: Get changed markdown files
         id: changed-files
         working-directory: .
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.sha }}
         run: |
-          FILES=$(git diff --name-only --diff-filter=AM ${{ github.event.pull_request.base.sha }} ${{ github.sha }} -- '*.md' | tr '\n' ' ')
+          FILES=$(git diff --name-only --diff-filter=AM "$BASE_SHA" "$HEAD_SHA" -- '*.md' | tr '\n' ' ')
           echo "files=$FILES" >> $GITHUB_OUTPUT
       - name: Validate blog entries are listed in _blog.yml
         if: steps.changed-files.outputs.files != ''
-        run: deno run --allow-read ./validate-blog-entries.ts ${{ steps.changed-files.outputs.files }}
+        env:
+          CHANGED_FILES: ${{ steps.changed-files.outputs.files }}
+        run: deno run --allow-read ./validate-blog-entries.ts $CHANGED_FILES
