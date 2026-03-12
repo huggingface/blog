@@ -216,10 +216,10 @@ The Transformer architecture has become dominant, and is used by the vast majori
 
 ModernBERT takes huge inspiration from the Transformer++ (as coined by [Mamba](https://arxiv.org/abs/2312.00752)), first used by the [Llama2 family of models](https://arxiv.org/abs/2307.09288). Namely, we replace older BERT-like building blocks with their improved equivalent, namely, we:
 
-- Replace the old positional encoding with ["rotary positional embeddings"](https://huggingface.co/blog/designing-positional-encoding) (RoPE): this makes the model much better at understanding where words are in relation to each other, and allows us to scale to longer sequence lengths.  
-  - Switch out the old MLP layers for GeGLU layers, improving on the original BERT’s GeLU activation function.  
-  - Streamline the architecture by removing unnecessary bias terms, letting us spend our parameter budget more effectively  
-  - Add an extra normalization layer after embeddings, which helps stabilize training
+- Replace the old positional encoding with ["rotary positional embeddings"](https://huggingface.co/blog/designing-positional-encoding) (RoPE): this makes the model much better at understanding where words are in relation to each other, and allows us to scale to longer sequence lengths.
+- Switch out the old MLP layers for GeGLU layers, improving on the original BERT’s GeLU activation function.  
+- Streamline the architecture by removing unnecessary bias terms, letting us spend our parameter budget more effectively  
+- Add an extra normalization layer after embeddings, which helps stabilize training
 
 ### Upgrading a Honda Civic for the Race Track
 
