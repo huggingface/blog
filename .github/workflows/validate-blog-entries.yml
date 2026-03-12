@@ -1,0 +1,27 @@
+name: Validate blog entries
+on:
+  pull_request:
+
+defaults:
+  run:
+    working-directory: scripts
+
+jobs:
+  validate-blog-entries:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0 # fetches all commits so we can check diffs
+      - uses: denoland/setup-deno@v1
+        with:
+          deno-version: v1.x
+      - name: Get changed markdown files
+        id: changed-files
+        working-directory: .
+        run: |
+          FILES=$(git diff --name-only --diff-filter=AM ${{ github.event.pull_request.base.sha }} ${{ github.sha }} -- '*.md' | tr '\n' ' ')
+          echo "files=$FILES" >> $GITHUB_OUTPUT
+      - name: Validate blog entries are listed in _blog.yml
+        if: steps.changed-files.outputs.files != ''
+        run: deno run --allow-read ./validate-blog-entries.ts ${{ steps.changed-files.outputs.files }}
