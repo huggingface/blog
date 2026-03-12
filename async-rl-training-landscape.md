@@ -10,6 +10,7 @@ authors:
   - user: albertvillanova
   - user: nouamanetazi
   - user: lvwerra
+  - user: sergiopaniego
 ---
 
 # Keep the Tokens Flowing: Lessons from 16 Open-Source RL Libraries
