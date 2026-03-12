@@ -172,6 +172,9 @@ dataset = LeRobotDataset.create(
 )
 ```
 
+> [!IMPORTANT] 
+> Streaming encoding performance can vary significantly depending on your hardware and recording setup (number of cameras, resolution, etc.). Make sure to review the [streaming video encoding documentation](https://huggingface.co/docs/lerobot/streaming_video_encoding) before enabling it.
+
 ### 10x Faster Image Training, 3x Faster Encoding
 
 Under the hood, we've fixed key data access bottlenecks and overhauled image processing:
