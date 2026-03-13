@@ -277,7 +277,7 @@ Check out the full [collection of community pipelines](https://huggingface.co/co
 > [!TIP]
 > 💡 Mellon is in early development and not ready for production use yet. Consider this a sneak peek of how the integration works!
 
-[Mellon](https://github.com/cubiq/Mellon) is a visual workflow interface integrated with Modular Diffusers. If you're familiar with node-based tools like ComfyUI, you'll feel right at home — but there are some key differences:
+[Mellon](https://github.com/cubiq/Mellon) is a node graph interface integrated with Modular Diffusers. If you're familiar with node-based tools like ComfyUI, you'll feel right at home — but there are some key differences:
 
 - **Dynamic nodes** — Instead of dozens of model-specific nodes, we have a small set of nodes that automatically adapt their interface based on the model you select. Learn them once, use them with any model.
 - **Single-node workflows** — Thanks to Modular Diffusers' composable block system, you can collapse an entire pipeline into a single node. Run multiple workflows on the same canvas without the clutter.
@@ -300,7 +300,7 @@ Gemini expands your short prompt into a detailed description before generating t
   Your browser does not support the video tag.
 </video>
 
-This is just one example. For a detailed walkthrough, check out the [Mellon x Modular Diffusers guide](https://www.notion.so/Mellon-x-Modular-Diffusers-2fd1384ebcac819993d8f9ae94c7e866?pvs=21).
+This is just one example. For a detailed walkthrough, check out the [Mellon x Modular Diffusers guide](https://www.notion.so/Mellon-x-Modular-Diffusers-2fd1384ebcac819993d8f9ae94c7e866?pvs=21). You can also check out [this video](https://youtu.be/XogoQnkQUO8)!
 
 
 ## Conclusion
