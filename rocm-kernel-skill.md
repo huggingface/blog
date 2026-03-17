@@ -2,7 +2,8 @@
 title: "ROCm Kernel Skill: Custom Triton Kernels for AMD, from Datacenter to Desktop"
 thumbnail: /blog/assets/rocm-kernel-skill/meme.png
 authors:
-- user: jixiong
+- user: Phlimos
+- user: vivienfanghua
 ---
 
 # ROCm Kernel Skill: Custom Triton Kernels for AMD, from Datacenter to Desktop
