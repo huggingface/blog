@@ -1,6 +1,6 @@
 ---
 title: "Ecom-RLVE: Adaptive Verifiable Environments for E-Commerce Conversational Agents"
-thumbnail: /blog/assets/101_decision-transformers-train/thumbnail.gif
+thumbnail: /blog/assets/ecom-rlve/thumbnail.png
 authors:
 - user: thebajajra
   guest: true
@@ -18,7 +18,7 @@ authors:
 
 [![Data](https://img.shields.io/badge/🤗%20Catalog%20Data-Amazebay2M-yellow)](https://huggingface.co/datasets/owlgebra-ai/Amazebay-catalog-2M)
 [![Code](https://img.shields.io/badge/Github-Code-black)](https://github.com/owlgebra-ai/EcomRLVE-Gym)
-> **TL;DR** — We extend the RLVE framework ([Zeng et al., 2025](__https://arxiv.org/abs/2511.07317__)) from single-turn reasoning puzzles to **multi-turn, tool-augmented e-commerce conversations**. ShopRLVE-GYM provides 8 verifiable environments — product discovery, substitution, cart building, returns, order tracking, policy QA, bundle planning, and multi-intent journeys — each with procedural problem generation, a 12-axis difficulty curriculum, and algorithmically verifiable rewards. We train a Qwen 3 1.7B model with DAPO over 300 steps and present early results demonstrating that environment scaling and adaptive difficulty transfer to agentic, real-world task completion.
+> **TL;DR** — We extend the RLVE framework ([Zeng et al., 2025](https://arxiv.org/abs/2511.07317)) from single-turn reasoning puzzles to **multi-turn, tool-augmented e-commerce conversations**. ShopRLVE-GYM provides 8 verifiable environments — product discovery, substitution, cart building, returns, order tracking, policy QA, bundle planning, and multi-intent journeys — each with procedural problem generation, a 12-axis difficulty curriculum, and algorithmically verifiable rewards. We train a Qwen 3 1.7B model with DAPO over 300 steps and present early results demonstrating that environment scaling and adaptive difficulty transfer to agentic, real-world task completion.
 The project is evolving, started with [Pytorch OpenEnv Hackathon](https://cerebralvalley.ai/e/openenv-hackathon-sf).
 ---
 
