@@ -28,44 +28,8 @@ The project is evolving, started with [Pytorch OpenEnv Hackathon](https://cerebr
 
 Before we explain the framework, here is what a single EcomRLVE episode looks like at `d = 4`. The environment generates a hidden goal, a simulated user opens the chat, and the agent must use tools to satisfy the request. Every action is verified algorithmically — no LLM judge required.
 
-```
-╭──────────────── Episode: E_CART  d=4 ──────────────────╮
-│ Hidden goal:                                            │
-│   items:                                                │
-│     - Anker 65W Charger, variant=USB-C, qty=2           │
-│     - Spigen MagSafe Case, variant=Matte Black, qty=1   │
-│                                                         │
-│ Turn 1  [user]                                          │
-│   "I need two 65-watt Anker chargers (USB-C) and a      │
-│    Spigen MagSafe case in matte black."                  │
-│                                                         │
-│ Turn 2  [agent]                                         │
-│   tool_calls:                                           │
-│     - catalog.search("Anker 65W charger")               │
-│     - catalog.search("Spigen MagSafe case")             │
-│   assistant_message: "Let me find those for you."       │
-│                                                         │
-│ Turn 3  [agent]                                         │
-│   tool_calls:                                           │
-│     - catalog.get_variants("prod_8832")                 │
-│     - catalog.get_variants("prod_2291")                 │
-│   assistant_message: "Checking available variants…"     │
-│                                                         │
-│ Turn 4  [agent]                                         │
-│   tool_calls:                                           │
-│     - cart.add("prod_8832", variant="USB-C", qty=2)     │
-│     - cart.add("prod_2291", variant="Matte Black",      │
-│                qty=1)                                    │
-│   answer: { "done": true }                              │
-│                                                         │
-│ Verifier:  F1 = 1.0  ✓   r_task = +1.0                 │
-│            T_eff = 3      r_eff  = +0.5                 │
-│            hall_rate = 0  r_hall =  0.0                  │
-│            ───────────────────────────                   │
-│            r_total = 0.75·1.0 + 0.15·0.5 + 0.10·0.0    │
-│                    = 0.825                               │
-╰─────────────────────────────────────────────────────────╯
-```
+<center><img src="https://cdn-uploads.huggingface.co/production/uploads/6893dd21467f7d2f5f358a95/qDXS-CPl8DT4JN6Uq6nrt.png", width="300", height="400", alt="Sample Episode" />
+</center>
 
 The reward is fully computed by code: F1 over `(product, variant, qty)` tuples, an efficiency bonus for finishing in fewer turns, and a hallucination check that every recommended product ID was actually retrieved. If the agent had picked the Lightning variant instead of USB-C, the simulated user would have corrected it mid-dialogue — and the F1 would have dropped.
 
@@ -83,9 +47,9 @@ Reinforcement learning with verifiable rewards (RLVR) offers an alternative: the
 
 [RLVE](https://arxiv.org/abs/2511.07317) (Zeng et al., 2025) introduced adaptive verifiable environments and built RLVE-Gym — 400 environments for sorting, multiplication, Sudoku, and other algorithmic-reasoning tasks. But those are all **single-turn, text-in / text-out** puzzles. The paper's own future-work section calls for extending to agentic domains.
 
-EcomRLVE-GYM fills that gap: we stay in the **verifiable** regime (e-commerce outcomes *can* be checked algorithmically) while extending to **multi-turn, tool-augmented, agentic** conversations — environments where the agent must *act* (call tools, modify world state) rather than merely *reason* (produce a text answer).
+EcomRLVE-GYM fills that gap: we stay in the **verifiable** regime (e-commerce outcomes *can* be checked algorithmically) while extending to **multi-turn, tool-augmented, agentic** conversations — environments where the agent must *act* (call tools, modify world state) rather than merely *reason* (produce a text answer) and compensates for the deficiency of the search system.
 
-E-commerce is a natural fit because customer-service outcomes are structurally verifiable:
+EcomRLVE-GYM transforms customer-service outcomes structurally verifiable:
 
 ![verifiable_signals_dark](https://cdn-uploads.huggingface.co/production/uploads/6893dd21467f7d2f5f358a95/dA0i6ZB3JDG-rqQtLRCy0.png)
 
@@ -113,7 +77,7 @@ When the agent believes the task is complete, it sets `"answer": {"done": true, 
 
 ## The eight environments
 
-Each environment is a tuple `E = (I, P, R)`: an **input** template, a procedural **problem generator** parameterised by difficulty `d`, and an algorithmic **reward verifier**. Rewards are terminal-only and lie in `[-1, 1]`.
+Each environment is a tuple `E = (I, P_d, R)`: an **input** template, a procedural **problem generator** parameterised by difficulty `d`, and an algorithmic **reward verifier**. Rewards are episodic and lie in `[-1, 1]`.
 
 | ID | Environment | What the agent does | Key reward signal | Pass condition |
 |----|-------------|---------------------|-------------------|----------------|
