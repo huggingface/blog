@@ -93,6 +93,24 @@ Every signal above can be evaluated by a program with access to the hidden groun
 
 ---
 
+## What the agent outputs
+
+Every turn, the model produces a single JSON object — a message to the user, optional tool calls, and an optional answer submission:
+
+```json
+{
+  "assistant_message": "Let me find those chargers for you.",
+  "tool_calls": [
+    {"name": "catalog.search", "args": {"query": "Anker 65W charger USB-C"}}
+  ],
+  "answer": null
+}
+```
+
+When the agent believes the task is complete, it sets `"answer": {"done": true, ...}` with environment-specific fields (recommended IDs, selected order, etc.). Invalid JSON triggers immediate termination with `r = -1`, creating a strong gradient toward well-formed outputs from step one.
+
+---
+
 ## The eight environments
 
 Each environment is a tuple `E = (I, P, R)`: an **input** template, a procedural **problem generator** parameterised by difficulty `d`, and an algorithmic **reward verifier**. Rewards are terminal-only and lie in `[-1, 1]`.
@@ -118,13 +136,35 @@ The agent interacts with **15 tools** across five domains:
 | **Returns** | `return.check_eligibility`, `return.initiate`, `return.exchange` |
 | **Policy** | `policy.search` |
 
+Three environments worth highlighting beyond E_CART (covered in depth below):
+
+**E_SUB — Substitution.** The user's desired product is out of stock. The agent must find alternatives that are both *similar* to the original and satisfy compatibility constraints. The reward blends cosine similarity with constraint satisfaction, and the similarity weight increases with difficulty — at high `d`, the user insists on something very close to the original, not just any compatible product.
+
+**E_BUNDLE — Bundle Planning.** Given a project goal (*"I'm setting up a home office"*), the agent recommends products covering all required categories within a budget. The reward is category F1 minus a budget penalty `max(0, (cost - B) / B)` — overspending by 100%+ is harshly penalised, creating a strong gradient against ignoring price.
+
+**E_JOURNEY — Multi-Intent Journey.** The most complex environment: the user chains 2–5 sub-tasks in one conversation (e.g., find a charger, then return a defective cable, then check order status). Each sub-task is scored by its atomic verifier, and `IsCorrect = 1` only if *every* sub-task scores ≥ 0.95 — the agent must near-perfectly complete them all.
+
 Every environment shares a **composite reward**:
 
 ```
 r = clip(0.75 * r_task + 0.15 * r_eff + 0.10 * r_hall, -1, 1)
 ```
 
-with hard-fail override (`r = -1`) for invalid JSON, illegal tool calls, or safety violations. `r_eff` rewards finishing in fewer turns (discounting turns the *user* initiated via confirmation or clarification), and `r_hall` penalises recommending product IDs the agent never retrieved.
+with hard-fail override (`r = -1`) for invalid JSON, illegal tool calls, or safety violations.
+
+**Fair efficiency scoring with UserActs.** A naive turn-count penalty punishes the agent for every turn — including ones the *user* caused. To fix this, the user simulator tags each response with a structured dialogue act:
+
+| UserAct | Meaning | Penalised? |
+|---------|---------|-----------|
+| `confirm` | User confirms the agent's action | No |
+| `clarify` | User provides previously omitted info | No |
+| `correct` | User points out an agent mistake | Yes |
+| `elaborate` | User adds new requirements | Yes |
+| `ragequit` | User abandons the conversation | Yes |
+
+The effective turn count discounts non-penalty acts: `T_eff = max(1, T - T_user_clarify)`. An agent that solves the task in 3 turns — one of which answers a user confirmation — pays efficiency cost for only 2 effective turns. `r_eff = 1 - 2·(T_eff - 1) / (T_max - 1)`.
+
+**Hallucination penalty** checks whether recommended product IDs were actually retrieved: \(\text{hall\_rate} = |\{p \in L : p \notin \text{Seen}\}| / \max(|L|, 1)\), \(r_{\text{hall}} = -\text{clip}(\text{hall\_rate}, 0, 1)\). The agent cannot invent product IDs.
 
 ---
 
@@ -251,8 +291,6 @@ We trained Qwen 3 1.7B with DAPO on C1 (product discovery) for 300 steps as an i
 ![accuracy_10_levels_dots_each_reach (1)](https://cdn-uploads.huggingface.co/production/uploads/6893dd21467f7d2f5f358a95/sGyMSKDOJ4tqiRSgV7AOR.png)
 
 We saw progressive growth in difficulty reached, confirming that adaptive scheduling produces a steady learning signal rather than the saturation (static-low) or starvation (static-high) patterns predicted by the RLVE paper.
-
-Full C8 training, ablations (adaptive vs. static difficulty, environment scaling C1→C8, reward component ablation) are in progress.
 
 ---
 
