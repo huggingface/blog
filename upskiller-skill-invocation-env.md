@@ -1,10 +1,11 @@
 ---
-title: "Teaching LLMs When to Use Their Tools: An RL Environment for Skill Invocation"
+title: "Teaching LLMs When to Use Their Skills: An RL Environment for Skill Invocation"
 thumbnail: /blog/assets/upskiller/thumbnail.png
 authors:
 - user: mpnikhil
   guest: true
   org: ""
+date: March 24, 2026
 ---
 
 ## TL;DR
