@@ -3,6 +3,8 @@ title: 'TRL v1: ...'
 thumbnail: /blog/assets/trl-v1/thumbnail.png
 authors:
 - user: qgallouedec
+- user: stevhliu
+- user: sergiopaniego
 ---
 
 # TRL v1: ...
