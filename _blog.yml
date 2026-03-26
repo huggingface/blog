@@ -5167,3 +5167,12 @@
     - storage
     - announcement
     - xet
+
+- local: trl-v1
+  date: March 27, 2026
+  tags:
+    - trl
+    - reinforcement-learning
+    - announcement
+    - open-source
+    - v1
