@@ -404,7 +404,7 @@ By now, the logic of v1 should be clear: it is not a claim that post-training ha
 
 Today, GRPO in TRL is primarily used through a synchronous loop: generate rollouts, score them, then step the optimizer. That shape is simple and dependable, but it ties throughput to the slowest stage and leaves performance on the table at scale.
 
-![Untitled-2026-01-15-0739-9.png](TRL%20v1%20blog%20post/Untitled-2026-01-15-0739-9.png)
+![async-grpo](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/trl-v1/async-grpo.png)
 
 We already have an [early asynchronous GRPO design](https://huggingface.co/docs/trl/main/en/async_grpo_trainer), and the next step is to harden it. The core idea is to decouple generation and training, letting generation run continuously on dedicated inference resources while training consumes a steady stream of scored trajectories, with buffering, backpressure, and clear policy-version accounting. This improves utilization and scales across GPUs and nodes. Other libraries already offer forms of asynchronous RL, but bringing it to TRL would make this style of training available through broader integrations, simpler APIs, and a much lower barrier to adoption.
 
