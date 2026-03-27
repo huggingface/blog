@@ -426,5 +426,12 @@ If we get this right, the payoff is bigger than convenience. Beginners get guard
 
 ## 5. Conclusion
 
-> **TODO:** write the conclusion — TRL is unconventional by necessity, built for a field that keeps changing its own assumptions; v1 is not a claim that the field is stable, it’s a claim that the library can be relied on even when the field isn’t
->
+Post-training doesn't converge. It shifts, and the next shift is already coming.
+
+v1 is not a claim that things have settled. It's an acknowledgment that they haven't yet, and a commitment that the library can be relied on anyway. Six years of evolving alongside the field shaped a design we're confident is ready for what comes next, whatever that turns out to be. The community and the downstream projects had already assumed that stability — v1 makes it real.
+
+```bash
+pip install --upgrade trl
+```
+
+Migration from the last 0.x release is minimal, and the [migration guide](https://github.com/huggingface/trl/blob/main/MIGRATION.md) covers everything. If you're new, now is a good time to start.
