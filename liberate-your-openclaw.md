@@ -7,14 +7,18 @@ authors:
 
 # Liberate your OpenClaw
 
-If you've been cut off from your PRO or MAX plans and your OpenClaw agent needs resuscitation, you can move it to open models in two ways:
+Looks like Anthropic just cut access to Claude models in open agent platforms for Pro/Max subscribers.  Don’t worry though, there are now great open and/or local models on Hugging Face to keep your agents running. Sometimes at fractions of the cost. 
 
-1. Use an open model served through Hugging Face Inference Providers.
+If you've been cut off and your OpenClaw, Pi, or OpenCode agents needs resuscitation, you can move it to open models in two ways:
+
+1. Use an open model served through Hugging Face Inference Providers.  
 2. Run a fully local open model on your own hardware.
 
 The hosted route is the fastest way back to a capable agent. The local route is the right fit if you want privacy, zero API costs, and full control.
 
-# Inference Providers
+To do so, just tell your claude code, your cursor or your favorite agent: help me move my OpenClaw agents to Hugging Face models and link this page.
+
+# Hugging Face Inference Providers
 
 Hugging Face inference providers is an open platform that routes to providers of open source models. It’s the right choice if you want the best models or you don’t have the necessary hardware.
 
@@ -24,8 +28,8 @@ First, you’ll need to create a token [here](https://huggingface.co/settings/to
 openclaw onboard --auth-choice huggingface-api-key
 ```
 
-Paste your Hugging Face token when prompted, and you’ll be asked to select a model.  
-   
+Paste your Hugging Face token when prompted, and you’ll be asked to select a model. 
+
 We’d recommend [GLM-5](https://huggingface.co/zai-org/GLM-5) because of its excellent [Terminal Bench](https://huggingface.co/datasets/harborframework/terminal-bench-2.0) scores, but there are thousand to chose from [here](https://huggingface.co/inference/models). Or, you can define a Hugging Face model `repo_id` in OpenClaw config:
 
 ```
