@@ -35,7 +35,7 @@ First, you’ll need to create a token [here](https://huggingface.co/settings/to
 openclaw onboard --auth-choice huggingface-api-key
 ```
 
-Paste your Hugging Face token when prompted, and you’ll be asked to select a model. 
+Paste your Hugging Face token when prompted, and you’ll be asked to select a model.
 
 We’d recommend [GLM-5](https://huggingface.co/zai-org/GLM-5) because of its excellent [Terminal Bench](https://huggingface.co/datasets/harborframework/terminal-bench-2.0) scores, but there are thousands to chose from [here](https://huggingface.co/inference/models).
 
