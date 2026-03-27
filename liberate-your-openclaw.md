@@ -18,7 +18,7 @@ The hosted route is the fastest way back to a capable agent. The local route is 
 
 To do so, just tell your claude code, your cursor or your favorite agent: help me move my OpenClaw agents to Hugging Face models and link this page.
 
-# Hugging Face Inference Providers
+## Hugging Face Inference Providers
 
 Hugging Face inference providers is an open platform that routes to providers of open source models. It’s the right choice if you want the best models or you don’t have the necessary hardware.
 
@@ -45,7 +45,8 @@ We’d recommend [GLM-5](https://huggingface.co/zai-org/GLM-5) because of its ex
 ```
 
 Note: HF PRO subscribers get $2 free credits each month which applies to Inference Providers usage, learn more [here](https://huggingface.co/pro).
-# Local Setup
+
+## Local Setup
 
 Running models locally gives you full privacy, zero API costs, and the ability to experiment without rate limits. 
 
