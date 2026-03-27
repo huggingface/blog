@@ -1,5 +1,5 @@
 ---
-title: "TRL v1: Post-Training Library That Holds When the Field Invalidates Its Own Assumptions"
+title: "TRL v1.0: Post-Training Library That Holds When the Field Invalidates Its Own Assumptions"
 thumbnail: /blog/assets/trl-v1/thumbnail.png
 authors:
 - user: qgallouedec
@@ -7,7 +7,7 @@ authors:
 - user: sergiopaniego
 ---
 
-# TRL v1: Post-Training Library That Holds When the Field Invalidates Its Own Assumptions
+# TRL v1.0: Post-Training Library That Holds When the Field Invalidates Its Own Assumptions
 
 We’re releasing TRL v1.0, and it marks a real shift in what TRL is. What started as a research codebase has become a dependable library people build on, with clearer expectations around stability.
 This isn't just a version bump. It reflects the reality that TRL now powers production systems, and embraces that responsibility.
@@ -15,7 +15,7 @@ This isn't just a version bump. It reflects the reality that TRL now powers prod
 TRL now implements [more than 75 post-training methods](https://huggingface.co/docs/trl/en/paper_index). But coverage isn’t the goal by itself. What matters is making these methods easy to try, compare, and actually use in practice.
 The design of the library wasn’t decided upfront. It is the result of years of iteration — the first commit goes back more than six years — and it has been shaped by everything the field threw at it: new algorithms, new models, shifting paradigms. Over time, this pressure forced the codebase toward a very specific design. Parts of it might look unusual at first, but like in many evolutionary codebases, they exist for a reason.
 
-TRL is built for a field that doesn’t sit still. So the question is not how to design the perfect abstraction. It is how to make stable software in a domain that keeps invalidating its own assumptions. This is what we tried to solve in TRL v1, and this post explains how.
+TRL is built for a field that doesn’t sit still. So the question is not how to design the perfect abstraction. It is how to make stable software in a domain that keeps invalidating its own assumptions. This is what we tried to solve in TRL v1.0, and this post explains how.
 
 ## 1. A moving target: post-training as a shifting field
 
@@ -222,7 +222,7 @@ This is the environment in which TRL is downloaded 3 million times a month, and 
 
 ### A shift in nature: from code to contract
 
-TRL didn’t make a deliberate decision to become a library. It found out it already was one. Projects like [Unsloth](https://github.com/unslothai/unsloth) and [Axolotl](https://github.com/axolotl-ai-cloud/axolotl) — with thousands of users between them — had built directly on top of TRL’s trainers and APIs. A breaking change in TRL propagated instantly into their stacks. A renamed argument, a shifted default, a restructured output — any of these became someone else’s incident. The shift had already happened. v1 is the moment TRL acknowledged it explicitly.
+TRL didn’t make a deliberate decision to become a library. It found out it already was one. Projects like [Unsloth](https://github.com/unslothai/unsloth) and [Axolotl](https://github.com/axolotl-ai-cloud/axolotl) — with thousands of users between them — had built directly on top of TRL’s trainers and APIs. A breaking change in TRL propagated instantly into their stacks. A renamed argument, a shifted default, a restructured output — any of these became someone else’s incident. The shift had already happened. v1.0 is the moment TRL acknowledged it explicitly.
 
 ### Stable and experimental, under the same roof
 
@@ -239,7 +239,7 @@ Promotion from experimental to stable isn’t automatic. What matters is the rat
 
 In practice, the **stable** surface includes trainers for SFT, DPO, Reward modeling, RLOO, and GRPO, along with their close variants. The **experimental** surface is broader and moves faster; for an up-to-date view, the best reference is the [TRL documentation](https://huggingface.co/docs/trl).
 
-The breaking changes needed to reach v1 were distributed deliberately across the 0.x releases. Migration from the last 0.x version is minimal — see the [migration guide](https://github.com/huggingface/trl/blob/main/MIGRATION.md).
+The breaking changes needed to reach v1.0 were distributed deliberately across the 0.x releases. Migration from the last 0.x version is minimal — see the [migration guide](https://github.com/huggingface/trl/blob/main/MIGRATION.md).
 
 ### Deliberately limiting abstractions
 
@@ -398,7 +398,7 @@ Taken together, these comparisons point to a clear role for TRL: a general-purpo
 
 ## 4. What’s next
 
-By now, the logic of v1 should be clear: it is not a claim that post-training has stabilized. On the contrary, it is an acknowledgment that the field will keep shifting, and that we're confident that the library has the right shape to absorb whatever comes next. The question is not what comes **after** v1, but what’s next **for** v1.
+By now, the logic of v1.0 should be clear: it is not a claim that post-training has stabilized. On the contrary, it is an acknowledgment that the field will keep shifting, and that we're confident that the library has the right shape to absorb whatever comes next. The question is not what comes **after** v1.0, but what’s next **for** v1.0.
 
 ### Asyncronous GRPO
 
@@ -422,13 +422,13 @@ Training is still too often driven by vibes. Loss curves go down, reward curves 
 
 One of the most important directions for TRL is to make training legible to software, not just to people. That means going beyond dashboards and raw metrics to produce explicit signals: is the policy improving, collapsing, over-optimizing the verifier, drifting off-distribution, or plateauing? The goal is for TRL to surface these patterns automatically, explain them clearly, and turn them into actions.
 
-If we get this right, the payoff is bigger than convenience. Beginners get guardrails instead of folklore. Advanced users get faster diagnosis and tighter iteration loops. And agents get something new entirely: a training stack they can inspect, reason about, and actively steer. That may end up being one of the most important upgrades in TRL v1: not just helping people run training, but making training interpretable enough to automate.
+If we get this right, the payoff is bigger than convenience. Beginners get guardrails instead of folklore. Advanced users get faster diagnosis and tighter iteration loops. And agents get something new entirely: a training stack they can inspect, reason about, and actively steer. That may end up being one of the most important upgrades in TRL v1.0: not just helping people run training, but making training interpretable enough to automate.
 
 ## 5. Conclusion
 
 Post-training doesn't converge. It shifts, and the next shift is already coming.
 
-v1 is not a claim that things have settled. It's an acknowledgment that they haven't yet, and a commitment that the library can be relied on anyway. Six years of evolving alongside the field shaped a design we're confident is ready for what comes next, whatever that turns out to be. The community and the downstream projects had already assumed that stability — v1 makes it real.
+v1.0 is not a claim that things have settled. It's an acknowledgment that they haven't yet, and a commitment that the library can be relied on anyway. Six years of evolving alongside the field shaped a design we're confident is ready for what comes next, whatever that turns out to be. The community and the downstream projects had already assumed that stability — v1.0 makes it real.
 
 ```bash
 pip install --upgrade trl
