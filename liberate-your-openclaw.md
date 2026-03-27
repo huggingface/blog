@@ -4,7 +4,7 @@ thumbnail: /blog/assets/liberate-your-openclaw/thumbnail.png
 authors:
 - user: clem
 - user: burtenshaw
-- user: pcuenca
+- user: pcuenq
 - user: jeffboudier
 - user: merve
 - user: nielsr
