@@ -9,7 +9,7 @@ authors:
 
 Looks like Anthropic just cut access to Claude models in open agent platforms for Pro/Max subscribers.  Don’t worry though, there are great open models on Hugging Face to keep your agents running! Most of the time, at a fraction of the cost. 
 
-If you've been cut off and your OpenClaw, Pi, or OpenCode agents needs resuscitation, you can move it to open models in two ways:
+If you've been cut off and your OpenClaw, Pi, or OpenCode agents need resuscitation, you can move them to open models in two ways:
 
 1. Use an open model served through Hugging Face Inference Providers.  
 2. Run a fully local open model on your own hardware.
