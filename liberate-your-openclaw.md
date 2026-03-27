@@ -30,7 +30,9 @@ openclaw onboard --auth-choice huggingface-api-key
 
 Paste your Hugging Face token when prompted, and you’ll be asked to select a model. 
 
-We’d recommend [GLM-5](https://huggingface.co/zai-org/GLM-5) because of its excellent [Terminal Bench](https://huggingface.co/datasets/harborframework/terminal-bench-2.0) scores, but there are thousand to chose from [here](https://huggingface.co/inference/models). Or, you can define a Hugging Face model `repo_id` in OpenClaw config:
+We’d recommend [GLM-5](https://huggingface.co/zai-org/GLM-5) because of its excellent [Terminal Bench](https://huggingface.co/datasets/harborframework/terminal-bench-2.0) scores, but there are thousands to chose from [here](https://huggingface.co/inference/models).
+
+You can update your Hugging Face model at any time entering its `repo_id` in the OpenClaw config:
 
 ```
 {
