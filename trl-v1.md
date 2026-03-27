@@ -9,11 +9,11 @@ authors:
 
 # TRL v1: Post-Training Library That Holds When the Field Invalidates Its Own Assumptions
 
-We’re releasing TRL v1 — and it marks a real shift in what TRL is. What started as a research codebase is becoming a library people can build on with clearer expectations around stability.
-This isn't just a version bump. It reflects the reality that TRL now powers production systems across the ecosystem — and the need to make that responsibility explicit.
+We’re releasing TRL v1.0, and it marks a real shift in what TRL is. What started as a research codebase has become a dependable library people build on, with clearer expectations around stability.
+This isn't just a version bump. It reflects the reality that TRL now powers production systems, and embraces that responsibility.
 
 TRL now implements [more than 75 post-training methods](https://huggingface.co/docs/trl/en/paper_index). But coverage isn’t the goal by itself. What matters is making these methods easy to try, compare, and actually use in practice.
-The design of the library wasn’t decided upfront. It is the result of years of iteration — the first commit goes back more than six years — and it has been shaped by everything the field threw at it: new algorithms, new models, shifting paradigms. Over time, this pressure forced the codebase toward a very specific design. Parts of it might look unusual at first, but they exist for a reason.
+The design of the library wasn’t decided upfront. It is the result of years of iteration — the first commit goes back more than six years — and it has been shaped by everything the field threw at it: new algorithms, new models, shifting paradigms. Over time, this pressure forced the codebase toward a very specific design. Parts of it might look unusual at first, but like in many evolutionary codebases, they exist for a reason.
 
 TRL is built for a field that doesn’t sit still. So the question is not how to design the perfect abstraction. It is how to make stable software in a domain that keeps invalidating its own assumptions. This is what we tried to solve in TRL v1, and this post explains how.
 
@@ -23,7 +23,7 @@ Post-training has not evolved as a smooth refinement of one recipe. It has moved
 
 PPO [[Schulman et al., (2017)](https://huggingface.co/papers/1707.06347); [Ziegler et al., (2019)](https://huggingface.co/papers/1909.08593)] made one architecture look canonical: a policy, a reference model, a learned reward model, sampled rollouts, and an RL loop.
 
-Then DPO-style methods such as DPO [[Rafailov et al., (2023)](https://huggingface.co/papers/2305.18290)], ORPO [[Hong et al., (2024)](https://huggingface.co/papers/2403.07691)], and KTO [[Ethayarajh et al., (2024)](https://huggingface.co/papers/2402.01306)] cut through that stack: preference optimization could work without a separate reward model, value model, or any online RL. Components that had looked fundamental suddenly looked optional.
+Then DPO-style methods such as the original DPO [[Rafailov et al., (2023)](https://huggingface.co/papers/2305.18290)], ORPO [[Hong et al., (2024)](https://huggingface.co/papers/2403.07691)], and KTO [[Ethayarajh et al., (2024)](https://huggingface.co/papers/2402.01306)] cut through that stack: preference optimization could work without a separate reward model, value model, or any online RL. Components that had looked fundamental suddenly looked optional.
 
 RLVR-style methods such as GRPO [[Shao et al., (2024)](https://arxiv.org/abs/2402.03300)] shifted the center again. On tasks like math, code, and tool use, rewards often come from verifiers or deterministic checks rather than learned reward models. Sampling and rollouts matter again, but the objects in the loop are no longer quite the ones PPO libraries were designed around.
 
@@ -31,7 +31,7 @@ The lesson is not just that methods change. The definition of the core keeps cha
 
 ## 2. From project to library: TRL has a chaos-adaptive design
 
-So what does it mean to build a library for a field that won't sit still? The answer is counterintuitive: don't try to capture the essence of what's stable today. Instead, design around what could change. *Reward models* illustrate why: they looked essential in PPO, became optional in DPO, and came back as *verifiers* in RLVR methods — structures that could be deterministic functions rather than learned models. Any abstraction built around their original form would have been obsolete twice over by now. The library survives by recognizing that strong assumptions have a short half-life, and by making that changeability central to how the codebase is organized.
+So what does it mean to build a library for a field that won't sit still? The answer is counterintuitive: don't try to capture the essence of what's stable today. Instead, design around what could change. *Reward models* illustrate why: they looked essential in PPO, became optional in DPO, and came back as *verifiers* in RLVR methods — structures that could be deterministic functions rather than learned models. Any abstraction built around their original form would have been obsolete twice over by now. The library survives by recognizing that strong assumptions have a short life, and by making that changeability central to how the codebase is organized.
 
 This is the environment in which TRL is downloaded 3 million times a month, and in which major downstream projects treat it as stable infrastructure. The field keeps shifting the ground, and at the same time, those users need things not to break.
 
@@ -358,7 +358,7 @@ This is easier to see than to describe. Compare RLOO and GRPO: large parts of th
 
 ## 3. Where TRL fits
 
-The goal of this comparison is not to argue that TRL should be judged as best on every axis. It should not. Some systems are built for maximum throughput (like PipelineRL), some are optimized for a narrower slice of the problem (like LLaMA-Factory), and some offer a more opinionated development experience in a specific environment (like Tinker). TRL occupies a different place in the ecosystem: it is a general-purpose post-training library that tries to keep the API and the code as simple as the domain allows, while combining broad method coverage, deep Hugging Face integration, a relatively low infrastructure burden, and an explicit stability contract.
+The goal of this comparison is not to argue that TRL should be judged as best on every axis. It should not. Some systems are built for maximum throughput (like [PipelineRL](https://github.com/ServiceNow/PipelineRL)), some are optimized for a narrower slice of the problem (like [LLaMA-Factory](https://github.com/hiyouga/LLaMA-Factory)), and some offer a more opinionated development experience in a specific environment (like [Tinker](https://github.com/thinking-machines-lab/tinker)). TRL occupies a different place in the ecosystem: it is a general-purpose post-training library that tries to keep the API and the code as simple as the domain allows, while combining broad method coverage, deep Hugging Face integration, a relatively low infrastructure burden, and an explicit stability contract.
 
 Libraries like [Unsloth](https://github.com/unslothai/unsloth) and [Axolotl](https://github.com/axolotl-ai-cloud/axolotl) are not included here because they build on top of TRL rather than sitting beside it in the comparison; in that sense, many of their users are also TRL users indirectly.
 
