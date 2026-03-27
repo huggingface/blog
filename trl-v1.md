@@ -226,7 +226,7 @@ TRL didn’t make a deliberate decision to become a library. It found out it alr
 
 ### Stable and experimental, under the same roof
 
-The unusual thing about TRL’s stability model is not what it guarantees — it’s what it tolerates alongside those guarantees. Stable and experimental coexist within the same package, with explicitly different contracts. The stable core follows semantic versioning. The experimental layer makes no such promises — it is where new methods land while they are still being evaluated, and where the API can move fast to keep up with the field.
+The unusual thing about TRL’s stability model is not what it guarantees, it is what it tolerates alongside those guarantees. Stable and experimental coexist within the same package, with explicitly different contracts. The stable core follows semantic versioning. The experimental layer makes no such promises — it is where new methods land while they are still being evaluated, and where the API can move fast to keep up with the field.
 
 This isn’t a compromise. It’s a response to a specific constraint: the field produces new methods faster than any of them can earn stability. Refusing to add immature methods would make TRL irrelevant within months. Adding them all to stable would break every downstream project every time an algorithm turned out not to work as expected.
 
