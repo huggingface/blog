@@ -64,7 +64,7 @@ Start a local server with a built-in web UI:
 llama-server -hf unsloth/Qwen3.5-35B-A3B-GGUF:UD-Q4_K_XL
 ```
 
-Here, we’re using Qwen3.5-35B-A3B which works great with 32GB of ram. If you have different requirements check out the hardware advice [here](https://huggingface.co/unsloth/Qwen3.5-35B-A3B-GGUF).
+Here, we’re using Qwen3.5-35B-A3B which works great with 32GB of ram. If you have different requirements check out the hardware advice [here](https://huggingface.co/unsloth/Qwen3.5-35B-A3B-GGUF). Note: you can specify which local hardware you have available in your [HF user settings](https://huggingface.co/settings/local-apps) to see which quantizations work for you directly on model pages.
 
 If you load the GGUF in llama.cpp, use an OpenClaw config like this:
 
