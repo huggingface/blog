@@ -3,6 +3,13 @@ title: "Liberate your OpenClaw"
 thumbnail: /blog/assets/liberate-your-openclaw/thumbnail.png
 authors:
 - user: clem
+- user: burtenshaw
+- user: pcuenca
+- user: jeffboudier
+- user: merve
+- user: nielsr
+- user: victor
+- user: mishig
 ---
 
 # Liberate your OpenClaw 🦀
