@@ -23,7 +23,7 @@ If you've been cut off and your OpenClaw, Pi, or OpenCode agents need resuscitat
 
 The hosted route is the fastest way back to a capable agent. The local route is the right fit if you want privacy, zero API costs, and full control.
 
-To do so, just tell your claude code, your cursor or your favorite agent: help me move my OpenClaw agents to Hugging Face models and link this page.
+To do so, just tell your claude code, your cursor or your favorite agent: _help me move my OpenClaw agents to Hugging Face models_, and link this page.
 
 ## Hugging Face Inference Providers
 
