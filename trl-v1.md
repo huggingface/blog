@@ -25,7 +25,7 @@ PPO [[Schulman et al., (2017)](https://huggingface.co/papers/1707.06347); [Ziegl
 
 Then DPO-style methods such as the original DPO [[Rafailov et al., (2023)](https://huggingface.co/papers/2305.18290)], ORPO [[Hong et al., (2024)](https://huggingface.co/papers/2403.07691)], and KTO [[Ethayarajh et al., (2024)](https://huggingface.co/papers/2402.01306)] cut through that stack: preference optimization could work without a separate reward model, value model, or any online RL. Components that had looked fundamental suddenly looked optional.
 
-RLVR-style methods such as GRPO [[Shao et al., (2024)](https://arxiv.org/abs/2402.03300)] shifted the center again. On tasks like math, code, and tool use, rewards often come from verifiers or deterministic checks rather than learned reward models. Sampling and rollouts matter again, but the objects in the loop are no longer quite the ones PPO libraries were designed around.
+RLVR-style methods such as GRPO [[Shao et al., (2024)](https://huggingface.co/papers/2402.03300)] shifted the center again. On tasks like math, code, and tool use, rewards often come from verifiers or deterministic checks rather than learned reward models. Sampling and rollouts matter again, but the objects in the loop are no longer quite the ones PPO libraries were designed around.
 
 The lesson is not just that methods change. The definition of the core keeps changing with them. Strong assumptions here have a short half-life. This is probably why no post-training library is really stable yet.
 
