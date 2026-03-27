@@ -400,7 +400,7 @@ Taken together, these comparisons point to a clear role for TRL: a general-purpo
 
 By now, the logic of v1.0 should be clear: it is not a claim that post-training has stabilized. On the contrary, it is an acknowledgment that the field will keep shifting, and that we're confident that the library has the right shape to absorb whatever comes next. The question is not what comes **after** v1.0, but what’s next **for** v1.0.
 
-### Asyncronous GRPO
+### Asynchronous GRPO
 
 Today, GRPO in TRL is primarily used through a synchronous loop: generate rollouts, score them, then step the optimizer. That shape is simple and dependable, but it ties throughput to the slowest stage and leaves performance on the table at scale.
 
