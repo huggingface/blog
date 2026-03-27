@@ -1,22 +1,20 @@
 ---
-title: "Transformers.js v4 Preview: Now Available on NPM!"
+title: "Transformers.js v4: Now Available on NPM!"
 thumbnail: /blog/assets/transformersjs-v4/thumbnail.png
 authors:
   - user: Xenova
   - user: nico-martin
 ---
 
-# Transformers.js v4 Preview: Now Available on NPM!
+# Transformers.js v4: Now Available on NPM!
 
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/transformersjs-v4/thumbnail-wide.png" alt="Overview" width="100%">
 
-We're excited to announce that Transformers.js v4 (preview) is now available on NPM! After nearly a year of development (we started in March 2025 🤯), we're finally ready for you to test it out. Previously, users had to install v4 directly from source via GitHub, but now it's as simple as running a single command!
+We're excited to announce that Transformers.js v4 is now available on NPM! After nearly a year of development (we started in March 2025 🤯), we're finally ready for you to use it. 
 
 ```sh
-npm i @huggingface/transformers@next
+npm i @huggingface/transformers
 ```
-
-We'll continue publishing v4 releases under the `next` tag on NPM until the full release, so expect regular updates!
 
 ## Performance & Runtime Improvements
 
