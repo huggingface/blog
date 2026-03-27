@@ -1,5 +1,5 @@
 ---
-title: 'TRL v1: ...'
+title: 'TRL v1: Post-Training Library That Holds When the Field Invalidates Its Own Assumptions'
 thumbnail: /blog/assets/trl-v1/thumbnail.png
 authors:
 - user: qgallouedec
@@ -7,7 +7,7 @@ authors:
 - user: sergiopaniego
 ---
 
-# TRL v1: ...
+# TRL v1: Post-Training Library That Holds When the Field Invalidates Its Own Assumptions
 
 We’re releasing TRL v1 — and it marks a real shift in what TRL is. What started as a research codebase is becoming a library people can build on with clearer expectations around stability.
 This isn't just a version bump. It reflects the reality that TRL now powers production systems across the ecosystem — and the need to make that responsibility explicit.
