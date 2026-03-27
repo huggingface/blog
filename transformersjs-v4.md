@@ -66,7 +66,7 @@ We've migrated our build system from Webpack to esbuild, and the results have be
 
 ## New Library Features
 
-Beyond new model architectures, v4 introduces a couple of new library features.
+Version 4 also adds new library features that make it easier to build robust, production-ready applications.
 
 ### ModelRegistry
 
