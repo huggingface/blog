@@ -270,7 +270,7 @@ class KTOTrainer(Trainer):
     def some_common_method(self): ...
 ```
 
-another example:
+Another example:
 
 ```python
 # ❌ No
