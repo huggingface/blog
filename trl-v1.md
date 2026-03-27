@@ -1,5 +1,5 @@
 ---
-title: 'TRL v1: Post-Training Library That Holds When the Field Invalidates Its Own Assumptions'
+title: "TRL v1: Post-Training Library That Holds When the Field Invalidates Its Own Assumptions"
 thumbnail: /blog/assets/trl-v1/thumbnail.png
 authors:
 - user: qgallouedec
