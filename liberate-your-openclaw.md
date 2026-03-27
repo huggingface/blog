@@ -44,6 +44,7 @@ We’d recommend [GLM-5](https://huggingface.co/zai-org/GLM-5) because of its ex
 }
 ```
 
+Note: HF PRO subscribers get $2 free credits each month which applies to Inference Providers usage, learn more [here](https://huggingface.co/pro).
 # Local Setup
 
 Running models locally gives you full privacy, zero API costs, and the ability to experiment without rate limits. 
