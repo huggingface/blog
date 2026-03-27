@@ -428,7 +428,7 @@ If we get this right, the payoff is bigger than convenience. Beginners get guard
 
 Post-training doesn't converge. It shifts, and the next shift is already coming.
 
-v1.0 is not a claim that things have settled. It's an acknowledgment that they haven't yet, and a commitment that the library can be relied on anyway. Six years of evolving alongside the field shaped a design we're confident is ready for what comes next, whatever that turns out to be. The community and the downstream projects had already assumed that stability — v1.0 makes it real.
+v1.0 is not a claim that things have settled. It's an acknowledgment that they haven't yet, and a commitment that the library can be relied on anyway. Six years of evolving alongside the field — and alongside the hundreds of contributors who made it possible — shaped a design we're confident is ready for what comes next, whatever that turns out to be. The community and the downstream projects had already assumed that stability — v1.0 makes it real.
 
 ```bash
 pip install --upgrade trl
