@@ -30,8 +30,6 @@ For example, adopting the [com.microsoft.MultiHeadAttention](https://github.com/
 
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/transformersjs-v4/speedups.png" alt="Optimized ONNX Exports" width="100%">
 
-This update enables full offline support by caching WASM files locally in the browser, allowing users to run Transformers.js applications without an internet connection after the initial download.
-
 ## Repository Restructuring
 
 Developing a new major version gave us the opportunity to invest in the codebase and tackle long-overdue refactoring efforts.
@@ -68,7 +66,7 @@ Version 4 also adds new library features that make it easier to build robust, pr
 
 ### ModelRegistry
 
-The new `ModelRegistry` API is designed for production workflows. It provides explicit visibility into pipeline assets before loading anything: list required files with `get_pipeline_files`, inspect per-file metadata with `get_file_metadata` (needed to calculate total download size), check cache status with `is_pipeline_cached`, and clear cached artifacts with `clear_pipeline_cache`. You can also query available precision types for a model with `get_available_dtypes`. Based on this API, `progress_callback` now includes a `progress_total` event, making it easy to render end-to-end loading progress without manually aggregating per-file updates.
+The new `ModelRegistry` API is designed for production workflows. It provides explicit visibility into pipeline assets before loading anything: list required files with `get_pipeline_files`, inspect per-file metadata with `get_file_metadata` (quite useful to calculate total download size), check cache status with `is_pipeline_cached`, and clear cached artifacts with `clear_pipeline_cache`. You can also query available precision types for a model with `get_available_dtypes`. Based on this new API, `progress_callback` now includes a `progress_total` event, making it easy to render end-to-end loading progress without manually aggregating per-file updates.
 
 <details>
 <summary>See `ModelRegistry` examples</summary>
@@ -131,7 +129,7 @@ We also added new environment controls for model loading. `env.useWasmCache` ena
 `env.fetch` lets you provide a custom fetch implementation for use cases such as authenticated model access, custom headers, and abortable requests.
 
 <details>
-<summary>See environment examples</summary>
+<summary>See env examples</summary>
 
 ```javascript
 import { env } from "@huggingface/transformers";
@@ -212,7 +210,7 @@ We've made several quality-of-life improvements across the library. The type sys
 
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/transformersjs-v4/types.png" alt="Type Improvements" width="100%">
 
-Logging has been improved to give users more control and clearer feedback during model execution. Additionally, we've added support for larger models exceeding 8B parameters. In our tests, we've been able to run GPT-OSS 20B (q4f16) at ~60 tokens per second on an M4 Pro Max.
+Additionally, we've added support for larger models exceeding 8B parameters. In our tests, we've been able to run GPT-OSS 20B (q4f16) at ~60 tokens per second on an M4 Pro Max.
 
 ## Acknowledgements
 
