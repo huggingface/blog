@@ -64,6 +64,115 @@ Thanks to our new export strategy and ONNX Runtime's expanding support for custo
 
 We've migrated our build system from Webpack to esbuild, and the results have been incredible. Build times dropped from 2 seconds to just 200 milliseconds, a 10x improvement that makes development iteration significantly faster. Speed isn't the only benefit, though: bundle sizes also decreased by an average of 10% across all builds. The most notable improvement is in transformers.web.js, our default export, which is now 53% smaller, meaning faster downloads and quicker startup times for users.
 
+## New Library Features
+
+Beyond new model architectures, v4 introduces a couple of new library features.
+
+### ModelRegistry
+
+The new `ModelRegistry` API is designed for production workflows. It provides explicit visibility into pipeline assets before loading anything: list required files with `get_pipeline_files`, inspect per-file metadata with `get_file_metadata` (needed to calculate total download size), check cache status with `is_pipeline_cached`, and clear cached artifacts with `clear_pipeline_cache`. You can also query available precision types for a model with `get_available_dtypes`. Based on this API, `progress_callback` now includes a `progress_total` event, making it easy to render end-to-end loading progress without manually aggregating per-file updates.
+
+<details>
+<summary>See `ModelRegistry` examples</summary>
+
+```javascript
+import { ModelRegistry, pipeline } from "@huggingface/transformers";
+
+const modelId = "onnx-community/all-MiniLM-L6-v2-ONNX";
+const modelOptions = { dtype: "fp32" };
+
+const files = await ModelRegistry.get_pipeline_files(
+  "feature-extraction",
+  modelId,
+  modelOptions
+);
+// ['config.json', 'onnx/model.onnx', ..., 'tokenizer_config.json']
+
+const metadata = await Promise.all(
+  files.map(file => ModelRegistry.get_file_metadata(modelId, file))
+);
+
+const downloadSize = metadata.reduce((total, item) => total + item.size, 0);
+
+const cached = await ModelRegistry.is_pipeline_cached(
+  "feature-extraction",
+  modelId,
+  modelOptions
+);
+
+const dtypes = await ModelRegistry.get_available_dtypes(modelId);
+// ['fp32', 'fp16', 'q4', 'q4f16']
+
+if (cached) {
+  await ModelRegistry.clear_pipeline_cache(
+    "feature-extraction",
+    modelId,
+    modelOptions
+  );
+}
+
+const pipe = await pipeline(
+  "feature-extraction",
+  modelId,
+  {
+    progress_callback: e => {
+      if (e.status === "progress_total") {
+        console.log(`${Math.round(e.progress)}%`);
+      }
+    },
+  }
+);
+```
+
+</details>
+
+### New Environment Settings
+
+We also added new environment controls for model loading. `env.useWasmCache` enables caching of WASM runtime files (when cache storage is available), allowing applications to work fully offline after the initial load.
+
+`env.fetch` lets you provide a custom fetch implementation for use cases such as authenticated model access, custom headers, and abortable requests.
+
+<details>
+<summary>See environment examples</summary>
+
+```javascript
+import { env } from "@huggingface/transformers";
+
+env.useWasmCache = true;
+
+env.fetch = (url, options) =>
+  fetch(url, {
+    ...options,
+    headers: {
+      ...options?.headers,
+      Authorization: `Bearer ${MY_TOKEN}`,
+    },
+  });
+```
+
+</details>
+
+### Improved Logging Controls
+
+Finally, logging is easier to manage in real-world deployments. ONNX Runtime WebGPU warnings are now hidden by default, and you can set explicit verbosity levels for both Transformers.js and ONNX Runtime. This update, also driven by community feedback, keeps console output focused on actionable signals rather than low-value noise.
+
+<details>
+<summary>See `logLevel` example</summary>
+
+```javascript
+import { env, LogLevel } from "@huggingface/transformers";
+
+// LogLevel.DEBUG
+// LogLevel.INFO
+// LogLevel.WARNING
+// LogLevel.ERROR
+// LogLevel.NONE
+
+env.logLevel = LogLevel.WARNING;
+```
+
+</details>
+
 ## Standalone Tokenizers.js Library
 
 A frequent request from users was to extract the tokenization logic into a separate library, and with v4, that's exactly what we've done. [@huggingface/tokenizers](https://www.npmjs.com/package/@huggingface/tokenizers) is a complete refactor of the tokenization logic, designed to work seamlessly across browsers and server-side runtimes. At just 8.8kB (gzipped) with zero dependencies, it's incredibly lightweight while remaining fully type-safe.
