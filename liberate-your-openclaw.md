@@ -14,7 +14,7 @@ authors:
 
 # Liberate your OpenClaw 🦀
 
-Anthropic blocks access to Claude models in open agent platforms for Pro/Max subscribers.  Don’t worry though, there are great open models on Hugging Face to keep your agents running! Most of the time, at a fraction of the cost. 
+Anthropic is limiting access to Claude models in open agent platforms for Pro/Max subscribers.  Don’t worry though, there are great open models on Hugging Face to keep your agents running! Most of the time, at a fraction of the cost. 
 
 If you've been cut off and your OpenClaw, Pi, or Open Code agents need resuscitation, you can move them to open models in two ways:
 
