@@ -5177,3 +5177,13 @@
     - open-source
     - local-ai
     - openclaw
+
+- local: multi-agent
+  date: March 30, 2026
+  tags:
+    - agents
+    - training
+    - models
+    - open-source
+    - community
+    - research
