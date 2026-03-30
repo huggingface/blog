@@ -7,7 +7,9 @@ authors:
 
 # We made an AI lab of agents to train models
 
-tl;dr: a team of agents research papers, propose hypotheses, run parallel experiments, review runs, make improvements, and repeat.
+
+> [!NOTE]
+> tl;dr: a team of agents research papers, propose hypotheses, run parallel experiments, review runs, make improvements, and repeat.
 
 Most ML experiment infrastructure solves the execution problem; i.e. how to get code onto GPUs. An in many cases, code agents (opencode, claude, codex, etc.) have solved this problem well. If you're curious about running a single agent for ML experiments, check out [this blog post](https://huggingface.co/blog/hf-skills-training).
 
