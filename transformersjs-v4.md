@@ -10,7 +10,7 @@ authors:
 
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/transformersjs-v4/thumbnail-wide.png" alt="Overview" width="100%">
 
-We're excited to announce that Transformers.js v4 is now available on NPM! After nearly a year of development (we started in March 2025 🤯), we're finally ready for you to use it. 
+We're excited to announce that Transformers.js v4 is now available on NPM! After a year of development (we started in March 2025 🤯), we're finally ready for you to use it. 
 
 ```sh
 npm i @huggingface/transformers
