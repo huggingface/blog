@@ -20,7 +20,7 @@ This post tackles that problem by walking through a system to define a research 
 - an **execution plane** which we implemented in Hugging Face Jobs with managed H200 GPU based on `uv` scripts.
 - an **observability layer** which we implemented in Trackio to turn events and metrics into an open data layer and a dashboard.
 
-In practice, you could implement this in a number of different ways, what's important is an open infrastructure layer that can be used by any agent (like the hub).
+In practice, you could implement this in different ways, but what's important is an open infrastructure layer, like the Hugging Face Hub, that any agent can use.
 
 The code is open at [burtenshaw/autolab-gastown](https://github.com/burtenshaw/autolab-gastown) where we optimized a language model training benchmark based on Andrej Karpathy's [autoresearch](https://github.com/karpathy/autoresearch) project. Everything below comes from real waves of experiments (check out `2026-03-28-wave2` and `2026-03-29-wave3`).
 
