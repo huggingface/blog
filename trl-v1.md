@@ -1,5 +1,5 @@
 ---
-title: "TRL v1.0: Post-Training Library That Holds When the Field Invalidates Its Own Assumptions"
+title: "TRL v1.0: Post-Training Library Built to Move with the Field"
 thumbnail: /blog/assets/trl-v1/thumbnail.png
 authors:
 - user: qgallouedec
@@ -8,7 +8,7 @@ authors:
 - user: sergiopaniego
 ---
 
-# TRL v1.0: Post-Training Library That Holds When the Field Invalidates Its Own Assumptions
+# TRL v1.0: Post-Training Library Built to Move with the Field
 
 We’re releasing TRL v1.0, and it marks a real shift in what TRL is. What started as a research codebase has become a dependable library people build on, with clearer expectations around stability.
 This isn't just a version bump. It reflects the reality that TRL now powers production systems, and embraces that responsibility.
@@ -36,190 +36,7 @@ So what does it mean to build a library for a field that won't sit still? The an
 
 This is the environment in which TRL is downloaded 3 million times a month, and in which major downstream projects treat it as stable infrastructure. The field keeps shifting the ground, and at the same time, those users need things not to break.
 
-<div style="margin: 24px 0;">
-  <div id="pypi-downloads-chart" style="width: 100%; height: 460px;"></div>
-</div>
-
-<script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
-
-<script>
-  const data = [
-    {"week_start":"2023-03-20","downloads":"144"},
-    {"week_start":"2023-03-27","downloads":"749"},
-    {"week_start":"2023-04-03","downloads":"1058"},
-    {"week_start":"2023-04-10","downloads":"1030"},
-    {"week_start":"2023-04-17","downloads":"1483"},
-    {"week_start":"2023-04-24","downloads":"2584"},
-    {"week_start":"2023-05-01","downloads":"9082"},
-    {"week_start":"2023-05-08","downloads":"829"},
-    {"week_start":"2023-05-15","downloads":"1812"},
-    {"week_start":"2023-05-22","downloads":"2448"},
-    {"week_start":"2023-05-29","downloads":"1703"},
-    {"week_start":"2023-06-05","downloads":"2679"},
-    {"week_start":"2023-06-12","downloads":"4253"},
-    {"week_start":"2023-06-19","downloads":"5344"},
-    {"week_start":"2023-06-26","downloads":"6553"},
-    {"week_start":"2023-07-03","downloads":"5489"},
-    {"week_start":"2023-07-10","downloads":"6488"},
-    {"week_start":"2023-07-17","downloads":"11225"},
-    {"week_start":"2023-07-24","downloads":"17495"},
-    {"week_start":"2023-07-31","downloads":"20384"},
-    {"week_start":"2023-08-07","downloads":"22473"},
-    {"week_start":"2023-08-14","downloads":"23342"},
-    {"week_start":"2023-08-21","downloads":"24067"},
-    {"week_start":"2023-08-28","downloads":"29932"},
-    {"week_start":"2023-09-04","downloads":"29580"},
-    {"week_start":"2023-09-11","downloads":"27647"},
-    {"week_start":"2023-09-18","downloads":"30062"},
-    {"week_start":"2023-09-25","downloads":"28867"},
-    {"week_start":"2023-10-02","downloads":"27925"},
-    {"week_start":"2023-10-09","downloads":"30383"},
-    {"week_start":"2023-10-16","downloads":"31000"},
-    {"week_start":"2023-10-23","downloads":"28933"},
-    {"week_start":"2023-10-30","downloads":"30883"},
-    {"week_start":"2023-11-06","downloads":"32874"},
-    {"week_start":"2023-11-13","downloads":"33528"},
-    {"week_start":"2023-11-20","downloads":"35333"},
-    {"week_start":"2023-11-27","downloads":"40174"},
-    {"week_start":"2023-12-04","downloads":"41673"},
-    {"week_start":"2023-12-11","downloads":"42249"},
-    {"week_start":"2023-12-18","downloads":"39943"},
-    {"week_start":"2023-12-25","downloads":"30761"},
-    {"week_start":"2024-01-01","downloads":"38673"},
-    {"week_start":"2024-01-08","downloads":"46397"},
-    {"week_start":"2024-01-15","downloads":"50178"},
-    {"week_start":"2024-01-22","downloads":"52749"},
-    {"week_start":"2024-01-29","downloads":"53913"},
-    {"week_start":"2024-02-05","downloads":"55359"},
-    {"week_start":"2024-02-12","downloads":"67405"},
-    {"week_start":"2024-02-19","downloads":"75481"},
-    {"week_start":"2024-02-26","downloads":"89834"},
-    {"week_start":"2024-03-04","downloads":"82543"},
-    {"week_start":"2024-03-11","downloads":"79258"},
-    {"week_start":"2024-03-18","downloads":"79006"},
-    {"week_start":"2024-03-25","downloads":"87604"},
-    {"week_start":"2024-04-01","downloads":"86807"},
-    {"week_start":"2024-04-08","downloads":"101484"},
-    {"week_start":"2024-04-15","downloads":"104178"},
-    {"week_start":"2024-04-22","downloads":"119964"},
-    {"week_start":"2024-04-29","downloads":"115426"},
-    {"week_start":"2024-05-06","downloads":"118448"},
-    {"week_start":"2024-05-13","downloads":"132693"},
-    {"week_start":"2024-05-20","downloads":"119712"},
-    {"week_start":"2024-05-27","downloads":"107031"},
-    {"week_start":"2024-06-03","downloads":"114108"},
-    {"week_start":"2024-06-10","downloads":"113461"},
-    {"week_start":"2024-06-17","downloads":"122258"},
-    {"week_start":"2024-06-24","downloads":"122710"},
-    {"week_start":"2024-07-01","downloads":"113872"},
-    {"week_start":"2024-07-08","downloads":"130778"},
-    {"week_start":"2024-07-15","downloads":"127730"},
-    {"week_start":"2024-07-22","downloads":"150557"},
-    {"week_start":"2024-07-29","downloads":"211624"},
-    {"week_start":"2024-08-05","downloads":"139646"},
-    {"week_start":"2024-08-12","downloads":"128588"},
-    {"week_start":"2024-08-19","downloads":"132786"},
-    {"week_start":"2024-08-26","downloads":"135041"},
-    {"week_start":"2024-09-02","downloads":"133137"},
-    {"week_start":"2024-09-09","downloads":"156608"},
-    {"week_start":"2024-09-16","downloads":"141208"},
-    {"week_start":"2024-09-23","downloads":"161715"},
-    {"week_start":"2024-09-30","downloads":"144585"},
-    {"week_start":"2024-10-07","downloads":"165890"},
-    {"week_start":"2024-10-14","downloads":"184607"},
-    {"week_start":"2024-10-21","downloads":"178977"},
-    {"week_start":"2024-10-28","downloads":"197661"},
-    {"week_start":"2024-11-04","downloads":"195731"},
-    {"week_start":"2024-11-11","downloads":"209216"},
-    {"week_start":"2024-11-18","downloads":"213495"},
-    {"week_start":"2024-11-25","downloads":"189209"},
-    {"week_start":"2024-12-02","downloads":"194899"},
-    {"week_start":"2024-12-09","downloads":"203872"},
-    {"week_start":"2024-12-16","downloads":"188361"},
-    {"week_start":"2024-12-23","downloads":"158983"},
-    {"week_start":"2024-12-30","downloads":"163910"},
-    {"week_start":"2025-01-06","downloads":"218041"},
-    {"week_start":"2025-01-13","downloads":"234402"},
-    {"week_start":"2025-01-20","downloads":"211189"},
-    {"week_start":"2025-01-27","downloads":"212962"},
-    {"week_start":"2025-02-03","downloads":"245128"},
-    {"week_start":"2025-02-10","downloads":"259116"},
-    {"week_start":"2025-02-17","downloads":"288098"},
-    {"week_start":"2025-02-24","downloads":"272073"},
-    {"week_start":"2025-03-03","downloads":"290511"},
-    {"week_start":"2025-03-10","downloads":"303941"},
-    {"week_start":"2025-03-17","downloads":"298822"},
-    {"week_start":"2025-03-24","downloads":"318681"},
-    {"week_start":"2025-03-31","downloads":"300384"},
-    {"week_start":"2025-04-07","downloads":"322093"},
-    {"week_start":"2025-04-14","downloads":"310482"},
-    {"week_start":"2025-04-21","downloads":"325206"},
-    {"week_start":"2025-04-28","downloads":"342154"},
-    {"week_start":"2025-05-05","downloads":"292296"},
-    {"week_start":"2025-05-12","downloads":"315810"},
-    {"week_start":"2025-05-19","downloads":"310062"},
-    {"week_start":"2025-05-26","downloads":"287947"},
-    {"week_start":"2025-06-02","downloads":"329981"},
-    {"week_start":"2025-06-09","downloads":"289606"},
-    {"week_start":"2025-06-16","downloads":"294622"},
-    {"week_start":"2025-06-23","downloads":"320598"},
-    {"week_start":"2025-06-30","downloads":"337337"},
-    {"week_start":"2025-07-07","downloads":"441745"},
-    {"week_start":"2025-07-14","downloads":"386394"},
-    {"week_start":"2025-07-21","downloads":"464137"},
-    {"week_start":"2025-07-28","downloads":"426581"},
-    {"week_start":"2025-08-04","downloads":"425303"},
-    {"week_start":"2025-08-11","downloads":"395650"},
-    {"week_start":"2025-08-18","downloads":"390997"},
-    {"week_start":"2025-08-25","downloads":"382834"},
-    {"week_start":"2025-09-01","downloads":"372036"},
-    {"week_start":"2025-09-08","downloads":"402363"},
-    {"week_start":"2025-09-15","downloads":"526905"},
-    {"week_start":"2025-09-22","downloads":"465445"},
-    {"week_start":"2025-09-29","downloads":"462505"},
-    {"week_start":"2025-10-06","downloads":"382975"},
-    {"week_start":"2025-10-13","downloads":"414858"},
-    {"week_start":"2025-10-20","downloads":"426006"},
-    {"week_start":"2025-10-27","downloads":"598674"},
-    {"week_start":"2025-11-03","downloads":"618934"},
-    {"week_start":"2025-11-10","downloads":"688214"},
-    {"week_start":"2025-11-17","downloads":"590929"},
-    {"week_start":"2025-11-24","downloads":"478255"},
-    {"week_start":"2025-12-01","downloads":"614661"},
-    {"week_start":"2025-12-08","downloads":"576386"},
-    {"week_start":"2025-12-15","downloads":"556062"},
-    {"week_start":"2025-12-22","downloads":"420309"},
-    {"week_start":"2025-12-29","downloads":"360290"},
-    {"week_start":"2026-01-05","downloads":"492024"},
-    {"week_start":"2026-01-12","downloads":"492062"},
-    {"week_start":"2026-01-19","downloads":"498126"},
-    {"week_start":"2026-01-26","downloads":"481844"},
-    {"week_start":"2026-02-02","downloads":"537734"},
-    {"week_start":"2026-02-09","downloads":"559373"},
-    {"week_start":"2026-02-16","downloads":"545426"},
-    {"week_start":"2026-02-23","downloads":"612639"},
-    {"week_start":"2026-03-02","downloads":"678756"},
-    {"week_start":"2026-03-09","downloads":"674270"},
-    {"week_start":"2026-03-16","downloads":"775957"},
-  ];
-
-  const sorted = data.slice().sort((a, b) => new Date(a.week_start) - new Date(b.week_start));
-
-  const trace = {
-    x: sorted.map(d => d.week_start),
-    y: sorted.map(d => parseInt(d.downloads)),
-    mode: "lines",
-    name: "TRL",
-    line: { width: 2.5 }
-  };
-
-  Plotly.newPlot("pypi-downloads-chart", [trace], {
-    title: "Weekly PyPI downloads",
-    hovermode: "x unified",
-    paper_bgcolor: "white",
-    plot_bgcolor: "white"
-  }, { responsive: true, displayModeBar: false });
-</script>
+<iframe src="https://qgallouedec-trl-v1-pypi.static.hf.space" frameborder="0" width="100%"></iframe>
 
 ### A shift in nature: from code to contract
 
@@ -312,50 +129,7 @@ This approach favors explicit and modifiable usage over rigid frameworks: less m
 
 This is easier to see than to describe. Compare RLOO and GRPO: large parts of their implementation are duplicated almost line for line. That is not accidental, and it is not dead weight. These methods are close enough that keeping their code paths aligned makes them easier to read, easier to evolve, and cheaper to maintain.
 
-<div style="padding-bottom: 20px;">
-  <div id="trl_diff" style="width: 100%; height: 400px; border: 1px solid grey;"></div>
-</div>
-
-<script src="https://unpkg.com/monaco-editor@latest/min/vs/loader.js"></script>
-<script>
-  const proxy = URL.createObjectURL(
-    new Blob(
-      [`
-          self.MonacoEnvironment = {
-            baseUrl: 'https://unpkg.com/monaco-editor@latest/min/'
-          };
-          importScripts('https://unpkg.com/monaco-editor@latest/min/vs/base/worker/workerMain.js');
-        `],
-      { type: "text/javascript" }
-    )
-  );
-
-  window.MonacoEnvironment = { getWorkerUrl: () => proxy };
-
-  require.config({
-    paths: { vs: "https://unpkg.com/monaco-editor@latest/min/vs" }
-  });
-
-  require(["vs/editor/editor.main"], function () {
-    const diffEditor = monaco.editor.createDiffEditor(
-      document.getElementById("trl_diff"),
-      {
-        readOnly: true,
-        automaticLayout: true
-      }
-    );
-
-    Promise.all([
-      fetch("https://raw.githubusercontent.com/huggingface/trl/main/trl/trainer/grpo_trainer.py").then(r => r.text()),
-      fetch("https://raw.githubusercontent.com/huggingface/trl/main/trl/trainer/rloo_trainer.py").then(r => r.text())
-    ]).then(([originalTxt, modifiedTxt]) => {
-      diffEditor.setModel({
-        original: monaco.editor.createModel(originalTxt, "python"),
-        modified: monaco.editor.createModel(modifiedTxt, "python")
-      });
-    });
-  });
-</script>
+<iframe src="https://qgallouedec-trl-v1-grpo-vs-rloo.static.hf.space" frameborder="0" width="100%"></iframe>
 
 ## 3. Where TRL fits
 
