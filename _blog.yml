@@ -5168,8 +5168,18 @@
     - announcement
     - xet
 
-- local: trl-v1
+- local: liberate-your-openclaw
   date: March 27, 2026
+  tags:
+    - guide
+    - agents
+    - inference-providers
+    - open-source
+    - local-ai
+    - openclaw
+
+- local: trl-v1
+  date: March 31, 2026
   tags:
     - trl
     - reinforcement-learning
