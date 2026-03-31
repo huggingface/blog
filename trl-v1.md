@@ -4,6 +4,7 @@ thumbnail: /blog/assets/trl-v1/thumbnail.png
 authors:
 - user: qgallouedec
 - user: stevhliu
+- user: pcuenq
 - user: sergiopaniego
 ---
 
