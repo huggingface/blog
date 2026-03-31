@@ -381,6 +381,7 @@ Libraries like [Unsloth](https://github.com/unslothai/unsloth) and [Axolotl](htt
 | Preference post-training | 🟢 Yes (DPO, KTO, ORPO, CPO, SimPO, IPO, …) | 🟡 DPO only | 🔴 No | 🔴 No | 🔴 No | 🟢 Yes (DPO, SimPO, IPO, XPO) | 🔴 No (low-level primitives only) | 🟡 DPO, KTO, ORPO (via TRL) | 🟡 DPO only |
 | RL post-training | 🟢 Yes (PPO, GRPO, RLOO, …) | 🟢 Yes (PPO, REINFORCE++, GRPO, RLOO) | 🟢 Yes (PPO, GRPO, RLOO, REINFORCE++, DAPO, PRIME, …) | 🟢 Yes (async GRPO-style) | 🟢 Yes (GRPO, async) | 🟢 Yes (PPO, GRPO, Online DPO) | 🔴 No (low-level primitives only) | 🟠 PPO only (via TRL) | 🟠 PPO (GRPO in development) |
 | Agent / environment support | 🟢 Yes (flexible `environment_factory` in GRPO) | 🟢 Yes (flexible `AgentInstance` interface) | 🟢 Yes (flexible `BaseInteraction` interface) | 🟡 Partial (tied to Prime Intellect’s Environments Hub) | 🟡 Partial (built-in domains: fn_calling, miniwob, …) | 🔴 No | 🔴 No (low-level primitives only) | 🔴 No | 🔴 No |
+| Scalability | 🟡 Multi-node DeepSpeed/FSDP, no native TP | 🟢 Ray + DeepSpeed + vLLM TP at scale | 🟢 Megatron 3D parallelism, tested at 671B | 🟢 FSDP2 + TP/CP/EP, SLURM & K8s | 🟡 DeepSpeed/FSDP, no native training TP | 🔴 DeepSpeed ZeRO only, research-scale | 🟢 Managed service, handles large models | 🟡 FSDP2 + DeepSpeed, no native TP | 🟡 FSDP + PyTorch TP, no PP |
 
 ### Project health
 
@@ -422,7 +423,17 @@ Training is still too often driven by vibes. Loss curves go down, reward curves 
 
 One of the most important directions for TRL is to make training legible to software, not just to people. That means going beyond dashboards and raw metrics to produce explicit signals: is the policy improving, collapsing, over-optimizing the verifier, drifting off-distribution, or plateauing? The goal is for TRL to surface these patterns automatically, explain them clearly, and turn them into actions.
 
-If we get this right, the payoff is bigger than convenience. Beginners get guardrails instead of folklore. Advanced users get faster diagnosis and tighter iteration loops. And agents get something new entirely: a training stack they can inspect, reason about, and actively steer. That may end up being one of the most important upgrades in TRL v1.0: not just helping people run training, but making training interpretable enough to automate.
+The plan is to embed heuristics directly into the training loop and emit structured, actionable warnings — the kind a beginner can act on immediately and an agent can parse:
+
+```text
+[TRL] WARNING: VRAM utilization at 34%. Consider increasing per_device_train_batch_size from 4 to 16.
+...
+[TRL] WARNING: Group reward std is 0.01 (near zero). Advantage signal has collapsed. Consider revisiting your reward function to ensure it provides sufficient variance for learning.
+...
+[TRL] WARNING: Clip ratio outside [0.8, 1.2] for 43% of updates. Consider reducing the learning rate.
+```
+
+Not just logging what happened — reasoning about what it means and what to do next. Useful for beginners who need guardrails, and for agents that need a training stack they can actually automate.
 
 ## 5. Conclusion
 
