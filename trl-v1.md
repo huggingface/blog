@@ -36,7 +36,7 @@ So what does it mean to build a library for a field that won't sit still? The an
 
 This is the environment in which TRL is downloaded 3 million times a month, and in which major downstream projects treat it as stable infrastructure. The field keeps shifting the ground, and at the same time, those users need things not to break.
 
-<iframe src="https://qgallouedec-trl-v1-pypi.static.hf.space" frameborder="0" width="100%"></iframe>
+<iframe src="https://trl-lib-trl-v1-pypi.static.hf.space" frameborder="0" width="100%" height=400></iframe>
 
 ### A shift in nature: from code to contract
 
@@ -129,7 +129,7 @@ This approach favors explicit and modifiable usage over rigid frameworks: less m
 
 This is easier to see than to describe. Compare RLOO and GRPO: large parts of their implementation are duplicated almost line for line. That is not accidental, and it is not dead weight. These methods are close enough that keeping their code paths aligned makes them easier to read, easier to evolve, and cheaper to maintain.
 
-<iframe src="https://qgallouedec-trl-v1-grpo-vs-rloo.static.hf.space" frameborder="0" width="100%"></iframe>
+<iframe src="https://trl-lib-diff-view.static.hf.space" frameborder="0" width="100%" height="450"></iframe>
 
 ## 3. Where TRL fits
 
