@@ -5181,6 +5181,7 @@
 - local: upskiller-skill-invocation-env
   date: March 24, 2026
   tags:
-    - rl
-    - llm
     - open-source
+    - rl-environment
+    - agents
+    - skills
