@@ -554,7 +554,7 @@ For **open code** define a `~/.config/opencode/opencode.json`:
         "baseURL": "http://127.0.0.1:8080/v1"
       },
       "models": {
-        "gemma-4-<size>-it": {
+        "gemma-4-26b-4b-it": {
           "name": "Gemma 4 (local)",
           "limit": {
             "context": 128000,
