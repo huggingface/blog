@@ -679,7 +679,7 @@ job = job.submit(
 )
 ```
 
-You can find the complete example in the "Hugging Face on Google Cloud" docs at https://hf.co/docs/google-cloud/examples/fine-tune-gemma-4.
+You can find the complete example in the "Hugging Face on Google Cloud" docs at https://hf.co/docs/google-cloud/examples/vertex-ai-notebooks-fine-tune-gemma-4.
 
 ## Fine-tuning with Unsloth Studio
 
