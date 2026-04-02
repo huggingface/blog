@@ -29,10 +29,10 @@ We collaborated with Google and the community to make them available everywhere:
 - [Deploy Anywhere](#deploy-anywhere)
   - [transformers](#transformers)
   - [Llama.cpp](#llamacpp)
+  - [Plug in to your local agent](#Plug-in-your-local-agent)
   - [transformers.js](#transformersjs)
   - [MLX](#mlx)
   - [Mistral.rs](#mistralrs)
-  - [Plug in to your local agent](#Plug-in-your-local-agent)
 - [Fine-tuning & Demos](#fine-tuning--demos)
   - [Fine-tuning with TRL](#fine-tuning-with-trl)
     - [Fine-tuning with TRL on Vertex AI](#fine-tuning-with-trl-on-vertex-ai)
@@ -500,6 +500,73 @@ llama-server -hf ggml-org/gemma-4-E2B-it-GGUF:Q4_K_M
 
 Check out this link [for more](https://huggingface.co/ggml-org/gemma-4-E2B-it-GGUF?local-app=llama.cpp) options on combining llama.cpp with different coding agents and local apps. Find all the GGUF checkpoints [in this collection](https://huggingface.co/collections/ggml-org/gemma-4).
 
+## Plug in your local agent
+
+We worked on making sure the new models work locally with agents like **openclaw, hermes, pi, and open code**. All thanks to llama.cpp! Feel free to tell your users to run this to try them right away at launch.
+
+First, start your local server:
+
+```
+llama-server -hf ggml-org/gemma-4-26b-a4b-it-GGUF:Q4_K_M
+```
+
+For **hermes:**
+
+```shell
+hermes model
+```
+
+For **openclaw:**
+
+```shell
+openclaw onboard
+```
+
+For **pi** define a `~/.pi/agent/models.json`:
+
+```json
+{
+  "providers": {
+    "llama-cpp": {
+      "baseUrl": "http://localhost:8080/v1",	
+      "api": "openai-completions",
+      "apiKey": "none",
+      "models": [
+        {
+          "id": "ggml-org-gemma-4-26b-4b-gguf"
+        }
+      ]
+    }
+  }
+}
+```
+
+For **open code** define a `~/.config/opencode/opencode.json`:
+
+```json
+{
+  "$schema": "https://opencode.ai/config.json",
+  "provider": {
+    "llama.cpp": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "llama-server (local)",
+      "options": {
+        "baseURL": "http://127.0.0.1:8080/v1"
+      },
+      "models": {
+        "gemma-4-26b-4b-it": {
+          "name": "Gemma 4 (local)",
+          "limit": {
+            "context": 128000,
+            "output": 8192
+          }
+        }
+      }
+    }
+  }
+}
+```
+
 ## transformers.js
 
 transformers.js enables running Gemma 4 right inside browser. You can check out the model card to see text-only, image & text, audio & text inference in detail [here](https://huggingface.co/onnx-community/gemma-4-E2B-it-ONNX#transformersjs-javascript). We also shipped a demo for you to test the model [here](https://huggingface.co/webml-community/Gemma-4-WebGPU).
@@ -632,72 +699,6 @@ unsloth studio -H 0.0.0.0 -p 8888
 
 Then select any of the Gemma 4 models from the hub.
 
-## Plug in your local agent
-
-We worked on making sure the new models work locally with agents like **openclaw, hermes, pi, and open code**. All thanks to llama.cpp! Feel free to tell your users to run this to try them right away at launch.
-
-First, start your local server:
-
-```
-llama-server -hf ggml-org/gemma-4-26b-a4b-it-GGUF:Q4_K_M
-```
-
-For **hermes:**
-
-```shell
-hermes model
-```
-
-For **openclaw:**
-
-```shell
-openclaw onboard
-```
-
-For **pi** define a `~/.pi/agent/models.json`:
-
-```json
-{
-  "providers": {
-    "llama-cpp": {
-      "baseUrl": "http://localhost:8080/v1",	
-      "api": "openai-completions",
-      "apiKey": "none",
-      "models": [
-        {
-          "id": "ggml-org-gemma-4-26b-a4b-gguf"
-        }
-      ]
-    }
-  }
-}
-```
-
-For **open code** define a `~/.config/opencode/opencode.json`:
-
-```json
-{
-  "$schema": "https://opencode.ai/config.json",
-  "provider": {
-    "llama.cpp": {
-      "npm": "@ai-sdk/openai-compatible",
-      "name": "llama-server (local)",
-      "options": {
-        "baseURL": "http://127.0.0.1:8080/v1"
-      },
-      "models": {
-        "gemma-4-26b-4b-it": {
-          "name": "Gemma 4 (local)",
-          "limit": {
-            "context": 128000,
-            "output": 8192
-          }
-        }
-      }
-    }
-  }
-}
-```
 
 ## Try Gemma 4
 
