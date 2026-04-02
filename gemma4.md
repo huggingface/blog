@@ -714,16 +714,14 @@ We have shipped demos for you to try different Gemma 4 models. We include demos 
 
 ## Benchmark Results
 
-Gemma 4 models demonstrate exceptional performance across diverse benchmarks, from reasoning and coding to vision and long-context tasks. The graphs below show Gemma 4's competitive performance compared to frontier models:
+Gemma 4 models demonstrate exceptional performance across diverse benchmarks, from reasoning and coding to vision and long-context tasks. The graph below shows model performance vs size, with Gemma 4 models forming an impressive Pareto frontier:
 
-<div style="display: flex; gap: 20px; justify-content: center; align-items: center; flex-wrap: wrap;">
+<div style="display: flex; gap: 20px; justify-content: center; align-items: flex-start; flex-wrap: wrap;">
   <figure style="flex: 1; min-width: 300px; text-align: center;">
-    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/g4-blog/g4_graph.png" alt="Gemma 4 Performance vs Size" style="width: 100%; max-width: 500px;">
-    <figcaption>Model Performance vs Size - Pareto Frontier</figcaption>
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/g4-blog/g4_graph.png" alt="Gemma 4 Performance vs Size" style="width: 100%; height: 400px; object-fit: contain;">
   </figure>
   <figure style="flex: 1; min-width: 300px; text-align: center;">
-    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/g4-blog/g4_graph_2.png" alt="Gemma 4 Arena Elo Score Comparison" style="width: 100%; max-width: 500px;">
-    <figcaption>Arena Elo Score Comparison with Frontier Models</figcaption>
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/g4-blog/g4_graph_2.png" alt="Gemma 4 Arena Elo Score Comparison" style="width: 100%; height: 400px; object-fit: contain;">
   </figure>
 </div>
 
