@@ -38,6 +38,7 @@ We collaborated with Google and the community to make them available everywhere:
     - [Fine-tuning with TRL on Vertex AI](#fine-tuning-with-trl-on-vertex-ai)
   - [Fine-tuning with Unsloth Studio](#fine-tuning-with-unsloth-studio)
 - [Try Gemma 4](#try-gemma-4)
+- [Benchmark Results](#benchmark-results)
 - [Acknowledgements](#acknowledgements)
 
 # What is new with Gemma 4?
@@ -57,7 +58,7 @@ Gemma 4 comes in four sizes, all base and instruction fine-tuned:
 
 Gemma 4 leverages several architecture components used in previous Gemma versions and other open models, and leaves out complex or inconclusive features such as Altup. The combination is a mix designed to be highly compatible across libraries and devices, that can efficiently support long context and agentic use cases, whilst being ideal for quantization.
 
-With this feature mix (and the undisclosed training data or recipe), the 31B dense model achieves an estimated LMArena score (text only) of 1452, while the 26B MoE reaches 1441 with just 4B active parameters 🤯. To put this in context, these scores are more or less the same as the recent GLM-5 or Kimi K2.5, but with ~30 times less parameters. As we'll see, multimodal operation is comparatively as good as text generation, at least in informal and subjective tests.
+As shown in the benchmarks above, this feature mix (combined with the training data and recipe) enables the 31B dense model to achieve an estimated LMArena score (text only) of 1452, while the 26B MoE reaches 1441 with just 4B active parameters 🤯. As we'll see, multimodal operation is comparatively as good as text generation, at least in informal and subjective tests.
 
 These are the main architecture characteristics in Gemma 4:
 
@@ -707,6 +708,39 @@ Then select any of the Gemma 4 models from the hub.
 We have shipped demos for you to try different Gemma 4 models. We include demos based on transformers implementation for [E4B](https://huggingface.co/spaces/huggingface-projects/gemma-4-e4b-it), [26B/A4B](https://huggingface.co/spaces/huggingface-projects/gemma-4-26b-a4b-it), and dense [31B](https://huggingface.co/spaces/huggingface-projects/gemma-4-31b-it) models, as well as a [WebGPU](https://huggingface.co/webml-community/Gemma-4-WebGPU) demo with transformers.js 🚀
 
 <iframe width="560" height="315" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/g4-blog/webgpu_demo.mp4" title="WebGPU Demo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen> </iframe>
+
+## Benchmark Results
+
+Gemma 4 models demonstrate exceptional performance across diverse benchmarks, from reasoning and coding to vision and long-context tasks. The graph below shows model performance vs size, with Gemma 4 models forming an impressive Pareto frontier:
+
+![Model Performance vs Size](https://huggingface.co/datasets/SaylorTwift/gemma4-blog-images/resolve/main/g4_graph.png)
+
+Here are detailed benchmark results for the instruction-tuned models:
+
+| Benchmark | Gemma 4 31B | Gemma 4 26B A4B | Gemma 4 E4B | Gemma 4 E2B | Gemma 3 27B (no think) |
+|-----------|-------------|-----------------|-------------|-------------|------------------------|
+| **Reasoning & Knowledge** |
+| MMLU Pro | [85.2%](https://huggingface.co/datasets/TIGER-Lab/MMLU-Pro?eval_result=google/gemma-4-31B) | [82.6%](https://huggingface.co/datasets/TIGER-Lab/MMLU-Pro?eval_result=google/gemma-4-26B-A4B) | [69.4%](https://huggingface.co/datasets/TIGER-Lab/MMLU-Pro?eval_result=google/gemma-4-E4B) | [60.0%](https://huggingface.co/datasets/TIGER-Lab/MMLU-Pro?eval_result=google/gemma-4-E2B) | 67.6% |
+| AIME 2026 no tools | [89.2%](https://huggingface.co/datasets/MathArena/aime_2026?eval_result=google/gemma-4-31B) | [88.3%](https://huggingface.co/datasets/MathArena/aime_2026?eval_result=google/gemma-4-26B-A4B) | [42.5%](https://huggingface.co/datasets/MathArena/aime_2026?eval_result=google/gemma-4-E4B) | [37.5%](https://huggingface.co/datasets/MathArena/aime_2026?eval_result=google/gemma-4-E2B) | 20.8% |
+| GPQA Diamond | [84.3%](https://huggingface.co/datasets/Idavidrein/gpqa?eval_result=google/gemma-4-31B) | [82.3%](https://huggingface.co/datasets/Idavidrein/gpqa?eval_result=google/gemma-4-26B-A4B) | [58.6%](https://huggingface.co/datasets/Idavidrein/gpqa?eval_result=google/gemma-4-E4B) | [43.4%](https://huggingface.co/datasets/Idavidrein/gpqa?eval_result=google/gemma-4-E2B) | 42.4% |
+| Tau2 (average over 3) | 76.9% | 68.2% | 42.2% | 24.5% | 16.2% |
+| BigBench Extra Hard | 74.4% | 64.8% | 33.1% | 21.9% | 19.3% |
+| MMMLU | 88.4% | 86.3% | 76.6% | 67.4% | 70.7% |
+| **Coding** |
+| LiveCodeBench v6 | 80.0% | 77.1% | 52.0% | 44.0% | 29.1% |
+| Codeforces ELO | 2150 | 1718 | 940 | 633 | 110 |
+| HLE no tools | [19.5%](https://huggingface.co/datasets/cais/hle?eval_result=google/gemma-4-31B) | [8.7%](https://huggingface.co/datasets/cais/hle?eval_result=google/gemma-4-26B-A4B) | - | - | - |
+| HLE with search | [26.5%](https://huggingface.co/datasets/cais/hle?eval_result=google/gemma-4-31B) | [17.2%](https://huggingface.co/datasets/cais/hle?eval_result=google/gemma-4-26B-A4B) | - | - | - |
+| **Vision** |
+| MMMU Pro | 76.9% | 73.8% | 52.6% | 44.2% | 49.7% |
+| OmniDocBench 1.5 (edit distance) | 0.131 | 0.149 | 0.181 | 0.290 | 0.365 |
+| MATH-Vision | 85.6% | 82.4% | 59.5% | 52.4% | 46.0% |
+| MedXPertQA MM | 61.3% | 58.1% | 28.7% | 23.5% | - |
+| **Audio** |
+| CoVoST | - | - | 35.54 | 33.47 | - |
+| FLEURS (lower is better) | - | - | 0.08 | 0.09 | - |
+| **Long Context** |
+| MRCR v2 8 needle 128k (average) | 66.4% | 44.1% | 25.4% | 19.1% | 13.5% |
 
 ## Acknowledgements
 
