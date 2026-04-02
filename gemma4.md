@@ -639,7 +639,7 @@ We worked on making sure the new models work locally with agents like **openclaw
 First, start your local server:
 
 ```
-llama-server -hf [model url from https://huggingface.co/ggml-org]
+llama-server -hf ggml-org/gemma-4-26b-a4b-it-GGUF:Q4_K_M
 ```
 
 For **hermes:**
@@ -665,7 +665,7 @@ For **pi** define a `~/.pi/agent/models.json`:
       "apiKey": "none",
       "models": [
         {
-          "id": "ggml-org-gemma-4-<size>-gguf"
+          "id": "ggml-org-gemma-4-26b-a4b-gguf"
         }
       ]
     }
@@ -686,7 +686,7 @@ For **open code** define a `~/.config/opencode/opencode.json`:
         "baseURL": "http://127.0.0.1:8080/v1"
       },
       "models": {
-        "gemma-4-<size>-it": {
+        "gemma-4-26b-4b-it": {
           "name": "Gemma 4 (local)",
           "limit": {
             "context": 128000,
