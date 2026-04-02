@@ -5186,3 +5186,13 @@
     - announcement
     - open-source
     - v1
+
+- local: gemma4
+  date: April 2, 2026
+  tags:
+    - multimodal
+    - on-device
+    - gemma4
+    - guide
+    - moe
+    - google
