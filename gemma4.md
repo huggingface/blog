@@ -57,7 +57,7 @@ Gemma 4 comes in four sizes, all base and instruction fine-tuned:
 
 Gemma 4 leverages several architecture components used in previous Gemma versions and other open models, and leaves out complex or inconclusive features such as Altup. The combination is a mix designed to be highly compatible across libraries and devices, that can efficiently support long context and agentic use cases, whilst being ideal for quantization.
 
-With this feature mix (and the undisclosed training data or recipe), the 31B dense model achieves an estimated LMArena score (text only) of 1452, while the 26B MoE reaches 1441 with just 4B active parameters 🤯. -To put this in context, these scores are more or less the same as the recent GLM-5 or Kimi K2.5, but with ~30 times less parameters. As we'll see, multimodal operation is comparatively as good as text generation, at least in informal and subjective tests.
+With this feature mix (and the undisclosed training data or recipe), the 31B dense model achieves an estimated LMArena score (text only) of 1452, while the 26B MoE reaches 1441 with just 4B active parameters 🤯. To put this in context, these scores are more or less the same as the recent GLM-5 or Kimi K2.5, but with ~30 times less parameters. As we'll see, multimodal operation is comparatively as good as text generation, at least in informal and subjective tests.
 
 These are the main architecture characteristics in Gemma 4:
 
