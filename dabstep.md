@@ -12,6 +12,7 @@ authors:
   guest: True
 - user: lvwerra
 - user: thomwolf
+- user: m-ric
 ---
 
 # DABStep: Data Agent Benchmark for Multi-step Reasoning
