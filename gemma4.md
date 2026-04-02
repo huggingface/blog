@@ -8,6 +8,7 @@ authors:
 - user: burtenshaw 
 - user: Steveeeeeeen
 - user: alvarobartt
+- user: SaylorTwift
 ---
 
 # Welcome Gemma 4: Frontier multimodal intelligence on device
