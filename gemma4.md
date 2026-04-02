@@ -495,7 +495,11 @@ winget install llama.cpp # Windows
 You can then start a server compatible with the OpenAI API Replace the quantization scheme at the end of the command with the precision of your choice.
 
 ```bash
-llama-server -hf ggml-org/gemma-4-E2B-it-GGUF:Q4_K_M
+# use one of the models as follow:
+llama-server -hf ggml-org/gemma-4-E2B-it-GGUF
+llama-server -hf ggml-org/gemma-4-E4B-it-GGUF
+llama-server -hf ggml-org/gemma-4-26B-A4B-it-GGUF
+llama-server -hf ggml-org/gemma-4-31B-it-GGUF
 ```
 
 Check out this link [for more](https://huggingface.co/ggml-org/gemma-4-E2B-it-GGUF?local-app=llama.cpp) options on combining llama.cpp with different coding agents and local apps. Find all the GGUF checkpoints [in this collection](https://huggingface.co/collections/ggml-org/gemma-4).
