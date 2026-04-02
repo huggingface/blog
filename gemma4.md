@@ -104,7 +104,7 @@ We visualize the outputs below for your convenience. We parse the bounding boxes
 
 ### Object Detection
 
-We test models to detect everyday objects, here we ask them to detect the bike and compare different model outputs. As in the previous case, we parse the bounding box from the json and translate to image space coordinates. Again, we resize the width and height of the images to multiples of 48.
+We test models to detect everyday objects, here we ask them to detect the bike and compare different model outputs. As in the previous case, we parse the bounding box from the json and translate to image space coordinates.
 
 | E2B | E4B | 26B/A3B | 31B |
 | :---- | :---- | :---- | :---- |
