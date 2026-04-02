@@ -33,6 +33,7 @@ for (const lang of ["", "zh/"]) {
         local: z.enum([...localMdFiles] as [string, ...string[]]),
         date: z.string(),
         tags: z.array(z.string()),
+        pinned: z.boolean().optional(),
       }).strict(),
     ).parse(parse(Deno.readTextFileSync("../" + relativePath)));
   }
