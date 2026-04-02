@@ -92,7 +92,7 @@ We test Gemma-4 on GUI element detection and pointing across different sizes, wi
 
 ![Image](https://huggingface.co/datasets/merve/vlm_test_images/resolve/main/food_resized.png)
 
-With this prompt, the model natively responds in JSON format with the detected bounding boxes - no need for specific instructions or grammar-constrained generation. We found the coordinates refer to an image size of 1000x1000, relative to the input dimensions. To improve the generations, we resize images to multiples of 48 for width and height.
+With this prompt, the model natively responds in JSON format with the detected bounding boxes - no need for specific instructions or grammar-constrained generation. We found the coordinates refer to an image size of 1000x1000, relative to the input dimensions.
 
 We visualize the outputs below for your convenience. We parse the bounding boxes from the returned JSON: ```json\n[\n  {"box_2d": [171, 75, 245, 308], "label": "view recipe element"}\n]\n```
 
