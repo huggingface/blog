@@ -507,7 +507,7 @@ We worked on making sure the new models work locally with agents like **openclaw
 First, start your local server:
 
 ```
-llama-server -hf [model url from https://huggingface.co/ggml-org]
+llama-server -hf ggml-org/gemma-4-26b-a4b-it-GGUF:Q4_K_M
 ```
 
 For **hermes:**
