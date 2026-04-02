@@ -3,11 +3,11 @@ title: "Welcome Gemma 4: Frontier multimodal intelligence on device"
 thumbnail: /blog/assets/gemma4/thumbnail.png
 authors:
 - user: merve
-- pcuenq
-- sergiopaniego
-- burtenshaw 
-- Steveeeeeeen
-- alvarobartt
+- user: pcuenq
+- user: sergiopaniego
+- user: burtenshaw 
+- user: Steveeeeeeen
+- user: alvarobartt
 ---
 
 # Welcome Gemma 4: Frontier multimodal intelligence on device
