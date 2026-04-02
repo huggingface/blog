@@ -533,7 +533,7 @@ For **pi** define a `~/.pi/agent/models.json`:
       "apiKey": "none",
       "models": [
         {
-          "id": "ggml-org-gemma-4-<size>-gguf"
+          "id": "ggml-org-gemma-4-26b-4b-gguf"
         }
       ]
     }
