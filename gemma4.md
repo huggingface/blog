@@ -82,7 +82,7 @@ In practice, this has a minimal impact on quality while being much more efficien
 
 We saw in our tests that Gemma 4 supports comprehensive multimodal capabilities out of the box. We don't know what was the training mix, but we had success using it for tasks such as OCR, speech-to-text, object detection, or pointing. It also supports text-only and multimodal function calling, reasoning, code completion and correction.
 
-Here, we show a few inference examples across different model sizes. We encourage you to try the demos and share them below this blog!
+Here, we show a few inference examples across different model sizes. You can run them conveniently with [this notebook](https://github.com/huggingface/huggingface-gemma-recipes/blob/main/notebooks/Gemma4_(E2B)-Multimodal.ipynb). We encourage you to try the demos and share them below this blog!
 
 ### Object Detection and Pointing
 
@@ -495,7 +495,7 @@ winget install llama.cpp # Windows
 You can then start a server compatible with the OpenAI API Replace the quantization scheme at the end of the command with the precision of your choice.
 
 ```bash
-llama-server -hf ggml-org/gemma-4-E2B-it-GGUF:Q4_K_M
+llama-server -hf ggml-org/gemma-4-E2B-it-GGUF
 ```
 
 Check out this link [for more](https://huggingface.co/ggml-org/gemma-4-E2B-it-GGUF?local-app=llama.cpp) options on combining llama.cpp with different coding agents and local apps. Find all the GGUF checkpoints [in this collection](https://huggingface.co/collections/ggml-org/gemma-4).
@@ -644,6 +644,8 @@ python examples/scripts/openenv/carla_vlm_gemma.py \
 			https://sergiopaniego-carla-env-2.hf.space \
 	--model google/gemma-4-E2B-it
 ```
+
+Find the example [here](https://github.com/huggingface/huggingface-gemma-recipes/blob/main/scripts/carla_vlm_gemma.py).
 
 ### Fine-tuning with TRL on Vertex AI
 
