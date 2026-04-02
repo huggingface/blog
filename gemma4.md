@@ -716,10 +716,16 @@ We have shipped demos for you to try different Gemma 4 models. We include demos 
 
 Gemma 4 models demonstrate exceptional performance across diverse benchmarks, from reasoning and coding to vision and long-context tasks. The graph below shows model performance vs size, with Gemma 4 models forming an impressive Pareto frontier:
 
-<figure class="image text-center">
-  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/g4-blog/g4_graph.png" alt="Gemma 4 Performance vs Size">
-  <figcaption> Source: Google (https://blog.google/innovation-and-ai/technology/developers-tools/gemma-4/) </figcaption>
-</figure>
+<div style="display: flex; gap: 20px; justify-content: center; align-items: flex-start; flex-wrap: wrap;">
+  <figure style="flex: 1; min-width: 300px; text-align: center;">
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/g4-blog/g4_graph.png" alt="Gemma 4 Performance vs Size" style="width: 100%; height: 400px; object-fit: contain;">
+  </figure>
+  <figure style="flex: 1; min-width: 300px; text-align: center;">
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/g4-blog/g4_graph_2.png" alt="Gemma 4 Arena Elo Score Comparison" style="width: 100%; height: 400px; object-fit: contain;">
+  </figure>
+</div>
+
+<p style="text-align: center; font-size: 0.9em; color: #666;">Source: Google (<a href="https://blog.google/innovation-and-ai/technology/developers-tools/gemma-4/">blog.google</a>)</p>
 
 Here are detailed benchmark results for the instruction-tuned models:
 
