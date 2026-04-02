@@ -14,7 +14,7 @@ authors:
 
 The Gemma 4 family of multimodal models by Google DeepMind is out on Hugging Face, with support for your favorite agents, inference engines, and fine-tuning libraries 🤗
 
-These models are the real deal: truly open with Apache 2 licenses, high quality with pareto frontier arena scores , multimodal including audio, and sizes you can use _everywhere_ including on-device. Gemma 4 builds on advances in previous families and makes them click together. In our tests with pre-release checkpoints we have been impressed by their capabilities, to the extent that we struggled to find good fine-tuning examples because they are _so good_ out of the box.
+These models are the real deal: truly open with Apache 2 licenses, high quality with pareto frontier arena scores, multimodal including audio, and sizes you can use _everywhere_ including on-device. Gemma 4 builds on advances from previous families and makes them click together. In our tests with pre-release checkpoints we have been impressed by their capabilities, to the extent that we struggled to find good fine-tuning examples because they are _so good_ out of the box.
 
 We collaborated with Google and the community to make them available everywhere: transformers, llama.cpp, MLX, WebGPU, Rust; you name it. This blog post will show you how to build with [your favorite tools](https://huggingface.co/collections/google/gemma-4) so let us know what you think!
 
