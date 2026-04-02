@@ -90,7 +90,7 @@ Here, we show a few inference examples across different model sizes. You can run
 
 ### GUI detection
 
-We test Gemma-4 on GUI element detection and pointing across different sizes, with the following image and text prompt: "What's the bounding box for the "view recipe" element in the image?"
+We test Gemma 4 on GUI element detection and pointing across different sizes, with the following image and text prompt: "What's the bounding box for the "view recipe" element in the image?"
 
 ![Image](https://huggingface.co/datasets/merve/vlm_test_images/resolve/main/food_resized.png)
 
@@ -205,8 +205,8 @@ print(result["content"])
 
 ### Captioning
 
-We have tested all models on captioning. All checkpoints perform very well in capturing nuances accurately in complex sceneries.
-Here's the image prompt we use with text prompt "Write single detailed caption for this image.".
+We have tested all models on captioning. All checkpoints perform very well and accurately capture nuance in complex scenerios.
+Here's the image we use, with the prompt "Write single detailed caption for this image.".
 
 ![image](https://huggingface.co/datasets/merve/vlm_test_images/resolve/main/bird.png)
 
@@ -387,17 +387,17 @@ print(result["content"])
 
 # Deploy Anywhere
 
-Gemma 4 comes with day-0 support for many open-source inference engines. We also release ONNX checkpoints that can run on many hardware backends, allowing use cases on edge devices or in browser!
+Gemma 4 comes with day-0 support for many open-source inference engines, and is ideal for tool calling and agents! We also release ONNX checkpoints that can run on many hardware backends, allowing use cases on edge devices or in browser!
 
 ## transformers
 
-Gemma 4 comes with first-class transformers support from the get-go 🤗. This integration allows using the model with other libraries like bitsandbytes, PEFT and TRL. Make sure to install latest version of transformers.
+Gemma 4 comes with first-class transformers support from the get-go 🤗. This integration allows using the model with other libraries like bitsandbytes, PEFT and TRL. Make sure to install the latest version of transformers.
 
 ```bash
 pip install -U transformers
 ```
 
-The easiest way to infer with small Gemma 4 models is through the any-to-any pipeline. You can initialize it as follows.
+The easiest way to infer with the small Gemma 4 models is through the `any-to-any` pipeline. You can initialize it as follows.
 
 ```py
 from transformers import pipeline
@@ -424,7 +424,7 @@ output[0]["generated_text"]
 # Based on the image, which appears to show a magnificent, ornate **Buddhist temple or pagoda**, likely in Southeast Asia (such as Thailand, Myanmar, or Cambodia), here is some general travel advice..
 ```
 
-When inferring with videos with audios, you can use `load_audio_from_video` argument.
+When inferring with videos, you can include the audio track using the `load_audio_from_video` argument.
 
 ```python
 messages = [
@@ -442,7 +442,7 @@ messages = [
 pipe(messages, load_audio_from_video=True)
 ```
 
-Going a level lower, you can load Gemma 4 using AutoModelForMultimodalLM class, especially useful for fine-tuning. The built-in chat template takes care of formatting the inputs correctly, please make sure you use it to prevent subtle mistakes when building it manually.
+Going a level lower, you can load Gemma 4 using the `AutoModelForMultimodalLM` class, especially useful for fine-tuning. The built-in chat template takes care of formatting the inputs correctly, please make sure you use it to prevent subtle mistakes when building the prompt manually.
 
 <details>
 <summary>Inference code</summary>
@@ -504,7 +504,7 @@ Check out this link [for more](https://huggingface.co/ggml-org/gemma-4-E2B-it-GG
 
 ## Plug in your local agent
 
-We worked on making sure the new models work locally with agents like **openclaw, hermes, pi, and open code**. All thanks to llama.cpp! Feel free to tell your users to run this to try them right away at launch.
+We worked on making sure the new models work locally with agents like **openclaw, hermes, pi, and open code**. All thanks to llama.cpp! Run the following to try Gemma 4 right away.
 
 First, start your local server:
 
@@ -571,7 +571,7 @@ For **open code** define a `~/.config/opencode/opencode.json`:
 
 ## transformers.js
 
-transformers.js enables running Gemma 4 right inside browser. You can check out the model card to see text-only, image & text, audio & text inference in detail [here](https://huggingface.co/onnx-community/gemma-4-E2B-it-ONNX#transformersjs-javascript). We also shipped a demo for you to test the model [here](https://huggingface.co/webml-community/Gemma-4-WebGPU).
+transformers.js enables running Gemma 4 right inside browser. You can check out the model card to see text-only, image & text, audio & text inference in detail [here](https://huggingface.co/onnx-community/gemma-4-E2B-it-ONNX#transformersjs-javascript). We also shipped a demo for you to test the model [here](https://huggingface.co/spaces/webml-community/Gemma-4-WebGPU).
 
 ## MLX
 
@@ -626,7 +626,7 @@ mistralrs run -m google/gemma-4-E4B-it --isq 8 --audio audio.mp3 -i "Transcribe 
 
 Find all models [in this collection](https://huggingface.co/collections/mistralrs-community/gemma-4). Find [the instructions](https://huggingface.co/mistralrs-community/gemma-4-E2B-it-UQFF#install) for installation and inference in model cards.
 
-# Fine-tuning for all
+## Fine-tuning for all
 
 Gemma 4 models are ideal for fine-tuning in your favorite tools and platforms and at any budget.
 
@@ -703,10 +703,12 @@ unsloth studio -H 0.0.0.0 -p 8888
 
 Then select any of the Gemma 4 models from the hub.
 
+![Unsloth Studio](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/gemma4/unsloth.png)
 
 ## Try Gemma 4
 
-We have shipped demos for you to try different Gemma 4 models. We include demos based on transformers implementation for [E4B](https://huggingface.co/spaces/huggingface-projects/gemma-4-e4b-it), [26B/A4B](https://huggingface.co/spaces/huggingface-projects/gemma-4-26b-a4b-it), and dense [31B](https://huggingface.co/spaces/huggingface-projects/gemma-4-31b-it) models, as well as a [WebGPU](https://huggingface.co/webml-community/Gemma-4-WebGPU) demo with transformers.js 🚀
+We have shipped demos for you to try different Gemma 4 models. We include demos based on transformers implementation for [E4B](https://huggingface.co/spaces/huggingface-projects/gemma-4-e4b-it), [26B/A4B](https://huggingface.co/spaces/huggingface-projects/gemma-4-26b-a4b-it), and dense [31B](https://huggingface.co/spaces/huggingface-projects/gemma-4-31b-it) models, as well as a [WebGPU](https://huggingface.co/spaces/webml-community/Gemma-4-WebGPU) demo with transformers.js 🚀
+
 
 <iframe width="560" height="315" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/g4-blog/webgpu_demo.mp4" title="WebGPU Demo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen> </iframe>
 
@@ -745,5 +747,8 @@ Here are detailed benchmark results for the instruction-tuned models:
 
 ## Acknowledgements
 
-Landing Gemma-4 in the open-source ecosystem took a lot of effort from many people and not only the authors of this blog post. In no particular order, we thank many people from the open-source team: Gemma 4 transformers integration is owed to Cyril, Raushan, Eustache, Arthur, Lysandre. We thank Joshua for transformers.js integration and demo, Eric for mistral.rs integration, Son for Llama.cpp, Prince for MLX integration, Quentin for TRL, Adarsh for SGLang transformers backend  and Toshihiro for building the demos.
+Landing Gemma-4 in the open-source ecosystem took a lot of effort from many people and not only the authors of this blog post. In no particular order, we thank many people from the open-source team: Gemma 4 transformers integration is owed to Cyril, Raushan, Eustache, Arthur, Lysandre. We thank Joshua for transformers.js integration and demo, Eric for mistral.rs integration, Son for Llama.cpp, Prince for MLX integration, Quentin, Albert and Kashif for TRL, Adarsh for SGLang transformers backend  and Toshihiro for building the demos.
 This work wouldn't have been possible without Google's extensive contribution with the model artefact, but also the significant effort contributing the model to transformers in an effort to standardize it. The open-source ecosystem is now more complete, with a very capable, freely-licensed, open-source model.
+The Gemma 4 transformers integration was handled by Cyril, Raushan, Eustache, Arthur, Lysandre. We thank Joshua for the transformers.js integration and demo, Eric for mistral.rs integration, Son for Llama.cpp, Prince for MLX, Quentin for TRL, Adarsh for SGLang transformers backend, and Toshihiro for building several demos.
+
+This work wouldn't have been possible without Google's extensive contribution with the model artefact, but also their significant effort contributing the model to transformers in an effort to standardize it. The open-source ecosystem is now more complete, with a very capable, freely-licensed, open-source model.

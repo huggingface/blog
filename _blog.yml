@@ -5189,6 +5189,7 @@
 
 - local: gemma4
   date: April 2, 2026
+  pinned: true
   tags:
     - multimodal
     - on-device
