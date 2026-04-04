@@ -592,7 +592,7 @@ mlx-vlm supports TurboQuant, which delivers the same accuracy as the uncompresse
 
 ```shell
 mlx_vlm.generate \
---model "mlx-community/gemma-4-26B-A4B-it" \
+--model "mlx-community/gemma-4-26b-a4b-it-4bit" \
 --prompt "Your prompt here" \
 --kv-bits 3.5 \
 --kv-quant-scheme turboquant
@@ -624,7 +624,7 @@ mistralrs run -m google/gemma-4-E4B-it --isq 8 --image image.png -i "Describe th
 mistralrs run -m google/gemma-4-E4B-it --isq 8 --audio audio.mp3 -i "Transcribe this fully."
 ```
 
-Find all models [in this collection](https://huggingface.co/collections/mistralrs-community/gemma-4). Find [the instructions](https://huggingface.co/mistralrs-community/gemma-4-E2B-it-UQFF#install) for installation and inference in model cards.
+Find all models [here](https://huggingface.co/mistralrs-community/models). Please, follow [the instructions](https://huggingface.co/mistralrs-community/gemma-4-E2B-it-UQFF#install) in the model cards for installation and inference guidelines.
 
 ## Fine-tuning for all
 
