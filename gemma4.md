@@ -355,8 +355,9 @@ WEATHER_TOOL = {
 tools = [WEATHER_TOOL]
 messages = [
     {"role": "user", "content": [
+          {"type": "text", "text": "What is the city in this image? Check the weather there right now."},
+
         {"type": "image", "image": "https://huggingface.co/datasets/merve/vlm_test_images/resolve/main/thailand.jpg"},
-        {"type": "text", "text": "What is the city in this image? Check the weather there right now."},
     ]},
 ]
 inputs = processor.apply_chat_template(
