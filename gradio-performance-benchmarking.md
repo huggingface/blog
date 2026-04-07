@@ -1,6 +1,6 @@
 ---
 title: "Our Approach To Speeding Up The Gradio Server" 
-thumbnail: /blog/assets/gradio-performance-benchmarking/thumbnail.png
+thumbnail: /blog/assets/gradio-performance-benchmarking/thumbnail.jpg
 authors:
 - user: freddyaboulton
 ---
