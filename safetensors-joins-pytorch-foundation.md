@@ -32,7 +32,15 @@ For contributors, the path to becoming a maintainer is now formally documented a
 
 ## What comes next
 
-Safetensors is a well-established project, adopted by the ecosystem at large, but we're still convinced we're at the very beginning of the project. The coming months will see significant growth, and we couldn't think of a better home for that next chapter than the PyTorch Foundation. The roadmap ahead includes device-aware loading and saving, so tensors can load directly onto CUDA, ROCm, and other accelerators without unnecessary CPU staging. We're also building first-class APIs for Tensor Parallel and Pipeline Parallel loading, so each rank or pipeline stage loads only the weights it needs. And as the ecosystem's quantization landscape continues to evolve, we'll be formalizing support for FP8, block-quantized formats like GPTQ and AWQ, and sub-byte integer types. These are problems the whole ecosystem has a stake in solving, and being inside the PyTorch Foundation means we can work on them in collaboration with the other hosted projects rather than in parallel.
+Safetensors is a well-established project, adopted by the ecosystem at large, but we're still convinced we're at the very beginning of the project. 
+
+**We're working with the PyTorch team so that Safetensors may be used within PyTorch core as a serialization system for torch models.**
+
+The coming months will see significant growth, and we couldn't think of a better home for that next chapter than the PyTorch Foundation. The roadmap ahead includes device-aware loading and saving, so tensors can load directly onto CUDA, ROCm, and other accelerators without unnecessary CPU staging. 
+
+We're also building first-class APIs for Tensor Parallel and Pipeline Parallel loading, so each rank or pipeline stage loads only the weights it needs. And as the ecosystem's quantization landscape continues to evolve, we'll be formalizing support for FP8, block-quantized formats like GPTQ and AWQ, and sub-byte integer types. 
+
+These are problems the whole ecosystem has a stake in solving, and being inside the PyTorch Foundation means we can work on them in collaboration with the other hosted projects rather than in parallel.
 
 ## Get involved
 
