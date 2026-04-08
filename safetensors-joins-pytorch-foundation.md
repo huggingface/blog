@@ -12,15 +12,15 @@ Today, we're announcing that Safetensors has joined the PyTorch Foundation as a 
 
 ## How we got here
 
-Safetensors started as an internal Hugging Face project born out of a concrete need: a way to store and share model weights that couldn't execute arbitrary code. The pickle-based formats that dominated the ecosystem at the time meant that there was a very real risk you’d be running malicious code. While this was an acceptable risk when ML was still budding, it would become unacceptable as open model sharing became central to how the ML community works.
+Safetensors started as a Hugging Face project born out of a concrete need: a way to store and share model weights that couldn't execute arbitrary code. The pickle-based formats that dominated the ecosystem at the time meant that there was a very real risk you’d be running malicious code. While this was an acceptable risk when ML was still budding, it would become unacceptable as open model sharing became central to how the ML community works.
 
 The format we built is intentionally simple: a JSON header with a hard limit of 100MB, describing tensor metadata, followed by raw tensor data. Zero-copy loading that maps tensors directly from disk. Lazy loading so you can read individual weights without deserializing an entire checkpoint.
 
-What we didn't fully anticipate was how broadly it would be adopted. Today, Safetensors is the default format for model distribution across the Hugging Face Hub and others, used by tens of thousands of models across all modalities in ML. It has become one standard for how the open source ML ecosystem shares models.
+What we didn't fully anticipate was how broadly it would be adopted. Today, Safetensors is the default format for model distribution across the Hugging Face Hub and others, used by tens of thousands of models across all modalities in ML. It has become the preferred way for the open source ML community to share models.
 
 ## Why the PyTorch Foundation
 
-Bringing more companies and contributors into the governance of the project, not just its codebase, is how we make sure that progress reflects the breadth of the community building on top of it. Joining the PyTorch Foundation means Safetensors now has a vendor-neutral home. The trademark, the repository, and the governance of the project sit with the Linux Foundation rather than any single company. Hugging Face's two core maintainers, Luc and Daniel, remain on the Technical Steering Committee and continue to lead the project day-to-day, but the project now formally belongs to the community that depends on it.
+We want Safetensors to truly belong to the community. The project has always been open source, but code contributions are just one part of its evolution. By bringing more companies and contributors into the governance of the project, we make sure that progress reflects the breadth of the community building on top of it. Joining the PyTorch Foundation means Safetensors now has a vendor-neutral home. The trademark, the repository, and the governance of the project sit with the Linux Foundation rather than any single company. Hugging Face's two core maintainers, Luc and Daniel, remain on the Technical Steering Committee and continue to lead the project day-to-day, but Safetensors now formally belongs to the community that depends on it.
 
 We believe safety is best guaranteed when every contributor can build on what already exists; a principle now embedded in the project's governance itself.
 
