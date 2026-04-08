@@ -5207,3 +5207,8 @@
     - guide
     - moe
     - google
+- local: safetensors-joins-pytorch-foundation
+  date: April 8, 2026
+  tags:
+    - open-source-collab
+    - partnerships
