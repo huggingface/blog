@@ -5178,8 +5178,44 @@
     - local-ai
     - openclaw
 
+- local: trl-v1
+  date: March 31, 2026
+  tags:
+    - trl
+    - reinforcement-learning
+    - announcement
+    - open-source
+    - v1
+
+- local: introducing-gradio-server
+  date: April 1, 2026
+  tags:
+    - gradio
+    - server
+    - open-source
+    - claude
+    - html
+    - python
+    - spaces
+    - vibe-coding
+- local: gemma4
+  date: April 2, 2026
+  tags:
+    - multimodal
+    - on-device
+    - gemma4
+    - guide
+    - moe
+    - google
+- local: safetensors-joins-pytorch-foundation
+  date: April 8, 2026
+  tags:
+    - open-source-collab
+    - partnerships
+    - open-source
+
 - local: upskiller-skill-invocation-env
-  date: March 24, 2026
+  date: April 8, 2026
   tags:
     - open-source
     - rl-environment
