@@ -314,7 +314,7 @@ print(model.supports("audio"))
 # False
 ```
 
-The `"message"` modality indicates that the model accepts chat-style message inputs with interleaved content. In practice, you rarely need to use this directly — when you pass strings, URLs, or multimodal dicts, the model converts them to the appropriate message format internally. Sentence Transformers supports two message formats:
+The `"message"` modality indicates that the model accepts chat-style message inputs with interleaved content. In practice, you rarely need to use this directly. When you pass strings, URLs, or multimodal dicts, the model converts them to the appropriate message format internally. Sentence Transformers supports two message formats:
 
 - **Structured** (most VLMs, e.g. Qwen3-VL): Content is a list of typed dicts, e.g. `[{"type": "text", "text": "..."}, {"type": "image", "image": ...}]`
 - **Flat** (e.g. Deepseek-V3): Content is a direct value, e.g. `"some text"`
