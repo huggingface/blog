@@ -5225,3 +5225,11 @@
     - multimodal
     - vision
     - open-source
+
+- local: waypoint-1-5
+  date: April 9, 2026
+  tags:
+    - announcement
+    - diffusion
+    - world-model
+    - game-dev
