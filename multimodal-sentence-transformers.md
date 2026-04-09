@@ -133,12 +133,12 @@ You might notice that even the best matching scores (0.51, 0.67) aren't very clo
 
 ### Encoding Queries and Documents
 
-For retrieval tasks, [`encode_query()`](https://sbert.net/docs/package_reference/sentence_transformer/SentenceTransformer.html#sentence_transformers.SentenceTransformer.encode_query) and [`encode_document()`](https://sbert.net/docs/package_reference/sentence_transformer/SentenceTransformer.html#sentence_transformers.SentenceTransformer.encode_document) are the recommended methods. Many embedding models use different prompts or instructions for queries vs. documents, and these methods handle that automatically:
+For retrieval tasks, [`encode_query()`](https://sbert.net/docs/package_reference/sentence_transformer/SentenceTransformer.html#sentence_transformers.SentenceTransformer.encode_query) and [`encode_document()`](https://sbert.net/docs/package_reference/sentence_transformer/SentenceTransformer.html#sentence_transformers.SentenceTransformer.encode_document) are the recommended methods. Many retrieval models prepend different instruction prompts depending on whether the input is a query or a document, similar to how chat models might apply different system prompts depending on the goal. Model authors can specify their prompts in the model config, and `encode_query()` / `encode_document()` automatically load and apply the correct one:
 
 - `encode_query()` uses the model's `"query"` prompt (if available) and sets `task="query"`.
 - `encode_document()` uses the first available prompt from `"document"`, `"passage"`, or `"corpus"`, and sets `task="document"`.
 
-So you don't need to manually look up or pass prompt strings. Here's what cross-modal retrieval looks like:
+Under the hood, both are thin wrappers around `encode()`, they just handle prompt selection for you. Here's what cross-modal retrieval looks like:
 
 ```python
 from sentence_transformers import SentenceTransformer
