@@ -15,19 +15,20 @@ Multimodal embedding models map inputs from different modalities into a shared e
 
 * [What are Multimodal Models?](#what-are-multimodal-models)
 * [Installation](#installation)
-* [Embedding Models](#embedding-models)
+* [Multimodal Embedding Models](#multimodal-embedding-models)
     + [Loading a Model](#loading-a-model)
     + [Encoding Images](#encoding-images)
     + [Cross-Modal Similarity](#cross-modal-similarity)
     + [Encoding Queries and Documents](#encoding-queries-and-documents)
+* [Multimodal Reranker Models](#multimodal-reranker-models)
+    + [Ranking Mixed-Modality Documents](#ranking-mixed-modality-documents)
+    + [Predicting Pair Scores](#predicting-pair-scores)
+* [Retrieve and Rerank](#retrieve-and-rerank)
+* [Input Formats and Configuration](#input-formats-and-configuration)
     + [Supported Input Types](#supported-input-types)
     + [Checking Modality Support](#checking-modality-support)
     + [Processor and Model kwargs](#processor-and-model-kwargs)
-* [Reranker Models](#reranker-models)
-    + [Ranking Mixed-Modality Documents](#ranking-mixed-modality-documents)
-    + [Predicting Pair Scores](#predicting-pair-scores)
 * [Supported Models](#supported-models)
-* [Retrieve and Rerank](#retrieve-and-rerank)
 * [Additional Resources](#additional-resources)
 
 ## What are Multimodal Models?
@@ -59,7 +60,7 @@ pip install -U "sentence-transformers[image,video,train]"
 > [!NOTE]
 > VLM-based models like Qwen3-VL-2B require a GPU with at least ~8 GB of VRAM. For the 8B variants, expect ~20 GB. If you don't have a local GPU, consider using a cloud GPU service or Google Colab. On CPU, these models will be extremely slow; text-only or CLIP models are better suited for CPU inference.
 
-## Embedding Models
+## Multimodal Embedding Models
 
 ### Loading a Model
 
@@ -78,7 +79,7 @@ The model automatically detects which modalities it supports, so there's nothing
 
 ### Encoding Images
 
-With a multimodal model loaded, [`model.encode()`](https://sbert.net/docs/package_reference/sentence_transformer/SentenceTransformer.html#sentence_transformers.SentenceTransformer.encode) accepts images alongside text. Images can be provided as URLs, local file paths, or PIL Image objects:
+With a multimodal model loaded, [`model.encode()`](https://sbert.net/docs/package_reference/sentence_transformer/SentenceTransformer.html#sentence_transformers.SentenceTransformer.encode) accepts images alongside text. Images can be provided as URLs, local file paths, or PIL Image objects (see [Supported Input Types](#supported-input-types) for all accepted formats):
 
 ```python
 from sentence_transformers import SentenceTransformer
@@ -165,6 +166,121 @@ print(similarities)
 
 These methods accept the same input types as `encode()` (images, URLs, multimodal dicts, etc.) and pass through the same parameters. For models without specialized query/document prompts, they behave identically to `encode()`.
 
+## Multimodal Reranker Models
+
+Multimodal reranker (CrossEncoder) models score the relevance between pairs of inputs, where each element can be text, an image, audio, video, or a combination. They tend to outperform embedding models in terms of quality, but are slower since they process each pair individually. The currently available pretrained multimodal rerankers focus on text and image inputs, but the architecture supports any modality that the underlying model can handle.
+
+### Ranking Mixed-Modality Documents
+
+The [`rank()`](https://sbert.net/docs/package_reference/cross_encoder/cross_encoder.html#sentence_transformers.cross_encoder.CrossEncoder.rank) method scores and ranks a list of documents against a query, supporting mixed modalities:
+
+```python
+from sentence_transformers import CrossEncoder
+
+model = CrossEncoder("Qwen/Qwen3-VL-Reranker-2B", revision="refs/pr/11")
+
+query = "A green car parked in front of a yellow building"
+documents = [
+    # Image documents (URL or local file path)
+    "https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/transformers/tasks/car.jpg",
+    "https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/bee.jpg",
+    # Text document
+    "A vintage Volkswagen Beetle painted in bright green sits in a driveway.",
+    # Combined text + image document
+    {
+        "text": "A car in a European city",
+        "image": "https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/transformers/tasks/car.jpg",
+    },
+]
+
+rankings = model.rank(query, documents)
+for rank in rankings:
+    print(f"{rank['score']:.4f}\t(document {rank['corpus_id']})")
+"""
+0.9375  (document 0)
+0.5000  (document 3)
+-1.2500 (document 2)
+-2.4375 (document 1)
+"""
+```
+
+The reranker correctly identifies the car image (document 0) as the most relevant result, followed by the combined text+image document about a car in a European city (document 3). The bee image (document 1) scores lowest.
+Keep in mind that the [modality gap](https://arxiv.org/abs/2203.02053) can influence absolute scores: text-image pair scores may occupy a different range than text-text or image-image pair scores.
+
+You can also check which modalities a reranker supports using [`modalities`](https://sbert.net/docs/package_reference/cross_encoder/cross_encoder.html#sentence_transformers.cross_encoder.CrossEncoder.modalities) and [`supports()`](https://sbert.net/docs/package_reference/cross_encoder/cross_encoder.html#sentence_transformers.cross_encoder.CrossEncoder.supports), just like with embedding models:
+
+```python
+print(model.modalities)
+# ['text', 'image', 'video', 'message']
+
+print(model.supports("image"))
+# True
+
+# Check if the model supports a specific pair of modalities
+print(model.supports(("image", "text")))
+# True
+```
+
+### Predicting Pair Scores
+
+You can also use [`predict()`](https://sbert.net/docs/package_reference/cross_encoder/cross_encoder.html#sentence_transformers.cross_encoder.CrossEncoder.predict) to get raw relevance scores for specific pairs of inputs:
+
+```python
+from sentence_transformers import CrossEncoder
+
+model = CrossEncoder("jinaai/jina-reranker-m0", trust_remote_code=True)
+
+scores = model.predict([
+    ("A green car", "https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/transformers/tasks/car.jpg"),
+    ("A bee on a flower", "https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/bee.jpg"),
+    ("A green car", "https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/bee.jpg"),
+])
+print(scores)
+# [0.9389156  0.96922314 0.46063158]
+```
+
+## Retrieve and Rerank
+
+A common pattern is to use an embedding model for fast initial retrieval, then refine the top results with a reranker:
+
+```python
+from sentence_transformers import SentenceTransformer, CrossEncoder
+
+# Step 1: Retrieve with an embedding model
+embedder = SentenceTransformer("Qwen/Qwen3-VL-Embedding-2B", revision="refs/pr/23")
+
+query = "revenue growth chart"
+query_embedding = embedder.encode_query(query)
+
+# Pre-compute corpus embeddings (do this once, then store them)
+document_screenshots = [
+    "path/to/doc1.png",
+    "path/to/doc2.png",
+    # ... potentially millions of document screenshots
+]
+corpus_embeddings = embedder.encode_document(document_screenshots, show_progress_bar=True)
+
+# Simple cosine similarity retrieval, viable as long as embeddings fit in memory
+similarities = embedder.similarity(query_embedding, corpus_embeddings)
+top_k_indices = similarities.argsort(descending=True)[0][:10]
+
+# Step 2: Rerank the top-k results with a reranker model
+reranker = CrossEncoder(
+    "nvidia/llama-nemotron-rerank-vl-1b-v2",
+    trust_remote_code=True,
+    revision="refs/pr/9",
+)
+
+top_k_documents = [document_screenshots[i] for i in top_k_indices]
+rankings = reranker.rank(query, top_k_documents)
+for rank in rankings:
+    print(f"{rank['score']:.4f}\t{top_k_documents[rank['corpus_id']]}")
+```
+
+Since the corpus embeddings are pre-computed, the initial retrieval is fast even over millions of documents. The reranker then provides more accurate scoring over the smaller candidate set.
+
+## Input Formats and Configuration
+
 ### Supported Input Types
 
 Multimodal models accept a variety of input formats. Here's a summary of what you can pass to [`model.encode()`](https://sbert.net/docs/package_reference/sentence_transformer/SentenceTransformer.html#sentence_transformers.SentenceTransformer.encode):
@@ -176,7 +292,7 @@ Multimodal models accept a variety of input formats. Here's a summary of what yo
 | **Audio** | - File paths (e.g. `"./audio.wav"`)<br>- URLs (e.g. `"https://.../audio.wav"`)<br>- Numpy/torch arrays<br>- Dicts with `"array"` and `"sampling_rate"` keys<br>- `torchcodec.AudioDecoder` instances |
 | **Video** | - File paths (e.g. `"./video.mp4"`)<br>- URLs (e.g. `"https://.../video.mp4"`)<br>- Numpy/torch arrays<br>- Dicts with `"array"` and `"video_metadata"` keys<br>- `torchcodec.VideoDecoder` instances |
 | **Multimodal** | - Dicts mapping modality names to values,<br>e.g. `{"text": "a caption", "image": "https://.../image.jpg"}`<br>Valid keys: `"text"`, `"image"`, `"audio"`, `"video"` |
-| **Message** | - List of message dicts with `"role"` and `"content"` keys,<br>e.g. `[{"role": "user", "content": [...]}]`<br>See [Checking Modality Support](#checking-modality-support) for details |
+| **Message** | - List of message dicts with `"role"` and `"content"` keys,<br>e.g. `[{"role": "user", "content": [...]}]` |
 
 ### Checking Modality Support
 
@@ -265,84 +381,11 @@ See the [SentenceTransformer](https://sbert.net/docs/package_reference/sentence_
 > [!NOTE]
 > In Sentence Transformers v5.4, `tokenizer_kwargs` has been renamed to `processor_kwargs` to reflect that multimodal models use processors rather than just tokenizers. The old name is still accepted but deprecated.
 
-## Reranker Models
-
-Multimodal reranker (Cross Encoder) models score the relevance between pairs of inputs, where each element can be text, an image, audio, video, or a combination. They tend to outperform embedding models in terms of quality, but are slower since they process each pair individually. The currently available pretrained multimodal rerankers focus on text and image inputs, but the architecture supports any modality that the underlying model can handle.
-
-### Ranking Mixed-Modality Documents
-
-The [`rank()`](https://sbert.net/docs/package_reference/cross_encoder/cross_encoder.html#sentence_transformers.cross_encoder.CrossEncoder.rank) method scores and ranks a list of documents against a query, supporting mixed modalities:
-
-```python
-from sentence_transformers import CrossEncoder
-
-model = CrossEncoder("Qwen/Qwen3-VL-Reranker-2B", revision="refs/pr/11")
-
-query = "A green car parked in front of a yellow building"
-documents = [
-    # Image documents (URL or local file path)
-    "https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/transformers/tasks/car.jpg",
-    "https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/bee.jpg",
-    # Text document
-    "A vintage Volkswagen Beetle painted in bright green sits in a driveway.",
-    # Combined text + image document
-    {
-        "text": "A car in a European city",
-        "image": "https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/transformers/tasks/car.jpg",
-    },
-]
-
-rankings = model.rank(query, documents)
-for rank in rankings:
-    print(f"{rank['score']:.4f}\t(document {rank['corpus_id']})")
-"""
-0.9375  (document 0)
-0.5000  (document 3)
--1.2500 (document 2)
--2.4375 (document 1)
-"""
-```
-
-The reranker correctly identifies the car image (document 0) as the most relevant result, followed by the combined text+image document about a car in a European city (document 3). The bee image (document 1) scores lowest.
-Keep in mind that the [modality gap](https://arxiv.org/abs/2203.02053) can influence absolute scores: text-image pair scores may occupy a different range than text-text or image-image pair scores.
-
-You can also check which modalities a reranker supports using [`modalities`](https://sbert.net/docs/package_reference/cross_encoder/cross_encoder.html#sentence_transformers.cross_encoder.CrossEncoder.modalities) and [`supports()`](https://sbert.net/docs/package_reference/cross_encoder/cross_encoder.html#sentence_transformers.cross_encoder.CrossEncoder.supports), just like with embedding models:
-
-```python
-print(model.modalities)
-# ['text', 'image', 'video', 'message']
-
-print(model.supports("image"))
-# True
-
-# Check if the model supports a specific pair of modalities
-print(model.supports(("image", "text")))
-# True
-```
-
-### Predicting Pair Scores
-
-You can also use [`predict()`](https://sbert.net/docs/package_reference/cross_encoder/cross_encoder.html#sentence_transformers.cross_encoder.CrossEncoder.predict) to get raw relevance scores for specific pairs of inputs:
-
-```python
-from sentence_transformers import CrossEncoder
-
-model = CrossEncoder("jinaai/jina-reranker-m0", trust_remote_code=True)
-
-scores = model.predict([
-    ("A green car", "https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/transformers/tasks/car.jpg"),
-    ("A bee on a flower", "https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/bee.jpg"),
-    ("A green car", "https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/bee.jpg"),
-])
-print(scores)
-# [0.9389156  0.96922314 0.46063158]
-```
-
 ## Supported Models
 
 Here are the multimodal models supported in v5.4, also available in the [v5.4 integrations collection](https://huggingface.co/collections/sentence-transformers/sentence-transformers-v54-integrations):
 
-### Multimodal Embedding Models
+### Supported Multimodal Embedding Models
 
 | Model | Parameters | Modalities | Revision | 
 | --- | :---: | --- | --- |
@@ -351,7 +394,7 @@ Here are the multimodal models supported in v5.4, also available in the [v5.4 in
 | [nvidia/llama-nemotron-embed-vl-1b-v2](https://huggingface.co/nvidia/llama-nemotron-embed-vl-1b-v2) | 1.7B | Text, Image | `revision="refs/pr/6"` |
 | [nvidia/omni-embed-nemotron-3b](https://huggingface.co/nvidia/omni-embed-nemotron-3b) | 4.7B | Text, Image | `revision="refs/pr/3"` |
 
-### Multimodal Reranker Models
+### Supported Multimodal Reranker Models
 
 | Model | Parameters | Modalities | Revision | 
 | --- | :---: | --- | --- |
@@ -402,7 +445,9 @@ for rank in rankings:
 
 </details>
 
-Additionally, the older CLIP models continue to be supported:
+### CLIP Models
+
+The older CLIP models continue to be supported:
 
 | Model | ImageNet Zero-Shot Top-1 Accuracy | Notes |
 | --- | :---: | --- |
@@ -441,46 +486,6 @@ print(similarities)
 ```
 
 </details>
-
-## Retrieve and Rerank
-
-A common pattern is to use an embedding model for fast initial retrieval, then refine the top results with a reranker:
-
-```python
-from sentence_transformers import SentenceTransformer, CrossEncoder
-
-# Step 1: Retrieve with an embedding model
-embedder = SentenceTransformer("Qwen/Qwen3-VL-Embedding-2B", revision="refs/pr/23")
-
-query = "revenue growth chart"
-query_embedding = embedder.encode_query(query)
-
-# Pre-compute corpus embeddings (do this once, then store them)
-document_screenshots = [
-    "path/to/doc1.png",
-    "path/to/doc2.png",
-    # ... potentially millions of document screenshots
-]
-corpus_embeddings = embedder.encode_document(document_screenshots, show_progress_bar=True)
-
-# Simple cosine similarity retrieval, viable as long as embeddings fit in memory
-similarities = embedder.similarity(query_embedding, corpus_embeddings)
-top_k_indices = similarities.argsort(descending=True)[0][:10]
-
-# Step 2: Rerank the top-k results with a reranker model
-reranker = CrossEncoder(
-    "nvidia/llama-nemotron-rerank-vl-1b-v2",
-    trust_remote_code=True,
-    revision="refs/pr/9",
-)
-
-top_k_documents = [document_screenshots[i] for i in top_k_indices]
-rankings = reranker.rank(query, top_k_documents)
-for rank in rankings:
-    print(f"{rank['score']:.4f}\t{top_k_documents[rank['corpus_id']]}")
-```
-
-Since the corpus embeddings are pre-computed, the initial retrieval is fast even over millions of documents. The reranker then provides more accurate scoring over the smaller candidate set.
 
 ## Additional Resources
 
