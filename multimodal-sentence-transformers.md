@@ -7,7 +7,7 @@ authors:
 
 # Multimodal Embedding & Reranker Models with Sentence Transformers v5.4
 
-[Sentence Transformers](https://sbert.net/) is a Python library for using and training embedding and reranker models for a wide range of applications, such as retrieval augmented generation, semantic search, and more. With the v5.4 update, you can now **encode and compare texts, images, audio, and videos** using the same familiar API. In this blogpost, I'll show you how to use these new multimodal capabilities for both embedding and reranking.
+[Sentence Transformers](https://sbert.net/) is a Python library for using and training embedding and reranker models for applications like retrieval augmented generation, semantic search, and more. With the v5.4 update, you can now **encode and compare texts, images, audio, and videos** using the same familiar API. In this blogpost, I'll show you how to use these new multimodal capabilities for both embedding and reranking.
 
 Multimodal embedding models map inputs from different modalities into a shared embedding space, while multimodal reranker models score the relevance of mixed-modality pairs. This opens up use cases like visual document retrieval, cross-modal search, and multimodal RAG pipelines.
 
@@ -32,17 +32,11 @@ Multimodal embedding models map inputs from different modalities into a shared e
 
 ## What are Multimodal Models?
 
-Traditional embedding models convert text into [fixed-size vectors](https://huggingface.co/blog/matryoshka#understanding-embeddings). Multimodal embedding models extend this by mapping inputs from different modalities (text, images, audio, or video) into a *shared* embedding space. This means you can compare a text query against image documents (or vice versa) using the same similarity functions you're already familiar with.
+Traditional embedding models convert text into [fixed-size vectors](https://huggingface.co/blog/matryoshka#understanding-embeddings). Multimodal embedding models extend this by mapping inputs from different modalities (text, images, audio, or video) into a shared embedding space. This means you can compare a text query against image documents (or vice versa) using the same similarity functions you're already familiar with.
 
 Similarly, traditional reranker (Cross Encoder) models compute relevance scores between pairs of texts. Multimodal rerankers can score pairs where one or both elements are images, combined text-image documents, or other modalities.
 
-This shared space enables use cases that weren't feasible with text-only models:
-
-- **Visual Document Retrieval**: Find document screenshots matching a text query
-- **Cross-Modal Search**: Search an image collection with text queries, or a text collection with image queries
-- **Voice-Based Search**: Retrieve text documents using spoken audio queries, without needing speech-to-text
-- **Video Search**: Find video clips matching a text query without relying on metadata or transcriptions
-- **Multimodal RAG**: Build retrieval augmented generation pipelines that work across text, images, audio, and video
+For example, you can compare a text query against image documents, find video clips matching a description, or build RAG pipelines that work across modalities.
 
 ## Installation
 
@@ -80,7 +74,7 @@ model = SentenceTransformer("Qwen/Qwen3-VL-Embedding-2B", revision="refs/pr/23")
 > [!NOTE]
 > The `revision` argument is required for now because the integration pull requests for these models are still pending. Once they're merged, you'll be able to load them without specifying a revision.
 
-The model automatically detects which modalities it supports, so there's nothing extra to configure, although you can control processor and model arguments if needed (see [Processor and Model kwargs](#processor-and-model-kwargs)).
+The model automatically detects which modalities it supports, so there's nothing extra to configure. See [Processor and Model kwargs](#processor-and-model-kwargs) if you want to control things like image resolution or model precision.
 
 ### Encoding Images
 
@@ -99,8 +93,6 @@ img_embeddings = model.encode([
 print(img_embeddings.shape)
 # (2, 2048)
 ```
-
-The model detects that these inputs are image URLs and processes them as images.
 
 ### Cross-Modal Similarity
 
@@ -136,7 +128,7 @@ print(similarities)
 
 As expected, "A green car parked in front of a yellow building" is most similar to the car image (0.51), and "A bee on a pink flower" is most similar to the bee image (0.67). The hard negatives ("A red car driving on a highway", "A wasp on a wooden table") correctly receive lower scores.
 
-You might notice that even the best matching scores (0.51, 0.67) aren't very close to 1.0. This is due to the [modality gap](https://arxiv.org/abs/2203.02053): embeddings from different modalities (e.g., text vs. image) tend to cluster in separate regions of the embedding space, even when they're semantically similar. In practice, cross-modal similarities are typically lower than within-modal ones (e.g., text-to-text). This doesn't hurt retrieval or ranking though, since the *relative* ordering of scores is what matters: the correct matches still rank highest.
+You might notice that even the best matching scores (0.51, 0.67) aren't very close to 1.0. This is due to the [modality gap](https://arxiv.org/abs/2203.02053): embeddings from different modalities tend to cluster in separate regions of the space. Cross-modal similarities are typically lower than within-modal ones (e.g., text-to-text), but the relative ordering is preserved, so retrieval still works well.
 
 ### Encoding Queries and Documents
 
@@ -452,7 +444,7 @@ print(similarities)
 
 ## Retrieve and Rerank
 
-A common and effective pattern is to combine a multimodal embedding model for fast retrieval with a multimodal reranker for precise re-scoring. You get the speed of bi-encoder retrieval with the accuracy of cross-encoder scoring:
+A common pattern is to use an embedding model for fast initial retrieval, then refine the top results with a reranker:
 
 ```python
 from sentence_transformers import SentenceTransformer, CrossEncoder
@@ -488,7 +480,7 @@ for rank in rankings:
     print(f"{rank['score']:.4f}\t{top_k_documents[rank['corpus_id']]}")
 ```
 
-The embedding model handles initial retrieval over a large corpus in milliseconds (since embeddings are pre-computed), while the reranker refines the top-k results with more accurate cross-attention scoring.
+Since the corpus embeddings are pre-computed, the initial retrieval is fast even over millions of documents. The reranker then provides more accurate scoring over the smaller candidate set.
 
 ## Additional Resources
 
