@@ -5,7 +5,7 @@ authors:
 - user: tomaarsen
 ---
 
-# Multimodal Embedding & Reranker Models with Sentence Transformers v5.4
+# Multimodal Embedding & Reranker Models with Sentence Transformers
 
 [Sentence Transformers](https://sbert.net/) is a Python library for using and training embedding and reranker models for applications like retrieval augmented generation, semantic search, and more. With the v5.4 update, you can now **encode and compare texts, images, audio, and videos** using the same familiar API. In this blogpost, I'll show you how to use these new multimodal capabilities for both embedding and reranking.
 
