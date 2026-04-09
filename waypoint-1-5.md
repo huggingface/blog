@@ -30,6 +30,10 @@ authors:
 - [Biome desktop client](https://github.com/Overworldai/Biome/)
 - [Hugging Face]()
 
+<p align="center">
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/waypoint-v1-5-grid.png" alt="waypoint 1.5" width=70%>
+</p>
+
 ## What is Waypoint-1.5?
 
 Waypoint-1.5 is Overworld’s next real-time video world model, built to bring interactive generative worlds to the hardware people actually own.
