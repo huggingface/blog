@@ -1,5 +1,5 @@
 ---
-title: "Multimodal Embedding & Reranker Models with Sentence Transformers v5.4"
+title: "Multimodal Embedding & Reranker Models with Sentence Transformers"
 thumbnail: /blog/assets/train-sentence-transformers/st-hf-thumbnail.png
 authors:
 - user: tomaarsen
