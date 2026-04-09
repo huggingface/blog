@@ -335,11 +335,7 @@ You can also use [`predict()`](https://sbert.net/docs/package_reference/cross_en
 ```python
 from sentence_transformers import CrossEncoder
 
-model = CrossEncoder(
-    "jinaai/jina-reranker-m0",
-    trust_remote_code=True,
-    revision="refs/pr/24",
-)
+model = CrossEncoder("jinaai/jina-reranker-m0", trust_remote_code=True)
 
 scores = model.predict([
     ("A green car", "https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/transformers/tasks/car.jpg"),
@@ -370,7 +366,7 @@ Here are the multimodal models supported in v5.4, also available in the [v5.4 in
 | [Qwen/Qwen3-VL-Reranker-2B](https://huggingface.co/Qwen/Qwen3-VL-Reranker-2B) | 2B | Text, Image, Video | `revision="refs/pr/11"` |
 | [Qwen/Qwen3-VL-Reranker-8B](https://huggingface.co/Qwen/Qwen3-VL-Reranker-8B) | 8B | Text, Image, Video | `revision="refs/pr/9"` |
 | [nvidia/llama-nemotron-rerank-vl-1b-v2](https://huggingface.co/nvidia/llama-nemotron-rerank-vl-1b-v2) | 2B | Text, Image | `revision="refs/pr/9"` |
-| [jinaai/jina-reranker-m0](https://huggingface.co/jinaai/jina-reranker-m0) | 2B | Text, Image | `revision="refs/pr/24"` |
+| [jinaai/jina-reranker-m0](https://huggingface.co/jinaai/jina-reranker-m0) | 2B | Text, Image | No `revision` needed |
 
 ### Text-Only Reranker Models (also new in v5.4)
 
