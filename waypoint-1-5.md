@@ -1,6 +1,6 @@
 ---
 title: "Waypoint-1.5: Higher-Fidelity Interactive Worlds for Everyday GPUs"
-thumbnail: /blog/assets/overworld/waypoint_v1-5.png
+thumbnail: /blog/assets/overworld/waypoint-v1-5.png
 authors:
 - user: lapp0
   guest: true
