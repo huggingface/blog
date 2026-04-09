@@ -265,11 +265,7 @@ similarities = embedder.similarity(query_embedding, corpus_embeddings)
 top_k_indices = similarities.argsort(descending=True)[0][:10]
 
 # Step 2: Rerank the top-k results with a reranker model
-reranker = CrossEncoder(
-    "nvidia/llama-nemotron-rerank-vl-1b-v2",
-    trust_remote_code=True,
-    revision="refs/pr/9",
-)
+reranker = CrossEncoder("nvidia/llama-nemotron-rerank-vl-1b-v2", trust_remote_code=True)
 
 top_k_documents = [document_screenshots[i] for i in top_k_indices]
 rankings = reranker.rank(query, top_k_documents)
@@ -391,8 +387,8 @@ Here are the multimodal models supported in v5.4, also available in the [v5.4 in
 | --- | :---: | --- | --- |
 | [Qwen/Qwen3-VL-Embedding-2B](https://huggingface.co/Qwen/Qwen3-VL-Embedding-2B) | 2B | Text, Image, Video | `revision="refs/pr/23"` |
 | [Qwen/Qwen3-VL-Embedding-8B](https://huggingface.co/Qwen/Qwen3-VL-Embedding-8B) | 8B | Text, Image, Video | `revision="refs/pr/11"` |
-| [nvidia/llama-nemotron-embed-vl-1b-v2](https://huggingface.co/nvidia/llama-nemotron-embed-vl-1b-v2) | 1.7B | Text, Image | `revision="refs/pr/6"` |
-| [nvidia/omni-embed-nemotron-3b](https://huggingface.co/nvidia/omni-embed-nemotron-3b) | 4.7B | Text, Image | `revision="refs/pr/3"` |
+| [nvidia/llama-nemotron-embed-vl-1b-v2](https://huggingface.co/nvidia/llama-nemotron-embed-vl-1b-v2) | 1.7B | Text, Image | No `revision` needed |
+| [nvidia/omni-embed-nemotron-3b](https://huggingface.co/nvidia/omni-embed-nemotron-3b) | 4.7B | Text, Image | No `revision` needed |
 
 ### Supported Multimodal Reranker Models
 
@@ -400,7 +396,7 @@ Here are the multimodal models supported in v5.4, also available in the [v5.4 in
 | --- | :---: | --- | --- |
 | [Qwen/Qwen3-VL-Reranker-2B](https://huggingface.co/Qwen/Qwen3-VL-Reranker-2B) | 2B | Text, Image, Video | `revision="refs/pr/11"` |
 | [Qwen/Qwen3-VL-Reranker-8B](https://huggingface.co/Qwen/Qwen3-VL-Reranker-8B) | 8B | Text, Image, Video | `revision="refs/pr/9"` |
-| [nvidia/llama-nemotron-rerank-vl-1b-v2](https://huggingface.co/nvidia/llama-nemotron-rerank-vl-1b-v2) | 2B | Text, Image | `revision="refs/pr/9"` |
+| [nvidia/llama-nemotron-rerank-vl-1b-v2](https://huggingface.co/nvidia/llama-nemotron-rerank-vl-1b-v2) | 2B | Text, Image | No `revision` needed |
 | [jinaai/jina-reranker-m0](https://huggingface.co/jinaai/jina-reranker-m0) | 2B | Text, Image | No `revision` needed |
 
 ### Text-Only Reranker Models (also new in v5.4)
