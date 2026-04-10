@@ -389,6 +389,10 @@ Here are the multimodal models supported in v5.4, also available in the [v5.4 in
 | [Qwen/Qwen3-VL-Embedding-8B](https://huggingface.co/Qwen/Qwen3-VL-Embedding-8B) | 8B | Text, Image, Video | `revision="refs/pr/11"` |
 | [nvidia/llama-nemotron-embed-vl-1b-v2](https://huggingface.co/nvidia/llama-nemotron-embed-vl-1b-v2) | 1.7B | Text, Image | No `revision` needed |
 | [nvidia/omni-embed-nemotron-3b](https://huggingface.co/nvidia/omni-embed-nemotron-3b) | 4.7B | Text, Image | No `revision` needed |
+| [BAAI/BGE-VL-base](https://huggingface.co/BAAI/BGE-VL-base) | 0.1B | Text, Image | No `revision` needed |
+| [BAAI/BGE-VL-large](https://huggingface.co/BAAI/BGE-VL-large) | 0.4B | Text, Image | No `revision` needed |
+| [BAAI/BGE-VL-MLLM-S1](https://huggingface.co/BAAI/BGE-VL-MLLM-S1) | 8B | Text, Image | No `revision` needed |
+| [BAAI/BGE-VL-MLLM-S2](https://huggingface.co/BAAI/BGE-VL-MLLM-S2) | 8B | Text, Image | No `revision` needed |
 
 ### Supported Multimodal Reranker Models
 
