@@ -1,22 +1,20 @@
 ---
-title: "Transformers.js v4 Preview: Now Available on NPM!"
+title: "Transformers.js v4: Now Available on NPM!"
 thumbnail: /blog/assets/transformersjs-v4/thumbnail.png
 authors:
   - user: Xenova
   - user: nico-martin
 ---
 
-# Transformers.js v4 Preview: Now Available on NPM!
+# Transformers.js v4: Now Available on NPM!
 
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/transformersjs-v4/thumbnail-wide.png" alt="Overview" width="100%">
 
-We're excited to announce that Transformers.js v4 (preview) is now available on NPM! After nearly a year of development (we started in March 2025 🤯), we're finally ready for you to test it out. Previously, users had to install v4 directly from source via GitHub, but now it's as simple as running a single command!
+We're excited to announce that Transformers.js v4 is now available on NPM! After a year of development (we started in March 2025 🤯), we're finally ready for you to use it. 
 
 ```sh
-npm i @huggingface/transformers@next
+npm i @huggingface/transformers
 ```
-
-We'll continue publishing v4 releases under the `next` tag on NPM until the full release, so expect regular updates!
 
 ## Performance & Runtime Improvements
 
@@ -31,8 +29,6 @@ We've proven that it's possible to run state-of-the-art AI models 100% locally i
 For example, adopting the [com.microsoft.MultiHeadAttention](https://github.com/microsoft/onnxruntime/blob/main/docs/ContribOperators.md#com.microsoft.MultiHeadAttention) operator, we were able to achieve a ~4x speedup for BERT-based embedding models.
 
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/transformersjs-v4/speedups.png" alt="Optimized ONNX Exports" width="100%">
-
-This update enables full offline support by caching WASM files locally in the browser, allowing users to run Transformers.js applications without an internet connection after the initial download.
 
 ## Repository Restructuring
 
@@ -58,11 +54,120 @@ We updated the Prettier configuration and reformatted all files in the repositor
 
 ## New Models and Architectures
 
-Thanks to our new export strategy and ONNX Runtime's expanding support for custom operators, we've been able to add many new models and architectures to Transformers.js v4. These include popular models like GPT-OSS, Chatterbox, GraniteMoeHybrid, LFM2-MoE, HunYuanDenseV1, Apertus, Olmo3, FalconH1, and Youtu-LLM. Many of these required us to implement support for advanced architectural patterns, including Mamba (state-space models), Multi-head Latent Attention (MLA), and Mixture of Experts (MoE). Perhaps most importantly, these models are all compatible with WebGPU, allowing users to run them directly in the browser or server-side JavaScript environments with hardware acceleration. Stay tuned for some exciting demos showcasing these new models in action!
+Thanks to our new export strategy and ONNX Runtime's expanding support for custom operators, we've been able to add many new models and architectures to Transformers.js v4. These include popular models like GPT-OSS, Chatterbox, GraniteMoeHybrid, LFM2-MoE, HunYuanDenseV1, Apertus, Olmo3, FalconH1, and Youtu-LLM. Many of these required us to implement support for advanced architectural patterns, including Mamba (state-space models), Multi-head Latent Attention (MLA), and Mixture of Experts (MoE). Perhaps most importantly, these models are all compatible with WebGPU, allowing users to run them directly in the browser or server-side JavaScript environments with hardware acceleration. We've released several [Transformers.js v4 demos](https://huggingface.co/collections/webml-community/transformersjs-v4-demos) so far... and we'll continue to release more!
 
 ## New Build System
 
 We've migrated our build system from Webpack to esbuild, and the results have been incredible. Build times dropped from 2 seconds to just 200 milliseconds, a 10x improvement that makes development iteration significantly faster. Speed isn't the only benefit, though: bundle sizes also decreased by an average of 10% across all builds. The most notable improvement is in transformers.web.js, our default export, which is now 53% smaller, meaning faster downloads and quicker startup times for users.
+
+## New Library Features
+
+Version 4 also adds new library features that make it easier to build robust, production-ready applications.
+
+### ModelRegistry
+
+The new `ModelRegistry` API is designed for production workflows. It provides explicit visibility into pipeline assets before loading anything: list required files with `get_pipeline_files`, inspect per-file metadata with `get_file_metadata` (quite useful to calculate total download size), check cache status with `is_pipeline_cached`, and clear cached artifacts with `clear_pipeline_cache`. You can also query available precision types for a model with `get_available_dtypes`. Based on this new API, `progress_callback` now includes a `progress_total` event, making it easy to render end-to-end loading progress without manually aggregating per-file updates.
+
+<details>
+<summary>See `ModelRegistry` examples</summary>
+
+```javascript
+import { ModelRegistry, pipeline } from "@huggingface/transformers";
+
+const modelId = "onnx-community/all-MiniLM-L6-v2-ONNX";
+const modelOptions = { dtype: "fp32" };
+
+const files = await ModelRegistry.get_pipeline_files(
+  "feature-extraction",
+  modelId,
+  modelOptions
+);
+// ['config.json', 'onnx/model.onnx', ..., 'tokenizer_config.json']
+
+const metadata = await Promise.all(
+  files.map(file => ModelRegistry.get_file_metadata(modelId, file))
+);
+
+const downloadSize = metadata.reduce((total, item) => total + item.size, 0);
+
+const cached = await ModelRegistry.is_pipeline_cached(
+  "feature-extraction",
+  modelId,
+  modelOptions
+);
+
+const dtypes = await ModelRegistry.get_available_dtypes(modelId);
+// ['fp32', 'fp16', 'q4', 'q4f16']
+
+if (cached) {
+  await ModelRegistry.clear_pipeline_cache(
+    "feature-extraction",
+    modelId,
+    modelOptions
+  );
+}
+
+const pipe = await pipeline(
+  "feature-extraction",
+  modelId,
+  {
+    progress_callback: e => {
+      if (e.status === "progress_total") {
+        console.log(`${Math.round(e.progress)}%`);
+      }
+    },
+  }
+);
+```
+
+</details>
+
+### New Environment Settings
+
+We also added new environment controls for model loading. `env.useWasmCache` enables caching of WASM runtime files (when cache storage is available), allowing applications to work fully offline after the initial load.
+
+`env.fetch` lets you provide a custom fetch implementation for use cases such as authenticated model access, custom headers, and abortable requests.
+
+<details>
+<summary>See env examples</summary>
+
+```javascript
+import { env } from "@huggingface/transformers";
+
+env.useWasmCache = true;
+
+env.fetch = (url, options) =>
+  fetch(url, {
+    ...options,
+    headers: {
+      ...options?.headers,
+      Authorization: `Bearer ${MY_TOKEN}`,
+    },
+  });
+```
+
+</details>
+
+### Improved Logging Controls
+
+Finally, logging is easier to manage in real-world deployments. ONNX Runtime WebGPU warnings are now hidden by default, and you can set explicit verbosity levels for both Transformers.js and ONNX Runtime. This update, also driven by community feedback, keeps console output focused on actionable signals rather than low-value noise.
+
+<details>
+<summary>See `logLevel` example</summary>
+
+```javascript
+import { env, LogLevel } from "@huggingface/transformers";
+
+// LogLevel.DEBUG
+// LogLevel.INFO
+// LogLevel.WARNING
+// LogLevel.ERROR
+// LogLevel.NONE
+
+env.logLevel = LogLevel.WARNING;
+```
+
+</details>
 
 ## Standalone Tokenizers.js Library
 
@@ -105,7 +210,7 @@ We've made several quality-of-life improvements across the library. The type sys
 
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/transformersjs-v4/types.png" alt="Type Improvements" width="100%">
 
-Logging has been improved to give users more control and clearer feedback during model execution. Additionally, we've added support for larger models exceeding 8B parameters. In our tests, we've been able to run GPT-OSS 20B (q4f16) at ~60 tokens per second on an M4 Pro Max.
+Additionally, we've added support for larger models exceeding 8B parameters. In our tests, we've been able to run GPT-OSS 20B (q4f16) at ~60 tokens per second on an M4 Pro Max.
 
 ## Acknowledgements
 
