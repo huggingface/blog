@@ -16,7 +16,7 @@ authors:
 
 # Ecom-RLVE: Adaptive Verifiable Environments for E-Commerce Conversational Agents
 
-[![Models](https://img.shields.io/badge/🤗-WUFUS-blue)]([https://github.com/owlgebra-ai/EcomRLVE-Gym](https://huggingface.co/collections/owlgebra-ai/wufus))
+[![Models](https://img.shields.io/badge/🤗%20Models-WUFUS-blue)](https://huggingface.co/collections/owlgebra-ai/wufus)
 [![Data](https://img.shields.io/badge/🤗%20Catalog%20Data-Amazebay2M-yellow)](https://huggingface.co/datasets/owlgebra-ai/Amazebay-catalog-2M)
 [![Code](https://img.shields.io/badge/Github-Code-black)](https://github.com/owlgebra-ai/EcomRLVE-Gym)
 [![Demo](https://img.shields.io/badge/🤗-Space-red)](https://huggingface.co/spaces/owlgebra-ai/EcomRLVE-Gym)
