@@ -5198,6 +5198,7 @@
     - python
     - spaces
     - vibe-coding
+
 - local: gemma4
   date: April 2, 2026
   tags:
@@ -5207,12 +5208,31 @@
     - guide
     - moe
     - google
+
 - local: safetensors-joins-pytorch-foundation
   date: April 8, 2026
   tags:
     - open-source-collab
     - partnerships
     - open-source
+
+- local: multimodal-sentence-transformers
+  date: April 9, 2026
+  tags:
+    - multimodal
+    - nlp
+    - community
+    - multimodal
+    - vision
+    - open-source
+
+- local: waypoint-1-5
+  date: April 9, 2026
+  tags:
+    - announcement
+    - diffusion
+    - world-model
+    - game-dev
 
 - local: upskiller-skill-invocation-env
   date: April 8, 2026
