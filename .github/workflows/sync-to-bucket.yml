@@ -15,5 +15,5 @@ jobs:
 
       - name: Sync to bucket
         env:
-          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+          HF_TOKEN: ${{ secrets.HF_DOC_BUILD_PUSH }}
         run: hf sync . hf://buckets/hf-doc-build/blog --exclude=".git/**"
