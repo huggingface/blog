@@ -1,0 +1,19 @@
+name: Sync blog to bucket
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  sync:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install huggingface_hub
+        run: pip install -U huggingface_hub
+
+      - name: Sync to bucket
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: hf sync . hf://buckets/hf-doc-build/blog --exclude=".git/**"
