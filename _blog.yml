@@ -5233,3 +5233,11 @@
     - diffusion
     - world-model
     - game-dev
+
+- local: upskiller-skill-invocation-env
+  date: April 8, 2026
+  tags:
+    - open-source
+    - rl-environment
+    - agents
+    - skills
