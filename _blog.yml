@@ -5233,3 +5233,14 @@
     - diffusion
     - world-model
     - game-dev
+
+- local: transformers-to-mlx
+  date: April 16, 2026
+  tags:
+    - announcement
+    - mlx
+    - llm
+    - open-source
+    - community
+    - claude
+    - agents
