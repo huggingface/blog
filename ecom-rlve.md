@@ -22,7 +22,7 @@ authors:
 [![Demo](https://img.shields.io/badge/🤗-Space-red)](https://huggingface.co/spaces/owlgebra-ai/EcomRLVE-Gym)
 
 
-> **TL;DR** — We extend the RLVE framework ([Zeng et al., 2025](https://arxiv.org/abs/2511.07317)) from single-turn reasoning puzzles to **multi-turn, tool-augmented e-commerce conversations**. EcomRLVE-GYM provides 8 verifiable environments — product discovery, substitution, cart building, returns, order tracking, policy QA, bundle planning, and multi-intent journeys — each with procedural problem generation, a 12-axis difficulty curriculum, and algorithmically verifiable rewards. We train a Qwen 3 1.7B model with DAPO over 300 steps and present early results demonstrating that environment scaling and adaptive difficulty transfer to agentic, real-world task completion.
+> **TL;DR** — We extend the RLVE framework from single-turn reasoning puzzles to **multi-turn, tool-augmented e-commerce conversations**. EcomRLVE-GYM provides 8 verifiable environments — product discovery, substitution, cart building, returns, order tracking, policy QA, bundle planning, and multi-intent journeys — each with procedural problem generation, a 12-axis difficulty curriculum, and algorithmically verifiable rewards. We train a Qwen 3 1.7B model with DAPO over 300 steps and present early results demonstrating that environment scaling and adaptive difficulty transfer to agentic, real-world task completion.
 The project is evolving, started with [Pytorch OpenEnv Hackathon](https://cerebralvalley.ai/e/openenv-hackathon-sf).
 
 ---
