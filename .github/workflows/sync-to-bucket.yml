@@ -24,8 +24,11 @@ jobs:
         run: sleep 35
 
       - name: Notify hub to refresh blog metadata
+        env:
+          HUB_WEBHOOK_SECRET: ${{ secrets.HUB_BLOG_WEBHOOK_SECRET }}
         run: |
           curl -sS -X POST https://huggingface.co/api/webhooks/blog \
             -H "X-GitHub-Event: push" \
+            -H "X-Webhook-Secret: $HUB_WEBHOOK_SECRET" \
             -H "Content-Type: application/json" \
             -d '{"ref":"refs/heads/main","repository":{"html_url":"https://github.com/huggingface/blog"}}'
