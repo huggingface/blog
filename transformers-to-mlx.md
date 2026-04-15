@@ -1,16 +1,18 @@
 ---
-title: "Transformers to MLX: Agentic Open Source Helper for Contributors and Reviewers" 
-thumbnail: /blog/assets/transformers-model-definition/transformers-thumbnail.png
+title: "The PR you would have opened yourself" 
+thumbnail: /blog/assets/transformers-to-mlx/thumbnail.png
 authors:
 - user: pcuenq
 - user: lysandre
 ---
 
-# Transformers to MLX: Agentic Open Source Helper for Contributors and Reviewers
+# The PR you would have opened yourself
+
+_`transformers-to-mlx`: a Skill and test harness to support porting models from transformers to MLX_
 
 ## tldr
 
-We provide a **Skill** and a **test harness** to help port language models from transformers to mlx-lm, so they become (almost) instantly available the moment they are added to transformers. The Skill is designed to support contributors and reviewers, but is not an automation to be applied blindly. We explain how we did it, why, and meander about how to meaningfully contribute to open source in the age of agents.
+We provide a **Skill** and a **test harness** to help port language models from transformers to mlx-lm, so they become (almost) instantly available the moment they are added to transformers. The Skill is designed to support contributors and reviewers as an aide, not an automation. We explain why we did it, how, and comment about how to meaningfully contribute to open source in the age of agents.
 
 ## The advent of code agents
 
@@ -18,7 +20,9 @@ In 2026, code agents suddenly started to work. What used to be a distracting aut
 
 We have to adapt and learn how to work in this environment. I'm not referring to the impact on those of us who write code for a living, but to all the assumptions and relationships that we take for granted. Open source projects are one of the first arenas where change is happening, and we have to rethink what it means to _help_ as a contributor.
 
-Take the example of the transformers library. It has received contributions from hundreds of people, is used massively and has been downloaded more than a billion times. We are super lucky that this is the case and I'm not mentioning it to sound authoritative, I just want to convey _volume_. Suddenly, anyone with an agent can instruct it to find some open issue, fix it, and submit a PR. And that's exactly what's happening [to do: graph with received PRs]. Those people feel happy because they are contributing to a great library, but the sad reality is that, most of the time, they don't realize they are not.
+Take the example of the transformers library. It has received contributions from hundreds of people, is used massively and has been downloaded more than a billion times. We are super lucky that this is the case and I'm not mentioning it to sound authoritative, I just want to convey _volume_. Suddenly, anyone with an agent can instruct it to find some open issue, fix it, and submit a PR. And that's exactly what's happening. Those people feel happy because they are contributing to a great library, but the sad reality is that, most of the time, they don't realize they are not.
+
+<!-- TODO: clem's screenshot or something similar -->
 
 Why not?
 
