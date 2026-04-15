@@ -162,7 +162,7 @@ Cart building is a good showcase because it requires the full search → inspect
 
 ### The problem
 
-The generator samples 1–5 target products (scaling with `d`), each potentially requiring a specific variant (USB-C vs Lightning, Matte vs Glossy) and a quantity > 1. The agent must:
+The generator samples 1–5 target products (scaling in difficulty with `d`), each potentially requiring a specific variant (USB-C vs Lightning, Matte vs Glossy) and a quantity > 1. The agent must:
 
 1. Search the catalog to find each product
 2. Call `catalog.get_variants` to see available options
