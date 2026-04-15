@@ -5113,17 +5113,6 @@
     - vibe-coding
     - community
 
-- local: ecom-rlve
-  date: April 13, 2026
-  tags:
-    - rlve
-    - e-commerce
-    - agents
-    - research
-    - reinforcement-learning
-    - OpenEnv
-    - open-source
-
 - local: unsloth-jobs
   date: Feb 20, 2026
   tags:
@@ -5244,3 +5233,15 @@
     - diffusion
     - world-model
     - game-dev
+
+- local: ecom-rlve
+  date: April 15, 2026
+  tags:
+    - reinforcement-learning
+    - rlvr
+    - e-commerce
+    - agents
+    - llm
+    - training
+    - research
+    - open-source

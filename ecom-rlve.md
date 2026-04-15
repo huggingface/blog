@@ -3,27 +3,40 @@ title: "Ecom-RLVE: Adaptive Verifiable Environments for E-Commerce Conversationa
 thumbnail: /blog/assets/ecom-rlve/thumbnail.png
 authors:
 - user: thebajajra
-  guest: true
   org: owlgebra-ai
 - user: ai-queen
-  guest: true
   org: owlgebra-ai
 - user: pmonad
-  guest: true
   org: owlgebra-ai
 - user: burtenshaw
 ---
 
 # Ecom-RLVE: Adaptive Verifiable Environments for E-Commerce Conversational Agents
 
-[![Models](https://img.shields.io/badge/🤗%20Models-WUFUS-blue)](https://huggingface.co/collections/owlgebra-ai/wufus)
-[![Data](https://img.shields.io/badge/🤗%20Catalog%20Data-Amazebay2M-yellow)](https://huggingface.co/datasets/owlgebra-ai/Amazebay-catalog-2M)
-[![Code](https://img.shields.io/badge/Github-Code-black)](https://github.com/owlgebra-ai/EcomRLVE-Gym)
-[![Demo](https://img.shields.io/badge/🤗-Space-red)](https://huggingface.co/spaces/owlgebra-ai/EcomRLVE-Gym)
-
-
-> **TL;DR** — We extend the RLVE framework from single-turn reasoning puzzles to **multi-turn, tool-augmented e-commerce conversations**. EcomRLVE-GYM provides 8 verifiable environments — product discovery, substitution, cart building, returns, order tracking, policy QA, bundle planning, and multi-intent journeys — each with procedural problem generation, a 12-axis difficulty curriculum, and algorithmically verifiable rewards. We train a Qwen 3 1.7B model with DAPO over 300 steps and present early results demonstrating that environment scaling and adaptive difficulty transfer to agentic, real-world task completion.
+> **TL;DR** — We extend the RLVE framework from single-turn reasoning puzzles to **multi-turn, tool-augmented e-commerce conversations**. EcomRLVE-GYM provides 8 verifiable environments — product discovery, substitution, cart building, returns, order tracking, policy QA, bundle planning, and multi-intent journeys — each with procedural problem generation, a 12-axis difficulty curriculum, and algorithmically verifiable rewards. We train a Qwen 3 8B model with DAPO over 300 steps and present early results demonstrating that environment scaling and adaptive difficulty transfer to agentic, real-world task completion.
 This project originated in the [Pytorch OpenEnv Hackathon](https://cerebralvalley.ai/e/openenv-hackathon-sf) and is still evolving, follow us for updates 🔥 
+
+---
+
+## Why RL for shopping agents?
+
+Large language models can hold fluent conversations, yet deploying them as shopping assistants reveals a persistent gap: **fluency ≠ task completion**. A customer who asks *"find me a USB-C charger under \$25 that ships in two days"* needs an agent that invokes the right catalog search, filters on three hard constraints, avoids hallucinating product IDs it never retrieved, and handles follow-ups when the top result goes out of stock.
+
+Supervised fine-tuning can teach surface-level tool use from demonstrations, but it cannot scale to the combinatorial space of constraint configurations, partial-information dialogues, and multi-step transactional workflows that real e-commerce demands.
+
+Reinforcement learning with verifiable rewards (RLVR) offers an alternative: the agent optimises for *outcomes* — did the products satisfy the constraints? Was the cart correct? Was the return initiated for the right order line? The challenge is constructing reward functions that are both **verifiable** (no LLM-as-a-judge subjectivity) and **adaptive** (difficulty that grows with the policy's capability).
+
+### From RLVE-Gym to EcomRLVE-GYM
+
+RLVE-Gym provides 400 environments for sorting, multiplication, Sudoku, and other algorithmic-reasoning tasks; however, those are all **single-turn, text-in / text-out** puzzles — extending to agentic domains was left as future work.
+
+EcomRLVE-GYM fills that gap: we stay in the **verifiable** regime (e-commerce outcomes *can* be checked algorithmically) while extending to **multi-turn, tool-augmented, agentic** conversations — environments where the agent must *act* (call tools, modify world state) rather than merely *reason* (produce a text answer) and compensates for the deficiency of the search system.
+
+EcomRLVE-GYM transforms customer-service outcomes structurally verifiable:
+
+![verifiable_signals_dark](https://cdn-uploads.huggingface.co/production/uploads/6893dd21467f7d2f5f358a95/dA0i6ZB3JDG-rqQtLRCy0.png)
+
+Every signal above can be evaluated by a program with access to the hidden ground-truth goal. No human annotation or LLM-as-a-judge is needed.
 
 ---
 
@@ -38,127 +51,79 @@ The reward is fully computed by code: F1 over `(product, variant, qty)` tuples, 
 
 ---
 
-## Why RL for shopping agents?
-
-Large language models can hold fluent conversations, yet deploying them as shopping assistants reveals a persistent gap: **fluency ≠ task completion**. A customer who asks *"find me a USB-C charger under \$25 that ships in two days"* needs an agent that invokes the right catalog search, filters on three hard constraints, avoids hallucinating product IDs it never retrieved, and handles follow-ups when the top result goes out of stock.
-
-Supervised fine-tuning can teach surface-level tool use from demonstrations, but it cannot scale to the combinatorial space of constraint configurations, partial-information dialogues, and multi-step transactional workflows that real e-commerce demands.
-
-Reinforcement learning with verifiable rewards (RLVR) offers an alternative: the agent optimises for *outcomes* — did the products satisfy the constraints? Was the cart correct? Was the return initiated for the right order line? The challenge is constructing reward functions that are both **verifiable** (no LLM-as-a-judge subjectivity) and **adaptive** (difficulty that grows with the policy's capability).
-
-### From RLVE-Gym to EcomRLVE-GYM
-
-[RLVE](https://arxiv.org/abs/2511.07317) (Zeng et al., 2025) introduced adaptive verifiable environments and built RLVE-Gym — 400 environments for sorting, multiplication, Sudoku, and other algorithmic-reasoning tasks. But those are all **single-turn, text-in / text-out** puzzles. The paper's own future-work section calls for extending to agentic domains.
-
-EcomRLVE-GYM fills that gap: we stay in the **verifiable** regime (e-commerce outcomes *can* be checked algorithmically) while extending to **multi-turn, tool-augmented, agentic** conversations — environments where the agent must *act* (call tools, modify world state) rather than merely *reason* (produce a text answer) and compensates for the deficiency of the search system.
-
-EcomRLVE-GYM transforms customer-service outcomes structurally verifiable:
-
-![verifiable_signals_dark](https://cdn-uploads.huggingface.co/production/uploads/6893dd21467f7d2f5f358a95/dA0i6ZB3JDG-rqQtLRCy0.png)
-
-Every signal above can be evaluated by a program with access to the hidden ground-truth goal. No human annotation or LLM-as-a-judge is needed.
-
----
-
-## What the agent outputs
-
-Every turn, the model produces a single JSON object — a message to the user, optional tool calls, and an optional answer submission:
-
-```json
-{
-  "assistant_message": "Let me find those chargers for you.",
-  "tool_calls": [
-    {"name": "catalog.search", "args": {"query": "Anker 65W charger USB-C"}}
-  ],
-  "answer": null
-}
-```
-
-When the agent believes the task is complete, it sets `"answer": {"done": true, ...}` with environment-specific fields (recommended IDs, selected order, etc.). Invalid JSON triggers immediate termination with `r = -1`, creating a strong gradient toward well-formed outputs from step one.
-
 ---
 
 ## The eight environments
 
-Each environment is a tuple `E = (I, P_d, R)`: an **input** template, a procedural **problem generator** parameterised by difficulty `d`, and an algorithmic **reward verifier**. Rewards are episodic and lie in `[-1, 1]`.
+Each environment covers a distinct real-world shopping scenario. The agent must complete the task using tools (catalog search, cart operations, order lookups, policy queries) and is scored by a program — not a human or another LLM.
 
-| ID | Environment | What the agent does | Key reward signal | Pass condition |
-|----|-------------|---------------------|-------------------|----------------|
-| `E_PD` | Product Discovery | Find products meeting constraints | nDCG + constraint satisfaction | `r_task ≥ 0.95` |
-| `E_SUB` | Substitution | OOS item → find alternative | Similarity-weighted nDCG | `r_task ≥ 0.95` |
-| `E_CART` | Cart Building | Add correct items / variants / qty | Variant-aware F1 | `F1 = 1.0` |
-| `E_RETURN` | Return + Replacement | Identify order line, initiate return | Selection + initiation + replacement | All sub-rewards pass |
-| `E_STATUS` | Order Tracking | "Where is my order?" | Order ID + status match | Both exact match |
-| `E_POLICY` | Policy QA | Answer deterministic policy question | Exact / ratio match | `r_task ≥ 0.95` |
-| `E_BUNDLE` | Bundle Planning | Shopping list for a project | Category F1 − budget penalty | `F1 = 1` and within budget |
-| `E_JOURNEY` | Multi-Intent Journey | Chained sub-tasks in one conversation | Average of sub-task rewards | All `r_j ≥ 0.95` |
+| Environment | What the agent must do |
+|-------------|------------------------|
+| **Product Discovery** | Find products that satisfy all the user's constraints |
+| **Substitution** | An item is out of stock — find a similar, compatible alternative |
+| **Cart Building** | Add the exact products, variants, and quantities the user asked for |
+| **Return + Replacement** | Identify the right order line, initiate a return, suggest a replacement |
+| **Order Tracking** | Resolve which order the user means and report its current status |
+| **Policy QA** | Answer a deterministic question about store policy (return window, shipping rules, etc.) |
+| **Bundle Planning** | Recommend a complete shopping list for a project within a budget |
+| **Multi-Intent Journey** | Handle a conversation that chains 2–5 of the above tasks in sequence |
 
-The agent interacts with **15 tools** across five domains:
 
-| Domain | Tools |
-|--------|-------|
-| **Catalog** | `catalog.search`, `catalog.rerank`, `catalog.get_product`, `catalog.get_variants` |
-| **Cart** | `cart.view`, `cart.add`, `cart.remove`, `cart.set_quantity` |
-| **Orders** | `order.list`, `order.get_status`, `order.checkout` |
-| **Returns** | `return.check_eligibility`, `return.initiate`, `return.exchange` |
-| **Policy** | `policy.search` |
+Every environment uses the same three-part reward signal:
 
-Three environments worth highlighting beyond E_CART (covered in depth below):
+- **Task reward** — did the agent actually complete the goal? (e.g., were the right products recommended, was the cart correct, was the right order tracked?)
+- **Efficiency reward** — did the agent complete it without wasting turns? Turns the *user* caused (asking a follow-up, confirming an action) don't count against the agent — only turns caused by agent mistakes do.
+- **Hallucination penalty** — did the agent only recommend products it actually retrieved during the session? Recommending product IDs that were never looked up is penalised, so the agent cannot invent results from memory.
 
-**E_SUB — Substitution.** The user's desired product is out of stock. The agent must find alternatives that are both *similar* to the original and satisfy compatibility constraints. The reward blends cosine similarity with constraint satisfaction, and the similarity weight increases with difficulty — at high `d`, the user insists on something very close to the original, not just any compatible product.
-
-**E_BUNDLE — Bundle Planning.** Given a project goal (*"I'm setting up a home office"*), the agent recommends products covering all required categories within a budget. The reward is category F1 minus a budget penalty `max(0, (cost - B) / B)` — overspending by 100%+ is harshly penalised, creating a strong gradient against ignoring price.
-
-**E_JOURNEY — Multi-Intent Journey.** The most complex environment: the user chains 2–5 sub-tasks in one conversation (e.g., find a charger, then return a defective cable, then check order status). Each sub-task is scored by its atomic verifier, and `IsCorrect = 1` only if *every* sub-task scores ≥ 0.95 — the agent must near-perfectly complete them all.
-
-Every environment shares a **composite reward**:
-
-```
-r = clip(0.75 * r_task + 0.15 * r_eff + 0.10 * r_hall, -1, 1)
-```
-
-with hard-fail override (`r = -1`) for invalid JSON, illegal tool calls, or safety violations.
-
-**Fair efficiency scoring with UserActs.** A naive turn-count penalty punishes the agent for every turn — including ones the *user* caused. To fix this, the user simulator tags each response with a structured dialogue act:
-
-| UserAct | Meaning | Penalised? |
-|---------|---------|-----------|
-| `confirm` | User confirms the agent's action | No |
-| `clarify` | User provides previously omitted info | No |
-| `correct` | User points out an agent mistake | Yes |
-| `elaborate` | User adds new requirements | Yes |
-| `ragequit` | User abandons the conversation | Yes |
-
-The effective turn count discounts non-penalty acts: `T_eff = max(1, T - T_user_clarify)`. An agent that solves the task in 3 turns — one of which answers a user confirmation — pays efficiency cost for only 2 effective turns. `r_eff = 1 - 2·(T_eff - 1) / (T_max - 1)`.
-
-**Hallucination penalty** checks whether recommended product IDs were actually retrieved: \(\text{hall\_rate} = |\{p \in L : p \notin \text{Seen}\}| / \max(|L|, 1)\), \(r_{\text{hall}} = -\text{clip}(\text{hall\_rate}, 0, 1)\). The agent cannot invent product IDs.
+Invalid outputs (malformed JSON, illegal tool calls) trigger an immediate failure score, creating a strong incentive for well-formed responses from step one.
 
 ---
 
 ## Adaptive difficulty curriculum
 
-RLVE uses a single integer `d` to parameterise difficulty. For algorithmic tasks, `d` maps to one structural parameter (array length, digit count). E-commerce is harder along *many dimensions at once*: number of constraints, missing information, retrieval noise, order-history depth. Collapsing these into a single number conflates orthogonal sources of difficulty.
+A single difficulty number `d` controls 12 independent aspects of a task simultaneously. This is important because e-commerce conversations are hard in many different ways at once — not just along one dimension.
 
 ![Screenshot 2026-03-08 at 11.27.11](https://cdn-uploads.huggingface.co/production/uploads/6893dd21467f7d2f5f358a95/SALZRvBC6TP1HG1ZxqWsh.png)
 
-Our solution: a **12-dimensional difficulty vector** `θ(d)` that maps integer `d` to 12 generator parameters. Here are four representative axes to give the flavour:
+Here are four representative difficulty axes:
 
-| Axis | What it controls | d = 0 | d = 6 | d = 12 |
-|------|-----------------|-------|-------|--------|
-| **Constraint count** `m(d)` | How many product requirements the user has | 2 | 5 | 8 |
-| **Slot omission** `p_missing(d)` | Probability the user omits a constraint | 5% | 70% | ~80% |
-| **Retrieval noise** `ε_rank(d)` | Fraction of search results replaced by distractors | 0% | 12% | 24% |
-| **Out-of-stock rate** `p_oos(d)` | Items that become unavailable mid-episode | 0% | 30% | 50% |
+| What changes | Easy (`d = 0`) | Medium (`d = 6`) | Hard (`d = 12`) |
+|---|---|---|---|
+| **How many constraints** the user has | 2 | 5 | 8 |
+| **How often the user omits** a constraint | 5% | 70% | ~80% |
+| **Fraction of search results** that are distractors | 0% | 12% | 24% |
+| **Items that go out of stock** mid-conversation | 0% | 30% | 50% |
 
-The remaining eight axes control output size, turn budget, input noise, context switches, retrieval depth, order-history depth, policy complexity, and tool budget. The full table is in the [companion technical report](https://github.com/owlgebra-ai/EcomRLVE-Gym).
+The other eight axes cover turn budget, input noise (typos, slang), context switches, retrieval depth, order-history size, policy complexity, and tool budget. The full breakdown is in the [technical report](https://github.com/owlgebra-ai/EcomRLVE-Gym).
 
-**How difficulty advances.** Following RLVE, each environment maintains an independent sliding window `[l_i, h_i]`. Episodes sample `d ~ Uniform[l_i, h_i]`. After 32 rollouts at the upper bound, if the agent passes ≥ 90% of them, the window advances by one. A `d_delta = 4` cap keeps the window width at most 5 levels, ensuring the agent always trains near its capability frontier.
+**Adaptive scheduling.** Each environment tracks the agent's success rate independently and only advances to harder problems once the agent is passing the current level reliably. This keeps every environment training at the agent's capability frontier — avoiding both "too easy to learn from" and "too hard to make progress on".
 
 ---
 
 ## Deep dive: Cart Building (E_CART)
 
-Cart building is a good showcase because it requires the full search → inspect → act loop, has a binary ground truth, and introduces a challenge absent from most recommendation benchmarks: **variant selection**.
+Cart building is a good showcase because it requires the full search → inspect → clarify → act loop, has a binary ground truth, and introduces a challenge absent from most recommendation benchmarks: **variant selection**.
+
+To succeed, the agent must develop five distinct skills:
+
+| Skill | What it means in practice |
+|-------|--------------------------|
+| **Product Discovery** | Search the catalog with well-formed queries to find the right items |
+| **Variant Selection** | Identify the correct color, size, or connector type — not just the right product |
+| **Cart Management** | Add items with the exact variant and quantity the user asked for |
+| **Clarification Dialogue** | Ask the user a focused follow-up when a request is ambiguous (e.g., missing size) |
+| **Multi-Item Orders** | Handle shopping lists with several different products in a single conversation |
+
+The agent uses six tools to accomplish this:
+
+| Tool | What it does |
+|------|-------------|
+| `catalog_search` | Searches the product catalog with a natural-language query |
+| `catalog_get_variants` | Returns available variants (color, size, connector, etc.) for a product |
+| `cart_add` | Adds a product to the cart with a specific variant and quantity |
+| `cart_view` | Reads the current cart so the agent can verify it matches the request |
+| `user_get_visit_history` | Fetches recently viewed products by user |
+| `ask_user` | Sends a clarification question to the customer when a detail is missing |
 
 ### The problem
 
@@ -186,17 +151,13 @@ Real product catalogs have sparse variant data — many products have none, and 
 
 At `d = 0` the agent adds a single product with no variant complexity — learning the basic `catalog.search → cart.add` workflow. At `d = 6` it juggles 3 items, nearly all requiring a specific variant, with half needing qty > 1.
 
-### Reward
+### Scoring
 
-$$F_1 = \frac{2 \cdot \text{prec} \cdot \text{rec}}{\text{prec} + \text{rec} + \epsilon}$$
-
-Precision and recall are measured over composite-keyed unit quantities. `IsCorrect` requires `F1 = 1.0` — *exact* cart correctness including variant selection.
-
-**Mid-dialogue feedback.** If the agent adds the wrong variant, the simulated user corrects it (*"that's the Lightning version, but I need USB-C"*), creating a learning signal for self-correction within the dialogue.
+The cart must be exactly right — correct product, correct variant, correct quantity. Partial credit is given for partially correct carts, but a perfect score requires every item to match. If the agent adds the wrong variant, the simulated user corrects it mid-dialogue (*"that's the Lightning version, but I need USB-C"*), giving the agent a chance to self-correct before the episode ends.
 
 ### Trajectories: easy vs. hard
 
-Two real E_CART episodes from a Qwen 3 1.7B agent. Same environment, same agent — difficulty alone changes the game.
+Two real E_CART episodes from a Qwen 3 8B agent. Same environment, same agent — difficulty alone changes the game.
 
 | | **d = 1** — 1 item, no variants | **d = 8** — 3 items, variants + typos |
 |---|---|---|
@@ -218,11 +179,13 @@ At d=1 the agent solves the task in 3 clean turns. At d=8 it spirals — picking
 
 ## User simulation
 
-A verifiable environment needs a user simulator that behaves consistently but diversely. We use **Qwen3.5 (9.7B)** as the dialogue backbone, with two key mechanisms:
+A verifiable environment needs a user simulator that behaves realistically. We use **Qwen3.5 (9.7B)** to generate natural, varied user messages rather than canned templates — covering everything from typo-filled requests to mid-conversation topic switches.
 
-**Constraint-aligned persona weights.** Each episode samples a 5-dimensional preference weight vector `w` from a Dirichlet distribution. Dimensions corresponding to active constraints (price, rating, shipping, brand, similarity) are *boosted* — so if the user says "under \$25", the verifier's hidden utility actually cares about price. This eliminates a subtle observability inconsistency where the agent could be penalised for listening to the user.
+Two design choices matter for training quality:
 
-**LLM-verbalized constraints.** Instead of template-based slot filling (which only covered 4 attribute types), the LLM generates natural initial messages covering all 17+ constraint attributes. The LLM also controls *strategic omission* — deliberately withholding some constraints to force the agent to ask clarifying questions, with explicit tracking of what was mentioned vs. omitted so the verifier doesn't penalise the agent for information it never received.
+**Preferences match stated constraints.** Each simulated user has a hidden set of preferences (price sensitivity, brand loyalty, shipping speed, etc.). These are deliberately biased toward whatever constraints the user communicated — so if the user said "under \$25", the reward function actually cares about price. Without this, an agent could be penalised for correctly following the user's instructions.
+
+**Strategic omission.** The LLM deliberately withholds some constraints from the opening message to force the agent to ask clarifying questions. The system tracks exactly what was and wasn't mentioned, so the agent is never penalised for information it was never given.
 
 ---
 
@@ -234,9 +197,9 @@ Following RLVE's methodology, we define nested environment collections:
 
 | Collection | Environments | Skills trained |
 |------------|-------------|----------------|
-| **C1** | Product Discovery | Retrieval + recommendation |
+| **C1** | Cart | Serarch Query Formulation, Cart Manipulation |
 | **C2** | + Substitution | Similarity reasoning under constraints |
-| **C4** | + Cart, Returns | Transactional workflows (cart manipulation, return initiation) |
+| **C4** | + Product Discovery, Returns | Transactional workflows (Retrieval + recommendation, return initiation) |
 | **C8** | + Status, Policy, Bundle, Journey | Knowledge retrieval, planning, compositionality |
 
 We hypothesise — consistent with RLVE's findings — that C8 agents outperform single-environment specialists, even on the specialist's own task.
@@ -245,17 +208,17 @@ We hypothesise — consistent with RLVE's findings — that C8 agents outperform
 
 ## Early results
 
-We trained Qwen 3 1.7B with DAPO on C1 (product discovery) for 300 steps as an initial viability study.
+We trained Qwen 3 8B with DAPO on C1 (Cart Building) for 300 steps as an initial viability study.
 
 | | Config |
 |---|--------|
-| **Base model** | Qwen 3 1.7B |
-| **Algorithm** | DAPO (G = 4 rollouts/prompt) |
+| **Base model** | Qwen 3 8B |
+| **Algorithm** | DAPO (G = 8 rollouts/prompt) |
 | **LR** | 1e-5 |
-| **Catalog** | 2M products, FAISS index with `thenlper/gte-small` (384-dim) |
+| **Catalog** | 2M products, FAISS index with `Alibaba-NLP/gte-modernbert-base` (768-dim) |
 | **User sim** | Qwen3.5 9.7B |
 
-![accuracy_10_levels_dots_each_reach (1)](https://cdn-uploads.huggingface.co/production/uploads/6893dd21467f7d2f5f358a95/sGyMSKDOJ4tqiRSgV7AOR.png)
+![accuracy_levels](https://cdn-uploads.huggingface.co/production/uploads/6893dd21467f7d2f5f358a95/eWQqFP-PbCJeNsn8klCQZ.png)
 
 We saw progressive growth in difficulty reached, confirming that adaptive scheduling produces a steady learning signal rather than the saturation (static-low) or starvation (static-high) patterns predicted by the RLVE paper.
 
@@ -263,7 +226,14 @@ We saw progressive growth in difficulty reached, confirming that adaptive schedu
 
 ## Try it yourself
 
-Run an episode directly in your browser — pick an environment, set the difficulty, and watch the agent work:
+Run a live episode directly in your browser using the embedded demo below. Here is how to get started:
+
+1. **Pick an environment** from the dropdown (e.g., `E_CART` for cart building or `E_PD` for product discovery).
+2. **Set a difficulty** — `0` is a simple single-constraint task; `6+` introduces missing information, noisy retrieval, and variant selection.
+3. **Click "Reset Episode"** — the simulated user will open with a shopping request.
+4. You are the agentnow: Make tool calls, analyse outputs and submit the final list of product ids.
+5. Click **"Reset Episode"** between runs to start a fresh scenario.
+
 
 <script
 	type="module"
@@ -271,6 +241,15 @@ Run an episode directly in your browser — pick an environment, set the difficu
 ></script>
 
 <gradio-app theme_mode="dark" space="owlgebra-ai/EcomRLVE-Gym"></gradio-app>
+
+---
+
+## Resources
+
+[![Models](https://img.shields.io/badge/🤗%20Models-WUFUS-blue)](https://huggingface.co/collections/owlgebra-ai/wufus)
+[![Data](https://img.shields.io/badge/🤗%20Catalog%20Data-Amazebay2M-yellow)](https://huggingface.co/datasets/owlgebra-ai/Amazebay-catalog-2M)
+[![Code](https://img.shields.io/badge/Github-Code-black)](https://github.com/owlgebra-ai/EcomRLVE-Gym)
+[![Demo](https://img.shields.io/badge/🤗-Space-red)](https://huggingface.co/spaces/owlgebra-ai/EcomRLVE-Gym)
 
 The environments, verifiers, and training configs are all open-source:
 
@@ -288,32 +267,6 @@ from datasets import load_dataset
 catalog = load_dataset("owlgebra-ai/Amazebay-catalog-2M", split="train")
 print(f"{len(catalog)} products loaded")
 ```
-
----
-
-## What we inherit from RLVE — and what we add
-
-| From RLVE | New in EcomRLVE |
-|-----------|-----------------|
-| `E = (I, P, R)` abstraction | Multi-turn dialogue episodes with tool use |
-| Adaptive `[l, h]` sliding window | 15 tools across 5 domains; world-state mutation |
-| Nested collections C_k | 12-axis difficulty (single `d` → rich parameter vector) |
-| DAPO as RL algorithm | Persona-driven evaluation with Dirichlet-sampled weights |
-| | LLM user simulator (Qwen3.5 9.7B) |
-| | Synthetic variant generation + variant-aware F1 |
-| | UserAct-based fair efficiency scoring |
-
----
-
-## Conclusion
-
-EcomRLVE-GYM shows that the RLVE framework — adaptive verifiable environments with procedural generation and algorithmic rewards — extends naturally from single-turn reasoning puzzles to multi-turn, tool-augmented e-commerce conversations. The key enablers are:
-
-1. **Structural verifiability** of e-commerce outcomes (constraint satisfaction, cart correctness, order identification)
-2. **Multi-axis difficulty** that captures the independent sources of complexity in real shopping conversations
-3. **Persona-driven user simulation** that creates diverse but verifiable evaluation signals
-
-By releasing 8 environments with a 12-dimensional difficulty curriculum, we provide the community with a concrete, extensible testbed for training agentic LLMs with RL — filling the gap between RLVE-Gym's algorithmic puzzles and the open challenge of real-world, tool-augmented task completion.
 
 ---
 
