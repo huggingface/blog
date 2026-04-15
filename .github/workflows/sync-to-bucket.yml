@@ -17,3 +17,15 @@ jobs:
         env:
           HF_TOKEN: ${{ secrets.HF_BLOG_PUSH }}
         run: hf sync . hf://buckets/hf-doc-build/blog --exclude=".git/**"
+
+      # Wait for the hub FUSE mount to pick up the new data (poll interval ~30s) before
+      # notifying the hub to refresh its blog metadata in the DB.
+      - name: Wait for FUSE mount to refresh
+        run: sleep 35
+
+      - name: Notify hub to refresh blog metadata
+        run: |
+          curl -sS -X POST https://huggingface.co/api/webhooks/blog \
+            -H "X-GitHub-Event: push" \
+            -H "Content-Type: application/json" \
+            -d '{"ref":"refs/heads/main","repository":{"html_url":"https://github.com/huggingface/blog"}}'
