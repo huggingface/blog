@@ -16,11 +16,14 @@ authors:
 
 # Ecom-RLVE: Adaptive Verifiable Environments for E-Commerce Conversational Agents
 
+[![Models](https://img.shields.io/badge/🤗%20Models-WUFUS-blue)](https://huggingface.co/collections/owlgebra-ai/wufus)
 [![Data](https://img.shields.io/badge/🤗%20Catalog%20Data-Amazebay2M-yellow)](https://huggingface.co/datasets/owlgebra-ai/Amazebay-catalog-2M)
 [![Code](https://img.shields.io/badge/Github-Code-black)](https://github.com/owlgebra-ai/EcomRLVE-Gym)
+[![Demo](https://img.shields.io/badge/🤗-Space-red)](https://huggingface.co/spaces/owlgebra-ai/EcomRLVE-Gym)
 
-> **TL;DR** — We extend the RLVE framework ([Zeng et al., 2025](https://arxiv.org/abs/2511.07317)) from single-turn reasoning puzzles to **multi-turn, tool-augmented e-commerce conversations**. EcomRLVE-GYM provides 8 verifiable environments — product discovery, substitution, cart building, returns, order tracking, policy QA, bundle planning, and multi-intent journeys — each with procedural problem generation, a 12-axis difficulty curriculum, and algorithmically verifiable rewards. We train a Qwen 3 1.7B model with DAPO over 300 steps and present early results demonstrating that environment scaling and adaptive difficulty transfer to agentic, real-world task completion.
-The project is evolving, started with [Pytorch OpenEnv Hackathon](https://cerebralvalley.ai/e/openenv-hackathon-sf).
+
+> **TL;DR** — We extend the RLVE framework from single-turn reasoning puzzles to **multi-turn, tool-augmented e-commerce conversations**. EcomRLVE-GYM provides 8 verifiable environments — product discovery, substitution, cart building, returns, order tracking, policy QA, bundle planning, and multi-intent journeys — each with procedural problem generation, a 12-axis difficulty curriculum, and algorithmically verifiable rewards. We train a Qwen 3 1.7B model with DAPO over 300 steps and present early results demonstrating that environment scaling and adaptive difficulty transfer to agentic, real-world task completion.
+This project originated in the [Pytorch OpenEnv Hackathon](https://cerebralvalley.ai/e/openenv-hackathon-sf) and is still evolving, follow us for updates 🔥 
 
 ---
 
@@ -159,7 +162,7 @@ Cart building is a good showcase because it requires the full search → inspect
 
 ### The problem
 
-The generator samples 1–5 target products (scaling with `d`), each potentially requiring a specific variant (USB-C vs Lightning, Matte vs Glossy) and a quantity > 1. The agent must:
+The generator samples 1–5 target products (scaling in difficulty with `d`), each potentially requiring a specific variant (USB-C vs Lightning, Matte vs Glossy) and a quantity > 1. The agent must:
 
 1. Search the catalog to find each product
 2. Call `catalog.get_variants` to see available options
@@ -267,7 +270,7 @@ Run an episode directly in your browser — pick an environment, set the difficu
 	src="https://gradio.s3-us-west-2.amazonaws.com/4.36.1/gradio.js"
 ></script>
 
-<gradio-app theme_mode="dark" space="thebajajra/EcomRLVE-Gym"></gradio-app>
+<gradio-app theme_mode="dark" space="owlgebra-ai/EcomRLVE-Gym"></gradio-app>
 
 The environments, verifiers, and training configs are all open-source:
 

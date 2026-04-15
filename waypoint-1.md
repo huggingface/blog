@@ -4,19 +4,19 @@ thumbnail: /blog/assets/overworld/overworld_image.png
 authors:
 - user: lapp0
   guest: true
-  org: overworld
+  org: Overworld
 - user: LouisCastricato
   guest: true
-  org: overworld
+  org: Overworld
 - user: ScottieFox
   guest: true
-  org: overworld
+  org: Overworld
 - user: shahbuland
   guest: true
-  org: overworld
+  org: Overworld
 - user: xAesthetics
   guest: true
-  org: overworld
+  org: Overworld
 ---
 
 # Waypoint-1: Real-time Interactive Video Diffusion from [Overworld](http://over.world)
