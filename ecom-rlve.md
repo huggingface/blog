@@ -267,8 +267,6 @@ catalog = load_dataset("owlgebra-ai/Amazebay-catalog-2M", split="train")
 print(f"{len(catalog)} products loaded")
 ```
 
----
-
 ## References
 
 1. Zeng, Z., Ivison, H., Wang, Y., et al. (2025). *RLVE: Scaling Up Reinforcement Learning for Language Models with Adaptive Verifiable Environments.* ICML 2025. [arXiv:2511.07317](https://arxiv.org/abs/2511.07317)
