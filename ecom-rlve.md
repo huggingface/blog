@@ -182,8 +182,6 @@ Two design choices matter for training quality:
 
 **Strategic omission.** The LLM deliberately withholds some constraints from the opening message to force the agent to ask clarifying questions. The system tracks exactly what was and wasn't mentioned, so the agent is never penalised for information it was never given.
 
----
-
 ## Environment scaling
 
 Following RLVE's methodology, we define nested environment collections:
