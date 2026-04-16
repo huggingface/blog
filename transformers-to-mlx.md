@@ -49,7 +49,7 @@ A small number of maintainers still has to read every PR, understand it, decide 
 
 Transformers is one of the first projects to feel this pressure because of sheer volume, but the same dynamic is happening everywhere. As an example from a different domain, App Store reviewers are swamped because anyone can now build and submit an app, so many do.
 
-MLX is smaller than transformers, but the same logic applies: their maintainers care deeply about the code and read every PR carefully. We wanted to see whether agents could *help contributors* land high-quality model ports fast, and at the same time *support reviewers* in their work. Not only do we aspire to produce PRs that could have come from a careful human submission, but we also provide additional artifacts to increase the signal: generation examples, numerical comparisons, and a separate non-agentic test harness for reproducibility.
+The same logic applies to MLX: their maintainers care deeply about the code and read every PR carefully. We wanted to see whether agents could *help contributors* land high-quality model ports fast, and at the same time *support reviewers* in their work. Not only do we aspire to produce PRs that could have come from a careful human submission, but we also provide additional artifacts to increase the signal: generation examples, numerical comparisons, and a separate non-agentic test harness for reproducibility.
 
 <p align="center">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/transformers-to-mlx/transformers-thumbnail.png" alt="Transformers as the source of truth" style="width: 80%; border-radius: 8px;" />
