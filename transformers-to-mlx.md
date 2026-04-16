@@ -22,7 +22,20 @@ But it forces us to rethink open source.
 
 Take the transformers library as an example. It has hundreds of contributors, is used in thousands of projects, has been downloaded over a billion times. Suddenly, anyone with an agent can instruct it to find some open issue, fix it, and submit a PR. And that's exactly what's happening. Those people feel happy because they are contributing to a great library, but the sad reality is that, most of the time, they don't realize they are not.
 
-<!-- TODO: clem's screenshot or something similar -->
+<div style="display: flex; gap: 2em; justify-content: center; align-items: flex-start; flex-wrap: wrap; margin: 1.5em 0;">
+    <figure style="margin: 0; text-align: center; flex: 1; min-width: 280px; max-width: 480px;">
+      <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/transformers-to-mlx/clem-on-ai-slop.png" alt="Clem's take on AI slop" style="width: 100%; border-radius: 8px;" />
+      <figcaption style="margin-top: 0.5em; font-size: 0.9em; color: #6b7280;">
+        Source: <a href="https://x.com/ClementDelangue/status/2034294644800974908">@ClementDelangue</a>
+      </figcaption>
+    </figure>
+    <figure style="margin: 0; text-align: center; flex: 1; min-width: 280px; max-width: 480px;">
+      <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/transformers-to-mlx/app-store-chart.jpg" alt="App Store submission volume" style="width: 100%; border-radius: 8px;" />
+      <figcaption style="margin-top: 0.5em; font-size: 0.9em; color: #6b7280;">
+        Source: a16z / Sensor Tower
+      </figcaption>
+    </figure>
+  </div>
 
 Why not? There are two assumptions that agent-generated PRs usually miss.
 
@@ -39,6 +52,10 @@ Transformers is one of the first projects to feel this pressure because of sheer
 MLX is smaller than transformers, but the same logic applies: their maintainers care deeply about the code and read every PR carefully. We wanted to see whether agents could *help contributors* land high-quality model ports fast, and at the same time *support reviewers* in their work. Not only do we aspire to produce PRs that could have come from a careful human submission, but we also provide additional artifacts to increase the signal: generation examples, numerical comparisons, and a separate non-agentic test harness for reproducibility.
 
 Another connection between transformers and MLX is that, most times, mlx-lm models are ported from transformers implementations. Because transformers focuses on clarity and readability, it [has become the source of truth for model definitions](https://huggingface.co/blog/transformers-model-definition). Downstream contributors wait until the transformers implementations are ready before they port to other frameworks. As a side effect, this is an excellent environment for an agent because it naturally limits the scope: rather than creating an implementation from scratch, the agent relies on transformers code as the source of truth.
+
+<p align="center">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/transformers-to-mlx/transformers-thumbnail.png" alt="Transformers as the source of truth" style="width: 80%; border-radius: 8px;" />
+</p>
 
 ## What we did
 
@@ -59,6 +76,11 @@ Skills are recipes for agents: simple text files with guidelines that steer the 
 We bootstrapped the Skill by porting a model ourselves, in conversation with Claude. I asked it to port GLM 4.7 from transformers to mlx-lm, giving instructions as I would during a normal session. One trick: I pointed Claude at a checkout of mlx-lm from which I had deleted the already-existing implementation, so I could compare the output against the ground truth. After a few iterations I had a working implementation, a conversation that revealed how Claude approached the problem, and the first draft of the Skill, which Claude created as a summary of the process. I edited it heavily, and incorporated the learnings from [@gabegoodhart](https://huggingface.co/gabegoodhart), who kindly shared [his own porting conversation](https://github.com/ml-explore/mlx-lm/pull/442#issue-3399360107) for a different model 🙌.
 
 We repeated this loop several times and the Skill grew. On the technical side, we covered stuff such as [RoPE bugs](https://x.com/Prince_Canuma/status/1982913823888814334) that may produce plausible output that degrades with long sequences, float32 precision contamination that silently kills inference speed (you'd be surprised how frequent these things happen!), config fields that vary across model variants in ways the implementation must handle, distributed inference for super large models that don't fit on a single machine. We taught it how to invoke the `hf` CLI to discover and download models. Most importantly, we instructed it to run the tests that experienced porters would, and to not declare success until they pass.
+
+<p align="center">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/transformers-to-mlx/rope.png" alt="It's always RoPE" style="width: 60%; border-radius: 8px;" />
+  <em>Source: <a href="https://x.com/Prince_Canuma/status/1982913823888814334">@Prince_Canuma</a></em>
+</p>
 
 On the cultural side, we covered _softer_ characteristics and explained the conventions that make a PR easy to review: don't use comments to explain code (the reviewer has to parse the comment _and_ the code 🤦‍♂️), never propose refactors, don't touch shared utilities without asking. These rules cost the agent nothing but save the reviewer lots of time.
 
