@@ -11,6 +11,8 @@ authors:
 
 Multimodal embedding models map inputs from different modalities into a shared embedding space, while multimodal reranker models score the relevance of mixed-modality pairs. This opens up use cases like visual document retrieval, cross-modal search, and multimodal RAG pipelines.
 
+If you want to train your own multimodal models, check out the companion blogpost: [Training and Finetuning Multimodal Embedding & Reranker Models with Sentence Transformers](https://huggingface.co/blog/train-multimodal-sentence-transformers).
+
 ## Table of Contents
 
 * [What are Multimodal Models?](#what-are-multimodal-models)
@@ -499,9 +501,7 @@ print(similarities)
 
 ### Training
 
-<!-- To learn how to finetune these multimodal models on your own data, see the companion blogpost: [Training and Finetuning Multimodal Embedding & Reranker Models with Sentence Transformers](https://huggingface.co/blog/train-multimodal-sentence-transformers). -->
-
-I'll be releasing a blogpost for training and finetuning multimodal models in the coming weeks, so stay tuned! In the meantime, you can experiment with inference on the pretrained models, or try to experiment with training using the training documentation:
+To learn how to finetune these multimodal models on your own data, see the companion blogpost: [Training and Finetuning Multimodal Embedding & Reranker Models with Sentence Transformers](https://huggingface.co/blog/train-multimodal-sentence-transformers).
 
 - [Sentence Transformer > Training Overview](https://sbert.net/docs/sentence_transformer/training_overview.html)
 - [Sentence Transformer > Training Examples](https://sbert.net/docs/sentence_transformer/training/examples.html)
