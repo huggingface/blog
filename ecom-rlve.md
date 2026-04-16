@@ -72,8 +72,6 @@ Every environment uses the same three-part reward signal:
 
 Invalid outputs (malformed JSON, illegal tool calls) trigger an immediate failure score, creating a strong incentive for well-formed responses from step one.
 
----
-
 ## Adaptive difficulty curriculum
 
 A single difficulty number `d` controls 12 independent aspects of a task simultaneously. This is important because e-commerce conversations are hard in many different ways at once — not just along one dimension.
