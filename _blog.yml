@@ -5234,6 +5234,16 @@
     - world-model
     - game-dev
 
+- local: train-multimodal-sentence-transformers
+  date: April 16, 2026
+  tags:
+    - multimodal
+    - nlp
+    - community
+    - multimodal
+    - vision
+    - open-source
+
 - local: transformers-to-mlx
   date: April 16, 2026
   tags:
@@ -5244,3 +5254,4 @@
     - community
     - claude
     - agents
+
