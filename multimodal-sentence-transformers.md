@@ -69,11 +69,11 @@ Loading a multimodal embedding model works exactly like loading a text-only mode
 ```python
 from sentence_transformers import SentenceTransformer
 
-model = SentenceTransformer("Qwen/Qwen3-VL-Embedding-2B", revision="refs/pr/23")
+model = SentenceTransformer("Qwen/Qwen3-VL-Embedding-2B")
 ```
 
 > [!NOTE]
-> The `revision` argument is required for now because the integration pull requests for these models are still pending. Once they're merged, you'll be able to load them without specifying a revision.
+> Some models might require a `revision` argument for now if the integration pull requests for the model is still pending. Once they're merged, you'll be able to load them without specifying a revision, like above.
 
 The model automatically detects which modalities it supports, so there's nothing extra to configure. See [Processor and Model kwargs](#processor-and-model-kwargs) if you want to control things like image resolution or model precision.
 
@@ -84,7 +84,7 @@ With a multimodal model loaded, [`model.encode()`](https://sbert.net/docs/packag
 ```python
 from sentence_transformers import SentenceTransformer
 
-model = SentenceTransformer("Qwen/Qwen3-VL-Embedding-2B", revision="refs/pr/23")
+model = SentenceTransformer("Qwen/Qwen3-VL-Embedding-2B")
 
 # Encode images from URLs
 img_embeddings = model.encode([
@@ -102,7 +102,7 @@ You can compute similarities between text embeddings and image embeddings, since
 ```python
 from sentence_transformers import SentenceTransformer
 
-model = SentenceTransformer("Qwen/Qwen3-VL-Embedding-2B", revision="refs/pr/23")
+model = SentenceTransformer("Qwen/Qwen3-VL-Embedding-2B")
 
 # Encode images
 img_embeddings = model.encode([
@@ -143,7 +143,7 @@ Under the hood, both are thin wrappers around `encode()`, they just handle promp
 ```python
 from sentence_transformers import SentenceTransformer
 
-model = SentenceTransformer("Qwen/Qwen3-VL-Embedding-2B", revision="refs/pr/23")
+model = SentenceTransformer("Qwen/Qwen3-VL-Embedding-2B")
 
 # Encode text queries with the query prompt
 query_embeddings = model.encode_query([
@@ -177,7 +177,7 @@ The [`rank()`](https://sbert.net/docs/package_reference/cross_encoder/cross_enco
 ```python
 from sentence_transformers import CrossEncoder
 
-model = CrossEncoder("Qwen/Qwen3-VL-Reranker-2B", revision="refs/pr/11")
+model = CrossEncoder("Qwen/Qwen3-VL-Reranker-2B")
 
 query = "A green car parked in front of a yellow building"
 documents = [
@@ -247,7 +247,7 @@ A common pattern is to use an embedding model for fast initial retrieval, then r
 from sentence_transformers import SentenceTransformer, CrossEncoder
 
 # Step 1: Retrieve with an embedding model
-embedder = SentenceTransformer("Qwen/Qwen3-VL-Embedding-2B", revision="refs/pr/23")
+embedder = SentenceTransformer("Qwen/Qwen3-VL-Embedding-2B")
 
 query = "revenue growth chart"
 query_embedding = embedder.encode_query(query)
@@ -297,7 +297,7 @@ You can check which modalities a model supports using the [`modalities`](https:/
 ```python
 from sentence_transformers import SentenceTransformer
 
-model = SentenceTransformer("Qwen/Qwen3-VL-Embedding-2B", revision="refs/pr/23")
+model = SentenceTransformer("Qwen/Qwen3-VL-Embedding-2B")
 
 # List all supported modalities
 print(model.modalities)
@@ -365,7 +365,6 @@ model = SentenceTransformer(
     "Qwen/Qwen3-VL-Embedding-2B",
     model_kwargs={"attn_implementation": "flash_attention_2", "torch_dtype": "bfloat16"},
     processor_kwargs={"min_pixels": 28 * 28, "max_pixels": 600 * 600},
-    revision="refs/pr/23",
 )
 ```
 
@@ -385,8 +384,8 @@ Here are the multimodal models supported in v5.4, also available in the [v5.4 in
 
 | Model | Parameters | Modalities | Revision | 
 | --- | :---: | --- | --- |
-| [Qwen/Qwen3-VL-Embedding-2B](https://huggingface.co/Qwen/Qwen3-VL-Embedding-2B) | 2B | Text, Image, Video | `revision="refs/pr/23"` |
-| [Qwen/Qwen3-VL-Embedding-8B](https://huggingface.co/Qwen/Qwen3-VL-Embedding-8B) | 8B | Text, Image, Video | `revision="refs/pr/11"` |
+| [Qwen/Qwen3-VL-Embedding-2B](https://huggingface.co/Qwen/Qwen3-VL-Embedding-2B) | 2B | Text, Image, Video | No `revision` needed |
+| [Qwen/Qwen3-VL-Embedding-8B](https://huggingface.co/Qwen/Qwen3-VL-Embedding-8B) | 8B | Text, Image, Video | No `revision` needed |
 | [nvidia/llama-nemotron-embed-vl-1b-v2](https://huggingface.co/nvidia/llama-nemotron-embed-vl-1b-v2) | 1.7B | Text, Image | No `revision` needed |
 | [nvidia/omni-embed-nemotron-3b](https://huggingface.co/nvidia/omni-embed-nemotron-3b) | 4.7B | Text, Image | No `revision` needed |
 | [BAAI/BGE-VL-base](https://huggingface.co/BAAI/BGE-VL-base) | 0.1B | Text, Image | No `revision` needed |
@@ -398,8 +397,8 @@ Here are the multimodal models supported in v5.4, also available in the [v5.4 in
 
 | Model | Parameters | Modalities | Revision | 
 | --- | :---: | --- | --- |
-| [Qwen/Qwen3-VL-Reranker-2B](https://huggingface.co/Qwen/Qwen3-VL-Reranker-2B) | 2B | Text, Image, Video | `revision="refs/pr/11"` |
-| [Qwen/Qwen3-VL-Reranker-8B](https://huggingface.co/Qwen/Qwen3-VL-Reranker-8B) | 8B | Text, Image, Video | `revision="refs/pr/9"` |
+| [Qwen/Qwen3-VL-Reranker-2B](https://huggingface.co/Qwen/Qwen3-VL-Reranker-2B) | 2B | Text, Image, Video | No `revision` needed |
+| [Qwen/Qwen3-VL-Reranker-8B](https://huggingface.co/Qwen/Qwen3-VL-Reranker-8B) | 8B | Text, Image, Video | No `revision` needed |
 | [nvidia/llama-nemotron-rerank-vl-1b-v2](https://huggingface.co/nvidia/llama-nemotron-rerank-vl-1b-v2) | 2B | Text, Image | No `revision` needed |
 | [jinaai/jina-reranker-m0](https://huggingface.co/jinaai/jina-reranker-m0) | 2B | Text, Image | No `revision` needed |
 
@@ -407,9 +406,9 @@ Here are the multimodal models supported in v5.4, also available in the [v5.4 in
 
 | Model | Parameters | Revision |
 | --- | :---: | --- |
-| [Qwen/Qwen3-Reranker-0.6B](https://huggingface.co/Qwen/Qwen3-Reranker-0.6B) | 0.6B | `revision="refs/pr/24"` |
-| [Qwen/Qwen3-Reranker-4B](https://huggingface.co/Qwen/Qwen3-Reranker-4B) | 4B | `revision="refs/pr/11"` |
-| [Qwen/Qwen3-Reranker-8B](https://huggingface.co/Qwen/Qwen3-Reranker-8B) | 8B | `revision="refs/pr/11"` |
+| [Qwen/Qwen3-Reranker-0.6B](https://huggingface.co/Qwen/Qwen3-Reranker-0.6B) | 0.6B | No `revision` needed |
+| [Qwen/Qwen3-Reranker-4B](https://huggingface.co/Qwen/Qwen3-Reranker-4B) | 4B | No `revision` needed |
+| [Qwen/Qwen3-Reranker-8B](https://huggingface.co/Qwen/Qwen3-Reranker-8B) | 8B | No `revision` needed |
 | [mixedbread-ai/mxbai-rerank-base-v2](https://huggingface.co/mixedbread-ai/mxbai-rerank-base-v2) | 0.5B | No `revision` needed |
 | [mixedbread-ai/mxbai-rerank-large-v2](https://huggingface.co/mixedbread-ai/mxbai-rerank-large-v2) | 2B | No `revision` needed |
 
