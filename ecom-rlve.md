@@ -215,8 +215,6 @@ We trained Qwen 3 8B with DAPO on C1 (Cart Building) for 300 steps as an initial
 
 We saw progressive growth in difficulty reached, confirming that adaptive scheduling produces a steady learning signal rather than the saturation (static-low) or starvation (static-high) patterns predicted by the RLVE paper.
 
----
-
 ## Try it yourself
 
 Run a live episode directly in your browser using the embedded demo below. Here is how to get started:
