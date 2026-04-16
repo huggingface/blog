@@ -197,8 +197,6 @@ Following RLVE's methodology, we define nested environment collections:
 
 We hypothesise — consistent with RLVE's findings — that C8 agents outperform single-environment specialists, even on the specialist's own task.
 
----
-
 ## Early results
 
 We trained Qwen 3 8B with DAPO on C1 (Cart Building) for 300 steps as an initial viability study.
