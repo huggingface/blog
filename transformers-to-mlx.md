@@ -16,36 +16,29 @@ We provide a **Skill** and a **test harness** to help port language models from 
 
 ## The advent of code agents
 
-In 2026, code agents suddenly started to work. What used to be a distracting auto-completion tool at the side of your editor has turned into a system that will one-shot a solution based on some brief specifications. The generated code usually works on the first try, covers what you asked for, and has reasonable assumptions about details you didn't specify. This is great. As Jensen Huang puts it, [we've instantly gone from 30 million to one billion coders](https://www.youtube.com/watch?v=vif8NQcjVf0&t=7324s) in the world. Creative minds are unleashed.
+In 2026, code agents started to actually work. What used to be auto-completion at the side of your editor turned into a system that one-shots reasonable solutions from brief specifications. The generated code usually works out of the box, covers what you asked for, and makes reasonable assumptions about details you didn't specify. This is great. As Jensen Huang puts it, [we've instantly gone from 30 million to one billion coders](https://www.youtube.com/watch?v=vif8NQcjVf0&t=7324s) in the world. Creative minds are unleashed.
 
-We have to adapt and learn how to work in this environment. I'm not referring to the impact on those of us who write code for a living, but to all the assumptions and relationships that we take for granted. Open source projects are one of the first arenas where change is happening, and we have to rethink what it means to _help_ as a contributor.
+But it forces us to rethink open source.
 
-Take the example of the transformers library. It has received contributions from hundreds of people, is used massively and has been downloaded more than a billion times. We are super lucky that this is the case and I'm not mentioning it to sound authoritative, I just want to convey _volume_. Suddenly, anyone with an agent can instruct it to find some open issue, fix it, and submit a PR. And that's exactly what's happening. Those people feel happy because they are contributing to a great library, but the sad reality is that, most of the time, they don't realize they are not.
+Take the transformers library as an example. It has hundreds of contributors, is used in thousands of projects, has been downloaded over a billion times. Suddenly, anyone with an agent can instruct it to find some open issue, fix it, and submit a PR. And that's exactly what's happening. Those people feel happy because they are contributing to a great library, but the sad reality is that, most of the time, they don't realize they are not.
 
 <!-- TODO: clem's screenshot or something similar -->
 
-Why not?
+Why not? There are two assumptions that agent-generated PRs usually miss.
 
-Let's just consider the sheer amount of PRs received. There's a very small number of transformers maintainers that have to go through all open PRs, understand them, decide if the design direction is correct, identify potential issues, incompatibilities, API changes, side effects, and propose feedback to the author based on this analysis. The amount of PRs has increased ten-fold, but the amount of maintainers has not (and cannot, because team coordination does not scale).
+- **Codebases like transformers care deeply about the code**. It's cool to build projects where it doesn't matter what the code looks like, but transformers is not one of them. Being used by thousands of people, transformers is primarily built as a human-to-human communication method, through code. Model files read top to bottom, because we want practitioners to understand them without jumping through complex abstractions. This permeates [throughout the library design](https://huggingface.co/spaces/transformers-community/Transformers-tenets) and is the reason why, for example, we favor flat hierarchies.
 
-But why is that a problem, Pedro? Let's just accept those PRs and build a better and larger transformers library faster than we ever could! Or, even better, let's have an agent review those PRs so you all don't have to!
+- **Agents don't have that context**. Because design decisions are not explicit, agents suggest refactors to "improve" the codebase by following "best practices", without realizing they are breaking implicit contracts between the library and its users. They are verbose, generalize too early, don't notice when a change affects other areas, introduce subtle bugs, break performance. They are also sycophantic, and accept any idea as good and follow it through diligently, including ones a maintainer would have pushed back early on with a terse comment.
 
-There are two underlying assumptions that agent-generated PRs don't usually take into account.
-
-- Codebases like transformers care deeply about the code. It's cool to build projects where it doesn't matter what the code looks like, but transformers can't afford that. Transformers is used by thousands of users and incorporated as a dependency in hundreds of libraries. Any change in the coding standards, APIs, design decisions, will immediately affect thousands of people, that will have to re-learn how to work with the library and rebuild their mental models of what it does and _how_ it does it. Transformers, and many other projects, are primarily built as a human-to-human communication method, through code. One of the most important goals of transformers is that a model implementation file should be self-contained, so it can be understood by a practitioner who reads it top to bottom. This permeates throughut the library design and is the reason why we favor flat hierarchies, as we've already explained [link pending].
-- These decisions and goals are usually not explicit, and agents don't have all the context. They are happy to suggest refactors to "improve" the codebase by following "best practices", without realizing those refactors break the implicit contract between the library and its users. They are verbose, generalize solutions too early, don't always notice when a change affects other areas of the library, introduce subtle bugs, break performance. They are also largely sycophantic, and accept any idea as a good one and follow it through diligently. They are indulgent with their approach and can happily accept superfluous patches.
+A small number of maintainers still has to read every PR, understand it, decide if the design direction is right, identify side effects, and write feedback. PR volume has gone up tenfold, but the amount of maintainers has not (and cannot, because team coordination does not scale).
 
 ## What does this have to do with MLX?
 
-Transformers is a special case because of its volume, so we are one of the first projects that need to learn how to cooperate with agents efficiently. (Sidebar: a different example in another domain is the App Store - reviewers are swamped because anyone can now build and submit an app, so many do).
+Transformers is one of the first projects to feel this pressure because of sheer volume, but the same dynamic is happening everywhere. As an example from a different domain, App Store reviewers are swamped because anyone can now build and submit an app, so many do.
 
-The change is spreading everywhere. Like transformers, MLX cares deeply about the code, and their maintainers need to carefully read all open PRs to decide which ones are good for the library, and iterate with their authors to bring them home.
+MLX is smaller than transformers, but the same logic applies: their maintainers care deeply about the code and read every PR carefully. We wanted to see whether agents could *help contributors* land high-quality model ports fast, and at the same time *support reviewers* in their work. Not only do we aspire to produce PRs that could have come from a careful human submission, but we also provide additional artifacts to increase the signal: generation examples, numerical comparisons, and a separate non-agentic test harness for reproducibility.
 
-We set out to build an agent-assisted model porting tool for mlx-lm that helps contributors create high-quality PRs, and to provide value to both the contributor and the reviewer. As we'll see in a moment, it helps with testing, pays attention to edge cases and knows about frequent porting pitfalls.
-
-I believe that many of the PRs to mlx-lm that contribute new models are agent-assisted these days. Rather than hiding this fact under the rug, we take this as an opportunity to explore how agents can effectively support open source contributions.
-
-[I haven't explained "transformers as the source of truth" yet. The intro is too large, we should reduce but add this point]
+Another connection between transformers and MLX is that, most times, mlx-lm models are ported from transformers implementations. Because transformers focuses on clarity and readability, it [has become the source of truth for model definitions](https://huggingface.co/blog/transformers-model-definition). Downstream contributors wait until the transformers implementations are ready before they port to other frameworks. As a side effect, this is an excellent environment for an agent because it naturally limits the scope: rather than creating an implementation from scratch, the agent relies on transformers code as the source of truth.
 
 ## What we did
 
@@ -89,7 +82,7 @@ The Skill is designed for the people who are already opening mlx-lm model PRs, o
 
 If you're not prepared to engage in that cycle, you probably shouldn't be opening a PR. The reviewers will make an effort to understand your code (even knowing it was agent-assisted), so you should do the same. Own the code, and be ready to incorporate their feedback. In particular, don't hand reviewer comments back to an agent and post whatever it produces. LLMs double down on their decisions, go on tangents, and don't push back effectively. Once you engage with the reviewer, this becomes a person-to-person conversation, so it's your turn to discuss and be respectful of the time they put in.
 
-You can also use the Skill to learn; you don't need to submit anything until your confidence and experience build. Read the Skill to identify problem areas you weren't aware of. Point it to your own fork of mlx-lm, try a conversion, and compare your output with the accepted implementation once it lands in the official repo. If you do this a few times, you'll learn a lot about transformers, MLX, and language model architectures.
+You can also use the Skill to learn; you don't need to submit anything until your confidence and experience build. Read the Skill to identify problem areas you weren't aware of: it contains nearly 15 thousand words among the skill file, reference docs and utility scripts. Point it to your own fork of mlx-lm, try a conversion, and compare your output against the accepted implementation once it lands in the official repo. If you do this a few times, you'll learn a lot about transformers, MLX, and language model architectures.
 
 If you're ready:
 
@@ -135,3 +128,4 @@ The libraries:
 Background:
 - [Claude Code Skills docs](https://code.claude.com/docs/en/skills)
 - [Transformers design philosophy](https://huggingface.co/spaces/transformers-community/Transformers-tenets)
+- [The Transformers Library: standardizing model definitions](https://huggingface.co/blog/transformers-model-definition)
