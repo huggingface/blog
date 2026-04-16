@@ -9,11 +9,12 @@ authors:
 
 [Sentence Transformers](https://sbert.net/) is a Python library for using and training embedding and reranker models for applications like retrieval augmented generation, semantic search, and more. In my [previous blogpost](https://huggingface.co/blog/multimodal-sentence-transformers), I introduced the new multimodal capabilities, showing how to use embedding and reranker models that handle text, images, audio, and video. In this blogpost, I'll show you how to **train or finetune** these multimodal models on your own data.
 
-As a practical example, I'll walk through finetuning [Qwen/Qwen3-VL-Embedding-2B](https://huggingface.co/Qwen/Qwen3-VL-Embedding-2B) for Visual Document Retrieval (VDR), the task of retrieving relevant document pages (as images, with charts, tables, and layout intact) for a given text query. The resulting [tomaarsen/Qwen3-VL-Embedding-2B-vdr](https://huggingface.co/tomaarsen/Qwen3-VL-Embedding-2B-vdr) demonstrates how much performance you can gain by finetuning on your own domain. On my evaluation data, the finetuned model achieves an NDCG@10 of 0.947 compared to the base model's 0.888, and outperforms all existing VDR models I tested against, including models up to 4x its size.
+As a practical example, I'll walk through finetuning [`Qwen/Qwen3-VL-Embedding-2B`](https://huggingface.co/Qwen/Qwen3-VL-Embedding-2B) for Visual Document Retrieval (VDR), the task of retrieving relevant document pages (as images, with charts, tables, and layout intact) for a given text query. The resulting [`tomaarsen/Qwen3-VL-Embedding-2B-vdr`](https://huggingface.co/tomaarsen/Qwen3-VL-Embedding-2B-vdr) demonstrates how much performance you can gain by finetuning on your own domain. On my evaluation data, the finetuned model achieves an NDCG@10 of 0.947 compared to the base model's 0.888, and outperforms all existing VDR models I tested against, including models up to 4x its size.
 
 ![Model size vs NDCG for VDR models](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/multimodal-sentence-transformers/vdr_plot.png)
 
-If you're new to multimodal models in Sentence Transformers, I recommend reading [Multimodal Embedding & Reranker Models with Sentence Transformers](https://huggingface.co/blog/multimodal-sentence-transformers) first. For training text-only embedding, reranker, or sparse embedding models, see the [Prior Blogposts](#prior-blogposts) section at the end.
+> [!TIP]
+> If you're new to multimodal models in Sentence Transformers, I recommend reading [Multimodal Embedding & Reranker Models with Sentence Transformers](https://huggingface.co/blog/multimodal-sentence-transformers) first. For training text-only embedding, reranker, or sparse embedding models, see the [Prior Blogposts](#prior-blogposts) section at the end.
 
 ## Table of Contents
 
@@ -40,7 +41,7 @@ If you're new to multimodal models in Sentence Transformers, I recommend reading
 
 ## Why Finetune?
 
-General-purpose multimodal embedding models like [Qwen/Qwen3-VL-Embedding-2B](https://huggingface.co/Qwen/Qwen3-VL-Embedding-2B) are trained on diverse data to perform well across a wide range of languages and tasks: image-text matching, visual question answering, document understanding, and more. But this generality means the model is rarely the best choice for any specific task.
+General-purpose multimodal embedding models like [`Qwen/Qwen3-VL-Embedding-2B`](https://huggingface.co/Qwen/Qwen3-VL-Embedding-2B) are trained on diverse data to perform well across a wide range of languages and tasks: image-text matching, visual question answering, document understanding, and more. But this generality means the model is rarely the best choice for any specific task.
 
 Consider Visual Document Retrieval: given a text query like "What was the company's Q3 revenue?", the model must find the most relevant document screenshot from a corpus of thousands. This requires understanding document layouts, charts, tables, and text, which is a very different skill from e.g. matching pictures of shoes with product descriptions.
 
@@ -57,7 +58,7 @@ Training multimodal Sentence Transformer models involves the same components as 
 5. [**Evaluator**](#evaluator) (optional): A tool for evaluating the model before, during, or after training.
 6. [**Trainer**](#trainer): Brings together the model, dataset, loss function, and other components for training.
 
-The multimodal training pipeline uses the same `SentenceTransformerTrainer` as text-only training. The key difference is that your datasets contain images (or other modalities) alongside text, and the model's processor handles the image preprocessing automatically.
+The multimodal training pipeline uses the same [`SentenceTransformerTrainer`](https://sbert.net/docs/package_reference/sentence_transformer/trainer.html#sentence_transformers.sentence_transformer.trainer.SentenceTransformerTrainer) as text-only training. The key difference is that your datasets contain images (or other modalities) alongside text, and the model's processor handles the image preprocessing automatically.
 
 Let's walk through each component, using Visual Document Retrieval (matching text queries to document screenshots) as a running example.
 
@@ -134,7 +135,7 @@ This approach is useful when you want to use lightweight, specialized encoders r
 
 ### Visual Document Retrieval Dataset
 
-For this example, I use the [tomaarsen/llamaindex-vdr-en-train-preprocessed](https://huggingface.co/datasets/tomaarsen/llamaindex-vdr-en-train-preprocessed) dataset, a preprocessed English subset of [llamaindex/vdr-multilingual-train](https://huggingface.co/datasets/llamaindex/vdr-multilingual-train). The source dataset was released alongside the [Visual Document Retrieval Goes Multilingual](https://huggingface.co/blog/vdr-2b-multilingual) blogpost by LlamaIndex, and consists of ~500k multilingual query-image samples collected from public internet PDFs, with queries synthetically generated using VLMs (gemini-1.5-pro and Qwen2-VL-72B). 
+For this example, I use the [`tomaarsen/llamaindex-vdr-en-train-preprocessed`](https://huggingface.co/datasets/tomaarsen/llamaindex-vdr-en-train-preprocessed) dataset, a preprocessed English subset of [`llamaindex/vdr-multilingual-train`](https://huggingface.co/datasets/llamaindex/vdr-multilingual-train). The source dataset was released alongside the [Visual Document Retrieval Goes Multilingual](https://huggingface.co/blog/vdr-2b-multilingual) blogpost by LlamaIndex, and consists of ~500k multilingual query-image samples collected from public internet PDFs, with queries synthetically generated using VLMs (gemini-1.5-pro and Qwen2-VL-72B). 
 My preprocessed version filters to the 53,512 English samples and resolves 4 of the 16 ID-based hard negatives per sample into actual document screenshot images, so it can be used directly for training without further preprocessing:
 
 ```python
@@ -392,9 +393,9 @@ model.push_to_hub("Qwen3-VL-Embedding-2B-vdr")
 
 The training script is nearly identical to a text-only training script. The only differences are:
 
-1. **Model loading**: We pass `model_kwargs` for precision and attention implementation, and `processor_kwargs` for image resolution bounds.
-2. **Loss function**: We use `CachedMultipleNegativesRankingLoss` with `mini_batch_size=1` to handle the large VLM without running out of memory.
-3. **Evaluator**: The evaluator uses images in the corpus and text as queries, enabling cross-modal retrieval evaluation.
+1. Model loading: We pass `model_kwargs` for precision and attention implementation, and `processor_kwargs` for image resolution bounds.
+2. Loss function: We use `CachedMultipleNegativesRankingLoss` with `mini_batch_size=1` to handle the large VLM without running out of memory.
+3. Evaluator: The evaluator uses images in the corpus and text as queries, enabling cross-modal retrieval evaluation.
 
 Everything else (the trainer, training arguments, dataset loading) works exactly the same as text-only training.
 
