@@ -8,7 +8,7 @@ authors:
 
 # The PR you would have opened yourself
 
-_`transformers-to-mlx`: a Skill and test harness to support porting models from transformers to MLX_
+_Making transformers models available in mlx-lm using a Skill and test harness_
 
 ## TL;DR
 
@@ -51,11 +51,13 @@ Transformers is one of the first projects to feel this pressure because of sheer
 
 MLX is smaller than transformers, but the same logic applies: their maintainers care deeply about the code and read every PR carefully. We wanted to see whether agents could *help contributors* land high-quality model ports fast, and at the same time *support reviewers* in their work. Not only do we aspire to produce PRs that could have come from a careful human submission, but we also provide additional artifacts to increase the signal: generation examples, numerical comparisons, and a separate non-agentic test harness for reproducibility.
 
-Another connection between transformers and MLX is that, most times, mlx-lm models are ported from transformers implementations. Because transformers focuses on clarity and readability, it [has become the source of truth for model definitions](https://huggingface.co/blog/transformers-model-definition). Downstream contributors wait until the transformers implementations are ready before they port to other frameworks. As a side effect, this is an excellent environment for an agent because it naturally limits the scope: rather than creating an implementation from scratch, the agent relies on transformers code as the source of truth.
-
 <p align="center">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/transformers-to-mlx/transformers-thumbnail.png" alt="Transformers as the source of truth" style="width: 80%; border-radius: 8px;" />
 </p>
+
+Another connection between transformers and MLX is that, most times, mlx-lm models are ported from transformers implementations. Because transformers focuses on clarity and readability, it [has become the source of truth for model definitions](https://huggingface.co/blog/transformers-model-definition). Downstream contributors wait until the transformers implementations are ready before they port to other frameworks. As a side effect, this is an excellent environment for an agent because it naturally limits the scope: rather than creating an implementation from scratch, the agent relies on transformers code as the source of truth.
+
+This approach supports our goal: when a model lands in transformers, it should be available on MLX shortly after.
 
 ## What we did
 
