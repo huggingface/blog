@@ -388,10 +388,22 @@ Here are the multimodal models supported in v5.4, also available in the [v5.4 in
 | [Qwen/Qwen3-VL-Embedding-8B](https://huggingface.co/Qwen/Qwen3-VL-Embedding-8B) | 8B | Text, Image, Video | No `revision` needed |
 | [nvidia/llama-nemotron-embed-vl-1b-v2](https://huggingface.co/nvidia/llama-nemotron-embed-vl-1b-v2) | 1.7B | Text, Image | No `revision` needed |
 | [nvidia/omni-embed-nemotron-3b](https://huggingface.co/nvidia/omni-embed-nemotron-3b) | 4.7B | Text, Image | No `revision` needed |
+| [LCO-Embedding/LCO-Embedding-Omni-3B](https://huggingface.co/LCO-Embedding/LCO-Embedding-Omni-3B) | 5B | Text, Image, Audio, Video | No `revision` needed |
+| [LCO-Embedding/LCO-Embedding-Omni-7B](https://huggingface.co/LCO-Embedding/LCO-Embedding-Omni-7B) | 9B | Text, Image, Audio, Video | No `revision` needed |
+| [BidirLM/BidirLM-Omni-2.5B-Embedding](https://huggingface.co/BidirLM/BidirLM-Omni-2.5B-Embedding) | 2.5B | Text, Image, Audio | No `revision` needed |
 | [BAAI/BGE-VL-base](https://huggingface.co/BAAI/BGE-VL-base) | 0.1B | Text, Image | No `revision` needed |
 | [BAAI/BGE-VL-large](https://huggingface.co/BAAI/BGE-VL-large) | 0.4B | Text, Image | No `revision` needed |
 | [BAAI/BGE-VL-MLLM-S1](https://huggingface.co/BAAI/BGE-VL-MLLM-S1) | 8B | Text, Image | No `revision` needed |
 | [BAAI/BGE-VL-MLLM-S2](https://huggingface.co/BAAI/BGE-VL-MLLM-S2) | 8B | Text, Image | No `revision` needed |
+| [BAAI/BGE-VL-v1.5-zs](https://huggingface.co/BAAI/BGE-VL-v1.5-zs) | 8B | Text, Image | No `revision` needed |
+| [BAAI/BGE-VL-v1.5-mmeb](https://huggingface.co/BAAI/BGE-VL-v1.5-mmeb) | 8B | Text, Image | No `revision` needed |
+| [BAAI/BGE-VL-Screenshot](https://huggingface.co/BAAI/BGE-VL-Screenshot) | 4B | Text, Image | No `revision` needed |
+| [royokong/e5-v](https://huggingface.co/royokong/e5-v) | 8B | Text, Image | No `revision` needed |
+| [eagerworks/eager-embed-v1](https://huggingface.co/eagerworks/eager-embed-v1) | 4B | Text, Image | `revision="refs/pr/2"` |
+| [nomic-ai/nomic-embed-multimodal-3b](https://huggingface.co/nomic-ai/nomic-embed-multimodal-3b) | 5B | Text, Image | `revision="refs/pr/4"` |
+| [nomic-ai/nomic-embed-multimodal-7b](https://huggingface.co/nomic-ai/nomic-embed-multimodal-7b) | 9B | Text, Image | `revision="refs/pr/3"` |
+| [Haon-Chen/e5-omni-3B](https://huggingface.co/Haon-Chen/e5-omni-3B) | 5B | Text, Image, Audio, Video | `revision="refs/pr/2"` |
+| [Haon-Chen/e5-omni-7B](https://huggingface.co/Haon-Chen/e5-omni-7B) | 9B | Text, Image, Audio, Video | `revision="refs/pr/1"` |
 
 ### Supported Multimodal Reranker Models
 
@@ -411,6 +423,9 @@ Here are the multimodal models supported in v5.4, also available in the [v5.4 in
 | [Qwen/Qwen3-Reranker-8B](https://huggingface.co/Qwen/Qwen3-Reranker-8B) | 8B | No `revision` needed |
 | [mixedbread-ai/mxbai-rerank-base-v2](https://huggingface.co/mixedbread-ai/mxbai-rerank-base-v2) | 0.5B | No `revision` needed |
 | [mixedbread-ai/mxbai-rerank-large-v2](https://huggingface.co/mixedbread-ai/mxbai-rerank-large-v2) | 2B | No `revision` needed |
+| [ContextualAI/ctxl-rerank-v2-instruct-multilingual-1b](https://huggingface.co/ContextualAI/ctxl-rerank-v2-instruct-multilingual-1b) | 1B | `revision="refs/pr/2"` |
+| [ContextualAI/ctxl-rerank-v2-instruct-multilingual-2b](https://huggingface.co/ContextualAI/ctxl-rerank-v2-instruct-multilingual-2b) | 3B | `revision="refs/pr/1"` |
+| [ContextualAI/ctxl-rerank-v2-instruct-multilingual-6b](https://huggingface.co/ContextualAI/ctxl-rerank-v2-instruct-multilingual-6b) | 7B | `revision="refs/pr/1"` |
 
 <details>
 <summary>Click here for a text-only reranker usage example</summary>
