@@ -91,8 +91,6 @@ The other eight axes cover turn budget, input noise (typos, slang), context swit
 
 **Adaptive scheduling.** Each environment tracks the agent's success rate independently and only advances to harder problems once the agent is passing the current level reliably. This keeps every environment training at the agent's capability frontier — avoiding both "too easy to learn from" and "too hard to make progress on".
 
----
-
 ## Deep dive: Cart Building (E_CART)
 
 Cart building is a good showcase because it requires the full search → inspect → clarify → act loop, has a binary ground truth, and introduces a challenge absent from most recommendation benchmarks: **variant selection**.
