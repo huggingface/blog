@@ -64,7 +64,7 @@ As shown in the benchmarks above, this feature mix (combined with the training d
 These are the main architecture characteristics in Gemma 4:
 
 * Alternating **local sliding-window** and **global full-context** attention layers. Smaller dense models use sliding windows of 512 tokens while larger models use 1024 tokens.
-* **Dual RoPE** configurations: standard RoPE for sliding layers, proportional RoPE for global layers, to enable longer context.
+* **Dual RoPE** configurations: standard RoPE for sliding layers, pruned RoPE for global layers, to enable longer context.
 * **Per-Layer Embeddings (PLE)**: a second embedding table that feeds a small residual signal into every decoder layer.
 * **Shared KV Cache**: the last N layers of the model reuse key-value states from earlier layers, eliminating redundant KV projections.
 * **Vision encoder**: uses learned 2D positions and multidimensional RoPE. Preserves the original aspect ratios and can encode images to a few different token budgets (70, 140, 280, 560, 1120).

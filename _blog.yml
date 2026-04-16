@@ -5233,8 +5233,30 @@
     - world-model
     - game-dev
 
+
+- local: train-multimodal-sentence-transformers
+  date: April 16, 2026
+  tags:
+    - multimodal
+    - nlp
+    - community
+    - multimodal
+    - vision
+    - open-source
+
+- local: transformers-to-mlx
+  date: April 16, 2026
+  tags:
+    - announcement
+    - mlx
+    - llm
+    - open-source
+    - community
+    - claude
+    - agents
+
 - local: ecom-rlve
-  date: April 15, 2026
+  date: April 16, 2026
   tags:
     - reinforcement-learning
     - rlvr
@@ -5244,3 +5266,4 @@
     - training
     - research
     - open-source
+
