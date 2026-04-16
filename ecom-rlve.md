@@ -17,8 +17,6 @@ authors:
 
 This project originated in the [Pytorch OpenEnv Hackathon](https://cerebralvalley.ai/e/openenv-hackathon-sf) and is still evolving, follow us for updates 🔥 
 
----
-
 ## Why RL for shopping agents?
 
 Large language models can hold fluent conversations, yet deploying them as shopping assistants reveals a persistent gap: **fluency ≠ task completion**. A customer who asks *"find me a USB-C charger under \$25 that ships in two days"* needs an agent that invokes the right catalog search, filters on three hard constraints, avoids hallucinating product IDs it never retrieved, and handles follow-ups when the top result goes out of stock.
