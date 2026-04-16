@@ -49,63 +49,89 @@ I believe that many of the PRs to mlx-lm that contribute new models are agent-as
 
 ## What we did
 
-We are sharing a Skill with the community that mlx-lm contributors can use to assist them when they want to port a model from transformers to MLX. These are our driving goals:
+We built a Skill that mlx-lm contributors can use to port a model from transformers to MLX. Given a prompt like "convert the olmo_hybrid architecture to MLX", the Skill sets up a virtual environment to work on, discovers and downloads the relevant models from the Hub, reads the transformers modeling code, writes the MLX implementation, and runs a battery of tests. If results don't look right, it debugs and iterates, and does not declare success until it's satisfied.
 
-- Help mlx-lm contributors land model ports fast, reducing the time it takes to build a port since it's added to the transformers codebase until the architecture is available in mlx-lm.
-- Always respect the idiosyncrasies of the mlx-lm library: code style, idiomatic solutions, design directions, and any other explicit and implicit convention encoded in the codebase.
-- Pay attention to the details, and test for potential failure cases. For example, bugs in the implementation of RoPE may not prevent a model from generating seemingly coherent output, but quality degrades in long sequences. This is an example of something difficult to test, time-consuming, and that only people with LLM experience would test for.
-- Help the contributor with easy and advanced tasks alike. For example:
-  * Model repositories are automatically found and downloaded from the Hugging Face Hub.
-  * Configuration differences across models of the same architecture are detected and explicitly tested for. The agent will look at the transformers reference implementation to verify how to deal with these variants.
-  * Common pitfalls and non-subtle failures are considered.
-  * Run tests to verify generation coherence and adherence to the transformers reference implementation.
-  * Verify the output dtype is the expected one (too many times this has been the reason why a port appears to be too slow).
-- Support the reviewers as well.
-  * The generated PRs contain a comprehensive report that includes generation examples, notable architecture details, models that were tested, etc.
-  * Test results are shared as part of the PR. The Skill will not open a PR until the agent and the contributor consider the implementation correct.
-  * PRs are upfront about the use of agents and disclose exactly what they did (everything's that's in the report).
-  * A non-agentic test harness can be run on Hugging Face's infra for verification. It includes slow, long-context generation tests that may surface subtle bugs, and supports large models that require considerable amounts of RAM to run. These tests complement the ones performed by the agent, but they are, by design, easily reproducible and not subject to hallucinations or complacency.
+We designed it to be useful to reviewers as much as contributors.
 
-We are committed to updating this Skill as contributors use it and the mlx-lm library evolves.
+**For the contributor**, the Skill of course handles all the scaffolding: finding model variants on the Hub, diffing their configs to spot parameters that vary across model variants, downloading checkpoints, setting up editable installs of both mlx-lm and transformers. But it also handles the more difficult modeling tasks. It pays attention to salient architecture details and verifies sensitive areas, like RoPE configurations, that may result in hard-to-find bugs. It detects when the config doesn't declare a dtype and infers it from the safetensors metadata header. It runs per-layer comparisons between transformers and MLX to pinpoint exactly where divergence occurs. These are the kinds of checks that only someone with porting experience would think to run.
+
+**For the reviewer**, the Skill produces a PR that is upfront about being agent-assisted, but does look like a careful human submission. Reviewers will see that the code follows mlx-lm conventions: idiomatic solutions, no unnecessary comments, no speculative abstractions, no modifications to shared utilities without explicit approval. Given that the code is agent-assisted, we try to include _more_ data than the median PR, to provide as much signal as possible. The PR body includes a report with a summary of the variants and their architectural differences, generation examples, numerical comparisons, dtype verification, per-layer comparisons against the transformers baseline. The PR always discloses that it was agent-assisted, and the Skill will not open it until the contributor has accepted the results.
+
+**For verification**, the Skill generates a test manifest for a separate, non-agentic test harness that is, by design, easily reproducible and not subject to LLM hallucinations or complacency ([more on this below](#the-test-harness)).
 
 ## How we did it
 
-Skills are recipes for agents. They are not magic –you can achieve the same results via prompting and iteration–; in fact, they are just a text file with instructions. But they provide _reproducibility_ and _coherence_: the Skill contains comprehensive guidelines intended to steer the model to produce the desired output and resolve ambiguity. They are also great for documentation: anyone can read the skill to learn what the instructions look like, and suggest improvements when unexplored cases arise. 
+Skills are recipes for agents: simple text files with guidelines that steer the model through a complex task. They are not magic; you can achieve the same results via prompting and iteration. But they provide _consistency_ (every run follows the same process, whereas different people would prompt differently), minimize ambiguity and serve as documentation: anyone can read the Skill to understand what it does, identify missing cases and suggest improvements.
 
-We built the Skill through a few conversations with Claude. First, I asked Claude to port a language model (GLM 4.7) from transformers to mlx-lm, and gave instructions on how to do it, just as I would during a normal session. I cheated a bit: I pointed Claude to a local checkout of mlx-lm from which I had deleted the already-existing implementation. After a few iterations with Claude, I had a conversation that revealed how it thought about the problem, a working implementation, and a diff I could compare with the "ground truth" from the mlx-lm project. I then asked Claude to write a summary of these learnings, which became the first version of the Skill file. I went through it and modified to my taste, then I added the learnings from [this contributor](https://github.com/ml-explore/mlx-lm/pull/442#issue-3399360107), who kindly shared his own model-port conversation for a different model (thanks [@gabegoodhart](https://huggingface.co/gabegoodhart) 🙌).
+We bootstrapped the Skill by porting a model ourselves, in conversation with Claude. I asked it to port GLM 4.7 from transformers to mlx-lm, giving instructions as I would during a normal session. One trick: I pointed Claude at a checkout of mlx-lm from which I had deleted the already-existing implementation, so I could compare the output against the ground truth. After a few iterations I had a working implementation, a conversation that revealed how Claude approached the problem, and the first draft of the Skill, which Claude created as a summary of the process. I edited it heavily, and incorporated the learnings from [@gabegoodhart](https://huggingface.co/gabegoodhart), who kindly shared [his own porting conversation](https://github.com/ml-explore/mlx-lm/pull/442#issue-3399360107) for a different model 🙌.
 
-We repeated this process a few times, and incorporated lots of feedback to the Skill: failure cases were generalized, we taught the model how to deal with super large models (use distributed inference across various computers), how to identify candidate repos to be tested, how to download them with the `hf` CLI, and many other useful pieces of knowledge. We paid a lot of attention to the verifications performed during conversion, and asked to explicitly include long-sequence generation tests. The devil is always in the details, so we did our best to imbue the Skill with a sense of problematic areas to be super careful about, [such as RoPE](https://x.com/Prince_Canuma/status/1982913823888814334), or precision contamination to float32 that kills performance. The Skill is tasked with finding out novel architecture details, and focuses on those.
+We repeated this loop several times and the Skill grew. On the technical side, we covered stuff such as [RoPE bugs](https://x.com/Prince_Canuma/status/1982913823888814334) that may produce plausible output that degrades with long sequences, float32 precision contamination that silently kills inference speed (you'd be surprised how frequent these things happen!), config fields that vary across model variants in ways the implementation must handle, distributed inference for super large models that don't fit on a single machine. We taught it how to invoke the `hf` CLI to discover and download models. Most importantly, we instructed it to run the tests that experienced porters would, and to not declare success until they pass.
 
-In addition to all these technical and "correctness" details, we also explained _softer_ characteristics: do not use comments to explain code (the reviewer has to parse the comment _and_ the code 🤦‍♂️), never propose refactors, do not modify common utility functions shared with other models unless the user approves.
+On the cultural side, we covered _softer_ characteristics and explained the conventions that make a PR easy to review: don't use comments to explain code (the reviewer has to parse the comment _and_ the code 🤦‍♂️), never propose refactors, don't touch shared utilities without asking. These rules cost the agent nothing but save the reviewer lots of time.
 
-[todo: find a couple of interesting conversation snippets to include]
+[todo: conversation snippets]
 
-The goal is that the user provides a prompt like "Please, convert the olmo_hybrid architecture to MLX", and the Skill produces a PR like [this one](https://github.com/ml-explore/mlx-lm/pull/1023), plus a test descriptor file to be run by an external test harness.
+The end result: the contributor types a prompt, and the Skill produces a PR like [this one](https://github.com/ml-explore/mlx-lm/pull/1023), plus a test manifest for the external test harness.
 
-## The test harness
+## Test harness
 
-The Skill we created knows how to implement a new architecture, how to identify models to convert and how to test them, and it produces a quite comprehensive results report that is shared as part of the PR. Tests are run by the LLM itself, but we wanted to go a step forward, and created a separate test harness to further validate the new implementations. This serves a couple of purposes:
+The Skill shares a comprehensive results report as part of the PR. All these come from tests the agent runs during conversion, but we didn't want the reviewer to take a leap of faith to accept them. To go a step forward, we created a separate, non-agentic test harness that runs systematic tests on the converted code. This brings a couple of benefits:
 
 - Removes uncertainty about the LLM hallucinating results, or being too complacent about them.
-- Persists tests and results in a separate repo, so anyone can review them.
-- Provides an straightforward way to reproduce results. Tests and results are uploaded on a per-model basis, with all dependencies documented. Using `uv`, any user is a command-line away from running them on their own computer for verification, or to test potential regressions.
+- Guarantees reproducibility: anyone can download the test harness repo and run the tests.
+- Documentation and transparency. All results are saved at various levels: [summary reports](https://github.com/pcuenca/mlx-lm-tests/blob/main/results/pr-5/2026-04-14T122120-7ce7a68/summary.md#layers--ran), [per-model details](https://github.com/pcuenca/mlx-lm-tests/blob/main/results/pr-5/2026-04-14T122120-7ce7a68/summary.md#allenaiolmo-hybrid-instruct-sft-7b), [raw inputs/outputs](https://github.com/pcuenca/mlx-lm-tests/tree/main/results/pr-5/2026-04-14T122120-7ce7a68/allenai--Olmo-Hybrid-Instruct-SFT-7B) saved as JSON files. The [tests](https://github.com/pcuenca/mlx-lm-tests/tree/main/results/pr-5/2026-04-14T122120-7ce7a68/scripts) are also copied to results folders so we know what we ran even if we make changes to the harness in the future.
 
-This is not meant as an additional CI gate that we impose on mlx-lm, but as a verification tool for the conversions implemented by the agent Skill. We also provide some infra of our own that contributors can use: one maxed-out M3 Ultra with 512 GB of RAM. Because this is not a CI, and because of security considerations, running the external test harness on our infra is not automated – you can run on your own computer, or ping `@pcuenca` in your GitHub PR so I can run it for you. Regular contributors will be whitelisted as usage picks up.
+The test harness is not a CI gate. Some checks are straightforward (is the output dtype correct?), but most are qualitative. Is it normal that a pre-trained model repeats itself in long sequences? Is a 4% relative logits difference against the transformers baseline acceptable? These are judgement calls based on experience with similar architectures. The harness provides useful signal, but it's the reviewer and contributor who still have to make the call.
 
-## How to Use the Skill
+## How to use the Skill
 
-The Skill has been designed for model contributors, and our goal is to help them and mlx-lm reviewers by taking advantage of what agents can offer. The target audience, therefore, is the same people that are opening PRs right now (or those who would open them manually on their own). The reason this is not intended for _mass_ consumption is that, as we explained, maintainers care deeply about the library and will only accept contributions after they have spent time making sure that the PR works as expected and the contribution is actually useful. It's very rare that these complex PRs are accepted on sight, even when submitted by experts. The typical scenario is that a contributor opens a PR, then the reviewers point out deficiencies or improvements, and they both iterate for a while, until the desired level of quality is met. We expect this process to continue for the foreseeable future, so if you're not prepared to engage in this iteration cycle, then it's a sign that you probably shouldn't be opening a PR [^1]. The reviewers will make an effort to understand your code (even if it was assisted by an agent), so you should at least do the same, own the code, and be ready to incorporate their feedback.
+The Skill is designed for the people who are already opening mlx-lm model PRs, or who would do it manually on their own. It's not meant for mass consumption, because PRs to mlx-lm are rarely accepted on sight. The typical cycle is: contributor opens a PR, reviewers point out improvements, both sides iterate until the quality bar is met. If this is true for expert submissions, it will remain true for agent-assisted ones.
 
-[^1]: We don't think it's productive to ask an agent to deal with reviewers' feedback: LLMs will double-down on their decisions, go through tangents, not refute effectively. This is something you should do as a contributor. And it's respectful of the time the reviewer put in.
+If you're not prepared to engage in that cycle, you probably shouldn't be opening a PR. The reviewers will make an effort to understand your code (even knowing it was agent-assisted), so you should do the same. Own the code, and be ready to incorporate their feedback. In particular, don't hand reviewer comments back to an agent and post whatever it produces. LLMs double down on their decisions, go on tangents, and don't push back effectively. Once you engage with the reviewer, this becomes a person-to-person conversation, so it's your turn to discuss and be respectful of the time they put in.
 
-You can also use the Skill to learn. One effective way to do it is just by reading it to identify problem areas you may have not be aware of. Another way is to tell the Skill to use your own fork of mlx-lm and try your hand at a conversion, but without submitting a PR to the official repo. You can then study the generated code and compare it with the accepted implementation once it becomes available in the official repo.
+You can also use the Skill to learn; you don't need to submit anything until your confidence and experience build. Read the Skill to identify problem areas you weren't aware of. Point it to your own fork of mlx-lm, try a conversion, and compare your output with the accepted implementation once it lands in the official repo. If you do this a few times, you'll learn a lot about transformers, MLX, and language model architectures.
 
-If you are an mlx-lm contributor or ready to become one, you can install the Skill using:
+If you're ready:
 
-[to do]
+```bash
+uv run https://raw.githubusercontent.com/huggingface/transformers-to-mlx/main/install_skill.py
+uvx hf skills add --claude
+```
 
-Disclaimer: we have developed and tested the Skill using Claude Code. The same approach would have worked with Codex or other coding agents, but we haven't tested them. If you use this Skill in other environments, please let us know how it goes!
+We developed and tested the Skill using Claude Code. The same approach would work with Codex or other coding agents, but we haven't tested them. If you try the Skill in a different environment, please let us know how it goes!
 
-## Next Steps
+## Next steps and known shortcomings
 
-mlx-vlm etc.
+The Skill works well for LLMs in mlx-lm, but there's plenty of room to grow.
+
+### What's next
+
+- **mlx-vlm**. Vision-language models live in a [separate repo](https://github.com/Blaizzy/mlx-vlm) with different conventions. Beyond the modeling code, mlx-vlm requires _processors_ to handle image pre-processing before the LLM sees the input. We're looking forward to collaborating with [Prince Canuma](https://huggingface.co/prince-canuma) to help him do what he does.
+- **llama.cpp**. Some of the same challenges apply. Processors require image processing algorithms to be replicated in C++, and numerical differences are unavoidable. This is an area where a tightly scoped agent might help.
+- **The test harness**. We want to expand the test battery and potentially explore safe automation to run tests automatically on our infra.
+
+### What doesn't work yet
+
+- **Shared utilities in mlx-lm**. mlx-lm is less strict than transformers about extracting common patterns into shared functions. The Skill is purposefully biased towards self-contained model files (same as transformers), but reviewers regularly ask for refactors to move repeated code into shared modules.
+- **VLMs and other architectures**, as noted above.
+- **Quantized model uploads**. The Skill tests quantization but doesn't upload quantized models to the Hub. We think it doesn't make sense to upload while the PR is being reviewed, but we could create a flow to do it later.
+- **Thinking tests**. No thinking-specific tests have been designed yet. The Skill will convert and verify generations from these models, but won't validate the thinking structure.
+
+## Conclusion
+
+The bottleneck in open source is not typing speed: it's understaning the codebase to change it without breaking the implicit and explicit contracts with users. Agents can help in this process, if we teach them what matters. We explored what this looks like in the context of mlx-lm, and hope it's useful for contributors and reviewers to land high-quality model conversions faster!
+
+## Resources
+
+Contributions:
+- [transformers-to-mlx Skill repo](https://github.com/huggingface/transformers-to-mlx)
+- [Test Harnes repo](https://github.com/pcuenca/mlx-lm-tests)
+- [Example agent-assisted conversion against a fork](https://github.com/pcuenca/mlx-lm/pull/5)
+
+The libraries:
+- [mlx-lm, the target library](https://github.com/ml-explore/mlx-lm)
+- [transformers, the source of truth for modeling code](https://github.com/huggingface/transformers)
+
+Background:
+- [Claude Code Skills docs](https://code.claude.com/docs/en/skills)
+- [Transformers design philosophy](https://huggingface.co/spaces/transformers-community/Transformers-tenets)
