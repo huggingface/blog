@@ -151,3 +151,9 @@ Background:
 - [Claude Code Skills docs](https://code.claude.com/docs/en/skills)
 - [Transformers design philosophy](https://huggingface.co/spaces/transformers-community/Transformers-tenets)
 - [The Transformers Library: standardizing model definitions](https://huggingface.co/blog/transformers-model-definition)
+
+## Thank you!
+
+Thanks a lot to [Ben](https://huggingface.co/burtenshaw), [Shaun](https://huggingface.co/evalstate), [Aritra](https://huggingface.co/ariG23498) for reading previous versions of this post and making it so much better 🙌
+
+We are incredibly indebted to Apple for making MLX an open-source project, and to the community for instantly recognizing its value and  contributing enthusiastically. Big shoutout to [Awni](https://huggingface.co/awni), who's no longer with Apple but will always be an inspiration 🙏.
