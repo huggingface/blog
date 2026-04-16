@@ -170,8 +170,6 @@ Two real E_CART episodes from a Qwen 3 8B agent. Same environment, same agent �
 
 At d=1 the agent solves the task in 3 clean turns. At d=8 it spirals — picking Bamboo instead of Charcoal, XL instead of XS, never fixing the air fryer despite two user corrections, then hallucinating that the variant doesn't exist. This is exactly the kind of multi-step error cascade that the difficulty curriculum surfaces, and that adaptive training should teach the agent to recover from.
 
----
-
 ## User simulation
 
 A verifiable environment needs a user simulator that behaves realistically. We use **Qwen3.5 (9.7B)** to generate natural, varied user messages rather than canned templates — covering everything from typo-filled requests to mid-conversation topic switches.
