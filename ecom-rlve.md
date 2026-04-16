@@ -41,7 +41,7 @@ Every signal above can be evaluated by a program with access to the hidden groun
 
 ## What a training episode looks like
 
-Before we explain the framework, here is what a single EcomRLVE episode looks like at `d = 4`. The environment generates a hidden goal, a simulated user opens the chat, and the agent must use tools to satisfy the request. Every action is verified algorithmically — no LLM judge required.
+Before we explain the framework, here is what a single EcomRLVE episode looks like at difficulty `d = 4`. The environment generates a hidden goal, a simulated user opens the chat, and the agent must use tools to satisfy the request. Every action is verified algorithmically — no LLM judge required.
 
 <center><img src="https://cdn-uploads.huggingface.co/production/uploads/6893dd21467f7d2f5f358a95/qDXS-CPl8DT4JN6Uq6nrt.png", width="300", height="400", alt="Sample Episode" />
 </center>
