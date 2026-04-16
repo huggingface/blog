@@ -48,10 +48,6 @@ Before we explain the framework, here is what a single EcomRLVE episode looks li
 
 The reward is fully computed by code: F1 over `(product, variant, qty)` tuples, an efficiency bonus for finishing in fewer turns, and a hallucination check that every recommended product ID was actually retrieved. If the agent had picked the Lightning variant instead of USB-C, the simulated user would have corrected it mid-dialogue — and the F1 would have dropped.
 
----
-
----
-
 ## The eight environments
 
 Each environment covers a distinct real-world shopping scenario. The agent must complete the task using tools (catalog search, cart operations, order lookups, policy queries) and is scored by a program — not a human or another LLM.
