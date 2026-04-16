@@ -1,6 +1,6 @@
 ---
 title: "The PR you would have opened yourself" 
-thumbnail: /blog/assets/transformers-to-mlx/thumbnail.png
+thumbnail: /blog/assets/transformers-to-mlx/thumbnail.jpg
 authors:
 - user: pcuenq
 - user: awni
