@@ -181,7 +181,7 @@ More negatives per query means a stronger training signal, so a larger batch siz
 The `mini_batch_size` parameter controls how many samples are processed at once during the cached forward passes. For large multimodal models, setting this to a small value (e.g., 1) is important to avoid out-of-memory errors without sacrificing the benefits of large effective batch sizes:
 
 ```python
-from sentence_transformers.losses import CachedMultipleNegativesRankingLoss
+from sentence_transformers.sentence_transformer.losses import CachedMultipleNegativesRankingLoss
 
 loss = CachedMultipleNegativesRankingLoss(model, mini_batch_size=1)
 ```
@@ -191,7 +191,7 @@ loss = CachedMultipleNegativesRankingLoss(model, mini_batch_size=1)
 To produce embeddings that work well at multiple dimensionalities, I wrap the base loss with [`MatryoshkaLoss`](https://sbert.net/docs/package_reference/sentence_transformer/losses.html#matryoshkaloss). This trains the model so that truncating the embedding to a smaller number of dimensions still yields good performance:
 
 ```python
-from sentence_transformers.losses import CachedMultipleNegativesRankingLoss, MatryoshkaLoss
+from sentence_transformers.sentence_transformer.losses import CachedMultipleNegativesRankingLoss, MatryoshkaLoss
 
 loss = CachedMultipleNegativesRankingLoss(model, mini_batch_size=1)
 loss = MatryoshkaLoss(model, loss, matryoshka_dims=[2048, 1536, 1024, 512, 256, 128, 64])
@@ -204,7 +204,7 @@ This is especially useful for multimodal models, where embeddings can be large (
 The [`SentenceTransformerTrainingArguments`](https://sbert.net/docs/package_reference/sentence_transformer/training_args.html#sentencetransformertrainingarguments) class lets you control training hyperparameters. Here's the configuration used for the VDR finetuning:
 
 ```python
-from sentence_transformers.training_args import SentenceTransformerTrainingArguments, BatchSamplers
+from sentence_transformers.sentence_transformer.training_args import SentenceTransformerTrainingArguments, BatchSamplers
 
 run_name = "Qwen3-VL-Embedding-2B-vdr"
 args = SentenceTransformerTrainingArguments(
@@ -242,7 +242,7 @@ A few things to note for (multimodal) training:
 To track retrieval performance before, during, and after training, I use the [`InformationRetrievalEvaluator`](https://sbert.net/docs/package_reference/sentence_transformer/evaluation.html#informationretrievalevaluator). It computes standard retrieval metrics like NDCG@10, MAP, and Recall@k:
 
 ```python
-from sentence_transformers.evaluation import InformationRetrievalEvaluator
+from sentence_transformers.sentence_transformer.evaluation import InformationRetrievalEvaluator
 
 # Build the evaluation data from the eval dataset.
 # Queries and corpus use integer IDs: query 0's relevant document is corpus 0.
@@ -274,16 +274,17 @@ The evaluator takes text queries, a corpus of images (including hard negatives),
 
 ## Trainer
 
-The [`SentenceTransformerTrainer`](https://sbert.net/docs/package_reference/sentence_transformer/trainer.html#sentence_transformers.trainer.SentenceTransformerTrainer) brings everything together. Here's the complete training script:
+The [`SentenceTransformerTrainer`](https://sbert.net/docs/package_reference/sentence_transformer/trainer.html#sentence_transformers.sentence_transformer.trainer.SentenceTransformerTrainer) brings everything together. Here's the complete training script:
 
 ```python
 from datasets import load_dataset
 
-from sentence_transformers import SentenceTransformer, SentenceTransformerModelCardData
-from sentence_transformers.evaluation import InformationRetrievalEvaluator
-from sentence_transformers.losses import CachedMultipleNegativesRankingLoss, MatryoshkaLoss
-from sentence_transformers.trainer import SentenceTransformerTrainer
-from sentence_transformers.training_args import (
+from sentence_transformers import SentenceTransformer
+from sentence_transformers.sentence_transformer.evaluation import InformationRetrievalEvaluator
+from sentence_transformers.sentence_transformer.losses import CachedMultipleNegativesRankingLoss, MatryoshkaLoss
+from sentence_transformers.sentence_transformer.model_card import SentenceTransformerModelCardData
+from sentence_transformers.sentence_transformer.trainer import SentenceTransformerTrainer
+from sentence_transformers.sentence_transformer.training_args import (
     BatchSamplers,
     SentenceTransformerTrainingArguments,
 )
