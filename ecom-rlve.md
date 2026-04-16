@@ -231,8 +231,6 @@ Run a live episode directly in your browser using the embedded demo below. Here 
 
 <gradio-app theme_mode="dark" space="owlgebra-ai/EcomRLVE-Gym"></gradio-app>
 
----
-
 ## Resources
 
 [![Models](https://img.shields.io/badge/🤗%20Models-WUFUS-blue)](https://huggingface.co/collections/owlgebra-ai/wufus)
