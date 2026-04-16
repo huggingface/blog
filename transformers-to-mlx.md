@@ -10,7 +10,7 @@ authors:
 
 _`transformers-to-mlx`: a Skill and test harness to support porting models from transformers to MLX_
 
-## tldr
+## TL;DR
 
 We provide a **Skill** and a **test harness** to help port language models from transformers to mlx-lm, so they become (almost) instantly available the moment they are added to transformers. The Skill is designed to support contributors and reviewers as an aide, not an automation. We explain why we did it, how, and comment about how to meaningfully contribute to open source in the age of agents.
 
@@ -83,8 +83,6 @@ We repeated this loop several times and the Skill grew. On the technical side, w
 </p>
 
 On the cultural side, we covered _softer_ characteristics and explained the conventions that make a PR easy to review: don't use comments to explain code (the reviewer has to parse the comment _and_ the code 🤦‍♂️), never propose refactors, don't touch shared utilities without asking. These rules cost the agent nothing but save the reviewer lots of time.
-
-[todo: conversation snippets]
 
 The end result: the contributor types a prompt, and the Skill produces a PR like [this one](https://github.com/ml-explore/mlx-lm/pull/1023), plus a test manifest for the external test harness.
 
