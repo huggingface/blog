@@ -1,15 +1,15 @@
 ---
-title: "Training and Finetuning Embedding Models with Sentence Transformers v3"
+title: "Training and Finetuning Embedding Models with Sentence Transformers"
 thumbnail: /blog/assets/train-sentence-transformers/st-hf-thumbnail.png
 authors:
 - user: tomaarsen
 ---
 
-# Training and Finetuning Embedding Models with Sentence Transformers v3
+# Training and Finetuning Embedding Models with Sentence Transformers
 
-[Sentence Transformers](https://sbert.net/) is a Python library for using and training embedding models for a wide range of applications, such as retrieval augmented generation, semantic search, semantic textual similarity, paraphrase mining, and more. Its v3.0 update is the largest since the project's inception, introducing a new training approach. In this blogpost, I'll show you how to use it to finetune Sentence Transformer models to improve their performance on specific tasks. You can also use this method to train new Sentence Transformer models from scratch.
+[Sentence Transformers](https://sbert.net/) is a Python library for using and training embedding models for a wide range of applications, such as retrieval augmented generation, semantic search, semantic textual similarity, paraphrase mining, and more. In this blogpost, I'll show you how to use it to finetune Sentence Transformer models to improve their performance on specific tasks. You can also use this method to train new Sentence Transformer models from scratch.
 
-Finetuning Sentence Transformers now involves several components, including datasets, loss functions, training arguments, evaluators, and the new trainer itself. I'll go through each of these components in detail and provide examples of how to use them to train effective models.
+Finetuning Sentence Transformers involves several components, including datasets, loss functions, training arguments, evaluators, and the trainer itself. I'll go through each of these components in detail and provide examples of how to use them to train effective models.
 
 ## Table of Contents
 
@@ -521,3 +521,15 @@ And lastly, here are some advanced pages that might interest you:
 
 * [Hyperparameter Optimization](https://sbert.net/examples/training/hpo/README.html)
 * [Distributed Training](https://sbert.net/docs/sentence_transformer/training/distributed.html)
+
+### Companion Blogposts
+
+For training other Sentence Transformers model types, or techniques that build on top of dense embeddings:
+
+* [Training and Finetuning Reranker Models with Sentence Transformers](https://huggingface.co/blog/train-reranker): the equivalent guide for Cross Encoder (reranker) models.
+* [Training and Finetuning Sparse Embedding Models with Sentence Transformers](https://huggingface.co/blog/train-sparse-encoder): training SPLADE and other sparse encoders.
+* [Multimodal Embedding & Reranker Models with Sentence Transformers](https://huggingface.co/blog/multimodal-sentence-transformers): using text, image, audio, and video models at inference time.
+* [Training and Finetuning Multimodal Embedding & Reranker Models with Sentence Transformers](https://huggingface.co/blog/train-multimodal-sentence-transformers): the equivalent guide for multimodal models, including a Visual Document Retrieval walkthrough.
+* [🪆 Introduction to Matryoshka Embedding Models](https://huggingface.co/blog/matryoshka): produce embeddings that can be truncated to smaller dimensionalities with minimal quality loss.
+* [Train 400x faster Static Embedding Models with Sentence Transformers](https://huggingface.co/blog/static-embeddings): CPU-friendly embedding models without attention.
+* [Binary and Scalar Embedding Quantization for Significantly Faster & Cheaper Retrieval](https://huggingface.co/blog/embedding-quantization): shrink your embeddings post-training to cut storage and speed up search.

@@ -531,13 +531,6 @@ The two scripts linked above split the training data into two datasets, one per 
 
 ## Additional Resources
 
-### Prior Blogposts
-
-* [Multimodal Embedding & Reranker Models with Sentence Transformers](https://huggingface.co/blog/multimodal-sentence-transformers): Multimodal inference
-* [Training and Finetuning Embedding Models with Sentence Transformers v3](https://huggingface.co/blog/train-sentence-transformers): Training embedding models
-* [Training and Finetuning Reranker Models with Sentence Transformers v4](https://huggingface.co/blog/train-reranker): Training reranker models
-* [Training and Finetuning Sparse Embedding Models with Sentence Transformers v5](https://huggingface.co/blog/train-sparse-encoder): Training sparse embedding models
-
 ### Training Examples
 
 The Sentence Transformers repository includes several multimodal training examples:
@@ -556,3 +549,16 @@ Additionally, the following pages may be useful to learn more about training wit
 * [Cross Encoder > Loss Overview](https://sbert.net/docs/cross_encoder/loss_overview.html)
 * [Dataset Overview](https://sbert.net/docs/sentence_transformer/dataset_overview.html)
 * [API Reference](https://sbert.net/docs/package_reference/sentence_transformer/index.html)
+
+### Companion Blogposts
+
+The direct prerequisite and the prior training guides are listed first, followed by related technique posts that stack with multimodal training:
+
+* [Multimodal Embedding & Reranker Models with Sentence Transformers](https://huggingface.co/blog/multimodal-sentence-transformers): multimodal inference, the companion to this training post.
+* [Training and Finetuning Embedding Models with Sentence Transformers](https://huggingface.co/blog/train-sentence-transformers): the general training guide for text-only embedding models.
+* [Training and Finetuning Reranker Models with Sentence Transformers](https://huggingface.co/blog/train-reranker): Cross Encoder (reranker) training, including the ModernBERT-base reranker example.
+* [Training and Finetuning Sparse Embedding Models with Sentence Transformers](https://huggingface.co/blog/train-sparse-encoder): SPLADE and other sparse encoder training.
+* [🪆 Introduction to Matryoshka Embedding Models](https://huggingface.co/blog/matryoshka): background on the `MatryoshkaLoss` used in this post to produce embeddings that truncate gracefully.
+* [Train 400x faster Static Embedding Models with Sentence Transformers](https://huggingface.co/blog/static-embeddings): CPU-friendly text embeddings, a natural counterpart to heavy VLM-based models.
+* [Binary and Scalar Embedding Quantization for Significantly Faster & Cheaper Retrieval](https://huggingface.co/blog/embedding-quantization): post-training compression that also applies to multimodal embeddings.
+* [Visual Document Retrieval Goes Multilingual](https://huggingface.co/blog/vdr-2b-multilingual): the LlamaIndex post that introduced the dataset used in this blogpost's Visual Document Retrieval example.

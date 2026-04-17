@@ -232,3 +232,15 @@ In this demo, you can dynamically shrink the output dimensions of the [`nomic-ai
 * Matryoshka Embeddings — Sentence-Transformers documentation. (n.d.). https://sbert.net/examples/training/matryoshka/README.html
 * UKPLab. (n.d.). GitHub. https://github.com/UKPLab/sentence-transformers
 * Unboxing Nomic Embed v1.5: Resizable Production Embeddings with Matryoshka Representation Learning. (n.d.). https://blog.nomic.ai/posts/nomic-embed-matryoshka
+
+## Companion Blogposts
+
+For training embedding models with Matryoshka Representation Learning, or combining it with other Sentence Transformers techniques:
+
+* [Training and Finetuning Embedding Models with Sentence Transformers](https://huggingface.co/blog/train-sentence-transformers): end-to-end training guide covering `MatryoshkaLoss` alongside other loss functions.
+* [Training and Finetuning Reranker Models with Sentence Transformers](https://huggingface.co/blog/train-reranker): Cross Encoder models, useful as a second stage on top of a shortlist produced from truncated Matryoshka embeddings.
+* [Training and Finetuning Sparse Embedding Models with Sentence Transformers](https://huggingface.co/blog/train-sparse-encoder): SPLADE training.
+* [Multimodal Embedding & Reranker Models with Sentence Transformers](https://huggingface.co/blog/multimodal-sentence-transformers): using multimodal embedding models at inference time.
+* [Training and Finetuning Multimodal Embedding & Reranker Models with Sentence Transformers](https://huggingface.co/blog/train-multimodal-sentence-transformers): shows Matryoshka training applied to a multimodal Visual Document Retrieval model, with per-dimension retention numbers.
+* [Train 400x faster Static Embedding Models with Sentence Transformers](https://huggingface.co/blog/static-embeddings): trained with Matryoshka loss so they also keep most of their quality after truncation.
+* [Binary and Scalar Embedding Quantization for Significantly Faster & Cheaper Retrieval](https://huggingface.co/blog/embedding-quantization): quantize truncated Matryoshka vectors so both reductions apply.

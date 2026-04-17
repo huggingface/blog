@@ -1,5 +1,5 @@
 ---
-title: "用 Sentence Transformers v3 训练和微调嵌入模型"
+title: "用 Sentence Transformers 训练和微调嵌入模型"
 thumbnail: /blog/assets/train-sentence-transformers/st-hf-thumbnail.png
 authors:
 - user: tomaarsen
@@ -9,11 +9,11 @@ translators:
   proofreader: true
 ---
 
-# 用 Sentence Transformers v3 训练和微调嵌入模型
+# 用 Sentence Transformers 训练和微调嵌入模型
 
-[Sentence Transformers](https://sbert.net/) 是一个 Python 库，用于使用和训练各种应用的嵌入模型，例如检索增强生成 (RAG)、语义搜索、语义文本相似度、释义挖掘 (paraphrase mining) 等等。其 3.0 版本的更新是该工程自创建以来最大的一次，引入了一种新的训练方法。在这篇博客中，我将向你展示如何使用它来微调 Sentence Transformer 模型，以提高它们在特定任务上的性能。你也可以使用这种方法从头开始训练新的 Sentence Transformer 模型。
+[Sentence Transformers](https://sbert.net/) 是一个 Python 库，用于使用和训练各种应用的嵌入模型，例如检索增强生成 (RAG)、语义搜索、语义文本相似度、释义挖掘 (paraphrase mining) 等等。在这篇博客中，我将向你展示如何使用它来微调 Sentence Transformer 模型，以提高它们在特定任务上的性能。你也可以使用这种方法从头开始训练新的 Sentence Transformer 模型。
 
-现在，微调 Sentence Transformers 涉及几个组成部分，包括数据集、损失函数、训练参数、评估器以及新的训练器本身。我将详细讲解每个组成部分，并提供如何使用它们来训练有效模型的示例。
+微调 Sentence Transformers 涉及几个组成部分，包括数据集、损失函数、训练参数、评估器以及训练器本身。我将详细讲解每个组成部分，并提供如何使用它们来训练有效模型的示例。
 
 ## 目录
 

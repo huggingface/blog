@@ -324,4 +324,12 @@ More than anything, we’re really looking forward to seeing what creative ways 
 - [📝**arXiv**](https://arxiv.org/abs/2412.13663)  
 - [🤗ModernBERT documentation page](https://huggingface.co/docs/transformers/main/en/model_doc/modernbert)
 
+## Fine-tuning ModernBERT with Sentence Transformers
+
+ModernBERT pairs well with [Sentence Transformers](https://sbert.net/) for retrieval and similarity tasks. The following blogposts walk through finetuning ModernBERT (or any encoder) into embedding, reranker, or sparse models:
+
+- [Training and Finetuning Embedding Models with Sentence Transformers](https://huggingface.co/blog/train-sentence-transformers): finetune ModernBERT as a dense embedding model.
+- [Training and Finetuning Reranker Models with Sentence Transformers](https://huggingface.co/blog/train-reranker): finetune ModernBERT as a Cross Encoder (reranker); the post shows a ModernBERT-base reranker that beats much larger baselines.
+- [Training and Finetuning Sparse Embedding Models with Sentence Transformers](https://huggingface.co/blog/train-sparse-encoder): finetune ModernBERT as a SPLADE sparse encoder.
+
 _LightOn sponsored the compute for this project on Orange Business Cloud Avenue._

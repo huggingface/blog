@@ -530,3 +530,15 @@ To learn how to finetune these multimodal models on your own data, see the compa
 - [Sentence Transformers models on the Hub](https://huggingface.co/models?library=sentence-transformers)
 - [Sentence Transformers datasets on the Hub](https://huggingface.co/datasets?other=sentence-transformers)
 - [v5.4 Integrations Collection](https://huggingface.co/collections/sentence-transformers/sentence-transformers-v54-integrations)
+
+### Companion Blogposts
+
+The training companion to this post and adjacent Sentence Transformers guides:
+
+- [Training and Finetuning Multimodal Embedding & Reranker Models with Sentence Transformers](https://huggingface.co/blog/train-multimodal-sentence-transformers): the direct training companion to this post, with a Visual Document Retrieval walkthrough.
+- [Training and Finetuning Embedding Models with Sentence Transformers](https://huggingface.co/blog/train-sentence-transformers): the general training guide for text-only bi-encoder embedding models.
+- [Training and Finetuning Reranker Models with Sentence Transformers](https://huggingface.co/blog/train-reranker): Cross Encoder (reranker) training, applicable to text-only and multimodal rerankers.
+- [Training and Finetuning Sparse Embedding Models with Sentence Transformers](https://huggingface.co/blog/train-sparse-encoder): SPLADE training for sparse retrieval.
+- [🪆 Introduction to Matryoshka Embedding Models](https://huggingface.co/blog/matryoshka): variable-size embeddings; also applied to multimodal models in the training companion post.
+- [Train 400x faster Static Embedding Models with Sentence Transformers](https://huggingface.co/blog/static-embeddings): CPU-friendly text embedding models.
+- [Binary and Scalar Embedding Quantization for Significantly Faster & Cheaper Retrieval](https://huggingface.co/blog/embedding-quantization): post-training compression of embedding vectors.

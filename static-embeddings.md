@@ -161,7 +161,7 @@ For Static Embeddings, the `Encoder` step is as simple as a dictionary lookup: g
 
 We set out to revisit Static Embeddings models, using modern techniques to train them. Most of our gains come from the use of a contrastive learning loss function, as we'll explain shortly. Optionally, we can get additional speed improvements by using [Matryoshka Representation Learning](https://huggingface.co/blog/matryoshka), which makes it possible to use truncated versions of the embedding vectors.
 
-We'll be using the Sentence Transformers library for training. For a more general overview on how this library can be used to train embedding models, consider reading the [Training and Finetuning Embedding Models with Sentence Transformers v3](https://huggingface.co/blog/train-sentence-transformers) blogpost or the [Sentence Transformers Training Overview documentation](https://sbert.net/docs/sentence_transformer/training_overview.html).
+We'll be using the Sentence Transformers library for training. For a more general overview on how this library can be used to train embedding models, consider reading the [Training and Finetuning Embedding Models with Sentence Transformers](https://huggingface.co/blog/train-sentence-transformers) blogpost or the [Sentence Transformers Training Overview documentation](https://sbert.net/docs/sentence_transformer/training_overview.html).
 
 ## Training Details
 
@@ -1331,6 +1331,17 @@ Additionally, there are quite a few possible extensions that are likely to impro
 6. Tokenizer Retraining: Retrain a tokenizer with modern texts and learnings.
 7. Gradient Caching: Applying GradCache via [`CachedMultipleNegativesRankingLoss`](https://sbert.net/docs/package_reference/sentence_transformer/losses.html#sentence_transformers.losses.CachedMultipleNegativesRankingLoss) allows for larger batches, which often result in superior performance.
 8. [Model Distillation](https://sbert.net/examples/training/distillation/README.html): Rather than training exclusively using supervised training data, we can also feed unsupervised data through a larger embedding model and distil those embeddings into the static embedding-based student model. 
+
+## Companion Blogposts
+
+For training other Sentence Transformers model types, or efficiency techniques that stack with static embeddings:
+
+* [Training and Finetuning Embedding Models with Sentence Transformers](https://huggingface.co/blog/train-sentence-transformers): the general training guide for bi-encoder embedding models; the static recipe in this post is a specialization of it.
+* [Training and Finetuning Reranker Models with Sentence Transformers](https://huggingface.co/blog/train-reranker): Cross Encoder training; a natural second stage on top of a static retriever.
+* [Training and Finetuning Sparse Embedding Models with Sentence Transformers](https://huggingface.co/blog/train-sparse-encoder): SPLADE training; complementary to static dense retrieval in hybrid setups.
+* [Multimodal Embedding & Reranker Models with Sentence Transformers](https://huggingface.co/blog/multimodal-sentence-transformers) and [Training and Finetuning Multimodal Embedding & Reranker Models](https://huggingface.co/blog/train-multimodal-sentence-transformers): inference and training for text + image + audio + video models.
+* [🪆 Introduction to Matryoshka Embedding Models](https://huggingface.co/blog/matryoshka): background on the Matryoshka loss used here to allow truncating the static embeddings.
+* [Binary and Scalar Embedding Quantization for Significantly Faster & Cheaper Retrieval](https://huggingface.co/blog/embedding-quantization): post-training compression that stacks with the speedups shown here.
 
 ## Acknowledgements
 
