@@ -5267,3 +5267,12 @@
     - research
     - open-source
 
+- local: cybersecurity-openness
+  date: April 20, 2026
+  tags:
+    - cybersecurity
+    - open-source
+    - community
+    - agents
+    - llm
+    - ethics
