@@ -9,7 +9,7 @@ authors:
 
 # AI and the Future of Cybersecurity: Why Openness Matters
 
-Following the announcement of [Mythos and Project Glasswing]([https://www.anthropic.com/glasswing](https://www.anthropic.com/glasswing)), institutions throughout the world are grappling with the potential dawn of a new era of cybersecurity. In this post, we break down the current situation, discuss the role of openness, and situate the future of cybersecurity within the larger AI ecosystem.
+Following the announcement of [Mythos and Project Glasswing](https://www.anthropic.com/glasswing), institutions throughout the world are grappling with the potential dawn of a new era of cybersecurity. In this post, we break down the current situation, discuss the role of openness, and situate the future of cybersecurity within the larger AI ecosystem.
 
 ## What is Mythos?
 
