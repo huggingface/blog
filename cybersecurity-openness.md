@@ -7,8 +7,8 @@ authors:
   - user: clem
 ---
 
-<div style="display: flex; justify-content: center">
-<img src="assets/cybersecurity-openness/detective_huggy_thumbnail.png" alt="Huggy with a magnifying glass, against a backdrop with a gradient of black to white. Writing at the bottom in white says Cybersecurity and Openness"/>
+<div class="flex justify-center">
+<img src="assets/cybersecurity-openness/detective_huggy_thumbnail.png" alt="Huggy with a magnifying glass, against a backdrop with a gradient of black to white. Writing at the bottom in white says Cybersecurity and Openness" width="50%"/>
 </div>
 
 # AI and the Future of Cybersecurity: Why Openness Matters
