@@ -13,9 +13,9 @@ Following the announcement of [Mythos and Project Glasswing]([https://www.anthro
 
 ## What is Mythos?
 
-Mythos is a [“frontier AI model”](https://www-cdn.anthropic.com/08ab9158070959f88f296514c21b7facce6f52bc.pdf0), a large language model (LLM) that can be used to process software code (among many other things). This follows a general trend in LLM development, where LLM performance on code-related tasks has recently skyrocketed. What’s particularly significant about Mythos is the system it’s embedded within: The system, not the model alone, has enabled Mythos to rapidly find and patch software vulnerabilities. Understanding this distinction is key to understanding the current landscape of AI cybersecurity.
+Mythos is a [“frontier AI model”](https://www-cdn.anthropic.com/08ab9158070959f88f296514c21b7facce6f52bc.pdf0), a large language model (LLM) that can be used to process software code (among many other things). This follows a general trend in LLM development, where LLM performance on code-related tasks has recently skyrocketed. What’s particularly significant about Mythos is the system it’s embedded within: It's the system, not the model alone, that has enabled Mythos to rapidly find and patch software vulnerabilities. Understanding this distinction is key to understanding the current landscape of AI cybersecurity.
 
-Specifically, what Mythos demonstrates is that the following **system** recipe is powerful:
+What Mythos demonstrates is that the following **system** recipe is powerful:
 
 - substantial compute power
 - models trained on troves of software-relevant data
