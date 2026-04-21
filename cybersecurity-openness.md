@@ -9,13 +9,13 @@ authors:
 
 # AI and the Future of Cybersecurity: Why Openness Matters
 
-Following the announcement of [Mythos and Project Glasswing]([https://www.anthropic.com/glasswing](https://www.anthropic.com/glasswing)), institutions throughout the world are grappling with the potential dawn of a new era of cybersecurity. In this post, we break down the current situation, discuss the role of openness, and situate the future of cybersecurity within the larger AI ecosystem.
+Following the announcement of [Mythos and Project Glasswing](https://www.anthropic.com/glasswing), institutions throughout the world are grappling with the potential dawn of a new era of cybersecurity. In this post, we break down the current situation, discuss the role of openness, and situate the future of cybersecurity within the larger AI ecosystem.
 
 ## What is Mythos?
 
-Mythos is a [“frontier AI model”](https://www-cdn.anthropic.com/08ab9158070959f88f296514c21b7facce6f52bc.pdf0), a large language model (LLM) that can be used to process software code (among many other things). This follows a general trend in LLM development, where LLM performance on code-related tasks has recently skyrocketed. What’s particularly significant about Mythos is the system it’s embedded within: The system, not the model alone, has enabled Mythos to rapidly find and patch software vulnerabilities. Understanding this distinction is key to understanding the current landscape of AI cybersecurity.
+Mythos is a [“frontier AI model”](https://www-cdn.anthropic.com/08ab9158070959f88f296514c21b7facce6f52bc.pdf), a large language model (LLM) that can be used to process software code (among many other things). This follows a general trend in LLM development, where LLM performance on code-related tasks has recently skyrocketed. What’s particularly significant about Mythos is the system it’s embedded within: It's the system, not the model alone, that has enabled Mythos to rapidly find and patch software vulnerabilities. Understanding this distinction is key to understanding the current landscape of AI cybersecurity.
 
-Specifically, what Mythos demonstrates is that the following **system** recipe is powerful:
+What Mythos demonstrates is that the following **system** recipe is powerful:
 
 - substantial compute power
 - models trained on troves of software-relevant data
@@ -31,7 +31,7 @@ So what Mythos has demonstrated is that it’s possible to build an AI system th
 
 ## How Openness Can Be a Structural Advantage
 
-As autonomous systems that identify software vulnerabilities proliferate (and they will), open code and tooling can help level the playing field. Software security has become a speed race across four stages: detection, verification, coordination, and patch propagation. Open ecosystems distribute these across a community, where more closed-source projects centralize knowledge and action across all four stages inside a single vendor, representing a single point of failure where only one organization can see and fix the code. The distributed nature of open development is robust to such constraints, and can be especially powerful in communities with dedicated security professionals, like the [Linux kernel security team]([https://docs.kernel.org/process/security-bugs.html](https://docs.kernel.org/process/security-bugs.html)), the [Open Source Security Foundation]([https://openssf.org](https://openssf.org)), and [the team at Hugging Face]([https://huggingface.co/docs/hub/security](https://huggingface.co/docs/hub/security)) working on model and supply-chain security.
+As autonomous systems that identify software vulnerabilities proliferate (and they will), open code and tooling can help level the playing field. Software security has become a speed race across four stages: detection, verification, coordination, and patch propagation. Open ecosystems distribute these across a community, where more closed-source projects centralize knowledge and action across all four stages inside a single vendor, representing a single point of failure where only one organization can see and fix the code. The distributed nature of open development is robust to such constraints, and can be especially powerful in communities with dedicated security professionals, like the [Linux kernel security team](https://docs.kernel.org/process/security-bugs.html), the [Open Source Security Foundation](https://openssf.org), and [the team at Hugging Face](https://huggingface.co/docs/hub/security) working on model and supply-chain security.
 
 A common argument for more closed systems is proprietary obscurity, where the code underlying a system is inaccessible. Unfortunately, this provides less protection than it used to. AI systems are increasingly able to assist with reverse engineering of stripped binaries, which matters because most legacy firmware and embedded code is closed, binary-only, and no longer maintained. That code represents a huge attack surface, and it’s becoming more legible and accessible as AI tools improve.
 
@@ -53,6 +53,6 @@ For high-stakes organizations, starting from open, auditable foundations means s
 
 ## The Path Forward
 
-Attackers will develop models that take advantage of vulnerabilities. A significant part of the answer is leaning into transparent practices: open security reviews, published threat models, shared vulnerability databases, and open tooling that any team can adopt. The alternative – each organization trying to secure itself in isolation with proprietary tools – doesn’t scale against attackers who are coordinating and sharing techniques in their own communities.
+Attackers will develop models that take advantage of vulnerabilities. A significant part of the answer is leaning into transparent practices: open security reviews, published threat models, shared vulnerability databases, and open tooling that any team can adopt. The alternative of each organization trying to secure itself in isolation with proprietary tools doesn’t scale against attackers who are coordinating and sharing techniques in their own communities.
 
 The future of AI cybersecurity will be shaped less by any single model and more by the ecosystems that surround them. Openness provides defenders with the visibility, the control, the community, and the shared infrastructure to stay ahead. 
