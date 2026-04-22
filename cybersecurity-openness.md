@@ -24,12 +24,12 @@ What Mythos demonstrates is that the following **system** recipe is powerful:
 - substantial compute power
 - models trained on troves of software-relevant data
 - scaffolding built to handle software vulnerability probing and patching
-- speed, enabled by that compute power (and the capital behind it)
+- speed (enabled by compute power and the capital behind it)
 - some degree of system **autonomy**
 
 Together, these ingredients can uncover software vulnerabilities, find exploits, and build patches. It’s in this recipe — not in any one model — that both the benefits and the risks come in.
 
-This matters because others can build comparable systems. Smaller models embedded in systems built with deep security expertise and expansive compute access could potentially produce similar outcomes more cheaply, which is particularly promising for defense. [AI cybersecurity capability is **jagged**](https://aisle.com/blog/ai-cybersecurity-after-mythos-the-jagged-frontier): It doesn’t scale smoothly with model size or general benchmark performance. The system the model is embedded within matters a lot.
+This matters because others can build comparable systems. Smaller models embedded in systems built with deep security expertise could potentially produce similar outcomes more cheaply, which is particularly promising for defense. [AI cybersecurity capability is **jagged**](https://aisle.com/blog/ai-cybersecurity-after-mythos-the-jagged-frontier): It doesn’t scale smoothly with model size or general benchmark performance. The system the model is embedded within matters a lot.
 
 So what Mythos has demonstrated is that it’s possible to build an AI system that finds and addresses software vulnerabilities. We already knew this was possible and there has been increasing work on this, but we’re just beginning to explore what it means in the context of agentic AI: Systems that can rapidly and autonomously take action.
 
