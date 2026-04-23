@@ -122,7 +122,7 @@ Why keep this narrow: permissions define user trust and Chrome Web Store review 
 
 ### 3.1 Tool-calling basics (why this layer exists)
 
-Before the execution loop, it helps to understand how model tool calling (which is the basis for any agentic workflow) works. You pass messages plus a tool schema (`name`, `description`, and `parameters`), and Transformers.js formats the actual prompt from those inputs using the model's chat template. Because chat templates are model-specific, the exact tool-call format depends on the model you use. With Gemma-4-style templates, the model emits a special tool-call token block when it decides to call one.
+Before the execution loop, it helps to understand how model tool calling works (the basis for any agentic workflow). You pass messages plus a tool schema (`name`, `description`, and `parameters`), and Transformers.js formats the actual prompt from those inputs using the model's chat template. Because chat templates are model-specific, the exact tool-call format depends on the model you use. With Gemma-4-style templates, the model emits a special tool-call token block when it decides to call one.
 
 ```ts
 import { pipeline } from "@huggingface/transformers";
