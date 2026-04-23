@@ -194,7 +194,7 @@ Execution flow:
 4. Append tool results to the assistant tool metadata and feed results back as the next prompt turn.
 5. Repeat until no tool calls remain, then finalize assistant content + metrics.
 
-This keeps user communication clean while preserving a deterministic tool loop in background.
+This keeps user communication clean while preserving a deterministic tool loop in the background.
 
 ## 4) Data boundaries and persistence
 
