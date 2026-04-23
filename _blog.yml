@@ -5276,3 +5276,12 @@
     - agents
     - llm
     - ethics
+
+- local: transformersjs-chrome-extension
+  date: April 23, 2026
+  tags:
+    - guide
+    - transformers.js
+    - javascript
+    - chrome-extension
+    - on-device
