@@ -220,16 +220,6 @@ You do not need a complex build setup, but MV3 does require predictable outputs 
 
 The goal is simple: one artifact per Chrome entry point, in the exact place [`public/manifest.json`](https://github.com/nico-martin/gemma4-browser-extension/blob/main/public/manifest.json) expects.
 
-## 6) Debugging checklist
-
-When something breaks, debug by runtime boundary, not by feature:
-
-- Background: verify incoming task messages and model/tool execution logs.
-- Side panel: verify `MESSAGES_UPDATE` rendering and loading/error states.
-- Model setup: verify first-run `DOWNLOAD_PROGRESS` and warm start from cache (see section 2.3).
-- Lifecycle: simulate service worker restart and confirm recovery paths.
-- Content script: validate `EXTRACT_PAGE_DATA` and highlight/clear roundtrip on real pages.
-
 ## Final takeaway
 
 The architecture choice that unlocks this whole project is clear separation of concerns: background owns orchestration and model execution, UI surfaces stay thin, and content scripts handle page access.
