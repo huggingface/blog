@@ -92,7 +92,7 @@ The split is intentional: Gemma 4 handles reasoning/tool decisions, while MiniLM
 
 All inference runs in background ([`src/background/background.ts`](https://github.com/nico-martin/gemma4-browser-extension/blob/main/src/background/background.ts)):
 
-- text generation via `pipeline("text-generation", ...)` with consistent `KVCache` enabled by our new `DynamicCache` class
+- text generation via `pipeline("text-generation", ...)` with consistent KV Caching enabled by our new `DynamicCache` class
 - embeddings via `pipeline("feature-extraction", ...)` plus vector normalization
 
 This gives a single model host for all tabs/sessions, avoids duplicate memory usage, and keeps the side panel UI responsive. Because models are loaded from the background service worker, artifacts are cached under the extension origin (`chrome-extension://<extension-id>`) rather than per-website origins, which gives one shared cache for the whole extension install.
