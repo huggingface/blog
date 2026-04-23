@@ -92,7 +92,7 @@ The split is intentional: Gemma 4 handles reasoning/tool decisions, while MiniLM
 
 All inference runs in background ([`src/background/background.ts`](https://github.com/nico-martin/gemma4-browser-extension/blob/main/src/background/background.ts)):
 
-- text generation via `pipeline("text-generation", ...)` with consistent `KVCache` enabled by our new `DynamicCache` class
+- text generation via `pipeline("text-generation", ...)` with consistent KV Caching enabled by our new `DynamicCache` class
 - embeddings via `pipeline("feature-extraction", ...)` plus vector normalization
 
 This gives a single model host for all tabs/sessions, avoids duplicate memory usage, and keeps the side panel UI responsive. Because models are loaded from the background service worker, artifacts are cached under the extension origin (`chrome-extension://<extension-id>`) rather than per-website origins, which gives one shared cache for the whole extension install.
@@ -122,7 +122,7 @@ Why keep this narrow: permissions define user trust and Chrome Web Store review 
 
 ### 3.1 Tool-calling basics (why this layer exists)
 
-Before the execution loop, it helps to understand how model tool calling (which is the basis for any agentic workflow) works. You pass messages plus a tool schema (`name`, `description`, and `parameters`), and Transformers.js formats the actual prompt from those inputs using the model's chat template. Because chat templates are model-specific, the exact tool-call format depends on the model you use. With Gemma-4-style templates, the model emits a special tool-call token block when it decides to call one.
+Before the execution loop, it helps to understand how model tool calling works (the basis for any agentic workflow). You pass messages plus a tool schema (`name`, `description`, and `parameters`), and Transformers.js formats the actual prompt from those inputs using the model's chat template. Because chat templates are model-specific, the exact tool-call format depends on the model you use. With Gemma-4-style templates, the model emits a special tool-call token block when it decides to call one.
 
 ```ts
 import { pipeline } from "@huggingface/transformers";
@@ -194,7 +194,7 @@ Execution flow:
 4. Append tool results to the assistant tool metadata and feed results back as the next prompt turn.
 5. Repeat until no tool calls remain, then finalize assistant content + metrics.
 
-This keeps user communication clean while preserving a deterministic tool loop in background.
+This keeps user communication clean while preserving a deterministic tool loop in the background.
 
 ## 4) Data boundaries and persistence
 
