@@ -7,7 +7,7 @@ authors:
 
 # DeepSeek-V4: a million-token context that agents can actually use
 
-DeepSeek released V4 today. Two MoE checkpoints are on the Hub: DeepSeek-V4-Pro at 1.6T total parameters with 49B active, and DeepSeek-V4-Flash at 284B total with 13B active. Both have a 1M-token context window. The benchmark numbers are competitive, but not SOTA. The real takeaway is the context length and how DeepSeek-V4 squeezes everything it can out of it.
+DeepSeek released V4 today. Two MoE checkpoints are on the Hub: DeepSeek-V4-Pro at 1.6T total parameters with 49B active, and DeepSeek-V4-Flash at 284B total with 13B active. Both have a 1M-token context window. The benchmark numbers are competitive, but not SOTA. It doesn't matter. The real innovation is how DeepSeek v4 is designed for efficient large context length support, and hence as one of the best candidates for agentic tasks.
 
 Focusing on long running agentic workloads. Running a frontier open model as an agent today breaks in predictable ways. The model stops. You reprompt. The trace blows past the context budget, or the KV cache fills the GPU, or tool-call round trips degrade halfway through a long task. **V4 is built to fix these known failures**, and point the way for the community to follow.
 
@@ -19,7 +19,7 @@ A 1M context window is just capacity, not performance. Whether you can use it de
 
 Two numbers matter: single-token inference FLOPs and KV cache size. Both grow with sequence length. At 1M tokens, DeepSeek-V4-Pro requires 27% of single-token inference FLOPs compared with DeepSeek-V3.2, so it runs faster on the same hardware. It also uses 10% of the KV cache memory. V4-Flash drops these numbers even further: 10% of the FLOPs and 7% of the KV cache.
 
-Against a BF16 GQA8 baseline, the KV cache shrinks to roughly 2% at 1M context. That is the number that turns a 1M window from a spec sheet claim into a usable deployment target.
+If we compare the KV cache memory against a established architecture like grouped query attention with 8 heads, stored in the usual bfloat16 format, DeepSeek v4 requires roughly 2% the cache size. This makes it much easier to deploy for very large context handling.
 
 ![Figure 1 from the DeepSeek-V4 technical report, benchmarks on the left, inference FLOPs and KV cache scaling on the right](https://huggingface.co/buckets/burtenshaw/deepseek-v4-figures/resolve/v4_fig1_efficiency.png)
 *Figure 1: benchmark comparison (left), per-token FLOPs and accumulated KV cache against sequence length (right).*
