@@ -15,7 +15,7 @@ This post covers three things: what the architecture does differently to make lo
 
 ## The KV cache problem for agents
 
-A 1M context window is a capacity claim. Whether you can use it depends on the cost of every forward pass at that depth. For an agent running a long tool-use trajectory (a SWE-bench task, a multi-step browse session, a terminal session with hundreds of commands), every tool result is appended to the context, and every subsequent token pays the full attention cost against everything that came before.
+A 1M context window is just capacity not performance. Whether you can use it depends on the cost of every forward pass at that depth. For an agent running a long tool-use trajectory (a SWE-bench task, a multi-step browse session, a terminal session with hundreds of commands), every tool result is appended to the context, and every subsequent token pays the full attention cost against everything that came before.
 
 Two numbers matter: single-token inference FLOPs and KV cache size. Both grow with sequence length. At 1M tokens, DeepSeek-V4-Pro requires 27% of single-token inference FLOPs and 10% of KV cache compared with DeepSeek-V3.2. V4-Flash drops further: 10% of the FLOPs and 7% of the KV cache.
 
