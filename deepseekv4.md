@@ -101,6 +101,5 @@ Four checkpoints are on the Hub. The instruct models use FP4 for MoE expert weig
 
 Both instruct models support three reasoning modes: Non-think (fast, no chain of thought), Think High (explicit reasoning in `<think>` blocks), and Think Max (maximum reasoning effort with a dedicated system prompt). Think Max requires a context window of at least 384K tokens. The recommended sampling parameters across all modes are `temperature=1.0, top_p=1.0`.
 
-Inference support for CSA and HCA is landing in vLLM and SGLang first; `transformers` integration is tracked in the model card. This release does not include a Jinja chat template. Encoding is handled by a standalone Python module in the [encoding](https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro/tree/main/encoding) folder. The technical report is at [DeepSeek\_V4.pdf](https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro/blob/main/DeepSeek_V4.pdf).
 
 The V4-Pro numbers on SWE Verified, MCPAtlas, and the internal R&D benchmark put it at parity with frontier closed models on agent tasks. The open question is how the community's tool harnesses adapt to the `|DSML|` schema and whether the interleaved thinking gains transfer to out-of-domain agent frameworks.
