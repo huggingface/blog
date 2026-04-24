@@ -7,7 +7,7 @@ authors:
 
 # DeepSeek-V4: a million-token context that agents can actually use
 
-DeepSeek released V4 this week. Two MoE checkpoints are on the Hub: V4-Pro at 1.6T total parameters with 49B active, and V4-Flash at 284B total with 13B active. Both have a 1M-token context window. The benchmark numbers are competitive but not SOTA. The real takeaway is the context length and how Deepseek squeeze everything they can out of it.
+DeepSeek released V4 this week. Two MoE checkpoints are on the Hub: DeepSeek-V4-Pro at 1.6T total parameters with 49B active, and DeepSeek-V4-Flash at 284B total with 13B active. Both have a 1M-token context window. The benchmark numbers are competitive, but not SOTA. The real takeaway is the context length and how DeepSeek squeeze everything they can out of it.
 
 Focusing on long running agentic workloads. Running a frontier open model as an agent today breaks in predictable ways. The model stops. You reprompt. The trace blows past the context budget, or the KV cache fills the GPU, or tool-call round trips degrade halfway through a long task. V4 is built to fix these failures.
 
@@ -28,15 +28,15 @@ Against a BF16 GQA8 baseline, the KV cache shrinks to roughly 2% at 1M context. 
 
 The efficiency gain comes from splitting attention into two mechanisms and interleaving them across layers.
 
-**Compressed Sparse Attention (CSA)** compresses KV entries by 4× along the sequence dimension using softmax-gated pooling with a learned positional bias. A lightning indexer (FP4, ReLU-scored multi-head dot product) picks the top-k compressed blocks per query. It inherits the sparse-selection idea from DeepSeek Sparse Attention in V3.2 but runs it over blocks that are already 4× shorter than the original sequence. The indexer's search space shrinks with it.
+**Compressed Sparse Attention (CSA)** compresses KV entries by 4x along the sequence dimension using softmax-gated pooling with a learned positional bias. A lightning indexer (FP4, ReLU-scored multi-head dot product) picks the top-k compressed blocks per query. It inherits the sparse-selection idea from DeepSeek Sparse Attention in V3.2, but runs it over blocks that are already 4x shorter than the original sequence. The indexer's search space shrinks with it.
 
 ![Figure 3: Compressed Sparse Attention, showing compressor, lightning indexer over compressed blocks, and sliding-window branch](https://huggingface.co/buckets/burtenshaw/deepseek-v4-figures/resolve/v4_fig3_csa.png)
 *Figure 3: CSA. The compressor collapses every 4 tokens into one compressed KV entry. The lightning indexer picks the top-k compressed blocks per query. A sliding-window branch handles the most recent uncompressed tokens.*
 
-**Heavily Compressed Attention (HCA)** compresses KV entries by 128× and drops the sparse selection. Every query attends densely to every compressed block. The compressed sequence is short enough that dense attention is cheap.
+**Heavily Compressed Attention (HCA)** compresses KV entries by 128x and drops the sparse selection. Every query attends densely to every compressed block. The compressed sequence is short enough that dense attention is cheap.
 
-![Figure 4: Heavily Compressed Attention, 128× compression with dense MQA over compressed blocks](https://huggingface.co/buckets/burtenshaw/deepseek-v4-figures/resolve/v4_fig4_hca.png)
-*Figure 4: HCA. A heavier compressor (128× vs. 4×) followed by dense attention over the compressed stream, with the same sliding-window branch for recency.*
+![Figure 4: Heavily Compressed Attention, 128x compression with dense MQA over compressed blocks](https://huggingface.co/buckets/burtenshaw/deepseek-v4-figures/resolve/v4_fig4_hca.png)
+*Figure 4: HCA. A heavier compressor (128x vs. 4x) followed by dense attention over the compressed stream, with the same sliding-window branch for recency.*
 
 The layers alternate between CSA and HCA. Different layers carry different attention patterns, and forcing one mechanism across all of them wastes capacity. In V4-Pro's 61-layer stack, layers 0–1 are HCA, layers 2–60 alternate CSA and HCA, and the MTP block at the end runs sliding-window only.
 
