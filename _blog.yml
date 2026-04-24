@@ -5285,3 +5285,14 @@
     - javascript
     - chrome-extension
     - on-device
+
+- local: deepseekv4
+  date: April 24, 2026
+  tags:
+    - llm
+    - moe
+    - long-context
+    - agents
+    - open-source
+    - research
+    - community
