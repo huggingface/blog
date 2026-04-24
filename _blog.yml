@@ -5276,3 +5276,13 @@
     - agents
     - llm
     - ethics
+
+- local: agentic-orchestration
+  date: April 23, 2026
+  tags:
+    - agents
+    - open-source
+    - community
+    - mcp
+    - llm
+    - guide
