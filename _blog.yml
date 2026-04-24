@@ -5286,3 +5286,22 @@
     - mcp
     - llm
     - guide
+- local: transformersjs-chrome-extension
+  date: April 23, 2026
+  tags:
+    - guide
+    - transformers.js
+    - javascript
+    - chrome-extension
+    - on-device
+
+- local: deepseekv4
+  date: April 24, 2026
+  tags:
+    - llm
+    - moe
+    - long-context
+    - agents
+    - open-source
+    - research
+    - community
