@@ -1,5 +1,5 @@
 ---
-title: "How to Use Transformers.js in a Chrome Extension"
+title: "How to use Transformers.js in a Chrome Extension"
 thumbnail: /blog/assets/transformersjs-chrome-extension/thumbnail.jpg
 authors:
   - user: nico-martin
