@@ -1,6 +1,6 @@
 ---
 title: "DeepSeek-V4: a million-token context that agents can actually use"
-thumbnail: /blog/assets/deepseek-v4/thumbnail.png
+thumbnail: /blog/assets/deepseekv4/thumbnail.png
 authors:
 - user: burtenshaw
 ---
