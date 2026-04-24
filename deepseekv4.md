@@ -103,3 +103,5 @@ Both instruct models support three reasoning modes: Non-think (fast, no chain of
 
 
 The V4-Pro numbers on SWE Verified, MCPAtlas, and the internal R&D benchmark put it at parity with frontier closed models on agent tasks. The open question is how the community's tool harnesses adapt to the `|DSML|` schema and whether the interleaved thinking gains transfer to out-of-domain agent frameworks.
+
+Figures in this blog post are from the technical report at [DeepSeek\_V4.pdf](https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro/blob/main/DeepSeek_V4.pdf).
