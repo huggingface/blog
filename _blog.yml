@@ -5296,3 +5296,14 @@
     - open-source
     - research
     - community
+
+- local: drone_env
+  date: April 26, 2026
+  tags:
+    - reinforcement-learning
+    - openenv
+    - deep-q-network
+    - fastapi
+    - pytorch
+    - autonomous-multi-agents
+    - grid-world
