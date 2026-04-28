@@ -5305,3 +5305,13 @@
     - web-apps
     - gradio
     - pii
+
+- local: inference-providers-deepinfra
+  date: April 29, 2026
+  tags:
+    - llms
+    - inference-providers
+    - scaleway
+    - enterprise
+    - partnerships
+    - hub
