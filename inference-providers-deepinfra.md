@@ -5,6 +5,21 @@ authors:
   - user: Thachnh
     guest: true
     org: deepinfra
+  - user: araikin
+    guest: true
+    org: deepinfra
+  - user: shang-pin-deepinfra
+    guest: true
+    org: deepinfra
+  - user: Pernekhan
+    guest: true
+    org: deepinfra
+  - user: yessenzhar
+    guest: true
+    org: deepinfra
+  - user: ovuruska
+    guest: true
+    org: deepinfra
   - user: celinah
   - user: sbrandeis
   - user: Wauplin
