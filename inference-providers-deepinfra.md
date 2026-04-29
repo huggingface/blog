@@ -63,7 +63,7 @@ Follow DeepInfra on Hugging Face: [https://huggingface.co/DeepInfra](https://hug
 
 3. Model pages showcase third-party inference providers (the ones that are compatible with the current model, sorted by user preference)
 
-<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/inference-providers/model-widget-updated.png" alt="Inference Providers"/>
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/inference-providers/model-widget-v2.png" alt="Inference Providers"/>
 
 ### From the client SDKs
 
