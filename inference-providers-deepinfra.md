@@ -52,7 +52,7 @@ Follow DeepInfra on Hugging Face: [https://huggingface.co/DeepInfra](https://hug
 - Set your own API keys for the providers you've signed up with. If no custom key is set, your requests will be routed through HF.
 - Order providers by preference. This applies to the widget and code snippets in the model pages.
 
-<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/inference-providers/user-settings-updated.png" alt="Inference Providers"/>
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/inference-providers/user-setting-v2.png" alt="Inference Providers"/>
 
 2. As mentioned, there are two modes when calling Inference Providers:
 
