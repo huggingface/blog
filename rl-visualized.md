@@ -4,7 +4,7 @@ thumbnail: /blog/assets/rl-visualized/thumbnail.png
 authors:
 - user: dylanebert
   guest: true
-  org: adaptive-ml
+  org: AdaptiveML
 - user: pcuenq
 - user: sergiopaniego
 ---
