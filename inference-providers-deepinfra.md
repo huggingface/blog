@@ -67,7 +67,7 @@ Follow DeepInfra on Hugging Face: [https://huggingface.co/DeepInfra](https://hug
 
 ### From the client SDKs
 
-DeepInfra is available through the Hugging Face SDKs - `huggingface_hub` (>= 1.11.1) for Python and `@huggingface/inference` for JavaScript.
+DeepInfra is available through the Hugging Face SDKs - `huggingface_hub` (>= 1.11.2) for Python and `@huggingface/inference` for JavaScript.
 
 The following examples show how to use [DeepSeek V4 Pro](https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro) through DeepInfra. Use a [Hugging Face token](https://huggingface.co/settings/tokens) to authenticate - the request will be routed to DeepInfra automatically.
 
