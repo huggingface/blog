@@ -30,17 +30,16 @@ authors:
 # DeepInfra on Hugging Face Inference Providers 🔥
 
 We're thrilled to share that **DeepInfra** is now a supported Inference Provider on the Hugging Face Hub!
+
 DeepInfra joins our growing ecosystem, enhancing the breadth and capabilities of serverless inference directly on the Hub's model pages. Inference Providers are also seamlessly integrated into our client SDKs (for both JS and Python), making it super easy to use a wide variety of models with your preferred providers.
 
 [DeepInfra](https://deepinfra.com) is a serverless AI inference platform offering one of the most cost-effective pricing per token in the industry. With a catalog of over 100 models, DeepInfra makes it easy for developers to integrate a wide range of AI capabilities into their applications with minimal setup.
 
-DeepInfra supports a broad spectrum of model types - from LLMs to text-to-image, text-to-video, embeddings, and more. As part of this initial integration, DeepInfra is launching support for **conversational and text-generation tasks** on Hugging Face, enabling access to popular open-weight LLMs such as [DeepSeek V4](https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro?inference_provider=deepinfra), [Kimi-K2.6](https://huggingface.co/models?inference_provider=deepinfra&sort=trending&search=kimi-k2), [GLM-5.1](https://huggingface.co/models?inference_provider=deepinfra&sort=trending&search=glm-5), and many more. **Support for additional tasks** (text-to-image, text-to-video, embeddings, and more) will roll out soon!
-
-You can now use DeepInfra's Inference API as an Inference Provider on Hugging Face. We're excited to see what you'll build with this new provider.
+DeepInfra supports a broad spectrum of model types - from LLMs to text-to-image, text-to-video, embeddings, and more. As part of this initial integration, DeepInfra is launching support for **conversational and text-generation tasks** on Hugging Face, enabling access to popular open-weight LLMs such as [DeepSeek V4](https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro?inference_provider=deepinfra), [Kimi-K2.6](https://huggingface.co/moonshotai/Kimi-K2.6?inference_provider=deepinfra), [GLM-5.1](https://huggingface.co/zai-org/GLM-5.1?inference_provider=deepinfra), and many more. **Support for additional tasks** (text-to-image, text-to-video, embeddings, and more) will roll out soon!
 
 Read more about how to use DeepInfra as an Inference Provider in its dedicated [documentation page](https://huggingface.co/docs/inference-providers/providers/deepinfra).
 
-See the list of supported models [here](https://huggingface.co/models?inference_provider=deepinfra&sort=trending).
+See the full list of models supported by DeepInfra [here](https://huggingface.co/models?inference_provider=deepinfra&sort=trending).
 
 Follow DeepInfra on Hugging Face: [https://huggingface.co/DeepInfra](https://huggingface.co/DeepInfra).
 
@@ -68,9 +67,13 @@ Follow DeepInfra on Hugging Face: [https://huggingface.co/DeepInfra](https://hug
 
 ### From the client SDKs
 
+DeepInfra is available through the Hugging Face SDKs - `huggingface_hub` (>= 1.11.1) for Python and `@huggingface/inference` for JavaScript.
+
 The following examples show how to use [DeepSeek V4 Pro](https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro) through DeepInfra. Use a [Hugging Face token](https://huggingface.co/settings/tokens) to authenticate - the request will be routed to DeepInfra automatically.
 
-DeepInfra is also available through the Hugging Face SDKs - `huggingface_hub` (>= TODO) for Python and `@huggingface/inference` for JavaScript.
+#### From your favorite Agent Harness
+
+Hugging Face Inference Providers are integrated in most Agent Harnesses - including Pi, OpenCode, Hermes Agents, OpenClaw, and more. This means you can plug DeepInfra-hosted models straight into your favorite tools without any extra glue code. Browse the full list of integrations [here](https://huggingface.co/docs/inference-providers/en/integrations/index).
 
 #### from Python
 
@@ -118,10 +121,6 @@ const chatCompletion = await client.chat.completions.create({
 
 console.log(chatCompletion.choices[0].message);
 ```
-
-#### From your favorite Agent Harness
-
-Hugging Face Inference Providers are integrated in most Agent Harnesses - including Pi, OpenCode, Hermes Agents, OpenClaw, and more. This means you can plug DeepInfra-hosted models straight into your favorite tools without any extra glue code. Browse the full list of integrations [here](https://huggingface.co/docs/inference-providers/en/integrations/index).
 
 ## Billing
 
