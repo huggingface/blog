@@ -22,35 +22,33 @@ with SkillInvocationEnv(base_url="https://mpnikhil-skill-invocation-env.hf.space
     print(f"Reward: {result.reward}")
 ```
 
-The environment is deployed as a public HF Space using the [OpenEnv protocol](https://github.com/huggingface/openenv). Any training loop that speaks HTTP can connect and sample episodes. Three actions — **load**, **unload**, **submit** — and a five-component reward that scores correctness, skill selection precision, recall, context bloat, and cumulative token waste.
+The environment is deployed as a public HF Space using the [OpenEnv protocol](https://github.com/huggingface/openenv). Any training loop that speaks HTTP can connect and sample episodes. It supports three actions — **load**, **unload**, **submit** — and uses a five-component reward that scores: correctness, skill selection precision, recall, context bloat, and cumulative token waste.
 
 ## Introduction
 
-Skills give LLM agents something tools cannot: procedural knowledge at a higher level of abstraction. Concretely, a skill is a directory of curated context — instructions, examples, and metadata — that teaches an agent how to perform a specific workflow. Where tools execute discrete actions (call an API, run a query), Skills teach an agent how to reason through entire workflows — proprietary protocols, binary formats, deployment sequences — through in-context learning from curated procedural text.
+Skills give LLM agents something tools cannot: procedural knowledge at a higher level of abstraction. Concretely, a skill is a directory of curated context (instructions, examples, and metadata) that teaches an agent how to perform a specific workflow. Where tools execute discrete actions (call an API, run a query), Skills teach an agent how to reason through entire workflows through in-context learning from curated instructions.
 
-> **Note:** This post presents a promising environment design and initial implementation with hypotheses about training behavior. We did not complete a full training run at meaningful scale within the hackathon timeframe — these are design insights, not empirical results.
+> **Note:** This project was part of the PyTorch OpenEnv Hackathon and presents a promising environment design and initial implementation, which are provided as a proof-of-concept. We can draw interesting design insights from the experiment, but this is not a complete solution yet.
 
-The challenge is reliable invocation. Without it, developers stuff knowledge directly into the system prompt — AGENTS.md, CLAUDE.md — loading everything up front so the agent never has to decide what to retrieve. Vercel's engineering blog (["AGENTS.md outperforms skills in our agent evals"](https://vercel.com/blog/agents-md-outperforms-skills-in-our-agent-evals)) documented exactly this: agents failed to invoke available skills 56% of the time, producing zero improvement over baseline. Even with explicit instructions, skills maxed out at 79%. The workaround — compress everything into an always-loaded system prompt — hits 100% but pushes context cost onto every turn. Progressive disclosure via Skills is the better architecture. Current models just aren't trained to use it.
+The challenge is reliable invocation. Without it, developers stuff knowledge directly into the system prompt — AGENTS.md, CLAUDE.md — loading everything up front so the agent never has to decide what to retrieve. Vercel's engineering blog (["AGENTS.md outperforms skills in our agent evals"](https://vercel.com/blog/agents-md-outperforms-skills-in-our-agent-evals)) documented exactly this: agents failed to invoke available skills 56% of the time, producing zero improvement over the baseline. Even with explicit instructions, skills usage maxed out at 79%. The workaround — compress everything into an always-loaded system prompt — hits 100% but pushes context cost onto every turn. Progressive disclosure via Skills is the better architecture. Current models just aren't trained to use it.
 
 That's the gap our environment closes. We also explored DSPy's GEPA optimizer as a gradient-free alternative to GRPO for the same training signal.
 
 ## Why Skills Matter: The SkillsBench Evidence
 
-The SkillsBench benchmark (Li et al., 2026, [arXiv:2602.12670](https://arxiv.org/abs/2602.12670)) measured skill efficacy across 84 tasks, 11 domains, and 7,308 trajectories. Curated Skills raise average pass rate by **+16.2pp**, but effects vary widely (+4.5pp in Software Engineering to +51.9pp in Healthcare), 16 tasks saw degradation, and self-generated Skills provided no benefit (–1.3pp). Skills work when they fill concrete procedural gaps — and models cannot author the procedural knowledge they benefit from consuming.
+The SkillsBench benchmark measured skill efficacy across 84 tasks, 11 domains, and 7,308 trajectories. Curated Skills raise average pass rate by **+16.2pp**, but effects vary widely (+4.5pp in Software Engineering to +51.9pp in Healthcare), 16 tasks saw degradation, and self-generated Skills provided no benefit (–1.3pp). The takeaway: Skills work when they fill concrete procedural gaps that models cannot reliably reproduce on their own.
 
-This points to three conditions where Skills are irreplaceable — conditions we designed every task around:
+This points to three conditions where Skills are irreplaceable:
 
-- **Cannot be derived from training data.** Proprietary APIs, custom binary formats — a model has no priors here. This is why our synthetic domains (Zephyr-3, NovaBin, HelixLang, ArcDeploy) are entirely fictional.
-- **Has precise, non-obvious specifications.** Exact byte layouts, HMAC signing formats — being approximately right is just as wrong as being completely wrong. Our verifiers use code execution, not keyword matching.
-- **Would be impossible to guess.** Flag bit positions, deployment phase configs — you either have the reference material or you don't. This is where SkillsBench found +51.9pp in Healthcare.
+- **Cannot be derived from training data.** When using proprietary APIs or custom binary formats, the model has no priors. We designed our tasks to use entirely fictional synthetic domains.
+- **Has precise, non-obvious specifications.** Exact byte layouts, HMAC signing formats: being approximately right is just as wrong as being completely wrong. We use verifiers based on code execution, not keyword matching.
+- **Would be impossible to guess.** Flag bit positions, deployment phase configs — you either have the reference material or you don't. This is what got Healthcare +51.9pp improvement in SkillsBench.
 
-The challenge isn't just having curated Skills — it's knowing which ones matter and when. That's the behavior our environment trains.
+The challenge isn't just having curated Skills, it's knowing which ones matter and when. That's the behavior our environment trains.
 
 ## The Skill Invocation Environment
 
 Every episode presents the agent with a task and a skill catalog (short descriptions only — no full content). The agent decides which skills to load, reads their content, optionally unloads ones that don't apply, and submits a solution. Loading costs context budget. The reward is computed entirely from rule-based checks.
-
-The catalog gives the agent a lightweight index of available Skills. Full content arrives on demand — loaded when the agent determines a skill is relevant, releasable via unload when it determines it is not. Instead of every skill occupying context on every turn, the agent manages a limited budget and allocates it precisely.
 
 ### Actions
 
@@ -75,7 +73,7 @@ The optimal policy is clear: load exactly the right skills, synthesize the corre
 
 ### Tasks: 13 Across 9 Domains
 
-Three tasks adapted from SkillsBench (Apache 2.0) — Flood Detection, Economics Detrending, Dialogue Parsing. The remaining 10 are synthetic, designed to stress-test generalization: a **TaskGenerator** creates unlimited unique tasks at runtime via two templates (auth_protocol, binary_format) to prevent memorization and ensure the agent cannot rely on seen examples during training.
+Three tasks were adapted from SkillsBench: Flood Detection, Economics Detrending, Dialogue Parsing. The remaining 10 tasks are synthetic, designed to stress-test generalization: a **TaskGenerator** creates unlimited unique tasks at runtime via two templates (auth_protocol, binary_format) to prevent memorization and ensure the agent cannot rely on seen examples during training.
 
 ## Design Insights and Open Hypotheses
 
