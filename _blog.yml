@@ -5315,3 +5315,12 @@
     - enterprise
     - partnerships
     - hub
+
+- local: continuous_async
+  date: April 28, 2026
+  tags:
+    - transformers
+    - pytorch
+    - optimization
+    - inference
+    - cuda
