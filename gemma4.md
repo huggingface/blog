@@ -34,6 +34,7 @@ We collaborated with Google and the community to make them available everywhere:
   - [transformers.js](#transformersjs)
   - [MLX](#mlx)
   - [Mistral.rs](#mistralrs)
+- [Multi-Token Prediction Drafters](#multi-token-prediction-drafters)
 - [Fine-tuning & Demos](#fine-tuning--demos)
   - [Fine-tuning with TRL](#fine-tuning-with-trl)
     - [Fine-tuning with TRL on Vertex AI](#fine-tuning-with-trl-on-vertex-ai)
@@ -626,6 +627,14 @@ mistralrs run -m google/gemma-4-E4B-it --isq 8 --audio audio.mp3 -i "Transcribe 
 ```
 
 Find all models [here](https://huggingface.co/mistralrs-community/models). Please, follow [the instructions](https://huggingface.co/mistralrs-community/gemma-4-E2B-it-UQFF#install) in the model cards for installation and inference guidelines.
+
+## Multi-Token Prediction Drafters
+
+Google has released Multi-Token Prediction (MTP) drafters for the Gemma 4 family: small _assistant_ models that accelerate inference via speculative decoding. The drafter proposes several future tokens at once, and the target model verifies them in a single forward pass. You get the same outputs as the target model, just faster — no quality loss, no changes to reasoning behaviour. Reported end-to-end speedups go up to ~3x depending on hardware, batch size, and workload.
+
+Assistants are available for all four Gemma 4 sizes (E2B, E4B, 26B A4B, 31B). They share the KV cache with the target model to avoid recomputing context, and the smaller edge variants additionally use an embedder clustering trick to keep memory and compute low on-device.
+
+Find the checkpoints in the [Gemma 4 collection](https://huggingface.co/collections/google/gemma-4) and the [mlx-community collection](https://huggingface.co/collections/mlx-community/gemma-4-assistant-mtp).
 
 ## Fine-tuning for all
 
