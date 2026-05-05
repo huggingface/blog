@@ -5315,3 +5315,11 @@
     - enterprise
     - partnerships
     - hub
+
+- local: open-asr-leaderboard-private-data
+  date: May 6, 2026
+  tags:
+    - audio
+    - speech
+    - leaderboard
+    - partnerships
