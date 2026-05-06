@@ -9,48 +9,48 @@ authors:
 
 ![Title card](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/continuous_async/banner.png)
 
-*TL;DR: in this blog post, we are going to explain how to separate CPU and GPU workloads to get a massive performance boost for inference.*
+*TL;DR: we explain how to separate CPU and GPU workloads to get a massive performance boost for inference.*
 
-*This is the second post in a series on efficient LLM inference. The [first post](https://huggingface.co/blog/continuous_batching) covered continuous batching from first principles. In the rest of this post, we will assume the reader has a working knowledge of LLM inference (KV cache, FlashAttention, attention masks, etc.).*
+*This is the second post in a series on efficient LLM inference. The [first post](https://huggingface.co/blog/continuous_batching) covered continuous batching from first principles. It introduces some concepts we build upon: KV cache, FlashAttention, attention masks, etc.*
 
 Everyone likes owning their own tools. And with AI becoming the largest productivity multiplier around, everyone wants to own their model. But owning a model is not enough: you also need to run it.
 Most likely, on a modern GPU, which does not run cheap. So when you are renting a GPU to run your own models, you want to use it at the fullest of its capacities.  
 
 We already covered how **continuous batching** helps you schedule batches of requests efficiently, so you waste no compute on padding.  
-But what about the gaps in between GPU batches, when the CPU takes over? During that time, the CPU is doing some work, while your GPUs sit idle. This is not acceptable: we want our GPUs to be working 100% of the time, always doing actual compute.  
+But what happens in between GPU batches? If we work in the default synchronous mode, we'll see the CPU taking over (processing the last batch from the GPU, preparing the next one) while the GPUs sit idle. We can do better: we want our GPUs to be working 100% of the time, always doing actual compute.  
 
-To achieve this, we can use **asynchronous batching**. We are going to disentangle CPU batch preparation from GPU batch compute, so we can hide CPU latency and always have a productive GPU.  
+To achieve this, we can use **asynchronous batching**. We are going to disentangle CPU batch preparation from GPU batch compute, so both can run in parallel and we always have a productive GPU 🔥
 
 ## Synchronous batching
 
-Let us remind ourselves of how synchronous batching works.
+This is how naive synchronous batching works:
 
 ![Synchronous batching](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/continuous_async/synchronous_batching.png)
 
-The figure above shows how a synchronous batch step runs. The CPU starts by preparing the batch: it selects which requests to include, updates the KV cache table, evicts requests that finished in the previous step, and admits new ones to fill the freed space. Once that is done, it transfers the inputs to the GPU. The GPU runs its forward pass and samples (i.e. chooses) a new token for each request. The results come back to the CPU, so it knows what token each request just produced. Then the whole cycle starts again.
+When the CPU prepares a new batch, it selects which requests to include, updates the KV cache table, evicts requests that finished in the previous runs, and admits new ones to fill the freed space. Once that is done, it transfers the prepared inputs to the GPU. The GPU runs its forward pass and samples (i.e. chooses) a new token for each request. The results come back to the CPU, so it knows what token each request just produced, then the whole cycle repeats again.
 
-Notice the red annotation on the right: after the GPU finishes computing, it goes idle. The next batch cannot start until the CPU has gone through its update step: sampling the output tokens, updating request states, re-scheduling the batch. The CPU sends the next batch to the GPU only once all of that is done. The GPU, meanwhile, waits.
+Notice the red annotation on the right: after the GPU finishes computing, it goes idle. The next batch cannot start until the CPU has gone through its update step: sampling the output tokens, updating request states, re-scheduling the batch.
 
-This is the core inefficiency of synchronous batching: the CPU and GPU take turns. While the GPU is computing, the CPU is idle. While the CPU is updating, the GPU is idle. Neither is ever doing useful work at the same time. For a single forward pass this might seem like a small price to pay, but in a continuous batching loop running hundreds of steps per second, these idle gaps accumulate into real throughput loss.
+This is the core inefficiency of synchronous batching: the CPU and GPU take turns. While the GPU is computing, the CPU is idle. While the CPU is updating, the GPU is idle. In no circumstances they are both doing useful work at the same time. For a single forward pass this might seem like a small price to pay, but in a continuous batching loop running hundreds of steps per second, these idle gaps accumulate into real throughput loss.
 
 To showcase this, we profile the time spent on CPU and GPU when generating 8K tokens with a batch size of 32 using an 8B model:
 
 ![CPU and GPU activity timeline](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/continuous_async/cpu_gpu_phases_sync.png)
 
-The timeline alternates between green (GPU active, CPU idle) and red (CPU active, GPU idle): the two never overlap. Total generation time is 300.6 seconds, with 24.0% of that spent with an idle GPU waiting for the CPU to finish. Nearly a quarter of all generation time is wasted. This is the pessimistic way of viewing things.
+The timeline alternates between green (GPU active, CPU idle) and red (CPU active, GPU idle): the two never overlap. Total generation time is 300.6 seconds, with 24.0% of that spent with an idle GPU waiting for the CPU to finish. Nearly a quarter of all generation time is wasted, from the point of view of the GPU. This is the pessimistic way of viewing things.
 
-The optimistic way of viewing things is that if we eliminate CPU overhead entirely, generation time would drop from 300 to 228 seconds. That is a free 24% speedup, which does not come often. Especially since this requires zero new kernel or model change, just careful coordination of hardwares.
+The optimistic way is that generation time would drop from 300 to 228 seconds (a free 24% speedup!), if we could eliminate CPU overhead entirely. This requires zero new kernel or model changes, just careful coordination of hardware.
 
-Fundamentally, the idea is simple: we need to figure out how to run batch preparation for batch N+1 while batch N is computing. But this simple idea hides a few technical difficulties that need to be addressed first:
-- How can we launch something on the GPU and get back CPU control?
-- How can we make sure data is ready, for either CPU or GPU tasks, before they are launched?
+Fundamentally, the idea is simple: we need to figure out how to run batch preparation for batch N+1 while batch N is computing. But this simple idea hides a few technical difficulties:
+- How can we launch something on the GPU and get back control to the CPU?
+- How can we make sure data is ready, for either CPU or GPU tasks, by the time each task is launched?
 - How can we prepare batch N+1 if it is based on the predictions of batch N?
 
 By answering those questions, we are going to build the asynchronous batching feature that powers the [transformers](https://github.com/huggingface/transformers) library's continuous batching today.
 
 ## Creating concurrency
 
-To recap, our end goal is to have **concurrent** execution of CPU and GPU operations, i.e. both kinds of operations running at the same time. To do this, we need a way to categorize our operations, so we can let the machine know which operations can run concurrently. We can achieve this with CUDA streams.
+Our end goal is to have **concurrent** execution of CPU and GPU operations. We need a way to categorize our operations, so we can let the machine know which operations can run concurrently. We can achieve this using CUDA streams.
 
 ### What is a CUDA stream?
 
@@ -68,7 +68,7 @@ The operations are still concurrent, but their start times are staggered by the 
 
 If you have never explicitly used CUDA streams in PyTorch, you might be surprised they exist at all. A typical PyTorch script never mentions them, and it does not *feel* like GPU operations are asynchronous: the CPU seems to wait for the GPU to finish before moving on. That feeling is accurate, and it comes from the **default stream**.
 
-When you call a PyTorch operation without specifying a stream, it lands on the default stream. The default stream has one special property: it is **synchronizing**. If an operation is scheduled on the default stream, it waits for **all other streams to be flushed**. Ie. all work on the GPu has to be over before a single operation on the default stream can start. The reverse is also true: any operation, regardless of its stream, waits for the default stream to be flushed before it launches.  
+When you call a PyTorch operation without specifying a stream, it lands on the default stream. The default stream has one special property: it is **synchronizing**. If an operation is scheduled on the default stream, it waits for **all other streams to be flushed**, i.e. all work on the GPU has to be over before a single operation on the default stream can start. The reverse is also true: any operation, regardless of its stream, waits for the default stream to be flushed before it launches.
 So if you use a non-blocking transfer on the result of a default stream operation, your CPU blocks until all GPU operations have finished, effectively destroying any effort to build concurrency.
 
 That's why we need to use non-default streams. Enqueuing a kernel launch or a non-blocking memory copy returns control to the CPU immediately. The GPU will run the operation in the background, but the CPU does not wait. This answers our first question: to get back CPU control after launching GPU work, we use a non-default stream.
@@ -77,7 +77,7 @@ That's why we need to use non-default streams. Enqueuing a kernel launch or a no
 
 For the rest of this post, we will assume all memory transfers from one device to the other are non-blocking. We will therefore have to synchronize them ourselves.
 
-### Back to CB
+### Back to Continuous Batching
 
 We established that no GPU operation should land on the default stream. But the question remains: if we are not using the default stream, what streams should we use? Let us go back to the synchronous batching figure:
 
@@ -88,7 +88,7 @@ We can identify three distinct GPU operations:
 2. Compute on the GPU
 3. Transfer of outputs from the GPU to the CPU
 
-This means we need three streams: one for compute, one for CPU-to-GPU transfers, and one for GPU-to-CPU transfers. The transfers are independent, so there is no reason to serialize them, and each gets its own stream.
+This means we need three streams: one for compute, one for CPU-to-GPU transfers, and one for GPU-to-CPU transfers. The transfers are independent, so there is no reason to serialize them, and each one gets its own stream.
 
 A note on nomenclature: when talking about CPUs and GPUs, the convention (used throughout the CUDA documentation) is to call the CPU the **host** and the GPU the **device**. We will use that convention from now on. CPU-to-GPU transfers are called **host-to-device** (H2D) transfers, and GPU-to-CPU transfers are called **device-to-host** (D2H) transfers. Hence, the three streams are the H2D stream, the compute stream, and the D2H stream.
 
@@ -114,7 +114,7 @@ To enforce synchronization between the streams, we are going to use **CUDA event
 
 ### What is a CUDA event?
 
-A CUDA event is a marker that can be recorded into a stream. When the GPU reaches that marker during execution, it sets the event as completed. Any other stream can then be told to wait for that event before starting its next operation. Concretely, there are two operations: `stream.record(event)`, which inserts the marker into a stream at the current position, and `stream.wait(event)`, which blocks a stream from proceeding until the event is marked complete. Importantly, `wait` blocks the *stream*, not the CPU: the CPU call returns immediately, and only the stream is held back.
+A CUDA event is a marker that can be recorded into a stream. When the GPU reaches that marker during execution, it sets the event as completed. Any other stream can then be told to wait for that event before starting its next operation. Concretely, there are two operations: `stream.record(event)`, which inserts the marker into a stream at the current position, and `stream.wait(event)`, which blocks a stream from proceeding until the event is marked complete. Importantly, `wait` blocks the *stream*, not the CPU or other streams running in parallel: the CPU call returns immediately, and only the waiting stream is held back.
 
 ![CUDA events](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/continuous_async/events.png)
 
@@ -169,7 +169,7 @@ Now that we know how to prevent data corruption, we can address the second issue
 ### Carry-over
 
 Consider a request that appears in both batch N and batch N+1. In batch N, it produces a new token. That token is its input for batch N+1. The problem is that when we are preparing batch N+1's input buffer, we do not have that token yet: batch N is still running.
-To address this, we use a placeholder token when building batch N+1. We will use 0 as a placeholder, for reason that will become apparent later. We replace that placeholder after batch N is done computing and before batch N+1 starts the forward pass. We call that step the **carry-over**, because we are carrying over the new tokens from batch N to batch N+1. The idea behind carry-over is illustrated below:
+To address this, we use a placeholder token when building batch N+1. We will use 0 as a placeholder, for reasons that will become apparent later. We replace that placeholder after batch N is done computing and before batch N+1 starts the forward pass. We call that step the **carry-over**, because we are carrying over the new tokens from batch N to batch N+1. The idea behind carry-over is illustrated below:
 
 ![Carry over principle](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/continuous_async/carry_over_idea.png)
 
@@ -215,7 +215,7 @@ To find out, we run the same experiment as before: 8K tokens, batch size 32, 8B 
 
 ![CPU and GPU activity timeline](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/continuous_async/cpu_gpu_phases_async.png)
 
-The timeline is almost entirely dark green: CPU and GPU running at the same time. The occasional light green slivers are moments where the GPU is active but the CPU has already finished its prep and is waiting. The near-invisible red marks the sync point between batches, where the CPU blocks to sample batch N's outputs. The GPU is active for 99.4% of total runtime, up from 76.0%. Total generation time drops from 300.6s to 234.5s, a 22% speedup. We predicted 24% if CPU overhead were fully eliminated. The small remaining gap is that unavoidable sync point. No new kernels, no model changes: letting the CPU and GPU work at the same time.
+The timeline is almost entirely dark green: CPU and GPU running at the same time. The occasional light green slivers are moments where the GPU is active but the CPU has already finished its prep and is waiting. The near-invisible red marks are the sync points between batches, where the CPU blocks to sample batch N's outputs. The GPU is active for 99.4% of total runtime, up from 76.0%. Total generation time drops from 300.6s to 234.5s, a 22% speedup. We predicted 24% if CPU overhead were fully eliminated. The small remaining gap is that unavoidable sync point. No new kernels, no model changes: letting the CPU and GPU work at the same time.
 
 ## Conclusion
 
