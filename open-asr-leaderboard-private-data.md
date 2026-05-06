@@ -122,7 +122,7 @@ While you wait for your model to be added to the Open ASR Leaderboard, you can s
 
 They could. We’ve asked Appen and DataoceanAI to not provide this data to their clients. But even if they do not provide this exact data, data from a similar distribution could still help the model on the corresponding evaluation set (similar to benchmaxxing by optimizing for a challenging task from the public sets). To this end, having multiple data providers balances out the advantage a model may get from having used data from one of the providers. And we are open to more data providers and eval sets for the "Private data" tab!
 
-Moreover, to ensure that the private sets do not affect the model ranking, we’ve defaulted the Average WER **to not include the Private sets in its macro-average.**
+Moreover, to ensure that the private sets do not affect the model ranking, we’ve defaulted the Average WER **to not include the Private sets in its macroaverage.**
 
 In the screenshot below, you can see that "Private data" is toggled off. This means that the macroaverage across datasets does not include it.
 
