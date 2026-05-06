@@ -38,7 +38,7 @@ authors:
 
 **TLDR**: [Appen Inc.](https://huggingface.co/AppenAIResearch) and [DataoceanAI](https://huggingface.co/DataoceanAI1) have provided high-quality English ASR datasets covering scripted and conversational speech over multiple accents. To prevent potential risks of benchmaxxing or test-set contamination, we will keep these datasets private for a high-quality measure of performance on multiple tasks.
 
-**We’re not updating the average WER at this time**: by default, it will continue to report the WER macroaverage on the public datasets. However, you can opt-in to see the impact of the private datasets by toggling them on 👀
+**We’re not updating the average WER at this time**: by default, the leaderboard’s Average WER remains computed on public datasets only. You can optionally include the private datasets using the toggle to see their impact 👀
 
 ---
 
