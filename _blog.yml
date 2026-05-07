@@ -5324,6 +5324,15 @@
     - leaderboard
     - partnerships
 
+- local: gemma3-opus-distill
+  date: May 7, 2026
+  tags:
+    - community
+    - finetuning
+    - quantization
+    - llms
+    - research
+
 - local: continuous_async
   date: May 14, 2026
   tags:
