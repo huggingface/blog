@@ -1,6 +1,7 @@
 ---
 title: "What Billiards Reveals About JEPA: Strong Physics Representations, a Precise Planning Boundary"
 thumbnail: https://raw.githubusercontent.com/hellojais/le-wm/main/results/combo_b_planning.gif
+date: "2026-05-08"
 authors:
   - user: hellojais
     guest: true
