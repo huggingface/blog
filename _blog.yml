@@ -5323,3 +5323,10 @@
     - speech
     - leaderboard
     - partnerships
+- local: lewm-billiards
+  date: May 8, 2026
+  tags:
+    - research
+    - world-model
+    - jepa
+    - reinforcement-learning
