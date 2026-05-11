@@ -221,15 +221,7 @@ The timeline is almost entirely dark green: CPU and GPU running at the same time
 
 ## Conclusion
 
-We started with three questions:
-- How do we launch work on the GPU and get back CPU control?  
-**Non-default CUDA streams**: enqueue on a non-default stream and the CPU returns immediately.
-- How do we make sure data is ready before a task starts?  
-**CUDA events**: record a marker after one operation and make another stream wait for it, enforcing ordering without blocking the CPU.
-- How do we prepare batch N+1 if it depends on the outputs of batch N?  
-**Carry-over**: build the next batch with placeholders and patch in the output tokens at the last moment via a cheap GPU operation captured in the CUDA graph.
-
-Those three pieces, together with two input and output slots to avoid race conditions, let the CPU prepare batch N+1 while the GPU is still computing batch N. The synchronization overhead shrinks to a single `synchronize()` call per step. The result is a 22% speedup on the same hardware, with no changes to the model or the kernels.
+We started with a synchronous workload where the CPU and GPU worked one after the other, leaving both underused. By moving from schedule-based dependancies to data-based dependancies and refining synchronization points, we managed to detangle the CPU and GPU workloads, making parallel execution of both hardwares possible. Hence, we were able to saturate the GPU work queue and ensure it is always running. This finaly resulted in a large increase of generation speed while maintaining the accuracy of the model. Pretty much a slam dunk.
 
 The full implementation is in the [transformers](https://github.com/huggingface/transformers) library. If you want to see how this translates to actual code, the general entry point for continuous batching is [continuous_batching.py](https://github.com/huggingface/transformers/blob/main/src/transformers/generation/continuous_batching/continuous_api.py). The more asynchronous-centric code is located in the [ContinousBatchingAsyncIOs](https://github.com/huggingface/transformers/blob/5042bb7eb64b69efd351482a05b3803c48955cb4/src/transformers/generation/continuous_batching/input_outputs.py#L609) class.
 
