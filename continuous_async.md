@@ -91,7 +91,8 @@ We can identify three distinct GPU operations:
 
 This means we need three streams: one for compute, one for CPU-to-GPU transfers, and one for GPU-to-CPU transfers. The transfers are independent, so there is no reason to serialize them, and each one gets its own stream.
 
-A note on nomenclature: when talking about CPUs and GPUs, the convention used throughout the CUDA documentation is to call the CPU the **host** and the GPU the **device**. We will use that convention from now on. CPU-to-GPU transfers are called **host-to-device** (H2D) transfers, and GPU-to-CPU transfers are called **device-to-host** (D2H) transfers. Hence, the three streams are the H2D stream, the compute stream, and the D2H stream.
+> [!NOTE]
+> A note on nomenclature: when talking about CPUs and GPUs, the convention used throughout the CUDA documentation is to call the CPU the **host** and the GPU the **device**. We will use that convention from now on. CPU-to-GPU transfers are called **host-to-device** (H2D) transfers, and GPU-to-CPU transfers are called **device-to-host** (D2H) transfers. Hence, the three streams are the H2D stream, the compute stream, and the D2H stream.
 
 Let us now try to use streams to asynchronously launch a batch on the GPU and get back CPU control. From the CPU, we do the following:
 
@@ -135,12 +136,12 @@ The CPU enqueues all of this in sequence, then moves on. At no point does it blo
 
 The figure above shows how this unfolds. The CPU prepares the batch, then quickly enqueues all the GPU work: the H2D transfer, the forward pass, the D2H transfer, with `record` and `wait` calls inserted between each stage. After that, the CPU is free. The GPU takes over, executing each stream in order as its dependency event is set. Notice the green annotation on the right: once the D2H transfer completes, the CPU comes back and reads the results. This final synchronization is the only point where the CPU blocks in the whole step. To implement it, we record a third event on the D2H stream after the output transfer, then call `d2h_done_event.synchronize()` on the CPU side. `synchronize` blocks the CPU until the D2H stream reaches that marker.
 
-This is the key difference from synchronous batching: before, the CPU blocked after every operation. Noe, it is free to do "something" while the GPU works.  
+This is the key difference from synchronous batching: before, the CPU blocked after every operation. Now, it is free to do "something" while the GPU works.  
 We need to figure out what that "something" is, because right now nothing changed from a GPU-utilization standpoint. 
 
 ## Filling the vacuum
 
-The window where the CPU is available sits between dispatching batch N and dispatching batch N+1 to the GPU. It's natural use would be to prepare batch N+1's inputs, so we can dispatch them to the GPU and have them be ready once batch N compute is over. Let us see how we can do this.
+The window where the CPU is available sits between dispatching batch N and dispatching batch N+1 to the GPU. Its natural use would be to prepare batch N+1's inputs, so we can dispatch them to the GPU and have them be ready once batch N compute is over. Let us see how we can do this.
 
 To prepare batch N+1, we can reuse the same CPU-side objects that prepared batch N: the list of current requests, the state of the cache, the host-side tensor buffers, etc. However, we need to pay attention to two things:
 - data corruption: the device-side input buffers for batch N+1 cannot be the same as batch N's: we would corrupt data the GPU is still reading
@@ -221,9 +222,9 @@ The timeline is almost entirely dark green: CPU and GPU running at the same time
 
 ## Conclusion
 
-We started with a synchronous workload where the CPU and GPU worked one after the other, leaving both underused. By moving from schedule-based dependancies to data-based dependancies and refining synchronization points, we managed to detangle the CPU and GPU workloads, making parallel execution of both hardwares possible. Hence, we were able to saturate the GPU work queue and ensure it is always running. This finaly resulted in a large increase of generation speed while maintaining the accuracy of the model. Pretty much a slam dunk.
+We started with a synchronous workload where the CPU and GPU worked one after the other, leaving both underused. By moving from schedule-based dependencies to data-based dependencies and refining synchronization points, we managed to detangle the CPU and GPU workloads, making parallel execution of both hardwares possible. Hence, we were able to saturate the GPU work queue and ensure it is always running. This finally resulted in a large increase of generation speed while maintaining the accuracy of the model. Pretty much a slam dunk.
 
-The full implementation is in the [transformers](https://github.com/huggingface/transformers) library. If you want to see how this translates to actual code, the general entry point for continuous batching is [continuous_batching.py](https://github.com/huggingface/transformers/blob/main/src/transformers/generation/continuous_batching/continuous_api.py). The more asynchronous-centric code is located in the [ContinousBatchingAsyncIOs](https://github.com/huggingface/transformers/blob/5042bb7eb64b69efd351482a05b3803c48955cb4/src/transformers/generation/continuous_batching/input_outputs.py#L609) class.
+The full implementation is in the [transformers](https://github.com/huggingface/transformers) library. If you want to see how this translates to actual code, the general entry point for continuous batching is [continuous_batching.py](https://github.com/huggingface/transformers/blob/main/src/transformers/generation/continuous_batching/continuous_api.py). The more asynchronous-centric code is located in the [ContinuousBatchingAsyncIOs](https://github.com/huggingface/transformers/blob/5042bb7eb64b69efd351482a05b3803c48955cb4/src/transformers/generation/continuous_batching/input_outputs.py#L609) class.
 
-Asynchronous batching gets up one step closer to unlocking SOTA throughput for long generation, for generation lengths of 16K+ like in reinforcement learning. But there are still some other, smaller things that are also needed to reach that goal. In the next article, we will go through those: offloading requests, decode-specific kernels or fine-grained compile, among others. Stay tuned!
+Asynchronous batching gets us one step closer to unlocking SOTA throughput for long generation, for generation lengths of 16K+ like in reinforcement learning. But there are still some other, smaller things that are also needed to reach that goal. In the next article, we will go through those: offloading requests, decode-specific kernels or fine-grained compile, among others. Stay tuned!
 
