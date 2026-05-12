@@ -13,13 +13,10 @@ authors:
 
 *This is the second post in a series on efficient LLM inference. The [first post](https://huggingface.co/blog/continuous_batching) covered continuous batching from first principles. It introduces some concepts we build upon: KV cache, FlashAttention, attention masks, etc.*
 
-Everyone likes owning their own tools. And with AI becoming the largest productivity multiplier around, everyone wants to own their model. But owning a model is not enough: you also need to run it.
-Most likely, on a modern GPU, which does not run cheap. So when you are renting a GPU to run your own models, you want to use it at the fullest of its capacities.  
+An H200 costs around $5 an hour on [Inference Endpoints](https://endpoints.huggingface.co/). That's cheap for an hour, but use it for a day and you are already paying $140. If this is the case, you want your GPU to be used at its fullest.  
+We have seen that Continuous Batching improves GPU utilization by scheduling tightly packed batches, so no compute is wasted on padding. But there is a second source of waste that continuous batching does not address: by default, it is synchronous. This means the CPU and GPU take turns: while the GPU computes, the CPU waits. And while the CPU prepares the next batch, the GPU waits. In a loop running hundreds of steps per second, those idle gaps add up, and as we will show, they can account for nearly a quarter of total runtime. To ensure the GPU is busy computing 100% of the time, we need to get rid of those gaps.  
 
-We already covered how **continuous batching** helps you schedule batches of requests efficiently, so you waste no compute on padding.  
-But what happens in between GPU batches? If we work in the default synchronous mode, we'll see the CPU taking over (processing the last batch from the GPU, preparing the next one) while the GPUs sit idle. We can do better: we want our GPUs to be working 100% of the time, always doing actual compute.  
-
-To achieve this, we can use **asynchronous batching**. We are going to disentangle CPU batch preparation from GPU batch compute, so both can run in parallel and we always have a productive GPU 🔥
+To achieve this, we can use **asynchronous batching**: we are going to disentangle CPU batch preparation from GPU batch compute, so both can run in parallel and we always have a productive GPU 🔥
 
 ## Synchronous batching
 
