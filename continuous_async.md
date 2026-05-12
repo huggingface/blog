@@ -37,6 +37,8 @@ To showcase this, we profile the time spent on CPU and GPU when generating 8K to
 
 ![CPU and GPU activity timeline](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/continuous_async/cpu_gpu_phases_sync.png)
 
+_If you want to produce the same kind of graph, you can instrument the continuous batching code to dump CPU and GPU activity spans and use [this script](https://gist.github.com/remi-or/8de44738629c4d3c72451aa01df1a2ab)._
+
 The timeline alternates between green (GPU active, CPU idle) and red (CPU active, GPU idle): the two never overlap. Total generation time is 300.6 seconds, with 24.0% of that spent with an idle GPU waiting for the CPU to finish. Nearly a quarter of all generation time is wasted, from the point of view of the GPU. This is the pessimistic way of viewing things.
 
 The optimistic way is that generation time would drop from 300 to 228 seconds (a free 24% speedup!), if we could eliminate CPU overhead entirely. This requires zero new kernel or model changes, just careful coordination of hardware.
