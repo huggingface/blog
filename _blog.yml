@@ -5316,8 +5316,16 @@
     - partnerships
     - hub
 
+- local: open-asr-leaderboard-private-data
+  date: May 6, 2026
+  tags:
+    - audio
+    - speech
+    - leaderboard
+    - partnerships
+
 - local: continuous_async
-  date: April 28, 2026
+  date: May 14, 2026
   tags:
     - transformers
     - pytorch
