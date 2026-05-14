@@ -28,7 +28,7 @@ When the CPU prepares a new batch, it selects which requests to include, updates
 
 Notice the red annotation on the right: after the GPU finishes computing, it goes idle. The next batch cannot start until the CPU has gone through its update step: sampling the output tokens, updating request states, re-scheduling the batch.
 
-This is the core inefficiency of synchronous batching: the CPU and GPU take turns. While the GPU is computing, the CPU is idle. While the CPU is updating, the GPU is idle. In no circumstances they are both doing useful work at the same time. For a single forward pass this might seem like a small price to pay, but in a continuous batching loop running hundreds of steps per second, these idle gaps accumulate into real throughput loss.
+This is the core inefficiency of synchronous batching: the CPU and GPU take turns. While the GPU is computing, the CPU is idle. While the CPU is updating, the GPU is idle. In no circumstances are they both doing useful work at the same time. For a single forward pass this might seem like a small price to pay, but in a continuous batching loop running hundreds of steps per second, these idle gaps accumulate into real throughput loss.
 
 To showcase this, we profile the time spent on CPU and GPU when generating 8K tokens with a batch size of 32 using an 8B model:
 
