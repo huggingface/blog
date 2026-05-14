@@ -5323,3 +5323,12 @@
     - speech
     - leaderboard
     - partnerships
+
+- local: continuous_async
+  date: May 14, 2026
+  tags:
+    - transformers
+    - pytorch
+    - optimization
+    - inference
+    - cuda
