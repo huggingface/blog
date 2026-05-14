@@ -3,6 +3,8 @@ title: "Unlocking asynchronicity in continuous batching"
 thumbnail: /blog/assets/continuous_async/thumbnail.png
 authors:
 - user: ror
+- user: pcuenq
+- user: ariG23498
 ---
 
 # Unlocking asynchronicity in continuous batching
@@ -13,7 +15,7 @@ authors:
 
 *This is the second post in a series on efficient LLM inference. The [first post](https://huggingface.co/blog/continuous_batching) covered continuous batching from first principles. It introduces some concepts we build upon: KV cache, FlashAttention, attention masks, etc.*
 
-An H200 costs around $5 an hour on [Inference Endpoints](https://endpoints.huggingface.co/). That's cheap for an hour, but use it for a day and you are already paying $140. If this is the case, you want your GPU to be used at its fullest.  
+An H200 costs around $5 an hour on [Inference Endpoints](https://endpoints.huggingface.co/). That's cheap for an hour, but use it for a day and you are already paying $140. If this is the case, you want your GPU to be used to its fullest.  
 We have seen that Continuous Batching improves GPU utilization by scheduling tightly packed batches, so no compute is wasted on padding. But there is a second source of waste that continuous batching does not address: by default, it is synchronous. This means the CPU and GPU take turns: while the GPU computes, the CPU waits. And while the CPU prepares the next batch, the GPU waits. In a loop running hundreds of steps per second, those idle gaps add up, and as we will show, they can account for nearly a quarter of total runtime. To ensure the GPU is busy computing 100% of the time, we need to get rid of those gaps.  
 
 To achieve this, we can use **asynchronous batching**: we are going to disentangle CPU batch preparation from GPU batch compute, so both can run in parallel and we always have a productive GPU 🔥
@@ -221,9 +223,10 @@ The timeline is almost entirely dark green: CPU and GPU running at the same time
 
 ## Conclusion
 
-We started with a synchronous workload where the CPU and GPU worked one after the other, leaving both underused. By moving from schedule-based dependencies to data-based dependencies and refining synchronization points, we managed to detangle the CPU and GPU workloads, making parallel execution of both hardwares possible. Hence, we were able to saturate the GPU work queue and ensure it is always running. This finally resulted in a large increase of generation speed while maintaining the accuracy of the model. Pretty much a slam dunk.
+We started with a synchronous workload where the CPU and GPU worked one after the other, leaving both underused. By moving from schedule-based dependencies to data-based dependencies and refining synchronization points, we managed to disentangle the CPU and GPU workloads, making parallel execution of both hardwares possible. Hence, we were able to saturate the GPU work queue and ensure it is always running. This finally resulted in a large increase of generation speed while maintaining the accuracy of the model. Pretty much a slam dunk.
 
 The full implementation is in the [transformers](https://github.com/huggingface/transformers) library. If you want to see how this translates to actual code, the general entry point for continuous batching is [continuous_batching.py](https://github.com/huggingface/transformers/blob/main/src/transformers/generation/continuous_batching/continuous_api.py). The more asynchronous-centric code is located in the [ContinuousBatchingAsyncIOs](https://github.com/huggingface/transformers/blob/5042bb7eb64b69efd351482a05b3803c48955cb4/src/transformers/generation/continuous_batching/input_outputs.py#L609) class.
 
 Asynchronous batching gets us one step closer to unlocking SOTA throughput for long generation, for generation lengths of 16K+ like in reinforcement learning. But there are still some other, smaller things that are also needed to reach that goal. In the next article, we will go through those: offloading requests, decode-specific kernels or fine-grained compile, among others. Stay tuned!
 
+*Acknowledgements: Many thanks to Pedro Cuenca and Aritra Roy Gosthipaty for their help and insightful reviews.*
