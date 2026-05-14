@@ -15,7 +15,7 @@ authors:
 
 *This is the second post in a series on efficient LLM inference. The [first post](https://huggingface.co/blog/continuous_batching) covered continuous batching from first principles. It introduces some concepts we build upon: KV cache, FlashAttention, attention masks, etc.*
 
-An H200 costs around $5 an hour on [Inference Endpoints](https://endpoints.huggingface.co/). That's cheap for an hour, but use it for a day and you are already paying $140. If this is the case, you want your GPU to be used to its fullest.  
+An H200 costs around $5 an hour on [Inference Endpoints](https://endpoints.huggingface.co/). That's cheap for an hour, but use it for a day and you are already paying $120. If this is the case, you want your GPU to be used to its fullest.  
 We have seen that Continuous Batching improves GPU utilization by scheduling tightly packed batches, so no compute is wasted on padding. But there is a second source of waste that continuous batching does not address: by default, it is synchronous. This means the CPU and GPU take turns: while the GPU computes, the CPU waits. And while the CPU prepares the next batch, the GPU waits. In a loop running hundreds of steps per second, those idle gaps add up, and as we will show, they can account for nearly a quarter of total runtime. To ensure the GPU is busy computing 100% of the time, we need to get rid of those gaps.  
 
 To achieve this, we can use **asynchronous batching**: we are going to disentangle CPU batch preparation from GPU batch compute, so both can run in parallel and we always have a productive GPU 🔥
