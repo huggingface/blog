@@ -26,7 +26,7 @@ Sleep/wake for small dense models on a single GPU is trivial — sub-second, lla
 1. **Base on PR [#41834](https://github.com/vllm-project/vllm/pull/41834)** for SM12x DSv4 enablement (Triton sparse-MLA fallback, DeepGEMM-free paths, MLA prefix-cache fix).
 2. **Cherry-pick PR [#35489](https://github.com/vllm-project/vllm/pull/35489)** — one-line `error_code = no_error;` reset that fixes `cuMemMap` EINVAL on consumer Blackwell. Open since March, not in any released image.
 3. **Cherry-pick PR [#34600](https://github.com/vllm-project/vllm/pull/34600)** — proper rollback in `wake_up` on partial alloc failure.
-4. **Drop `--gpu-memory-utilization` from 0.85 to 0.70 for DSv4 specifically.** MiMo (no sparse-MLA workspace) can stay at 0.85.
+4. **Drop `--gpu-memory-utilization` from 0.85 to 0.60 for DSv4 specifically (initial draft said 0.70 — corrected after observing MiMo's real sleep residue is ~9 GiB/GPU, not the ~4 GiB vLLM's docs assume).** MiMo (no sparse-MLA workspace) can stay at 0.85.
 5. *(Optional, recommended for tighter margins)* Apply the SM12x workspace-shrink patches from **[vllm#42856](https://github.com/vllm-project/vllm/pull/42856)** — three arch-gated hunks that reduce PR #41834's 22 GiB workspace footprint to ~7 GiB on consumer Blackwell. Already baked into the GHCR image.
 
 PR #41834 ships ~22 GiB of non-cumem GPU state per GPU (sparse-MLA workspace, marlin scratch, cuda-graph private pools) that lives **outside** vLLM's cumem allocator's budget. On H200 (140 GiB) this is invisible headroom. On consumer Blackwell (95 GiB) at 0.85 utilization it overflows. PyTorch's OOM message labels this `22.7 GiB allocated in private pools (e.g., CUDA Graphs)`, which sent us chasing graph-capture configuration for days — `torch.cuda.MemPool` catches *any* tensor allocated via a MemPool, including non-graph workspace tensors.
@@ -38,7 +38,7 @@ PR #41834 ships ~22 GiB of non-cumem GPU state per GPU (sparse-MLA workspace, ma
 | `--tensor-parallel-size` | 4 | 4 |
 | `--max-model-len` | 131072 (128K) | 65536 (64K) |
 | `--max-num-seqs` | 12 | 6 |
-| `--gpu-memory-utilization` | **0.70** | 0.85 |
+| `--gpu-memory-utilization` | **0.60** | 0.85 |
 | `--enable-sleep-mode` | ✓ | ✓ |
 
 ## First-time cold load
@@ -56,6 +56,22 @@ Sleep-mode is **attention-type sensitive** on consumer Blackwell:
 | Q3-Coder-Next-80B-A3B | hybrid DeltaNet + SWA | `/sleep level=2` does not release cleanly on cu129 — always-awake. Tracking [vllm#41602](https://github.com/vllm-project/vllm/pull/41602). |
 
 And **decode TPS is PCIe-sync-bound**: profiling shows `nccl_allreduce` at 55.1 s and `sparse_accumulate_indexed_attention` at 117.9 s cumulative. Compute isn't the cap; inter-rank PCIe round-trip latency at TP=4 is. Batched serving amortizes it; single-stream latency-sensitive decode of DSv4 is not the right workload for this stack.
+
+## Decode TPS across context (DSv4-Flash, TP=4, single-stream)
+
+Live sweep against the production rotation pool. Each request requested 256 output tokens forced by an instruction-structured prompt.
+
+| Input tokens | TTFT (s) | Decode TPS | E2E (s) |
+|---:|---:|---:|---:|
+| 477 | 0.54 | **69.7** | 4.2 |
+| 1,724 | 0.68 | 68.9 | 4.4 |
+| 6,669 | 2.09 | 66.0 | 6.0 |
+| 26,535 | 9.37 | 58.6 | 13.7 |
+| 52,980 | 17.34 | 51.8 | 22.3 |
+| 79,468 | 23.06 | 45.8 | 28.6 |
+| 99,291 | 21.12 | **41.9** | 27.2 |
+
+Decode degrades from ~70 → ~42 tok/s across the full advertised context — that's the PCIe-sync curve in numbers. Useful for chat-length and document-review workloads; long-context retrieval at 100K is workable but latency is prefill-bound, not decode-bound.
 
 ## Try it
 
