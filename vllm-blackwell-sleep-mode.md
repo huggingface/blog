@@ -45,6 +45,8 @@ PR #41834 ships ~22 GiB of non-cumem GPU state per GPU (sparse-MLA workspace, ma
 
 Budget **~12 minutes per model** from `docker run` to first request — that's safetensors load (DSv4 is 46 shards, ~14 s/shard average from local NVMe) plus CUDA-graph capture. Image pull adds more on a fresh host (the bundle is ~29 GB). Subsequent restarts on the same host are dominated by the shard load — page-cache hits help but don't eliminate it. Plan accordingly.
 
+> **Honest status note (2026-05-17):** MiMo-V2.5 in this rotation pool is currently on a stock cu129-nightly image *without* PR #35489 (the cumem error_code fix referenced above). First-cycle cross-peer swap works cleanly; multi-cycle stress can hit the same EINVAL race PR #35489 fixes. Unification of both DSv4 + MiMo onto a single bundle image (cu129-nightly base + cumem cherry-picks + MiMo's V-pad overlay baked in — call it bundle:v5) is in build/test as of this writing. Numbers in this post are measured single-stream + first-cycle. Will replace this note with measured multi-cycle results once bundle:v5 is validated.
+
 ## What it doesn't fix
 
 Sleep-mode is **attention-type sensitive** on consumer Blackwell:
