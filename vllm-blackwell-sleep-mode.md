@@ -41,6 +41,10 @@ PR #41834 ships ~22 GiB of non-cumem GPU state per GPU (sparse-MLA workspace, ma
 | `--gpu-memory-utilization` | **0.70** | 0.85 |
 | `--enable-sleep-mode` | ✓ | ✓ |
 
+## First-time cold load
+
+Budget **~12 minutes per model** from `docker run` to first request — that's safetensors load (DSv4 is 46 shards, ~14 s/shard average from local NVMe) plus CUDA-graph capture. Image pull adds more on a fresh host (the bundle is ~29 GB). Subsequent restarts on the same host are dominated by the shard load — page-cache hits help but don't eliminate it. Plan accordingly.
+
 ## What it doesn't fix
 
 Sleep-mode is **attention-type sensitive** on consumer Blackwell:
