@@ -36,7 +36,7 @@ If you're new to rerankers and want the "why" first, jump to [What is a reranker
   - [End-to-end retrieve-then-rerank pipeline](#end-to-end-retrieve-then-rerank-pipeline)
 - [Architecture Details](#architecture-details)
 - [Results](#results)
-  - [MTEB(eng, v2) Retrieval](#mteb-eng-v2-retrieval)
+  - [MTEB(eng, v2) Retrieval](#mtebeng-v2-retrieval)
   - [Speed](#speed)
 - [Training](#training)
   - [Distillation recipe](#distillation-recipe)
