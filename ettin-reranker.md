@@ -31,7 +31,6 @@ If you're new to rerankers and want the "why" first, jump to [What is a reranker
 
 ## Table of contents
 
-- [TL;DR](#tldr)
 - [What is a reranker, and why pair one with an embedder?](#what-is-a-reranker-and-why-pair-one-with-an-embedder)
 - [Usage](#usage)
   - [End-to-end retrieve-then-rerank pipeline](#end-to-end-retrieve-then-rerank-pipeline)
@@ -56,7 +55,8 @@ Because cross-encoders are too expensive to run over a full corpus, the common p
 
 ![Embedding vs Reranker Models](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/train-reranker/embedding_vs_reranker_model.png)
 
-Throughout this blogpost I'll use "reranker" and "cross-encoder" interchangeably.
+> [!NOTE]
+> Throughout this blogpost I'll use "reranker" and "cross-encoder" interchangeably.
 
 ## Usage
 
@@ -98,7 +98,7 @@ for r in ranked:
 
 You can swap [`cross-encoder/ettin-reranker-32m-v1`](https://huggingface.co/cross-encoder/ettin-reranker-32m-v1) for any other size to trade quality for speed. All six accept up to 8K tokens of context (useful for long-document reranking) thanks to ModernBERT's long-context pre-training.
 
-It is strongly recommended to install either [`kernels`](https://github.com/huggingface/kernels) or `flash-attn` and set `model_kwargs={"dtype": "bfloat16", "attn_implementation": "flash_attention_2"}` for the highest throughput. See the [Speed](#speed) section below for more details, but in general you can expect a 1.7x-8.3x speedup over default loading depending on model size and sequence length.
+It is recommended to install [`kernels`](https://github.com/huggingface/kernels) and set `model_kwargs={"dtype": "bfloat16", "attn_implementation": "flash_attention_2"}` for the highest throughput. See the [Speed](#speed) section below for more details, but in general you can expect a 1.7x-8.3x speedup over default loading depending on model size and sequence length.
 
 ```python
 from sentence_transformers import CrossEncoder
@@ -402,7 +402,7 @@ model = CrossEncoder(
 ```
 
 > [!TIP]
-> Use `pip install kernels` to install FA2 without having to build the `flash-attn` package from source. It ships pre-built FA2 kernels for a wide range of GPU architectures, CUDA versions, and operating systems.
+> Use `pip install kernels` to install FA2. It ships pre-built kernels for a wide range of GPU architectures, CUDA versions, and operating systems.
 
 One caveat for other CrossEncoders: the full speedup is only available for models built with a modular `Transformer` like the Ettin rerankers. Applying the same two flags to a CrossEncoder that loads through `AutoModelForSequenceClassification` lands you in the slower `bf16+FA2 w. padding` column of Table 2 instead.
 
