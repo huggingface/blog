@@ -36,7 +36,7 @@ If you're new to rerankers and want the "why" first, jump to [What is a reranker
   - [End-to-end retrieve-then-rerank pipeline](#end-to-end-retrieve-then-rerank-pipeline)
 - [Architecture Details](#architecture-details)
 - [Results](#results)
-  - [MTEB(eng, v2) Retrieval](#mteb-eng-v2-retrieval)
+  - [MTEB(eng, v2) Retrieval](#mtebeng-v2-retrieval)
   - [Speed](#speed)
 - [Training](#training)
   - [Distillation recipe](#distillation-recipe)
@@ -374,12 +374,12 @@ To explain where the speed comes from, the next table sweeps `fp32+SDPA`, `bf16+
 
 | Model | Params | fp32+SDPA | bf16+SDPA | bf16+FA2 w. padding | **bf16+FA2 w.o. padding** |
 |---|---|---|---|---|---|
-| [`cross-encoder/ettin-reranker-17m-v1`](https://huggingface.co/cross-encoder/ettin-reranker-17m-v1) | 17M | 4402 (1.00x)<br>0.8 GB | 4523 (1.03x)<br>2.2 GB | 3744 (0.85x)<br>1.9 GB | **7517 (1.71x)**<br>**1.4 GB** |
-| [`cross-encoder/ettin-reranker-32m-v1`](https://huggingface.co/cross-encoder/ettin-reranker-32m-v1) | 32M | 3307 (1.00x)<br>1.2 GB | 4357 (1.32x)<br>1.6 GB | 3040 (0.92x)<br>2.9 GB | **6602 (2.00x)**<br>**1.1 GB** |
-| [`cross-encoder/ettin-reranker-68m-v1`](https://huggingface.co/cross-encoder/ettin-reranker-68m-v1) | 68M | 1364 (1.00x)<br>1.0 GB | 2861 (2.10x)<br>2.2 GB | 2003 (1.47x)<br>2.0 GB | **4913 (3.60x)**<br>**1.5 GB** |
-| [`cross-encoder/ettin-reranker-150m-v1`](https://huggingface.co/cross-encoder/ettin-reranker-150m-v1) | 150M | 671 (1.00x)<br>1.6 GB | 1942 (2.90x)<br>1.8 GB | 1396 (2.08x)<br>3.1 GB | **3237 (4.83x)**<br>**1.4 GB** |
-| [`cross-encoder/ettin-reranker-400m-v1`](https://huggingface.co/cross-encoder/ettin-reranker-400m-v1) | 400M | 266 (1.00x)<br>2.5 GB | 1113 (4.18x)<br>1.8 GB | 864 (3.25x)<br>2.7 GB | **1738 (6.53x)**<br>**2.2 GB** |
-| [`cross-encoder/ettin-reranker-1b-v1`](https://huggingface.co/cross-encoder/ettin-reranker-1b-v1) | 1B | 112 (1.00x)<br>4.6 GB | 630 (5.60x)<br>2.8 GB | 522 (4.64x)<br>3.6 GB | **928 (8.26x)**<br>**4.5 GB** |
+| [`ettin-reranker-17m-v1`](https://huggingface.co/cross-encoder/ettin-reranker-17m-v1) | 17M | 4402 (1.00x)<br>0.8 GB | 4523 (1.03x)<br>2.2 GB | 3744 (0.85x)<br>1.9 GB | **7517 (1.71x)**<br>**1.4 GB** |
+| [`ettin-reranker-32m-v1`](https://huggingface.co/cross-encoder/ettin-reranker-32m-v1) | 32M | 3307 (1.00x)<br>1.2 GB | 4357 (1.32x)<br>1.6 GB | 3040 (0.92x)<br>2.9 GB | **6602 (2.00x)**<br>**1.1 GB** |
+| [`ettin-reranker-68m-v1`](https://huggingface.co/cross-encoder/ettin-reranker-68m-v1) | 68M | 1364 (1.00x)<br>1.0 GB | 2861 (2.10x)<br>2.2 GB | 2003 (1.47x)<br>2.0 GB | **4913 (3.60x)**<br>**1.5 GB** |
+| [`ettin-reranker-150m-v1`](https://huggingface.co/cross-encoder/ettin-reranker-150m-v1) | 150M | 671 (1.00x)<br>1.6 GB | 1942 (2.90x)<br>1.8 GB | 1396 (2.08x)<br>3.1 GB | **3237 (4.83x)**<br>**1.4 GB** |
+| [`ettin-reranker-400m-v1`](https://huggingface.co/cross-encoder/ettin-reranker-400m-v1) | 400M | 266 (1.00x)<br>2.5 GB | 1113 (4.18x)<br>1.8 GB | 864 (3.25x)<br>2.7 GB | **1738 (6.53x)**<br>**2.2 GB** |
+| [`ettin-reranker-1b-v1`](https://huggingface.co/cross-encoder/ettin-reranker-1b-v1) | 1B | 112 (1.00x)<br>4.6 GB | 630 (5.60x)<br>2.8 GB | 522 (4.64x)<br>3.6 GB | **928 (8.26x)**<br>**4.5 GB** |
 
 The total speedup from `bf16+FA2 w.o. padding` over the `fp32+SDPA` baseline grows sharply with model size, from 1.71x on the 17M to 8.26x on the 1B. Most of that growth comes from `bf16` alone: the `fp32+SDPA` to `bf16+SDPA` step gives the 17M only a 1.03x speedup but gives the 1B a full 5.60x speedup, also due to the lowered memory cost allowing for bigger batch sizes. In short, `bfloat16` is the biggest single contributor to the overall speedup.
 
