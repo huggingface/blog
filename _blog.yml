@@ -5332,3 +5332,11 @@
     - optimization
     - inference
     - cuda
+
+- local: ettin-reranker
+  date: May 19, 2026
+  tags:
+    - nlp
+    - community
+    - research
+    - open-source
