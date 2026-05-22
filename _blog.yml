@@ -5340,3 +5340,13 @@
     - community
     - research
     - open-source
+
+- local: delta-weight-sync
+  date: May 22, 2026
+  tags:
+    - llm
+    - rl
+    - trl
+    - open-source
+    - hub
+    - storage
