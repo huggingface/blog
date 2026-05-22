@@ -334,4 +334,4 @@ We are not pretending this is finished. Here is the honest list.
 - The PR: [huggingface/trl#5417](https://github.com/huggingface/trl/pull/5417). Branch is `delta-weight-sync`.
 - The full Wordle example: `examples/scripts/openenv/async_wordle.py`.
 - The Spaces Dockerfiles: `examples/scripts/openenv/vllm_space/` and `examples/scripts/openenv/wordle_space/`.
-- Background reading: our [async RL landscape post](https://huggingface.co/blog/async-rl-landscape), the [Fireworks 1 TB post](https://fireworks.ai/blog/frontier-rl-is-cheaper-than-you-think), the [Cursor Composer 2 report](https://arxiv.org/html/2603.24477v2).
+- Background reading: our [async RL landscape post](https://huggingface.co/blog/async-rl-landscape), the [Fireworks 1 TB post](https://fireworks.ai/blog/frontier-rl-is-cheaper-than-you-think), the [Cursor Composer 2 report](https://huggingface.co/papers/2603.24477).
