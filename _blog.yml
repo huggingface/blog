@@ -5340,3 +5340,13 @@
     - community
     - research
     - open-source
+
+- local: tts-quality-audit
+  title: "Quality Checks on Popular TTS Datasets"
+  author: manuML
+  thumbnail: /blog/assets/tts-quality-audit/thumbnail.png
+  date: May 23, 2026
+  tags:
+    - audio
+    - speech
+    - community
