@@ -209,7 +209,7 @@ Delta: 1234567/200000000 elements changed (sparsity=99.38%)
 Weight sync: done. Total 9.4s (inference paused 1.1s)
 ```
 
-The line that matters is the parenthesis. Inference was paused for **1.1 seconds**. The rest of the 9.4 seconds was upload, which happened while the rollout server was still generating tokens. With NCCL we were paying the full sync time as pause time. Here we are paying it as background time.
+The line that matters is the parenthesis. Inference was paused for **1.1 seconds**. The remaining 9.4 seconds were spent uploading, which occurred while the rollout server was still generating tokens. With NCCL, we were paying the full sync time as pause time. Here we are paying for it as background time.
 
 <figure class="image text-center">
   <iframe src="https://aminedirohf-delta-weight-sync-diff.static.hf.space" width="100%" height="700" frameborder="0" scrolling="no"></iframe>
