@@ -137,4 +137,4 @@ The score that tells the training algorithm whether the model is getting better.
 
 *If any definition feels imprecise or you've encountered a term we've missed, we'd love to hear from you.*
 
-*Thanks to [@pcuenca](https://github.com/pcuenca), [@qgallouedec](https://github.com/qgallouedec), [@evalstate](https://github.com/evalstate), and [@adithya-s-k](https://github.com/adithya-s-k) for reviewing this post.*
+*Thanks to Pedro Cuenca, Quentin Gallouédec, Shaun Smith, and Adithya S Kolavi for reviewing this post.*
