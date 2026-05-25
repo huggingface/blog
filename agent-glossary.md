@@ -138,4 +138,4 @@ The score that tells the training algorithm whether the model is getting better.
 
 *If any definition feels imprecise or you've encountered a term we've missed, we'd love to hear from you.*
 
-*Thanks to Pedro Cuenca, Quentin Gallouédec, Shaun Smith, and Adithya S Kolavi for reviewing this post.*
+*Thanks to [Pedro Cuenca](https://huggingface.co/pcuenq), [Quentin Gallouédec](https://huggingface.co/qgallouedec), [Shaun Smith](https://huggingface.co/evalstate), and [Adithya S Kolavi](https://huggingface.co/AdithyaSK) for reviewing this post.*
