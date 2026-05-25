@@ -136,3 +136,5 @@ The score that tells the training algorithm whether the model is getting better.
 - [lm-evaluation-harness](https://github.com/EleutherAI/lm-evaluation-harness): the canonical eval harness
 
 *If any definition feels imprecise or you've encountered a term we've missed, we'd love to hear from you.*
+
+*Thanks to [@pcuenca](https://github.com/pcuenca), [@qgallouedec](https://github.com/qgallouedec), [@evalstate](https://github.com/evalstate), and [@adithya-s-k](https://github.com/adithya-s-k) for reviewing this post.*
