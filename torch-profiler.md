@@ -1,9 +1,13 @@
 ---
 title: "Profiling PyTorch: A Beginner's Guide to torch.profiler"
-thumbnail: /blog/assets/torch-profiler/todo.png
+thumbnail: /blog/assets/torch-profiler/thumbnail.png
 authors:
   - user: ariG23498
 ---
+
+# Profiling PyTorch: A Beginner's Guide to torch.profiler
+
+![Thumbnail of the blog post](assets/torch-profiler/thumbnail.png)
 
 If you are anything like me, you have probably always wondered what happens under the hood of a model's forward call. To quench that thirst, you first read the `modeling_<model_name>.py` files in [transformers](https://github.com/huggingface/transformers), look at the PyTorch operations, and then wonder how those kernels are dispatched on the GPU, and how they actually run.
 
