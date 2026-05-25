@@ -5340,3 +5340,12 @@
     - community
     - research
     - open-source
+
+- local: torch-profiler
+  date: May 25, 2026
+  tags:
+    - torch
+    - profile
+    - CUDA
+    - open-source
+    - kernels
