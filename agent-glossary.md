@@ -83,7 +83,8 @@ Memory is part of this picture. **Short-term memory** is what stays in the conte
 
 ## Policy
 
-A policy is the behavior a model has learned: given any situation, it defines the probability of taking each possible action. The model weights encode this behavior, but the policy is what those weights produce, not the weights themselves. A policy is not an agent. Wrap a checkpoint in scaffolding and a harness and deploy it, and you get an agent.
+A policy is the behavior an agent follows: given any situation, it defines the probability of taking each possible action. In LLM systems, part of that policy is learned in the model weights, but the behavior also depends on the surrounding scaffolding and harness. The same model can behave very differently depending on its prompts, tools, memory, and execution loop.
+A policy is not an agent. The policy defines behavior; the agent is the full system that acts in an environment. Wrap a checkpoint in scaffolding and a harness and deploy it, and you get an agent whose behavior is the policy.
 
 ## Tool Use
 
