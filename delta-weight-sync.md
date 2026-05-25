@@ -291,7 +291,7 @@ python examples/scripts/openenv/async_wordle.py \
     --model Qwen/Qwen3-1.7B
 ```
 
-The trainer never opens a port. The Space never sees the trainer's IP. The Wordle environment does not know either of them exist. They all talk to the Hub. Training converged on the immediate-EOS sanity check, then on real Wordle rollouts: reward went up, delta payloads stayed in the 20 to 35 MB band, and the inference-paused window per sync stayed around a second. The full run logs are linked in the companion PR.
+The trainer never opens a port. The Space never sees the trainer's IP. The Wordle environment does not know either of them exists. They all talk to the Hub. Training converged on the immediate-EOS sanity check, then on real Wordle rollouts: reward went up, delta payloads stayed in the 20 to 35 MB band, and the inference-paused window per sync stayed around a second. The full run logs are linked in the companion PR.
 
 ## 6. So What Does This Actually Unlock?
 
