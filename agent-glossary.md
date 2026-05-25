@@ -23,6 +23,24 @@ Most of these terms come up whether you're building an agent, deploying one, or 
 
 Let's get started.
 
+## Table of Contents
+
+- [Model](#model)
+- [Scaffolding](#scaffolding)
+- [Harness](#harness)
+- [Agent](#agent)
+- [Context Engineering](#context-engineering)
+- [Policy](#policy)
+- [Tool Use](#tool-use)
+- [Skills](#skills)
+- [Sub-agents](#sub-agents)
+- [Training](#training)
+  - [RL Environment](#rl-environment)
+  - [Trainer](#trainer)
+  - [Rollout](#rollout)
+  - [Reward](#reward)
+- [Learn More](#learn-more)
+
 ## Model
 
 The model is the LLM: it takes text in and produces text out (e.g., Claude, Qwen, GPT, Kimi, DeepSeek…). On its own, it has no memory between calls, and no loop. The model can express the intent to call a tool, but it needs a harness to actually execute it. It answers one prompt and stops. Wrap it in scaffolding and a harness and it becomes an agent.
