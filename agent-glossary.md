@@ -120,7 +120,7 @@ A rollout is one full agent run from start to finish: what the agent saw, what i
 
 ### Reward
 
-The score that tells the training algorithm whether the model is getting better. It can be *verifiable* (tests pass/fail, answer matches), *learned* (human preferences, LLM-as-judge), *sparse* (one score at the end of an episode), or *dense* (a score at each step). This is what the trainer uses to actually update the inner model's weights. For a thorough breakdown of each type, see the [Reward Architecture](https://huggingface.co/spaces/AdithyaSK/rl-environments-guide#dimension-4-reward-architecture) section in Adithya's guide.
+The score that tells the training algorithm whether the model is getting better. It can be *verifiable* (tests pass/fail, answer matches), or *learned* (human preferences, LLM-as-judge), *sparse* (one score at the end of an episode), or *dense* (a score at each step). This is what the trainer uses to actually update the inner model's weights. For a thorough breakdown of each type, see the [Reward Architecture](https://huggingface.co/spaces/AdithyaSK/rl-environments-guide#dimension-4-reward-architecture) section in [Adithya](https://huggingface.co/AdithyaSK)'s guide.
 
 **Rubrics** break the reward into explicit dimensions with weights, rather than a single number. [OpenEnv](https://github.com/meta-pytorch/OpenEnv) and [Verifiers](https://github.com/willccbb/verifiers) implement rubrics as objects you can combine (`WeightedSum`, `Sequential`, `Gate`).
 
