@@ -106,7 +106,7 @@ The full architecture has exactly three boxes and one shared substrate:
 
 - **Trainer.** Wherever you want. One GPU, eight GPUs, a laptop with a USB-attached H100, we will not judge. Owns the model weights, runs the optimizer, emits sparse deltas.
 - **HF Bucket.** A single repo, two prefixes: `anchors/` for occasional full snapshots and `deltas/` for the sparse patches in between. This is the only thing both sides agree on.
-- **vLLM rollout server.** Wherever you want, and crucially _not necessarily where the trainer is_. Pulls from the bucket, applies the delta, serves rollouts.
+- **vLLM rollout server.** Wherever you want, and crucially _not necessarily where the trainer is_. Pulls from the bucket, applies the delta, and serves rollouts.
 - **Environment.** Hangs off the rollout server in the usual way (HTTP, function calls, whatever your env speaks).
 
 The property to internalize, the one Cursor's paper sells hard and that holds verbatim here: **the trainer and the rollout server never talk to each other about weights**. They exchange a tiny POST containing `{"repo_id": ..., "filename": ...}`, and that is the entire control plane. The actual byte transfer happens between each side and the bucket, in parallel, with no shared network fabric.
