@@ -115,7 +115,7 @@ We recently published a dedicated guide on this, so rather than compress it here
 
 ### Trainer
 
-The trainer is what makes the agent better: it runs many agent episodes, scores the results and uses them to update the inner model's weights. [TRL's GRPOTrainer](https://huggingface.co/docs/trl/main/en/openenv) is a concrete example: a single class that handles episode generation, reward scoring, and weight updates.
+The trainer is what makes the agent better: it runs many agent episodes, scores the results and uses them to update the inner model's weights. [TRL's GRPOTrainer](https://huggingface.co/docs/trl/main/en/grpo_trainer) is a concrete example: a single class that handles episode generation, reward scoring, and weight updates.
 
 ### Rollout
 
