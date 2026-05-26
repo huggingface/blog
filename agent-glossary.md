@@ -61,7 +61,7 @@ The execution layer inside the agent: it calls the model, handles its tool calls
 
 At evaluation time, the same pattern shows up as an **eval harness**: instead of collecting training data, it runs a fixed set of scenarios at a model checkpoint and records metrics rather than updating weights.
 
-Some frameworks use **orchestrator** for a higher-level controller that coordinates work across multiple agents. Unlike a harness, which drives a model through its execution loop, an orchestrator manages agents as units, each running their own harness. A script that calls a model across multiple phases, feeding the output of one step into the next, is still a harness: there are no independent agents being coordinated, just a single execution loop with multiple steps (see Sub-agents below).
+Some frameworks use **orchestrator** for a higher-level controller that coordinates work across multiple agents. Unlike a harness, which drives a model through its execution loop, an orchestrator manages agents as units, each running their own harness (see Sub-agents below).
 
 ## Agent
 
