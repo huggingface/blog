@@ -61,6 +61,8 @@ The execution layer inside the agent: it calls the model, handles its tool calls
 
 At evaluation time, the same pattern shows up as an **eval harness**: instead of collecting training data, it runs a fixed set of scenarios at a model checkpoint and records metrics rather than updating weights.
 
+Some frameworks use **orchestrator** for a higher-level controller that coordinates work across multiple agents. Unlike a harness, which drives a model through its execution loop, an orchestrator manages agents as units, each running their own harness (see Sub-agents below).
+
 ## Agent
 
 The term comes from reinforcement learning, where an agent is simply a function that takes an observation and returns an action. The environment takes that action and returns a new observation, and the loop repeats. That loop is still at the core of how LLM agents work.
@@ -84,6 +86,7 @@ Memory is part of this picture. **Short-term memory** is what stays in the conte
 ## Policy
 
 A policy is the behavior an agent follows: given any situation, it defines the probability of taking each possible action. In LLM systems, part of that policy is learned in the model weights, but the behavior also depends on the surrounding scaffolding and harness. The same model can behave very differently depending on its prompts, tools, memory, and execution loop.
+
 A policy is not an agent. The policy defines behavior; the agent is the full system that acts in an environment. Wrap a checkpoint in scaffolding and a harness and deploy it, and you get an agent whose behavior is the policy.
 
 ## Tool Use
@@ -96,7 +99,7 @@ Reusable, structured packages of knowledge that enable multi-step tasks. Where a
 
 ## Sub-agents
 
-An agent called by another agent to handle a specific subtask. It has its own model and scaffold, reasons independently, and returns a result. The calling agent doesn't need to know how it works internally. This is what separates a **sub-agent** from a **tool** (a function call) or a **skill** (packaged knowledge): a sub-agent can itself reason, use tools, and call further sub-agents.
+An agent called by another agent to handle a specific subtask. It has its own model and scaffold, reasons independently, and returns a result. The calling agent doesn't need to know how it works internally. This is what separates a **sub-agent** from a **tool** (a function call) or a **skill** (packaged knowledge): a sub-agent can itself reason, use tools, and call further sub-agents. The calling agent is sometimes called an **orchestrator**.
 
 ## Training
 
@@ -112,7 +115,7 @@ We recently published a dedicated guide on this, so rather than compress it here
 
 ### Trainer
 
-The trainer is what makes the agent better: it runs many agent episodes, scores the results and uses them to update the inner model's weights. [TRL's GRPOTrainer](https://huggingface.co/docs/trl/main/en/openenv) is a concrete example: a single class that handles episode generation, reward scoring, and weight updates.
+The trainer is what makes the agent better: it runs many agent episodes, scores the results and uses them to update the inner model's weights. [TRL's GRPOTrainer](https://huggingface.co/docs/trl/main/en/grpo_trainer) is a concrete example: a single class that handles episode generation, reward scoring, and weight updates.
 
 ### Rollout
 
