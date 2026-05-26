@@ -1,88 +1,125 @@
 ---
-title: "Profiling PyTorch: A Beginner's Guide to torch.profiler"
+title: "Profiling in PyTorch: A Beginner's Guide to torch.profiler"
 thumbnail: /blog/assets/torch-profiler/thumbnail.png
 authors:
   - user: ariG23498
+  - user: sayakpaul
+  - user: sergiopaniego
 ---
 
-# Profiling PyTorch: A Beginner's Guide to torch.profiler
+# Profiling in PyTorch: A Beginner's Guide to torch.profiler
 
 ![Thumbnail of the blog post](assets/torch-profiler/thumbnail.png)
 
-Have you ever wondered what happens under the hood of a model's forward call? To quench that thirst, you might find yourself reading the `modeling_<model_name>.py` files in [transformers](https://github.com/huggingface/transformers), looking at the PyTorch operations, and then wondering how those kernels are dispatched on the GPU, and how they actually run.
+Have you ever wondered what goes on under the hood of CPU and GPU your model runs on? To quench that thirst, you might find yourself reading the `modeling_<model_name>.py` files in [transformers](https://github.com/huggingface/transformers), looking at the PyTorch operations, and then wondering how those kernels are dispatched, and how they actually run.
 
 Working at Hugging Face has its own perks, you are surrounded by smarter people all the time. Upon talking to my colleagues about my motivation, I was quickly pointed to the "skill of profiling". If I was given a dollar for every time I was advised to work on profiling, I would have 3 dollars, because I had asked [Sayak Paul](https://huggingface.co/sayakpaul), [Rémi Ouazan Reboul](https://huggingface.co/ror), and [Ferdinand Mom](https://huggingface.co/3outeille).
 
-In this essay, we document "how to profile in PyTorch" from a beginner's point of view. You need no prerequisites to go through this, apart from knowing basic PyTorch. We will try to make this as educational as possible, so this can be treated as a leisurely read with some "Aha!" moments.
+This is the opening post of **Profiling in PyTorch**, a series where we slowly build up the skill of reading profiler traces, starting from the simplest possible operation and gradually working our way up to more advanced workloads, involving large models.
 
-This is the opening post of **Profiling PyTorch**, a series where we slowly build up the skill of reading profiler traces, starting from the simplest possible operation and gradually working our way up to more advanced workloads, involing large models.
+In this essay, we document "How to profile in PyTorch" from a beginner's point of view. You need no prerequisites to go through this, apart from knowing basic PyTorch. We will try to make this as educational as possible, so this can be treated as a leisurely read with some "Aha!" moments.
+
+> [!NOTE]
+> Here is the entire script that we use for the essay: [`01_matmul_add.py`](https://huggingface.co/datasets/ariG23498/profiling-pytorch/blob/main/01_matmul_add.py). It is adviced to open this script on a seperate tab and walk through the code step by step.
 
 ## The matrix multiplication and addition operation
 
 As correctly [quipped by Dr. Sara Hooker](https://youtu.be/7knwihgj0fU?si=uvzGH-J9bsCHP4Nn&t=2199), like we are primarily made up of water, Deep Neural Networks are primarily made up of matrix multiplies. As fundamental as they are, it would be a shame to start our profiling journey with anything else.
-
-> [!NOTE]
-> Here is the entire script that we use for the essay: [`01_matmul_add.py`](https://huggingface.co/datasets/ariG23498/profiling-pytorch/blob/main/01_matmul_add.py)
 
 ```py
 def fn(x, w, b):
   return torch.add(torch.matmul(x, w), b)
 ```
 
-> As you have correctly noticed, we have added a matrix addition to the matrix multiplication to mimic how weights and biases interact in a neuron. This addition (pun intended) will help us work with compilations better.
+> The matrix addition along with the matrix multiplication mimics how weights and biases interact in a neuron. This addition (pun intended) will help us understand how it paves the way for compilation [later in the essay](#lets-see-some-torch-compile-at-work).
 
 To profile, we will be using the `torch.profiler` module. The steps involved are:
 
-1. Have the algorithm ready (here `def fn`, which wraps the matrix multiplication and addition)
-2. Annotate the algorithm. The `record_function` annotates our function as `matmul_add`
-3. Wrap the code with the `torch.profiler.profile` context manager
-4. Export the profile
+1. Have the [algorithm ready](https://huggingface.co/datasets/ariG23498/profiling-pytorch/blob/main/01_matmul_add.py#L26-L27) (here `def fn`, which wraps the matrix multiplication and matrix addition)
+2. [Annotate](https://huggingface.co/datasets/ariG23498/profiling-pytorch/blob/main/01_matmul_add.py#L32) the algorithm. While this is completely optional, we recommend doing this. The `record_function` annotates our function as `matmul_add`, which will be easy to navigate in the traces (as we note later)
+```py
+def step():
+  with torch.profiler.record_function("matmul_add"):
+    return fn(x, w, b)
+```
+3. Wrap the code with the `torch.profiler.profile` [context manager](https://huggingface.co/datasets/ariG23498/profiling-pytorch/blob/main/01_matmul_add.py#L53-L62)
+```py
+  with torch.profiler.profile(
+    activities=[
+        torch.profiler.ProfilerActivity.CPU,  # the cpu activities
+        torch.profiler.ProfilerActivity.CUDA, # the gpu activities
+    ],
+  ) as prof:
+    for _ in range(5):
+      step()
+      prof.step()
+```
+4. Export the [profile](https://huggingface.co/datasets/ariG23498/profiling-pytorch/blob/main/01_matmul_add.py#L70)
+```py
+prof.export_chrome_trace(trace_path)
+prof.key_averages().table(sort_by="cuda_time_total", row_limit=15)
+```
 
 The profiler exports two distinct artifacts:
 
-1. The profiler table: Provides the statistical summary of the algorithm. It answers "What is expensive". This becomes really helpful to figure out hotspots in the algorithm.
+1. The profiler table: Provides the statistical summary of the algorithm. It answers "What is expensive". This becomes really helpful to figure out hotspots. A hotspot would be events that take the most amount of time, can be a bottleneck of the pipeline, or an event that is triggered a lot of times.
 2. The profiler trace: Provides the temporal execution view. Answers "When and Why it happened", depicting the activities taking place on the CPU and the GPU. This is helpful when we want to investigate the kernel(s) that were launched, any delays in launching them, any overlap between CPU and GPU activities, etc.
 
-Let's see the two in action with our first execution.
+Let's see the two in action with our first execution. ([Here is the entire `01_matmul_add.py` script](https://huggingface.co/datasets/ariG23498/profiling-pytorch/blob/main/01_matmul_add.py))
+
+> [!NOTE]
+> It is recommended to run this script on a machine with a GPU.
+
 ```bash
-uv run 01_matmul_add.py
+uv run 01_matmul_add.py --size 64
 ```
 
-If you run the above you will find a folder `traces/01_matmul_add` with the two artifacts:
-```
+If you run the above script (on a GPU machine) you will find a folder `traces/01_matmul_add` with the two artifacts:
+
+```bash
 64_bf16_cold_eager.json
 64_bf16_cold_eager.txt
 ```
 
 The `.txt` file holds the profiler table. Upon opening the file, one would be greeted with a big table with the first column consisting of the events that were triggered inside the scope of profile.
 
-The other columns are related to the time the event takes on the CPU or GPU or any other device(s) specified in `activities` within `torch.profiler.profile`. Look at which events take the most amount of time, and try to intuitively understand if that event should in fact take that time. It is also important to look at the column "# of Calls" which dictates how many times the event was triggered.
+| ![Profiler table for matmul add algorithm on 64 sized matrices](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/torch-profiler/profile-table-64.png) |
+| :--: |
+| Figure X: Profiler table for matmul add algorithm on 64 sized matrices|
+
+The other columns as shown in Figure X are related to the time the event takes on the CPU or GPU or any other device(s) specified in `activities` within `torch.profiler.profile`. Look at which events take the most amount of time, and try to intuitively understand if that event should in fact take that time. It is also important to look at the column "# of Calls" which dictates how many times the event was triggered.
 
 While we are at it, let's also talk about "Self CPU/CUDA" vs "CPU/CUDA total". The "Self" columns measure time spent only inside the event itself, excluding its children. The "total" columns include the event and all of its children together. So if you look at the "CPU total" of `matmul_add`, it consists of the time it took on self plus the children events it triggered. This is an important demarcation to note.
 
 If you look at the last two lines out of the table you would notice that the profiler tells us that
 
 ```bash
-Self CPU time total: 2.304ms
-Self CUDA time total: 20.640us
+Self CPU time total: 2.314ms
+Self CUDA time total: 23.104us
 ```
 
-The CPU time is in `ms` while the GPU time is in `us`. To put things in perspective, we are spending ~112x more time than the GPU on the CPU.  The GPU stays idle most of the time, which is an immediate red flag. This is a textbook case of the algorithm being "overhead bound". In simple words, the launch overheads on the CPU side are much larger than the work the kernel does on the GPU. The easiest way to move out of the "overhead bound" regime is to make a bigger matrix multiplication.
+The CPU time is in `ms` while the GPU time is in `us`. To put things in perspective, we are spending ~112x more time than the GPU on the CPU.  The GPU stays idle most of the time, which is an immediate red flag. This is a textbook case of the algorithm being overhead-bound. In simple words, the launch overheads on the CPU side are much larger than the work the kernel does on the GPU. The easiest way to move out of the overhead-bound regime is to make a bigger matrix multiplications.
 
 ```bash
 uv run 01_matmul_add.py --size 4096 
 ```
 
+| ![Profiler table for matmul add algorithm on 4096 sized matrices](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/torch-profiler/profile-table-4096.png) |
+| :--: |
+| Figure X: Profiler table for matmul add algorithm on 4096 sized matrices |
+
+The last two lines (as shown in Figure X) is:
+
 ```bash
-Self CPU time total: 4.911ms
-Self CUDA time total: 5.045ms
+Self CPU time total: 4.908ms
+Self CUDA time total: 4.495ms
 ```
 
-We have materialized more GPU time just by increasing the size of the matrix multiplications. If you open the table you would also notice that the most CUDA time is now taken by `ampere_bf16_s16816gemm_..` and not by `matmul_add`. This means that we were indeed able to move from overhead bound to compute bound.
+Both the time are in ms, which means we have materialized more GPU time just by increasing the size of the matrix multiplications. If you look at Figure X you would also notice that the most CUDA time is now taken by `ampere_bf16_s16816gemm_..` and not by `matmul_add`. This means that we were indeed able to move from overhead bound to compute bound.
 
 We now move into visualising the dispatch chain, which lives inside the `.json` artifacts. You can upload them to [Perfetto UI](https://ui.perfetto.dev) and see the traces, or you can use `uvx trace-util traces -b traces` to generate the Perfetto links directly.
 
-## 64×64 traces
+## 64x64 traces
 
 [Perfetto Trace for 64x64](https://ui.perfetto.dev/#!/?url=https://huggingface.co/buckets/ariG23498/traces/resolve/01_matmul_add/64_bf16_cold_eager.json)
 
@@ -103,7 +140,7 @@ In Figure 1, we see the profiler trace for the matrix multiplication and additio
 | Figure 2: The CPU and GPU lanes of a PyTorch profiler trace |
 
 There are two lanes, one for the CPU activity and one for the GPU activity, as shown in Figure 2. In the CPU lane one would notice three profile steps. This comes from the `schedule`.
-```python
+```py
 schedule = torch.profiler.schedule(wait=1, warmup=1, active=3, repeat=1)
 ```
 The `wait` skips noisy initializations, `warmup` runs through the profiler without recording, and `active` is what shows up in trace.
