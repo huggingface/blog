@@ -5341,8 +5341,16 @@
     - research
     - open-source
 
+- local: agent-glossary
+  date: May 25, 2026
+  tags:
+    - agents
+    - llms
+    - guide
+    - rl
+    
 - local: delta-weight-sync
-  date: May 22, 2026
+  date: May 26, 2026
   tags:
     - llm
     - rl
