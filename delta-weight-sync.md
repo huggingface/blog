@@ -8,7 +8,6 @@ authors:
   - user: lewtun
   - user: edbeeching
   - user: albertvillanova
-  - user: nouamanetazi
   - user: lvwerra
 ---
 
