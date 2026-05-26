@@ -311,7 +311,7 @@ What does that buy you in wall-clock? NCCL is fast inside a cluster, sure. Assum
 
 Now leave the cluster. NCCL straight up does not work across clouds. Once you want a rollout fleet in `us-east`, another in `eu-west`, maybe one in a Hugging Face Space, the bucket-based path is the _only_ path. At 1 GB/s of usable internet bandwidth, a single full broadcast would take 13 minutes; the delta does it in 6 seconds.
 
-For a 1 TB-class model in the Fireworks framing, their own measured numbers land at **20.3 GiB deltas vs the 1024 GiB full snapshot, a ~50× reduction**. PULSE's tighter sparse encoding would push that further (extrapolating ~15 GB per delta, closer to ~65×). Either way, you are in the regime where shipping weights through commodity object storage stops being a hack and starts being the only sensible architecture.
+For a 1 TB-class model in the Fireworks framing, their own measured numbers show **20.3 GiB deltas vs the 1024 GiB full snapshot **, a ~50× reduction. PULSE's tighter, sparse encoding would push that further (extrapolating ~15 GB per delta, closer to ~65×). Either way, you are in a regime where shipping weights through commodity object storage stops being a hack and starts being the only sensible architecture.
 
 ## 7. What's Still on Our Plate
 
