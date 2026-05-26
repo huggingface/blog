@@ -56,7 +56,7 @@ The only thing missing was a version of this story that you can `pip install`. S
 
 Before we wire anything up, it is worth understanding why this whole game is even winnable. The "98% of weights do not change" claim sounds suspiciously like one of those numbers that works in the demo and falls apart in the wild. It is not. It falls out of how bf16 arithmetic works at the learning rates RL uses.
 
-A bf16 number has 7 mantissa bits. Between two consecutive powers of two, there are exactly $2^7 = 128$ representable values, so the spacing between adjacent bf16 numbers around $|w|$ is roughly $|w| \cdot 2^{-7}$. An update gets absorbed by the bf16 cast whenever it sits below _half_ of that spacing, i.e. when $|\Delta w| < |w|/256$. This is the "bf16 visibility threshold" PULSE plots in their Figure 3.
+A bf16 number has 7 mantissa bits. Between two consecutive powers of two, there are exactly $2^7 = 128$ representable values, so the spacing between adjacent bf16 numbers around $|w|$ is roughly $|w| \cdot 2^{-7}$. An update gets absorbed by the bf16 cast whenever it sits below _half_ of that spacing, i.e., when $|\Delta w| < |w|/256$. This is the "bf16 visibility threshold" PULSE plots in their Figure 3.
 
 Now look at what Adam does. At an RL learning rate of, say, $3 \times 10^{-6}$, the update to a single weight is:
 
