@@ -25,7 +25,7 @@ Cascades are the most flexible option in the open-source landscape today, and wi
 
 This blog walks you through running conversations with Reachy Mini fully locally. No cloud, no API keys, no data leaving your machine. Here's a video showing this live:
 
-<video controls width="100%">
+<video controls width="360" style="display: block; max-width: 100%; height: auto; margin: 0 auto;">
   <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/local_reachy_mini_conversation/Reachy mini local.mp4" type="video/mp4">
 </video>
 
