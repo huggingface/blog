@@ -5,11 +5,12 @@ authors:
   - user: ariG23498
   - user: sayakpaul
   - user: sergiopaniego
+  - user: ror
 ---
 
 # Profiling in PyTorch: A Beginner's Guide to torch.profiler
 
-![Thumbnail of the blog post](assets/torch-profiler/thumbnail.png)
+![Thumbnail of the blog post](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/torch-profiler/thumbnail.png)
 
 Have you ever wondered what goes on under the hood of CPU and GPU your model runs on? To quench that thirst, you might find yourself reading the `modeling_<model_name>.py` files in [transformers](https://github.com/huggingface/transformers), looking at the PyTorch operations, and then wondering how those kernels are dispatched, and how they actually run.
 
@@ -18,6 +19,13 @@ Working at Hugging Face has its own perks, you are surrounded by smarter people 
 This is the opening post of **Profiling in PyTorch**, a series where we slowly build up the skill of reading profiler traces, starting from the simplest possible operation and gradually working our way up to more advanced workloads, involving large models.
 
 In this essay, we document "How to profile in PyTorch" from a beginner's point of view. You need no prerequisites to go through this, apart from knowing basic PyTorch. We will try to make this as educational as possible, so this can be treated as a leisurely read with some "Aha!" moments.
+
+Before we begin, we would like to address two things:
+
+1. A kernel is a program (list of instructions) that operates parallely on the GPU
+2. A CPU schedules and launches these kernels on the GPU
+
+Now that you have the two things in mind, the essay is going to read better!
 
 > [!NOTE]
 > Here is the entire script that we use for the essay: [`01_matmul_add.py`](https://huggingface.co/datasets/ariG23498/profiling-pytorch/blob/main/01_matmul_add.py). It is adviced to open this script on a seperate tab and walk through the code step by step.
@@ -63,8 +71,8 @@ prof.key_averages().table(sort_by="cuda_time_total", row_limit=15)
 
 The profiler exports two distinct artifacts:
 
-1. The profiler table: Provides the statistical summary of the algorithm. It answers "What is expensive". This becomes really helpful to figure out hotspots. A hotspot would be events that take the most amount of time, can be a bottleneck of the pipeline, or an event that is triggered a lot of times.
-2. The profiler trace: Provides the temporal execution view. Answers "When and Why it happened", depicting the activities taking place on the CPU and the GPU. This is helpful when we want to investigate the kernel(s) that were launched, any delays in launching them, any overlap between CPU and GPU activities, etc.
+1. The profiler table: Provides the statistical summary of the algorithm. It answers "What is taking the most time". This becomes really helpful to figure out hotspots. A hotspot would be events that take the most amount of time, can be a bottleneck of the pipeline, or an event that is triggered a lot of times.
+2. The profiler trace: Provides the temporal execution view. Answers "When and Why an operation happened", depicting the activities taking place on the CPU and the GPU. This is helpful when we want to investigate the kernel(s) that were launched, any delays in launching them, any overlap between CPU and GPU activities, etc.
 
 Let's see the two in action with our first execution. ([Here is the entire `01_matmul_add.py` script](https://huggingface.co/datasets/ariG23498/profiling-pytorch/blob/main/01_matmul_add.py))
 
@@ -90,7 +98,7 @@ The `.txt` file holds the profiler table. Upon opening the file, as shown in Fig
 
 The other columns are related to the time the event takes on the CPU or GPU or any other device(s) specified in `activities` within `torch.profiler.profile`. Look at which events take the most amount of time, and try to intuitively understand if that event should in fact take that time. It is also important to look at the column "# of Calls" which dictates how many times the event was triggered.
 
-While we are at it, let's also talk about "Self CPU/CUDA" vs "CPU/CUDA total". The "Self" columns measure time spent only inside the event itself, excluding its children. The "total" columns include the event and all of its children together. So if you look at the "CPU total" of `matmul_add`, it consists of the time it took on self plus the children events it triggered. This is an important demarcation to note.
+While we are at it, let's also talk about "Self CPU/CUDA" vs "CPU/CUDA total". The "Self" columns measure time spent only inside the event itself, excluding its children. The "total" columns include the event and all of its children together. So if you look at the "CPU total" of `matmul_add`, it consists of the time it took on self plus the children events it triggered. This is an important nuance to note.
 
 If you look at the last two lines out of the table you would notice that the profiler tells us that
 
@@ -99,7 +107,7 @@ Self CPU time total: 2.314ms
 Self CUDA time total: 23.104us
 ```
 
-The CPU time is in `ms` while the GPU time is in `us`. To put things in perspective, we are spending ~112x more time than the GPU (`ampere_bf16_s16816gemm...`) on the CPU (`matmul_add`).  The GPU stays idle most of the time, which is an immediate red flag. This is a textbook case of the algorithm being overhead-bound. In simple words, the launch overheads on the CPU side are much larger than the work the kernel does on the GPU. The easiest way to move out of the overhead-bound regime is to make a bigger matrix multiplications.
+The CPU time is in `ms` while the GPU time is in `us`. To put things in perspective, the time spent on GPUs (the kernel `ampere_bf16_s16816gemm...`) is less than 1% of the time spent on the CPU (the `matmul_add` operation).  The GPU stays idle most of the time, which is an immediate red flag. This is a textbook case of the algorithm being overhead-bound. In simple words, the CPU takes more time launching kernels on the GPU than the kernels takes to execute. The easiest way to move out of the overhead-bound regime is to make a bigger matrix multiplications.
 
 ```bash
 uv run 01_matmul_add.py --size 4096 
@@ -116,7 +124,7 @@ Self CPU time total: 4.908ms
 Self CUDA time total: 4.495ms
 ```
 
-Both the time are in ms, which means we have materialized more GPU time just by increasing the size of the matrix multiplications. If you look at Figure X you would also notice that the most CUDA time is now taken by `ampere_bf16_s16816gemm_..` and not by `matmul_add`. This means that we were indeed able to move from overhead bound to compute bound.
+Both the time are in ms, which means we have materialized more GPU time just by increasing the size of the matrix multiplications. If you look at Figure X you would also notice that the most CUDA time is now taken by the GPU kernel (`ampere_bf16_s16816gemm_..`) and not by the CPU operation that launched it (`matmul_add`). This means that we were indeed able to move from overhead bound to compute bound.
 
 We now move into visualising the dispatch chain, which lives inside the `.json` artifacts. You can upload them to [Perfetto UI](https://ui.perfetto.dev) and see the traces, or you can use `uvx trace-util traces -b traces` to generate the Perfetto links directly.
 
@@ -167,15 +175,7 @@ In Figure 5, we notice that `ProfileStep#2` takes more time compared to the othe
 | :--: |
 | Figure 6: The ~228 µs dead window between `record_function("matmul_add")` and `aten::matmul` |
 
-That ~228 µs shown in Figure 6 is the "dead window" between entering `record_function("matmul_add")` and PyTorch actually dispatching `aten::matmul`. This can happen for multiple reasons: 
-
-- cuBLAS keeps a persistent workspace. Even though the schedule's `warmup=1` step ran a GEMM (GEneral Matrix-Matrix Multiplication), the workspace allocation can still hit on the first active call if the previous launch's allocator/sync state hadn't settled.
-
-- cuBLAS heuristic + algo cache lookup for this exact (M=N=K=64, bf16, NN) shape.
-
-- Possibly a lazy module load for the specific kernel variant cuBLAS chose (64x64_sliced1x2_*).
-
-We can either look away or run [some more warmup steps](https://huggingface.co/datasets/ariG23498/profiling-pytorch/blob/main/01_matmul_add.py#L35-L39) before we profile (which is the standard)
+That ~228 µs shown in Figure 6 is the "dead window" between entering `record_function("matmul_add")` and PyTorch actually dispatching `aten::matmul`. This can happen for multiple reasons, including workspace allocations, cuBLAS heuristics, or lazy module loading. We can either look away or run [some more warmup steps](https://huggingface.co/datasets/ariG23498/profiling-pytorch/blob/main/01_matmul_add.py#L35-L39) before we profile (which is the standard)
 
 In the terms of profiling, warmup is when you run the events a couple of times before actually profiling it. The pre-work done by the GPU (including the above pointers) are one time efforts which we do not want to profile. In our example, we have two warmup stages, one where we actually loop over the function before entering the profiler, and two inside the profiler which is achieved by the `warmup` argument. In this section, we have enabled the actual iterations along with the schedule.
 
@@ -216,7 +216,7 @@ Figure 9 shows us that there is an `Activity Buffer Request` in the GPU lane bef
 | :--: |
 | Figure 10: A gap appears between the matmul and add kernels on profile step 1 |
 
-Upon zooming into the GPU trace, we notice that the matmul and add kernels for `ProfileStep#0` happen one after the other, while the kernels for `ProfileStep#1` have a window in between. The best explanation for this is that there was an overflow of buffers, and another buffer request was issued during the kernel execution.
+Upon zooming into the GPU trace, we notice that the matmul and add kernels for `ProfileStep#0` (the CPU trace of which is not visible in the Figure) happen one after the other, while the kernels for `ProfileStep#1` have a window in between. The best explanation for this is that there was an overflow of buffers, and another buffer request was issued during the kernel execution.
 
 The best way to rule out other possibilities is to profile for more iterations and see whether a similar window appears in other parts of the trace. To do that we run with `active=20`.
 
@@ -238,7 +238,7 @@ We begin with `ProfileStep#<id>` which encapsulates the profiling step. Due to u
 
 The `aten::matmul` is the [ATen-level](https://github.com/pytorch/pytorch/tree/main/aten/src/ATen) dispatch that those user-facing PyTorch matmul calls land on. `aten::mm` is the 2D matrix-matrix multiply backend.
 
-It is very interesting to note how PyTorch calls `aten::bmm` (batched matrix multiplication) if we add the batch axis to our matrices. Let's take a de-tour and see the `aten::bmm` in action.
+It is very interesting to note how PyTorch calls `aten::bmm` (batched matrix multiplication) if we add the batch axis to our matrices. Let's take a detour and see the `aten::bmm` in action.
 
 ```diff
 - x = torch.randn(args.size, args.size, device=device, dtype=dtype)
@@ -371,6 +371,8 @@ In Figure 21, we see the new CPU rows named `Torch-Compiled Region: 0/0` which p
 Looking at Figure 22 we ask the question, did we actually fuse the multiplication and addition operations together into one?
 
 This is operator fusion at the graph level. Inductor took our `torch.add(torch.matmul(x, w), b)` and rewrote it into a single `aten::addmm(b, x, w)` call. The important thing to note here is that it did **not** produce a **new** fused CUDA kernel. The actual GPU work is still `ampere_bf16_s16816gemm_bf16_128x256_ldg8_f2f_stages_64x3_nn`, the same cuBLAS kernel eager mode used. So the "fusion" here is at the dispatcher level, not at the kernel level.
+
+> If the reader is interested on how guards work in torch compile, here is a [great read](https://torchcompile-guards.hashnode.dev/inside-torchcompile-guards-how-they-work-what-they-cost-and-ways-to-optimize)!
 
 ### torch.compile's runtime architecture
 
