@@ -5358,3 +5358,13 @@
     - open-source
     - hub
     - storage
+
+- local: local-reachy-mini-conversation
+  date: May 27, 2026
+  tags:
+    - guide
+    - robotics
+    - audio
+    - speech
+    - local-ai
+    - reachy
