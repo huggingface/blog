@@ -17,7 +17,7 @@ Cascades are the most flexible option in the open-source landscape today, and wi
 > **TL;DR**
 > - Deploy a local speech backend for your Reachy Mini.
 > - We use our `speech-to-speech` library, a cascade approach.
-> - Recommended: **llama.cpp** with **Gemma 4**, **Silero VAD**, **Parakeet-TDT STT**, **Qwen3-TTS**.
+> - Recommended: **llama.cpp** with **Gemma 4**, **Silero VAD**, **Parakeet-TDT 0.6B v3 STT**, **Qwen3-TTS**.
 
 ---
 
@@ -63,7 +63,7 @@ Then, while we are serving the LLM in another terminal, we can simply run:
 speech-to-speech --responses_api_base_url "http://127.0.0.1:8080" --responses_api_api_key "" --mode local
 ```
 
-And you can start talking to the model through your terminal! The first time it will need to download Parakeet and Qwen3TTS, but subsequent launches are fast.
+And you can start talking to the model through your terminal! The first time it will need to download Parakeet-TDT 0.6B v3 and Qwen3TTS, but subsequent launches are fast.
 
 Here's a video showing the local conversation mode: 
 
@@ -295,7 +295,7 @@ You want the `192.168.x.x` or `10.x.x.x` one. If you see `169.254.x.x`, you're n
 You now have a fully local voice loop:
 
 - A robot listening with **Silero**,
-- transcribing with **Parakeet-TDT**,
+- transcribing with **Parakeet-TDT 0.6B v3**,
 - thinking with whichever LLM you picked, whether that's local MLX, local Transformers, a vLLM or llama.cpp server next door, or a hosted Responses API endpoint,
 - and answering with **Qwen3-TTS**.
 
