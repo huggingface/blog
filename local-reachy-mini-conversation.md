@@ -300,3 +300,4 @@ You now have a fully local voice loop:
 - and answering with **Qwen3-TTS**.
 
 Star [`huggingface/speech-to-speech`](https://github.com/huggingface/speech-to-speech) and [`pollen-robotics/reachy_mini_conversation_app`](https://github.com/pollen-robotics/reachy_mini_conversation_app), and come tell us in the discussions which open-source cascade you ended up running on your robot.
+<!-- publication refresh -->
