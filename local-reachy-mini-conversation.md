@@ -103,7 +103,7 @@ A cascaded voice pipeline has four stages: VAD, STT, LLM, and TTS. For three of 
 | Stage | Choice | Why |
 |-------|--------|-----|
 | VAD | **Silero VAD v5** | Tiny, accurate, runs on CPU. The de-facto default in the open-source voice-agent world. |
-| STT | **Parakeet-TDT** | Streaming-friendly, very fast, great quality on English. |
+| STT | **Parakeet-TDT 0.6B v3** | Streaming-friendly, very fast, great quality on English. |
 | TTS | **Qwen3-TTS** | Expressive, low-latency, multilingual, supports custom voices. |
 
 We are opinionated about these choices, feel free to swap them out for your own if you have a preference.
