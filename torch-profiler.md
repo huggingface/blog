@@ -23,7 +23,7 @@ In this essay, we document "How to profile in PyTorch" from a beginner's point o
 Before we begin, we would like to address two things:
 
 1. A GPU **kernel** is a program that runs in parallel on many threads of the GPU.
-2. The CPU is the one that **schedules and launches** these kernels. Most of the "PyTorch overhead" you see in a profiler trace is this scheduling work.
+2. The CPU is the one that **schedules and launches** these kernels.
 
 Now that you have the two things in mind, the essay is going to read better!
 
