@@ -1,5 +1,5 @@
 ---
-title: "Profiling in PyTorch: A Beginner's Guide to torch.profiler"
+title: "Profiling in PyTorch Part 1: A Beginner's Guide to torch.profiler"
 thumbnail: /blog/assets/torch-profiler/thumbnail.png
 authors:
   - user: ariG23498
@@ -8,7 +8,7 @@ authors:
   - user: ror
 ---
 
-# Profiling in PyTorch: A Beginner's Guide to torch.profiler
+# Profiling in PyTorch Part 1: A Beginner's Guide to torch.profiler
 
 ![Thumbnail of the blog post](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/torch-profiler/thumbnail.png)
 
