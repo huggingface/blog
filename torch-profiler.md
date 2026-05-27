@@ -393,16 +393,20 @@ While we know in theory what happens when we compile our functions it is equally
 | :--: |
 | Figure 23: Each compiled step still launches two GPU kernels, a Device-to-Device memcpy and the GEMM |
 
-Looking at the traces in Figure 23, we were really happy to notice only one `cudaLaunchKernel` per step. This directly contradicted what we were seeing in the GPU trace. There were still two kernels being launched per step, namely the `Memcpy DtoD (Device -> Device)` and the GEMM. Going back to the CPU trace, we noticed that we had completely missed the `cudaMemcpyAsync` dispatch.
+Looking at the traces in Figure 23, we were really happy to notice only one `cudaLaunchKernel` per step. This observation was directly contradicting what we were seeing in the GPU trace. There were still two kernels being launched per step, namely the `Memcpy DtoD (Device -> Device)` and the GEMM. Going back to the CPU trace, we noticed that we had completely missed the `cudaMemcpyAsync` dispatch.
 
-`addmm` computes `out = β·C + α·A·B`, and cuBLAS's GEMM-with-bias-add epilogue (think of it as an event that happens after matmul) writes into a destination buffer that needs to already contain the bias. So Inductor's generated code does:
+`addmm` computes `out = α·A·B + β·C`, and cuBLAS's GEMM-with-bias-add epilogue writes into a destination buffer that needs to already contain the bias. An epilogues can be thought of all the operations that happen _after_ a GEMM. In the world of deep-learning we constantly come up with GEMM-Epilogues like activations, bias addtion, normalization and many more. This is why there are cuBLAS GEMM-with-<specific epilogue> kernel variants.
 
-- `out = copy(b)` ← that's the DtoD memcpy (32 MB, takes ~33 µs)
-- `out = α·(x·w) + β·out` ← GEMM with `α=β=1`, "fusing" the bias add into the writeback
+> If you use different `mode`s for `torch.compile` you would notice different kernel variants being launched. You can try it for yourself and add a comment below about your observations!
 
-The result is mathematically `out = x·w + b`. The bias add isn't "free": we pay a memcpy upfront plus a slightly more expensive GEMM epilogue.
+So Inductor's generated code does:
 
-The "fusion" one might have hoped for, where `x·w + b` collapses into a single kernel with no extra memory traffic, isn't what happened. Inductor preserved the two memory-touching operations, it just relabeled the bias copy as a memcpy and the addition as a GEMM epilogue.
+- `out = copy(C)` ← that's the DtoD memcpy (32 MB, takes ~33 µs)
+- `out = α·(A·B) + β·out` ← GEMM with `α=β=1`, fusing the bias add into the writeback
+
+The result is mathematically still the same. The bias add isn't free, as we pay a memcpy upfront plus a slightly more expensive GEMM epilogue.
+
+The fusion one might have hoped for, where `x·w + b` (here `out = α·A·B + β·C`) collapses into a single kernel with no extra memory traffic, isn't what happened. Inductor preserved the two memory-touching operations, it just relabeled the bias copy as a memcpy and the addition as a GEMM epilogue.
 
 A truly fused implementation would skip the memcpy. That's what FlashAttention-style hand-written kernels do, and what Inductor can do via Triton codegen, but for a `4096×4096 bf16 matmul`, Inductor evidently decided "use cuBLAS, do the bias via epilogue setup" was the best path.
 
