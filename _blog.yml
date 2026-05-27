@@ -5341,8 +5341,16 @@
     - research
     - open-source
 
-- local: torch-profiler
+- local: agent-glossary
   date: May 25, 2026
+  tags:
+    - agents
+    - llms
+    - guide
+    - rl
+
+- local: torch-profiler
+  date: May 27, 2026
   tags:
     - torch
     - profile
