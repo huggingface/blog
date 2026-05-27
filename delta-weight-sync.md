@@ -13,18 +13,14 @@ authors:
 
 # Shipping a Trillion Parameters With a Hub Bucket: Delta Weight Sync in TRL
 
-<blockquote style="background-color: #f0f7ff; border-left: 4px solid #4a90d9; padding: 1em 1.5em; margin: 1.5em 0; border-radius: 4px;">
-
-**TL;DR**, because you have models to train and we respect that:
-
-- Async RL has a dirty secret: every step, the trainer has to ship the whole model to the inference engine. For a 7B in bf16 that is 14 GB. For a frontier 1T model checkpoint that is on the order of a terabyte. Per step.
-- It turns out you do not have to. Between two consecutive RL optimizer steps, **roughly 99% of bf16 weights are bit-identical** (and never less than 98% in the worst case). The actual delta is tiny.
-- We landed [a TRL PR](https://github.com/huggingface/trl/pull/5417) that encodes just the changed elements as a **sparse safetensors file**, uploads it to a **Hugging Face Bucket**, and tells vLLM to fetch it. On Qwen3-0.6B, the per-step payload drops from 1.2 GB to **20 to 35 MB**.
-- The cherry on top: we ran a full disaggregated training where the **trainer was on one box**, **vLLM lived in a Hugging Face Space**, the **Wordle environment lived in another Space**, and weights flowed through a single Hub bucket. No shared cluster, no RDMA, no VPN.
-
-Async RL just got a lot cheaper. Read on.
-
-</blockquote>
+> **TL;DR**, because you have models to train and we respect that:
+>
+> - Async RL has a dirty secret: every step, the trainer has to ship the whole model to the inference engine. For a 7B in bf16 that is 14 GB. For a frontier 1T model checkpoint that is on the order of a terabyte. Per step.
+> - It turns out you do not have to. Between two consecutive RL optimizer steps, **roughly 99% of bf16 weights are bit-identical** (and never less than 98% in the worst case). The actual delta is tiny.
+> - We landed [a TRL PR](https://github.com/huggingface/trl/pull/5417) that encodes just the changed elements as a **sparse safetensors file**, uploads it to a **Hugging Face Bucket**, and tells vLLM to fetch it. On Qwen3-0.6B, the per-step payload drops from 1.2 GB to **20 to 35 MB**.
+> - The cherry on top: we ran a full disaggregated training where the **trainer was on one box**, **vLLM lived in a Hugging Face Space**, the **Wordle environment lived in another Space**, and weights flowed through a single Hub bucket. No shared cluster, no RDMA, no VPN.
+>
+> Async RL just got a lot cheaper. Read on.
 
 <figure class="image text-center">
   <iframe src="https://aminedirohf-delta-weight-sync-timeline.static.hf.space" width="100%" height="460" frameborder="0" scrolling="no"></iframe>
@@ -55,21 +51,19 @@ The only thing missing was a version of this story that you can `pip install`. S
 
 Before we wire anything up, it is worth understanding why this whole game is even winnable. The "98% of weights do not change" claim sounds suspiciously like one of those numbers that works in the demo and falls apart in the wild. It is not. It falls out of how bf16 arithmetic works at the learning rates RL uses.
 
-A bf16 number has 7 mantissa bits. Between two consecutive powers of two, there are exactly $2^7 = 128$ representable values, so the spacing between adjacent bf16 numbers around $|w|$ is roughly $|w| \cdot 2^{-7}$. An update gets absorbed by the bf16 cast whenever it sits below _half_ of that spacing, i.e., when $|\Delta w| < |w|/256$. This is the "bf16 visibility threshold" PULSE plots in their Figure 3.
+A bf16 number has 7 mantissa bits. Between two consecutive powers of two, there are exactly \\(2^7 = 128\\) representable values, so the spacing between adjacent bf16 numbers around \\(|w|\\) is roughly \\(|w| \cdot 2^{-7}\\). An update gets absorbed by the bf16 cast whenever it sits below _half_ of that spacing, i.e., when \\(|\Delta w| < |w|/256\\). This is the "bf16 visibility threshold" PULSE plots in their Figure 3.
 
-Now look at what Adam does. At an RL learning rate of, say, $3 \times 10^{-6}$, the update to a single weight is:
+Now look at what Adam does. At an RL learning rate of, say, \\(3 \times 10^{-6}\\), the update to a single weight is:
 
-$$
-\Delta w = -\eta \cdot \frac{\hat{m}}{\sqrt{\hat{v}} + \epsilon}
-$$
+\\(\Delta w = -\eta \cdot \frac{\hat{m}}{\sqrt{\hat{v}} + \epsilon}\\)
 
-The normalized step $\hat{m}/(\sqrt{\hat{v}}+\epsilon)$ is roughly order one, so $|\Delta w| \approx \eta \approx 3 \times 10^{-6}$. For most weights, $|w|$ sits somewhere around $10^{-2}$ to $10^{-1}$ (PULSE reports a median of 0.019 for representative LLM weights). The threshold $|w|/256$ at that magnitude is around $4 \times 10^{-5}$ to $4 \times 10^{-4}$, which is _bigger_ than the update.
+The normalized step \\(\hat{m}/(\sqrt{\hat{v}}+\epsilon)\\) is roughly order one, so \\(|\Delta w| \approx \eta \approx 3 \times 10^{-6}\\). For most weights, \\(|w|\\) sits somewhere around \\(10^{-2}\\) to \\(10^{-1}\\) (PULSE reports a median of 0.019 for representative LLM weights). The threshold \\(|w|/256\\) at that magnitude is around \\(4 \times 10^{-5}\\) to \\(4 \times 10^{-4}\\), which is _bigger_ than the update.
 
-In other words: the optimizer is whispering, and bf16 cannot hear it. The update gets absorbed by rounding, the byte representation of $w$ does not change, and from the inference engine's perspective, this weight did not move. Multiply that by a few hundred million parameters, and you get the >99% sparsity number, for free, with zero approximation.
+In other words: the optimizer is whispering, and bf16 cannot hear it. The update gets absorbed by rounding, the byte representation of \\(w\\) does not change, and from the inference engine's perspective, this weight did not move. Multiply that by a few hundred million parameters, and you get the >99% sparsity number, for free, with zero approximation.
 
-This is exactly the argument made formal in the PULSE paper ([Mihai & Belilovsky, 2026](https://huggingface.co/papers/2602.03839)). They define two thresholds. The **absorption bound** $10\eta$ is the conservative worst case for an Adam update, and the **effective bound** $\eta$ is the regime you actually live in. The **bf16 visibility threshold** is $|w|/256$. Whenever the update sits below the visibility threshold, it gets absorbed, and the bf16 byte does not change. Their Figure 3 plots both bounds against a cloud of representative LLM weights, and the conclusion is unambiguous: at $\eta = 3 \times 10^{-6}$, the absorption bound itself already sits below the visibility threshold for almost every weight in the model. They measure this empirically across Qwen2.5 (0.5B/1.5B/7B), Llama-3.2-3B, and Gemma-3-4B, and consistently find a mean per-step sparsity of **~99%, with a standard deviation of 0.2 to 0.4% over 400 training steps**. The worst-case step stays above 98%. So <1% changed is not a lucky measurement; it is what the arithmetic guarantees.
+This is exactly the argument made formal in the PULSE paper ([Mihai & Belilovsky, 2026](https://huggingface.co/papers/2602.03839)). They define two thresholds. The **absorption bound** \\(10\eta\\) is the conservative worst case for an Adam update, and the **effective bound** \\(\eta\\) is the regime you actually live in. The **bf16 visibility threshold** is \\(|w|/256\\). Whenever the update sits below the visibility threshold, it gets absorbed, and the bf16 byte does not change. Their Figure 3 plots both bounds against a cloud of representative LLM weights, and the conclusion is unambiguous: at \\(\eta = 3 \times 10^{-6}\\), the absorption bound itself already sits below the visibility threshold for almost every weight in the model. They measure this empirically across Qwen2.5 (0.5B/1.5B/7B), Llama-3.2-3B, and Gemma-3-4B, and consistently find a mean per-step sparsity of **\~99%, with a standard deviation of 0.2 to 0.4% over 400 training steps**. The worst-case step stays above 98%. So <1% changed is not a lucky measurement; it is what the arithmetic guarantees.
 
-We do not have to predict this analytically (and indeed, we tried predicting the change mask from Adam's $m$ and $v$ statistics, but recall was a sad 30%, more on that later). We just need to **observe which bytes flipped**. That is a tiny boolean tensor per parameter, computed right around the optimizer step.
+We do not have to predict this analytically (and indeed, we tried predicting the change mask from Adam's \\(m\\) and \\(v\\) statistics, but recall was a sad 30%, more on that later). We just need to **observe which bytes flipped**. That is a tiny boolean tensor per parameter, computed right around the optimizer step.
 
 <figure class="image text-center">
   <iframe src="https://aminedirohf-delta-weight-sync-bf16-ulp.static.hf.space" width="100%" height="780" frameborder="0" scrolling="no"></iframe>
@@ -129,7 +123,7 @@ We picked [safetensors](https://github.com/huggingface/safetensors) for the on-d
 
 There are two kinds of files in the bucket.
 
-**Anchors** look like a normal checkpoint: one tensor per parameter, full bf16 weights, written every $N$ syncs (we default to $N=10$).
+**Anchors** look like a normal checkpoint: one tensor per parameter, full bf16 weights, written every \\(N\\) syncs (we default to \\(N=10\\)).
 
 ```
 anchors/step_000010.safetensors
@@ -191,7 +185,7 @@ class BF16ChangeDetector:
 
 The actual code in the PR has a bit more plumbing (matching optimizer param objects to model params via `data_ptr()`, because Accelerate wraps them as different Python objects), but the idea fits on a napkin: snapshot, step, diff.
 
-This is ground truth. We _tried_ the more elegant path of predicting the mask from Adam's $m$ and $v$ statistics, using the bf16 ULP threshold directly. It works in principle. In practice, recall was around 30%, which means we would have shipped a delta missing two thirds of the actual updates. Adam's normalization is messy enough that the analytical threshold is not tight. So we just compare bytes. It costs one bf16 CPU snapshot of the model on the trainer side, which we are willing to pay.
+This is ground truth. We _tried_ the more elegant path of predicting the mask from Adam's \\(m\\) and \\(v\\) statistics, using the bf16 ULP threshold directly. It works in principle. In practice, recall was around 30%, which means we would have shipped a delta missing two thirds of the actual updates. Adam's normalization is messy enough that the analytical threshold is not tight. So we just compare bytes. It costs one bf16 CPU snapshot of the model on the trainer side, which we are willing to pay.
 
 The four phases of the new `_sync_weight` flow are:
 
@@ -304,22 +298,22 @@ A few things, and we think they are big.
 
 **A path to frontier scale.** The 20 to 35 MB number is for Qwen3-0.6B. The interesting question is what the curve looks like once you turn the dial up. Let us do the napkin math.
 
-Take Llama-3.1-405B. In bf16 that is **810 GB** on disk. PULSE measures ~99% mean per-step sparsity at RL learning rates, so the actual delta sits around 1% of the parameters. Their deployment-measured encoding hits **108 MB on a 7B model**, which is the **~130×** reduction PULSE reports. Scaled linearly to 405B, the delta lands at roughly **6 GB per step**.
+Take Llama-3.1-405B. In bf16 that is **810 GB** on disk. PULSE measures \~99% mean per-step sparsity at RL learning rates, so the actual delta sits around 1% of the parameters. Their deployment-measured encoding hits **108 MB on a 7B model**, which is the **\~130×** reduction PULSE reports. Scaled linearly to 405B, the delta lands at roughly **6 GB per step**.
 
-What does that buy you in wall-clock? NCCL is fast inside a cluster, sure. Assume a generous 100 GB/s aggregate broadcast bandwidth (multi-node, RDMA, the works). A full sync is `810 GB / 100 GB/s ≈ 8 seconds` of inference pause, every step. With the delta path, the trainer streams 6 GB to a bucket _in the background_ while generation keeps running, and the rollout server's actual paused window is just the apply step, which on this scale lands at a couple of seconds. So even before we leave the cluster, delta cuts the visible pause by 4× and the bytes on the wire by ~130×.
+What does that buy you in wall-clock? NCCL is fast inside a cluster, sure. Assume a generous 100 GB/s aggregate broadcast bandwidth (multi-node, RDMA, the works). A full sync is `810 GB / 100 GB/s ≈ 8 seconds` of inference pause, every step. With the delta path, the trainer streams 6 GB to a bucket _in the background_ while generation keeps running, and the rollout server's actual paused window is just the apply step, which on this scale lands at a couple of seconds. So even before we leave the cluster, delta cuts the visible pause by 4× and the bytes on the wire by \~130×.
 
 Now leave the cluster. NCCL straight up does not work across clouds. Once you want a rollout fleet in `us-east`, another in `eu-west`, maybe one in a Hugging Face Space, the bucket-based path is the _only_ path. At 1 GB/s of usable internet bandwidth, a single full broadcast would take 13 minutes; the delta does it in 6 seconds.
 
-For a 1 TB-class model in the Fireworks framing, their own measured numbers show **20.3 GiB deltas vs the 1024 GiB full snapshot **, a ~50× reduction. PULSE's tighter, sparse encoding would push that further (extrapolating ~15 GB per delta, closer to ~65×). Either way, you are in a regime where shipping weights through commodity object storage stops being a hack and starts being the only sensible architecture.
+For a 1 TB-class model in the Fireworks framing, their own measured numbers show **20.3 GiB deltas vs the 1024 GiB full snapshot **, a \~50× reduction. PULSE's tighter, sparse encoding would push that further (extrapolating \~15 GB per delta, closer to \~65×). Either way, you are in a regime where shipping weights through commodity object storage stops being a hack and starts being the only sensible architecture.
 
 ## 7. What's Still on Our Plate
 
 We are not pretending this is finished. Here is the honest list.
 
 - **Two CPU bf16 snapshots, one too many.** The trainer keeps one (for the change detector) and the rollout server keeps one (to reconstruct full tensors for vLLM's `load_weights`). The first one we are stuck with until someone finds a tight analytical mask, which is harder than it looks. The second one goes away when vLLM gains a sparse `load_weights` API. PR forthcoming.
-- **Fixed anchor cadence.** We currently dump a full anchor every $N$ steps. An adaptive policy ("anchor when cumulative drift exceeds X") would cut anchor cost on long runs.
+- **Fixed anchor cadence.** We currently dump a full anchor every \\(N\\) steps. An adaptive policy ("anchor when cumulative drift exceeds X") would cut anchor cost on long runs.
 - **Multi-node FSDP2 trainers.** The `BF16ChangeDetector` is built around per-process optimizer hooks. It should generalize cleanly to FSDP2, but we have not measured it at multi-node scale yet. There is a `TODO` in the PR with our name on it.
-- **Hooking into the optimizer.** Our attempt at predicting the mask from $(m, v)$ alone gave low recall, which means the analytical bf16 threshold is doing something more subtle than the textbook formula suggests. We would love to hear from anyone who has cracked this.
+- **Hooking into the optimizer.** Our attempt at predicting the mask from \\((m, v)\\) alone gave low recall, which means the analytical bf16 threshold is doing something more subtle than the textbook formula suggests. We would love to hear from anyone who has cracked this.
 - **Stacking with on-the-wire compression.** Sparse safetensors and per-chunk gzip are orthogonal. We have not tried combining them yet. Although we don't expect huge compression gains.
 
 ## 8. Try It
