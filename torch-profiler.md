@@ -30,6 +30,31 @@ Now that you have the two things in mind, the essay is going to read better!
 > [!NOTE]
 > Here is the entire script that we use for the essay: [`01_matmul_add.py`](https://huggingface.co/datasets/ariG23498/profiling-pytorch/blob/main/01_matmul_add.py). It is advised to open this script on a separate tab and walk through the code step by step. We use the `NVIDIA A100-SXM4-80GB` GPU to run the scripts.
 
+Here is what we cover: 
+
+- [The matrix multiplication and addition operation](#the-matrix-multiplication-and-addition-operation)
+- [64x64 traces](#64x64-traces)
+  - [Why does the ProfileStep#2 take so long?](#why-does-the-profilestep2-take-so-long)
+  - [Why is there an offset of ~2.5 ms between the CPU and GPU lanes?](#why-is-there-an-offset-of-25-ms-between-the-cpu-and-gpu-lanes)
+  - [The chain of events](#the-chain-of-events)
+  - [Why does matmul have an extra CUDA runtime call?](#why-does-matmul-have-an-extra-cuda-runtime-call)
+  - [Why is cudaDeviceSynchronize so big (~1.78 ms)?](#why-is-cudadevicesynchronize-so-big-178-ms)
+- [4096x4096 traces](#4096x4096-traces)
+  - [Why does the same kernel take more time compared to others?](#why-does-the-same-kernel-take-more-time-compared-to-others)
+- [Let's see some torch compile at work](#lets-see-some-torch-compile-at-work)
+  - [Did we fuse the matmul and add kernels into one?](#did-we-fuse-the-matmul-and-add-kernels-into-one)
+  - [torch.compile's runtime architecture](#torchcompiles-runtime-architecture)
+  - [Do the CUDA launches go down by half?](#do-the-cuda-launches-go-down-by-half)
+  - [CPU overhead went up, not down](#cpu-overhead-went-up-not-down)
+- [Trace reading cheatsheet](#trace-reading-cheatsheet)
+  - [Profiler table](#profiler-table)
+  - [CPU lane](#cpu-lane)
+  - [GPU lane](#gpu-lane)
+  - [Dispatch chain](#dispatch-chain)
+  - [torch.compile](#torchcompile)
+- [Conclusion](#conclusion)
+
+
 ## The matrix multiplication and addition operation
 
 As correctly [quipped by Dr. Sara Hooker](https://youtu.be/7knwihgj0fU?si=uvzGH-J9bsCHP4Nn&t=2199), like we are primarily made up of water, Deep Neural Networks are primarily made up of matrix multiplies. As fundamental as they are, it would be a shame to start our profiling journey with anything else.
