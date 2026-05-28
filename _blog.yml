@@ -5349,8 +5349,28 @@
     - guide
     - rl
 
-- local: torch-profiler
+- local: delta-weight-sync
   date: May 27, 2026
+  tags:
+    - llm
+    - rl
+    - trl
+    - open-source
+    - hub
+    - storage
+
+- local: local-reachy-mini-conversation
+  date: May 27, 2026
+  tags:
+    - guide
+    - robotics
+    - audio
+    - speech
+    - local-ai
+    - reachy
+
+- local: torch-profiler
+  date: May 29, 2026
   tags:
     - torch
     - profile
