@@ -12,7 +12,7 @@ authors:
 
 ![Thumbnail of the blog post](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/torch-profiler/thumbnail.png)
 
-Have you ever wondered what goes on under the hood of CPU and GPU your model runs on? To quench that thirst, you might find yourself reading the `modeling_<model_name>.py` files in [transformers](https://github.com/huggingface/transformers), looking at the PyTorch operations, and then wondering how those kernels are dispatched, and how they actually run.
+Have you ever wondered what goes on under the hood of the CPU and GPU that your model runs on? To quench that thirst, you might find yourself reading the `modeling_<model_name>.py` files in [transformers](https://github.com/huggingface/transformers), looking at the PyTorch operations, and then wondering how those kernels are dispatched, and how they actually run.
 
 Working at Hugging Face has its own perks, you are surrounded by smarter people all the time. Upon talking to my colleagues about my motivation, I was quickly pointed to the "skill of profiling". If I was given a dollar for every time I was advised to work on profiling, I would have 3 dollars, because I had asked [Sayak Paul](https://huggingface.co/sayakpaul), [Rémi Ouazan Reboul](https://huggingface.co/ror), and [Ferdinand Mom](https://huggingface.co/3outeille).
 
@@ -28,7 +28,7 @@ Before we begin, we would like to address two things:
 Now that you have the two things in mind, the essay is going to read better!
 
 > [!NOTE]
-> Here is the entire script that we use for the essay: [`01_matmul_add.py`](https://huggingface.co/datasets/ariG23498/profiling-pytorch/blob/main/01_matmul_add.py). It is adviced to open this script on a seperate tab and walk through the code step by step.
+> Here is the entire script that we use for the essay: [`01_matmul_add.py`](https://huggingface.co/datasets/ariG23498/profiling-pytorch/blob/main/01_matmul_add.py). It is advised to open this script on a separate tab and walk through the code step by step.
 
 ## The matrix multiplication and addition operation
 
@@ -58,7 +58,7 @@ def step():
         torch.profiler.ProfilerActivity.CUDA, # the gpu activities
     ],
   ) as prof:
-    # it is recommened to run events mutiple times to warm up the GPUs
+    # it is recommended to run events multiple times to warm up the GPUs
     for _ in range(5):
       step()
       prof.step()
@@ -255,7 +255,7 @@ It is very interesting to note how PyTorch calls `aten::bmm` (batched matrix mul
 | :--: |
 | Figure 13: Batched Matrix Multiplication |
 
-In Figure 13, upon adding the batch axis to the inputs, `aten::matmul` now encapsulates a bunch of other prerequisite CUDA runtime calls along with `aten::bmm` (instead of `aten:mm`). This also hints at the heuristics that cuBLAS needs to do in oder to dispatch the right (most suitable) kernel for the program.
+In Figure 13, upon adding the batch axis to the inputs, `aten::matmul` now encapsulates a bunch of other prerequisite CUDA runtime calls along with `aten::bmm` (instead of `aten:mm`). This also hints at the heuristics that cuBLAS needs to do in order to dispatch the right (most suitable) kernel for the program.
 
 > In the rest of the essay, we will be working with simple 2D matrices, unless otherwise mentioned.
 
@@ -347,7 +347,7 @@ In this section, we talk about compilation and look at the profiler traces.
 uv run 01_matmul_add.py --size 4096 --warmup --compile
 ```
 
-The `args.compile` flag triggeres the following code:
+The `args.compile` flag triggers the following code:
 
 ```py
 def fn(x, w, b):
@@ -395,7 +395,7 @@ While we know in theory what happens when we compile our functions it is equally
 
 Looking at the traces in Figure 23, we were really happy to notice only one `cudaLaunchKernel` per step. This observation was directly contradicting what we were seeing in the GPU trace. There were still two kernels being launched per step, namely the `Memcpy DtoD (Device -> Device)` and the GEMM. Going back to the CPU trace, we noticed that we had completely missed the `cudaMemcpyAsync` dispatch.
 
-`addmm` computes `out = α·A·B + β·C`, and cuBLAS's GEMM-with-bias-add epilogue writes into a destination buffer that needs to already contain the bias. An epilogues can be thought of all the operations that happen _after_ a GEMM. In the world of deep-learning we constantly come up with GEMM-Epilogues like activations, bias addtion, normalization and many more. This is why there are cuBLAS GEMM-with-<specific epilogue> kernel variants.
+`addmm` computes `out = α·A·B + β·C`, and cuBLAS's GEMM-with-bias-add epilogue writes into a destination buffer that needs to already contain the bias. An epilogues can be thought of all the operations that happen _after_ a GEMM. In the world of deep-learning we constantly come up with GEMM-Epilogues like activations, bias addition, normalization and many more. This is why there are cuBLAS GEMM-with-<specific epilogue> kernel variants.
 
 > If you use different `mode`s for `torch.compile` you would notice different kernel variants being launched. You can try it for yourself and add a comment below about your observations!
 
