@@ -6,6 +6,7 @@ authors:
   - user: sayakpaul
   - user: sergiopaniego
   - user: ror
+  - user: pcuenq
 ---
 
 # Profiling in PyTorch Part 1: A Beginner's Guide to torch.profiler
