@@ -5348,7 +5348,7 @@
     - llms
     - guide
     - rl
-    
+
 - local: delta-weight-sync
   date: May 27, 2026
   tags:
@@ -5368,3 +5368,12 @@
     - speech
     - local-ai
     - reachy
+
+- local: torch-profiler
+  date: May 29, 2026
+  tags:
+    - torch
+    - profile
+    - CUDA
+    - open-source
+    - kernels
