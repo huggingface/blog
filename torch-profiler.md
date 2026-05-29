@@ -210,7 +210,7 @@ uv run 01_matmul_add.py --warmup
 | :--: |
 | Figure 7: After warming up, every profile step takes a similar amount of time |
 
-In Figure 7 we see that each profile step takes a similar time, but this does not mean we were able to optimize the one time overheads. We warmed up the runs so that the overheads were not profiled.
+In Figure 7 we see that each profile step takes a similar time, but this does not mean we were able to optimize the one time overheads. We warmed up the runs so that the overheads were not profiled. We think that closing this section abruptly without a hint to solving this would do injustice to the reader, so here is a [link](https://pytorch.org/blog/accelerating-generative-ai-2/) to read about further optimizing launch overheads.
 
 ### Why is there an offset of ~2.5 ms between the CPU and GPU lanes?
 
@@ -218,7 +218,7 @@ In Figure 7 we see that each profile step takes a similar time, but this does no
 | :--: |
 | Figure 8: The ~2.5 ms offset between the CPU and GPU lanes |
 
-In Figure 8, we see that the CPU and GPU lanes have an offset of around 2.5 ms. One might think the warmup stage combined with the schedule's `wait` and `warmup` should keep a stable CUDA stream and would diminish the offset.
+In Figure 8, we see that the CPU and GPU lanes have an offset of around 2.5 ms: this is the delay after the CPU submits the CUDA kernels and the time they actually start executing. One might think the warmup stage combined with the schedule's `wait` and `warmup` should keep a GPU busy and would diminish the offset.
 
 To uncover what is really happening, let's change our schedule a little:
 
@@ -237,7 +237,7 @@ Figure 9 shows us that there is an `Activity Buffer Request` in the GPU lane bef
 | :--: |
 | Figure 10: A gap appears between the matmul and add kernels on profile step 1 |
 
-Upon zooming into the GPU trace, we notice that the matmul and add kernels for `ProfileStep#0` (the CPU trace of which is not visible in the Figure) happen one after the other, while the kernels for `ProfileStep#1` have a window in between. The best explanation for this is that there was an overflow of buffers, and another buffer request was issued during the kernel execution.
+Upon zooming into the GPU trace, we notice that the matmul and add kernels for `ProfileStep#0` (the CPU trace of which is not visible in the Figure) happen one after the other, while the kernels for `ProfileStep#1` have a window in between. The best explanation for this is that there was an overflow of buffers, and another buffer request (a request to allocate some memory on the GPU VRAM) was issued during the kernel execution.
 
 The best way to rule out other possibilities is to profile for more iterations and see whether a similar window appears in other parts of the trace. To do that we run with `active=20`.
 
@@ -299,7 +299,7 @@ To understand this, we have to look at the kernel's resource footprint. If you c
 | :--: | :--: |
 | Figure 15: Matmul footprint | Figure 16: Add footprint |
 
-In Figure 15, we note that for matrix multiplication the `registers per thread` and `shared memory` are dynamic (based on the size of the matrix). cuBLAS ships hundreds of kernel variants, and each has a heuristic-driven launch path that needs runtime information about hardware capacity. The occupancy query is part of that heuristic.
+In Figure 15, we note that for matrix multiplication the `registers per thread` and `shared memory` are dynamic (based on the size of the matrix). cuBLAS ships hundreds of kernel variants, and each has a heuristic-driven launch path that needs runtime information about hardware capacity. The occupancy query is part of that heuristic. Conceptually, we can think of GPU-accelerated matmuls as [working on independent tiles](https://alvinwan.com/how-to-tile-matrix-multiplication/): how many tiles we use and how big each tile needs to be depends on the matrices and the hardware. Modern algorithms are way more complicated than that, but this is still a good reference framework.
 
 From Figure 16 we see that the footprint of addition says 32 registers and zero shared memory. That fits trivially. There's nothing to query, because no hardware resource is going to limit occupancy. The kernel is, by design, resource-light.
 
