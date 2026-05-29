@@ -1,5 +1,5 @@
 ---
-title: "Profiling in PyTorch Part 1: A Beginner's Guide to torch.profiler"
+title: "Profiling in PyTorch (Part 1): A Beginner's Guide to torch.profiler"
 thumbnail: /blog/assets/torch-profiler/thumbnail.png
 authors:
   - user: ariG23498
@@ -13,50 +13,36 @@ authors:
 
 ![Thumbnail of the blog post](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/torch-profiler/thumbnail.png)
 
-Have you ever wondered what goes on under the hood of the CPU and GPU that your model runs on? To quench that thirst, you might find yourself reading the `modeling_<model_name>.py` files in [transformers](https://github.com/huggingface/transformers), looking at the PyTorch operations, and then wondering how those kernels are dispatched, and how they actually run.
+> *What you cannot profile, you cannot optimize.*
 
-Working at Hugging Face has its own perks, you are surrounded by smarter people all the time. Upon talking to my colleagues about my motivation, I was quickly pointed to the "skill of profiling". If I was given a dollar for every time I was advised to work on profiling, I would have 3 dollars, because I had asked [Sayak Paul](https://huggingface.co/sayakpaul), [Rémi Ouazan Reboul](https://huggingface.co/ror), and [Ferdinand Mom](https://huggingface.co/3outeille).
+Whether you are trying to squeeze more tokens per second out of a Large Language Model (LLM), shave milliseconds off inference, or just understand why your training loop runs slower than the spec sheet promises, the path eventually runs through profiling.
 
-This is the opening post of **Profiling in PyTorch**, a series where we slowly build up the skill of reading profiler traces, starting from the simplest possible operation and gradually working our way up to more advanced workloads, involving large models.
+The catch is that profiling has a **steep** on-ramp. The traces are dense walls of colored rectangles. The events carry intimidating names. Most tutorials assume you can already read them. So even when we *know* we should be profiling, opening a trace can feel like a chore best left for later (or for someone else). This post, and the series it kicks off, is our attempt to lower that on-ramp.
 
-In this essay, we document "How to profile in PyTorch" from a beginner's point of view. You need no prerequisites to go through this, apart from knowing basic PyTorch. We will try to make this as educational as possible, so this can be treated as a leisurely read with some "Aha!" moments.
+This is the opening post of **Profiling in PyTorch**, a series where we slowly build the skill of reading profiler traces and use it to drive optimization. The plan:
 
-Before we begin, we would like to address a few things:
+1. **Part 1 (this post):** start with the simplest possible operation, a matrix multiplication followed by a bias add, and learn how to read what the profiler hands back.
+2. **Part 2:** scale up to `nn.Linear` and a small MLP, use the traces to motivate optimizations, and peek at the `kernels` underneath.
+3. **Part 3:** put it all together on Large Language Models with `transformers`.
+
+We document the journey from a beginner's point of view. No prerequisites apart from basic PyTorch. Treat this as a leisurely read with some "Aha!" moments. The structure of the post is intentionally question-led: we open a trace, ask "wait, why is *that* happening?", and chase the answer until something clicks. By the end you should know:
+
+- how to set up `torch.profiler` and what it actually hands back,
+- how to read the profiler table and the trace (CPU lane, GPU lane, and the suspicious gaps in between),
+- the chain of events from a Python call all the way down to a CUDA kernel,
+- what changes (and, more interestingly, what does **not** change) when you slap `torch.compile` on top.
+
+Before we begin, two definitions that will make everything below read better:
 
 1. A GPU **kernel** is a program that runs in parallel on many threads of the GPU.
 2. The CPU **schedules and launches** these kernels.
 
 You don't usually have to write GPU kernels yourself; when you use a PyTorch operation, it is automatically translated to one or more kernels that do the job on GPU.
 
-Now that you have the two things in mind, the essay is going to read better!
+With those two ideas in your back pocket, let's start asking questions.
 
 > [!NOTE]
 > Here is the entire script that we use for the post: [`01_matmul_add.py`](https://huggingface.co/datasets/ariG23498/profiling-pytorch/blob/main/01_matmul_add.py). It is advised to open this script on a separate tab and walk through the code step by step. We use the `NVIDIA A100-SXM4-80GB` GPU to run the scripts.
-
-Here is what we cover: 
-
-- [The matrix multiplication and addition operation](#the-matrix-multiplication-and-addition-operation)
-- [64x64 traces](#64x64-traces)
-  - [Why does the ProfileStep#2 take so long?](#why-does-the-profilestep2-take-so-long)
-  - [Why is there an offset of ~2.5 ms between the CPU and GPU lanes?](#why-is-there-an-offset-of-25-ms-between-the-cpu-and-gpu-lanes)
-  - [The chain of events](#the-chain-of-events)
-  - [Why does matmul have an extra CUDA runtime call?](#why-does-matmul-have-an-extra-cuda-runtime-call)
-  - [Why is cudaDeviceSynchronize so big (~1.78 ms)?](#why-is-cudadevicesynchronize-so-big-178-ms)
-- [4096x4096 traces](#4096x4096-traces)
-  - [Why does the same kernel take more time compared to others?](#why-does-the-same-kernel-take-more-time-compared-to-others)
-- [Let's see some torch compile at work](#lets-see-some-torch-compile-at-work)
-  - [Did we fuse the matmul and add kernels into one?](#did-we-fuse-the-matmul-and-add-kernels-into-one)
-  - [torch.compile's runtime architecture](#torchcompiles-runtime-architecture)
-  - [Do the CUDA launches go down by half?](#do-the-cuda-launches-go-down-by-half)
-  - [CPU overhead went up, not down](#cpu-overhead-went-up-not-down)
-- [Trace reading cheatsheet](#trace-reading-cheatsheet)
-  - [Profiler table](#profiler-table)
-  - [CPU lane](#cpu-lane)
-  - [GPU lane](#gpu-lane)
-  - [Dispatch chain](#dispatch-chain)
-  - [torch.compile](#torchcompile)
-- [Conclusion](#conclusion)
-
 
 ## The matrix multiplication and addition operation
 
@@ -67,7 +53,7 @@ def fn(x, w, b):
   return torch.add(torch.matmul(x, w), b)
 ```
 
-> The matrix addition along with the matrix multiplication mimics how weights and biases interact in a neuron. This addition (pun intended) will help us understand how it paves the way for compilation [later in the essay](#lets-see-some-torch-compile-at-work).
+> The matrix addition along with the matrix multiplication mimics how weights and biases interact in a neuron. This addition (pun intended) will help us understand how it paves the way for compilation [later in the post](#lets-see-some-torch-compile-at-work).
 
 To profile, we will be using the `torch.profiler` module. The steps involved are:
 
@@ -289,7 +275,7 @@ It is very interesting to note how PyTorch calls `aten::bmm` (batched matrix mul
 
 In Figure 13, upon adding the batch axis to the inputs, `aten::matmul` now encapsulates a bunch of other prerequisite CUDA runtime calls along with `aten::bmm` (instead of `aten::mm`). This also hints at the heuristics that cuBLAS needs to do in order to dispatch the right (most suitable) kernel for the program.
 
-> In the rest of the essay, we will be working with simple 2D matrices, unless otherwise mentioned.
+> In the rest of the post, we will be working with simple 2D matrices, unless otherwise mentioned.
 
 ### Why does matmul have an extra CUDA runtime call?
 
@@ -515,4 +501,4 @@ A quick reference for the patterns we walked through. The idea is: if you see th
 
 We started with a tiny `matmul + add` and used it as an excuse to learn how to read a PyTorch profiler. Along the way we picked up a few mental models that travel well to bigger workloads. This was the first stop in the **Profiling PyTorch** series. In the posts that follow, we will gradually leave this two-op toy behind and walk up the ladder of complexity, looking at larger building blocks and, eventually, real models.
 
-Thanks to [Noe Flandre](https://huggingface.co/NoeFlandre), [Suvaditya Mukherjee](https://huggingface.co/suvadityamuk), and [Vidit Ostwal](https://huggingface.co/ViditOstwal) for their reviews on the early draft of the essay!
+Thanks to [Noe Flandre](https://huggingface.co/NoeFlandre), [Suvaditya Mukherjee](https://huggingface.co/suvadityamuk), and [Vidit Ostwal](https://huggingface.co/ViditOstwal) for their reviews on the early draft of the post!
