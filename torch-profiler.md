@@ -9,7 +9,7 @@ authors:
   - user: pcuenq
 ---
 
-# Profiling in PyTorch Part 1: A Beginner's Guide to torch.profiler
+# Profiling in PyTorch (Part 1): A Beginner's Guide to torch.profiler
 
 ![Thumbnail of the blog post](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/torch-profiler/thumbnail.png)
 
@@ -24,12 +24,14 @@ In this essay, we document "How to profile in PyTorch" from a beginner's point o
 Before we begin, we would like to address a few things:
 
 1. A GPU **kernel** is a program that runs in parallel on many threads of the GPU.
-2. The CPU is the one that **schedules and launches** these kernels.
+2. The CPU **schedules and launches** these kernels.
+
+You don't usually have to write GPU kernels yourself; when you use a PyTorch operation, it is automatically translated to one or more kernels that do the job on GPU.
 
 Now that you have the two things in mind, the essay is going to read better!
 
 > [!NOTE]
-> Here is the entire script that we use for the essay: [`01_matmul_add.py`](https://huggingface.co/datasets/ariG23498/profiling-pytorch/blob/main/01_matmul_add.py). It is advised to open this script on a separate tab and walk through the code step by step. We use the `NVIDIA A100-SXM4-80GB` GPU to run the scripts.
+> Here is the entire script that we use for the post: [`01_matmul_add.py`](https://huggingface.co/datasets/ariG23498/profiling-pytorch/blob/main/01_matmul_add.py). It is advised to open this script on a separate tab and walk through the code step by step. We use the `NVIDIA A100-SXM4-80GB` GPU to run the scripts.
 
 Here is what we cover: 
 
@@ -69,7 +71,7 @@ def fn(x, w, b):
 
 To profile, we will be using the `torch.profiler` module. The steps involved are:
 
-1. Have the [algorithm ready](https://huggingface.co/datasets/ariG23498/profiling-pytorch/blob/main/01_matmul_add.py#L26-L27) (here `def fn`, which wraps the matrix multiplication and matrix addition)
+1. Have the [code to profile ready](https://huggingface.co/datasets/ariG23498/profiling-pytorch/blob/main/01_matmul_add.py#L26-L27) (here `def fn`, which wraps the matrix multiplication and matrix addition)
 2. [Annotate](https://huggingface.co/datasets/ariG23498/profiling-pytorch/blob/main/01_matmul_add.py#L32) the algorithm. While this is completely optional, we recommend doing this. The `record_function` annotates our function as `matmul_add`, which will be easy to navigate in the traces (as we note later)
 ```py
 def step():
@@ -133,7 +135,9 @@ Self CPU time total: 2.314ms
 Self CUDA time total: 23.104us
 ```
 
-The CPU time is in `ms` while the GPU time is in `us`. To put things in perspective, the time spent on GPUs (the kernel `ampere_bf16_s16816gemm...`) is less than 1% of the time spent on the CPU (the `matmul_add` operation).  The GPU stays idle most of the time, which is an immediate red flag. This is a textbook case of the algorithm being overhead-bound. In simple words, the CPU takes more time launching kernels on the GPU than the kernels take to execute. The easiest way to move out of the overhead-bound regime is to use bigger matrix multiplications.
+The CPU time is in `ms` while the GPU time is in `us`. To put things in perspective, the time spent on GPUs (the kernel `ampere_bf16_s16816gemm...`) is less than 1% of the time spent on the CPU (the `matmul_add` operation).  The GPU stays idle most of the time, which is an immediate red flag. The reason this happens is that the GPU can compute a small matmul very quickly, so our code spends most of the time preparing the kernels, launching them on the GPU, sending the data to multiply and gathering the results. This concept is known as an _overhead-bound_ algorithm.
+
+The easiest way to move out of this regime is to use bigger matrix multiplications.
 
 ```bash
 uv run 01_matmul_add.py --size 4096 
@@ -175,17 +179,17 @@ The script was run with default configurations which are:
 | :--: |
 | Figure 4: The CPU and GPU lanes of a PyTorch profiler trace |
 
-There are two lanes in Figure 4, one for the CPU activity and one for the GPU activity. In the CPU lane one would notice three profile steps (starting from `ProfileStep#2`). This comes from the `schedule`.
+There are two lanes in Figure 4, one for the CPU activity and one for the GPU activity. In the CPU lane one would notice three profile steps (starting from `ProfilerStep#2`). This comes from the `schedule`.
 
 ```py
 schedule = torch.profiler.schedule(wait=1, warmup=1, active=3, repeat=1)
 ```
 
-The `wait` skips noisy initializations (`ProfileStep#0`), `warmup` runs through the profiler without recording (`ProfileStep#1`), and `active` is what shows up in trace. One can find the schedule being used in the [script here](https://huggingface.co/datasets/ariG23498/profiling-pytorch/blob/main/01_matmul_add.py#L58).
+The `wait` skips noisy initializations (`ProfilerStep#0`), `warmup` runs through the profiler without recording (`ProfilerStep#1`), and `active` is what shows up in trace. One can find the schedule being used in the [script here](https://huggingface.co/datasets/ariG23498/profiling-pytorch/blob/main/01_matmul_add.py#L58).
 
 Let's put on our detective hats and investigate the trace and ask some questions.
 
-### Why does the ProfileStep#2 take so long?
+### Why does the ProfilerStep#2 take so long?
 
 | ![ProfileStep#2 in a PyTorch profiler trace appears wider than ProfileStep#3 and ProfileStep#4](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/torch-profiler/why-is-step-2-big.png) |
 | :--: |
@@ -205,7 +209,7 @@ In Figure 5, we notice that `ProfileStep#2` takes more time compared to the othe
 
 That ~228 µs shown in Figure 6 is the "dead window" between entering `record_function("matmul_add")` and PyTorch actually dispatching `aten::matmul`. This can happen for multiple reasons, including workspace allocations, [cuBLAS](https://developer.nvidia.com/cublas) (NVIDIA’s proprietary, GPU-accelerated library for performing fundamental linear algebra operations) heuristics, or lazy module loading. We can either look away or run [some more warmup steps](https://huggingface.co/datasets/ariG23498/profiling-pytorch/blob/main/01_matmul_add.py#L35-L39) before we profile (which is the standard)
 
-In the terms of profiling, warmup is when you run the events a couple of times before actually profiling it. The pre-work done by the GPU (including the above pointers) are one time efforts which we do not want to profile. In our example, we have two warmup stages, one where we actually loop over the function before entering the profiler, and two inside the profiler which is achieved by the `warmup` argument. In this section, we have enabled the actual iterations along with the schedule.
+In terms of profiling, warmup is when you run the events a couple of times before actually profiling it. The pre-work done by the GPU (including the above pointers) are one time efforts which we do not want to profile. In our example, we have two warmup stages, one where we actually loop over the function before entering the profiler, and two inside the profiler which is achieved by the `warmup` argument. In this section, we have enabled the actual iterations along with the schedule.
 
 ```bash
 uv run 01_matmul_add.py --warmup
