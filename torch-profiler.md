@@ -79,8 +79,11 @@ def step():
 ```
 4. Export the [profile](https://huggingface.co/datasets/ariG23498/profiling-pytorch/blob/main/01_matmul_add.py#L70)
 ```py
-prof.export_chrome_trace(trace_path)
+# the profiler table
 prof.key_averages().table(sort_by="cuda_time_total", row_limit=15)
+
+# the profiler trace
+prof.export_chrome_trace(trace_path)
 ```
 
 The profiler exports two distinct artifacts:
@@ -263,9 +266,10 @@ It is very interesting to note how PyTorch calls `aten::bmm` (batched matrix mul
 - w = torch.randn( args.size, args.size, device=device, dtype=dtype)
 - b = torch.randn(args.size, args.size, device=device, dtype=dtype)
 
-+ x = torch.randn(args.size, args.size, args.size, device=device, dtype=dtype)
-+ w = torch.randn(args.size, args.size, args.size, device=device, dtype=dtype)
-+ b = torch.randn(args.size, args.size, args.size, device=device, dtype=dtype)
++ # adding a batch size of 8
++ x = torch.randn(8, args.size, args.size, device=device, dtype=dtype)
++ w = torch.randn(8, args.size, args.size, device=device, dtype=dtype)
++ b = torch.randn(8, args.size, args.size, device=device, dtype=dtype)
 
 ```
 
@@ -390,7 +394,8 @@ Looking at Figure 20 we ask the question, did we actually fuse the multiplicatio
 
 This is operator fusion at the graph level. Inductor took our `torch.add(torch.matmul(x, w), b)` and rewrote it into a single `aten::addmm(b, x, w)` call. The important thing to note here is that it did **not** produce a **new** fused CUDA kernel. The actual GPU work is still `ampere_bf16_s16816gemm_bf16_128x256_ldg8_f2f_stages_64x3_nn`, the same cuBLAS kernel eager mode used. So the "fusion" here is at the dispatcher level, not at the kernel level.
 
-> If the reader is interested on how guards work in torch compile, here is a [great read](https://torchcompile-guards.hashnode.dev/inside-torchcompile-guards-how-they-work-what-they-cost-and-ways-to-optimize)!
+> [!NOTE]
+> PyTorch provides the [`torch.addmm`](https://docs.pytorch.org/docs/2.12/generated/torch.addmm.html) function that does what we did into two steps, that is multiply and add. We encourage the reader to look at the traces of this function and comment your observations in the comments below!
 
 ### torch.compile's runtime architecture
 
