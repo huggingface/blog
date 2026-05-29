@@ -42,11 +42,11 @@ You don't usually have to write GPU kernels yourself; when you use a PyTorch ope
 With those two ideas in your back pocket, let's start asking questions.
 
 > [!NOTE]
-> Here is the entire script that we use for the post: [`01_matmul_add.py`](https://huggingface.co/datasets/ariG23498/profiling-pytorch/blob/main/01_matmul_add.py). It is advised to open this script on a separate tab and walk through the code step by step. We use the `NVIDIA A100-SXM4-80GB` GPU to run the scripts.
+> Here is the entire script that we use for the post: [`01_matmul_add.py`](https://huggingface.co/datasets/ariG23498/profiling-pytorch/blob/main/01_matmul_add.py). We recommend opening this script in a separate tab and walk through the code step by step. We use the `NVIDIA A100-SXM4-80GB` GPU to run the scripts.
 
 ## The matrix multiplication and addition operation
 
-As correctly [quipped by Dr. Sara Hooker](https://youtu.be/7knwihgj0fU?si=uvzGH-J9bsCHP4Nn&t=2199), like we are primarily made up of water, Deep Neural Networks are primarily made up of matrix multiplies. As fundamental as they are, it would be a shame to start our profiling journey with anything else.
+As correctly [quipped by Dr. Sara Hooker](https://youtu.be/7knwihgj0fU?si=uvzGH-J9bsCHP4Nn&t=2199), just as we are primarily made up of water, Deep Neural Networks are primarily made up of matrix multiplies. As fundamental as they are, it would be a shame to start our profiling journey with anything else.
 
 ```py
 def fn(x, w, b):
@@ -357,7 +357,7 @@ A reader who only saw the average would conclude that a matmul took ~1 ms (mean 
 
 ## Let's see some torch compile at work
 
-Working with `torch.compile` has always amazed me. One writes normal eager PyTorch code, but PyTorch tries to capture tensor-heavy regions, turn them into graphs, optimize them, and run generated code. The default backend is usually `TorchInductor`, and the broad pipeline is:
+Working with `torch.compile` has always amazed us. One writes normal eager PyTorch code, but PyTorch tries to capture tensor-heavy regions, turn them into graphs, optimize them, and run generated code. The default backend is usually `TorchInductor`, and the broad pipeline is:
 
 1. `TorchDynamo` captures Python execution into an FX graph
 2. `AOTAutograd` prepares forward/backward graphs when gradients are involved
