@@ -5340,3 +5340,14 @@
     - community
     - research
     - open-source
+
+- local: intel-kernel-skills
+  date: May 31, 2026
+  tags:
+    - intel
+    - kernels
+    - research
+    - kernels-community
+    - optimization
+    - hub
+    - open-source
