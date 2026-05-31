@@ -19,7 +19,11 @@ authors:
 
 *By Intel AI Software Group*
 
-The **[xpu-kernels skill](https://github.com/huggingface/kernels/tree/main/kernel-builder/skills/xpu-kernels)** is an Agent Skill that ships inside [`kernel-builder`](https://github.com/huggingface/kernels) and turns a coding agent (Claude Code, OpenCode, Cursor, etc.) into an autonomous Triton kernel writer for **Intel Arc Pro GPUs** (Xe2 — verified on Arc Pro B70 and Battlemage G21 / Arc Pro B50). It is adapted from **[Xe-Forge](https://github.com/IntelLabs/Xe-Forge)** ([Spoczynski et al., 2026](https://arxiv.org/abs/2605.26118)) — an LLM-driven optimization framework that transforms PyTorch code into fast Triton kernels via a *Chain-of-Verification-and-Refinement* (CoVeR) agent loop — and is designed to plug directly into the **[Hugging Face Kernel Hub](https://huggingface.co/kernels)** so that the kernels you generate can be loaded with `get_kernel(...)` like any other Hub kernel.
+[Xe-Forge](https://github.com/IntelLabs/Xe-Forge) ([Spoczynski et al., 2026](https://arxiv.org/abs/2605.26118)) is an Intel project that uses an LLM to optimize Triton kernels for Intel Arc Pro GPUs (Xe2). It applies a sequence of optimization stages — fusion, dtype fixes, memory access, block pointers, XPU-specific tuning, autotuning — and validates each one on the GPU before moving on. The agent loop, called CoVeR (Chain-of-Verification-and-Refinement), proposes a candidate, runs it, and iterates if it fails or regresses. A small knowledge base of Xe2-specific patterns (tensor descriptors, GRF mode 256, tile swizzling) is read at the start of each session because these aren't well-represented in LLM training data.
+
+On Arc Pro B70, Xe-Forge reports a 1.17× geomean speedup over PyTorch eager across 97 KernelBench Level-2 kernels and 2–13.3× on Flash Attention forward.
+
+The [xpu-kernels skill](https://github.com/huggingface/kernels/tree/main/kernel-builder/skills/xpu-kernels) packages Xe-Forge's Claude Code engine — the same workflow, tools, and knowledge base — as an Agent Skill, so a coding agent can run the loop without cloning the full project, and the finalized kernel can be published to the [Hugging Face Kernel Hub](https://huggingface.co/kernels) and loaded with `get_kernel(...)`.
 
 We release three skills together — **`cuda-kernels`**, **`rocm-kernels`**, and **`xpu-kernels`** — each tuned to its hardware vendor. This post focuses on the Intel XPU one and shows that:
 
@@ -35,17 +39,9 @@ We release three skills together — **`cuda-kernels`**, **`rocm-kernels`**, and
 
 ## Why a kernel skill?
 
-Writing fast GPU kernels is hard, and writing them for a *new* architecture is harder. Intel's XPU stack — Xe2 with tensor descriptors, GRF mode 256, tile swizzling — is well documented but not yet baked into most LLM training corpora. As a result, an off-the-shelf coding agent asked for "a fast Triton GEMM on Intel Arc" will happily produce CUDA-flavored code that either does not compile, runs slowly, or silently returns wrong results.
+Two things make Xe2 a hard target for an off-the-shelf coding agent. First, the relevant API choices on Intel XPU (tensor descriptors over block pointers, `grf_mode='256'` for compute-heavy kernels, GROUP_SIZE_M swizzling, the rule against autotuning `BLOCK_D`) are underrepresented in LLM training data, so prompts about "fast Triton on Intel Arc" tend to produce CUDA-flavored code that compiles but doesn't run well. Second, kernel optimization isn't a single decision — tile sizes, dtype contracts, fusion boundaries, and accumulator precision interact, and a one-shot LLM rewrite usually regresses somewhere.
 
-We focused on two goals:
-
-1. **Give the agent the right tools** — analysis, validation, benchmarking, and profiling — so it can close the loop on Intel XPU hardware without writing custom scripts.
-
-2. **Give the agent the right knowledge** — XPU-specific patterns, hard correctness constraints, and integration recipes — packaged as references that are read at the start of every session.
-
-The **xpu-kernels** skill bundles both: a small CLI toolbox under `scripts/` and a curated knowledge base under `references/`, all wrapped in a `SKILL.md` that defines the workflow.
-
-> Xe-Forge itself ships two optimization engines — a fully automated **DSPy** pipeline that runs nine named stages (algorithmic, dtype_fix, fusion, memory_access, block_pointers, persistent_kernel, xpu_specific, autotuning, plus analysis) end-to-end, and a **Claude Code** engine that hands the same workflow to an interactive coding agent. The xpu-kernels skill is a portable extraction of the Claude Code engine, repackaged as a standalone Agent Skill so it works inside any compatible coding-agent client.
+Xe-Forge addresses both: a knowledge base supplies the missing facts, and the CoVeR loop runs each candidate on the GPU and iterates on the measurement. Xe-Forge ships two engines that share the same stages and knowledge base — a fully automated DSPy pipeline, and a Claude Code engine that hands the loop to an interactive coding agent. The `xpu-kernels` skill is the Claude Code engine, repackaged so it works inside any compatible coding-agent client without cloning Xe-Forge.
 
 ## How It Works
 
@@ -165,15 +161,15 @@ The same skill, with no source changes, runs on the smaller Xe2 card and produce
 
 ## Why It Matters
 
-- **Vendor coverage:** the same `kernel-builder` skill format covers CUDA, ROCm, and now Intel XPU, so kernels for all three vendors can be authored and published consistently.
+- **Vendor coverage:** the same skill format now covers CUDA, ROCm, and Intel XPU, so kernels for all three vendors can be authored and published through the same Hub pipeline.
 
-- **Reproducibility:** the strict trial loop + `config.yaml` + cached baseline times make runs comparable across users and machines.
+- **Reproducibility:** the strict trial loop, `config.yaml`, and cached baseline times make runs comparable across users and machines.
 
-- **Hub-native:** the output is ready to be loaded with `get_kernel(...)`, so optimized XPU kernels become a one-line dependency for downstream Hugging Face users.
+- **Hub-native output:** the finalized kernel is loaded with `get_kernel(...)` like any other Hub kernel.
 
 ## Conclusion
 
-The xpu-kernels skill demonstrates a practical, reproducible way to bring LLM-driven kernel optimization to a less-represented GPU architecture. By packaging Xe-Forge's tools, knowledge base, and trial loop as a `kernel-builder` skill, we give any compatible coding agent the missing context to produce correct and fast Triton kernels for Intel XPU — and to publish them on the Hugging Face Kernel Hub alongside CUDA and ROCm kernels.
+The interesting part is Xe-Forge: a CoVeR loop, a multi-stage pipeline, and an Xe2 knowledge base, evaluated in the [paper](https://arxiv.org/abs/2605.26118). The skill is the integration that lets you run that loop from a coding agent and ship the result through the Hugging Face Kernel Hub.
 
 ## Try It Yourself
 
