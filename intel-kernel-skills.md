@@ -177,6 +177,74 @@ The xpu-kernels skill demonstrates a practical, reproducible way to bring LLM-dr
 
 ## Try It Yourself
 
+End-to-end in three steps: **install the skill → use the agent to *write* an optimized Triton kernel file → use the `kernel-builder` CLI to *build and publish* that kernel as a Hub package.**
+
+> Two distinct things share the `kernel-builder` name and it's worth being explicit:
+> - The **xpu-kernels skill** is the agent-driven authoring loop. It produces a single self-contained Triton `.py` file. It does **not** build, package, or upload anything.
+> - The **`kernel-builder` CLI** is a separate Rust tool (also living in `huggingface/kernels`) that takes a Triton/CUDA/ROCm source file, runs a Nix-based build for the requested backends, and uploads the resulting Hub-compatible kernel package. The skill's only output is the source file that the CLI then consumes.
+
+### 1. Install the skill into your coding agent
+
+The `kernel-builder` CLI has a `skills add` subcommand that copies the skill files into the right place for your assistant. Run this in your project directory:
+
+```bash
+# Install kernel-builder (provides the `kernel-builder` CLI)
+pip install kernels
+
+# Drop the xpu-kernels skill into this project for Claude Code
+# (also: --codex, --opencode)
+kernel-builder skills add --skill xpu-kernels --claude
+```
+
+This drops `SKILL.md`, `scripts/`, and `references/` into your project — that's all the skill is. For the full Xe-Forge experience (ai-bench harness, test kernels, VTune), also clone the upstream:
+
+```bash
+git clone https://github.com/IntelLabs/Xe-Forge && cd Xe-Forge
+uv sync --extra intel
+```
+
+### 2. Have the agent write an optimized Triton kernel
+
+Open your assistant in the project, point it at a PyTorch reference, and let the trial loop run. With Claude Code:
+
+```bash
+claude "Use the xpu-kernels skill to optimize my_op_pytorch.py. \
+  Run all max_trials and finalize as my_op_triton.py."
+```
+
+The agent analyzes the baseline, generates Triton variants, validates and benchmarks each on the XPU, and writes the best trial to `my_op_triton.py`. **The skill stops here.** The output is a plain Python source file — no compilation, no Hub upload.
+
+### 3. Build and publish the kernel with the `kernel-builder` CLI
+
+This is a separate step using the Rust CLI; it has nothing to do with the agent. Take the Triton file the skill produced and feed it to the builder:
+
+```bash
+# Scaffold a Hub kernel project (build.toml, project layout) for XPU
+kernel-builder init my-op --backends xpu
+
+# Copy my_op_triton.py into the scaffold, then build a Hub-compatible
+# package and upload it
+kernel-builder build-and-upload my-op --name <your-org>/my-op
+```
+
+`build-and-upload` is what actually compiles per build variant and pushes the artifact to the Hub.
+
+### 4. Load it like any Hub kernel
+
+```python
+import torch
+from kernels import get_kernel
+
+my_op = get_kernel("<your-org>/my-op")
+
+x = torch.randn((1024, 1024), dtype=torch.bfloat16, device="xpu")
+y = my_op.run(x)
+```
+
+That's it — the kernel works inside any `transformers` / `diffusers` / custom XPU code path that consumes Hub kernels.
+
+**Links:**
+
 - Skill: <https://github.com/huggingface/kernels/tree/main/kernel-builder/skills/xpu-kernels>
 - `kernels` Python package: <https://github.com/huggingface/kernels>
 - Original framework: <https://github.com/IntelLabs/Xe-Forge>
