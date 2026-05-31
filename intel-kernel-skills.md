@@ -49,7 +49,7 @@ The **xpu-kernels** skill bundles both: a small CLI toolbox under `scripts/` and
 
 ## How It Works
 
-- **Hardware:** Intel Arc Pro B70 (primary) and Battlemage G21 / Arc Pro B50 (also verified). Both are Xe2; the skill's optimization patterns apply to both. (UPDATE NUMBERS: B70 XVEs / mem BW, B50 128 XVEs / ~500 GB/s.)
+- **Hardware:** Intel Arc Pro B70 (primary — Xe2, 32 Xe-cores / 256 XVEs, 22.94 FP32 TFLOPS, 367 peak INT8 TOPS, 32 GB GDDR6, 608 GB/s, 230 W TBP) and Battlemage G21 / Arc Pro B50 (also verified — Xe2, 16 Xe-cores / 128 XVEs, 10.65 FP32 TFLOPS, 170 peak INT8 TOPS, 16 GB GDDR6, 224 GB/s, 70 W TBP). Both are Xe2; the skill's optimization patterns apply to both.
 - **Compiler:** [Intel XPU Backend for Triton](https://github.com/intel/intel-xpu-backend-for-triton).
 - **Harness:** [ai-bench](https://github.com/libxsmm/AI-bench) — a unified benchmark harness for AI kernels across PyTorch, Triton, Helion, MLIR, Gluon, and SYCL backends — measures correctness and performance against a PyTorch (or naive Triton) baseline.
 - **Profiler:** Intel VTune 2025+ is optionally invoked for hardware counters; it can be disabled in `scripts/config.yaml`.
