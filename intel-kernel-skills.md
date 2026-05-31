@@ -249,15 +249,17 @@ Contributions, issues, and new reference patterns are welcome. 🚀
 
 ## Citation
 
-If you use the xpu-kernels skill in your research, please cite:
+If you use this work in your research, please cite the Xe-Forge paper:
 
 ```bibtex
-@software{xpu_kernel_skill_2025,
-  author    = {Fleischer, Daniel and Berchansky, Moshe and Wasserblat, Moshe},
-  title     = {xpu-kernels: An LLM-driven Triton Kernel Skill for Intel XPU},
-  year      = {2025},
-  publisher = {Intel AI Labs},
-  url       = {https://github.com/huggingface/kernels/tree/main/kernel-builder/skills/xpu-kernels}
+@article{spoczynski2026xeforge,
+  title   = {Xe-Forge: Multi-Stage LLM-Powered Kernel Optimization for Intel GPU},
+  author  = {Spoczynski, Marcin and Fleischer, Daniel and Berchansky, Moshe and
+             Stan, Gabriela Ben-Melech and Guskin, Shira and Xu, Weilin and
+             Siemieniuk, Adam and Heinecke, Alexander},
+  journal = {arXiv preprint arXiv:2605.26118},
+  year    = {2026},
+  doi     = {10.48550/arXiv.2605.26118}
 }
 ```
 
