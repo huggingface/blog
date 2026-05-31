@@ -1,16 +1,14 @@
 ---
-title: "Intel XPU Kernel Skills: LLM-driven Triton kernel optimization for the Hugging Face Kernel Hub"
+title: "Intel XPU Kernel Skills: LLM-driven Triton kernel generation and optimization for the Hugging Face Kernel Hub"
 thumbnail: /blog/assets/intel-kernel-skills/banner.png
 authors:
 - user: danf
   guest: true
   org: Intel
-- user: mber
-  guest: true
-  org: Intel
 - user: moshew
   guest: true
   org: Intel
+- user: burtenshaw
 ---
 
 <p align="center">
