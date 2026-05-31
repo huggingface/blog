@@ -19,14 +19,13 @@ authors:
 
 *By Intel AI Software Group*
 
-The **[xpu-kernels skill](https://github.com/huggingface/kernels/tree/main/kernel-builder/skills/xpu-kernels)** is an Agent Skill that ships inside [`kernel-builder`](https://github.com/huggingface/kernels) and turns a coding agent (Claude Code, OpenCode, Cursor, etc.) into an autonomous Triton kernel writer for **Intel XPU GPUs** (Battlemage G21 / Arc Pro B50). It is adapted from **[Xe-Forge](https://github.com/IntelLabs/Xe-Forge)** ([Spoczynski et al., 2026](https://arxiv.org/abs/2605.26118)) — an LLM-driven optimization framework that transforms PyTorch code into fast Triton kernels via a *Chain-of-Verification-and-Refinement* (CoVeR) agent loop — and is designed to plug directly into the **[Hugging Face Kernel Hub](https://huggingface.co/kernels)** so that the kernels you generate can be loaded with `get_kernel(...)` like any other Hub kernel.
-
+The **[xpu-kernels skill](https://github.com/huggingface/kernels/tree/main/kernel-builder/skills/xpu-kernels)** is an Agent Skill that ships inside [`kernel-builder`](https://github.com/huggingface/kernels) and turns a coding agent (Claude Code, OpenCode, Cursor, etc.) into an autonomous Triton kernel writer for **Intel Arc Pro GPUs** (Xe2 — verified on Arc Pro B70 and Battlemage G21 / Arc Pro B50). It is adapted from **[Xe-Forge](https://github.com/IntelLabs/Xe-Forge)** ([Spoczynski et al., 2026](https://arxiv.org/abs/2605.26118)) — an LLM-driven optimization framework that transforms PyTorch code into fast Triton kernels via a *Chain-of-Verification-and-Refinement* (CoVeR) agent loop — and is designed to plug directly into the **[Hugging Face Kernel Hub](https://huggingface.co/kernels)** so that the kernels you generate can be loaded with `get_kernel(...)` like any other Hub kernel.
 
 We release three skills together — **`cuda-kernels`**, **`rocm-kernels`**, and **`xpu-kernels`** — each tuned to its hardware vendor. This post focuses on the Intel XPU one and shows that:
 
 - 🤖 An LLM agent equipped with the right tools and knowledge base can autonomously turn a PyTorch reference into an optimized Triton kernel for Intel XPU.
 
-- ⚡ A branching trial-loop (analyze → validate → benchmark → profile → finalize) consistently finds speedups over both PyTorch eager and the naive Triton baselines on Battlemage / Arc Pro B50.
+- ⚡ A branching trial-loop (analyze → validate → benchmark → profile → finalize) consistently finds speedups over both PyTorch eager and the naive Triton baselines on Arc Pro B70 and Battlemage / Arc Pro B50.
 
 - 📦 The resulting kernels are packaged so they can be uploaded to the [Hugging Face Kernel Hub](https://huggingface.co/kernels) and consumed via the [`kernels`](https://github.com/huggingface/kernels) Python package.
 
@@ -50,7 +49,7 @@ The **xpu-kernels** skill bundles both: a small CLI toolbox under `scripts/` and
 
 ## How It Works
 
-- **Hardware:** Intel Battlemage G21 / Arc Pro B50 (Xe2, 128 XVEs, ~500 GB/s).
+- **Hardware:** Intel Arc Pro B70 (primary) and Battlemage G21 / Arc Pro B50 (also verified). Both are Xe2; the skill's optimization patterns apply to both. (UPDATE NUMBERS: B70 XVEs / mem BW, B50 128 XVEs / ~500 GB/s.)
 - **Compiler:** [Intel XPU Backend for Triton](https://github.com/intel/intel-xpu-backend-for-triton).
 - **Harness:** [ai-bench](https://github.com/libxsmm/AI-bench) — a unified benchmark harness for AI kernels across PyTorch, Triton, Helion, MLIR, Gluon, and SYCL backends — measures correctness and performance against a PyTorch (or naive Triton) baseline.
 - **Profiler:** Intel VTune 2025+ is optionally invoked for hardware counters; it can be disabled in `scripts/config.yaml`.
@@ -138,15 +137,25 @@ This closes the loop with the broader Hugging Face stack: the same `get_kernel(.
 
 ## Evaluation
 
-We evaluated the skill on Intel Battlemage G21 / Arc Pro B50 (128 XVEs, bf16 unless noted). Speedup is the median over ai-bench trials versus the indicated baseline.
+We evaluated the skill on Intel Arc Pro B70 (primary) and additionally on Battlemage G21 / Arc Pro B50 to confirm portability. Speedup is the median over ai-bench trials versus the indicated baseline; bf16 unless noted.
 
-- **KernelBench Level 2 — fused kernels (bf16):** GEMM+Sigmoid+Scaling+ResidualAdd, GEMM+GELU+Softmax, Conv+BatchNorm+ReLU, and other fused patterns vs. PyTorch eager.
+### Arc Pro B70 — primary results
 
-- **Flash Attention Forward (fp16):** vs. the Flash Attention kernel shipped in the Intel XPU Triton backend, across multiple sequence lengths.
+Aligned with the Xe-Forge paper's evaluation hardware. **(UPDATE NUMBERS — fill in geomean, % improved, peak, FA range from your B70 runs.)**
+
+- **KernelBench Level 2 — fused kernels (bf16):** GEMM+Sigmoid+Scaling+ResidualAdd, GEMM+GELU+Softmax, Conv+BatchNorm+ReLU, and other fused patterns vs. PyTorch eager. **(UPDATE NUMBERS: geomean speedup, fraction improved, peak speedup.)**
+
+- **Flash Attention Forward (fp16):** vs. the Flash Attention kernel shipped in the Intel XPU Triton backend, across multiple sequence lengths. **(UPDATE NUMBERS: speedup range across configs, peak TFLOPS.)**
 
 <p align="center">
-<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/intel-kernel-skills/main-results.png" width=1000 alt="Speedup table across KernelBench Level 2 and Flash Attention forward."/>
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/intel-kernel-skills/main-results.png" width=1000 alt="Speedup table across KernelBench Level 2 and Flash Attention forward on Arc Pro B70."/>
 </p>
+
+### Arc Pro B50 — portability check
+
+The same skill, with no source changes, runs on the smaller Xe2 card and produces correct, faster kernels. **(UPDATE NUMBERS — fill in B50 geomean, fraction improved, peak; mention any kernels that did not improve.)**
+
+### Cross-cutting observations
 
 - We compare three configurations: **PyTorch eager**, the **naive Triton baseline** shipped in `test_kernels/`, and the **agent-optimized Triton** produced by the skill. The naive baselines exist to demonstrate that the speedup is not "Triton vs. eager" — it is the *optimized* Triton, with tensor descriptors, GRF 256, and swizzling, that wins.
 
@@ -190,7 +199,7 @@ If you use the xpu-kernels skill in your research, please cite:
 
 ## Limitations & Future Work
 
-- **Hardware scope:** verified on Battlemage G21 / Arc Pro B50 (Xe2). Other Intel XPUs may require updated patterns in `references/xpu_optimizations.yaml`.
+- **Hardware scope:** verified on Arc Pro B70 and Battlemage G21 / Arc Pro B50 (both Xe2). Other Intel XPUs may require updated patterns in `references/xpu_optimizations.yaml`.
 
 - **Workload scope:** the knowledge base focuses on GEMM, fused KernelBench Level 2 patterns, reductions, and Flash Attention forward. Backward passes, sparse, and quantized kernels are future work.
 
