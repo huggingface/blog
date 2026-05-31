@@ -45,6 +45,11 @@ Xe-Forge addresses both: a knowledge base supplies the missing facts, and the Co
 
 ## How It Works
 
+<p align="center">
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/intel-kernel-skills/system-diagram.png" width=900 alt="System diagram: coding agent with the xpu-kernels skill produces a Triton .py file, which the kernel-builder Rust CLI compiles and uploads as a Hub package, then a downstream user loads it via get_kernel()." /><br>
+<em>Figure 1: How the pieces fit together. The <strong>xpu-kernels skill</strong> is the agent's authoring loop and outputs a single Triton <code>.py</code> file. The <strong>kernel-builder CLI</strong> is a separate Rust tool that compiles and uploads that file as a Hub-compatible package. Downstream code consumes it with <code>get_kernel(...)</code>.</em>
+</p>
+
 - **Hardware:** Intel Arc Pro B70 (primary — Xe2, 32 Xe-cores / 256 XVEs, 22.94 FP32 TFLOPS, 367 peak INT8 TOPS, 32 GB GDDR6, 608 GB/s, 230 W TBP) and Battlemage G21 / Arc Pro B50 (also verified — Xe2, 16 Xe-cores / 128 XVEs, 10.65 FP32 TFLOPS, 170 peak INT8 TOPS, 16 GB GDDR6, 224 GB/s, 70 W TBP). Both are Xe2; the skill's optimization patterns apply to both.
 - **Compiler:** [Intel XPU Backend for Triton](https://github.com/intel/intel-xpu-backend-for-triton).
 - **Harness:** [ai-bench](https://github.com/libxsmm/AI-bench) — a unified benchmark harness for AI kernels across PyTorch, Triton, Helion, MLIR, Gluon, and SYCL backends — measures correctness and performance against a PyTorch (or naive Triton) baseline.
@@ -52,8 +57,8 @@ Xe-Forge addresses both: a knowledge base supplies the missing facts, and the Co
 - **Hub integration:** generated kernels follow the [Kernel Hub layout](https://github.com/huggingface/kernels) so they can be published and then loaded with `kernels.get_kernel("<org>/<name>")`.
 
 <p align="center">
-<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/intel-kernel-skills/xe-forge-loop.png" width=600 alt="The xpu-kernels trial loop: analyze, validate, benchmark, profile, finalize." /><br>
-<em>Figure 1: The xpu-kernels trial loop. CPU-only steps (analyze, validate, trial bookkeeping) can run in parallel; GPU steps (benchmark, profile) are serialized on the single XPU.</em>
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/intel-kernel-skills/trial-tree.png" width=800 alt="A branching trial tree from a real run: nodes are kernel variants labelled with their measured speedup vs. baseline, edges are optimization strategies, regressions branch back to the best ancestor, and the chosen finalized branch is highlighted." /><br>
+<em>Figure 2: A real branching trial tree produced by <code>trial_manager.py</code>. Each node is a kernel variant with its measured speedup; edges are the strategy applied (fusion, GRF mode, swizzling, ...). When a trial regresses or plateaus the agent branches back to the best ancestor and tries a different strategy. The highlighted path is the trajectory of the finalized kernel. The 5-step trial loop (analyze → validate → benchmark → profile → decide) drives each node; the tree is what <em>navigates</em> them.</em>
 </p>
 
 - **Agent Interface:** the skill's `SKILL.md` instructs the agent to read `scripts/config.yaml` and the relevant reference docs, then enter a fixed trial loop. The agent only writes Triton kernel files (`*_triton.py` or trial files `t<id>.py`) — never benchmark or test scripts.
@@ -67,11 +72,6 @@ Xe-Forge addresses both: a knowledge base supplies the missing facts, and the Co
   - **Safety:** GPU jobs are explicitly serialized (one XPU, one job at a time). Validation runs CPU-only before any GPU time is spent.
 
   - **Hub-readiness:** the finalized kernel is a self-contained Triton file that fits the Kernel Hub packaging used by [`kernels-community`](https://huggingface.co/kernels-community).
-
-<p align="center">
-<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/intel-kernel-skills/output-example.png" width=800 alt="A short Triton kernel for Intel XPU using tensor descriptors, GRF mode 256, and tile swizzling, produced by the agent."/><br>
-<em>Figure 2: A trial produced by the agent — a fused GEMM+Sigmoid kernel using tensor descriptors, GRF mode 256, and tile swizzling. The skill's references nudge the model toward these XPU-specific patterns.</em>
-</p>
 
 ## The xpu-kernels workflow
 
@@ -144,7 +144,13 @@ Aligned with the Xe-Forge paper's evaluation hardware. **(UPDATE NUMBERS — fil
 - **Flash Attention Forward (fp16):** vs. the Flash Attention kernel shipped in the Intel XPU Triton backend, across multiple sequence lengths. **(UPDATE NUMBERS: speedup range across configs, peak TFLOPS.)**
 
 <p align="center">
-<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/intel-kernel-skills/main-results.png" width=1000 alt="Speedup table across KernelBench Level 2 and Flash Attention forward on Arc Pro B70."/>
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/intel-kernel-skills/kernelbench-l2-bars.png" width=1000 alt="Per-kernel speedup over PyTorch eager across the 97 KernelBench Level-2 fused kernels on Arc Pro B70, sorted ascending. A horizontal line marks 1.0× (parity with eager) and a second line marks the geometric mean. The fraction of kernels above 1.0× is annotated."/><br>
+<em>Figure 3: Per-kernel speedup over PyTorch eager across the 97 KernelBench Level-2 fused kernels on Arc Pro B70, sorted ascending. The 1.0× line marks parity; the geomean line marks the headline number. This view shows the full distribution — including the kernels that regress — instead of a single summary statistic.</em>
+</p>
+
+<p align="center">
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/intel-kernel-skills/flash-attention-vs-seqlen.png" width=900 alt="Speedup of the agent-optimized Flash Attention forward kernel vs. the Flash Attention kernel shipped in the Intel XPU Triton backend, plotted against sequence length, with separate lines for Arc Pro B70 and Arc Pro B50."/><br>
+<em>Figure 4: Flash Attention forward speedup vs. sequence length on Arc Pro B70 and B50, against the Flash Attention kernel shipped in the Intel XPU Triton backend.</em>
 </p>
 
 ### Arc Pro B50 — portability check
