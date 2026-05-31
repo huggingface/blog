@@ -1,5 +1,5 @@
 ---
-title: "Intel XPU Kernel Skills: LLM-driven Triton kernel generation and optimization for the Hugging Face Kernel Hub"
+title: "Intel XPU Kernel Skills: LLM-driven Triton kernel optimization for the Hugging Face Kernel Hub"
 thumbnail: /blog/assets/intel-kernel-skills/banner.png
 authors:
 - user: danf
@@ -19,7 +19,8 @@ authors:
 
 *By Intel AI Software Group*
 
-The **[xpu-kernels skill](https://github.com/huggingface/kernel-builder/tree/main/skills/xpu-kernels)** is an Agent Skill that ships inside [`kernel-builder`](https://github.com/huggingface/kernels) and turns a coding agent (Claude Code, OpenCode, Cursor, etc.) into an autonomous Triton kernel writer for **Intel XPU GPUs** (Battlemage G21 / Arc Pro B50). It is adapted from **[Xe-Forge](https://github.com/IntelLabs/Xe-Forge)** — an LLM-driven optimization framework that transforms PyTorch code into fast Triton kernels — and is designed to plug directly into the **[Hugging Face Kernel Hub](https://huggingface.co/kernels)** so that the kernels you generate can be loaded with `get_kernel(...)` like any other Hub kernel.
+The **[xpu-kernels skill](https://github.com/huggingface/kernels/tree/main/kernel-builder/skills/xpu-kernels)** is an Agent Skill that ships inside [`kernel-builder`](https://github.com/huggingface/kernels) and turns a coding agent (Claude Code, OpenCode, Cursor, etc.) into an autonomous Triton kernel writer for **Intel XPU GPUs** (Battlemage G21 / Arc Pro B50). It is adapted from **[Xe-Forge](https://github.com/IntelLabs/Xe-Forge)** ([Spoczynski et al., 2026](https://arxiv.org/abs/2605.26118)) — an LLM-driven optimization framework that transforms PyTorch code into fast Triton kernels via a *Chain-of-Verification-and-Refinement* (CoVeR) agent loop — and is designed to plug directly into the **[Hugging Face Kernel Hub](https://huggingface.co/kernels)** so that the kernels you generate can be loaded with `get_kernel(...)` like any other Hub kernel.
+
 
 We release three skills together — **`cuda-kernels`**, **`rocm-kernels`**, and **`xpu-kernels`** — each tuned to its hardware vendor. This post focuses on the Intel XPU one and shows that:
 
@@ -29,7 +30,7 @@ We release three skills together — **`cuda-kernels`**, **`rocm-kernels`**, and
 
 - 📦 The resulting kernels are packaged so they can be uploaded to the [Hugging Face Kernel Hub](https://huggingface.co/kernels) and consumed via the [`kernels`](https://github.com/huggingface/kernels) Python package.
 
-👉 Skill: <https://github.com/huggingface/kernel-builder/tree/main/skills/xpu-kernels> \
+👉 Skill: <https://github.com/huggingface/kernels/tree/main/kernel-builder/skills/xpu-kernels> \
 👉 Original framework: <https://github.com/IntelLabs/Xe-Forge> \
 👉 Kernel Hub: <https://huggingface.co/kernels>
 
@@ -45,11 +46,13 @@ We focused on two goals:
 
 The **xpu-kernels** skill bundles both: a small CLI toolbox under `scripts/` and a curated knowledge base under `references/`, all wrapped in a `SKILL.md` that defines the workflow.
 
+> Xe-Forge itself ships two optimization engines — a fully automated **DSPy** pipeline that runs nine named stages (algorithmic, dtype_fix, fusion, memory_access, block_pointers, persistent_kernel, xpu_specific, autotuning, plus analysis) end-to-end, and a **Claude Code** engine that hands the same workflow to an interactive coding agent. The xpu-kernels skill is a portable extraction of the Claude Code engine, repackaged as a standalone Agent Skill so it works inside any compatible coding-agent client.
+
 ## How It Works
 
 - **Hardware:** Intel Battlemage G21 / Arc Pro B50 (Xe2, 128 XVEs, ~500 GB/s).
 - **Compiler:** [Intel XPU Backend for Triton](https://github.com/intel/intel-xpu-backend-for-triton).
-- **Harness:** [ai-bench](https://github.com/libxsmm/AI-bench) measures correctness and performance against a PyTorch (or naive Triton) baseline.
+- **Harness:** [ai-bench](https://github.com/libxsmm/AI-bench) — a unified benchmark harness for AI kernels across PyTorch, Triton, Helion, MLIR, Gluon, and SYCL backends — measures correctness and performance against a PyTorch (or naive Triton) baseline.
 - **Profiler:** Intel VTune 2025+ is optionally invoked for hardware counters; it can be disabled in `scripts/config.yaml`.
 - **Hub integration:** generated kernels follow the [Kernel Hub layout](https://github.com/huggingface/kernels) so they can be published and then loaded with `kernels.get_kernel("<org>/<name>")`.
 
@@ -111,6 +114,8 @@ The skill is only as good as its references. We ship the curated subset of the X
 
 - **`references/implementation_reference.md`** — code templates and the ai-bench `Model` class pattern.
 
+- **`references/optimization_strategies.md` / `workflow_details.md`** — strategy reference, the "try harder" decision tree, and the detailed workflow / benchmarking notes the agent reads at session start.
+
 - **`references/huggingface-kernels-integration.md` / `kernelbench-classification.md`** — recipes for packaging a finalized kernel for the Hugging Face Kernel Hub and the operator taxonomy used to label trials.
 
 ## Hugging Face Kernel Hub integration
@@ -163,7 +168,7 @@ The xpu-kernels skill demonstrates a practical, reproducible way to bring LLM-dr
 
 ## Try It Yourself
 
-- Skill: <https://github.com/huggingface/kernel-builder/tree/main/skills/xpu-kernels>
+- Skill: <https://github.com/huggingface/kernels/tree/main/kernel-builder/skills/xpu-kernels>
 - `kernels` Python package: <https://github.com/huggingface/kernels>
 - Original framework: <https://github.com/IntelLabs/Xe-Forge>
 
@@ -179,7 +184,7 @@ If you use the xpu-kernels skill in your research, please cite:
   title     = {xpu-kernels: An LLM-driven Triton Kernel Skill for Intel XPU},
   year      = {2025},
   publisher = {Intel AI Labs},
-  url       = {https://github.com/huggingface/kernel-builder/tree/main/skills/xpu-kernels}
+  url       = {https://github.com/huggingface/kernels/tree/main/kernel-builder/skills/xpu-kernels}
 }
 ```
 
@@ -195,12 +200,10 @@ If you use the xpu-kernels skill in your research, please cite:
 
 ## References
 
-[1] Intel Labs. 2025. "Xe-Forge: LLM-driven Triton kernel optimization for Intel XPU." <https://github.com/IntelLabs/Xe-Forge>
+[1] Spoczynski, M., Fleischer, D., Berchansky, M., Stan, G. B., Guskin, S., Xu, W., Siemieniuk, A., Heinecke, A. 2026. "Xe-Forge: Multi-Stage LLM-Powered Kernel Optimization for Intel GPU." arXiv:2605.26118. <https://arxiv.org/abs/2605.26118> — code: <https://github.com/IntelLabs/Xe-Forge>
 
-[2] Hugging Face. 2025. "Kernels: load compute kernels from the Hub." <https://github.com/huggingface/kernels>
+[2] Hugging Face. 2025. "Kernels: Build compute kernels and load them from the Hub." <https://github.com/huggingface/kernels>
 
-[3] Hugging Face. 2025. "kernel-builder: build kernels for the Hugging Face Kernel Hub." <https://github.com/huggingface/kernel-builder>
+[3] Intel. 2025. "Intel XPU Backend for Triton." <https://github.com/intel/intel-xpu-backend-for-triton>
 
-[4] Intel. 2025. "Intel XPU Backend for Triton." <https://github.com/intel/intel-xpu-backend-for-triton>
-
-[5] Ouyang, Simon, et al. 2024. "KernelBench: Can LLMs Write Efficient GPU Kernels?" <https://github.com/ScalingIntelligence/KernelBench>
+[4] Ouyang, Simon, et al. 2024. "KernelBench: Can LLMs Write Efficient GPU Kernels?" <https://github.com/ScalingIntelligence/KernelBench>
