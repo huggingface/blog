@@ -31,7 +31,7 @@ authors:
 
 ## 1. The One Terabyte Problem
 
-If you read our previous post on [the landscape of async RL training](https://huggingface.co/blog/huggingface/async-rl-training-landscape), you already know the punchline. Every async RL library, regardless of how it spells "actor model" or which color its NCCL backend is painted, eventually trips over the same root: **weight synchronization**.
+If you read our previous post on [the landscape of async RL training](https://huggingface.co/blog/async-rl-training-landscape), you already know the punchline. Every async RL library, regardless of how it spells "actor model" or which color its NCCL backend is painted, eventually trips over the same root: **weight synchronization**.
 
 The inference engine speaks the policy of step N. The trainer just finished step N+1. The fresh weights have to get from one side to the other before the inference engine starts drifting hopelessly off-policy. This sits on the critical path whether you are running sync or async: a blocking transfer is _wasted idle compute_ of GPUs not generating tokens. With a sparse delta path you collapse that idle time into seconds, and the trainer does not even have to wait for the inference engine to be ready: it just publishes "weights ready" and uploads the weights to the shared bucket the moment its optimizer step finishes, while the inference engine fetches on its own time.
 
@@ -321,4 +321,4 @@ We are not pretending this is finished. Here is the honest list.
 - The PR: [huggingface/trl#5417](https://github.com/huggingface/trl/pull/5417). Branch is `delta-weight-sync`.
 - The full Wordle example: `examples/scripts/openenv/async_wordle.py`.
 - The Spaces Dockerfiles: `examples/scripts/openenv/vllm_space/` and `examples/scripts/openenv/wordle_space/`.
-- Background reading: our [async RL landscape post](https://huggingface.co/blog/huggingface/async-rl-training-landscape), the [Fireworks 1 TB post](https://fireworks.ai/blog/frontier-rl-is-cheaper-than-you-think), the [Cursor Composer 2 report](https://huggingface.co/papers/2603.24477).
+- Background reading: our [async RL landscape post](https://huggingface.co/blog/async-rl-training-landscape), the [Fireworks 1 TB post](https://fireworks.ai/blog/frontier-rl-is-cheaper-than-you-think), the [Cursor Composer 2 report](https://huggingface.co/papers/2603.24477).
