@@ -39,7 +39,7 @@ We release three skills together — **`cuda-kernels`**, **`rocm-kernels`**, and
 
 ## Why a kernel skill?
 
-Two things make Xe2 a hard target for an off-the-shelf coding agent. First, the relevant API choices on Intel XPU (tensor descriptors over block pointers, `grf_mode='256'` for compute-heavy kernels, GROUP_SIZE_M swizzling, the rule against autotuning `BLOCK_D`) are underrepresented in LLM training data, so prompts about "fast Triton on Intel Arc" tend to produce CUDA-flavored code that compiles but doesn't run well. Second, kernel optimization isn't a single decision — tile sizes, dtype contracts, fusion boundaries, and accumulator precision interact, and a one-shot LLM rewrite usually regresses somewhere.
+Coding agents already produce correct Triton kernels reliably. The gap is the measure-decide-rewrite loop that turns *correct* into *fast*. On Xe2 that gap is wider for two reasons. First, the relevant API choices on Intel XPU (tensor descriptors over block pointers, `grf_mode='256'` for compute-heavy kernels, GROUP_SIZE_M swizzling, the rule against autotuning `BLOCK_D`) are underrepresented in LLM training data, so prompts about "fast Triton on Intel Arc" tend to produce CUDA-flavored code that compiles but doesn't run well. Second, kernel optimization isn't a single decision — tile sizes, dtype contracts, fusion boundaries, and accumulator precision interact, and a one-shot LLM rewrite usually regresses somewhere.
 
 Xe-Forge addresses both: a knowledge base supplies the missing facts, and the CoVeR loop runs each candidate on the GPU and iterates on the measurement. Xe-Forge ships two engines that share the same stages and knowledge base — a fully automated DSPy pipeline, and a Claude Code engine that hands the loop to an interactive coding agent. The `xpu-kernels` skill is the Claude Code engine, repackaged so it works inside any compatible coding-agent client without cloning Xe-Forge.
 
@@ -248,8 +248,12 @@ That's it — the kernel works inside any `transformers` / `diffusers` / custom 
 **Links:**
 
 - Skill: <https://github.com/huggingface/kernels/tree/main/kernel-builder/skills/xpu-kernels>
-- `kernels` Python package: <https://github.com/huggingface/kernels>
-- Original framework: <https://github.com/IntelLabs/Xe-Forge>
+- `kernels` package: <https://github.com/huggingface/kernels>
+- Xe-Forge: <https://github.com/IntelLabs/Xe-Forge> · [paper](https://arxiv.org/abs/2605.26118)
+- Intel XPU Backend for Triton: <https://github.com/intel/intel-xpu-backend-for-triton>
+- KernelBench: <https://github.com/ScalingIntelligence/KernelBench>
+- Companion blog — *Custom Kernels for All from Codex and Claude*: <https://huggingface.co/blog/custom-cuda-kernels-agent-skills>
+- Kernel Hub community: <https://huggingface.co/kernels-community>
 
 Contributions, issues, and new reference patterns are welcome. 🚀
 
@@ -279,12 +283,3 @@ If you use this work in your research, please cite the Xe-Forge paper:
 
 - Generated kernels are LLM-produced and must be validated. The mandatory `validate_triton.py` + `benchmark.py` correctness check catches most issues, but any production deployment should add its own regression tests.
 
-## References
-
-[1] Spoczynski, M., Fleischer, D., Berchansky, M., Stan, G. B., Guskin, S., Xu, W., Siemieniuk, A., Heinecke, A. 2026. "Xe-Forge: Multi-Stage LLM-Powered Kernel Optimization for Intel GPU." arXiv:2605.26118. <https://arxiv.org/abs/2605.26118> — code: <https://github.com/IntelLabs/Xe-Forge>
-
-[2] Hugging Face. 2025. "Kernels: Build compute kernels and load them from the Hub." <https://github.com/huggingface/kernels>
-
-[3] Intel. 2025. "Intel XPU Backend for Triton." <https://github.com/intel/intel-xpu-backend-for-triton>
-
-[4] Ouyang, Simon, et al. 2024. "KernelBench: Can LLMs Write Efficient GPU Kernels?" <https://github.com/ScalingIntelligence/KernelBench>
