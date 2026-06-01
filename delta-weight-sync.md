@@ -9,6 +9,7 @@ authors:
   - user: edbeeching
   - user: albertvillanova
   - user: lvwerra
+  - user: sergiopaniego
 ---
 
 # Shipping a Trillion Parameters With a Hub Bucket: Delta Weight Sync in TRL
