@@ -22,15 +22,15 @@ On Arc Pro B70, Xe-Forge reports a 1.17× geomean speedup over PyTorch eager acr
 
 The [xpu-kernels skill](https://github.com/huggingface/kernels/tree/main/kernel-builder/skills/xpu-kernels) packages Xe-Forge's Claude Code engine — the same workflow, tools, and knowledge base — as an Agent Skill, so a coding agent can run the loop without cloning the full project, and the finalized kernel can be published to the [Hugging Face Kernel Hub](https://huggingface.co/kernels) and loaded with `get_kernel(...)`. This post shows that:
 
-- 🤖 An LLM agent equipped with the right tools and knowledge base can autonomously turn a PyTorch reference — *or an existing, already hand-tuned Triton kernel* — into a faster Triton kernel for Intel XPU.
+- An LLM agent equipped with the right tools and knowledge base can autonomously turn a PyTorch reference — *or an existing, already hand-tuned Triton kernel* — into a faster Triton kernel for Intel XPU.
 
-- ⚡ A branching trial-loop (analyze → validate → benchmark → profile → finalize) consistently finds speedups over PyTorch eager, naive Triton baselines, *and production Triton kernels such as vLLM's attention and MoE ops* on Arc Pro B70 and Battlemage / Arc Pro B50.
+- A branching trial-loop (analyze → validate → benchmark → profile → finalize) consistently finds speedups over PyTorch eager, naive Triton baselines, *and production Triton kernels such as vLLM's attention and MoE ops* on Arc Pro B70 and Battlemage / Arc Pro B50.
 
-- 📦 The resulting kernels are packaged so they can be uploaded to the [Hugging Face Kernel Hub](https://huggingface.co/kernels) and consumed via the [`kernels`](https://github.com/huggingface/kernels) Python package.
+- The resulting kernels are packaged so they can be uploaded to the [Hugging Face Kernel Hub](https://huggingface.co/kernels) and consumed via the [`kernels`](https://github.com/huggingface/kernels) Python package.
 
 👉 Skill: <https://github.com/huggingface/kernels/tree/main/kernel-builder/skills/xpu-kernels> \
-👉 Optimization framework: <https://github.com/IntelLabs/Xe-Forge> \
-👉 Kernel Hub: <https://huggingface.co/kernels>
+👉 Xe-Forge: <https://github.com/IntelLabs/Xe-Forge> \
+👉 Kernels Project: <https://huggingface.co/kernels>
 
 ## Why a kernel skill?
 
