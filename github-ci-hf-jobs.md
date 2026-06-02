@@ -53,7 +53,7 @@ The first thing you need is the dispatcher. This is a small Docker Space that re
 
 Create this first because the GitHub App needs a webhook URL, and that URL comes from the Space. This Space should be under your own namespace or under an org that has billing credits enabled, since Jobs will be [charged to this account](https://huggingface.co/docs/hub/en/jobs-pricing#pricing).
 
-### Web setup
+#### Web setup
 
 Go to [`huggingface/jobs-actions-dispatcher`](https://huggingface.co/spaces/huggingface/jobs-actions-dispatcher) and click **Duplicate this Space**.
 
@@ -70,17 +70,15 @@ Hardware: cpu-basic
 
 If you see warnings saying that "Your duplicated Space may not work if you switch to a different hardware than the suggested one", that's okay! You also don't need to fill out any secrets at this point.
 
-After it builds, open the duplicated Space. You may see some configuration errors, but that's okay. The landing page should display the GitHub App webhook URL you need in the next step. It will look like this:
+After it builds, open the duplicated Space. You may see some configuration errors, but that's also okay. The landing page should display the GitHub App webhook URL you need in the next step. It will look like this:
 
 ```text
 https://YOUR-HF-NAMESPACE-jobs-actions-dispatcher.hf.space/webhook
 ```
 
-In our Trackio test setup, the dispatcher lived at [`huggingface/jobs-actions-dispatcher`](https://huggingface.co/spaces/huggingface/jobs-actions-dispatcher), and we duplicated it into the namespace that pays for the Jobs.
+#### CLI setup
 
-### CLI setup
-
-For an agent or CLI workflow:
+If you'd prefer to set up dispatcher Space with  an agent or use a CLI workflow:
 
 ```bash
 export HF_NAMESPACE=your-hf-user-or-org
