@@ -8,7 +8,7 @@ authors:
 # Remote Tools for Reachy Mini Conversation App
 
 <figure class="image text-center">
-  <img src="/blog/assets/conversation-app-remote-tools/reachy_mini_window.jpg" alt="Reachy Mini looking out the window">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/conversation-app-remote-tools/reachy_mini_window.jpg" alt="Reachy Mini looking out the window">
   <figcaption><em>Reachy Mini no longer has to look out the window to tell you the weather</em></figcaption>
 </figure>
 
