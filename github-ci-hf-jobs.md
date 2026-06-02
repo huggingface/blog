@@ -13,7 +13,7 @@ That default is convenient, but it also has limits. GitHub Actions can be slow, 
 
 So we tried an experiment: keep GitHub Actions as the CI control plane, but run selected jobs on [Hugging Face Jobs](https://huggingface.co/docs/hub/en/jobs-overview).
 
-The result: Trackio now has a CI setup where GitHub still owns the pull request checks, branch protection, and workflow UI, while Hugging Face Jobs provides the underlying CPU and GPU machines.
+The result: Trackio's CI now runs on Hugging Face Jobs, cutting our CI time for CPU jobs by about 30% and enabling a whole new test suite that runs on GPU machines!
 
 ## What is Hugging Face Jobs?
 
