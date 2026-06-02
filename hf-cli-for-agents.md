@@ -41,7 +41,7 @@ powershell -ExecutionPolicy ByPass -c "irm https://hf.co/cli/install.ps1 | iex"
 ## How we rebuilt the hf CLI for coding agents
 
 The `hf` CLI serves two users from the same commands: humans and coding agents, and they want opposite things. A human wants rich terminal output: ANSI color, padded tables truncated to fit the screen, a green `✓` on success, `✔` for booleans, progress bars, prose hints. An agent wants
-the inverse: no ANSI, nothing truncated, every value in full, compact and structured to stay light on tokens. It also can't answer a prompt and will happily re-run a command after a timeout. The rest of this section is how `hf` gives each side what it needs.
+the inverse: no ANSI, nothing truncated, every value in full since an agent can handle far denser output than a human, kept compact and structured to stay light on tokens. It also can't answer a prompt and will happily re-run a command after a timeout. The rest of this section is how `hf` gives each side what it needs.
 
 ### Coding agents detection
 
@@ -71,7 +71,7 @@ A **human** gets an aligned table, truncated to fit the terminal, plus a hint on
 
 ### Next-command hints
 
-We made `hf` end some commands with a **hint**: the exact next command to run, pre-filled with the ids you just used, so an agent can chain straight to its next step instead of working it out from scratch. A `--dry-run` hands you the line that applies it, creating a Space tells you how to watch it boot, extracting a model card tells you how to fetch just the metadata:
+CLI commands rarely run in isolation — one step usually implies the next (`git add`, then `git commit`). So many `hf` commands now end with a **hint**: the exact next command to run, pre-filled with the ids you just used, so a user or agent can chain straight to the next step instead of working it out from scratch. A `--dry-run` hands back the line that applies the change; creating a Space tells you how to watch it boot; extracting a model card tells you how to fetch just its metadata:
 
 ```text
 $ hf models card deepseek-ai/DeepSeek-V4-Pro
