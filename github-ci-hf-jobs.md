@@ -154,14 +154,15 @@ GH_WEBHOOK_SECRET
 HF_TOKEN
 ```
 
-It also needs two normal environment variables:
+It also needs one normal environment variable:
 
 ```text
 GH_APP_ID
-HF_NAMESPACE
 ```
 
-You can add them through the Space settings UI: **Settings → Variables and secrets**. Put `GH_APP_PRIVATE_KEY`, `GH_WEBHOOK_SECRET`, and `HF_TOKEN` under **Secrets**. Put `GH_APP_ID` and `HF_NAMESPACE` under **Variables**.
+By default, HF Jobs are launched under the owner namespace of the dispatcher Space. Set `HF_NAMESPACE` as an optional Space variable only if you want to bill jobs to a different HF user or org.
+
+You can add the configuration through the Space settings UI: **Settings → Variables and secrets**. Put `GH_APP_PRIVATE_KEY`, `GH_WEBHOOK_SECRET`, and `HF_TOKEN` under **Secrets**. Put `GH_APP_ID` under **Variables**.
 
 Or from the CLI:
 
@@ -184,7 +185,7 @@ print("GH_APP_PRIVATE_KEY=" + private_key.replace("\n", "\\n"))
 PY
 
 hf spaces secrets add "$SPACE_ID" --secrets-file /tmp/jobs-actions-secrets.env
-hf spaces variables add "$SPACE_ID" -e GH_APP_ID="$GH_APP_ID" -e HF_NAMESPACE="$HF_NAMESPACE"
+hf spaces variables add "$SPACE_ID" -e GH_APP_ID="$GH_APP_ID"
 hf spaces restart "$SPACE_ID"
 ```
 
