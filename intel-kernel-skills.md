@@ -27,7 +27,7 @@ The [xpu-kernels skill](https://github.com/huggingface/kernels/tree/main/kernel-
 
 - 🤖 An LLM agent equipped with the right tools and knowledge base can autonomously turn a PyTorch reference — *or an existing, already hand-tuned Triton kernel* — into a faster Triton kernel for Intel XPU.
 
-- ⚡ A branching trial-loop (analyze → validate → benchmark → profile → finalize) consistently finds speedups over PyTorch eager, naive Triton baselines, *and production Triton kernels such as vLLM's attention ops* on Arc Pro B70 and Battlemage / Arc Pro B50.
+- ⚡ A branching trial-loop (analyze → validate → benchmark → profile → finalize) consistently finds speedups over PyTorch eager, naive Triton baselines, *and production Triton kernels such as vLLM's attention and MoE ops* on Arc Pro B70 and Battlemage / Arc Pro B50.
 
 - 📦 The resulting kernels are packaged so they can be uploaded to the [Hugging Face Kernel Hub](https://huggingface.co/kernels) and consumed via the [`kernels`](https://github.com/huggingface/kernels) Python package.
 
@@ -37,7 +37,7 @@ The [xpu-kernels skill](https://github.com/huggingface/kernels/tree/main/kernel-
 
 ## Why a kernel skill?
 
-Coding agents already produce correct Triton kernels reliably. The gap is the measure-decide-rewrite loop that turns *correct* into *fast* — and, just as importantly, *fast* into *faster*. The same loop that takes a PyTorch reference to an optimized Triton kernel also takes an **already-optimized Triton kernel and makes it faster still**: it treats the existing kernel as the baseline and searches for XPU-specific wins (tensor descriptors, GRF mode, swizzling, dtype contracts) the original author didn't apply. That's how we get speedups over production kernels like vLLM's attention ops, not just over eager. On Xe2 that gap is wider for two reasons. First, the relevant API choices on Intel XPU (tensor descriptors over block pointers, `grf_mode='256'` for compute-heavy kernels, GROUP_SIZE_M swizzling, the rule against autotuning `BLOCK_D`) are underrepresented in LLM training data, so prompts about "fast Triton on Intel Arc" tend to produce CUDA-flavored code that compiles but doesn't run well. Second, kernel optimization isn't a single decision — tile sizes, dtype contracts, fusion boundaries, and accumulator precision interact, and a one-shot LLM rewrite usually regresses somewhere.
+Coding agents already produce correct Triton kernels reliably. The gap is the measure-decide-rewrite loop that turns *correct* into *fast* — and, just as importantly, *fast* into *faster*. The same loop that takes a PyTorch reference to an optimized Triton kernel also takes an **already-optimized Triton kernel and makes it faster still**: it treats the existing kernel as the baseline and searches for XPU-specific wins (tensor descriptors, GRF mode, swizzling, dtype contracts) the original author didn't apply. That's how we get speedups over production kernels like vLLM's attention and MoE ops, not just over eager. On Xe2 that gap is wider for two reasons. First, the relevant API choices on Intel XPU (tensor descriptors over block pointers, `grf_mode='256'` for compute-heavy kernels, GROUP_SIZE_M swizzling, the rule against autotuning `BLOCK_D`) are underrepresented in LLM training data, so prompts about "fast Triton on Intel Arc" tend to produce CUDA-flavored code that compiles but doesn't run well. Second, kernel optimization isn't a single decision — tile sizes, dtype contracts, fusion boundaries, and accumulator precision interact, and a one-shot LLM rewrite usually regresses somewhere.
 
 Xe-Forge addresses both: a knowledge base supplies the missing facts, and the CoVeR loop runs each candidate on the GPU and iterates on the measurement. Xe-Forge ships two engines that share the same stages and knowledge base — a fully automated DSPy pipeline, and a Claude Code engine that hands the loop to an interactive coding agent. The `xpu-kernels` skill is the Claude Code engine, repackaged so it works inside any compatible coding-agent client without cloning Xe-Forge.
 
@@ -54,12 +54,7 @@ Xe-Forge addresses both: a knowledge base supplies the missing facts, and the Co
 - **Profiler:** Intel VTune 2025+ is optionally invoked for hardware counters; it can be disabled in `scripts/config.yaml`.
 - **Hub integration:** generated kernels follow the [Kernel Hub layout](https://github.com/huggingface/kernels) so they can be published and then loaded with `kernels.get_kernel("<org>/<name>")`.
 
-<p align="center">
-<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/intel-xpu-kernels-skill/trial-tree.png" width=800 alt="A branching trial tree from a real run: nodes are kernel variants labelled with their measured speedup vs. baseline, edges are optimization strategies, regressions branch back to the best ancestor, and the chosen finalized branch is highlighted." /><br>
-<em>Figure 2: A real branching trial tree produced by <code>trial_manager.py</code>. Each node is a kernel variant with its measured speedup; edges are the strategy applied (fusion, GRF mode, swizzling, ...). When a trial regresses or plateaus the agent branches back to the best ancestor and tries a different strategy. The highlighted path is the trajectory of the finalized kernel. The 5-step trial loop (analyze → validate → benchmark → profile → decide) drives each node.</em>
-</p>
-
-- **Agent Interface:** the skill's `SKILL.md` instructs the agent to read `scripts/config.yaml` and the relevant reference docs, then enter a well define trial loop. The agent only writes Triton kernel files (`*_triton.py` or trial files `t<id>.py`) — it never touches benchmark or test scripts.
+- **Agent Interface:** the skill's `SKILL.md` instructs the agent to read `scripts/config.yaml` and the relevant reference docs, then enter a well-defined trial loop. The agent only writes Triton kernel files (`*_triton.py` or trial files `t<id>.py`) — it never touches benchmark or test scripts.
 
 - **Trial tree:** `trial_manager.py` keeps a branching tree of attempts. The agent can branch back to the best trial and try a different optimization strategy when it regresses or plateaus.
 
@@ -133,28 +128,30 @@ This closes the loop with the broader Hugging Face stack: the same `get_kernel(.
 
 We evaluated the skill on Intel Arc Pro B70 (primary) and additionally on Battlemage G21 / Arc Pro B50 to confirm portability. Speedup is the median over AI-Bench trials versus the indicated baseline; bf16 unless noted.
 
+> **Measurement scope.** All numbers below are measured inside the skill's authoring loop with the [ai-bench](https://github.com/libxsmm/AI-bench) harness — it times the candidate Triton kernel against the baseline Triton kernel directly. This is *not* an end-to-end measurement of a kernel that has been compiled and published through the `kernel-builder` CLI, nor of vLLM running with the optimized kernel swapped in. We report the kernel-level speedup that the loop optimizes against; integration overhead, dispatch, and any framework-level effects are out of scope here.
+
 ### Arc Pro B70 — primary results
 
 
-#### Optimizing production Triton kernels: vLLM attention
-
-The most demanding test isn't beating PyTorch eager — eager is unfused and unoptimized, so a win there is expected. The harder, more meaningful test is whether the skill can take a kernel that has *already* been hand-written and tuned by experts and make it faster. To check this, we pointed the skill at the Triton attention kernels shipped in [vLLM](https://github.com/vllm-project/vllm) and used the **vLLM Triton kernel itself as the baseline** — the skill's job was purely *Triton → faster Triton*, with no PyTorch reference involved.
-
-<p align="center">
-<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/intel-xpu-kernels-skill/vllm-attention-roofline.png" width=900 alt="Roofline plot for the vLLM attention kernels on Arc Pro B70: arithmetic intensity (FLOP/byte) on the x-axis against achieved performance (TFLOPS) on the y-axis, with the memory-bandwidth and compute-bound rooflines drawn. The stock vLLM Triton kernels and the skill-optimized variants are plotted as separate points so the optimization moves each kernel toward the roofline."/><br>
-<em>Figure 3: Roofline for the vLLM attention kernels on Arc Pro B70. Each kernel appears as a stock-vLLM point and a skill-optimized point; the optimization moves points up toward the hardware roofline, showing the speedups come from better use of the available compute/bandwidth rather than a different operating point.</em>
-</p>
-
-These are gains *on top of* an already-optimized kernel, which is the clearest evidence that the skill contributes Intel-specific optimization knowledge rather than just fusing what eager left on the table.
-
 #### Flash Attention forward (fp16)
 
-Comparison versus the Flash Attention kernel shipped in the Intel XPU Triton backend, across multiple sequence lengths.
+The most demanding test isn't beating PyTorch eager — eager is unfused and unoptimized, so a win there is expected. The harder, more meaningful test is whether the skill can take a kernel that has *already* been hand-written and tuned by experts and make it faster. The clearest case is Flash Attention forward, benchmarked against the Flash Attention kernel shipped in the Intel XPU Triton backend across attention configurations spanning head counts (A), head dim (D), and sequence lengths (S) from 2K to 16K. The pattern is striking: the **original** kernels are scattered low — and fall *further* as the sequence grows, down to ~5 TFLOPS at S=16384 — while the **optimized** kernels snap into a tight ~60–80 TFLOPS band regardless of configuration. In other words, the skill removes the sequence-length cliff: the longest, most arithmetic-intensive configs see the largest gains (up to **13.3×**), because that's exactly where the stock kernel was leaving the most on the table.
 
 <p align="center">
-<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/intel-xpu-kernels-skill/flash-attention-roofline.png" width=900 alt="Roofline plot for the Flash Attention forward kernel on Arc Pro B70: arithmetic intensity (FLOP/byte) on the x-axis against achieved performance (TFLOPS) on the y-axis, with the memory-bandwidth and compute-bound rooflines drawn. The Intel XPU Triton backend baseline and the skill-optimized kernel are plotted as separate points across sequence lengths."/><br>
-<em>Figure 4: Roofline for Flash Attention forward on Arc Pro B70, against the Flash Attention kernel shipped in the Intel XPU Triton backend. The baseline and skill-optimized kernels are plotted across sequence lengths, showing how close each gets to the hardware roofline.</em>
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/intel-xpu-kernels-skill/flash-attention-roofline.png" width=900 alt="Roofline plot for FlashAttention forward on Arc Pro B70: arithmetic intensity (FLOP/Byte, log x-axis from ~800 to ~10000) vs. performance (TFLOPS, log y-axis), with the compute-bound roof drawn near the top. Original kernels (blue circles) are scattered from ~5 to ~40 TFLOPS and trend downward as arithmetic intensity rises, while optimized kernels (red stars) cluster tightly at ~60-80 TFLOPS across all configurations. Each pair is joined by a vertical arrow; points are labeled by head count, head dim, and sequence length (e.g. A=32 S=8192, A=40 S=16384), and the largest jumps occur at the longest sequence lengths."/><br>
+<em>Figure 2: Roofline for FlashAttention forward on Arc Pro B70, against the Flash Attention kernel shipped in the Intel XPU Triton backend. <strong>Original</strong> (blue circles) vs. <strong>Optimized</strong> (red stars), joined by an arrow; labels give the attention configuration (A = heads, D = head dim, S = sequence length). The original kernel degrades as the sequence grows — down to ~5 TFLOPS at S=16384 — whereas the optimized kernels hold a steady ~60–80 TFLOPS band, so the biggest speedups land on the longest, most compute-intensive sequences.</em>
 </p>
+
+#### Production Triton kernels: vLLM attention & MoE
+
+Beyond Flash Attention, we pointed the skill at the Triton kernels behind vLLM's attention and MoE paths — `BatchedMoE`, `FusedMoE`, and `UnifiedAttention` — again using the **vLLM Triton kernel itself as the baseline**, so the skill's job was purely *Triton → faster Triton* with no PyTorch reference involved. Each numbered point is a distinct kernel *configuration* — the shapes, dtypes, and batch settings that a given model (Gemma2-27B prefill, llama3.3-70B decode, Qwen3-30B-A3B, …) drives the attention/MoE kernel with. These are kernel-level configurations, **not** end-to-end runs of those models.
+
+<p align="center">
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/intel-xpu-kernels-skill/vllm-attention-roofline.png" width=900 alt="Roofline plot (Intel B70) for vLLM attention and MoE Triton kernels: arithmetic intensity (FLOP/Byte, log x-axis) vs. performance (TFLOPS, log y-axis), with the 608 GB/s memory-bandwidth ridge and 160 TFLOPS compute-bound roof drawn. Kernels are colored by family — BatchedMoE, FusedMoE, UnifiedAttention — with the original kernel as a circle and the skill-optimized kernel as a star, connected by an arrow. Most stars sit well above their circles, several reaching the roof; 24 numbered configurations map to model-driven shapes such as Gemma2-27B prefill and llama3.3-70B decode."/><br>
+<em>Figure 3: Roofline for vLLM's attention/MoE Triton kernels on Arc Pro B70 (608 GB/s, 160 TFLOPS peak). Each configuration appears as an <strong>Original</strong> kernel (circle) and the <strong>Optimized</strong> kernel the skill produced (star), joined by an arrow; color denotes the kernel family (BatchedMoE / FusedMoE / UnifiedAttention). The numbered legend lists 24 attention/MoE configurations — the shapes and dtypes drawn from real models (prefill, decode, chunked prefill, fp8/int8 KV-cache variants), not end-to-end model runs. Optimization moves points up toward the hardware roof, so the speedups come from better use of available compute and bandwidth.</em>
+</p>
+
+These are gains *on top of* an already-optimized kernel, across a spread of attention and MoE configurations — the clearest evidence that the skill contributes Intel-specific optimization knowledge rather than just fusing what eager left on the table.
 
 #### Breadth: KernelBench Level 2
 
@@ -262,7 +259,7 @@ If you use this work in your research, please cite the Xe-Forge paper:
 
 - **Hardware scope:** verified on Arc Pro B70 and Battlemage G21 / Arc Pro B50 (both Xe2). Other Intel XPUs may require updated patterns in `references/xpu_optimizations.yaml`.
 
-- **Workload scope:** the knowledge base focuses on GEMM, fused KernelBench Level 2 patterns, reductions, and attention forward (including the production vLLM Triton attention kernels). Backward passes, sparse, and quantized kernels are future work.
+- **Workload scope:** the knowledge base focuses on GEMM, fused KernelBench Level 2 patterns, reductions, attention forward, and MoE kernels (including the production vLLM Triton attention and MoE kernels). Backward passes, sparse, and quantized kernels are future work.
 
 - **Single-XPU serialization:** the loop assumes one XPU per machine. Multi-GPU benchmarking requires changes to `benchmark.py` and `xpu_profiler.py`.
 
