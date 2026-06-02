@@ -19,13 +19,10 @@ It's also, increasingly, used by **coding agents**: Claude Code, Codex, Cursor a
 
 We started tracking agent usage of the Hub in April 2026: both the `huggingface_hub` Python SDK and the `hf` CLI built on it tag each request with an `agent/<name>` user-agent, so we can attribute Hub traffic to the coding agent driving it. The two largest by distinct users are **Claude Code and Codex**, well ahead of everything else, and they're the two agents we benchmark later in this article.
 
-<p align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/huggingface_hub/chart-users-dark.png">
-    <source media="(prefers-color-scheme: light)" srcset="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/huggingface_hub/chart-users.png">
-    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/huggingface_hub/chart-users.png" alt="Distinct users of the Hugging Face Hub by coding agent since April 2026. Claude Code leads with 39.5k users and 48.6M requests, then Codex with 34.8k users and 36.4M requests, followed by antigravity, cursor-cli, openclaw, cursor, gemini and pi." width="100%">
-  </picture>
-</p>
+<div class="flex justify-center">
+    <img class="block dark:hidden" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/huggingface_hub/chart-users.png" alt="Distinct users of the Hugging Face Hub by coding agent since April 2026. Claude Code leads with 39.5k users and 48.6M requests, then Codex with 34.8k users and 36.4M requests, followed by antigravity, cursor-cli, openclaw, cursor, gemini and pi." width="100%"/>
+    <img class="hidden dark:block" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/huggingface_hub/chart-users-dark.png" alt="Distinct users of the Hugging Face Hub by coding agent since April 2026. Claude Code leads with 39.5k users and 48.6M requests, then Codex with 34.8k users and 36.4M requests, followed by antigravity, cursor-cli, openclaw, cursor, gemini and pi." width="100%"/>
+</div>
 
 The bars count distinct users per agent; request volume is the sub-label. Claude Code alone is ~40k users and nearly 49M requests, with Codex close behind. These are early numbers (we only began attributing agent traffic in April 2026), but the scale is already significant, and we expect it to keep growing as coding agents become a standard way to work with the Hub.
 
@@ -128,7 +125,7 @@ Qwen/Qwen2.5-1.5B-Instruct
 Qwen/Qwen3-4B
 ```
 
-## Benchmarking the `hf` CLI for Coding Agents
+## Benchmarking the hf CLI for Coding Agents
 
 To find out whether the `hf` CLI is really more efficient for agents, we measured it. We built a small evaluation harness and ran the same set of Hub tasks through each way of driving the Hub, many times over, grading every run against the live Hub.
 
@@ -163,23 +160,17 @@ transcript is published [in this bucket](https://huggingface.co/buckets/celinah/
 
 Two pictures carry the result. First, **task success on Sonnet**, the agent where curl struggles most:
 
-<p align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/huggingface_hub/chart-success-dark.png">
-    <source media="(prefers-color-scheme: light)" srcset="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/huggingface_hub/chart-success.png">
-    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/huggingface_hub/chart-success.png" alt="Task success on Claude Code with Sonnet 4.6: hf CLI 94%, curl 84%." width="100%">
-  </picture>
-</p>
+<div class="flex justify-center">
+    <img class="block dark:hidden" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/huggingface_hub/chart-success.png" alt="Task success on Claude Code with Sonnet 4.6: hf CLI 94%, curl 84%." width="100%"/>
+    <img class="hidden dark:block" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/huggingface_hub/chart-success-dark.png" alt="Task success on Claude Code with Sonnet 4.6: hf CLI 94%, curl 84%." width="100%"/>
+</div>
 
 curl trails by ten points, because on Sonnet it simply can't finish parts of the job (the writes, mostly), while the `hf` CLI clears them. Second, and this is the one to look at, **curl's token tax on GPT-5.5**, broken down per task. Each bar is curl's tokens divided by the CLI's on the same task, so `2.4×` means curl burned 2.4 times as many tokens to do the same thing:
 
-<p align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/huggingface_hub/chart-tokens-dark.png">
-    <source media="(prefers-color-scheme: light)" srcset="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/huggingface_hub/chart-tokens.png">
-    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/huggingface_hub/chart-tokens.png" alt="Per-task token ratio of curl divided by the hf CLI on GPT-5.5, sorted high to low. Multi-step tasks cost curl far more: bucket create+sync+prune 6.0x, rank orgs by trending models 4.1x, repo create+branch+tag / delete files / copy files across repos 2.4x each. Simple one-shot reads sit near parity or cheaper: batch model metadata 0.5x, count dataset rows 0.3x." width="80%">
-  </picture>
-</p>
+<div class="flex justify-center">
+    <img class="block dark:hidden" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/huggingface_hub/chart-tokens.png" alt="Per-task token ratio of curl divided by the hf CLI on GPT-5.5, sorted high to low. Multi-step tasks cost curl far more: bucket create+sync+prune 6.0x, rank orgs by trending models 4.1x, repo create+branch+tag / delete files / copy files across repos 2.4x each. Simple one-shot reads sit near parity or cheaper: batch model metadata 0.5x, count dataset rows 0.3x." width="80%"/>
+    <img class="hidden dark:block" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/huggingface_hub/chart-tokens-dark.png" alt="Per-task token ratio of curl divided by the hf CLI on GPT-5.5, sorted high to low. Multi-step tasks cost curl far more: bucket create+sync+prune 6.0x, rank orgs by trending models 4.1x, repo create+branch+tag / delete files / copy files across repos 2.4x each. Simple one-shot reads sit near parity or cheaper: batch model metadata 0.5x, count dataset rows 0.3x." width="80%"/>
+</div>
 
 The shape is the whole point. On a one-shot read (count dataset rows, batch metadata) curl is fine, sometimes even lighter. But the moment a task is *real work*, several dependent calls that each need the previous result, curl has to hand-roll the entire chain of REST calls and the cost blows up: **2.4× to 6× the CLI** on creating a repo with a branch and tag, deleting files, copying across repos, syncing a bucket. The `hf` CLI folds that chain into one command. This is also exactly why a benchmark built on easy reads makes curl look better than it really is: it never reaches the tasks where the CLI pulls away.
 
@@ -203,12 +194,9 @@ It installs a compact map of the whole command surface, so the agent doesn't hav
 
 In the benchmark above, the skill's value over the bare CLI is **reliability**: the two cost about the same in tokens, but the skill lifts success (0.92 to 0.94 on Sonnet, 0.92 to 0.93 on GPT-5.5), roughly halves the false "done"s, and removes guesswork about which command and argument to reach for. The clearest single view is how many commands each run takes, with the skill and without:
 
-<p align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/huggingface_hub/chart-skill-dark.png">
-    <source media="(prefers-color-scheme: light)" srcset="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/huggingface_hub/chart-skill.png">
-    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/huggingface_hub/chart-skill.png" alt="Mean commands (tool calls) per run, with and without the hf-cli skill, on both agents. Claude Code (Sonnet 4.6): 10.4 without the skill, 6.9 with it. Codex (GPT-5.5): 10.1 without, 7.3 with. Fewer is better." width="100%">
-  </picture>
-</p>
+<div class="flex justify-center">
+    <img class="block dark:hidden" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/huggingface_hub/chart-skill.png" alt="Mean commands (tool calls) per run, with and without the hf-cli skill, on both agents. Claude Code (Sonnet 4.6): 10.4 without the skill, 6.9 with it. Codex (GPT-5.5): 10.1 without, 7.3 with. Fewer is better." width="100%"/>
+    <img class="hidden dark:block" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/huggingface_hub/chart-skill-dark.png" alt="Mean commands (tool calls) per run, with and without the hf-cli skill, on both agents. Claude Code (Sonnet 4.6): 10.4 without the skill, 6.9 with it. Codex (GPT-5.5): 10.1 without, 7.3 with. Fewer is better." width="100%"/>
+</div>
 
 About ten commands per task without the skill, seven with it, on both agents: fewer wrong turns and retries for the same result.
