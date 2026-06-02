@@ -12,7 +12,7 @@ authors:
 ---
 
 <p align="center">
-<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/intel-kernel-skills/xpu-kernels-figure.jpg" width=700 alt="An LLM-driven workflow generates and benchmarks Triton kernels for an Intel XPU GPU." />
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/intel-xpu-kernels-skill/xpu-kernels-top.png" width=700 alt="An LLM-driven workflow generates and benchmarks Triton kernels for an Intel XPU GPU." />
 </p>
 
 # Intel XPU Kernel Skills: LLM-driven Triton kernel optimization for the Hugging Face Kernel Hub
@@ -46,7 +46,7 @@ Xe-Forge addresses both: a knowledge base supplies the missing facts, and the Co
 ## How It Works
 
 <p align="center">
-<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/intel-kernel-skills/system-diagram.png" width=900 alt="System diagram: coding agent with the xpu-kernels skill produces a Triton .py file, which the kernel-builder Rust CLI compiles and uploads as a Hub package, then a downstream user loads it via get_kernel()." /><br>
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/intel-xpu-kernels-skill/system-diagram.png" width=900 alt="System diagram: coding agent with the xpu-kernels skill produces a Triton .py file, which the kernel-builder Rust CLI compiles and uploads as a Hub package, then a downstream user loads it via get_kernel()." /><br>
 <em>Figure 1: How the pieces fit together. The <strong>xpu-kernels skill</strong> is the agent's authoring loop and outputs a single Triton <code>.py</code> file. The <strong>kernel-builder CLI</strong> is a separate Rust tool that compiles and uploads that file as a Hub-compatible package. Downstream code consumes it with <code>get_kernel(...)</code>.</em>
 </p>
 
