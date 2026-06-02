@@ -1,6 +1,6 @@
 ---
 title: "Remote Tools for Reachy Mini Conversation App" 
-thumbnail: /blog/assets/conversation-app-remote-tools/reachy_mini_window.jpg
+thumbnail: /blog/assets/conversation-app-remote-tools/reachy_mini_remote_spaces_thumbnail.png
 authors:
 - user: alozowski
 ---
