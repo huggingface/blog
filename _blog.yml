@@ -5379,7 +5379,7 @@
     - kernels
 
 - local: conversation-app-remote-tools
-  date: June 2, 2026
+  date: June 3, 2026
   tags:
     - guide
     - robotics
