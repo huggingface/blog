@@ -9,7 +9,7 @@ authors:
 
 ---
 
-# How we rebuilt the `hf` CLI for AI Agents
+# How we rebuilt the hf CLI for AI Agents
 
 `hf` is the official command-line entrypoint to the [Hugging Face Hub](https://huggingface.co). Anything you can do on the Hub from Python, you can do from your terminal: download and upload models, datasets and Spaces; create and manage repos, branches, tags and pull requests; run Jobs on HF infrastructure; manage Buckets, Collections, webhooks and Inference Endpoints; log in and manage your cache. One tool, the whole Hub.
 
