@@ -57,7 +57,7 @@ Create this first because the GitHub App needs a webhook URL, and that URL comes
 
 Go to [`huggingface/jobs-actions-dispatcher`](https://huggingface.co/spaces/huggingface/jobs-actions-dispatcher) and click **Duplicate this Space**.
 
-<img width="996" height="715" alt="image" src="https://github.com/user-attachments/assets/c8b450c3-b801-43dc-97ff-954d9bbaf975" />
+<img width="996" alt="image" src="https://github.com/user-attachments/assets/c8b450c3-b801-43dc-97ff-954d9bbaf975" />
 
 
 Use:
