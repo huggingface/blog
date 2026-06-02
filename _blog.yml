@@ -5377,3 +5377,13 @@
     - CUDA
     - open-source
     - kernels
+
+- local: conversation-app-remote-tools
+  date: June 2, 2026
+  tags:
+    - guide
+    - robotics
+    - reachy
+    - agents
+    - mcp
+    - tools
