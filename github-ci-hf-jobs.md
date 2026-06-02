@@ -45,7 +45,7 @@ The flow looks like this:
 
 From GitHub's point of view, this is just a self-hosted runner. From Hugging Face's point of view, it is just a short-lived Job.
 
-## Step 1: Create the dispatcher Space
+## Step 1: Duplicate the dispatcher Space
 
 The first thing you need is the dispatcher. This is a small Docker Space that receives GitHub `workflow_job` webhook events and launches HF Jobs in response.
 
@@ -53,16 +53,15 @@ Create this first because the GitHub App needs a webhook URL, and that URL comes
 
 ### Web setup
 
-Go to [huggingface.co/new-space](https://huggingface.co/new-space) and create:
+Go to [`huggingface/jobs-actions-dispatcher`](https://huggingface.co/spaces/huggingface/jobs-actions-dispatcher) and click **Duplicate this Space**.
+
+Use:
 
 ```text
 Owner: your HF user or org
 Name: jobs-actions-dispatcher
-SDK: Docker
 Hardware: cpu-basic
 ```
-
-Then push the contents of the [`dispatcher/`](https://github.com/huggingface/jobs-actions/tree/main/dispatcher) directory from `huggingface/jobs-actions` to that Space.
 
 After it builds, your dispatcher URL will look like this:
 
@@ -70,7 +69,7 @@ After it builds, your dispatcher URL will look like this:
 https://YOUR-HF-NAMESPACE-jobs-actions-dispatcher.hf.space
 ```
 
-In our Trackio test setup, the dispatcher lived at [`abidlabs/jobs-actions-dispatcher`](https://huggingface.co/spaces/abidlabs/jobs-actions-dispatcher).
+In our Trackio test setup, the dispatcher lived at [`huggingface/jobs-actions-dispatcher`](https://huggingface.co/spaces/huggingface/jobs-actions-dispatcher), and we duplicated it into the namespace that pays for the Jobs.
 
 ### CLI setup
 
@@ -80,17 +79,10 @@ For an agent or CLI workflow:
 export HF_NAMESPACE=your-hf-user-or-org
 export SPACE_ID="$HF_NAMESPACE/jobs-actions-dispatcher"
 
-git clone https://github.com/huggingface/jobs-actions
-cd jobs-actions
-
-hf repo create "$SPACE_ID" --type space --space-sdk docker --exist-ok
-
-cd dispatcher
-git init -b main
-git remote add origin "https://huggingface.co/spaces/$SPACE_ID"
-git add .
-git commit -m "Deploy jobs-actions dispatcher"
-git push origin main
+hf repo duplicate huggingface/jobs-actions-dispatcher "$SPACE_ID" \
+  --type space \
+  --flavor cpu-basic \
+  --exist-ok
 ```
 
 Then set:
@@ -111,7 +103,7 @@ Open:
 setup/create-app.html
 ```
 
-from your local clone of `huggingface/jobs-actions`. Fill in:
+from a local clone of [`huggingface/jobs-actions`](https://github.com/huggingface/jobs-actions). Fill in:
 
 ```text
 GitHub user or org: YOUR-GITHUB-ORG
@@ -133,6 +125,8 @@ Then install the App on the GitHub repo whose CI should run on HF Jobs. In the T
 The GitHub App manifest flow is intentionally browser-based, but an agent can still prepare almost everything:
 
 ```bash
+git clone https://github.com/huggingface/jobs-actions
+cd jobs-actions
 export GH_ORG=your-github-org
 open setup/create-app.html
 ```
@@ -403,7 +397,7 @@ Trackio can be a useful example because it has the common pieces: Python tests, 
 
 The final workflow is simple for users:
 
-1. Create the dispatcher Space.
+1. Duplicate the dispatcher Space.
 2. Create and install the `jobs-actions` GitHub App.
 3. Add the GitHub App and HF secrets to the dispatcher Space.
 4. Change `runs-on` from `ubuntu-latest` to an HF Jobs label.
