@@ -26,3 +26,7 @@ But a better approach would be to use the hardware I already have up and running
 How would that work?
 
 Basically, I came up with a finite set of labels representing the categories of issues I need to triage, and then use a local model to classify each issue into one of those categories, like `local_models`, `self_hosted_inference`, `acp`, `agent_runtime`, `codex`, `ui_tui` and so on.
+
+But how to do the classification though? A simple single request to a Chat Completions endpoint with a tool JSON schema with the topics as an enum?
+
+Kind of. But this is 2026, not 2023. And we have AGENTS. We can do better!
