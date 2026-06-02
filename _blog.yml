@@ -5377,3 +5377,11 @@
     - CUDA
     - open-source
     - kernels
+
+- local: hf-cli-for-agents
+  date: June 3, 2026
+  tags:
+    - cli
+    - huggingface_hub
+    - agents
+    - hub
