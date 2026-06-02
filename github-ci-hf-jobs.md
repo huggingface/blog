@@ -57,6 +57,9 @@ Create this first because the GitHub App needs a webhook URL, and that URL comes
 
 Go to [`huggingface/jobs-actions-dispatcher`](https://huggingface.co/spaces/huggingface/jobs-actions-dispatcher) and click **Duplicate this Space**.
 
+<img width="996" height="715" alt="image" src="https://github.com/user-attachments/assets/c8b450c3-b801-43dc-97ff-954d9bbaf975" />
+
+
 Use:
 
 ```text
@@ -65,13 +68,9 @@ Name: jobs-actions-dispatcher
 Hardware: cpu-basic
 ```
 
-After it builds, open the duplicated Space. The landing page displays the GitHub App webhook URL you need in the next step. It will look like this:
+If you see warnings saying that "Your duplicated Space may not work if you switch to a different hardware than the suggested one", that's okay! You also don't need to fill out any secrets at this point.
 
-```text
-https://YOUR-HF-NAMESPACE-jobs-actions-dispatcher.hf.space
-```
-
-and the webhook URL will be:
+After it builds, open the duplicated Space. You may see some configuration errors, but that's okay. The landing page should display the GitHub App webhook URL you need in the next step. It will look like this:
 
 ```text
 https://YOUR-HF-NAMESPACE-jobs-actions-dispatcher.hf.space/webhook
