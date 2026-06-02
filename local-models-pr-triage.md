@@ -17,4 +17,4 @@ OpenClaw gets hundreds of issues and PRs every day, which need to be triaged, pr
 
 I can of course set up my OpenClaw main agent running on my $200/mo ChatGPT pro plan to trigger a job on every new issue or PR. But then that might use up my quota too quickly—so I might instead set it to run every 2 hours, or 6 hours. Since I would be batching a large number of issues, I would be trading real-time notifications for cheaper and lower quality processing.
 
-But a better approach would be to use the hardware I already have up and running to do this for free, or rather, the cost of electricity.
+But a better approach would be to use the hardware I already have up and running to do this for free (or rather, for the cost of electricity).
