@@ -5,9 +5,6 @@ authors:
 - user: danf
   guest: true
   org: Intel
-- user: moshew
-  guest: true
-  org: Intel
 - user: burtenshaw
 ---
 
