@@ -15,7 +15,9 @@ So we tried an experiment: keep GitHub Actions as the CI control plane, but run 
 
 The result: Trackio's CI now runs on Hugging Face Jobs, **cutting our CI time for CPU jobs by 40% and enabling a whole new test suite that runs on GPU machines**!
 
-In this article, we explain step-by-step, how to recreate the same setup for your GitHub repo. But first, a quick intro to Hugging Face Jobs!
+In this article, we explain step-by-step, how to recreate the same setup for your GitHub repo. 
+
+But first, a quick intro to Hugging Face Jobs!
 
 ## What is Hugging Face Jobs?
 
@@ -34,7 +36,7 @@ The key step is connecting GitHub Actions to HF Jobs.
 
 For this setup, we created [`huggingface/jobs-actions`](https://github.com/huggingface/jobs-actions), a small bridge that turns a GitHub Actions job into an ephemeral self-hosted runner running inside an HF Job.
 
-The flow looks like this:
+The complete flow looks like this:
 
 1. A pull request triggers a GitHub Actions workflow.
 2. GitHub sees a job with a custom label, for example `hf-jobs-cpu-upgrade` or `hf-jobs-t4-small`.
@@ -49,7 +51,7 @@ From GitHub's point of view, this is just a self-hosted runner. From Hugging Fac
 
 The first thing you need is the dispatcher. This is a small Docker Space that receives GitHub `workflow_job` webhook events and launches HF Jobs in response.
 
-Create this first because the GitHub App needs a webhook URL, and that URL comes from the Space.
+Create this first because the GitHub App needs a webhook URL, and that URL comes from the Space. This Space should be under your own namespace or under an org that has billing credits enabled, since Jobs will be [charged to this account](https://huggingface.co/docs/hub/en/jobs-pricing#pricing).
 
 ### Web setup
 
@@ -63,10 +65,16 @@ Name: jobs-actions-dispatcher
 Hardware: cpu-basic
 ```
 
-After it builds, your dispatcher URL will look like this:
+After it builds, open the duplicated Space. The landing page displays the GitHub App webhook URL you need in the next step. It will look like this:
 
 ```text
 https://YOUR-HF-NAMESPACE-jobs-actions-dispatcher.hf.space
+```
+
+and the webhook URL will be:
+
+```text
+https://YOUR-HF-NAMESPACE-jobs-actions-dispatcher.hf.space/webhook
 ```
 
 In our Trackio test setup, the dispatcher lived at [`huggingface/jobs-actions-dispatcher`](https://huggingface.co/spaces/huggingface/jobs-actions-dispatcher), and we duplicated it into the namespace that pays for the Jobs.
