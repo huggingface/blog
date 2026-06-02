@@ -11,7 +11,7 @@ authors:
 
 # How we rebuilt the hf CLI for AI Agents
 
-`hf` is the official command-line entrypoint to the [Hugging Face Hub](https://huggingface.co). Anything you can do on the Hub from Python, you can do from your terminal: download and upload models, datasets and Spaces; create and manage repos, branches, tags and pull requests; run Jobs on HF infrastructure; manage Buckets, Collections, webhooks and Inference Endpoints; log in and manage your cache. One tool, the whole Hub.
+`hf` is the official command-line entrypoint to the Hugging Face Hub. Anything you can do on the Hub from Python, you can do from your terminal: download and upload models, datasets and Spaces; create and manage repos, branches, tags and pull requests; run Jobs on HF infrastructure; manage Buckets, Collections, webhooks and Inference Endpoints; log in and manage your cache. One tool, the whole Hub.
 
 It's also, increasingly, used by **coding agents**: Claude Code, Codex, Cursor and more. So we rebuilt `hf` to make it work for both audiences at once. This is what we did, and how we benchmarked it.
 
