@@ -1,6 +1,6 @@
 ---
 title: "Migrating Your GitHub CI to Hugging Face Jobs"
-thumbnail: /blog/assets/github-ci-hf-jobs/thumbnail.png
+thumbnail: /blog/assets/github-ci-hf-jobs/thumbnail.gif
 authors:
 - user: abidlabs
 ---
