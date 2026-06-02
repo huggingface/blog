@@ -9,28 +9,30 @@ authors:
 
 If you have a GitHub repository and you have GitHub Actions enabled, you probably use GitHub-hosted runners for CI. That is the default for many projects because it is simple: add a workflow, write `runs-on: ubuntu-latest`, and GitHub gives you a machine.
 
-That default is convenient, but it also has limits. GitHub Actions can be slow, the hosted machines are generic, and GPU access is not something most open-source projects can just turn on. For [Trackio](https://github.com/gradio-app/trackio), those limits started to matter. We wanted normal CPU CI for unit tests and frontend checks, but we also wanted GPU CI so that tests which depend on actual CUDA hardware would fail when a GPU was missing or misconfigured.
+That default is convenient, but it also has limits. GitHub Actions can be slow, the hosted machines are generic, and GPU access is not something most open-source projects can just turn on. For [Trackio](https://github.com/gradio-app/trackio), those limits started to matter. We wanted both normal CPU CI for basic unit tests and frontend checks, but also GPU CI for that tests that need to run on actual CUDA hardware.
 
 So we tried an experiment: keep GitHub Actions as the CI control plane, but run selected jobs on [Hugging Face Jobs](https://huggingface.co/docs/hub/en/jobs-overview).
 
-The result: Trackio's CI now runs on Hugging Face Jobs, cutting our CI time for CPU jobs by about 30% and enabling a whole new test suite that runs on GPU machines!
+The result: Trackio's CI now runs on Hugging Face Jobs, **cutting our CI time for CPU jobs by 40% and enabling a whole new test suite that runs on GPU machines**!
+
+In this article, we explain step-by-step, how to recreate the same setup for your GitHub repo. But first, a quick intro to Hugging Face Jobs!
 
 ## What is Hugging Face Jobs?
 
-Hugging Face Jobs lets you run a command on Hugging Face infrastructure with a chosen Docker image and hardware flavor. A Job is essentially:
+[Hugging Face Jobs](https://huggingface.co/docs/hub/en/jobs-overview) lets you run commands or  scripts on Hugging Face's serverless infrastructure with almost any hardware flavor. A Job is essentially:
 
 - a command to run
 - a Docker image, from Docker Hub or a Hugging Face Space
-- a hardware flavor, such as CPU or GPU
+- a hardware flavor, such as CPU or `t4-small` or `h200` GPU
 - optional environment variables and secrets
 
 That makes Jobs a natural fit for CI. CI jobs are already command-driven, already run in clean environments, and often benefit from choosing exactly the right hardware. For ML libraries, the GPU case is especially compelling: you can run a test suite on real GPU hardware without maintaining your own always-on runner.
 
-The trick is connecting GitHub Actions to HF Jobs.
+The key step is connecting GitHub Actions to HF Jobs.
 
 ## The architecture
 
-For this experiment, we used [`abidlabs/jobs-actions`](https://github.com/abidlabs/jobs-actions), a small bridge that turns a GitHub Actions job into an ephemeral self-hosted runner running inside an HF Job.
+For this setup, we created [`huggingface/jobs-actions`](https://github.com/huggingface/jobs-actions), a small bridge that turns a GitHub Actions job into an ephemeral self-hosted runner running inside an HF Job.
 
 The flow looks like this:
 
@@ -45,11 +47,9 @@ From GitHub's point of view, this is just a self-hosted runner. From Hugging Fac
 
 ## Step 1: Install the GitHub App
 
-Start with the [`jobs-actions`](https://github.com/abidlabs/jobs-actions) repo. It includes a GitHub App manifest flow in [`setup/SETUP.md`](https://github.com/abidlabs/jobs-actions/blob/main/setup/SETUP.md) that creates a GitHub App with the permissions needed to listen for workflow jobs and create runner registration tokens.
+Start with the [`jobs-actions`](https://github.com/huggingface/jobs-actions) repo. It includes a GitHub App manifest flow in [`setup/SETUP.md`](https://github.com/huggingface/jobs-actions/blob/main/setup/SETUP.md) that creates a GitHub App with the permissions needed to listen for workflow jobs and create runner registration tokens.
 
 After the app is created, install it on the repository whose CI you want to run on HF Jobs. In the Trackio setup, we installed the app on `gradio-app/trackio`.
-
-The app gives the dispatcher enough GitHub access to answer the question: "A workflow job is waiting for a runner with label `hf-jobs-*`; should I create an HF Job for it?"
 
 ## Step 2: Run the dispatcher Space
 
