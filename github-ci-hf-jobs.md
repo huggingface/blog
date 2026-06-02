@@ -144,19 +144,24 @@ After the App exists, install it on your repo from the App settings page. For a 
 https://github.com/organizations/YOUR-GITHUB-ORG/settings/installations
 ```
 
-## Step 3: Configure dispatcher secrets
+## Step 3: Configure dispatcher settings
 
-The dispatcher is a small web service. GitHub sends webhook events to it, and it launches HF Jobs with the right image, hardware flavor, labels, and secrets. The Space needs these secrets and environment variables:
+The dispatcher is a small web service. GitHub sends webhook events to it, and it launches HF Jobs with the right image, hardware flavor, labels, and one-shot runner token. The Space only needs three real secrets:
 
 ```text
-GH_APP_ID
 GH_APP_PRIVATE_KEY
 GH_WEBHOOK_SECRET
 HF_TOKEN
+```
+
+It also needs two normal environment variables:
+
+```text
+GH_APP_ID
 HF_NAMESPACE
 ```
 
-You can add them through the Space settings UI: **Settings → Variables and secrets**.
+You can add them through the Space settings UI: **Settings → Variables and secrets**. Put `GH_APP_PRIVATE_KEY`, `GH_WEBHOOK_SECRET`, and `HF_TOKEN` under **Secrets**. Put `GH_APP_ID` and `HF_NAMESPACE` under **Variables**.
 
 Or from the CLI:
 
@@ -172,15 +177,14 @@ python - <<'PY' > /tmp/jobs-actions-secrets.env
 import os
 from pathlib import Path
 
-print(f"GH_APP_ID={os.environ['GH_APP_ID']}")
 print(f"GH_WEBHOOK_SECRET={os.environ['GH_WEBHOOK_SECRET']}")
 print(f"HF_TOKEN={os.environ['HF_TOKEN']}")
-print(f"HF_NAMESPACE={os.environ['HF_NAMESPACE']}")
 private_key = Path(os.environ["GH_APP_PRIVATE_KEY_PATH"]).read_text()
 print("GH_APP_PRIVATE_KEY=" + private_key.replace("\n", "\\n"))
 PY
 
 hf spaces secrets add "$SPACE_ID" --secrets-file /tmp/jobs-actions-secrets.env
+hf spaces variables add "$SPACE_ID" -e GH_APP_ID="$GH_APP_ID" -e HF_NAMESPACE="$HF_NAMESPACE"
 hf spaces restart "$SPACE_ID"
 ```
 
