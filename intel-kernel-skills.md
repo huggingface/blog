@@ -1,5 +1,5 @@
 ---
-title: "Intel XPU Kernel Skills: LLM-driven Triton kernel optimization for the Hugging Face Kernel Hub"
+title: "Intel XPU Kernel Skill: LLM-driven Triton kernel optimization for the Hugging Face Kernel Hub"
 thumbnail: /blog/assets/intel-xpu-kernels-skill/banner.png
 authors:
 - user: danf
@@ -15,17 +15,15 @@ authors:
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/intel-xpu-kernels-skill/xpu-kernels-top.png" width=700 alt="An LLM-driven workflow generates and benchmarks Triton kernels for an Intel XPU GPU." />
 </p>
 
-# Intel XPU Kernel Skills: LLM-driven Triton kernel optimization for the Hugging Face Kernel Hub
+# Intel XPU Kernel Skill: LLM-driven Triton kernel optimization for the Hugging Face Kernel Hub
 
-*By Intel AI Software Group*
+*By Intel DCG AI Software Group*
 
 [Xe-Forge](https://github.com/IntelLabs/Xe-Forge) ([Spoczynski et al., 2026](https://arxiv.org/abs/2605.26118)) is an Intel project that uses an LLM to optimize Triton kernels for Intel Arc Pro GPUs (Xe2). It applies a sequence of optimization stages — fusion, dtype fixes, memory access, block pointers, XPU-specific tuning, autotuning — and validates each one on the GPU before moving on. The agent loop, called CoVeR (Chain-of-Verification-and-Refinement), proposes a candidate, runs it, and iterates if it fails or regresses. A small knowledge base of Xe2-specific patterns (tensor descriptors, GRF mode 256, tile swizzling) is read at the start of each session because these aren't well-represented in LLM training data.
 
 On Arc Pro B70, Xe-Forge reports a 1.17× geomean speedup over PyTorch eager across 97 KernelBench Level-2 kernels and 2–13.3× on Flash Attention forward.
 
-The [xpu-kernels skill](https://github.com/huggingface/kernels/tree/main/kernel-builder/skills/xpu-kernels) packages Xe-Forge's Claude Code engine — the same workflow, tools, and knowledge base — as an Agent Skill, so a coding agent can run the loop without cloning the full project, and the finalized kernel can be published to the [Hugging Face Kernel Hub](https://huggingface.co/kernels) and loaded with `get_kernel(...)`.
-
-We release three skills together — **`cuda-kernels`**, **`rocm-kernels`**, and **`xpu-kernels`** — each tuned to its hardware vendor. This post focuses on the Intel XPU one and shows that:
+The [xpu-kernels skill](https://github.com/huggingface/kernels/tree/main/kernel-builder/skills/xpu-kernels) packages Xe-Forge's Claude Code engine — the same workflow, tools, and knowledge base — as an Agent Skill, so a coding agent can run the loop without cloning the full project, and the finalized kernel can be published to the [Hugging Face Kernel Hub](https://huggingface.co/kernels) and loaded with `get_kernel(...)`. This post shows that:
 
 - 🤖 An LLM agent equipped with the right tools and knowledge base can autonomously turn a PyTorch reference into an optimized Triton kernel for Intel XPU.
 
@@ -34,7 +32,7 @@ We release three skills together — **`cuda-kernels`**, **`rocm-kernels`**, and
 - 📦 The resulting kernels are packaged so they can be uploaded to the [Hugging Face Kernel Hub](https://huggingface.co/kernels) and consumed via the [`kernels`](https://github.com/huggingface/kernels) Python package.
 
 👉 Skill: <https://github.com/huggingface/kernels/tree/main/kernel-builder/skills/xpu-kernels> \
-👉 Original framework: <https://github.com/IntelLabs/Xe-Forge> \
+👉 Optimization framework: <https://github.com/IntelLabs/Xe-Forge> \
 👉 Kernel Hub: <https://huggingface.co/kernels>
 
 ## Why a kernel skill?
@@ -47,7 +45,7 @@ Xe-Forge addresses both: a knowledge base supplies the missing facts, and the Co
 
 <p align="center">
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/intel-xpu-kernels-skill/system-diagram.png" width=900 alt="System diagram: coding agent with the xpu-kernels skill produces a Triton .py file, which the kernel-builder Rust CLI compiles and uploads as a Hub package, then a downstream user loads it via get_kernel()." /><br>
-<em>Figure 1: How the pieces fit together. The <strong>xpu-kernels skill</strong> is the agent's authoring loop and outputs a single Triton <code>.py</code> file. The <strong>kernel-builder CLI</strong> is a separate Rust tool that compiles and uploads that file as a Hub-compatible package. Downstream code consumes it with <code>get_kernel(...)</code>.</em>
+<em>Figure 1: How the pieces fit together. The <strong>xpu-kernels skill</strong> is the agent's authoring loop and outputs a single Triton <code>.py</code> file. The <strong>kernel-builder CLI</strong> is a Rust tool that compiles and uploads that file as a Hub-compatible package. Downstream code consumes it with <code>get_kernel(...)</code>.</em>
 </p>
 
 - **Hardware:** Intel Arc Pro B70 (primary — Xe2, 32 Xe-cores / 256 XVEs, 22.94 FP32 TFLOPS, 367 peak INT8 TOPS, 32 GB GDDR6, 608 GB/s, 230 W TBP) and Battlemage G21 / Arc Pro B50 (also verified — Xe2, 16 Xe-cores / 128 XVEs, 10.65 FP32 TFLOPS, 170 peak INT8 TOPS, 16 GB GDDR6, 224 GB/s, 70 W TBP). Both are Xe2; the skill's optimization patterns apply to both.
@@ -57,11 +55,11 @@ Xe-Forge addresses both: a knowledge base supplies the missing facts, and the Co
 - **Hub integration:** generated kernels follow the [Kernel Hub layout](https://github.com/huggingface/kernels) so they can be published and then loaded with `kernels.get_kernel("<org>/<name>")`.
 
 <p align="center">
-<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/intel-kernel-skills/trial-tree.png" width=800 alt="A branching trial tree from a real run: nodes are kernel variants labelled with their measured speedup vs. baseline, edges are optimization strategies, regressions branch back to the best ancestor, and the chosen finalized branch is highlighted." /><br>
-<em>Figure 2: A real branching trial tree produced by <code>trial_manager.py</code>. Each node is a kernel variant with its measured speedup; edges are the strategy applied (fusion, GRF mode, swizzling, ...). When a trial regresses or plateaus the agent branches back to the best ancestor and tries a different strategy. The highlighted path is the trajectory of the finalized kernel. The 5-step trial loop (analyze → validate → benchmark → profile → decide) drives each node; the tree is what <em>navigates</em> them.</em>
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/intel-xpu-kernels-skill/trial-tree.png" width=800 alt="A branching trial tree from a real run: nodes are kernel variants labelled with their measured speedup vs. baseline, edges are optimization strategies, regressions branch back to the best ancestor, and the chosen finalized branch is highlighted." /><br>
+<em>Figure 2: A real branching trial tree produced by <code>trial_manager.py</code>. Each node is a kernel variant with its measured speedup; edges are the strategy applied (fusion, GRF mode, swizzling, ...). When a trial regresses or plateaus the agent branches back to the best ancestor and tries a different strategy. The highlighted path is the trajectory of the finalized kernel. The 5-step trial loop (analyze → validate → benchmark → profile → decide) drives each node.</em>
 </p>
 
-- **Agent Interface:** the skill's `SKILL.md` instructs the agent to read `scripts/config.yaml` and the relevant reference docs, then enter a fixed trial loop. The agent only writes Triton kernel files (`*_triton.py` or trial files `t<id>.py`) — never benchmark or test scripts.
+- **Agent Interface:** the skill's `SKILL.md` instructs the agent to read `scripts/config.yaml` and the relevant reference docs, then enter a well define trial loop. The agent only writes Triton kernel files (`*_triton.py` or trial files `t<id>.py`) — it never touches benchmark or test scripts.
 
 - **Trial tree:** `trial_manager.py` keeps a branching tree of attempts. The agent can branch back to the best trial and try a different optimization strategy when it regresses or plateaus.
 
@@ -75,7 +73,7 @@ Xe-Forge addresses both: a knowledge base supplies the missing facts, and the Co
 
 ## The xpu-kernels workflow
 
-The skill enforces a five-step loop. The agent must run **all** `max_trials` from `config.yaml` (early stop only on >5× speedup), preventing premature termination on a plateau:
+The skill enforces a five-step loop. The agent must run **all** `max_trials` from `config.yaml`, preventing premature termination on a plateau:
 
 - **Analyze:** `python scripts/analyze_kernel.py <pytorch_file>` extracts shapes, dtypes, fused ops, and fusion opportunities. The agent reads `references/correctness.yaml` and `references/xpu_optimizations.yaml` before writing a single line.
 
@@ -133,49 +131,28 @@ This closes the loop with the broader Hugging Face stack: the same `get_kernel(.
 
 ## Evaluation
 
-We evaluated the skill on Intel Arc Pro B70 (primary) and additionally on Battlemage G21 / Arc Pro B50 to confirm portability. Speedup is the median over ai-bench trials versus the indicated baseline; bf16 unless noted.
+We evaluated the skill on Intel Arc Pro B70 (primary) and additionally on Battlemage G21 / Arc Pro B50 to confirm portability. Speedup is the median over AI-Bench trials versus the indicated baseline; bf16 unless noted.
 
 ### Arc Pro B70 — primary results
 
-Aligned with the Xe-Forge paper's evaluation hardware. **(UPDATE NUMBERS — fill in geomean, % improved, peak, FA range from your B70 runs.)**
+Aligned with the Xe-Forge paper's evaluation hardware.
 
 - **KernelBench Level 2 — fused kernels (bf16):** GEMM+Sigmoid+Scaling+ResidualAdd, GEMM+GELU+Softmax, Conv+BatchNorm+ReLU, and other fused patterns vs. PyTorch eager. **(UPDATE NUMBERS: geomean speedup, fraction improved, peak speedup.)**
 
 - **Flash Attention Forward (fp16):** vs. the Flash Attention kernel shipped in the Intel XPU Triton backend, across multiple sequence lengths. **(UPDATE NUMBERS: speedup range across configs, peak TFLOPS.)**
 
 <p align="center">
-<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/intel-kernel-skills/kernelbench-l2-bars.png" width=1000 alt="Per-kernel speedup over PyTorch eager across the 97 KernelBench Level-2 fused kernels on Arc Pro B70, sorted ascending. A horizontal line marks 1.0× (parity with eager) and a second line marks the geometric mean. The fraction of kernels above 1.0× is annotated."/><br>
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/intel-xpu-kernels-skill/kernelbench-l2-bars.png" width=1000 alt="Per-kernel speedup over PyTorch eager across the 97 KernelBench Level-2 fused kernels on Arc Pro B70, sorted ascending. A horizontal line marks 1.0× (parity with eager) and a second line marks the geometric mean. The fraction of kernels above 1.0× is annotated."/><br>
 <em>Figure 3: Per-kernel speedup over PyTorch eager across the 97 KernelBench Level-2 fused kernels on Arc Pro B70, sorted ascending. The 1.0× line marks parity; the geomean line marks the headline number. This view shows the full distribution — including the kernels that regress — instead of a single summary statistic.</em>
 </p>
 
 <p align="center">
-<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/intel-kernel-skills/flash-attention-vs-seqlen.png" width=900 alt="Speedup of the agent-optimized Flash Attention forward kernel vs. the Flash Attention kernel shipped in the Intel XPU Triton backend, plotted against sequence length, with separate lines for Arc Pro B70 and Arc Pro B50."/><br>
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/intel-xpu-kernels-skill/flash-attention-vs-seqlen.png" width=900 alt="Speedup of the agent-optimized Flash Attention forward kernel vs. the Flash Attention kernel shipped in the Intel XPU Triton backend, plotted against sequence length, with separate lines for Arc Pro B70 and Arc Pro B50."/><br>
 <em>Figure 4: Flash Attention forward speedup vs. sequence length on Arc Pro B70 and B50, against the Flash Attention kernel shipped in the Intel XPU Triton backend.</em>
 </p>
 
-### Arc Pro B50 — portability check
-
-The same skill, with no source changes, runs on the smaller Xe2 card and produces correct, faster kernels. **(UPDATE NUMBERS — fill in B50 geomean, fraction improved, peak; mention any kernels that did not improve.)**
-
-### Cross-cutting observations
-
-- We compare three configurations: **PyTorch eager**, the **naive Triton baseline** shipped in `test_kernels/`, and the **agent-optimized Triton** produced by the skill. The naive baselines exist to demonstrate that the speedup is not "Triton vs. eager" — it is the *optimized* Triton, with tensor descriptors, GRF 256, and swizzling, that wins.
-
-- The agent reliably discovers the Intel-specific patterns when the references are in scope; without them, the same model produces CUDA-flavored Triton that often validates but rarely speeds up.
 
 **Key insight:** the bottleneck for LLM-driven kernel optimization on a less-represented architecture is *knowledge access*, not raw model capability. A small, curated reference set plus a strict tool-driven loop is enough to make a general coding agent productive on Intel XPU.
-
-## Why It Matters
-
-- **Vendor coverage:** the same skill format now covers CUDA, ROCm, and Intel XPU, so kernels for all three vendors can be authored and published through the same Hub pipeline.
-
-- **Reproducibility:** the strict trial loop, `config.yaml`, and cached baseline times make runs comparable across users and machines.
-
-- **Hub-native output:** the finalized kernel is loaded with `get_kernel(...)` like any other Hub kernel.
-
-## Conclusion
-
-The interesting part is Xe-Forge: a CoVeR loop, a multi-stage pipeline, and an Xe2 knowledge base, evaluated in the [paper](https://arxiv.org/abs/2605.26118). The skill is the integration that lets you run that loop from a coding agent and ship the result through the Hugging Face Kernel Hub.
 
 ## Try It Yourself
 
@@ -214,15 +191,15 @@ claude "Use the xpu-kernels skill to optimize my_op_pytorch.py. \
   Run all max_trials and finalize as my_op_triton.py."
 ```
 
-The agent analyzes the baseline, generates Triton variants, validates and benchmarks each on the XPU, and writes the best trial to `my_op_triton.py`. **The skill stops here.** The output is a plain Python source file — no compilation, no Hub upload.
+The agent analyzes the baseline, generates Triton variants, validates and benchmarks each on the XPU, and writes the best trial to `my_op_triton.py`. The output is a plain Python source file — no compilation, no Hub upload.
 
 ### 3. Build and publish the kernel with the `kernel-builder` CLI
 
-This is a separate step using the Rust CLI; it has nothing to do with the agent. Take the Triton file the skill produced and feed it to the builder:
+Take the Triton file the skill produced and feed it to the builder:
 
 ```bash
 # Scaffold a Hub kernel project (build.toml, project layout) for XPU
-kernel-builder init my-op --backends xpu
+kernel-builder init --name my-op --backends xpu
 
 # Copy my_op_triton.py into the scaffold, then build a Hub-compatible
 # package and upload it
