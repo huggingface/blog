@@ -799,6 +799,7 @@ Here are detailed benchmark results for the instruction-tuned models:
 
 <sup>*</sup>Excluding Chinese language.
 
+
 ## Acknowledgements
 
 This work wouldn't have been possible without Google's extensive contribution with the model artefact, but also the significant effort contributing the model to transformers in an effort to standardize it. The open-source ecosystem is now more complete, with a very capable, freely-licensed, open-source model.
