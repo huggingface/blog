@@ -93,6 +93,33 @@ We saw in our tests that Gemma 4 supports comprehensive multimodal capabilities 
 
 Here, we show a few inference examples across different model sizes. You can run them conveniently with [this notebook](https://github.com/huggingface/huggingface-gemma-recipes/blob/main/notebooks/Gemma4_(E2B)-Multimodal.ipynb). We encourage you to try the demos and share them below this blog!
 
+### Multimodal Input Order
+
+Gemma 4 was trained with a specific convention to interleave input modalities:
+
+* **Image content goes _before_ the text** in your prompt.
+* **Audio content goes _after_ the text** in your prompt.
+
+To be specific, this is a correct fragment that prepares inputs for the chat template:
+
+```python
+image_url = "https://huggingface.co/datasets/huggingface/documentation-images/resolve/0052a70beed5bf71b92610a43a52df6d286cd5f3/diffusers/rabbit.jpg"
+audio_url = "instructions.m4a"      # A recording of "describe this image"
+messages = [
+    {
+        "role": "user",
+        "content": [
+            {"type": "image", "image": image_url},
+            {"type": "text", "text": "Answer in French."},
+            {"type": "audio", "audio": audio_url},
+        ]
+    }
+]
+# Cette image montre un personnage anthropomorphe ressemblant à un lapin, vêtu d'un manteau bleu et d'un pantalon beige, se tenant sur un chemin de terre dans un paysage rural idyllique ...
+```
+
+The audio inference snippets in this post don't follow this convention, as they were written before this guidance was confirmed. We are keeping them as originally written so result tables remain reproducible. For your own code, prefer the order above.
+
 ### Object Detection and Pointing
 
 ### GUI detection
