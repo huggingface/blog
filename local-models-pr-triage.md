@@ -96,7 +96,17 @@ localpager-agent \
 
 ## Processing incoming PRs and issues
 
-So then what orchestrates everything in between the 
+So then what orchestrates everything in between the incoming PR/issue and the final notification on Discord?
+
+This part is very simple and does not involve any LLMs:
+
+1. We use [openclaw/gitcrawl](http://github.com/openclaw/gitcrawl) to act as a local mirror for the repo. Whenever there is a new PR or issue, each item is normalized into the same shape and written into localpager's own SQLite database. If the item is new, localpager creates a classification job for it.
+2. A worker then claims jobs from that queue. It builds a GitHub context object containing the issue or PR title, body, labels, author, state, and optionally comments, changed files, and selected diff excerpts. That means the Gemma does not need to browse GitHub or open the URL itself most of the time. It is handed all the relevant context.
+3. The context object is rendered into a prompt and passed to `localpager-agent` as described in the previous section. The agent could thinks, use reposhell, but must eventually output a classification result in the defined schema.
+4. The output is stored back in localpager SQLite database, and relayed to Discord based on the notification policy configured by the user (i.e. notify me for these topics, but not these other ones).
+
+
+
 
 
 [^1]: See full list of topics and other configuration [here](https://github.com/osolmaz/localpager/blob/main/examples/profiles/openclaw-routing-topics.json)
