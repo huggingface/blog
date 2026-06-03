@@ -135,7 +135,7 @@ We defined **18 non-trivial Hub tasks**. Not "download a file", but the kind of 
 
 - the `hf` CLI with its skill installed,
 - the bare `hf` CLI, no skill, and
-- `curl` against the REST API.
+- **curl / the Python SDK**: no `hf` CLI at all, so the agent falls back to `curl` against the REST API or the `huggingface_hub` Python library.
 
 The config is deliberately clean: a fresh instance per run, no custom MCP servers, no `CLAUDE.md` or `AGENTS.md`, nothing in context to nudge behavior. The task and the tool go into a single prompt, and the agent finishes with a `TASK_COMPLETE` or `TASK_FAILED` marker, but we don't trust that marker (an agent will report success on work that never landed), so we grade every run independently by **re-querying the live Hub**: did the branch really get created, is the file actually gone, does the bucket exist? Each task/tool combination is run **10 times**, since coding agents are non-deterministic, about **520 runs per agent** (18 tasks × 3 tools × 10 reps, minus a cap on one billable Jobs task) and ~1,000 graded runs in total. We ran the whole thing twice, on the two most popular coding agents (**Claude Code** with Sonnet 4.6 and **OpenAI Codex** with GPT-5.5).
 
@@ -144,12 +144,12 @@ The config is deliberately clean: a fresh instance per run, no custom MCP server
 The ranking came out **identical on both agents**:
 
 
-| agent                        | tool        | mean score | mean commands | curl's token tax | false "done" |
+| agent                        | tool        | mean score | mean commands | token tax | false "done" |
 | ---------------------------- | ----------- | ---------- | ------------- | ---------------- | ------------ |
 | **Claude Code (Sonnet 4.6)** | `hf` CLI    | **0.94**   | **6.9**       | baseline         | **2 / 163**  |
-|                              | curl (REST) | 0.84       | 12.8          | **1.6× tokens**  | 11 / 163     |
+|                              | curl / Python SDK | 0.84       | 12.8          | **1.6× tokens**  | 11 / 163     |
 | **Codex (GPT-5.5)**          | `hf` CLI    | **0.93**   | **7.3**       | baseline         | **3 / 163**  |
-|                              | curl (REST) | 0.92       | 11.0          | **1.8× tokens**  | 10 / 163     |
+|                              | curl / Python SDK | 0.92       | 11.0          | **1.8× tokens**  | 10 / 163     |
 
 
 *(false "done" = the agent reported success on the 17 solvable tasks but the Hub said otherwise.
@@ -158,26 +158,26 @@ The `hf` CLI rows are the CLI with its skill installed; what the skill adds over
 shown separately in [the skill section](#a-skill-you-can-hand-your-agent) below. Every run's full
 transcript is published [in this bucket](https://huggingface.co/buckets/celinah/hf-cli-agent-benchmark).)*
 
-Two pictures carry the result. First, **task success on Sonnet**, the agent where curl struggles most:
+Two pictures carry the result. First, **task success on Sonnet**, the agent where curl and the SDK struggle most:
 
 <div class="flex justify-center">
-    <img class="block dark:hidden" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/huggingface_hub/chart-success.png" alt="Task success on Claude Code with Sonnet 4.6: hf CLI 94%, curl 84%." width="100%"/>
-    <img class="hidden dark:block" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/huggingface_hub/chart-success-dark.png" alt="Task success on Claude Code with Sonnet 4.6: hf CLI 94%, curl 84%." width="100%"/>
+    <img class="block dark:hidden" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/huggingface_hub/chart-success.png" alt="Task success on Claude Code with Sonnet 4.6: hf CLI 94%, curl / Python SDK 84%." width="100%"/>
+    <img class="hidden dark:block" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/huggingface_hub/chart-success-dark.png" alt="Task success on Claude Code with Sonnet 4.6: hf CLI 94%, curl / Python SDK 84%." width="100%"/>
 </div>
 
-curl trails by ten points, because on Sonnet it simply can't finish parts of the job (the writes, mostly), while the `hf` CLI clears them. Second, and this is the one to look at, **curl's token tax on GPT-5.5**, broken down per task. Each bar is curl's tokens divided by the CLI's on the same task, so `2.4×` means curl burned 2.4 times as many tokens to do the same thing:
+Without the CLI, curl and the SDK trail by ten points, because on Sonnet they simply can't finish parts of the job (the writes, mostly), while the `hf` CLI clears them. Second, and this is the one to look at, **their token tax on GPT-5.5**, broken down per task. Each bar is the curl/SDK tokens divided by the CLI's on the same task, so `2.4×` means they burned 2.4 times as many tokens to do the same thing:
 
 <div class="flex justify-center">
-    <img class="block dark:hidden" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/huggingface_hub/chart-tokens.png" alt="Per-task token ratio of curl divided by the hf CLI on GPT-5.5, sorted high to low. Multi-step tasks cost curl far more: bucket create+sync+prune 6.0x, rank orgs by trending models 4.1x, repo create+branch+tag / delete files / copy files across repos 2.4x each. Simple one-shot reads sit near parity or cheaper: batch model metadata 0.5x, count dataset rows 0.3x." width="80%"/>
-    <img class="hidden dark:block" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/huggingface_hub/chart-tokens-dark.png" alt="Per-task token ratio of curl divided by the hf CLI on GPT-5.5, sorted high to low. Multi-step tasks cost curl far more: bucket create+sync+prune 6.0x, rank orgs by trending models 4.1x, repo create+branch+tag / delete files / copy files across repos 2.4x each. Simple one-shot reads sit near parity or cheaper: batch model metadata 0.5x, count dataset rows 0.3x." width="80%"/>
+    <img class="block dark:hidden" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/huggingface_hub/chart-tokens.png" alt="Per-task token ratio of curl/Python SDK divided by the hf CLI on GPT-5.5, sorted high to low. Multi-step tasks cost curl/Python SDK far more: bucket create+sync+prune 6.0x, rank orgs by trending models 4.1x, repo create+branch+tag / delete files / copy files across repos 2.4x each. Simple one-shot reads sit near parity or cheaper: batch model metadata 0.5x, count dataset rows 0.3x." width="80%"/>
+    <img class="hidden dark:block" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/huggingface_hub/chart-tokens-dark.png" alt="Per-task token ratio of curl/Python SDK divided by the hf CLI on GPT-5.5, sorted high to low. Multi-step tasks cost curl/Python SDK far more: bucket create+sync+prune 6.0x, rank orgs by trending models 4.1x, repo create+branch+tag / delete files / copy files across repos 2.4x each. Simple one-shot reads sit near parity or cheaper: batch model metadata 0.5x, count dataset rows 0.3x." width="80%"/>
 </div>
 
-The shape is the whole point. On a one-shot read (count dataset rows, batch metadata) curl is fine, sometimes even lighter. But the moment a task is *real work*, several dependent calls that each need the previous result, curl has to hand-roll the entire chain of REST calls and the cost blows up: **2.4× to 6× the CLI** on creating a repo with a branch and tag, deleting files, copying across repos, syncing a bucket. The `hf` CLI folds that chain into one command. This is also exactly why a benchmark built on easy reads makes curl look better than it really is: it never reaches the tasks where the CLI pulls away.
+The shape is the whole point. On a one-shot read (count dataset rows, batch metadata) curl and the SDK are fine, sometimes even lighter. But the moment a task is *real work*, several dependent calls that each need the previous result, the agent has to hand-roll the entire chain of REST calls (or dig through the SDK) and the cost blows up: **2.4× to 6× the CLI** on creating a repo with a branch and tag, deleting files, copying across repos, syncing a bucket. The `hf` CLI folds that chain into one command. This is also exactly why a benchmark built on easy reads makes curl and the SDK look better than they really are: it never reaches the tasks where the CLI pulls away.
 
 ### Key findings
 
-- **The `hf` CLI is far leaner than curl.** For the same task, at equal-or-better success, curl burns **1.6× the tokens on Sonnet (302k vs 194k) and 1.8× on GPT-5.5 (346k vs 191k)**, runs about 1.5-1.9× as many commands, and is roughly 1.8× slower. On easy reads curl is fine, but on real multi-step work it pays **2× to 6×**: the CLI folds a chain of REST calls into one command, while curl re-derives that chain by hand every run.
-- **On a stronger model, curl works but stays wasteful.** On Sonnet it can't finish parts of the job (0.84; it fumbles the writes). On GPT-5.5 it mostly works (0.92), hand-rolling the REST calls correctly, but still pays ~1.8× the tokens and runs slower.
+- **The `hf` CLI is far leaner than curl or the SDK.** For the same task, at equal-or-better success, curl and the SDK burn **1.6× the tokens on Sonnet (302k vs 194k) and 1.8× on GPT-5.5 (346k vs 191k)**, run about 1.5-1.9× as many commands, and are roughly 1.8× slower. On easy reads they're fine, but on real multi-step work they pay **2× to 6×**: the CLI folds a chain of REST calls into one command, while curl or the SDK re-derives that chain by hand every run.
+- **On a stronger model, curl and the SDK work but stay wasteful.** On Sonnet they can't finish parts of the job (0.84; they fumble the writes). On GPT-5.5 they mostly work (0.92), hand-rolling the REST calls (or using the SDK) correctly, but still pay ~1.8× the tokens and run slower.
 
 ## The hf-cli skill
 
