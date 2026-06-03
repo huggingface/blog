@@ -1,5 +1,5 @@
 ---
-title: "Remote Tools for Reachy Mini Conversation App" 
+title: "Remote Tools for Reachy Mini Conversation App"
 thumbnail: /blog/assets/conversation-app-remote-tools/reachy_mini_remote_spaces_thumbnail.png
 authors:
 - user: alozowski
@@ -12,9 +12,27 @@ authors:
   <figcaption><em>Reachy Mini no longer has to look out the window to tell you the weather</em></figcaption>
 </figure>
 
-## What a Tool Is Today
+The Reachy Mini conversation app can now use tools hosted in public Hugging Face Spaces, called over MCP. You can give your robot a new ability, like checking the weather or searching the web, by adding a Space from the Hub instead of editing the app. The tool keeps running in the Space itself, so no code is downloaded onto your machine. And you can publish your own tools for other people to use.
 
-The Reachy Mini conversation app lets you talk to your robot, but what you get back isn't only a voice – it's a system that reacts to the conversation: the robot can move and respond non-verbally, when it's applicable. The part we want to focus on here is the tools that make that possible. A tool is something the model can do during a conversation: play an emotion, move the head, look through the camera. Each tool has a name and a short description. The model reads those, decides when one is useful, calls it, and uses what comes back.
+Adding one takes three commands:
+
+```
+reachy-mini-conversation-app tool-spaces add pollen-robotics/reachy-mini-search-tool
+reachy-mini-conversation-app tool-spaces add pollen-robotics/reachy-mini-weather-tool
+reachy-mini-conversation-app
+```
+
+Then you can just ask:
+
+```
+What's the weather in Paris today? Any concerts in Bordeaux this weekend?
+```
+
+The rest of this post covers what a tool actually is, how profiles decide which ones the robot can use, and what this remote path does and doesn't do yet.
+ 
+## Built-in tools
+
+When you talk to the robot, what you get back isn't only a voice, it's a system that reacts to the conversation: the robot can move and respond non-verbally, when it's applicable. The part we want to focus on here is the tools that make that possible. A tool is something the model can do during a conversation: play an emotion, move the head, look through the camera. Each tool has a name and a short description. The model reads those, decides when one is useful, calls it, and uses what comes back.
 
 Today every tool is local and ships inside the app, and most of them are about the robot's body:
 
@@ -27,9 +45,9 @@ Today every tool is local and ships inside the app, and most of them are about t
 | `camera` | Capture a frame and analyze it |
 | `idle_do_nothing` | Explicitly stay idle on an idle turn |
  
-## Profiles Decide Which Tools Are Exposed
+## How profiles control tools
 
-A tool in the code isn't usable until it's enabled in **a profile** – a folder with two files that matter here: `instructions.txt` (the prompt) and `tools.txt` (the tools that are turned on).
+A tool in the code isn't usable until it's enabled in **a profile**, a folder with two files that matter here: `instructions.txt` (the prompt) and `tools.txt` (the tools that are turned on).
 
 The `default` profile enables the full set:
 
@@ -51,47 +69,33 @@ You can also write your own tool: add a Python file to the profile (or `external
 
 Today there are built-in tools and custom local tools, and `tools.txt` decides which are active. This works well for the robot's body and keeps the trusted core small.
 
-## The Limitation
+## The limits of local tools
 
-The catch is that every tool has to be local Python – for `move_head` or `play_emotion` that's right, they talk to the hardware and belong in the app – but a lot of useful things have nothing to do with the body, like web search, weather, or lookups. For those, keeping everything local is mostly friction:
+The constraint here is that every tool has to be local Python. For `move_head` or `play_emotion` that's right: they talk to the hardware and belong in the app but a lot of useful things have nothing to do with the body, like web search, weather, or lookups. For those, keeping everything local is mostly friction:
 
 - sharing a tool means handing someone your Python files
 - updating it means sending those files again
 - changing it means editing the app, even though the capability is really separate from it
 
-## What Remote Tools Solve
+## Calling tools from Spaces
 
-The conversation app can now call tools from public Hugging Face Spaces over MCP without downloading any Python code into the app. This creates a practical middle ground between tools that belong in the app and tools that are easier to publish, share, and update independently:
+Remote tools add a third kind, alongside the built-in and custom local tools you already have, for capabilities that are easier to publish, share, and update on their own:
 
 - built-in robot tools stay local and trusted
 - shareable remote tools can live in public Hugging Face Spaces
-- you still can use custom one-off tools from `external_tools/`
+- you can still use custom one-off tools from `external_tools/`
 
-It is a good fit for stateless capabilities like search, weather, docs lookup, and anything you want to iterate on without touching the app itself. It also makes it easy to collaborate: anyone can publish a compatible Space and others can install it.
+It's a good fit for stateless capabilities like search, weather, and lookups: anything you want to iterate on without touching the app itself. And because anyone can publish a compatible Space, it's easy to share tools and build on each other's work.
 
-As a test case, the first canary tools are:
+We started with two canary tools, small test tools to exercise the new flow:
+ 
 - [pollen-robotics/reachy-mini-search-tool](https://huggingface.co/spaces/pollen-robotics/reachy-mini-search-tool)
 - [pollen-robotics/reachy-mini-weather-tool](https://huggingface.co/spaces/pollen-robotics/reachy-mini-weather-tool)
 
-Those two are enough to test the new feature: install from the Hub, resolve remote tools, enable them per profile, and let the realtime backend call them exactly like built-in tools.
+They're enough to exercise the whole feature: install from the Hub, discover the remote tools, enable them per profile, and let the realtime backend call them exactly like built-in tools.
 
-## Quick Start
+## Install, list, remove
  
-```
-reachy-mini-conversation-app tool-spaces add pollen-robotics/reachy-mini-search-tool
-reachy-mini-conversation-app tool-spaces add pollen-robotics/reachy-mini-weather-tool
-reachy-mini-conversation-app
-```
-
-Each `add` installs the Space and enables its tools in the active profile (`default`, or whatever `REACHY_MINI_CUSTOM_PROFILE` is set to). Then:
-
-```
-What's the weather in Paris today?
-Should I bring a jacket in Bordeaux today, and is there anything major happening downtown tonight?
-```
-
-## Install, List, Remove
-
 ```
 # install + enable in active profile
 reachy-mini-conversation-app tool-spaces add <owner/space-name>
@@ -119,9 +123,9 @@ Installed sources are persisted in:
 - `installed_tool_spaces.json` in managed app mode
 - `external_content/installed_tool_spaces.json` in terminal mode
 
-## How Space IDs Become Local Tool Names
+## Tool naming
 
-Each installed Space gets a local alias derived from its slug – hyphens, dots, and slashes all collapse to underscores:
+Each installed Space gets a local alias derived from its slug, with hyphens, dots, and slashes collapsing to underscores:
 
 ```
 pollen-robotics/reachy-mini-search-tool → pollen_robotics_reachy_mini_search_tool
@@ -140,7 +144,7 @@ The implementation also strips redundant Space-name prefixes when possible, so a
 
 There is also a duplicate safety check at registry level: `Tool.name` values must be unique across the entire merged tool set. The app fails fast if two sources claim the same name.
 
-## Example Profiles
+## Example profiles
 
 For this work we created two focused canary profiles to isolate the MCP experiment from the full embodied tool set.
 
@@ -167,9 +171,9 @@ pollen_robotics_reachy_mini_search_tool__search_web
 pollen_robotics_reachy_mini_weather_tool__get_day_brief
 ```
 
-The small physical tool set (emotions, head movement) means Reachy Mini can still react expressively while answering current questions from the web.
+The small physical tool set means Reachy Mini can still react expressively while answering current questions from the web.
 
-## Prompting Matters More Than It Looks
+## Why the prompts matter
 
 The remote-tool plumbing gets the tools into the model. The prompts decide how the model uses them.
 
@@ -226,7 +230,7 @@ Do not talk about tool usage unless the user asks.
 Keep responses short and spoken-style, as if read aloud by a voice assistant. One or two sentences is usually enough. Skip preamble, lists, headers, and filler. Give just the fact or direct answer the user needs.
 ```
 
-## What's Supported, and What Isn't Yet
+## What works today, and what doesn't
 
 | Capability | Supported |
 | --- | --- |
@@ -243,18 +247,19 @@ Keep responses short and spoken-style, as if read aloud by a voice assistant. On
 
 Two things are worth calling out. First, the Space has to actually behave like an MCP server; if tool discovery fails, the install fails. Second, prompt instructions can encourage parallel calls but cannot guarantee them. If deterministic orchestration matters for a use case, that logic should move from the prompt into code.
 
-## Recommended Tags for Space Authors
+## Tips for publishing a tool Space
 
-Tags are *not* required for installation but help people discover compatible Spaces:
+If you want others to use your tool, publish it as a public Gradio Space that exposes the standard MCP endpoint, and keep the tools stateless so they work well over the network. Whether a Space installs depends on this runtime behavior, not on tags.
+
+Tags aren't required for installation, but they help people find compatible Spaces:
 
 - `reachy-mini-tool`
 - `mcp`
 
-Installation still depends on runtime validation, not tag presence.
-
 ## Conclusion
 
 The app now has three kinds of tools sharing one registry: built-in, local custom, and remote MCP tools, and profiles still decide which of them a given assistant can reach. A small, trusted core stays at the center while the optional capabilities around it can be added, tested, and swapped without touching the app itself.
-What we're most curious about now is what people build. If you publish a tool Space, tag it reachy-mini-tool and mcp so others can find it – we'd love to see what Reachy Mini ends up able to do!
+
+What we're most curious about now is what people build. If you publish a tool Space, tag it `reachy-mini-tool` and `mcp` so others can find it. We'd love to see what Reachy Mini ends up able to do!
 
 *Acknowledgements: Many thanks to [Fabien Danieau](https://huggingface.co/FabienDanieau) for proofreading this post and helping test the workflow, to [Andres Marafioti](https://huggingface.co/andito) for helping test it, and to [Remi Fabre](https://huggingface.co/RemiFabre) and the Pollen Robotics team for the ideas and feedback that shaped the remote tools workflow.*
