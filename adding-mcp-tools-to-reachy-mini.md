@@ -1,14 +1,14 @@
 ---
-title: "Remote Tools for Reachy Mini Conversation App"
-thumbnail: /blog/assets/conversation-app-remote-tools/reachy_mini_remote_spaces_thumbnail.png
+title: "Adding MCP Tools to Reachy Mini"
+thumbnail: /blog/assets/adding-mcp-tools-to-reachy-mini/reachy_mini_remote_spaces_thumbnail.png
 authors:
 - user: alozowski
 ---
 
-# Remote Tools for Reachy Mini Conversation App
+# Adding MCP Tools to Reachy Mini
 
 <figure class="image text-center">
-  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/conversation-app-remote-tools/reachy_mini_window.jpg" alt="Reachy Mini looking out the window">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/adding-mcp-tools-to-reachy-mini/reachy_mini_window.jpg" alt="Reachy Mini looking out the window">
   <figcaption><em>Reachy Mini no longer has to look out the window to tell you the weather</em></figcaption>
 </figure>
 

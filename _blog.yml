@@ -5378,7 +5378,7 @@
     - open-source
     - kernels
 
-- local: conversation-app-remote-tools
+- local: adding-mcp-tools-to-reachy-mini
   date: June 3, 2026
   tags:
     - guide
