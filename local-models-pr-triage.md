@@ -17,7 +17,7 @@ OpenClaw gets hundreds of issues and PRs every day, which need to be triaged, pr
 
 I also happen to have 128 GB of unified memory, namely an Nvidia GB10 a.k.a. DGX Spark, at my disposal, so I took on the task:
 
-<img src="https://files.catbox.moe/xv93um.png" alt="NVIDIA DGX Spark" width="640" style="max-width: 100%;" />
+<img src="https://files.catbox.moe/xv93um.png" alt="NVIDIA DGX Spark" style="width: 50%; min-width: 280px;" />
 
 > Can I build a real-time notification system that filters and notifies me for only the issues that I am responsible for... with local models?
 
