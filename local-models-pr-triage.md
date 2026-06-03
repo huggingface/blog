@@ -42,4 +42,30 @@ We use an agent harness to drive the classification run. For this, we bundle [pi
 
 The agent by default receives the PR title, body and a truncated excerpt of the PR diff in the first prompt. Then, it can choose to use the `bash` tool to perform read-only operations on the OpenClaw repo (in case it needs to look at the codebase), or the `final_json` tool to submit the final classification result.
 
-You wouldn't want to give full bash access to a small model like Gemma 4, because there is a higher likelihood of getting prompt injected! For that reason, we use [`reposhell`](https://github.com/osolmaz/localpager/tree/main/reposhell) instead of `bash`: a restricted `bash`-like shell that only allows read-only operations (`ls`, `find`, `cat`, `grep`, etc.) on the OpenClaw repo.
+You wouldn't want to give full bash access to a small model like Gemma 4, because there is a higher likelihood of getting prompt injected! For that reason, we use [`reposhell`](https://github.com/osolmaz/localpager/tree/main/reposhell) instead of `bash`: a restricted `bash`-like shell that only allows read-only operations (`ls`, `find`, `cat`, `grep`, etc.) on the OpenClaw repo. The model thinks it is using `bash`, but any operation that is not allowed is rejected:
+
+
+```
+reposhell bound cwd=/repo/openclaw repos=openclaw
+type help for allowed commands; exit or quit to leave
+reposhell /repo/openclaw> help
+allowed: pwd, ls, find, rg, grep, sed -n, cat, head, tail, wc -l, git status --short, git show --name-only, git grep, git ls-files
+search: rg -n -i "lm studio" or grep -R -n -i "lm studio" .
+files: rg --files -g "*.ts" or git ls-files src
+examples: rg -n reposhell README.md | sed is not allowed; use one simple command at a time
+reposhell /repo/openclaw> head README.md
+# 🦞 OpenClaw — Personal AI Assistant
+
+<p align="center">
+    <picture>
+        <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/openclaw/openclaw/main/docs/assets/openclaw-logo-text-dark.svg">
+        <img src="https://raw.githubusercontent.com/openclaw/openclaw/main/docs/assets/openclaw-logo-text.svg" alt="OpenClaw" width="500">
+    </picture>
+</p>
+
+<p align="center">
+reposhell /repo/openclaw> curl localhost
+reposhell policy denied command: unsupported command "curl"
+exit_code=2
+reposhell /repo/openclaw>
+```
