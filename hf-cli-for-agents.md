@@ -26,7 +26,7 @@ The bars count distinct users per agent; request volume is the sub-label. Claude
 ## Built for humans and agents
 
 The `hf` CLI serves two users from the same commands: humans and coding agents, and they want opposite things. A human wants rich terminal output: ANSI color, padded tables truncated to fit the screen, a green `✓` on success, `✔` for booleans, progress bars, prose hints. An agent wants
-the inverse: no ANSI, nothing truncated, every value in full since an agent can handle far denser output than a human, kept compact and structured to stay light on tokens. It also can't answer a prompt and will happily re-run a command after a timeout. The rest of this section is how `hf` gives each side what it needs.
+the inverse: no ANSI, nothing truncated, every value in full since an agent can handle far denser output than a human, kept compact and structured to stay light on tokens. It also can't answer a CLI prompt and will happily re-run a command after a timeout. The rest of this section is how `hf` gives each side what it needs.
 
 ### One command, multiple renderings
 
@@ -103,7 +103,7 @@ Examples
   $ hf models ls Qwen/Qwen3-4B --tree
 ```
 
-The command tree is consistent, **resource + verb** with the obvious aliases (`hf models ls`, `hf repos create`, `hf jobs ps`, `hf collections delete`; `list`/`ls`, `remove`/`rm`), so once an agent learns one command it can guess the rest. And the output composes: `-q` prints one id per line to pipe into the next command, `--json` gives you something to hand to `jq`.
+The command tree is consistent, **resource + verb** with the obvious aliases (`hf models ls`, `hf repos create`, `hf jobs ps`, `hf collections delete`; `list`/`ls`, `remove`/`rm`), so once an agent learns one command it can guess the rest. And the output composes: `-q` prints one id per line to pipe into the next command, `--json` gives you something to hand to [`jq`](https://jqlang.org/).
 
 ```text
 $ hf models ls --author Qwen -q | head -3
@@ -184,7 +184,7 @@ What does it buy you? Mostly, the agent stops guessing. The clearest single view
     <img class="hidden dark:block" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/huggingface_hub/chart-skill-dark.png" alt="Mean commands (tool calls) per run, with and without the hf-cli skill, on both agents. Claude Code (Sonnet 4.6): 10.4 without the skill, 6.9 with it. Codex (GPT-5.5): 10.1 without, 7.3 with. Fewer is better." width="100%"/>
 </div>
 
-On both agents that's about ten commands per task down to about seven, roughly 30% fewer tool calls - because the agent isn't probing `--help` to find the right command and argument; it already has the map. The skill won't cut your token bill (it's a fixed slice of context the agent loads up front, so tokens hold steady or tick up) and it won't make an already-reliable CLI much more reliable. What it buys is fewer wrong turns: the agent spends its budget doing the task instead of rediscovering the tool.
+On both agents that's about ten commands per task down to about seven, roughly 30% fewer tool calls - because the agent isn't probing `--help` to find the right command and argument; it already has the map. The skill won't cut your token bill (it's a fixed slice of context the agent loads up front, so tokens hold steady or tick up) and it won't make an already-reliable CLI much more reliable. What it buys is fewer wrong turns: the agent spends its budget doing the task instead of rediscovering the tool. This could be particularly helpful when using `hf` with local models.
 
 ## Try it yourself
 
@@ -209,4 +209,4 @@ hf skills add --claude   # the above + Claude Code
 
 The full command reference lives in the [`hf` CLI guide](https://huggingface.co/docs/huggingface_hub/guides/cli).
 
-Building an agent harness yourself? **Get it registered!** That's how `hf` learns to detect it, and how the Hub attributes its traffic to you. You simply need to open a small PR adding an entry to [`[agent-harnesses.ts](https://github.com/huggingface/huggingface.js/blob/main/packages/tasks/src/agent-harnesses.ts)`](https://github.com/huggingface/huggingface.js/blob/main/packages/tasks/src/agent-harnesses.ts). Read the [[Register your agent harness](https://huggingface.co/docs/hub/agents-overview#register-your-agent-harness)](https://huggingface.co/docs/hub/agents-overview#register-your-agent-harness) guide for more details.
+Building an agent harness? **Get it registered!** That's how `hf` learns to detect it, and how the Hub attributes its traffic to you. You simply need to open a small PR adding an entry to [`[agent-harnesses.ts](https://github.com/huggingface/huggingface.js/blob/main/packages/tasks/src/agent-harnesses.ts)`](https://github.com/huggingface/huggingface.js/blob/main/packages/tasks/src/agent-harnesses.ts). Read the [[Register your agent harness](https://huggingface.co/docs/hub/agents-overview#register-your-agent-harness)](https://huggingface.co/docs/hub/agents-overview#register-your-agent-harness) guide for more details.
