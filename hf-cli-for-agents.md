@@ -161,8 +161,8 @@ The shape is the whole point. On a one-shot read (count dataset rows, batch meta
 
 ### Key findings
 
-- **The `hf` CLI is far leaner than curl or the SDK.** For the same task, at equal-or-better success, curl and the SDK burn **1.6× the tokens on Sonnet (302k vs 194k) and 1.8× on GPT-5.5 (346k vs 191k)**, and run slower. On easy reads they're fine, but on real multi-step work they pay **2× to 6×**: the CLI folds a chain of REST calls into one command, while curl or the SDK re-derives that chain by hand every run.
-- **On a stronger model, curl and the SDK work but stay wasteful.** On Sonnet they can't finish parts of the job (0.84; they fumble the writes). On GPT-5.5 they mostly work (0.92), hand-rolling the REST calls (or using the SDK) correctly, but still pay ~1.8× the tokens and run slower.
+- **The `hf` CLI is far leaner than curl or the SDK.** For the same task, at equal-or-better success, curl and the SDK burn **1.6× the tokens on Sonnet (302k vs 194k) and 1.8× on GPT-5.5 (346k vs 191k)**. On easy reads they're fine, but on real multi-step work they pay **2× to 6×**: the CLI folds a chain of REST calls into one command, while curl or the SDK re-derives that chain by hand every run.
+- **On a stronger model, curl and the SDK work but stay wasteful.** On Sonnet they can't finish parts of the job (0.84; they fumble the writes). On GPT-5.5 they mostly work (0.92), hand-rolling the REST calls (or using the SDK) correctly, but still pay ~1.8× the tokens.
 
 ## The hf-cli skill
 
