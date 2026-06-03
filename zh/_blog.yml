@@ -1755,3 +1755,12 @@
     - Codex
     - Gemini
     - agents
+
+- local: torch-profiler
+  date: May 29, 2026
+  tags:
+    - torch
+    - profile
+    - CUDA
+    - open-source
+    - kernels
