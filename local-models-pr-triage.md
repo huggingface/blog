@@ -98,6 +98,48 @@ localpager-agent \
 
 So then what orchestrates everything in between the incoming PR/issue and the final notification on Discord?
 
+```mermaid
+flowchart TB
+  subgraph Source["External source"]
+    direction TB
+    GitHub["GitHub"]
+  end
+
+  subgraph Local["Local machine"]
+    direction TB
+    Gitcrawl["gitcrawl"]
+    Queue["SQLite queue"]
+    Worker["Localpager worker"]
+
+    subgraph Agent["localpager-agent"]
+      direction TB
+      Pi["Pi harness"]
+      Gemma["Gemma 4 E4B"]
+      FinalJSON["final_json"]
+      Reposhell["reposhell"]
+    end
+
+    Results["SQLite results"]
+    Policy{"Match?"}
+  end
+
+  subgraph Destination["External destination"]
+    direction TB
+    Discord["Discord"]
+  end
+
+  GitHub -->|"PRs and issues"| Gitcrawl
+  Gitcrawl -->|"mirror updates"| Queue
+  Queue -->|"claim job"| Worker
+  Worker -->|"prompt, context, schema"| Pi
+  Pi -. "local inference" .-> Gemma
+  Pi -->|"structured output"| FinalJSON
+  Pi -. "optional repo lookup" .-> Reposhell
+  FinalJSON -->|"classification JSON"| Results
+  Results -->|"notify_topics_any"| Policy
+  Policy -->|"matching topics only"| Discord
+```
+
 This part is very simple and does not involve any LLMs:
 
 1. We use [openclaw/gitcrawl](http://github.com/openclaw/gitcrawl) to act as a local mirror for the repo. Whenever there is a new PR or issue, each item is normalized into the same shape and written into localpager's own SQLite database. If the item is new, localpager creates a classification job for it.
