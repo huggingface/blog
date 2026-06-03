@@ -207,6 +207,15 @@ hf skills add            # Codex, Cursor, OpenCode, Pi and other agents that loa
 hf skills add --claude   # the above + Claude Code
 ```
 
+Then point your agent at the Hub and let it work. Make sure you're logged in (`hf auth login`), then hand it a prompt like:
+
+```text
+Run `hf --help`, then use it to list my models, datasets, and Spaces.
+Take a look at how I use the Hub and suggest a few ways you could help me.
+```
+
+It'll work out the commands on its own and come back with something useful.
+
 The full command reference lives in the [`hf` CLI guide](https://huggingface.co/docs/huggingface_hub/guides/cli).
 
-Building an agent harness yourself? **Get it registered!** That's how `hf` learns to detect it, and how the Hub attributes its traffic to you. You simply need to open a small PR adding an entry to [`[agent-harnesses.ts](https://github.com/huggingface/huggingface.js/blob/main/packages/tasks/src/agent-harnesses.ts)`](https://github.com/huggingface/huggingface.js/blob/main/packages/tasks/src/agent-harnesses.ts). Read the [[Register your agent harness](https://huggingface.co/docs/hub/agents-overview#register-your-agent-harness)](https://huggingface.co/docs/hub/agents-overview#register-your-agent-harness) guide for more details.
+Building an agent harness yourself? **Get it registered!** That's how `hf` learns to detect it, and how the Hub attributes its traffic to you. You simply need to open a small PR adding an entry to [`agent-harnesses.ts`](https://github.com/huggingface/huggingface.js/blob/main/packages/tasks/src/agent-harnesses.ts). Read the [Register your agent harness](https://huggingface.co/docs/hub/agents-overview#register-your-agent-harness) guide for more details.
