@@ -185,7 +185,9 @@ What does it buy you? Mostly, the agent stops guessing. The clearest single view
 
 On both agents that's about ten commands per task down to about seven, roughly 30% fewer tool calls - because the agent isn't probing `--help` to find the right command and argument; it already has the map. The skill won't cut your token bill (it's a fixed slice of context the agent loads up front, so tokens hold steady or tick up) and it won't make an already-reliable CLI much more reliable. What it buys is fewer wrong turns: the agent spends its budget doing the task instead of rediscovering the tool.
 
-## Try it
+## Try it yourself
+
+We benchmarked all this because we think it matters. Agents are becoming real users of the Hub: they train models, build and clean datasets, and ship demos as Spaces, almost always on behalf of a person. A Hub that works well for agents is also a Hub that works better for the people using them. The better an agent's tools, the more it can do for you. An `hf` that agents can drive as well as people is one piece of that.
 
 If your agent interacts with the Hugging Face Hub, we recommend giving it the `hf` CLI:
 
