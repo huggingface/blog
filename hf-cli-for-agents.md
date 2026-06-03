@@ -130,19 +130,18 @@ The config is deliberately clean: a fresh instance per run, no custom MCP server
 The ranking came out **identical on both agents**:
 
 
-| agent                        | tool        | mean score | mean commands | token tax | false "done" |
-| ---------------------------- | ----------- | ---------- | ------------- | ---------------- | ------------ |
-| **Claude Code (Sonnet 4.6)** | `hf` CLI    | **0.94**   | **6.9**       | baseline         | **2 / 163**  |
-|                              | curl / Python SDK | 0.84       | 12.8          | **1.6× tokens**  | 11 / 163     |
-| **Codex (GPT-5.5)**          | `hf` CLI    | **0.93**   | **7.3**       | baseline         | **3 / 163**  |
-|                              | curl / Python SDK | 0.92       | 11.0          | **1.8× tokens**  | 10 / 163     |
+| agent                        | tool        | mean score | token tax | false "done" |
+| ---------------------------- | ----------- | ---------- | ---------------- | ------------ |
+| **Claude Code (Sonnet 4.6)** | `hf` CLI    | **0.94**   | baseline         | **2 / 163**  |
+|                              | curl / Python SDK | 0.84       | **1.6× tokens**  | 11 / 163     |
+| **Codex (GPT-5.5)**          | `hf` CLI    | **0.93**   | baseline         | **3 / 163**  |
+|                              | curl / Python SDK | 0.92       | **1.8× tokens**  | 10 / 163     |
 
 
 *(false "done" = the agent reported success on the 17 solvable tasks but the Hub said otherwise.
-Mean commands = tool calls per run; we don't report turns, since Codex counts a whole run as one.
-The `hf` CLI rows are the CLI with its skill installed; what the skill adds over the bare CLI is
-shown separately in [the skill section](#the-hf-cli-skill) below. Every run's full
-transcript is published [in this bucket](https://huggingface.co/buckets/celinah/hf-cli-agent-benchmark).)*
+The `hf` CLI rows are the CLI with its skill installed; what the skill adds on top of the bare CLI
+(chiefly fewer tool calls) is broken out in [the skill section](#the-hf-cli-skill) below. Every run's
+full transcript is published [in this bucket](https://huggingface.co/buckets/celinah/hf-cli-agent-benchmark).)*
 
 Two pictures carry the result. First, **task success on Sonnet**, the agent where curl and the SDK struggle most:
 
@@ -162,7 +161,7 @@ The shape is the whole point. On a one-shot read (count dataset rows, batch meta
 
 ### Key findings
 
-- **The `hf` CLI is far leaner than curl or the SDK.** For the same task, at equal-or-better success, curl and the SDK burn **1.6× the tokens on Sonnet (302k vs 194k) and 1.8× on GPT-5.5 (346k vs 191k)**, run about 1.5-1.9× as many commands, and are roughly 1.8× slower. On easy reads they're fine, but on real multi-step work they pay **2× to 6×**: the CLI folds a chain of REST calls into one command, while curl or the SDK re-derives that chain by hand every run.
+- **The `hf` CLI is far leaner than curl or the SDK.** For the same task, at equal-or-better success, curl and the SDK burn **1.6× the tokens on Sonnet (302k vs 194k) and 1.8× on GPT-5.5 (346k vs 191k)**, and run slower. On easy reads they're fine, but on real multi-step work they pay **2× to 6×**: the CLI folds a chain of REST calls into one command, while curl or the SDK re-derives that chain by hand every run.
 - **On a stronger model, curl and the SDK work but stay wasteful.** On Sonnet they can't finish parts of the job (0.84; they fumble the writes). On GPT-5.5 they mostly work (0.92), hand-rolling the REST calls (or using the SDK) correctly, but still pay ~1.8× the tokens and run slower.
 
 ## The hf-cli skill
