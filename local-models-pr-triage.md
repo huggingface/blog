@@ -24,13 +24,13 @@ I also happen to have 128 GB of unified memory, namely an NVIDIA GB10, at my dis
   <figcaption>This tiny box, a.k.a. DGX Spark, can run 4-6 Gemma 4 E4B generations at once.</figcaption>
 </figure>
 
-I can of course set up my OpenClaw main agent running on my $200/mo ChatGPT pro plan to trigger a job on every new issue or PR. But then that might use up my quota too quickly—so I might instead set it to run every 2 hours, or 6 hours. Since I would be batching a large number of issues, I would be trading real-time notifications for cheaper and lower quality processing.
+We can of course set up my OpenClaw main agent running on my $200/mo ChatGPT pro plan to trigger a job on every new issue or PR. But then that might use up my quota too quickly—so we might instead set it to run every 2 hours, or 6 hours. Since we would be batching a large number of issues, we would be trading real-time notifications for cheaper and lower quality processing.
 
-But a better approach would be to use the hardware I already have up and running to do this for free (or rather, for the cost of electricity).
+But a better approach would be to use the hardware we already have up and running to do this for free (or rather, for the cost of electricity).
 
 How would that work?
 
-Basically, I came up with a finite set of labels representing the categories of issues I need to triage, and then use a local model to classify each issue into one of those categories, like `local_models`, `self_hosted_inference`, `acp`, `agent_runtime`, `codex`, `ui_tui` and so on.
+Basically, we came up with a finite set of labels representing the categories of issues we need to triage, and then use a local model to classify each issue into one of those categories, like `local_models`, `self_hosted_inference`, `acp`, `agent_runtime`, `codex`, `ui_tui` and so on.
 
 But how to do the classification though? A simple single request to a Chat Completions endpoint with a tool JSON schema, with the topics as an enum?
 
