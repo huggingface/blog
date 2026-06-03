@@ -27,6 +27,12 @@ How would that work?
 
 Basically, I came up with a finite set of labels representing the categories of issues I need to triage, and then use a local model to classify each issue into one of those categories, like `local_models`, `self_hosted_inference`, `acp`, `agent_runtime`, `codex`, `ui_tui` and so on.
 
-But how to do the classification though? A simple single request to a Chat Completions endpoint with a tool JSON schema with the topics as an enum?
+But how to do the classification though? A simple single request to a Chat Completions endpoint with a tool JSON schema, with the topics as an enum?
 
-Kind of. But this is 2026, not 2023. And we have AGENTS. We can do better!
+Kind of. But this is 2026, not 2023, and we have AGENTS. We can do better!
+
+For the local mode of choice, we will be using [`gemma-4-E4B-it`](https://huggingface.co/google/gemma-4-E4B-it), because it makes it possible to make 3 concurrent requests safely with the hardware I have, giving me a lot of throughput!
+
+And we will be using an agent harness to drive the classification run. For this, I bundle `pi` as a harness that can call local model endpoints.
+
+The agent is able to call a restricted `bash`-like shell perform read-only `ls`, `find`, `cat`, `grep` operations on the OpenClaw repo, and then finally call a `final_json` to submit the final classification result. This part is important for security; you don't want to give full bash access to a small model, because there is a higher likelihood of getting prompt injected!
