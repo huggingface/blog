@@ -48,11 +48,13 @@ You wouldn't want to give full bash access to a small model like Gemma 4, becaus
 ```
 reposhell bound cwd=/repo/openclaw repos=openclaw
 type help for allowed commands; exit or quit to leave
+
 reposhell /repo/openclaw> help
 allowed: pwd, ls, find, rg, grep, sed -n, cat, head, tail, wc -l, git status --short, git show --name-only, git grep, git ls-files
 search: rg -n -i "lm studio" or grep -R -n -i "lm studio" .
 files: rg --files -g "*.ts" or git ls-files src
 examples: rg -n reposhell README.md | sed is not allowed; use one simple command at a time
+
 reposhell /repo/openclaw> head README.md
 # 🦞 OpenClaw — Personal AI Assistant
 
@@ -64,6 +66,7 @@ reposhell /repo/openclaw> head README.md
 </p>
 
 <p align="center">
+
 reposhell /repo/openclaw> curl localhost
 reposhell policy denied command: unsupported command "curl"
 exit_code=2
