@@ -18,7 +18,7 @@ authors:
 
 [Xe-Forge](https://github.com/IntelLabs/Xe-Forge) ([Spoczynski et al., 2026](https://arxiv.org/abs/2605.26118)) is an Intel project that uses an LLM to optimize Triton kernels for Intel Arc Pro GPUs (Xe2). It applies a sequence of optimization stages — fusion, dtype fixes, memory access, block pointers, XPU-specific tuning, autotuning — and validates each one on the GPU before moving on. The agent loop, called CoVeR (Chain-of-Verification-and-Refinement), proposes a candidate, runs it, and iterates if it fails or regresses. A small knowledge base of Xe2-specific patterns (tensor descriptors, GRF mode 256, tile swizzling) is read at the start of each session because these aren't well-represented in LLM training data.
 
-On Arc Pro B70, Xe-Forge reports a 1.17× geomean speedup over PyTorch eager across 97 KernelBench Level-2 kernels and 2–13.3× on Flash Attention forward.
+On Arc Pro B70, Xe-Forge delivers a 1.26× geomean speedup over PyTorch eager across the full 100 KernelBench Level-2 kernels — with 69% of problems seeing a net speedup — and up to 13.3× on Flash Attention forward.
 
 The [xpu-kernels skill](https://github.com/huggingface/kernels/tree/main/kernel-builder/skills/xpu-kernels) packages Xe-Forge's Claude Code engine — the same workflow, tools, and knowledge base — as an Agent Skill, so a coding agent can run the loop without cloning the full project, and the finalized kernel can be published to the [Hugging Face Kernel Hub](https://huggingface.co/kernels) and loaded with `get_kernel(...)`. This post shows that:
 
@@ -152,7 +152,7 @@ These are gains *on top of* an already-optimized kernel, across a spread of atte
 
 #### Breadth: KernelBench Level 2
 
-To confirm the skill generalizes beyond attention, we also ran it across the fused KernelBench Level-2 patterns (GEMM+Sigmoid+Scaling+ResidualAdd, GEMM+GELU+Softmax, Conv+BatchNorm+ReLU, …) vs. PyTorch eager. The aggregate result — a **1.17× geomean** on Arc Pro B70 — and the full per-problem analysis are reported in the [Xe-Forge paper](https://arxiv.org/abs/2605.26118).
+For breadth across a wider operator mix, the underlying **Xe-Forge framework** was run across the full **100 KernelBench Level-2** fused patterns (GEMM+Sigmoid+Scaling+ResidualAdd, GEMM+GELU+Softmax, Conv+BatchNorm+ReLU, …) vs. PyTorch eager on Arc Pro B70, reaching a **1.26× geomean speedup** with a **69% win rate** (the fraction of problems that see a net speedup); the full per-problem analysis is in the [Xe-Forge paper](https://arxiv.org/abs/2605.26118).
 
 **Key insight:** the bottleneck for LLM-driven kernel optimization on a less-represented architecture is *knowledge access*, not raw model capability. A small, curated reference set plus a strict tool-driven loop is enough to make a general coding agent productive on Intel XPU — productive enough to improve on kernels that experts have already optimized.
 
