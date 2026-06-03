@@ -14,22 +14,25 @@ authors:
 
 The Reachy Mini conversation app can now use tools hosted in public Hugging Face Spaces, called over MCP. You can give your robot a new ability, like checking the weather or searching the web, by adding a Space from the Hub instead of editing the app. The tool keeps running in the Space itself, so no code is downloaded onto your machine. And you can publish your own tools for other people to use.
 
-Adding one takes three commands:
+Adding a tool takes one command:
 
 ```
-reachy-mini-conversation-app tool-spaces add pollen-robotics/reachy-mini-search-tool
 reachy-mini-conversation-app tool-spaces add pollen-robotics/reachy-mini-weather-tool
+```
+
+Then start the app as usual:
+```
 reachy-mini-conversation-app
 ```
 
-Then you can just ask:
+Now you can just ask:
 
 ```
-What's the weather in Paris today? Any concerts in Bordeaux this weekend?
+What's the weather in Paris today?
 ```
 
-The rest of this post covers what a tool actually is, how profiles decide which ones the robot can use, and what this remote path does and doesn't do yet.
- 
+Below, we look at what a tool is, how profiles control what the robot can use, and the current limits of the remote path.
+
 ## Built-in tools
 
 When you talk to the robot, what you get back isn't only a voice, it's a system that reacts to the conversation: the robot can move and respond non-verbally, when it's applicable. The part we want to focus on here is the tools that make that possible. A tool is something the model can do during a conversation: play an emotion, move the head, look through the camera. Each tool has a name and a short description. The model reads those, decides when one is useful, calls it, and uses what comes back.
@@ -84,16 +87,23 @@ Remote tools add a third kind, alongside the built-in and custom local tools you
 - built-in robot tools stay local and trusted
 - shareable remote tools can live in public Hugging Face Spaces
 - you can still use custom one-off tools from `external_tools/`
-
 It's a good fit for stateless capabilities like search, weather, and lookups: anything you want to iterate on without touching the app itself. And because anyone can publish a compatible Space, it's easy to share tools and build on each other's work.
 
 We started with two canary tools, small test tools to exercise the new flow:
- 
 - [pollen-robotics/reachy-mini-search-tool](https://huggingface.co/spaces/pollen-robotics/reachy-mini-search-tool)
 - [pollen-robotics/reachy-mini-weather-tool](https://huggingface.co/spaces/pollen-robotics/reachy-mini-weather-tool)
 
 They're enough to exercise the whole feature: install from the Hub, discover the remote tools, enable them per profile, and let the realtime backend call them exactly like built-in tools.
 
+To use both at once, add each Space and their tools stack in the same profile:
+
+```
+reachy-mini-conversation-app tool-spaces add pollen-robotics/reachy-mini-search-tool
+reachy-mini-conversation-app tool-spaces add pollen-robotics/reachy-mini-weather-tool
+```
+
+Now the robot can search the web and check the weather in the same conversation, which is exactly what the `canary_web_search_weather` profile below does.
+ 
 ## Install, list, remove
  
 ```
