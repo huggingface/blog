@@ -28,7 +28,7 @@ The bars count distinct users per agent; request volume is the sub-label. Claude
 The `hf` CLI serves two users from the same commands: humans and coding agents, and they want opposite things. A human wants rich terminal output: ANSI color, padded tables truncated to fit the screen, a green `✓` on success, `✔` for booleans, progress bars, prose hints. An agent wants
 the inverse: no ANSI, nothing truncated, every value in full since an agent can handle far denser output than a human, kept compact and structured to stay light on tokens. It also can't answer a prompt and will happily re-run a command after a timeout. The rest of this section is how `hf` gives each side what it needs.
 
-### One command, two renderings
+### One command, multiple renderings
 
 Because `hf` detects when an agent is driving it (the same signal behind the traffic numbers above), it renders the **same command** two ways, so an agent gets agent-shaped output without passing a flag:
 
@@ -50,11 +50,13 @@ Qwen/Qwen2.5-1.5B-Instruct      2024-09-17T14:10:29+00:00       15143953        
 Qwen/Qwen3-4B   2025-04-27T03:41:29+00:00       14808352        transformers    625     text-generation False   ['transformers', 'safetensors', 'text-generation', 'arxiv:2309.00071', 'arxiv:2505.09388', 'base_model:Qwen/Qwen3-4B-Base', 'base_model:finetune:Qwen/Qwen3-4B-Base', 'license:apache-2.0', 'endpoints_compatible', 'deploy:azure', 'region:us']
 ```
 
-A **human** gets an aligned table, truncated to fit the terminal, plus a hint on how to see more, with color cues for status (a green `✓` on success, red on error). An **agent** gets the complete record as TSV: full repo ids, full ISO timestamps, every tag, no ANSI codes, nothing truncated, clean to parse and light on tokens. You can always force the choice with `--format human | agent | json | quiet` (`--json` and `-q` are shorthands).
+A **human** gets an aligned table, truncated to fit the terminal, plus a hint on how to see more, with color cues for status (a green `✓` on success, red on error). An **agent** gets the complete record as TSV: full repo ids, full ISO timestamps, every tag, no ANSI codes, nothing truncated, clean to parse and light on tokens.
+
+In practice, we've implemented logging methods like `.table(...)`, `.result(...)`, `.json()`, etc., which take raw data as input and handle the formatting. In addition to human and agent modes, we've introduced `--json` and `--quiet` options to make it easier to pipe commands together. The default mode is automatically chosen based on context, but users can always force the format of their choice with `--format human | agent | json | quiet`.
 
 ### Next-command hints
 
-CLI commands rarely run in isolation — one step usually implies the next (`git add`, then `git commit`). So many `hf` commands now end with a **hint**: the exact next command to run, pre-filled with the ids you just used, so a user or agent can chain straight to the next step instead of working it out from scratch. Start a Job in the background and it points you to its logs; create a Space and it points you to its boot status:
+CLI commands rarely run in isolation: one step usually implies the next (`git add`, then `git commit`). Many `hf` commands now end with a **hint**: the exact next command to run, pre-filled with the IDs you just used, so a user or agent can chain straight to the next step instead of working it out from scratch. Start a Job in the background and it points you to its logs; create a Space and it points you to its boot status:
 
 ```text
 $ hf jobs run --detach python:3.12 python train.py
@@ -74,7 +76,7 @@ Hints, warnings and errors all go to stderr while data goes to stdout, so none o
 
 ### Non-blocking and safe to retry
 
-`hf` never sits on an interactive prompt waiting for a key an agent can't press. A destructive command still asks a human to confirm, but in agent mode it *fails fast* with the fix in the message (`Use --yes to skip confirmation.`), and `-y`/`--yes` skips it. And because agents retry on timeouts and lost context, operations are built to be safe to repeat: `hf repos create --exist-ok` is a no-op if the repo already exists, and re-running an upload re-commits cleanly. Separately, the commands that move real data take a `--dry-run` that shows exactly what they'll transfer before they run - handy for a human and an agent alike, since neither has to commit to a long download or sync blind:
+`hf` never sits on an interactive prompt waiting for a key an agent can't press. A destructive command still asks a human to confirm, but in agent mode it *fails fast* with the fix in the message (`Use --yes to skip confirmation.`), and `-y`/`--yes` skips it. And because agents retry on timeouts and lost context, operations are built to be safe to repeat: `hf repos create --exist-ok` is a no-op if the repo already exists, and re-running an upload re-commits cleanly. Separately, the commands that move real data take a `--dry-run` that shows exactly what they'll transfer before they run, which proves handy for a human and an agent alike, since neither has to commit to a long download or sync blind:
 
 ```text
 # agent mode: a destructive command without --yes refuses, with the fix in the message
@@ -116,7 +118,7 @@ To find out whether the `hf` CLI is really more efficient for agents, we measure
 
 ### The setup
 
-We defined **18 non-trivial Hub tasks**. Not "download a file", but the kind of thing you'd actually ask for: aggregate a trending org's models, inspect a repo's files and their sizes, upload a folder with include/exclude rules, delete files, copy files across repos, open a PR that adds a license, create a repo with a branch and a tag, sync and prune a Bucket, build a Collection. Each task goes to a fresh coding agent with exactly **one** way to talk to the Hub:
+We defined **18 non-trivial Hub tasks**. Not "download a file", but the kind of thing you'd actually ask for: aggregate a trending org's models, inspect a repo's files and their sizes, upload a folder with include/exclude rules, delete files, copy files across repos, open a PR that adds a license, create a repo with a branch and a tag, sync and prune a bucket, build a collection. Each task goes to a fresh coding agent with exactly **one** way to talk to the Hub:
 
 - the `hf` CLI, or
 - **curl / the Python SDK**: no `hf` CLI at all, so the agent falls back to `curl` against the REST API or the `huggingface_hub` Python library.
@@ -167,7 +169,7 @@ The shape is the whole point. On a one-shot read (count dataset rows, batch meta
 
 ## The hf-cli skill
 
-`hf` ships a **skill**: a compact reference of the whole command surface that an agent loads as context. It's **auto-generated** from the live `hf` command tree — one line per command (its signature, a one-line description, and the flags that matter), grouped by resource, with a short glossary of common options. It deliberately skips the self-explanatory flags so it stays terse and light on context, and it's regenerated every release. Run `hf skills preview` to print it, or install it with:
+`hf` ships a **skill**: a compact reference of the whole command surface that an agent loads as context. It's **auto-generated** from the live `hf` command tree, one line per command (its signature, a one-line description, and the flags that matter), grouped by resource, with a short glossary of common options. It deliberately skips the self-explanatory flags so it stays terse and light on context, and it's regenerated every release. Run `hf skills preview` to print it, or install it with:
 
 ```bash
 # for Codex, Cursor, OpenCode, Pi and other agents that load skills from `.agents/skills`
@@ -187,7 +189,7 @@ On both agents that's about ten commands per task down to about seven, roughly 3
 
 ## Try it yourself
 
-We benchmarked all this because we think it matters. Agents are becoming real users of the Hub: they train models, build and clean datasets, and ship demos as Spaces, almost always on behalf of a person. A Hub that works well for agents is also a Hub that works better for the people using them. The better an agent's tools, the more it can do for you. An `hf` that agents can drive as well as people is one piece of that.
+We benchmarked all this because we think it matters. Agents are becoming real users of the Hub: they train models, build and clean datasets, and ship demos as Spaces, almost always on behalf of a person. A Hub that works well for agents is also a Hub that works better for the people using them. The better an agent's tools are, the more it can do for you.
 
 If your agent interacts with the Hugging Face Hub, we recommend giving it the `hf` CLI:
 
@@ -208,4 +210,4 @@ hf skills add --claude   # the above + Claude Code
 
 The full command reference lives in the [`hf` CLI guide](https://huggingface.co/docs/huggingface_hub/guides/cli).
 
-And if you build a coding agent yourself, **register your harness**: that's how `hf` learns to detect it and how the Hub attributes its traffic to you by name, it's how the agents in the chart at the top of this post show up in our numbers. It's a small PR adding an entry to [`agent-harnesses.ts`](https://github.com/huggingface/huggingface.js/blob/main/packages/tasks/src/agent-harnesses.ts) (a display label, optional repo/docs links, and how to detect your harness from the environment); the [Register your agent harness](https://huggingface.co/docs/hub/agents-overview#register-your-agent-harness) guide walks through the fields.
+Building an agent harness yourself? **Get it registered!** That's how `hf` learns to detect it, and how the Hub attributes its traffic to you. You simply need to open a small PR adding an entry to [`[agent-harnesses.ts](https://github.com/huggingface/huggingface.js/blob/main/packages/tasks/src/agent-harnesses.ts)`](https://github.com/huggingface/huggingface.js/blob/main/packages/tasks/src/agent-harnesses.ts). Read the [[Register your agent harness](https://huggingface.co/docs/hub/agents-overview#register-your-agent-harness)](https://huggingface.co/docs/hub/agents-overview#register-your-agent-harness) guide for more details.
