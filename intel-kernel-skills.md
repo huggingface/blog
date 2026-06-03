@@ -14,7 +14,7 @@ authors:
 
 # Intel XPU Kernel Skill: LLM-driven Triton kernel optimization for the Hugging Face Kernel Hub
 
-*By Intel DCG AI Software Group*
+*By Intel DCG AI Software and OCTO Parallel Computing Lab*
 
 [Xe-Forge](https://github.com/IntelLabs/Xe-Forge) ([Spoczynski et al., 2026](https://arxiv.org/abs/2605.26118)) is an Intel project that uses an LLM to optimize Triton kernels for Intel Arc Pro GPUs (Xe2). It applies a sequence of optimization stages — fusion, dtype fixes, memory access, block pointers, XPU-specific tuning, autotuning — and validates each one on the GPU before moving on. The agent loop, called CoVeR (Chain-of-Verification-and-Refinement), proposes a candidate, runs it, and iterates if it fails or regresses. A small knowledge base of Xe2-specific patterns (tensor descriptors, GRF mode 256, tile swizzling) is read at the start of each session because these aren't well-represented in LLM training data.
 
