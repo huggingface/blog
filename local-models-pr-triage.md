@@ -28,7 +28,9 @@ We can of course set up my OpenClaw main agent running on my $200/mo ChatGPT pro
 
 But a better approach would be to use the hardware we already have up and running to do this for free (or rather, for the cost of electricity).
 
-How would that work?
+How would that work? See below.
+
+## Categorizing issues and PRs
 
 Basically, we came up with a finite set of labels representing the categories of issues we need to triage, and then use a local model to classify each issue into one of those categories, like `local_models`, `self_hosted_inference`, `acp`, `agent_runtime`, `codex`, `ui_tui` and so on.[^1]
 
@@ -70,8 +72,29 @@ reposhell /repo/openclaw> head README.md
 reposhell /repo/openclaw> curl localhost
 reposhell policy denied command: unsupported command "curl"
 exit_code=2
+
 reposhell /repo/openclaw>
 ```
+
+We have mentioned earlier that we bundle a specific `pi` configuration that can only perform read-only operations and return classification output. We simply call it [`localpager-agent`](https://github.com/osolmaz/localpager/tree/main/localpager-agent) for now, named after `localpager`, the main project. Each PR and issue generates a prompt, which is then passed to the CLI like below, alongside other args:
+
+```bash
+localpager-agent \
+  --model "<model-id>" \
+  --base-url "<openai-compatible-base-url>" \
+  --session-dir "<session-output-dir>" \
+  --final-schema "<runtime-schema.json>" \
+  --tools bash,final_json \
+  --reposhell-socket "<reposhell.sock>" \
+  --reposhell-default-repo "<repo-id>" \
+  --reposhell-visible-repos "<repo-id>[,<repo-id>...]" \
+  -p "$(cat <rendered-prompt.md>)"
+```
+
+
+## Processing incoming PRs and issues
+
+So then what orchestrates everything in between the 
 
 
 [^1]: See full list of topics and other configuration [here](https://github.com/osolmaz/localpager/blob/main/examples/profiles/openclaw-routing-topics.json)
