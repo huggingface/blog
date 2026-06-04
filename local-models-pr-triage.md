@@ -130,6 +130,42 @@ For example, [`PR #72404 fix(models): default input=[text,image] for vision-capa
 
 In another case, [`PR #84549 fix(deepinfra): load all DeepInfra models when user wants to browse...`](http://github.com/openclaw/openclaw/pull/84549) shows that the "correct" label can still be a bit subjective. DS4 labeled it as `[model_serving]`, while the optimized Gemma prompt gave `[model_releases, chat_integrations]`. Whereas this assignment is not exactly right, it is not exactly wrong either.
 
-You can see the original prompt for DS4 and the optimized Gemma prompt [here](https://huggingface.co/datasets/dutifuldev/openclaw-classification-dataset/blob/main/prompts/README.md).
+You can see the original prompt for DS4 and the optimized Gemma prompt [here](https://huggingface.co/datasets/dutifuldev/openclaw-classification-dataset/blob/main/prompts/README.md). We went through numerous iterations, and ended up drastically increasing the precision and recall! --- `< Let me know if you would prefer me to include some numbers here, they change every time I iterate on the prompt >`
+
+## Tracking and validating real time performance using OpenClaw
+
+We have mentioned earlier that instead of running a job with a local model for every new issue or PR, we can run a batch job with a SOTA cloud model, like GPT-5.5 running in OpenClaw, every n hours (e.g. every 2 hours) to achieve the same end.
+
+In that case, we would need a ChatGPT Pro plan. Since the model is SOTA, we can still expect it to perform reasonably well, despite batching 2 hours of issues/PRs together.
+
+Because we want to see how well our prompt-optimized Gemma 4 solution performs against GPT-5.5, we run both simultaneously, and let GPT-5.5 be the judge of false positives and negatives, every 2 hours.
+
+To be safe, we run the OpenClaw job in a sandbox, with only access to the [public repo](https://github.com/osolmaz/onurclaw) we report results to. In our case, we let the OpenClaw job update a machine readable file, then for which a simple script reads the Codex assigned labels, computes the false positive/negative status, and sends a message to Discord.
+
+Example Discord follow-up output:
+
+> False negatives
+> 
+> - Issue #88499 openai-responses provider: 404 on previous_response_id when store=false (default)
+>   - inventory area: OpenAI-compatible/proxy; notifier topics: agent_runtime, api_surface, sessions; notification: none
+> 
+> False positives
+> 
+> - PR #88275 fix(models-config): allow self-hosted providers without apiKey in models.json (#88267)
+>   - notifier interest: i0; topics: self_hosted_inference, local_model_providers, config; notification: sent
+> - PR #88266 refactor: extract model catalog core package
+>   - notifier interest: i1; topics: config, api_surface, local_model_providers; notification: sent
+> - PR #88247 feat: add hosted model providers
+>   - notifier interest: i0; topics: local_model_providers, model_serving, docs, api_surface; notification: sent
+
+Also check out the [skill I personally use](https://github.com/osolmaz/tools/blob/main/agents/skills/openclaw-onur-inventory/SKILL.md) to maintain my [public "inventory" repo](https://github.com/osolmaz/onurclaw).
+
+TBD, needs some more work
+
+## Conclusion
+
+We think that the issue/PR triage task is a specific case of a broader set of tasks which we call "high throughput triage".
+
+TBD. My main point will be that the same approach can be applied to multiple problems like processing news items in journalism, triaging customer support tickets and so on.
 
 [^1]: See full list of topics and other configuration [here](https://github.com/osolmaz/localpager/blob/main/examples/profiles/openclaw-routing-topics.json)
