@@ -105,46 +105,8 @@ This part is very simple and does not involve any LLMs:
 3. The context object is rendered into a prompt and passed to `localpager-agent` as described in the previous section. The agent could thinks, use reposhell, but must eventually output a classification result in the defined schema.
 4. The output is stored back in localpager SQLite database, and relayed to Discord based on the notification policy configured by the user (i.e. notify me for these topics, but not these other ones).
 
-```mermaid
-flowchart TB
-  subgraph Source["External source"]
-    direction TB
-    GitHub["GitHub"]
-  end
-
-  subgraph Local["Local machine"]
-    direction TB
-    Gitcrawl["gitcrawl"]
-    Queue["SQLite queue"]
-    Worker["Localpager worker"]
-
-    subgraph Agent["localpager-agent"]
-      direction TB
-      Pi["Pi harness"]
-      Gemma["Gemma 4 E4B"]
-      FinalJSON["final_json"]
-      Reposhell["reposhell"]
-    end
-
-    Results["SQLite results"]
-    Policy{"Match?"}
-  end
-
-  subgraph Destination["External destination"]
-    direction TB
-    Discord["Discord"]
-  end
-
-  GitHub -->|"PRs and issues"| Gitcrawl
-  Gitcrawl -->|"mirror updates"| Queue
-  Queue -->|"claim job"| Worker
-  Worker -->|"prompt, context, schema"| Pi
-  Pi -. "local inference" .-> Gemma
-  Pi -->|"structured output"| FinalJSON
-  Pi -. "optional repo lookup" .-> Reposhell
-  FinalJSON -->|"classification JSON"| Results
-  Results -->|"notify_topics_any"| Policy
-  Policy -->|"matching topics only"| Discord
-```
+<figure class="image table text-center m-0 w-full" style="text-align: center;">
+  <img src="assets/local-models-pr-triage/localpager-architecture.svg" alt="Localpager architecture" style="display: block; width: 70%; min-width: 300px; margin: 0 auto;" />
+</figure>
 
 [^1]: See full list of topics and other configuration [here](https://github.com/osolmaz/localpager/blob/main/examples/profiles/openclaw-routing-topics.json)
