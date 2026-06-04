@@ -25,12 +25,12 @@ The bars count distinct users per agent; request volume is the sub-label. Claude
 
 ## Built for humans and agents
 
-The `hf` CLI serves two users from the same commands: humans and coding agents, and they want opposite things. A human wants rich terminal output: ANSI color, padded tables truncated to fit the screen, a green `✓` on success, `✔` for booleans, progress bars, prose hints. An agent wants
+Humans and coding agents expect different outputs for the same `hf` commands. A human wants rich terminal output: ANSI color, padded tables truncated to fit the screen, a green ✅ on success, `✔` for booleans, progress bars, prose hints. An agent wants
 the inverse: no ANSI, nothing truncated, every value in full since an agent can handle far denser output than a human, kept compact and structured to stay light on tokens. It also can't answer a CLI prompt and will happily re-run a command after a timeout. The rest of this section is how `hf` gives each side what it needs.
 
 ### One command, multiple renderings
 
-Because `hf` detects when an agent is driving it (the same signal behind the traffic numbers above), it renders the **same command** two ways, so an agent gets agent-shaped output without passing a flag:
+When `hf` auto-detects agent use (via the environment variables mentioned above), it renders the **same command** differently. It optimizes output format for humans or agents without passing a flag:
 
 ```text
 # human (default in a terminal): aligned table, truncated to fit, with a hint
@@ -76,7 +76,7 @@ Hints, warnings and errors all go to stderr while data goes to stdout, so none o
 
 ### Non-blocking and safe to retry
 
-`hf` never sits on an interactive prompt waiting for a key an agent can't press. A destructive command still asks a human to confirm, but in agent mode it *fails fast* with the fix in the message (`Use --yes to skip confirmation.`), and `-y`/`--yes` skips it. And because agents retry on timeouts and lost context, operations are built to be safe to repeat: `hf repos create --exist-ok` is a no-op if the repo already exists, and re-running an upload re-commits cleanly. Separately, the commands that move real data take a `--dry-run` that shows exactly what they'll transfer before they run, which proves handy for a human and an agent alike, since neither has to commit to a long download or sync blind:
+`hf` never sits on an interactive prompt waiting for a key an agent can't press. A destructive command still asks a human to confirm, but in agent mode it *fails fast* with the fix in the message (`Use --yes to skip confirmation.`), and `-y`/`--yes` skips it. And because agents retry on timeouts and lost context, operations are built to be safe to repeat: `hf repos create --exist-ok` is a no-op if the repo already exists, and re-running an upload re-commits cleanly. Separately, the commands that move real data take a `--dry-run` that shows exactly what they'll transfer before they run, which proves handy for humans and  agents alike, since neither has to commit to a long download or blind sync:
 
 ```text
 # agent mode: a destructive command without --yes refuses, with the fix in the message
@@ -152,19 +152,21 @@ Two pictures carry the result. First, **task success on Sonnet**, the agent wher
     <img class="hidden dark:block" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/huggingface_hub/chart-success-dark.png" alt="Task success on Claude Code with Sonnet 4.6: hf CLI 94%, curl / Python SDK 84%." width="100%"/>
 </div>
 
-Without the CLI, curl and the SDK trail by ten points, because on Sonnet they simply can't finish parts of the job (the writes, mostly), while the `hf` CLI clears them. Second, and this is the one to look at, **their token tax on GPT-5.5**, broken down per task. Each bar is the curl/SDK tokens divided by the CLI's on the same task, so `2.4×` means they burned 2.4 times as many tokens to do the same thing:
+Without the CLI, curl and the SDK trail by ten points, because on Sonnet they simply can't finish parts of the job (the writes, mostly), while the `hf` CLI clears them.
+
+The second image shows **token impact on GPT-5.5**, broken down per task. Each bar is the curl/SDK tokens divided by the CLI's on the same task, so `2.4×` means the non-hf version burned 2.4 times as many tokens to do the same thing:
 
 <div class="flex justify-center">
     <img class="block dark:hidden" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/huggingface_hub/chart-tokens.png" alt="Per-task token ratio of curl/Python SDK divided by the hf CLI on GPT-5.5, sorted high to low. Multi-step tasks cost curl/Python SDK far more: bucket create+sync+prune 6.0x, rank orgs by trending models 4.1x, repo create+branch+tag / delete files / copy files across repos 2.4x each. Simple one-shot reads sit near parity or cheaper: batch model metadata 0.5x, count dataset rows 0.3x." width="80%"/>
     <img class="hidden dark:block" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/huggingface_hub/chart-tokens-dark.png" alt="Per-task token ratio of curl/Python SDK divided by the hf CLI on GPT-5.5, sorted high to low. Multi-step tasks cost curl/Python SDK far more: bucket create+sync+prune 6.0x, rank orgs by trending models 4.1x, repo create+branch+tag / delete files / copy files across repos 2.4x each. Simple one-shot reads sit near parity or cheaper: batch model metadata 0.5x, count dataset rows 0.3x." width="80%"/>
 </div>
 
-The shape is the whole point. On a one-shot read (count dataset rows, batch metadata) curl and the SDK are fine, sometimes even lighter. But the moment a task is *real work*, several dependent calls that each need the previous result, the agent has to hand-roll the entire chain of REST calls (or dig through the SDK) and the cost blows up: **2.4× to 6× the CLI** on creating a repo with a branch and tag, deleting files, copying across repos, syncing a bucket. The `hf` CLI folds that chain into one command. This is also exactly why a benchmark built on easy reads makes curl and the SDK look better than they really are: it never reaches the tasks where the CLI pulls away.
+On a one-shot read (count dataset rows, batch metadata) curl and the SDK are fine, and sometimes lighter. But as tasks get more complex and involve several dependent steps, the agent has to hand-roll the entire chain of REST calls (or dig through the SDK) and the cost blows up: **2.4× to 6× the CLI's** on creating a repo with a branch and tag, deleting files, copying across repos, or syncing a bucket. The `hf` CLI allows the agent to issue the task as a single piped command, rather than crafting a complex workflow.
 
 ### Key findings
 
-- **The `hf` CLI is far leaner than curl or the SDK.** For the same task, at equal-or-better success, curl and the SDK burn **1.6× the tokens on Sonnet (302k vs 194k) and 1.8× on GPT-5.5 (346k vs 191k)**. On easy reads they're fine, but on real multi-step work they pay **2× to 6×**: the CLI folds a chain of REST calls into one command, while curl or the SDK re-derives that chain by hand every run.
-- **On a stronger model, curl and the SDK work but stay wasteful.** On Sonnet they can't finish parts of the job (0.84; they fumble the writes). On GPT-5.5 they mostly work (0.92), hand-rolling the REST calls (or using the SDK) correctly, but still pay ~1.8× the tokens.
+- **The `hf` CLI is far leaner than curl or the SDK.** For the same task, at equal-or-better success, curl and the SDK burn **1.6× the tokens on Sonnet (302k vs 194k) and 1.8× on GPT-5.5 (346k vs 191k)**. On easy reads they're fine, but on real multi-step work they pay **2× to 6×**: the CLI composes a set of REST calls into one command, while curl or the SDK re-derives the chain by hand every run.
+- **On a stronger model, curl and the SDK work but stay wasteful.** On Sonnet they can't finish parts of the job (0.84 success average). On GPT-5.5 they mostly work (0.92), hand-rolling the REST calls (or using the SDK) correctly, but still pay ~1.8× the tokens.
 
 ## The hf-cli skill
 
@@ -184,7 +186,7 @@ What does it buy you? Mostly, the agent stops guessing. The clearest single view
     <img class="hidden dark:block" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/huggingface_hub/chart-skill-dark.png" alt="Mean commands (tool calls) per run, with and without the hf-cli skill, on both agents. Claude Code (Sonnet 4.6): 10.4 without the skill, 6.9 with it. Codex (GPT-5.5): 10.1 without, 7.3 with. Fewer is better." width="100%"/>
 </div>
 
-On both agents that's about ten commands per task down to about seven, roughly 30% fewer tool calls - because the agent isn't probing `--help` to find the right command and argument; it already has the map. The skill won't cut your token bill (it's a fixed slice of context the agent loads up front, so tokens hold steady or tick up) and it won't make an already-reliable CLI much more reliable. What it buys is fewer wrong turns: the agent spends its budget doing the task instead of rediscovering the tool. This could be particularly helpful when using `hf` with local models.
+On both agents that's about ten commands per task down to about seven, roughly 30% fewer tool calls - because the agent isn't probing `--help` to find the right command and argument. The skill won't cut your token bill, because it prepends a fixed slice of info to the context, so tokens remain about the same or slightly tick up for the same task. The Skill won't make the CLI more reliable either, but it will help the agent spend time running your task rather than finding out how the tool works. This could be particularly helpful when using `hf` with local models.
 
 ## Try it yourself
 
@@ -220,4 +222,4 @@ The full command reference lives in the [`hf` CLI guide](https://huggingface.co/
 
 ## Register an agent harness
 
-Building an agent harness? **Get it registered!** That's how `hf` learns to detect it, and how the Hub attributes its traffic to you. You simply need to open a small PR adding an entry to [`agent-harnesses.ts`](https://github.com/huggingface/huggingface.js/blob/main/packages/tasks/src/agent-harnesses.ts). Read the [Register your agent harness](https://huggingface.co/docs/hub/agents-overview#register-your-agent-harness) guide for more details.
+Building an agent harness? **Get it registered!** That's how `hf` learns to detect it, and how the Hub attributes its traffic to your harness. You simply need to open a small PR adding an entry to [`agent-harnesses.ts`](https://github.com/huggingface/huggingface.js/blob/main/packages/tasks/src/agent-harnesses.ts). Read the [Register your agent harness](https://huggingface.co/docs/hub/agents-overview#register-your-agent-harness) guide for more details.

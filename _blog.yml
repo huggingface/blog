@@ -5379,7 +5379,7 @@
     - kernels
 
 - local: hf-cli-for-agents
-  date: June 3, 2026
+  date: June 4, 2026
   tags:
     - cli
     - huggingface_hub
