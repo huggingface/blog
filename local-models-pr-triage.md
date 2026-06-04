@@ -28,11 +28,11 @@ I also happen to have 128 GB of unified memory, namely an NVIDIA GB10, at my dis
   <figcaption>This tiny box, a.k.a. DGX Spark, can run 4-6 Gemma 4 E4B generations at once.</figcaption>
 </figure>
 
-We can of course set up my OpenClaw main agent running on my $200/mo ChatGPT pro plan to trigger a job on every new issue or PR. But then that might use up my quota too quickly—so we might instead set it to run every 2 hours, or 6 hours. Since we would be batching a large number of issues, we would be trading real-time notifications for cheaper and lower quality processing.
+We can of course set up an OpenClaw main agent running on a $200/mo ChatGPT pro plan to trigger a job on every new issue or PR. But then that might use up the quota too quickly—so we might instead set it to run every 2 hours, or 6 hours. Since we would be batching a large number of issues, we would be trading real-time notifications for cheaper and lower quality processing.
 
 But a better approach would be to use the hardware we already have up and running to do this for free (or rather, for the cost of electricity).
 
-How would that work? See below.
+How would that work? We show below.
 
 ## Categorizing issues and PRs
 
