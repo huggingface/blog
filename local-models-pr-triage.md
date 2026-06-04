@@ -1,5 +1,5 @@
 ---
-title: "Using Local Models to Triage and Assign Hundreds of PRs Every Day"
+title: "We got local models to triage the OpenClaw repo for FREE!"
 thumbnail: /blog/assets/local-models-pr-triage/thumbnail.png
 authors:
 - user: osolmaz
@@ -9,9 +9,13 @@ authors:
 - user: lysandre
 ---
 
-# I got my GPU to triage my OpenClaw PRs for FREE!
+# We got local models to triage the OpenClaw repo for FREE!
 
-Alt title: We got local models to triage the OpenClaw repo for FREE!
+(Minor concern: this is not being used in production but only in my local setup, in case that is understood)
+
+Alt title: I got my GPU to triage my OpenClaw PRs for FREE!
+
+---
 
 OpenClaw gets hundreds of issues and PRs every day, which need to be triaged, prioritized and routed to maintainers. I, Onur, am working to make local models work well with OpenClaw. 
 
