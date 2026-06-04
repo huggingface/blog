@@ -22,7 +22,7 @@ The catch is that profiling has a **steep** on-ramp. The traces are dense walls 
 This is the opening post of **Profiling in PyTorch**, a series where we slowly build the skill of reading profiler traces and use it to drive optimization. The plan:
 
 1. **Part 1 (this post):** start with the simplest possible operation, a matrix multiplication followed by a bias add, and learn how to read what the profiler hands back.
-2. **Part 2:** scale up to `nn.Linear` and a small MLP, use the traces to motivate optimizations, and peek at the `kernels` underneath.
+2. [**Part 2:**](https://huggingface.co/blog/torch-mlp-fusion) scale up to `nn.Linear` and a small MLP, use the traces to motivate optimizations, and peek at the `kernels` underneath.
 3. **Part 3:** put it all together on Large Language Models with `transformers`.
 
 We document the journey from a beginner's point of view. No prerequisites apart from basic PyTorch. Treat this as a leisurely read with some "Aha!" moments. The structure of the post is intentionally question-led: we open a trace, ask "wait, why is *that* happening?", and chase the answer until something clicks. By the end you should know:

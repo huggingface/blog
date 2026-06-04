@@ -5387,3 +5387,14 @@
     - agents
     - mcp
     - tools
+
+- local: torch-mlp-fusion
+  date: June 4, 2026
+  tags:
+    - torch
+    - profile
+    - CUDA
+    - open-source
+    - kernels
+    - mlp
+    - liger
