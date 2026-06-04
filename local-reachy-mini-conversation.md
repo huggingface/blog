@@ -135,7 +135,7 @@ speech-to-speech \
   --stt parakeet-tdt \
   --tts qwen3 \
   --llm_backend responses-api \
-  --model_name "unsloth/Qwen3-4B-Instruct-2507-GGUF" \
+  --model_name "ggml-org/gemma-4-E4B-it-GGUF" \
   --responses_api_base_url "http://127.0.0.1:8080/v1"
 ```
 
