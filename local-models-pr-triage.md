@@ -99,7 +99,8 @@ localpager-agent \
 So then what orchestrates everything in between the incoming PR/issue and the final notification on Discord?
 
 <figure class="image table text-center m-0 w-full" style="text-align: center;">
-  <img src="https://i.imgur.com/gPf3nSrh.jpg" alt="Localpager Discord notification" style="display: block; width: 70%; min-width: 300px; margin: 0 auto;" />
+  <img src="https://i.imgur.com/gPf3nSrh.jpg" alt="Localpager Discord notification" style="display: block; width: 100%; min-width: 300px; margin: 0 auto;" />
+  <figcaption>This is what the final filtered Discord notification looks like: a PR about the desired vertical gets routed to me.</figcaption>
 </figure>
 
 This part is very simple and does not involve any LLMs:
