@@ -8,7 +8,7 @@ authors:
   - user: ror
   - user: pcuenq
 translators:
-  - user: hcs9527
+  - user: HCS9527
 ---
 
 # PyTorch 性能分析（第 1 部分）：torch.profiler 入门指南
