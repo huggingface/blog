@@ -10,7 +10,7 @@ authors:
 
 `hf` is the official command-line entrypoint to the Hugging Face Hub. Anything you can do on the Hub from the Python SDK, you can do from your terminal: download and upload models, datasets and Spaces; create and manage repos, branches, tags and pull requests; run Jobs on HF infrastructure; manage Buckets, Collections, webhooks and Inference Endpoints.
 
-The `hf` CLI has been primarily built for our users over the years. But it's now increasingly used by **coding agents**: Claude Code, Codex, Cursor and more. So we rebuilt it to make it work for both audiences at once. This blog post summarizes what we did, and how we benchmarked it.
+The `hf` CLI has been primarily built for our users over the years. But it's now increasingly used by **coding agents**: Claude Code, Codex, Cursor and more. So we rebuilt it to make it work for both audiences at once. This blog post summarizes what we did, and how we benchmarked it. We found that giving a coding agent `hf` instead of hand-rolled `curl` or the Python SDK uses up to **6× fewer tokens** on complex, multi-step tasks and completes them more reliably.
 
 ## AI agent traffic on the Hub
 
@@ -26,7 +26,7 @@ The bars count distinct users per agent; request volume is the sub-label. Claude
 ## Built for humans and agents
 
 Humans and coding agents expect different outputs for the same `hf` commands. A human wants rich terminal output: ANSI color, padded tables truncated to fit the screen, a green ✅ on success, `✔` for booleans, progress bars, prose hints. An agent wants
-the inverse: no ANSI, nothing truncated, every value in full since an agent can handle far denser output than a human, kept compact and structured to stay light on tokens. It also can't answer a CLI prompt and will happily re-run a command after a timeout. The rest of this section is how `hf` gives each side what it needs.
+the inverse: no ANSI, nothing truncated, every value in full since an agent can handle far denser output than a human, kept compact and structured to stay light on tokens. It also can't answer a CLI prompt and will happily re-run a command after a timeout. The rest of this section is how `hf` gives each side what it needs. We introduced agent-mode output in `hf` v1.9.0 and have been migrating the rest of the CLI to it gradually in the following releases.
 
 ### One command, multiple renderings
 
@@ -114,7 +114,19 @@ Qwen/Qwen3-4B
 
 ## Benchmarking the hf CLI for Coding Agents
 
-To find out whether the `hf` CLI is really more efficient for agents, we measured it. We built a small evaluation harness and ran the same set of Hub tasks through each way of driving the Hub, many times over, grading every run against the live Hub.
+To find out whether the `hf` CLI is really more efficient for agents, we measured it. We built a small evaluation harness and ran the same set of Hub tasks through each way of driving the Hub, many times over, grading every run against the live Hub. Here's the headline before the methodology, the ranking came out **identical on both agents**:
+
+| agent                        | tool              | success score | token usage     | self-report error |
+| ---------------------------- | ----------------- | ------------- | --------------- | ----------------- |
+| **Claude Code (Sonnet 4.6)** | `hf` CLI          | **0.94**      | baseline        | **2 / 163**       |
+|                              | curl / Python SDK | 0.84          | **1.6× tokens** | 11 / 163          |
+| **Codex (GPT-5.5)**          | `hf` CLI          | **0.93**      | baseline        | **3 / 163**       |
+|                              | curl / Python SDK | 0.92          | **1.8× tokens** | 10 / 163          |
+
+*(self-report error = the agent reported success on the 17 solvable tasks but the Hub said otherwise.
+The `hf` CLI rows are the CLI with its skill installed; what the skill adds on top of the bare CLI
+(chiefly fewer tool calls) is broken out in [the skill section](#the-hf-cli-skill) below. Every run's
+full transcript is published [in this bucket](https://huggingface.co/buckets/celinah/hf-cli-agent-benchmark).)*
 
 ### The setup
 
@@ -129,23 +141,7 @@ The config is deliberately clean: a fresh instance per run, no custom MCP server
 
 ### The results
 
-The ranking came out **identical on both agents**:
-
-
-| agent                        | tool        | mean score | token tax | false "done" |
-| ---------------------------- | ----------- | ---------- | ---------------- | ------------ |
-| **Claude Code (Sonnet 4.6)** | `hf` CLI    | **0.94**   | baseline         | **2 / 163**  |
-|                              | curl / Python SDK | 0.84       | **1.6× tokens**  | 11 / 163     |
-| **Codex (GPT-5.5)**          | `hf` CLI    | **0.93**   | baseline         | **3 / 163**  |
-|                              | curl / Python SDK | 0.92       | **1.8× tokens**  | 10 / 163     |
-
-
-*(false "done" = the agent reported success on the 17 solvable tasks but the Hub said otherwise.
-The `hf` CLI rows are the CLI with its skill installed; what the skill adds on top of the bare CLI
-(chiefly fewer tool calls) is broken out in [the skill section](#the-hf-cli-skill) below. Every run's
-full transcript is published [in this bucket](https://huggingface.co/buckets/celinah/hf-cli-agent-benchmark).)*
-
-Two pictures carry the result. First, **task success on Sonnet**, the agent where curl and the SDK struggle most:
+The two charts below unpack the table above. First, **task success on Sonnet**, the agent where curl and the SDK struggle most:
 
 <div class="flex justify-center">
     <img class="block dark:hidden" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/huggingface_hub/chart-success.png" alt="Task success on Claude Code with Sonnet 4.6: hf CLI 94%, curl / Python SDK 84%." width="100%"/>
