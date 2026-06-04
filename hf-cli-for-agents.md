@@ -119,9 +119,9 @@ To find out whether the `hf` CLI is really more efficient for agents, we measure
 | agent                        | tool              | success score | token usage     | self-report error |
 | ---------------------------- | ----------------- | ------------- | --------------- | ----------------- |
 | **Claude Code (Sonnet 4.6)** | `hf` CLI          | **0.94**      | baseline        | **2 / 163**       |
-|                              | no-CLI baseline | 0.84          | **1.3-1.6× tokens** | 11 / 163      |
+|                              | curl / Python SDK | 0.84          | **1.3-1.6× tokens** | 11 / 163      |
 | **Codex (GPT-5.5)**          | `hf` CLI          | **0.93**      | baseline        | **3 / 163**       |
-|                              | no-CLI baseline | 0.92          | **1.6-1.8× tokens** | 10 / 163      |
+|                              | curl / Python SDK | 0.92          | **1.6-1.8× tokens** | 10 / 163      |
 
 *(self-report error = the agent reported success on the 17 solvable tasks but the Hub said otherwise. The `hf` CLI rows are the CLI with its skill installed; what the skill adds on top of the bare CLI (chiefly fewer tool calls) is broken out in [the skill section](#the-hf-cli-skill) below. Representative transcripts are published [in this bucket](https://huggingface.co/buckets/celinah/hf-cli-agent-benchmark).)*
 
@@ -130,9 +130,9 @@ To find out whether the `hf` CLI is really more efficient for agents, we measure
 We defined **18 non-trivial Hub tasks**. Not "download a file", but the kind of thing you'd actually ask for: aggregate a trending org's models, inspect a repo's files and their sizes, upload a folder with include/exclude rules, delete files, copy files across repos, open a PR that adds a license, create a repo with a branch and a tag, sync and prune a bucket, build a collection. Each task goes to a fresh coding agent with exactly **one** way to talk to the Hub:
 
 - the `hf` CLI, or
-- the **no-CLI baseline**: no `hf` CLI at all, so the agent falls back to `curl` against the REST API or the `huggingface_hub` Python library.
+- **curl / the Python SDK**: no `hf` CLI at all, so the agent falls back to `curl` against the REST API or the `huggingface_hub` Python library.
 
-We run the `hf` CLI in two configurations, with and without its skill (a generated command reference we come back to in [its own section](#the-hf-cli-skill)). But the headline comparison below is simply **`hf` CLI vs the no-CLI baseline**; the skill's incremental effect is small enough that we break it out on its own rather than crowd it into the main results.
+We run the `hf` CLI in two configurations, with and without its skill (a generated command reference we come back to in [its own section](#the-hf-cli-skill)). But the headline comparison below is simply **`hf` CLI vs curl / the SDK**; the skill's incremental effect is small enough that we break it out on its own rather than crowd it into the main results.
 
 The config is deliberately clean: a fresh instance per run, no custom MCP servers, no `CLAUDE.md` or `AGENTS.md`, nothing in context to nudge behavior. The task and the tool go into a single prompt, and the agent finishes with a `TASK_COMPLETE` or `TASK_FAILED` marker, but we don't trust that marker (an agent will report success on work that never landed), so we grade every run independently by **re-querying the live Hub**: did the branch really get created, is the file actually gone, does the bucket exist? Each task/tool combination is run **10 times**, since coding agents are non-deterministic, about **520 runs per agent** (18 tasks × 3 tools × 10 reps, minus a cap on one billable Jobs task) and ~1,000 graded runs in total. We ran the whole thing twice, on the two most popular coding agents (**Claude Code** with Sonnet 4.6 and **OpenAI Codex** with GPT-5.5).
 
