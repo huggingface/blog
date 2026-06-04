@@ -11,9 +11,11 @@ authors:
 
 # We got local models to triage the OpenClaw repo for FREE!
 
+```
 (Minor concern: this is not being used in production but only in my local setup, in case that is understood)
 
 Alt title: I got my GPU to triage my OpenClaw PRs for FREE!
+```
 
 ---
 
