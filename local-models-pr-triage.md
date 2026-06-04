@@ -124,12 +124,6 @@ That is exactly what we did, and saved the results in [openclaw-classification-d
 
 For example, [`PR #72404 fix(models): default input=[text,image] for vision-capable explicit-only models`](http://github.com/openclaw/openclaw/pull/72404) was originally labeled by DS4 as `[config]`, but the same prompt with Gemma 4 had given `[local_model_providers, reliability]`. After optimizing the prompt, however, Gemma 4 also gives `[config]` as the correct label.
 
-And in another one
-
-  PR #84549
-  Title: fix(deepinfra): load all DeepInfra models when user wants to browse...
-  Original Gemma:  [local_model_providers, chat_integrations]
-  Optimized Gemma: [model_releases, chat_integrations]
-  DS4 label:       [model_serving]
+In another case, [`PR #84549 fix(deepinfra): load all DeepInfra models when user wants to browse...`](http://github.com/openclaw/openclaw/pull/84549) shows that the "correct" label can still be a bit subjective. DS4 labeled it as `[model_serving]`, while the optimized Gemma prompt gave `[model_releases, chat_integrations]`. Whereas this assignment is not exactly right, it is not exactly wrong either.
 
 [^1]: See full list of topics and other configuration [here](https://github.com/osolmaz/localpager/blob/main/examples/profiles/openclaw-routing-topics.json)
