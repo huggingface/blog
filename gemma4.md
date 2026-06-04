@@ -525,14 +525,13 @@ Gemma 4 models come with image+text support in llama.cpp from the get-go! This u
 You can install llama-cpp as follows.
 
 ```bash
-brew install llama.cpp # MacOS
-winget install llama.cpp # Windows
+curl -LsSf https://llama.app/install.sh | sh
 ```
 
 You can then start a server compatible with the OpenAI API Replace the quantization scheme at the end of the command with the precision of your choice.
 
 ```bash
-llama-server -hf ggml-org/gemma-4-E2B-it-GGUF
+llama serve -hf ggml-org/gemma-4-E2B-it-GGUF
 ```
 
 Check out this link [for more](https://huggingface.co/ggml-org/gemma-4-E2B-it-GGUF?local-app=llama.cpp) options on combining llama.cpp with different coding agents and local apps. Find all the GGUF checkpoints [in this collection](https://huggingface.co/collections/ggml-org/gemma-4).
@@ -544,7 +543,7 @@ We worked on making sure the new models work locally with agents like **openclaw
 First, start your local server:
 
 ```
-llama-server -hf ggml-org/gemma-4-26b-a4b-it-GGUF:Q4_K_M
+llama serve -hf ggml-org/gemma-4-26b-a4b-it-GGUF:Q4_K_M
 ```
 
 For **hermes:**
@@ -586,7 +585,7 @@ For **open code** define a `~/.config/opencode/opencode.json`:
   "provider": {
     "llama.cpp": {
       "npm": "@ai-sdk/openai-compatible",
-      "name": "llama-server (local)",
+      "name": "llama server (local)",
       "options": {
         "baseURL": "http://127.0.0.1:8080/v1"
       },
