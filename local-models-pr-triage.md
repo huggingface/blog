@@ -118,12 +118,14 @@ Below is a figure showing the overall architecture of localpager:
 
 ## Making small models not classify horribly
 
-Let's be frank: `gemma-4-e4b-it` was trained to run on very limited hardware, and by default it has a tendency to put too many unrelated labels on a PR or issue. But being small, it can run 10-15x faster than a larger model like [DeepSeek-V4-Flash](https://huggingface.co/antirez/deepseek-v4-gguf) and with 4x less memory, which lets me run 3 of them concurrently. And for such triage tasks, we can use the larger DS4 to be the teacher: create a dataset of more correct classifications, and then iterate on the prompt for Gemma to maximize accuracy over the teacher-generated dataset.
+Let's be frank: `gemma-4-e4b-it` was designed to run on limited hardware, and by default it has a tendency to put too many unrelated labels on a PR or issue. But being small, it can run 10-15x faster than a larger model like [DeepSeek-V4-Flash](https://huggingface.co/antirez/deepseek-v4-gguf) and with 4x less memory, which lets me run 3 of them concurrently. And for such triage tasks, we can use the larger DS4 to be the teacher: create a dataset of more correct classifications, and then iterate on the prompt for Gemma to maximize accuracy over the teacher-generated dataset.
 
 That is exactly what we did, and saved the results in [openclaw-classification-dataset](https://huggingface.co/datasets/dutifuldev/openclaw-classification-dataset).
 
 For example, [`PR #72404 fix(models): default input=[text,image] for vision-capable explicit-only models`](http://github.com/openclaw/openclaw/pull/72404) was originally labeled by DS4 as `[config]`, but the same prompt with Gemma 4 had given `[local_model_providers, reliability]`. After optimizing the prompt, however, Gemma 4 also gives `[config]` as the correct label.
 
 In another case, [`PR #84549 fix(deepinfra): load all DeepInfra models when user wants to browse...`](http://github.com/openclaw/openclaw/pull/84549) shows that the "correct" label can still be a bit subjective. DS4 labeled it as `[model_serving]`, while the optimized Gemma prompt gave `[model_releases, chat_integrations]`. Whereas this assignment is not exactly right, it is not exactly wrong either.
+
+You can see the original prompt for DS4 and the optimized Gemma prompt [here](https://huggingface.co/datasets/dutifuldev/openclaw-classification-dataset/blob/main/prompts/README.md).
 
 [^1]: See full list of topics and other configuration [here](https://github.com/osolmaz/localpager/blob/main/examples/profiles/openclaw-routing-topics.json)
