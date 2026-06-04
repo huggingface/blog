@@ -110,8 +110,14 @@ This part is very simple and does not involve any LLMs:
 3. The context object is rendered into a prompt and passed to `localpager-agent` as described in the previous section. The agent could thinks, use reposhell, but must eventually output a classification result in the defined schema.
 4. The output is stored back in localpager SQLite database, and relayed to Discord based on the notification policy configured by the user (i.e. notify me for these topics, but not these other ones).
 
+Below is a figure showing the overall architecture of localpager:
+
 <figure class="image table text-center m-0 w-full" style="text-align: center;">
   <img src="assets/local-models-pr-triage/localpager-architecture.svg" alt="Localpager architecture" style="display: block; width: 70%; min-width: 300px; margin: 0 auto;" />
 </figure>
+
+## Making small models not classify horribly
+
+Let's be frank: `gemma-4-e4b-it` was trained to run on very limited hardware, and by default it has a tendency to put too many unrelated labels on a PR or issue. But being small, it can run 10-15x faster than a larger model like [DeepSeek-V4-Flash](https://huggingface.co/antirez/deepseek-v4-gguf), and with 4x less memory, which lets me run 3 of them concurrently. And for such triage tasks, we can use the larger DS4 to be the teacher: create a dataset of correct classifications, and then fine-tune the prompt for Gemma to maximize accuracy over the teacher-generated dataset.
 
 [^1]: See full list of topics and other configuration [here](https://github.com/osolmaz/localpager/blob/main/examples/profiles/openclaw-routing-topics.json)
