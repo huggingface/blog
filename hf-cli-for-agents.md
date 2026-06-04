@@ -135,7 +135,7 @@ We defined **18 non-trivial Hub tasks**. Not "download a file", but the kind of 
 - the `hf` CLI, or
 - **curl / the Python SDK**: no `hf` CLI at all, so the agent falls back to `curl` against the REST API or the `huggingface_hub` Python library.
 
-We run the `hf` CLI in two configurations, with and without its skill - a generated command reference we come back to in [its own section](#the-hf-cli-skill). But the headline comparison below is simply **`hf` CLI vs curl / the SDK**; the skill's incremental effect is small enough that we break it out on its own rather than crowd it into the main results.
+We run the `hf` CLI in two configurations, with and without its skill (a generated command reference we come back to in [its own section](#the-hf-cli-skill)). But the headline comparison below is simply **`hf` CLI vs curl / the SDK**; the skill's incremental effect is small enough that we break it out on its own rather than crowd it into the main results.
 
 The config is deliberately clean: a fresh instance per run, no custom MCP servers, no `CLAUDE.md` or `AGENTS.md`, nothing in context to nudge behavior. The task and the tool go into a single prompt, and the agent finishes with a `TASK_COMPLETE` or `TASK_FAILED` marker, but we don't trust that marker (an agent will report success on work that never landed), so we grade every run independently by **re-querying the live Hub**: did the branch really get created, is the file actually gone, does the bucket exist? Each task/tool combination is run **10 times**, since coding agents are non-deterministic, about **520 runs per agent** (18 tasks × 3 tools × 10 reps, minus a cap on one billable Jobs task) and ~1,000 graded runs in total. We ran the whole thing twice, on the two most popular coding agents (**Claude Code** with Sonnet 4.6 and **OpenAI Codex** with GPT-5.5).
 
@@ -182,7 +182,9 @@ What does it buy you? Mostly, the agent stops guessing. The clearest single view
     <img class="hidden dark:block" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/huggingface_hub/chart-skill-dark.png" alt="Mean commands (tool calls) per run, with and without the hf-cli skill, on both agents. Claude Code (Sonnet 4.6): 10.4 without the skill, 6.9 with it. Codex (GPT-5.5): 10.1 without, 7.3 with. Fewer is better." width="100%"/>
 </div>
 
-On both agents that's about ten commands per task down to about seven, roughly 30% fewer tool calls - because the agent isn't probing `--help` to find the right command and argument. The skill won't cut your token bill, because it prepends a fixed slice of info to the context, so tokens remain about the same or slightly tick up for the same task. The Skill won't make the CLI more reliable either, but it will help the agent spend time running your task rather than finding out how the tool works. This could be particularly helpful when using `hf` with local models.
+On both agents that's about ten commands per task down to about seven, roughly 30% fewer tool calls. That's because the agent isn't probing `--help` to find the right command and argument. The skill won't cut your token bill, because it prepends a fixed slice of info to the context, so tokens remain about the same or slightly tick up for the same task. The Skill won't make the CLI more reliable either, but it will help the agent spend time running your task rather than finding out how the tool works. This could be particularly helpful when using `hf` with local models.
+
+We ran each task in a fresh session, so the skill pays its context cost on every task. In a real multi-task session that cost amortizes (the agent learns the command surface once), so the token picture likely improves there; we didn't measure that case.
 
 ## Try it yourself
 
