@@ -162,7 +162,7 @@ Example Discord follow-up output:
 
 Also check out the [skill I personally use](https://github.com/osolmaz/tools/blob/main/agents/skills/openclaw-onur-inventory/SKILL.md) to maintain my [public "inventory" repo](https://github.com/osolmaz/onurclaw).
 
-TBD, needs some more work
+TBD, needs fleshing out
 
 ## Conclusion
 
