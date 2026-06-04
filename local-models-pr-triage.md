@@ -98,6 +98,10 @@ localpager-agent \
 
 So then what orchestrates everything in between the incoming PR/issue and the final notification on Discord?
 
+<figure class="image table text-center m-0 w-full" style="text-align: center;">
+  <img src="https://i.imgur.com/gPf3nSrh.jpg" alt="Localpager Discord notification" style="display: block; width: 70%; min-width: 300px; margin: 0 auto;" />
+</figure>
+
 This part is very simple and does not involve any LLMs:
 
 1. We use [openclaw/gitcrawl](http://github.com/openclaw/gitcrawl) to act as a local mirror for the repo. Whenever there is a new PR or issue, each item is normalized into the same shape and written into localpager's own SQLite database. If the item is new, localpager creates a classification job for it.
