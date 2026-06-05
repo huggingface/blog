@@ -64,10 +64,10 @@ Use:
 ```text
 Owner: your HF user or org
 Name: jobs-actions-dispatcher
-Hardware: cpu-basic
+Hardware: cpu-upgrade
 ```
 
-If you see warnings saying that "Your duplicated Space may not work if you switch to a different hardware than the suggested one", that's okay! You also don't need to fill out any secrets at this point.
+Use `cpu-upgrade` for real CI so the dispatcher stays available for GitHub webhooks. `cpu-basic` is fine for testing and will probably work, but it can sleep after inactivity; if GitHub's webhook arrives while it is waking up, the workflow may stay queued until you rerun it or redeliver the webhook.
 
 After it builds, open the duplicated Space. You may see some configuration errors, but that's also okay. The landing page should display the GitHub App webhook URL you need in the next step. It will look like this:
 
@@ -85,7 +85,7 @@ export SPACE_ID="$HF_NAMESPACE/jobs-actions-dispatcher"
 
 hf repo duplicate huggingface/jobs-actions-dispatcher "$SPACE_ID" \
   --type space \
-  --flavor cpu-basic \
+  --flavor cpu-upgrade \
   --exist-ok
 ```
 
