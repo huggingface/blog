@@ -140,6 +140,9 @@ https://github.com/organizations/YOUR-GITHUB-ORG/settings/installations
 
 At this point, the dispatcher Space should be configured. The GitHub App setup flow generated the commands that upload the App credentials, webhook secret, and Hugging Face token to the Space.
 
+<img width="1317" height="463" alt="image" src="https://github.com/user-attachments/assets/0fc8ac73-f93a-419b-bd80-70da2756f50c" />
+
+
 By default, HF Jobs are launched under the owner namespace of the dispatcher Space. Optionally, set `HF_NAMESPACE` as a Space variable if you want to bill jobs to a different Hugging Face user or org:
 
 ```bash
