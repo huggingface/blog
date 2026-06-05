@@ -3,6 +3,7 @@ title: "Profiling in PyTorch (Part 2): From nn.Linear to a Fused MLP"
 thumbnail: /blog/assets/torch-mlp-fusion/thumbnail.png
 authors:
   - user: ariG23498
+  - user: ror
 ---
 
 # Profiling in PyTorch (Part 2): From nn.Linear to a Fused MLP
@@ -11,7 +12,7 @@ authors:
 
 In the [first part of this series "Profiling in PyTorch"](https://huggingface.co/blog/torch-profiler), we used `torch.add(torch.matmul(x, w), b)` to learn how to read PyTorch profiler traces. We talked about the CPU dispatch chain, launch overhead, the difference between an overhead-bound and a compute-bound regime, and the internals of `torch.compile`.
 
-In the current part (this blog post), we climb one rung up the ladder. We replace the hand-written matmul-add pair with an `nn.Linear` (with `bias=True`). This is the building block every deep learning model uses. We then stack three of them, with an activation in between, to form the Multilayer Perceptron (MLP) block.
+In the current part (this blog post), we climb one rung up the ladder. We replace the hand-written matmul-add pair with an `nn.Linear` (with `bias=True`). This is the building block every deep learning model uses. We then stack three of them, with an activation in between, to form a Multilayer Perceptron (MLP) block.
 
 > [!NOTE]
 > The scripts for this blog post live here: [`02_linear.py`](https://huggingface.co/datasets/ariG23498/profiling-pytorch/blob/main/02_linear.py), [`03_simple_mlp.py`](https://huggingface.co/datasets/ariG23498/profiling-pytorch/blob/main/03_simple_mlp.py), and [`03_kernels_mlp.py`](https://huggingface.co/datasets/ariG23498/profiling-pytorch/blob/main/03_kernels_mlp.py). Like before, it helps to open them in a separate tab and walk through the code as you read. We use the `NVIDIA A100-SXM4-80GB` GPU to run the scripts.
@@ -58,11 +59,11 @@ Figure 1 shows the profiler trace of a forward call of the linear layer. We trac
 | :--: |
 | Figure 2: The transpose CPU row |
 
-If we zoom into the profiler trace, as we do in Figure 2, we notice an `aten::t` op before the `aten::addmm` op. We can already figure out that `nn.Linear` transposes the weight parameter and then multiplies it with the input. This is the reason we see an `aten::t` op.
+If we zoom into the profiler trace, as we do in Figure 2, we notice an `aten::t` (transpose) op before the `aten::addmm` (multiplication and addition) op. We can already figure out that `nn.Linear` transposes the weight parameter and then multiplies it with the input. This is the reason we see an `aten::t` op.
 
 An important thing to notice is that `aten::t` only rewrites tensor metadata (shape and stride) on the CPU; it does not launch a kernel on the GPU. One can verify this two ways: by looking at the GPU lane in the trace, or by checking the `aten::t` row in the profiler table and the time it took on CUDA.
 
-### Why does eager already look fused?
+### Where are add and mul kernels seperately?
 
 | ![Profiler trace of the linear layer with the dispatch chain highlighted, showing aten::linear, aten::t and aten::addmm but no separate aten::add op](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/torch-mlp-fusion/no-aten-add.png) |
 | :--: |
@@ -70,19 +71,19 @@ An important thing to notice is that `aten::t` only rewrites tensor metadata (sh
 
 There is no `aten::add` (the bias addition) in the dispatch chain of the linear layer, as seen in Figure 3. This is because the bias addition has been folded into the matrix multiplication kernel, using what is called an **epilogue**.
 
-An **epilogue** is a small computation that a GEMM (matrix multiply) kernel does at the very end, just before it writes its result back to HBM (the GPU's main memory). Adding a bias, applying an activation, or scaling by a constant are all classic epilogues. The point of an epilogue is to avoid touching HBM a second time, since memory traffic makes an operation expensive.
+An **epilogue** is a small computation that a GEMM (GEneral Matrix Multiply) kernel does at the very end, just before it writes its result back to HBM (High Bandwidth Memory, the GPU's main memory). Adding a bias, applying an activation, or scaling by a constant are all classic epilogues. The point of an epilogue is to avoid touching HBM a second time, since memory traffic makes an operation expensive.
 
 `nn.Linear` calls `torch.nn.functional.linear`, which in turn calls `aten::linear`. `aten::linear` looks at the inputs, notices that a bias was passed, and dispatches `aten::addmm(bias, x, weight)` instead of doing a matmul and an add separately. `addmm` computes:
 
 ```
-out = α * (x @ weight) + β * bias
+out = x @ weight.T + bias
 ```
 
-with `α = β = 1`. The cuBLAS GEMM kernel that runs on the GPU has a bias-add variant built in, and that's the kernel `aten::addmm` picks. The add never appears as a separate kernel because it is **part of the matmul kernel's writeback**, which is exactly what an epilogue is.
+The cuBLAS GEMM kernel that runs on the GPU has a bias-add variant built in, and that's the kernel `aten::addmm` picks. The add never appears as a separate kernel because it is **part of the matmul kernel's writeback**, which is exactly what an epilogue is.
 
 This is the moment to notice something subtle. The kernel you saw in [Part 1 under `--compile`](https://huggingface.co/blog/torch-profiler#did-we-fuse-the-matmul-and-add-kernels-into-one) (`addmm`) is the kernel that eager `nn.Linear` already uses. There is nothing left for `torch.compile` to fuse here, which is the next thing we will verify.
 
-### Why does `--compile` not help a single Linear?
+### Can --compile help a single Linear?
 
 Let's compile the forward call and look at the profiler trace.
 
@@ -97,7 +98,7 @@ If you compare the eager and compiled traces for a single `nn.Linear`'s `forward
 - The same `aten::addmm` op on the CPU.
 - A few extra rows on the CPU lane unique to compile.
 
-This is worth internalizing. A common reflex is to reach for `torch.compile` whenever a model feels slow. For a single GEMM-with-bias, compile has nothing to do. The wins start to appear only when there are several operators that can be rearranged into fewer kernels, which is the story of the [MLP block later in this post](#stacking-two-linears-the-mlp).
+This is worth internalizing. A common reflex is to reach for `torch.compile` whenever a model feels slow. For a single GEMM-with-bias, compile has very little to do. This is not a bug, this is just that compile needs more than one operation to do fusing, and let's prove that by [looking at the MLP](#stacking-two-linears-the-mlp).
 
 ### Where did the transpose go? Kernel layouts and pre-ops
 
