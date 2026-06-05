@@ -9,11 +9,12 @@ authors:
 
 If you have a GitHub repository and you have GitHub Actions enabled, you probably use GitHub-hosted runners for CI. That is the default for many projects because it is simple: add a workflow, write `runs-on: ubuntu-latest`, and GitHub gives you a machine.
 
-That default is convenient, but it also has limits. GitHub Actions can be slow, the hosted machines are generic, and GPU access is not something most open-source projects can just turn on. For [Trackio](https://github.com/gradio-app/trackio), those limits started to matter. We wanted both normal CPU CI for basic unit tests and frontend checks, but also GPU CI for tests that need to run on actual CUDA hardware.
+That default is convenient, but it also has limits. GitHub Actions can be slow or down for maintenance, the hosted machines are generic, and GPU access is not something most open-source projects can just turn on. For [Trackio](https://github.com/gradio-app/trackio), those limits started to matter. We wanted both reliable CPU CI for basic unit tests and frontend checks, but also GPU CI for tests that need to run on actual CUDA hardware.
 
 So we tried an experiment: keep GitHub Actions as the CI control plane, but run selected jobs on [Hugging Face Jobs](https://huggingface.co/docs/hub/en/jobs-overview).
 
-The result: Trackio's CI now runs on Hugging Face Jobs, **cutting our CI time for CPU jobs by 40% and enabling a whole new test suite that runs on GPU machines**!
+
+The result: Trackio's CI now runs on Hugging Face Jobs and streams back realtime logs, **cutting our CI time for CPU jobs by 40% and enabling a whole new test suite that runs on GPU machines**!
 
 In this article, we explain step-by-step, how to recreate the same setup for your GitHub repo. 
 
@@ -30,7 +31,7 @@ But first, a quick intro to Hugging Face Jobs!
 
 That makes Jobs a natural fit for CI. CI jobs are already command-driven, already run in clean environments, and often benefit from choosing exactly the right hardware. For ML libraries, the GPU case is especially compelling: you can run a test suite on real GPU hardware without maintaining your own always-on runner.
 
-The key step is connecting GitHub Actions to HF Jobs.
+The key step is connecting GitHub Actions to HF Jobs, which we describe below.
 
 ## The architecture
 
@@ -44,13 +45,13 @@ The complete flow looks like this:
 1. The HF Job boots an ephemeral GitHub Actions runner and registers it with the repo using that one-shot token.
 1. GitHub assigns the pending workflow job to that runner; the runner executes the CI job, reports status back to GitHub, and exits.
 
-From GitHub's point of view, this is just a self-hosted runner. From Hugging Face's point of view, it is just a short-lived Job.
+From GitHub's point of view, this is just a self-hosted runner. From Hugging Face's point of view, it is just a Job that launches a container to run the workflow steps from the repo’s GitHub Actions.
 
 ## Step 1: Duplicate the dispatcher Space
 
 The first thing you need is the dispatcher. This is a small Docker Space that receives GitHub `workflow_job` webhook events and launches HF Jobs in response.
 
-Create this first because the GitHub App needs a webhook URL, and that URL comes from the Space. This Space should be under your own namespace or under an org that has billing credits enabled, since Jobs will be [charged to this account](https://huggingface.co/docs/hub/en/jobs-pricing#pricing).
+Create this first because the GitHub App needs a webhook URL, and that URL comes from the Space. This Space should be under your own namespace or under an Hugging Face org that you have write-access to.
 
 #### Web setup
 
@@ -69,7 +70,7 @@ Hardware: cpu-upgrade
 
 Use `cpu-upgrade` for real CI so the dispatcher stays available for GitHub webhooks. `cpu-basic` is fine for testing and will probably work, but it can sleep after inactivity; if GitHub's webhook arrives while it is waking up, the workflow may stay queued until you rerun it or redeliver the webhook.
 
-After it builds, open the duplicated Space. You may see some configuration errors, but that's also okay. The landing page should display the GitHub App webhook URL you need in the next step. It will look like this:
+After it builds, open the duplicated Space. You will see a section that says "Required Space secrets," which you can ignore for now. The landing page should display the GitHub App webhook URL you need in the next step. It will look like this:
 
 ```text
 https://YOUR-HF-NAMESPACE-jobs-actions-dispatcher.hf.space/webhook
