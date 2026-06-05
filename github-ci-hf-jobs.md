@@ -16,7 +16,7 @@ So we tried an experiment: keep GitHub Actions as the CI control plane, but run 
 
 The result: Trackio's CI now runs on Hugging Face Jobs and streams back realtime logs, **cutting our CI time for CPU jobs by 40% and enabling a whole new test suite that runs on GPU machines**!
 
-In this article, we explain step-by-step, how to recreate the same setup for your GitHub repo. If you are using an agent, you can point it to this article, since we provide CLI instructions alongside browser-based instructions for us humans. 
+In this article, we explain step-by-step, how to recreate the same setup for your GitHub repo. If you are using an agent, you can point it to this article, since we provide CLI instructions alongside browser-based instructions for us humans.
 
 Let's start with quick intro to Hugging Face Jobs!
 
@@ -245,7 +245,7 @@ Here are the numbers from the Trackio PR experiment:
 | HF Jobs GPU, `t4-small` label | `45s` | no GitHub-hosted GPU baseline |
 
 
-The biggest win was GPU CI. The Trackio GPU check ran on HF Jobs and passed in `45s`, costing less than a cent at the `t4-small` rate for that duration. 
+The biggest win was GPU CI. The Trackio GPU check ran on HF Jobs and passed in `45s`, costing less than a cent at the `t4-small` rate for that duration.
 
 The CPU result was also encouraging. With the right image, the Linux test job was faster than the GitHub-hosted baseline. That suggests HF Jobs can be a practical CI backend, especially for ML projects that need custom images or accelerators.
 
