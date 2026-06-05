@@ -68,7 +68,7 @@ An important thing to notice is that `aten::t` only rewrites tensor metadata (sh
 | :--: |
 | Figure 3: No `aten::add` in the profile of a linear layer |
 
-There is no `aten::add` (the bias addition) in the dispatch chain of the linear layer, as seen in Figure 3. The bias has already been folded into the matrix multiply. Let's understand why, because this is the cleanest possible example of a **GEMM epilogue**.
+There is no `aten::add` (the bias addition) in the dispatch chain of the linear layer, as seen in Figure 3. This is because the bias addition has been folded into the matrix multiplication kernel, using what is called an **epilogue**.
 
 An **epilogue** is a small computation that a GEMM (matrix multiply) kernel does at the very end, just before it writes its result back to HBM (the GPU's main memory). Adding a bias, applying an activation, or scaling by a constant are all classic epilogues. The point of an epilogue is to avoid touching HBM a second time, since memory traffic makes an operation expensive.
 
