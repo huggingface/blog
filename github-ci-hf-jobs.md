@@ -127,7 +127,7 @@ Then install the App on the GitHub repo whose CI should run on HF Jobs. In the T
 
 ### Agent-assisted setup
 
-The GitHub App manifest flow is intentionally browser-based, but an agent can still prepare almost everything:
+The GitHub App manifest flow is intentionally browser-based, but an agent can still prepare almost everything. Clone the setup page locally, open it, then use the App credentials GitHub returns in the dispatcher configuration step below:
 
 ```bash
 git clone https://github.com/huggingface/jobs-actions
@@ -164,30 +164,27 @@ By default, HF Jobs are launched under the owner namespace of the dispatcher Spa
 
 You can add the configuration through the Space settings UI: **Settings → Variables and secrets**. Put `GH_APP_PRIVATE_KEY`, `GH_WEBHOOK_SECRET`, and `HF_TOKEN` under **Secrets**. Put `GH_APP_ID` under **Variables**.
 
-Or from the CLI:
+Or from the CLI, using the Hugging Face token you are already logged in with locally:
 
 ```bash
-export GH_APP_ID=123456
-export GH_WEBHOOK_SECRET=your-webhook-secret
-export GH_APP_PRIVATE_KEY_PATH=/path/to/private-key.pem
-export HF_TOKEN=hf_xxx
 export HF_NAMESPACE=your-hf-user-or-org
 export SPACE_ID="$HF_NAMESPACE/jobs-actions-dispatcher"
+export GH_APP_ID=123456
+export GH_WEBHOOK_SECRET=your-webhook-secret
+export HF_TOKEN="$(hf auth token)"
 
-python - <<'PY' > /tmp/jobs-actions-secrets.env
-import os
-from pathlib import Path
+cat > jobs-actions-secrets.env <<EOF
+GH_APP_PRIVATE_KEY=-----BEGIN RSA PRIVATE KEY-----\nPASTE_YOUR_PRIVATE_KEY_BODY_WITH_ESCAPED_NEWLINES\n-----END RSA PRIVATE KEY-----\n
+GH_WEBHOOK_SECRET=$GH_WEBHOOK_SECRET
+HF_TOKEN=$HF_TOKEN
+EOF
 
-print(f"GH_WEBHOOK_SECRET={os.environ['GH_WEBHOOK_SECRET']}")
-print(f"HF_TOKEN={os.environ['HF_TOKEN']}")
-private_key = Path(os.environ["GH_APP_PRIVATE_KEY_PATH"]).read_text()
-print("GH_APP_PRIVATE_KEY=" + private_key.replace("\n", "\\n"))
-PY
-
-hf spaces secrets add "$SPACE_ID" --secrets-file /tmp/jobs-actions-secrets.env
+hf spaces secrets add "$SPACE_ID" --secrets-file jobs-actions-secrets.env
 hf spaces variables add "$SPACE_ID" -e GH_APP_ID="$GH_APP_ID"
 hf spaces restart "$SPACE_ID"
 ```
+
+The private key value should be the GitHub App `.pem` private key with each newline encoded as `\n`, including the final newline after `-----END RSA PRIVATE KEY-----`.
 
 At this point, GitHub can notify the dispatcher whenever a workflow job is queued.
 
