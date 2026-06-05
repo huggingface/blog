@@ -71,7 +71,7 @@ An important thing to notice is that `aten::t` only rewrites tensor metadata (sh
 
 There is no `aten::add` (the bias addition) in the dispatch chain of the linear layer, as seen in Figure 3. This is because the bias addition has been folded into the matrix multiplication kernel, using what is called an **epilogue**.
 
-An **epilogue** is a small computation that a GEMM (GEneral Matrix Multiply) kernel does at the very end, just before it writes its result back to HBM (High Bandwidth Memory, the GPU's main memory). Adding a bias, applying an activation, or scaling by a constant are all classic epilogues. The point of an epilogue is to avoid touching HBM a second time, since memory traffic makes an operation expensive.
+An **epilogue** is a small computation that a GEMM (GEneral Matrix Multiply) kernel does at the very end, just before it writes its result back to HBM (High Bandwidth Memory, the GPU's main memory). Adding a bias, applying an activation, or scaling by a constant are all classic epilogues. The point of an epilogue is to avoid loading or writing to HBM a second time, since memory traffic makes an operation expensive.
 
 `nn.Linear` calls `torch.nn.functional.linear`, which in turn calls `aten::linear`. `aten::linear` looks at the inputs, notices that a bias was passed, and dispatches `aten::addmm(bias, x, weight)` instead of doing a matmul and an add separately. `addmm` computes:
 
