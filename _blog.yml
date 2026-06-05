@@ -5387,3 +5387,21 @@
     - ci
     - github-actions
     - open-source
+
+- local: adding-mcp-tools-to-reachy-mini
+  date: June 3, 2026
+  tags:
+    - guide
+    - robotics
+    - reachy
+    - agents
+    - mcp
+    - tools
+
+- local: hf-cli-for-agents
+  date: June 4, 2026
+  tags:
+    - cli
+    - huggingface_hub
+    - agents
+    - hub
