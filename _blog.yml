@@ -5388,8 +5388,16 @@
     - mcp
     - tools
 
-- local: torch-mlp-fusion
+- local: hf-cli-for-agents
   date: June 4, 2026
+  tags:
+    - cli
+    - huggingface_hub
+    - agents
+    - hub
+
+- local: torch-mlp-fusion
+  date: June 5, 2026
   tags:
     - torch
     - profile
