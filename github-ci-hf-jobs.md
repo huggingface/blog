@@ -116,7 +116,9 @@ YOUR-GITHUB-ORG/YOUR-REPO
 
 Then click the button to create the GitHub App. GitHub will ask you to choose a name for the App; the name can be anything, as long as it is available in your GitHub account or org. After you submit, the final screen tells you exactly how to upload the App credentials to the dispatcher Space with the `hf` CLI.
 
-Then install the App on the same GitHub repo you entered in the Space. In the Trackio setup, we installed it on `gradio-app/trackio`.
+**Important note**: you will need to provide an [Hugging Face token](https://huggingface.co/settings/tokens) that has permissions to launch Jobs, corresponding to your personal account or an org under which Jobs should be charged. This token should be saved as the `HF_TOKEN` secret in your dispatcher Space.
+
+Finally, you will install the App on the same GitHub repo you entered in the Space. In the Trackio setup, we installed it on `gradio-app/trackio`.
 
 ### Agent-assisted setup
 
@@ -136,14 +138,14 @@ After the App exists, install it on your repo from the App settings page. For a 
 https://github.com/organizations/YOUR-GITHUB-ORG/settings/installations
 ```
 
-## Step 3: Configure dispatcher settings
+## Step 3: Final dispatcher settings
 
 At this point, the dispatcher Space should be configured. The GitHub App setup flow generated the commands that upload the App credentials, webhook secret, and Hugging Face token to the Space.
 
-<img width="1317" height="463" alt="image" src="https://github.com/user-attachments/assets/0fc8ac73-f93a-419b-bd80-70da2756f50c" />
+<img width="1317" alt="image" src="https://github.com/user-attachments/assets/0fc8ac73-f93a-419b-bd80-70da2756f50c" />
 
 
-By default, HF Jobs are launched under the owner namespace of the dispatcher Space. Optionally, set `HF_NAMESPACE` as a Space variable if you want to bill jobs to a different Hugging Face user or org:
+By default, HF Jobs are launched under the same namespace as the dispatcher Space. Optionally, set `HF_NAMESPACE` as a Space variable if you want to bill jobs to a different Hugging Face user or org:
 
 ```bash
 export SPACE_ID=YOUR-HF-NAMESPACE/jobs-actions-dispatcher
@@ -151,7 +153,7 @@ hf spaces variables add "$SPACE_ID" -e HF_NAMESPACE=your-billing-namespace
 hf spaces restart "$SPACE_ID"
 ```
 
-At this point, GitHub can notify the dispatcher whenever a workflow job is queued.
+The token you set in Step 2 should correspond to this namespace.
 
 ## Step 4: Change `runs-on`
 
