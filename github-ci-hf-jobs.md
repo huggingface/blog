@@ -98,45 +98,37 @@ export DISPATCHER_URL="https://${HF_NAMESPACE}-jobs-actions-dispatcher.hf.space"
 
 ## Step 2: Create and install the GitHub App
 
-Next, create the GitHub App from the manifest included in [`huggingface/jobs-actions`](https://github.com/huggingface/jobs-actions). This App needs permission to listen for queued workflow jobs and create ephemeral self-hosted runner registration tokens.
+Next, create and install the GitHub App from the dispatcher Space itself. This App needs permission to listen for queued workflow jobs and create ephemeral self-hosted runner registration tokens.
 
 ### Web setup
 
-Open:
+Open your duplicated dispatcher Space:
 
 ```text
-setup/create-app.html
+https://YOUR-HF-NAMESPACE-jobs-actions-dispatcher.hf.space
 ```
 
-from a local clone of [`huggingface/jobs-actions`](https://github.com/huggingface/jobs-actions). Fill in:
+In the setup form, enter the GitHub repo whose CI should run on HF Jobs:
 
 ```text
-GitHub user or org: YOUR-GITHUB-ORG
-HF Space dispatcher URL: https://YOUR-HF-NAMESPACE-jobs-actions-dispatcher.hf.space
+YOUR-GITHUB-ORG/YOUR-REPO
 ```
 
-Submit the form. GitHub will create the App and take you to the App settings page. Save:
+Then click the button to create the GitHub App. GitHub will ask you to choose a name for the App; the name can be anything, as long as it is available in your GitHub account or org. After you submit, the final screen tells you exactly how to upload the App credentials to the dispatcher Space with the `hf` CLI.
 
-```text
-App ID
-Webhook secret
-Private key .pem
-```
-
-Then install the App on the GitHub repo whose CI should run on HF Jobs. In the Trackio setup, we installed it on `gradio-app/trackio`.
+Then install the App on the same GitHub repo you entered in the Space. In the Trackio setup, we installed it on `gradio-app/trackio`.
 
 ### Agent-assisted setup
 
-The GitHub App manifest flow is intentionally browser-based, but an agent can still prepare almost everything. Clone the setup page locally, open it, then use the App credentials GitHub returns in the dispatcher configuration step below:
+The GitHub App manifest flow is still browser-based, but an agent can follow the same Space-driven path:
 
 ```bash
-git clone https://github.com/huggingface/jobs-actions
-cd jobs-actions
-export GH_ORG=your-github-org
-open setup/create-app.html
+export HF_NAMESPACE=your-hf-user-or-org
+export GITHUB_REPO=YOUR-GITHUB-ORG/YOUR-REPO
+open "https://${HF_NAMESPACE}-jobs-actions-dispatcher.hf.space"
 ```
 
-Fill in the GitHub org and dispatcher URL, submit, and save the generated App credentials.
+Paste `$GITHUB_REPO` into the Space, click the GitHub App creation button, choose any available App name, and follow the generated GitHub instructions.
 
 After the App exists, install it on your repo from the App settings page. For a GitHub org, the installation settings are under:
 
@@ -146,45 +138,15 @@ https://github.com/organizations/YOUR-GITHUB-ORG/settings/installations
 
 ## Step 3: Configure dispatcher settings
 
-The dispatcher is a small web service. GitHub sends webhook events to it, and it launches HF Jobs with the right image, hardware flavor, labels, and one-shot runner token. The Space only needs three real secrets:
+At this point, the dispatcher Space should be configured. The GitHub App setup flow generated the commands that upload the App credentials, webhook secret, and Hugging Face token to the Space.
 
-```text
-GH_APP_PRIVATE_KEY
-GH_WEBHOOK_SECRET
-HF_TOKEN
-```
-
-It also needs one normal environment variable:
-
-```text
-GH_APP_ID
-```
-
-By default, HF Jobs are launched under the owner namespace of the dispatcher Space. Set `HF_NAMESPACE` as an optional Space variable only if you want to bill jobs to a different HF user or org.
-
-You can add the configuration through the Space settings UI: **Settings → Variables and secrets**. Put `GH_APP_PRIVATE_KEY`, `GH_WEBHOOK_SECRET`, and `HF_TOKEN` under **Secrets**. Put `GH_APP_ID` under **Variables**.
-
-Or from the CLI, using the Hugging Face token you are already logged in with locally:
+By default, HF Jobs are launched under the owner namespace of the dispatcher Space. Optionally, set `HF_NAMESPACE` as a Space variable if you want to bill jobs to a different Hugging Face user or org:
 
 ```bash
-export HF_NAMESPACE=your-hf-user-or-org
-export SPACE_ID="$HF_NAMESPACE/jobs-actions-dispatcher"
-export GH_APP_ID=123456
-export GH_WEBHOOK_SECRET=your-webhook-secret
-export HF_TOKEN="$(hf auth token)"
-
-cat > jobs-actions-secrets.env <<EOF
-GH_APP_PRIVATE_KEY=-----BEGIN RSA PRIVATE KEY-----\nPASTE_YOUR_PRIVATE_KEY_BODY_WITH_ESCAPED_NEWLINES\n-----END RSA PRIVATE KEY-----\n
-GH_WEBHOOK_SECRET=$GH_WEBHOOK_SECRET
-HF_TOKEN=$HF_TOKEN
-EOF
-
-hf spaces secrets add "$SPACE_ID" --secrets-file jobs-actions-secrets.env
-hf spaces variables add "$SPACE_ID" -e GH_APP_ID="$GH_APP_ID"
+export SPACE_ID=YOUR-HF-NAMESPACE/jobs-actions-dispatcher
+hf spaces variables add "$SPACE_ID" -e HF_NAMESPACE=your-billing-namespace
 hf spaces restart "$SPACE_ID"
 ```
-
-The private key value should be the GitHub App `.pem` private key with each newline encoded as `\n`, including the final newline after `-----END RSA PRIVATE KEY-----`.
 
 At this point, GitHub can notify the dispatcher whenever a workflow job is queued.
 
@@ -207,6 +169,10 @@ For GPU tests, use a GPU label:
 ```yaml
 runs-on: hf-jobs-t4-small
 ```
+
+For any GitHub Action you'd like to run on on HF Jobs, this 1-line change is all you need!
+
+## Step 5: Test it out
 
 To add a minimal smoke-test workflow from the CLI:
 
@@ -242,7 +208,7 @@ hf jobs ps --namespace "$HF_NAMESPACE"
 hf spaces logs "$SPACE_ID"
 ```
 
-You can see it running like in this [Trackio PR #565](https://github.com/gradio-app/trackio/pull/565).
+You should be able see logs just like a regular GitHub Action, e.g. like in this [Trackio PR #565](https://github.com/gradio-app/trackio/pull/565).
 
 
 And that's it!
