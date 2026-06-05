@@ -45,14 +45,15 @@ We collaborated with Google and the community to make them available everywhere:
 
 # What is new with Gemma 4?
 
-Similar to Gemma-3n, Gemma 4 supports image, text, and audio inputs, and generates text responses. The text decoder is based on the Gemma model with support for long context windows. The image encoder is similar to the one from Gemma 3 but with two crucial improvements: variable aspect ratios, and configurable number of image token inputs to find your sweet spot between speed, memory, and quality. All models support images (or video) and text inputs, while the small variants (E2B and E4B) support audio as well.
+Similar to Gemma-3n, Gemma 4 supports image, text, and audio inputs, and generates text responses. The text decoder is based on the Gemma model with support for long context windows. The image encoder is similar to the one from Gemma 3 but with two crucial improvements: variable aspect ratios, and configurable number of image token inputs to find your sweet spot between speed, memory, and quality. All models support images (or video) and text inputs, while the small variants (E2B, E4B) and the 12B Unified model support audio as well.
 
-Gemma 4 comes in four sizes, all base and instruction fine-tuned:
+Gemma 4 comes in five sizes, all base and instruction fine-tuned:
 
 | Model | Parameter Size | Context Window | Checkpoints |
 | :---- | :---- | :---- | :---- |
 | Gemma 4 E2B | 2.3B effective, 5.1B with embeddings | 128k | [base](https://huggingface.co/google/gemma-4-E2B), [IT](https://huggingface.co/google/gemma-4-E2B-it) |
 | Gemma 4 E4B | 4.5B effective, 8B with embeddings | 128k | [base](https://huggingface.co/google/gemma-4-E4B), [IT](https://huggingface.co/google/gemma-4-E4B-it) |
+| Gemma 4 12B Unified | 11.95B dense, encoder-free | 256K | [base](https://huggingface.co/google/gemma-4-12B), [IT](https://huggingface.co/google/gemma-4-12B-it) |
 | Gemma 4 31B | 31B dense model | 256K | [base](https://huggingface.co/google/gemma-4-31B), [IT](https://huggingface.co/google/gemma-4-31B-it) |
 | Gemma 4 26B A4B | mixture-of-experts with 4B activated/26B total parameters | 256K | [base](https://huggingface.co/google/gemma-4-26B-A4B), [IT](https://huggingface.co/google/gemma-4-26B-A4B-it) |
 
@@ -68,8 +69,9 @@ These are the main architecture characteristics in Gemma 4:
 * **Dual RoPE** configurations: standard RoPE for sliding layers, pruned RoPE for global layers, to enable longer context.
 * **Per-Layer Embeddings (PLE)**: a second embedding table that feeds a small residual signal into every decoder layer.
 * **Shared KV Cache**: the last N layers of the model reuse key-value states from earlier layers, eliminating redundant KV projections.
-* **Vision encoder**: uses learned 2D positions and multidimensional RoPE. Preserves the original aspect ratios and can encode images to a few different token budgets (70, 140, 280, 560, 1120).
-* **Audio encoder**: USM-style conformer with the same base architecture as the one in Gemma-3n.
+* **Vision encoder (except 12B)**: uses learned 2D positions and multidimensional RoPE. Preserves the original aspect ratios and can encode images to a few different token budgets (70, 140, 280, 560, 1120).
+* **Audio encoder (E2B, E4B)**: USM-style conformer with the same base architecture as the one in Gemma-3n.
+* **Unified encoder-free multimodality (12B only)**: the 12B Unified variant drops the separate vision and audio encoders and projects raw image patches and audio waveforms directly into the LLM's embedding space. See [Unified Multimodal (12B)](#unified-multimodal-12b).
 
 #### Per-Layer Embeddings (PLE)
 
@@ -81,11 +83,42 @@ The **shared KV cache** is an efficiency optimization that reduces both compute 
 
 In practice, this has a minimal impact on quality while being much more efficient (in terms of both memory and compute) for long context generation and on-device use.
 
+#### Unified Multimodal (12B)
+
+The Gemma 4 12B Unified model has no separate vision or audio encoder. Instead, raw image patches and audio waveforms are projected directly into the LLM's embedding space through lightweight linear layers, and all modalities flow into a single decoder-only transformer. This reduces multimodal latency and allows the whole model to be fine-tuned in one pass. The checkpoint size makes it deployment-friendly on consumer hardware.
+
 ## Multimodal Capabilities
 
 We saw in our tests that Gemma 4 supports comprehensive multimodal capabilities out of the box. We don't know what was the training mix, but we had success using it for tasks such as OCR, speech-to-text, object detection, or pointing. It also supports text-only and multimodal function calling, reasoning, code completion and correction.
 
 Here, we show a few inference examples across different model sizes. You can run them conveniently with [this notebook](https://github.com/huggingface/huggingface-gemma-recipes/blob/main/notebooks/Gemma4_(E2B)-Multimodal.ipynb). We encourage you to try the demos and share them below this blog!
+
+### Multimodal Input Order
+
+Gemma 4 was trained with a specific convention to interleave input modalities:
+
+* **Image content goes _before_ the text** in your prompt.
+* **Audio content goes _after_ the text** in your prompt.
+
+To be specific, this is a correct fragment that prepares inputs for the chat template:
+
+```python
+image_url = "https://huggingface.co/datasets/huggingface/documentation-images/resolve/0052a70beed5bf71b92610a43a52df6d286cd5f3/diffusers/rabbit.jpg"
+audio_url = "instructions.m4a"      # A recording of "describe this image"
+messages = [
+    {
+        "role": "user",
+        "content": [
+            {"type": "image", "image": image_url},
+            {"type": "text", "text": "Answer in French."},
+            {"type": "audio", "audio": audio_url},
+        ]
+    }
+]
+# Cette image montre un personnage anthropomorphe ressemblant à un lapin, vêtu d'un manteau bleu et d'un pantalon beige, se tenant sur un chemin de terre dans un paysage rural idyllique ...
+```
+
+The audio inference snippets in this post don't follow this convention, as they were written before this guidance was confirmed. We are keeping them as originally written so result tables remain reproducible. For your own code, prefer the order above.
 
 ### Object Detection and Pointing
 
@@ -717,7 +750,7 @@ Then select any of the Gemma 4 models from the hub.
 
 ## Try Gemma 4
 
-We have shipped demos for you to try different Gemma 4 models. We include demos based on transformers implementation for [E4B](https://huggingface.co/spaces/huggingface-projects/gemma-4-e4b-it), [26B/A4B](https://huggingface.co/spaces/huggingface-projects/gemma-4-26b-a4b-it), and dense [31B](https://huggingface.co/spaces/huggingface-projects/gemma-4-31b-it) models, as well as a [WebGPU](https://huggingface.co/spaces/webml-community/Gemma-4-WebGPU) demo with transformers.js 🚀
+We have shipped demos for you to try different Gemma 4 models. We include demos based on the transformers implementation for [E4B](https://huggingface.co/spaces/huggingface-projects/gemma-4-e4b-it), [12B Unified](https://huggingface.co/spaces/huggingface-projects/gemma-4-12b-it), [26B/A4B MoE](https://huggingface.co/spaces/huggingface-projects/gemma-4-26b-a4b-it), and [31B dense](https://huggingface.co/spaces/huggingface-projects/gemma-4-31b-it) models. There's also a [WebGPU](https://huggingface.co/spaces/webml-community/Gemma-4-WebGPU) demo with transformers.js 🚀
 
 
 <iframe width="560" height="315" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/g4-blog/webgpu_demo.mp4" title="WebGPU Demo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen> </iframe>
@@ -739,35 +772,35 @@ Gemma 4 models demonstrate exceptional performance across diverse benchmarks, fr
 
 Here are detailed benchmark results for the instruction-tuned models:
 
-| Benchmark | Gemma 4 31B | Gemma 4 26B A4B | Gemma 4 E4B | Gemma 4 E2B | Gemma 3 27B (no think) |
-|-----------|-------------|-----------------|-------------|-------------|------------------------|
+| Benchmark | Gemma 4 31B | Gemma 4 26B A4B | Gemma 4 12B Unified | Gemma 4 E4B | Gemma 4 E2B | Gemma 3 27B (no think) |
+|-----------|-------------|-----------------|---------------------|-------------|-------------|------------------------|
 | **Reasoning & Knowledge** |
-| MMLU Pro | [85.2%](https://huggingface.co/datasets/TIGER-Lab/MMLU-Pro?eval_result=google/gemma-4-31B-it) | [82.6%](https://huggingface.co/datasets/TIGER-Lab/MMLU-Pro?eval_result=google/gemma-4-26B-A4B-it) | [69.4%](https://huggingface.co/datasets/TIGER-Lab/MMLU-Pro?eval_result=google/gemma-4-E4B-it) | [60.0%](https://huggingface.co/datasets/TIGER-Lab/MMLU-Pro?eval_result=google/gemma-4-E2B-it) | 67.6% |
-| AIME 2026 no tools | [89.2%](https://huggingface.co/datasets/MathArena/aime_2026?eval_result=google/gemma-4-31B-it) | [88.3%](https://huggingface.co/datasets/MathArena/aime_2026?eval_result=google/gemma-4-26B-A4B-it) | [42.5%](https://huggingface.co/datasets/MathArena/aime_2026?eval_result=google/gemma-4-E4B-it) | [37.5%](https://huggingface.co/datasets/MathArena/aime_2026?eval_result=google/gemma-4-E2B-it) | 20.8% |
-| GPQA Diamond | [84.3%](https://huggingface.co/datasets/Idavidrein/gpqa?eval_result=google/gemma-4-31B-it) | [82.3%](https://huggingface.co/datasets/Idavidrein/gpqa?eval_result=google/gemma-4-26B-A4B-it) | [58.6%](https://huggingface.co/datasets/Idavidrein/gpqa?eval_result=google/gemma-4-E4B-it) | [43.4%](https://huggingface.co/datasets/Idavidrein/gpqa?eval_result=google/gemma-4-E2B-it) | 42.4% |
-| Tau2 (average over 3) | 76.9% | 68.2% | 42.2% | 24.5% | 16.2% |
-| BigBench Extra Hard | 74.4% | 64.8% | 33.1% | 21.9% | 19.3% |
-| MMMLU | 88.4% | 86.3% | 76.6% | 67.4% | 70.7% |
+| MMLU Pro | [85.2%](https://huggingface.co/datasets/TIGER-Lab/MMLU-Pro?eval_result=google/gemma-4-31B-it) | [82.6%](https://huggingface.co/datasets/TIGER-Lab/MMLU-Pro?eval_result=google/gemma-4-26B-A4B-it) | 77.2% | [69.4%](https://huggingface.co/datasets/TIGER-Lab/MMLU-Pro?eval_result=google/gemma-4-E4B-it) | [60.0%](https://huggingface.co/datasets/TIGER-Lab/MMLU-Pro?eval_result=google/gemma-4-E2B-it) | 67.6% |
+| AIME 2026 no tools | [89.2%](https://huggingface.co/datasets/MathArena/aime_2026?eval_result=google/gemma-4-31B-it) | [88.3%](https://huggingface.co/datasets/MathArena/aime_2026?eval_result=google/gemma-4-26B-A4B-it) | 77.5% | [42.5%](https://huggingface.co/datasets/MathArena/aime_2026?eval_result=google/gemma-4-E4B-it) | [37.5%](https://huggingface.co/datasets/MathArena/aime_2026?eval_result=google/gemma-4-E2B-it) | 20.8% |
+| GPQA Diamond | [84.3%](https://huggingface.co/datasets/Idavidrein/gpqa?eval_result=google/gemma-4-31B-it) | [82.3%](https://huggingface.co/datasets/Idavidrein/gpqa?eval_result=google/gemma-4-26B-A4B-it) | 78.8% | [58.6%](https://huggingface.co/datasets/Idavidrein/gpqa?eval_result=google/gemma-4-E4B-it) | [43.4%](https://huggingface.co/datasets/Idavidrein/gpqa?eval_result=google/gemma-4-E2B-it) | 42.4% |
+| Tau2 (average over 3) | 76.9% | 68.2% | 69.0% | 42.2% | 24.5% | 16.2% |
+| BigBench Extra Hard | 74.4% | 64.8% | 53.0% | 33.1% | 21.9% | 19.3% |
+| MMMLU | 88.4% | 86.3% | 83.4% | 76.6% | 67.4% | 70.7% |
 | **Coding** |
-| LiveCodeBench v6 | 80.0% | 77.1% | 52.0% | 44.0% | 29.1% |
-| Codeforces ELO | 2150 | 1718 | 940 | 633 | 110 |
-| HLE no tools | [19.5%](https://huggingface.co/datasets/cais/hle?eval_result=google/gemma-4-31B-it) | [8.7%](https://huggingface.co/datasets/cais/hle?eval_result=google/gemma-4-26B-A4B-it) | - | - | - |
-| HLE with search | [26.5%](https://huggingface.co/datasets/cais/hle?eval_result=google/gemma-4-31B-it) | [17.2%](https://huggingface.co/datasets/cais/hle?eval_result=google/gemma-4-26B-A4B-it) | - | - | - |
+| LiveCodeBench v6 | 80.0% | 77.1% | 72.0% | 52.0% | 44.0% | 29.1% |
+| Codeforces ELO | 2150 | 1718 | 1659 | 940 | 633 | 110 |
+| HLE no tools | [19.5%](https://huggingface.co/datasets/cais/hle?eval_result=google/gemma-4-31B-it) | [8.7%](https://huggingface.co/datasets/cais/hle?eval_result=google/gemma-4-26B-A4B-it) | 5.2% | - | - | - |
+| HLE with search | [26.5%](https://huggingface.co/datasets/cais/hle?eval_result=google/gemma-4-31B-it) | [17.2%](https://huggingface.co/datasets/cais/hle?eval_result=google/gemma-4-26B-A4B-it) | - | - | - | - |
 | **Vision** |
-| MMMU Pro | 76.9% | 73.8% | 52.6% | 44.2% | 49.7% |
-| OmniDocBench 1.5 (edit distance) | 0.131 | 0.149 | 0.181 | 0.290 | 0.365 |
-| MATH-Vision | 85.6% | 82.4% | 59.5% | 52.4% | 46.0% |
-| MedXPertQA MM | 61.3% | 58.1% | 28.7% | 23.5% | - |
+| MMMU Pro | 76.9% | 73.8% | 69.1% | 52.6% | 44.2% | 49.7% |
+| OmniDocBench 1.5 (edit distance) | 0.131 | 0.149 | 0.164 | 0.181 | 0.290 | 0.365 |
+| MATH-Vision | 85.6% | 82.4% | 79.7% | 59.5% | 52.4% | 46.0% |
+| MedXPertQA MM | 61.3% | 58.1% | 48.7% | 28.7% | 23.5% | - |
 | **Audio** |
-| CoVoST | - | - | 35.54 | 33.47 | - |
-| FLEURS (lower is better) | - | - | 0.08 | 0.09 | - |
+| CoVoST | - | - | 38.5<sup>*</sup> | 35.54 | 33.47 | - |
+| FLEURS (lower is better) | - | - | 0.069<sup>*</sup> | 0.08 | 0.09 | - |
 | **Long Context** |
-| MRCR v2 8 needle 128k (average) | 66.4% | 44.1% | 25.4% | 19.1% | 13.5% |
+| MRCR v2 8 needle 128k (average) | 66.4% | 44.1% | 43.4% | 25.4% | 19.1% | 13.5% |
+
+<sup>*</sup>Excluding Chinese language.
+
 
 ## Acknowledgements
 
-Landing Gemma-4 in the open-source ecosystem took a lot of effort from many people and not only the authors of this blog post. In no particular order, we thank many people from the open-source team: Gemma 4 transformers integration is owed to Cyril, Raushan, Eustache, Arthur, Lysandre. We thank Joshua for transformers.js integration and demo, Eric for mistral.rs integration, Son for Llama.cpp, Prince for MLX integration, Quentin, Albert and Kashif for TRL, Adarsh for SGLang transformers backend  and Toshihiro for building the demos.
 This work wouldn't have been possible without Google's extensive contribution with the model artefact, but also the significant effort contributing the model to transformers in an effort to standardize it. The open-source ecosystem is now more complete, with a very capable, freely-licensed, open-source model.
-The Gemma 4 transformers integration was handled by Cyril, Raushan, Eustache, Arthur, Lysandre. We thank Joshua for the transformers.js integration and demo, Eric for mistral.rs integration, Son for Llama.cpp, Prince for MLX, Quentin for TRL, Adarsh for SGLang transformers backend, and Toshihiro for building several demos.
-
-This work wouldn't have been possible without Google's extensive contribution with the model artefact, but also their significant effort contributing the model to transformers in an effort to standardize it. The open-source ecosystem is now more complete, with a very capable, freely-licensed, open-source model.
+The Gemma 4 transformers integration was handled by Cyril, Raushan, Eustache, Arthur, Lysandre. We thank Joshua for the transformers.js integration and demo, Eric for mistral.rs integration, Son for Llama.cpp, Prince for MLX, Quentin, Albert and Kashif for TRL, Adarsh for SGLang transformers backend, and Toshihiro for building several demos.
