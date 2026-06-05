@@ -5379,7 +5379,7 @@
     - kernels
 
 - local: github-ci-hf-jobs
-  date: June 2, 2026
+  date: June 6, 2026
   tags:
     - guide
     - hub
