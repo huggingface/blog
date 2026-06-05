@@ -11,7 +11,7 @@ authors:
 
 In the [first part of this series "Profiling in PyTorch"](https://huggingface.co/blog/torch-profiler), we used `torch.add(torch.matmul(x, w), b)` to learn how to read PyTorch profiler traces. We talked about the CPU dispatch chain, launch overhead, the difference between an overhead-bound and a compute-bound regime, and the internals of `torch.compile`.
 
-In the current part (this blog post), we climb one rung up the ladder. We replace the hand-written matmul-add pair with an `nn.Linear` (with `bias=True`). This is the building block every deep learning model uses. We then stack two of them, with an activation in between, to form the Multilayer Perceptron (MLP) block.
+In the current part (this blog post), we climb one rung up the ladder. We replace the hand-written matmul-add pair with an `nn.Linear` (with `bias=True`). This is the building block every deep learning model uses. We then stack three of them, with an activation in between, to form the Multilayer Perceptron (MLP) block.
 
 > [!NOTE]
 > The scripts for this blog post live here: [`02_linear.py`](https://huggingface.co/datasets/ariG23498/profiling-pytorch/blob/main/02_linear.py), [`03_simple_mlp.py`](https://huggingface.co/datasets/ariG23498/profiling-pytorch/blob/main/03_simple_mlp.py), and [`03_kernels_mlp.py`](https://huggingface.co/datasets/ariG23498/profiling-pytorch/blob/main/03_kernels_mlp.py). Like before, it helps to open them in a separate tab and walk through the code as you read. We use the `NVIDIA A100-SXM4-80GB` GPU to run the scripts.
@@ -24,7 +24,7 @@ Before we begin, a quick recap of two ideas we will lean on repeatedly:
 
 ## From matmul-add to Linear
 
-`nn.Linear` is the module wrapper around the same matrix multiplication and addition we already profiled in [Part 1](https://huggingface.co/blog/torch-profiler). The only difference is that it owns its weight and bias as parameters and exposes a `forward` that PyTorch users have grown familiar with.
+`nn.Linear` is a module wrapper around the same matrix multiplication and addition we already profiled in [Part 1](https://huggingface.co/blog/torch-profiler). The only difference is that it owns its weight and bias as parameters and exposes a `forward` method that PyTorch users have grown familiar with.
 
 ```py
 # bias=True would truly emulate the multiplication and addition
@@ -142,7 +142,7 @@ That `tn` is the layout descriptor. cuBLAS and CUTLASS precompile a *separate ke
 > [!TIP]
 > The kernel name in a profiler trace is a hash dump of the kernel's identity. If two runs show the same kernel name, the GPU is doing the same work. If they differ (`_tn_` vs `_nn_`, `bf16` vs `fp16`, or `s16816gemm` vs `s161616gemm`) then the GPU is doing different work, and the dispatcher took a different branch. Learning to read this name is one of the most useful habits when comparing traces.
 
-## Stacking two Linears: the MLP
+## Stacking three Linears: the MLP
 
 In this section, we will profile a Multilayer Perceptron (MLP) which, as the name suggests, is a stack of multiple linear layers with some activations in between. To make this more interesting, we will profile a feed-forward network with the GeGLU activation variant. This is also our way of paying tribute to one of the greatest lines ever written in the history of deep learning research (Figure 6).
 
@@ -222,7 +222,7 @@ This is exactly why the table had two GEMM rows: the `128x128` row is gate+up an
 
 ### What happens with `torch.compile`?
 
-Before compiling the forward and visualizing it, let's do the mental exercise again of asking ourselves what we expect to see in the trace. This is a fun experiment, and an important one to repeat every time you profile something yourself. Always build on your intuition, and the moment something does not match, stop and figure out why.
+Before compiling the `forward` method and visualizing it, let's do the mental exercise again of asking ourselves what we expect to see in the trace. This is a fun experiment, and an important one to repeat every time you profile something yourself. Always build on your intuition, and the moment something does not match, stop and figure out why.
 
 ```bash
 uv run 03_simple_mlp.py --batch 64 --seq 128 --dim 768 --hidden 3072 --compile
@@ -298,7 +298,7 @@ Writing kernels in Triton or CUDA is one problem and *shipping* them is another.
 
 The `kernels` library moves that build step off your machine. `get_kernel("kernels-community/liger-kernels", version=1)` downloads a **pre-built, version-pinned** kernel package from the Hugging Face Hub and caches it locally (here under `~/.cache/...kernels-community--liger-kernels`). The benefits are:
 
-* The kernels are compiled once, in CI, for many architecture and version combinations. You download the right binary instead of compiling it yourself.
+* The kernels are compiled once, in CI, for many architectures and version combinations. You download the right binary instead of compiling it yourself.
 * `version=1` pins the exact build, so everyone running your script gets the same kernel. There is no "it got slower after I updated a package".
 * The package exposes a `.layers` attribute with drop-in `nn.Module`s (like `LigerGEGLUMLP`). You swap your module for theirs and nothing else in your model changes.
 
@@ -322,14 +322,18 @@ It is worth being honest about what "tuned" does **not** mean. It does not mean 
 
 ## Conclusion
 
-We started this post with a single `nn.Linear` and worked our way up to a hand-tuned MLP. Along the way we picked up a handful of ideas that travel well to bigger models:
+The table below collects what each step changed on the GPU and what it left untouched.
 
-- `nn.Linear` already fuses the bias add into the GEMM epilogue, so eager code is doing less than the naive matmul + add you might picture. There is nothing left for `torch.compile` to fuse in a single linear.
-- The kernel name is a readable fingerprint. The `tn` layout suffix tells you the transpose happened inside the kernel's inner loop, not as a separate GPU op, and the tile size (`128x128` vs `128x256`) tells you which shape cuBLAS optimized for.
-- Many `aten::` rows never reach the GPU. The view and reshape ops only rewrite metadata on the CPU and show `0.000us` of CUDA time.
-- Fusion is the headline win of `torch.compile` for an MLP. It collapses the GeLU and the multiply into one Triton kernel and saves a full round-trip of a 50 MB intermediate through HBM.
-- A hand-written kernel can deliver that same fusion **without** the compiler's per-call overhead (Dynamo, guards, prologue), and the `kernels` library lets you fetch one pre-built from the Hub.
+| Setup | What changed | What stayed the same |
+| :-- | :-- | :-- |
+| Eager `nn.Linear` | Baseline: bias add is already folded into the GEMM epilogue (`addmm`), so it is *one* cuBLAS kernel, not a matmul plus an add | — |
+| Compiled `nn.Linear` | A few CPU dispatch ops (the `aten::t` view bookkeeping) disappear | Same single cuBLAS GEMM kernel, byte-for-byte. Compile has nothing to fuse |
+| Eager MLP | 5 GPU kernels: 3 GEMMs + a GeLU + a mul. The `[8192, 3072]` intermediate makes a full round-trip through HBM | Each GEMM is still the same bias-free cuBLAS kernel as a standalone linear |
+| Compiled MLP | GeLU + mul + reshape collapse into **one** fused Triton kernel; the intermediate stays in registers. Pays compile pre-ops (Dynamo, guards) | The 3 GEMMs are untouched with identical cuBLAS kernel names |
+| Liger MLP | Same fusion, but baked into a hand-written Triton kernel with hardware-tuned launch params with **no** Dynamo, guards, or compile latency | The 3 GEMMs are still the same cuBLAS kernels |
 
-If there is one habit to carry forward, it is the one we practiced before every trace in this post: **guess first, then look.** State what you expect the trace to contain, open it, and treat any mismatch as the most interesting thing on the screen. That is where the real learning happens.
+If there is one habit to carry forward, it is the one we practiced before every trace: **guess first, then look.** State what you expect the trace to contain, open it, and treat any mismatch as the most interesting thing on the screen.
 
 This was the second stop in the **Profiling in PyTorch** series. In the next post we will keep climbing the ladder, moving from this MLP block towards the attention block and, eventually, a full model.
+
+Thanks to [Noe Flandre](https://huggingface.co/NoeFlandre) for his reviews on the early draft of the post!
