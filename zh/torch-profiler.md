@@ -29,7 +29,7 @@ translators:
 本文从初学者视角记录这段过程。除基础 PyTorch 知识外，不需要其他前置知识；可以把它当作一篇轻松阅读的教程，过程中会穿插一些「原来如此」的瞬间。文章采用**问题导向**结构：打开一份轨迹，提出「等等，为什么会这样？」这样的问题，再顺着线索追到答案。读完本文后，应能理解以下内容：
 
 - 如何设置 `torch.profiler`，以及该工具的输出数据含义；
-- 读懂性能统计表与性能轨迹（CPU 泳道、GPU 泳道，以及两者间反常的空闲间隔）；
+- 读懂性能统计表与性能轨迹（CPU 时间线、GPU 时间线，以及两者间反常的空闲间隔）；
 - 从 Python 接口调用，逐层下沉至 CUDA 内核执行的完整事件链路；
 - 启用 `torch.compile` 后，哪些性能指标会变化，更关键的是：**哪些指标保持不变**。
 
@@ -162,7 +162,7 @@ Self CUDA time total: 4.495ms
 | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
 |                                                                    图 3：64×64 矩阵上 matmul 和 add 的性能轨迹                                                                    |
 
-在图 3 中，我们能看到矩阵乘加运算的性能剖析时序轨迹。矩形条的宽度代表事件持续时长，纵向嵌套结构代表调用层级；CPU 泳道展示 CPU 侧发生的各类事件，GPU 泳道则呈现 GPU 内核的实际执行过程。图中空白区间代表等待或硬件空闲时段。
+在图 3 中，我们能看到矩阵乘加运算的性能剖析时序轨迹。矩形条的宽度代表事件持续时长，纵向嵌套结构代表调用层级；CPU 时间线展示 CPU 侧发生的各类事件，GPU 时间线则呈现 GPU 内核的实际执行过程。图中空白区间代表等待或硬件空闲时段。
 
 脚本采用如下默认配置运行：
 
@@ -174,11 +174,11 @@ Self CUDA time total: 4.495ms
 > 使用 Perfetto 工具时，推荐快捷键操作来快速浏览时序图：W/A/S/D 按键控制视图移动缩放。
 
 
-| ![Perfetto 中并排标注 CPU 泳道和 GPU 泳道的 PyTorch 性能轨迹](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/torch-profiler/gpu-cpu-trace.png) |
+| ![Perfetto 中并排标注 CPU 时间线和 GPU 时间线的 PyTorch 性能轨迹](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/torch-profiler/gpu-cpu-trace.png) |
 | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
-|                                                                   图 4：PyTorch 性能轨迹中的 CPU 泳道和 GPU 泳道                                                                   |
+|                                                                   图 4：PyTorch 性能轨迹中的 CPU 时间线和 GPU 时间线                                                                   |
 
-图 4 包含两条时序泳道，分别对应 CPU 行为与 GPU 行为。CPU 泳道里能看到三段剖析采集周期（从 `ProfilerStep#2` 开始），该配置由采样调度器决定：
+图 4 包含两条时序泳道，分别对应 CPU 行为与 GPU 行为。CPU 时间线里能看到三段剖析采集周期（从 `ProfilerStep#2` 开始），该配置由采样调度器决定：
 
 ```py
 schedule = torch.profiler.schedule(wait=1, warmup=1, active=3, repeat=1)
@@ -233,11 +233,11 @@ uv run 01_matmul_add.py --warmup
 ### 为什么 CPU 时序泳道和 GPU 时序泳道存在约 2.5 毫秒的时间差？
 
 
-| ![PyTorch 性能轨迹中 CPU 泳道和 GPU 泳道之间存在 2.32 毫秒偏移](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/torch-profiler/gap-bw-kernel-launch.png) |
+| ![PyTorch 性能轨迹中 CPU 时间线和 GPU 时间线之间存在 2.32 毫秒偏移](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/torch-profiler/gap-bw-kernel-launch.png) |
 | :-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
-|                                                                       图 8：CPU 与 GPU 泳道之间存在约 2.5 ms 启动延迟                                                                       |
+|                                                                       图 8：CPU 与 GPU 时间线之间存在约 2.5 ms 启动延迟                                                                       |
 
-图 8 显示 CPU 和 GPU 泳道之间约有 2.5 ms 的偏移：CPU 提交 CUDA 内核之后，GPU 真正开始执行之前会有一段延迟。直觉上，预热阶段加上调度器的 `wait` 和 `warmup` 应该能让 GPU 保持忙碌，并缩小这个偏移。
+图 8 显示 CPU 和 GPU 时间线之间约有 2.5 ms 的偏移：CPU 提交 CUDA 内核之后，GPU 真正开始执行之前会有一段延迟。直觉上，预热阶段加上调度器的 `wait` 和 `warmup` 应该能让 GPU 保持忙碌，并缩小这个偏移。
 
 为探明真实原因，我们小幅修改采样调度参数：
 
@@ -251,7 +251,7 @@ uv run 01_matmul_add.py --warmup
 | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
 |                                                             图 9：设置`wait=0` 和 `warmup=0` 后，轨迹中出现 Activity Buffer Request 事件                                                             |
 
-图 9 显示，所有 GPU 运算开始前，GPU 泳道里出现了一项 `Activity Buffer Request`（活动缓冲区申请）事件，接下来我们放大视图细看细节。
+图 9 显示，所有 GPU 运算开始前，GPU 时间线里出现了一项 `Activity Buffer Request`（活动缓冲区申请）事件，接下来我们放大视图细看细节。
 
 
 | ![剖析器缓冲区申请导致 matmul 和 add CUDA 内核之间出现间隔](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/torch-profiler/mat-add-gap.png) |
@@ -308,7 +308,7 @@ uv run 01_matmul_add.py --warmup
 ### 为什么矩阵乘法会多出一项 CUDA 运行时调用？
 
 
-| ![CPU 泳道显示 cudaOccupancyMaxActiveBlocksPerMultiprocessor 位于 matmul cudaLaunchKernel 之前](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/torch-profiler/cudaoccupancy.png) |
+| ![CPU 时间线显示 cudaOccupancyMaxActiveBlocksPerMultiprocessor 位于 matmul cudaLaunchKernel 之前](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/torch-profiler/cudaoccupancy.png) |
 | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
 |                                                                  图 14：矩阵乘法内核启动前执行了 cudaOccupancyMaxActiveBlocksPerMultiprocessor 查询                                                                  |
 
@@ -330,7 +330,7 @@ uv run 01_matmul_add.py --warmup
 反观图 16，加法内核固定占用 32 个寄存器、不使用共享内存，资源需求极小，硬件资源不会成为运行瓶颈，因此无需提前查询占用率。这类算子天生轻量化。
 
 > [!NOTE]
-> 该规律可作为性能排查快捷手段：浏览 CPU 泳道，只要出现 `cudaOccupancyMaxActiveBlocksPerMultiprocessor` 调用，就代表后方是**资源开销大、自适应调度启动**的内核，常见于通用矩阵乘 GEMM、卷积等算子；前面无占用率查询的内核，大多是逐元素运算、规约类算子，由 PyTorch 按固定逻辑直接发起调度。
+> 该规律可作为性能排查快捷手段：浏览 CPU 时间线，只要出现 `cudaOccupancyMaxActiveBlocksPerMultiprocessor` 调用，就代表后方是**资源开销大、自适应调度启动**的内核，常见于通用矩阵乘 GEMM、卷积等算子；前面无占用率查询的内核，大多是逐元素运算、规约类算子，由 PyTorch 按固定逻辑直接发起调度。
 
 ### cudaDeviceSynchronize 耗时为何高达约 1.78 毫秒？
 
@@ -516,7 +516,7 @@ fn = torch.compile(fn) if args.compile else fn
 
 | 看到的现象                             | 通常意味着什么                                                                           |
 | :------------------------------------- | :--------------------------------------------------------------------------------------- |
-| GPU 泳道出现`Activity Buffer Request`  | 剖析器正在申请或填充自身事件缓冲区；首次出现通常可以解释最初的 CPU/GPU 泳道偏移。        |
+| GPU 时间线出现`Activity Buffer Request`  | 剖析器正在申请或填充自身事件缓冲区；首次出现通常可以解释最初的 CPU/GPU 时间线偏移。        |
 | 单轮采样内两个内核中间有空隙           | 运行中触发缓存申请；多轮采样仅偶然出现一次则是工具行为，非业务代码问题。                 |
 | 同一种内核，多轮运行耗时参差不齐       | GPU 主频动态升降、芯片温升、功耗调度、驱动后台任务导致波动，不能只依赖平均值做性能评估。 |
 | 内核名形如`ampere_bf16_s16816gemm_...` | cuBLAS 底层矩阵乘内核；相同尺寸与精度下，动态执行与编译模式通常共用同一套内核。          |
@@ -537,7 +537,7 @@ fn = torch.compile(fn) if args.compile else fn
 
 | 看到的现象                                                 | 通常意味着什么                                                                                         |
 | :--------------------------------------------------------- | :----------------------------------------------------------------------------------------------------- |
-| CPU 泳道出现`Torch-Compiled Region: K/M` 行                | 当前位于编译后函数内部。                                                                               |
+| CPU 时间线出现`Torch-Compiled Region: K/M` 行                | 当前位于编译后函数内部。                                                                               |
 | 每轮都有`TorchDynamo Cache Lookup`                         | Dynamo 校验张量形状、数据类型、设备是否匹配已缓存编译产物；编译完成后每次调用仍会产生该校验开销。      |
 | 无梯度计算时仍存在`AOTDispatcher Runtime Wrapper Prologue` | AOTAutograd 的运行时包装器始终位于调用栈中，负责张量元数据和视图追踪。                                 |
 | 多轮`## Call CompiledFxGraph <hash>` 哈希值一致            | 命中生成代码缓存；生成源码位于`/tmp/torchinductor_<user>/fxgraph/<hash>`。                             |
