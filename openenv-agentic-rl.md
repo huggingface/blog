@@ -3,6 +3,22 @@ title: "The Open Source Community is backing OpenEnv for Agentic RL"
 thumbnail: /blog/assets/openenv/thumbnail_expansion.png
 authors:
 - user: burtenshaw
+- user: spisakjo
+- user: lysandre
+- user: darktex
+- user: willcb
+- user: charlesfrye
+- user: cwing-nv
+- user: danielhanchen
+- user: andrewzhou
+- user: shimmyshimmer
+- user: Hamid-Nazeri
+- user: Sanyam
+- user: zkwentz
+- user: emre0
+- user: lewtun
+- user: sergiopaniego
+
 ---
 
 # The Open Source Community is backing OpenEnv for Agentic RL
