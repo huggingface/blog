@@ -7,8 +7,8 @@ authors:
 - user: lysandre
 - user: darktex
 - user: willcb
-- user: qjoyliu
-- user: peywalt
+- user: qjoy
+- user: pawalt
 - user: cwing-nv
 - user: danielhanchen
 - user: andrewzhou
