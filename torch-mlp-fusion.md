@@ -247,7 +247,7 @@ This is the headline of the whole compile lesson. The two eager pointwise kernel
 * `fused__unsafe_view_gelu_mul`: the ops it merged: the `_unsafe_view` (reshape), the GeLU, and the mul.
 * `0`: the unique id within the graph.
 
-Why is this a win? In eager mode, the intermediate `h = gelu(g)` is a full `[8192, 3072]` bf16 tensor (around 50 MB) that the GeLU kernel writes to HBM and the mul kernel immediately reads back. Fusion keeps it in registers (memory that reside inside the chip and are closer than the HBM). The Triton kernel reads `g` and `u` once, computes `gelu(g) * u`, and writes the result once. One whole round trip of the intermediate through global memory is gone.
+Why is this a win? In eager mode, the intermediate `h = gelu(g)` is a full `[8192, 3072]` bf16 tensor (around 50 MB) that the GeLU kernel writes to HBM and the mul kernel immediately reads back. Fusion keeps it in registers (memory that resides inside the chip and are closer than the HBM). The Triton kernel reads `g` and `u` once, computes `gelu(g) * u`, and writes the result once. One whole round trip of the intermediate through global memory is gone.
 
 ## Let's use hand tuned kernels
 
@@ -277,7 +277,7 @@ Figure 13 shows the profile for the `LigerGEGLUMLP` layer using the Liger kernel
 
 Writing kernels in Triton or CUDA is one problem and *shipping* them is another. The kernel has to be compiled for your exact combination of GPU architecture, CUDA version, and PyTorch version. This is the step that usually breaks ("works on my machine", missing `nvcc`, wrong Triton version).
 
-The `kernels` library moves that build step off your machine. `get_kernel("kernels-community/liger-kernels", version=1)` downloads a **pre-built, version-pinned** kernel package from the Hugging Face Hub and caches it locally (here under `~/.cache/...kernels-community--liger-kernels`). The benefits are:
+The [`kernels`](https://github.com/huggingface/kernels) library moves that build step off your machine. `get_kernel("kernels-community/liger-kernels", version=1)` downloads a **pre-built, version-pinned** kernel package from the Hugging Face Hub and caches it locally (here under `~/.cache/...kernels-community--liger-kernels`). The benefits are:
 
 * The kernels are compiled once, in CI, for many architectures and version combinations. You download the right binary instead of compiling it yourself.
 * `version=1` pins the exact build, so everyone running your script gets the same kernel. There is no "it got slower after I updated a package".
@@ -317,4 +317,4 @@ If there is one habit to carry forward, it is the one we practiced before every 
 
 This was the second stop in the **Profiling in PyTorch** series. In the next post we will keep climbing the ladder, moving from this MLP block towards the attention block and, eventually, a full model.
 
-Thanks to [Noe Flandre](https://huggingface.co/NoeFlandre) for his reviews on the early draft of the post!
+Thanks to [Noe Flandre](https://huggingface.co/NoeFlandre) and [Pedro Gabriel Gengo Lourenço](https://huggingface.co/pedrogengo) for their reviews on the early draft of the post!
