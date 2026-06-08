@@ -1,13 +1,13 @@
 ---
 title: "The Open Source Community is backing OpenEnv for Agentic RL"
-thumbnail: /blog/assets/openenv/thumbnail.png
+thumbnail: /blog/assets/openenv/thumbnail_expansion.png
 authors:
 - user: burtenshaw
 ---
 
 # The Open Source Community is backing OpenEnv for Agentic RL
 
-![](/blog/assets/openenv/thumbnail.png)
+![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/openenv-expansion/thumbnail_large.png)
 
 OpenEnv is a tool for creating an agentic execution environment like terminals, browsers, or anything an agent can interact with. And today, we’re excited to announce that OpenEnv is becoming even more open, to make the future of training agents open source.
 
@@ -24,6 +24,8 @@ We want those gains with open source models too: training local models that use 
 ## Why we need to be (even) more open
 
 Frontier labs train models and harnesses that, for the most part, work like hand in glove. The model is trained to use the harness and optimised for its characteristics. Models can generalise beyond these harnesses, to some extent, but nothing beats the efficiency of training.
+
+![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/openenv-expansion/diagram.png)
 
 In the open, this isn’t the case. Developers use any harness, any model, any inference engine, on whatever use case they value. This is fundamental to the community, but it’s also a challenge that requires infrastructure and tooling to tackle.
 
@@ -51,7 +53,7 @@ Over the coming months we will focus on the things that turn OpenEnv from a fast
 2. External rewards: letting rewards be defined in whichever library you already use, with OpenEnv as the deployment layer ([RFC 007](https://github.com/huggingface/OpenEnv/pull/727)).
 3. Continued Harness integration: first-class support for agentic harnesses.
 4. End-to-end examples: full training and evaluation walkthroughs in TRL, Unsloth, and beyond.
-5. Auto-validation: measure environment quality and contribution to model learning. This will give the community a scalable way to evaluate their environments and drive up quality (think hackathons\!). (RFC 00x)
+5. Auto-validation: measure environment quality and contribution to model learning. This will give the community a scalable way to evaluate their environments and drive up quality (think hackathons!). [RFC 008](https://github.com/huggingface/OpenEnv/pull/732).
 
 ## Get involved
 
