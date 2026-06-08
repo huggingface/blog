@@ -7,7 +7,8 @@ authors:
 - user: lysandre
 - user: darktex
 - user: willcb
-- user: charlesfrye
+- user: qjoyliu
+- user: peywalt
 - user: cwing-nv
 - user: danielhanchen
 - user: andrewzhou
@@ -18,7 +19,6 @@ authors:
 - user: emre0
 - user: lewtun
 - user: sergiopaniego
-
 ---
 
 # The Open Source Community is backing OpenEnv for Agentic RL
