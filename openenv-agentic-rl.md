@@ -53,7 +53,7 @@ Over the coming months we will focus on the things that turn OpenEnv from a fast
 2. External rewards: letting rewards be defined in whichever library you already use, with OpenEnv as the deployment layer ([RFC 007](https://github.com/huggingface/OpenEnv/pull/727)).
 3. Continued Harness integration: first-class support for agentic harnesses.
 4. End-to-end examples: full training and evaluation walkthroughs in TRL, Unsloth, and beyond.
-5. Auto-validation: measure environment quality and contribution to model learning. This will give the community a scalable way to evaluate their environments and drive up quality (think hackathons!). [RFC 008](https://github.com/huggingface/OpenEnv/pull/732).
+5. Auto-validation: measure environment quality and contribution to model learning. This will give the community a scalable way to evaluate their environments and drive up quality (think hackathons!). [RFC 008](https://github.com/huggingface/OpenEnv/issues/778).
 
 ## Get involved
 
