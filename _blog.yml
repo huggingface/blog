@@ -5395,3 +5395,12 @@
     - huggingface_hub
     - agents
     - hub
+
+- local: openenv-agentic-rl
+  date: June 8, 2026
+  tags:
+    - announcement
+    - open-source
+    - community
+    - agents
+    - rl
