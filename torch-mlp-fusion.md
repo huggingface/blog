@@ -247,17 +247,7 @@ This is the headline of the whole compile lesson. The two eager pointwise kernel
 * `fused__unsafe_view_gelu_mul`: the ops it merged: the `_unsafe_view` (reshape), the GeLU, and the mul.
 * `0`: the unique id within the graph.
 
-Why is this a win? In eager mode, the intermediate `h = gelu(g)` is a full `[8192, 3072]` bf16 tensor (around 50 MB) that the GeLU kernel writes to HBM and the mul kernel immediately reads back. Fusion keeps it in registers (memory that reside inside the chip). The Triton kernel reads `g` and `u` once, computes `gelu(g) * u`, and writes the result once. One whole round trip of the intermediate through global memory is gone.
-
-| ![Current Selection panel for a cudaLaunchKernel slice showing cbid 211, the CUDA runtime API used to launch a cuBLAS GEMM](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/torch-mlp-fusion/gemm-cbid.png) |
-| :--: |
-| Figure 11: A cuBLAS GEMM launches through the CUDA runtime (`cudaLaunchKernel`, `cbid 211`) |
-
-| ![Current Selection panel for a cuLaunchKernel slice from the fused Triton kernel showing cbid 307, the CUDA driver API](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/torch-mlp-fusion/triton-cbid.png) |
-| :--: |
-| Figure 12: The Triton kernel launches through the CUDA driver (`cuLaunchKernel`, `cbid 307`) |
-
-Note that the Triton kernel launches through a different API. cuBLAS GEMMs go through the CUDA runtime (`cudaLaunchKernel`, `cbid 211`, Figure 11), while the Triton kernel goes through the CUDA driver (`cuLaunchKernel`, `cbid 307`, Figure 12). This is because Triton loads its compiled cubin (CUDA Binary) as a module and launches it through the driver.
+Why is this a win? In eager mode, the intermediate `h = gelu(g)` is a full `[8192, 3072]` bf16 tensor (around 50 MB) that the GeLU kernel writes to HBM and the mul kernel immediately reads back. Fusion keeps it in registers (memory that reside inside the chip and are closer than the HBM). The Triton kernel reads `g` and `u` once, computes `gelu(g) * u`, and writes the result once. One whole round trip of the intermediate through global memory is gone.
 
 ## Let's use hand tuned kernels
 
