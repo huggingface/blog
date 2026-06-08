@@ -13,11 +13,11 @@ OpenEnv is a tool for creating an agentic execution environment like terminals, 
 
 Starting today, OpenEnv will be coordinated by a committee that so far includes Meta-PyTorch, Reflection, Unsloth, Modal, Prime Intellect, Nvidia, Mercor, Fleet AI, and Hugging Face. `OpenEnv` now lives at [`huggingface/OpenEnv`](https://github.com/huggingface/OpenEnv)
 
-OpenEnv project is supported and adopted by some of the leading organizations in the AI ecosystem, including, PyTorch Foundation, vLLM, SkyRL (UCB), Lightning AI, Axolotl AI, Stanford Scaling Intelligence Lab, Mithril, OpenMined, Scaler AI Labs, Scale AI, Patronus AI, Surge AI, Halluminate, Turing, Scorecard, and Snorkel AI.
+OpenEnv project is supported and adopted by some of the leading organizations in the AI ecosystem, including PyTorch Foundation, vLLM, SkyRL (UCB), Lightning AI, Axolotl AI, Stanford Scaling Intelligence Lab, Mithril, OpenMined, Scaler AI Labs, Scale AI, Patronus AI, Surge AI, Halluminate, Turing, Scorecard, and Snorkel AI.
 
 ## Why we need OpenEnv to train open source agents
 
-Agent harnesses like Claude Code, Codex, Open Claw, and Hermes just keep improving. One reason for their improvement is that models like GPT-5.5 and Opus 4.8 are trained to use their respective harnesses.
+Agent harnesses like Claude Code, Codex, OpenClaw, and Hermes just keep improving. One reason for their improvement is that models like GPT-5.5 and Opus 4.8 are trained to use their respective harnesses.
 
 We want those gains with open source models too: training local models that use harnesses effectively, and saving compute by specializing models for specific tasks.
 
@@ -57,6 +57,6 @@ Over the coming months we will focus on the things that turn OpenEnv from a fast
 
 ## Get involved
 
-OpenEnv is community-centric by design, and it's still early — expect rough edges, and help us smooth them. Check out the code and RFCs**:** [github.com/huggingface/OpenEnv](https://github.com/huggingface/OpenEnv)
+OpenEnv is community-centric by design, and it's still early — expect rough edges, and help us smooth them. Check out the code and RFCs: [github.com/huggingface/OpenEnv](https://github.com/huggingface/OpenEnv)
 
 Thanks to everyone who helped make this transition happen. Let's build the common substrate for open-source agentic RL together.
