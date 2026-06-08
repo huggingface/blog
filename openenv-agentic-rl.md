@@ -41,7 +41,7 @@ We want those gains with open source models too: training local models that use 
 
 Frontier labs train models and harnesses that, for the most part, work like hand in glove. The model is trained to use the harness and optimised for its characteristics. Models can generalise beyond these harnesses, to some extent, but nothing beats the efficiency of training.
 
-![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/openenv-expansion/diagram.png)
+![the open source reinforcement learning ecosystem](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/openenv-expansion/diagram.png)
 
 In the open, this isn’t the case. Developers use any harness, any model, any inference engine, on whatever use case they value. This is fundamental to the community, but it’s also a challenge that requires infrastructure and tooling to tackle.
 
