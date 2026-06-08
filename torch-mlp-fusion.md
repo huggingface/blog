@@ -15,7 +15,7 @@ In the [first part of this series "Profiling in PyTorch"](https://huggingface.co
 In the current part (this blog post), we climb one rung up the ladder. We replace the hand-written matmul-add pair with an `nn.Linear` (with `bias=True`). This is the building block every deep learning model uses. We then stack three of them, with an activation in between, to form a Multilayer Perceptron (MLP) block.
 
 > [!NOTE]
-> The scripts for this blog post live here: [`02_linear.py`](https://huggingface.co/datasets/ariG23498/profiling-pytorch/blob/main/02_linear.py), [`03_simple_mlp.py`](https://huggingface.co/datasets/ariG23498/profiling-pytorch/blob/main/03_simple_mlp.py), and [`03_kernels_mlp.py`](https://huggingface.co/datasets/ariG23498/profiling-pytorch/blob/main/03_kernels_mlp.py). Like before, it helps to open them in a separate tab and walk through the code as you read. We use the `NVIDIA A100-SXM4-80GB` GPU to run the scripts.
+> The scripts for this blog post live here: [`02_linear.py`](https://huggingface.co/datasets/ariG23498/profiling-pytorch/blob/main/02_linear.py), [`03_simple_mlp.py`](https://huggingface.co/datasets/ariG23498/profiling-pytorch/blob/main/03_simple_mlp.py), and [`03_kernels_mlp.py`](https://huggingface.co/datasets/ariG23498/profiling-pytorch/blob/main/03_kernels_mlp.py). Like before, it helps to open them in a separate tab and walk through the code as you read. We use the `NVIDIA A100-SXM4-80GB` GPU to run the scripts. It is really easy to setup a GPU on the Hugging Face infrastructure and experiment with the scripts using the [Dev Mode with Spaces](https://huggingface.co/docs/hub/spaces-dev-mode). One could also run the scripts with the [Hugging Face Jobs pipeline](https://huggingface.co/docs/huggingface_hub/en/guides/jobs).
 
 Before we begin, a quick recap of two ideas we will lean on repeatedly:
 
@@ -114,7 +114,10 @@ A careful reader of the two traces (eager vs compile) will notice that the eager
 
 The eager CPU dispatch chain inside `aten::linear` is `aten::t` followed by `aten::addmm` (Figure 4). `aten::t` does not allocate a new tensor or copy any data and it produces a *view* with rewritten strides.
 
-What compile removed (Figure 5), then, is **the CPU dispatch overhead of that view bookkeeping**, not a GPU kernel. Inductor traced through the view chain at compile time, computed the resulting strides once, and emitted a direct `aten::addmm` call with those strides hard-coded. A few microseconds of CPU work disappear while the GPU does identical math.
+> [!NOTE]
+> For folks wondering what `view` and `strides` have to do with tensors, tensors are stored contiguously in memory, and they are indexed with strides and offsets. This is a metadata that each tensor has to be viewed and worked with differently.
+
+As we can see in Figure 5, compile did not remove a GPU kernel: it removed the *CPU overhead* of dispatching that view. Inductor traced through the view chain at compile time, computed the resulting strides once, and emitted a direct `aten::addmm` call with those strides hard-coded. A few microseconds of CPU work disappear while the GPU does identical math.
 
 If you look at the GPU lane in both traces, there is exactly one kernel per forward, and it is the *same* kernel both times:
 
@@ -129,14 +132,7 @@ cutlass_80_wmma_tensorop_bf16_s161616gemm_bf16_32x32_32x1_tn_align8
                                                           ^^
 ```
 
-That `tn` is the layout descriptor. cuBLAS and CUTLASS precompile a *separate kernel binary* for each combination of input layouts:
-
-| Suffix | A layout | B layout | When you see it |
-| :--: | :--: | :--: | :--: |
-| `nn` | non-transposed | non-transposed | Both inputs read in their stored order |
-| `nt` | non-transposed | transposed | B is consumed in transposed order |
-| `tn` | transposed | non-transposed | A is consumed in transposed order (this is what we see for `nn.Linear`) |
-| `tt` | transposed | transposed | Both inputs consumed transposed |
+That `tn` is the layout descriptor. cuBLAS and CUTLASS precompile a *separate kernel binary* for each combination of input layouts.
 
 `N` (non-transposed) and `T` (transposed) describe how a kernel walks its input during the inner loop. The dispatcher's job is to look at the input strides, decide which suffix combination matches, and pick the right precompiled kernel.
 
@@ -200,7 +196,7 @@ The three GEMMs each do an extra `cudaOccupancyMaxActiveBlocksPerMultiprocessor`
 | :--: |
 | Figure 8: The table shows that some ops launch zero kernels |
 
-The `aten::t`, `aten::transpose`, `aten::reshape`, `aten::view`, `aten::as_strided`, and `aten::_unsafe_view` ops launch zero kernels. They show `0.000us` of CUDA time in the table (Figure 8) because they only rewrite tensor metadata (shape and stride) on the CPU. A reader scanning the table sees around six op names per linear, but only one of them (`mm`) ever reaches the GPU. The lesson is worth noting that not every `aten::` row is a kernel.
+The `aten::t`, `aten::transpose`, `aten::reshape`, `aten::view`, `aten::as_strided`, and `aten::_unsafe_view` ops launch zero kernels. They show `0.000us` of CUDA time in the table (Figure 8) because they only rewrite tensor metadata (shape and stride) on the CPU. A reader scanning the table sees around six op names per linear, but only one of them (`mm`) ever reaches the GPU.
 
 ### Why are there two types of GEMM kernels?
 
@@ -236,13 +232,7 @@ uvx trace-util traces -b traces
 
 In eager mode, each `nn.Linear` was expanded into a chain of dispatcher ops (`aten::linear` → `aten::t` → `aten::transpose` → `aten::matmul` → `aten::reshape` → `aten::mm`). Those are the high-level wrappers that ATen walks through before reaching the real GEMM. `torch.compile` removes that chain.
 
-The compile pipeline is:
-
-1. Dynamo traces the Python (`F.linear`) into an FX graph
-2. AOTAutograd functionalizes and decomposes composite ops into primitives
-3. Inductor lowers the graph
-
-So by the time the compiled graph runs, there is no linear, no matmul, no transpose or reshape and those metadata ops were folded into how `mm` is called. We can see three bare `aten::mm` external calls (Figure 9). The proof that it is the same GEMM is that the kernel names are byte-for-byte identical to eager: `...128x128...stages_32x5_tn` for gate and up, and `...128x256...stages_64x3_tn` for down.
+By the time the compiled graph runs, there is no linear, no matmul, no transpose or reshape and those metadata ops were folded into how `mm` is called. We can see three bare `aten::mm` external calls (Figure 9). The proof that it is the same GEMM is that the kernel names are byte-for-byte identical to eager: `...128x128...stages_32x5_tn` for gate and up, and `...128x256...stages_64x3_tn` for down.
 
 ### The fused Triton kernel
 
@@ -257,7 +247,7 @@ This is the headline of the whole compile lesson. The two eager pointwise kernel
 * `fused__unsafe_view_gelu_mul`: the ops it merged: the `_unsafe_view` (reshape), the GeLU, and the mul.
 * `0`: the unique id within the graph.
 
-Why is this a win? In eager mode, the intermediate `h = gelu(g)` is a full `[8192, 3072]` bf16 tensor (around 50 MB) that the GeLU kernel writes to HBM and the mul kernel immediately reads back. Fusion keeps it in registers. The Triton kernel reads `g` and `u` once, computes `gelu(g) * u`, and writes the result once. One whole round trip of the intermediate through global memory is gone.
+Why is this a win? In eager mode, the intermediate `h = gelu(g)` is a full `[8192, 3072]` bf16 tensor (around 50 MB) that the GeLU kernel writes to HBM and the mul kernel immediately reads back. Fusion keeps it in registers (memory that reside inside the chip). The Triton kernel reads `g` and `u` once, computes `gelu(g) * u`, and writes the result once. One whole round trip of the intermediate through global memory is gone.
 
 | ![Current Selection panel for a cudaLaunchKernel slice showing cbid 211, the CUDA runtime API used to launch a cuBLAS GEMM](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/torch-mlp-fusion/gemm-cbid.png) |
 | :--: |
