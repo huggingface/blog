@@ -14,11 +14,11 @@ That default is convenient, but it also has limits. GitHub Actions can be slow o
 So we tried an experiment: keep GitHub Actions as the CI control plane, but run selected jobs on [Hugging Face Jobs](https://huggingface.co/docs/hub/en/jobs-overview).
 
 
-The result: Trackio's CI now runs on Hugging Face Jobs and streams back realtime logs, **cutting our CI time for CPU jobs by 40% and enabling a whole new test suite that runs on GPU machines**!
+The result: Trackio's CI now runs on Hugging Face Jobs and streams back real-time logs, **cutting our CI time for CPU jobs by about 30% and enabling a whole new test suite that runs on GPU machines**!
 
-In this article, we explain step-by-step, how to recreate the same setup for your GitHub repo. If you are using an agent, you can point it to this article, since we provide CLI instructions alongside browser-based instructions for us humans.
+In this article, we explain step-by-step how to recreate the same setup for your GitHub repo. If you are using an agent, you can point it to this article, since we provide CLI instructions alongside browser-based instructions for us humans.
 
-Let's start with quick intro to Hugging Face Jobs!
+Let's start with a quick intro to Hugging Face Jobs!
 
 ## What is Hugging Face Jobs?
 
