@@ -15,7 +15,7 @@ In the [first part of this series "Profiling in PyTorch"](https://huggingface.co
 In the second iteration (this blog post), we climb one rung up the ladder. We replace the hand-written matmul-add pair with an `nn.Linear` (with `bias=True`). This is the building block every deep learning model uses. We then stack three of them, with an activation in between, to form a Multilayer Perceptron (MLP) block.
 
 > [!NOTE]
-> The scripts for this blog post live here: [`02_linear.py`](https://huggingface.co/datasets/ariG23498/profiling-pytorch/blob/main/02_linear.py), [`03_simple_mlp.py`](https://huggingface.co/datasets/ariG23498/profiling-pytorch/blob/main/03_simple_mlp.py), and [`03_kernels_mlp.py`](https://huggingface.co/datasets/ariG23498/profiling-pytorch/blob/main/03_kernels_mlp.py). Like before, it helps to open them in a separate tab and walk through the code as you read. We use the `NVIDIA A100-SXM4-80GB` GPU to run the scripts. It is really easy to setup a GPU on the Hugging Face infrastructure and experiment with the scripts using the [Dev Mode with Spaces](https://huggingface.co/docs/hub/spaces-dev-mode). One could also run the scripts with the [Hugging Face Jobs pipeline](https://huggingface.co/docs/huggingface_hub/en/guides/jobs).
+> The scripts for this blog post live here: [`02_linear.py`](https://huggingface.co/datasets/ariG23498/profiling-pytorch/blob/main/02_linear.py), [`03_simple_mlp.py`](https://huggingface.co/datasets/ariG23498/profiling-pytorch/blob/main/03_simple_mlp.py), and [`03_kernels_mlp.py`](https://huggingface.co/datasets/ariG23498/profiling-pytorch/blob/main/03_kernels_mlp.py). Like before, it helps to open them in a separate tab and walk through the code as you read. We use the `NVIDIA A100-SXM4-80GB` GPU to run the scripts. It is really easy to setup a GPU on the Hugging Face infrastructure and experiment with the scripts using [Dev Mode with Spaces](https://huggingface.co/docs/hub/spaces-dev-mode). One could also run the scripts with the [Hugging Face Jobs pipeline](https://huggingface.co/docs/huggingface_hub/en/guides/jobs).
 
 Before we begin, a quick recap of two ideas we will lean on repeatedly:
 
@@ -61,9 +61,9 @@ Figure 1 shows the profiler trace of a forward call of the linear layer. We trac
 
 If we zoom into the profiler trace, as we do in Figure 2, we notice an `aten::t` (transpose) op before the `aten::addmm` (multiplication and addition) op. We can already figure out that `nn.Linear` transposes the weight parameter and then multiplies it with the input. This is the reason we see an `aten::t` op.
 
-An important thing to notice is that `aten::t` only rewrites tensor metadata (shape and stride) on the CPU; it does not launch a kernel on the GPU. One can verify this two ways: by looking at the GPU lane in the trace, or by checking the `aten::t` row in the profiler table and the time it took on CUDA.
+An important thing to notice is that `aten::t` does not really copy or reorganize data: it only rewrites tensor metadata (shape and stride) on the CPU to represent the transposed matrix. It does not launch a kernel on the GPU. One can verify this two ways: by looking at the GPU lane in the trace, or by checking the `aten::t` row in the profiler table and the time it took on CUDA.
 
-### Where are add and mul kernels seperately?
+### Why are there no separate `mul` and `add` kernels?
 
 | ![Profiler trace of the linear layer with the dispatch chain highlighted, showing aten::linear, aten::t and aten::addmm but no separate aten::add op](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/torch-mlp-fusion/no-aten-add.png) |
 | :--: |
