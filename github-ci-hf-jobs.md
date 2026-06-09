@@ -78,7 +78,7 @@ https://YOUR-HF-NAMESPACE-jobs-actions-dispatcher.hf.space/webhook
 
 #### CLI setup
 
-If you'd prefer to set up dispatcher Space with  an agent or use a CLI workflow:
+If you'd prefer to set up the dispatcher Space with an agent or use a CLI workflow:
 
 ```bash
 export HF_NAMESPACE=your-hf-user-or-org
