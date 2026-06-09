@@ -213,7 +213,7 @@ hf jobs ps --namespace "$HF_NAMESPACE"
 hf spaces logs "$SPACE_ID"
 ```
 
-You should be able see logs just like a regular GitHub Action, e.g. like in this [Trackio PR #565](https://github.com/gradio-app/trackio/pull/565).
+You should be able to see logs just like a regular GitHub Action—for example, in this [Trackio PR #565](https://github.com/gradio-app/trackio/pull/565).
 
 
 And that's it!
