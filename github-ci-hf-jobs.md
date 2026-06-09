@@ -269,4 +269,6 @@ hf jobs logs <job_id> > logs.txt
 
 That makes them easy to inspect with local tools or coding agents. In our bridge, we also mirrored the GitHub Actions job log into the HF Job log, so either system had enough information to debug a run.
 
-Hopefully, this convinces you to give HF Jobs a shot for running your GitHub Actions!
+Finally, although we didn't need them for Trackio's CI, HF Jobs also [supports mounting volumes](https://huggingface.co/docs/huggingface_hub/en/guides/jobs#mount-a-volume), which can be very helpful if you need to load datasets or models from Hugging Face quickly as part of your CI.
+
+Hopefully, this gives you all you need to try HF Jobs for running your GitHub Actions!
