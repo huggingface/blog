@@ -40,10 +40,10 @@ For this setup, we created [`huggingface/jobs-actions`](https://github.com/huggi
 The complete flow looks like this:
 
 1. A pull request triggers a GitHub Actions workflow.
-1. GitHub queues any job whose `runs-on` label is not available, for example `hf-jobs-cpu-upgrade` or `hf-jobs-t4-small`, and sends a signed `workflow_job.queued` webhook to the dispatcher through the GitHub App.
-1. The dispatcher Space verifies the webhook, checks for an `hf-jobs-*` label, mints a short-lived GitHub runner registration token, and starts an HF Job on the matching hardware.
-1. The HF Job boots an ephemeral GitHub Actions runner and registers it with the repo using that one-shot token.
-1. GitHub assigns the pending workflow job to that runner; the runner executes the CI job, reports status back to GitHub, and exits.
+2. GitHub queues any job whose `runs-on` label is not available, for example `hf-jobs-cpu-upgrade` or `hf-jobs-t4-small`, and sends a signed `workflow_job.queued` webhook to the dispatcher through the GitHub App.
+3. The dispatcher Space verifies the webhook, checks for an `hf-jobs-*` label, mints a short-lived GitHub runner registration token, and starts an HF Job on the matching hardware.
+4. The HF Job boots an ephemeral GitHub Actions runner and registers it with the repo using that one-shot token.
+5. GitHub assigns the pending workflow job to that runner; the runner executes the CI job, reports status back to GitHub, and exits.
 
 From GitHub's point of view, this is just a self-hosted runner. From Hugging Face's point of view, it is just a Job that launches a container to run the workflow steps from the repo’s GitHub Actions.
 
