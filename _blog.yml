@@ -5378,16 +5378,6 @@
     - open-source
     - kernels
 
-- local: github-ci-hf-jobs
-  date: June 6, 2026
-  tags:
-    - guide
-    - hub
-    - jobs
-    - ci
-    - github-actions
-    - open-source
-
 - local: adding-mcp-tools-to-reachy-mini
   date: June 3, 2026
   tags:
@@ -5405,3 +5395,14 @@
     - huggingface_hub
     - agents
     - hub
+
+- local: github-ci-hf-jobs
+  date: June 6, 2026
+  tags:
+    - guide
+    - hub
+    - jobs
+    - ci
+    - github-actions
+    - open-source
+
