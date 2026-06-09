@@ -11,7 +11,7 @@ If you have a GitHub repository and you have GitHub Actions enabled, you probabl
 
 That default is convenient, but it also has limits. GitHub Actions can be slow or down for maintenance, the hosted machines are generic, and GPU access is not something most open-source projects can just turn on. For [Trackio](https://github.com/gradio-app/trackio), those limits started to matter. We wanted both reliable CPU CI for basic unit tests and frontend checks, but also GPU CI for tests that need to run on actual CUDA hardware.
 
-So we tried an experiment: keep GitHub Actions as the CI control plane, but run selected jobs on [Hugging Face Jobs](https://huggingface.co/docs/hub/en/jobs-overview).
+So built an alternative: keep GitHub Actions in charge of CI, but run the jobs on [Hugging Face Jobs](https://huggingface.co/docs/hub/en/jobs-overview).
 
 
 The result: Trackio's CI now runs on Hugging Face Jobs and streams back real-time logs, **cutting our CI time for CPU jobs by about 30% and enabling a whole new test suite that runs on GPU machines**!
@@ -28,6 +28,18 @@ Let's start with a quick intro to Hugging Face Jobs!
 - a Docker image, from Docker Hub or a Hugging Face Space
 - a hardware flavor, such as CPU or `t4-small` or `h200` GPU
 - optional environment variables and secrets
+
+For example, you can run:
+
+```bash
+hf jobs run python:3.12 python -c "print('Hello world')"
+```
+
+or 
+
+```bash 
+hf jobs uv run --flavor a10g-small "https://raw.githubusercontent.com/huggingface/trl/main/trl/scripts/sft.py" 
+```
 
 That makes Jobs a natural fit for CI. CI jobs are already command-driven, already run in clean environments, and often benefit from choosing exactly the right hardware. For ML libraries, the GPU case is especially compelling: you can run a test suite on real GPU hardware without maintaining your own always-on runner.
 
