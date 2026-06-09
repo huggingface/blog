@@ -175,7 +175,7 @@ For GPU tests, use a GPU label:
 runs-on: hf-jobs-t4-small
 ```
 
-For any GitHub Action you'd like to run on on HF Jobs, this 1-line change is all you need!
+For any GitHub Action you'd like to run on HF Jobs, this 1-line change is all you need!
 
 ## Step 5: Test it out
 
