@@ -234,13 +234,13 @@ And that's it!
 
 Our first CPU setup used `ubuntu:22.04` and installed missing system packages during every run. That worked, but it was slower than it needed to be. GitHub's `ubuntu-latest` image includes a lot of developer tooling by default; a bare Ubuntu image does not.
 
-For Trackio, the UI tests need Playwright browsers, Node, ffmpeg, sqlite, git, and normal Linux build dependencies. We tested the Microsoft Playwright image:
+For Trackio, the UI tests need Playwright browsers, Node, ffmpeg, sqlite, git, and normal Linux build dependencies. Hugging Face Jobs supports using any [Docker image](https://huggingface.co/docs/hub/jobs-popular-images), so we switched to the Microsoft Playwright image, which worked well:
 
 ```text
 mcr.microsoft.com/playwright:v1.60.0-jammy
 ```
 
-For GPU jobs, we use:
+For GPU jobs, we used:
 
 ```text
 nvidia/cuda:12.4.0-runtime-ubuntu22.04
@@ -248,7 +248,7 @@ nvidia/cuda:12.4.0-runtime-ubuntu22.04
 
 ## Results
 
-Here are the numbers from the Trackio PR experiment:
+Here are the numbers from the Trackio CI:
 
 | Runner setup | Runtime | Compared to GitHub average |
 | --- | ---: | ---: |
