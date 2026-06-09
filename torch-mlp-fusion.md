@@ -47,6 +47,9 @@ uv run 02_linear.py --batch 1024 --in_dim 32 --out_dim 64
 uvx trace-util traces -b traces
 ```
 
+> [!TIP]
+> [`trace-util`](https://x.com/ariG23498/status/2054811716727517374) is a utility that will sync your traces to a [Hugging Face bucket](https://huggingface.co/storage) and then provide the [Preffeto URLs](https://perfetto.dev/) on your terminal.
+
 | ![PyTorch profiler trace of an nn.Linear forward pass: three short Profile Steps and linear_fwd annotations on the CPU lane, a tiny kernel on the GPU lane, and a long cudaDeviceSynchronize bar at the end](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/torch-mlp-fusion/linear-profile-trace.png) |
 | :--: |
 | Figure 1: Profiler trace of `nn.Linear` |
@@ -85,7 +88,7 @@ This is the moment to notice something subtle. The kernel you saw in [Part 1 und
 
 ### Can --compile help a single Linear?
 
-Let's compile the forward call and look at the profiler trace.
+Let's compile the forward call and look at the profiler trace. (The profiler trace is visualized in the [next section](#where-did-the-transpose-go-kernel-layouts-and-pre-ops))
 
 ```bash
 uv run 02_linear.py --batch 1024 --in_dim 32 --out_dim 64 --compile
@@ -112,10 +115,30 @@ A careful reader of the two traces (eager vs compile) will notice that the eager
 | :--: |
 | Figure 5: Compiled dispatch chain where `aten::addmm` is called directly, with no transpose |
 
-The eager CPU dispatch chain inside `aten::linear` is `aten::t` followed by `aten::addmm` (Figure 4). `aten::t` does not allocate a new tensor or copy any data and it produces a *view* with rewritten strides.
+The eager CPU dispatch chain inside `aten::linear` is `aten::t` followed by `aten::addmm` (Figure 4). To understand what `aten::t` actually does, we need a quick detour into *strides* and *views*.
 
-> [!NOTE]
-> For folks wondering what `view` and `strides` have to do with tensors, tensors are stored contiguously in memory, and they are indexed with strides and offsets. This metadata is what lets each tensor be viewed and indexed differently.
+A tensor stores its data as one flat, contiguous run of numbers in memory. The `shape` and `stride` are metadata that sit on top of that run and tell PyTorch how to walk it: a stride of `(s0, s1)` means "step `s0` elements to move one row, step `s1` to move one column". Change the metadata and you get a different *view* of the *same* raw data, with no copy:
+
+```py
+>>> M = torch.tensor([[0, 1],
+...                   [2, 3],
+...                   [4, 5]])
+>>> M.shape, M.stride()
+(torch.Size([3, 2]), (2, 1))   # two steps per row, one step per column
+
+>>> T = M.t()                  # transpose
+>>> T.shape, T.stride()
+(torch.Size([2, 3]), (1, 2))   # shape and stride swapped, data untouched
+>>> T
+tensor([[0, 2, 4],
+        [1, 3, 5]])
+>>> T.flatten()                # forced to materialize, so the data is reordered
+tensor([0, 2, 4, 1, 3, 5])
+```
+
+`M.t()` did not move a single number. It returned a new view whose strides are swapped, so reading it row-by-row now walks the original buffer `0, 1, 2, 3, 4, 5` in transposed order. The underlying data is identical; only the metadata differs.
+
+This is exactly what `aten::t` does inside the linear layer: it does not allocate a new tensor or copy any data, it produces a *view* of the weight with rewritten strides.
 
 As we can see in Figure 5, compile did not remove a GPU kernel: it removed the *CPU overhead* of dispatching that view. Inductor traced through the view chain at compile time, computed the resulting strides once, and emitted a direct `aten::addmm` call with those strides hard-coded. A few microseconds of CPU work disappear while the GPU does identical math.
 
@@ -141,7 +164,7 @@ That `tn` is the layout descriptor. cuBLAS and CUTLASS precompile a *separate ke
 
 ## Stacking three Linears: the MLP
 
-In this section, we will profile a Multilayer Perceptron (MLP) which, as the name suggests. To make this more interesting, we will profile a feed-forward network with the GeGLU activation variant. This is also our way of paying tribute to one of the greatest lines ever written in the history of deep learning research (Figure 6).
+In this section, we will profile a Multilayer Perceptron (MLP). To make this more interesting, we will profile a feed-forward network with the GeGLU activation variant. This is also our way of paying tribute to one of the greatest lines ever written in the history of deep learning research (Figure 6).
 
 | ![Conclusions section of the GLU Variants Improve Transformer paper, with the closing sentence attributing the architectures' success to divine benevolence highlighted](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/torch-mlp-fusion/geglu-paper.png) |
 | :--: |
