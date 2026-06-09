@@ -80,7 +80,7 @@ Name: jobs-actions-dispatcher
 Hardware: cpu-upgrade
 ```
 
-Use `cpu-upgrade` for real CI so the dispatcher stays available for GitHub webhooks. `cpu-basic` is fine for testing and will probably work, but it can sleep after inactivity; if GitHub's webhook arrives while it is waking up, the workflow may stay queued until you rerun it or redeliver the webhook.
+Use `cpu-upgrade` for real CI so the dispatcher stays available for GitHub webhooks. `cpu-basic` is fine for testing and will probably work, but it can sleep after inactivity; if GitHub's webhook arrives while it is waking up, the workflow may stay queued forever.
 
 After it builds, open the duplicated Space. You will see a section that says "Required Space secrets," which you can ignore for now. The landing page should display the GitHub App webhook URL you need in the next step. It will look like this:
 
