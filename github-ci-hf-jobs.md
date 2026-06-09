@@ -51,7 +51,7 @@ From GitHub's point of view, this is just a self-hosted runner. From Hugging Fac
 
 The first thing you need is the dispatcher. This is a small Docker Space that receives GitHub `workflow_job` webhook events and launches HF Jobs in response.
 
-Create this first because the GitHub App needs a webhook URL, and that URL comes from the Space. This Space should be under your own namespace or under an Hugging Face org that you have write-access to.
+Create this first because the GitHub App needs a webhook URL, and that URL comes from the Space. This Space should be under your own namespace or under a Hugging Face org that you have write access to.
 
 #### Web setup
 
