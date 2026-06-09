@@ -5404,3 +5404,13 @@
     - community
     - agents
     - rl
+
+- local: github-ci-hf-jobs
+  date: June 9, 2026
+  tags:
+    - guide
+    - hub
+    - jobs
+    - ci
+    - github-actions
+    - open-source
