@@ -678,7 +678,7 @@ Where a standard causal LM emits one token at a time, DiffusionGemma denoises wh
 
 The headline benefit is **throughput**: parallel denoising generates roughly 15–20 tokens per forward pass, reaching per-user generation speeds **exceeding 1100 tokens/second** at low batch sizes (H100, FP8). Inference compute is adaptive too — simpler prompts and structured tasks like code need fewer denoising steps, so tokens-per-second scales with task complexity. It keeps the broader Gemma 4 toolkit: thinking mode, function calling, long context, native system prompts, and image understanding (OCR, document parsing, object detection, pointing) at variable aspect ratios and resolutions.
 
-Benchmarks show the expected trade-off — DiffusionGemma trails the autoregressive 26B A4B on most tasks (e.g. MMLU Pro 77.6% vs 82.6%, AIME 2026 69.1% vs 88.3%, GPQA Diamond 73.2% vs 82.3%) in exchange for its large speed advantage, while edging ahead on a few (HLE no tools 11.0% vs 8.7%).
+Benchmarks show an expected trade-off between speed and evaluation metrics — DiffusionGemma trails the autoregressive 26B A4B on most tasks (e.g. MMLU Pro 77.6% vs 82.6%, AIME 2026 69.1% vs 88.3%, GPQA Diamond 73.2% vs 82.3%) in exchange for its large speed advantage, while edging ahead on a few (HLE no tools 11.0% vs 8.7%).
 
 Getting started looks just like the rest of Gemma 4, via the dedicated diffusion class:
 
