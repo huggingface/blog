@@ -10,12 +10,12 @@ authors:
 
 ![Thumbnail of the blog post](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/torch-mlp-fusion/thumbnail.png)
 
-In the [first part of this series "Profiling in PyTorch"](https://huggingface.co/blog/torch-profiler), we used `torch.add(torch.matmul(x, w), b)` to learn how to read PyTorch profiler traces. We talked about the CPU dispatch chain, launch overhead, the difference between an overhead-bound and a compute-bound regime, and the internals of `torch.compile`.
+In the [first part of this series "Profiling in PyTorch"](https://huggingface.co/blog/torch-profiler), we used `torch.add(torch.matmul(x, w), b)` to learn how to read PyTorch profiler traces. We also discussed several other topics that came our way -- the CPU dispatch chain, launch overhead, the difference between an overhead-bound and a compute-bound regime, and some internals of `torch.compile`.
 
 In the second iteration (this blog post), we climb one rung up the ladder. We replace the hand-written matmul-add pair with an `nn.Linear` (with `bias=True`). This is the building block every deep learning model uses. We then stack three of them, with an activation in between, to form a Multilayer Perceptron (MLP) block.
 
 > [!NOTE]
-> The scripts for this blog post live here: [`02_linear.py`](https://huggingface.co/datasets/ariG23498/profiling-pytorch/blob/main/02_linear.py), [`03_simple_mlp.py`](https://huggingface.co/datasets/ariG23498/profiling-pytorch/blob/main/03_simple_mlp.py), and [`03_kernels_mlp.py`](https://huggingface.co/datasets/ariG23498/profiling-pytorch/blob/main/03_kernels_mlp.py). Like before, it helps to open them in a separate tab and walk through the code as you read. We use the `NVIDIA A100-SXM4-80GB` GPU to run the scripts. It is really easy to setup a GPU on the Hugging Face infrastructure and experiment with the scripts using [Dev Mode with Spaces](https://huggingface.co/docs/hub/spaces-dev-mode). One could also run the scripts with the [Hugging Face Jobs pipeline](https://huggingface.co/docs/huggingface_hub/en/guides/jobs).
+> The scripts for this blog post live here: [`02_linear.py`](https://huggingface.co/datasets/ariG23498/profiling-pytorch/blob/main/02_linear.py), [`03_simple_mlp.py`](https://huggingface.co/datasets/ariG23498/profiling-pytorch/blob/main/03_simple_mlp.py), and [`03_kernels_mlp.py`](https://huggingface.co/datasets/ariG23498/profiling-pytorch/blob/main/03_kernels_mlp.py). Like before, it helps to open them in a separate tab and walk through the code as you read. We use an `NVIDIA A100-SXM4-80GB` GPU to run the scripts. It is really easy to set up a GPU on the Hugging Face infrastructure and experiment with the scripts using [Dev Mode with Spaces](https://huggingface.co/docs/hub/spaces-dev-mode). One could also run the scripts with the [Hugging Face Jobs pipeline](https://huggingface.co/docs/huggingface_hub/en/guides/jobs).
 
 Before we begin, a quick recap of two ideas we will lean on repeatedly:
 
@@ -50,7 +50,7 @@ uvx trace-util traces -b traces
 > [!TIP]
 > [`trace-util`](https://x.com/ariG23498/status/2054811716727517374) is a utility that will sync your traces to a [Hugging Face bucket](https://huggingface.co/storage) and then provide the [Preffeto URLs](https://perfetto.dev/) on your terminal.
 
-| ![PyTorch profiler trace of an nn.Linear forward pass: three short Profile Steps and linear_fwd annotations on the CPU lane, a tiny kernel on the GPU lane, and a long cudaDeviceSynchronize bar at the end](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/torch-mlp-fusion/linear-profile-trace.png) |
+| ![PyTorch profiler trace of an `nn.Linear` forward pass: three short Profile Steps and `linear_fwd` annotations on the CPU lane, a tiny kernel on the GPU lane, and a long `cudaDeviceSynchronize` bar at the end](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/torch-mlp-fusion/linear-profile-trace.png) |
 | :--: |
 | Figure 1: Profiler trace of `nn.Linear` |
 
@@ -72,11 +72,11 @@ An important thing to notice is that `aten::t` does not really copy or reorganiz
 | :--: |
 | Figure 3: No `aten::add` in the profile of a linear layer |
 
-There is no `aten::add` (the bias addition) in the dispatch chain of the linear layer, as seen in Figure 3. This is because the bias addition has been folded into the matrix multiplication kernel, using what is called an **epilogue**.
+There is no `aten::add` (the bias addition) in the dispatch chain of the linear layer, as seen in Figure 3. This is because the bias addition has been _folded_ into the matrix multiplication kernel, using what is called an **epilogue**.
 
 An **epilogue** is a small computation that a GEMM (GEneral Matrix Multiply) kernel does at the very end, just before it writes its result back to HBM (High Bandwidth Memory, the GPU's main memory). Adding a bias, applying an activation, or scaling by a constant are all classic epilogues. The point of an epilogue is to avoid loading or writing to HBM a second time, since memory traffic makes an operation expensive.
 
-`nn.Linear` calls `torch.nn.functional.linear`, which in turn calls `aten::linear`. `aten::linear` looks at the inputs, notices that a bias was passed, and dispatches `aten::addmm(bias, x, weight)` instead of doing a matmul and an add separately. `addmm` computes:
+`nn.Linear` calls `torch.nn.functional.linear`, which, in turn, calls `aten::linear`. `aten::linear` looks at the inputs, notices that a bias was passed, and dispatches `aten::addmm(bias, x, weight)` instead of doing a matmul and an add separately. `addmm` computes:
 
 ```
 out = x @ weight.T + bias
@@ -101,7 +101,7 @@ If you compare the eager and compiled traces for a single `nn.Linear`'s `forward
 - The same `aten::addmm` op on the CPU.
 - A few extra rows on the CPU lane unique to compile.
 
-This is worth internalizing. A common reflex is to reach for `torch.compile` whenever a model feels slow. For a single GEMM-with-bias, compile has very little to do. This is not a bug, this is just that compile needs more than one operation to do fusing. Let's prove that by [looking at the MLP](#stacking-two-linears-the-mlp).
+This is worth internalizing. A common reflex is to reach for `torch.compile` whenever a model feels slow. For a single GEMM-with-bias, compile has very little to do. This is not a bug, this is just that compile needs more than one operation to possibly do any fusing. Let's prove that by [looking at an MLP](#stacking-two-linears-the-mlp).
 
 ### Where did the transpose go? Kernel layouts and pre-ops
 
@@ -140,7 +140,9 @@ tensor([0, 2, 4, 1, 3, 5])
 
 This is exactly what `aten::t` does inside the linear layer: it does not allocate a new tensor or copy any data, it produces a *view* of the weight with rewritten strides.
 
-As we can see in Figure 5, compile did not remove a GPU kernel: it removed the *CPU overhead* of dispatching that view. Inductor traced through the view chain at compile time, computed the resulting strides once, and emitted a direct `aten::addmm` call with those strides hard-coded. A few microseconds of CPU work disappear while the GPU does identical math.
+As we can see in Figure 5, compile did not remove a GPU kernel: it removed the *CPU overhead* of dispatching that view. Inductor traced through the view chain at compile time, computed the resulting strides once, and emitted a direct `aten::addmm` call with those strides hard-coded. A few microseconds of CPU work disappear while the GPU does identical math. 
+
+As one would expect, when the input data violates the strides precomputed by the compiler, it will throw an error.
 
 If you look at the GPU lane in both traces, there is exactly one kernel per forward, and it is the *same* kernel both times:
 
@@ -157,10 +159,10 @@ cutlass_80_wmma_tensorop_bf16_s161616gemm_bf16_32x32_32x1_tn_align8
 
 That `tn` is the layout descriptor. cuBLAS and CUTLASS precompile a *separate kernel binary* for each combination of input layouts.
 
-`N` (non-transposed) and `T` (transposed) describe how a kernel walks its input during the inner loop. The dispatcher's job is to look at the input strides, decide which suffix combination matches, and pick the right precompiled kernel.
+`n` (non-transposed) and `t` (transposed) describe how a kernel walks its input during the inner loop. The dispatcher's job is to look at the input strides, decide which suffix combination matches, and pick the right precompiled kernel.
 
 > [!TIP]
-> The kernel name in a profiler trace is a hash dump of the kernel's identity. If two runs show the same kernel name, the GPU is doing the same work. If they differ (`_tn_` vs `_nn_`, `bf16` vs `fp16`, or `s16816gemm` vs `s161616gemm`) then the GPU is doing different work, and the dispatcher took a different branch. Learning to read this name is one of the most useful habits when comparing traces.
+> The kernel name in a profiler trace is a hash dump of the kernel's identity. If two runs show the same kernel name, the GPU is doing the same work. If they differ (e.g., `_tn_` vs `_nn_`, `bf16` vs `fp16`, or `s16816gemm` vs `s161616gemm`) then the GPU is doing different work, and the dispatcher took a different branch. Learning to read this name is one of the most useful habits when comparing traces.
 
 ## Stacking three Linears: the MLP
 
@@ -197,7 +199,7 @@ uvx trace-util traces -b traces
 
 Before we open the trace, let's think together about what we should expect to see. The `forward` function does a fair amount of computation, but most of it is already familiar to us.
 
-We should expect three `aten::linear` dispatches, one for each `nn.Linear` layer. We should also expect two pointwise kernel launches, one for the GeLU and one for the multiplication. Forming this expectation before looking is the single most useful habit in profiling: you read the trace to *confirm or break* a guess, not to form one from scratch.
+We should expect three `aten::linear` dispatches, one for each `nn.Linear` layer. We should also expect two pointwise kernel launches, one for the GeLU and one for the multiplication. Forming this expectation before looking is the single most useful habit in the profiling journey: you read the trace to *confirm or break* a guess, not to form one from scratch.
 
 | ![Profiler trace of the GeGLU MLP forward pass, with five boxed groups on the CPU lane labelled linear, linear, gelu, mul, linear](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/torch-mlp-fusion/simple-mlp-eager.png) |
 | :--: |
@@ -223,7 +225,7 @@ The `aten::t`, `aten::transpose`, `aten::reshape`, `aten::view`, `aten::as_strid
 
 ### Why are there two types of GEMM kernels?
 
-The MLP flattens `[batch, seq, dim]` to `[batch*seq, dim]` for the matmul, so the `8192` below is `batch*seq = 64*128`.
+The MLP flattens `[batch, seq, dim]` to `[batch * seq, dim]` for the matmul, so the `8192` below is `batch * seq = 64 * 128`.
 
 From the trace:
 
