@@ -208,7 +208,11 @@ We should expect three `aten::linear` dispatches, one for each `nn.Linear` layer
 | :--: |
 | Figure 7: The profiler trace for a GeGLU MLP |
 
-From Figure 7 we can pat ourselves on the back, as our intuition was correct. Per forward pass (one `mlp_fwd`), the GPU runs exactly 5 kernels:
+| ![Occupancy Queries highlighted in the linear projection traces](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/torch-mlp-fusion/occupancy-queries.png) |
+| :--: |
+| Figure 8: The occupancy queries highlighted in the linear projection CPU lane |
+
+From Figure 7 we can pat ourselves on the back, as our intuition was correct. Per forward pass (one `mlp_fwd`), the GPU runs exactly 5 kernels. Figure 8 highlights the "occupancy query" as seen in the CPU lane for the linear projection layers.
 
 | Op | CPU op | GPU kernel | launches |
 | :--: | :--: | :--: | :--: |
@@ -222,9 +226,9 @@ The three GEMMs each do an extra `cudaOccupancyMaxActiveBlocksPerMultiprocessor`
 
 | ![Profiler table for the GeGLU MLP listing op names and their CUDA times, where metadata ops like aten::transpose and aten::as_strided show 0.000us of CUDA time](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/torch-mlp-fusion/simple-mlp-table.png) |
 | :--: |
-| Figure 8: The table shows that some ops launch zero kernels |
+| Figure 9: The table shows that some ops launch zero kernels |
 
-The `aten::t`, `aten::transpose`, `aten::reshape`, `aten::view`, `aten::as_strided`, and `aten::_unsafe_view` ops launch zero kernels. They show `0.000us` of CUDA time in the table (Figure 8) because they only rewrite tensor metadata (shape and stride) on the CPU. A reader scanning the table sees around six op names per linear, but only one of them (`mm`) ever reaches the GPU.
+The `aten::t`, `aten::transpose`, `aten::reshape`, `aten::view`, `aten::as_strided`, and `aten::_unsafe_view` ops launch zero kernels. They show `0.000us` of CUDA time in the table (Figure 9) because they only rewrite tensor metadata (shape and stride) on the CPU. A reader scanning the table sees around six op names per linear, but only one of them (`mm`) ever reaches the GPU.
 
 ### Why are there two types of GEMM kernels?
 
@@ -243,7 +247,7 @@ All three GEMMs have the same FLOP count, `2·8192·768·3072 ≈ 38.7 GFLOP` ea
 > [!NOTE]
 > If you want to learn more about tiling in depth, [here is a great resource](https://alvinwan.com/how-to-tile-matrix-multiplication/) to get started with.
 
-This is exactly why the table had two GEMM rows: the `128x128` row is gate+up and the `128x256` row is down.
+This is exactly why the table had two GEMM rows (Figure 9): the `128x128` row is gate+up and the `128x256` row is down.
 
 ### What does `torch.compile` do?
 
@@ -256,19 +260,19 @@ uvx trace-util traces -b traces
 
 | ![Profiler trace of the compiled GeGLU MLP showing three aten::mm calls and one fused triton kernel on the CPU lane, labelled mm, mm, fused, mm](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/torch-mlp-fusion/simple-mlp-compile-trace.png) |
 | :--: |
-| Figure 9: The profiler trace for the compiled GeGLU MLP |
+| Figure 10: The profiler trace for the compiled GeGLU MLP |
 
 In eager mode, each `nn.Linear` was expanded into a chain of dispatcher ops (`aten::linear` → `aten::t` → `aten::transpose` → `aten::matmul` → `aten::reshape` → `aten::mm`). Those are the high-level wrappers that ATen walks through before reaching the real GEMM. `torch.compile` removes that chain.
 
-By the time the compiled graph runs, there is no linear, no matmul, no transpose or reshape and those metadata ops were folded into how `mm` is called. We can see three bare `aten::mm` external calls (Figure 9). The proof that it is the same GEMM is that the kernel names are byte-for-byte identical to eager: `...128x128...stages_32x5_tn` for gate and up, and `...128x256...stages_64x3_tn` for down.
+By the time the compiled graph runs, there is no linear, no matmul, no transpose or reshape and those metadata ops were folded into how `mm` is called. We can see three bare `aten::mm` external calls (Figure 10). The proof that it is the same GEMM is that the kernel names are byte-for-byte identical to eager: `...128x128...stages_32x5_tn` for gate and up, and `...128x256...stages_64x3_tn` for down.
 
 ### The fused Triton kernel
 
 | ![Compiled MLP trace with the triton_poi_fused__unsafe_view_gelu_mul_0 kernel boxed on the CPU lane, replacing the separate gelu and mul kernels from the eager run](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/torch-mlp-fusion/fused.png) |
 | :--: |
-| Figure 10: The fused Triton kernel |
+| Figure 11: The fused Triton kernel |
 
-This is the headline of the whole compile lesson. The two eager pointwise kernels (GeLU and mul) plus a reshape collapsed into one kernel, `triton_poi_fused__unsafe_view_gelu_mul_0` (Figure 10). Let's decode the name:
+This is the headline of the whole compile lesson. The two eager pointwise kernels (GeLU and mul) plus a reshape collapsed into one kernel, `triton_poi_fused__unsafe_view_gelu_mul_0` (Figure 11). Let's decode the name:
 
 * `triton`: generated by Inductor's Triton backend (not cuBLAS, not ATen).
 * `poi`: pointwise (Inductor tags pointwise kernels `poi`, reductions `red`, and persistent reductions `per`).
@@ -297,9 +301,9 @@ uvx trace-util traces -b traces
 
 | ![Profiler trace of the LigerGEGLUMLP forward pass showing three aten::linear groups and a single LigerGELUMulFunction group on the CPU lane](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/torch-mlp-fusion/kernels-profile.png) |
 | :--: |
-| Figure 13: The profiler trace for the `LigerGEGLUMLP` layer |
+| Figure 12: The profiler trace for the `LigerGEGLUMLP` layer |
 
-Figure 13 shows the profile for the `LigerGEGLUMLP` layer using the Liger kernels from the Hub.
+Figure 12 shows the profile for the `LigerGEGLUMLP` layer using the Liger kernels from the Hub.
 
 ### Why use the kernels library
 
@@ -317,17 +321,21 @@ When we say "tuned", we mean two concrete things, and both are visible in the tr
 
 | ![Compiled MLP trace with the TorchDynamo, prologue and guard pre-ops boxed on the CPU lane before the compiled graph runs](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/torch-mlp-fusion/compile-preops.png) |
 | :--: |
-| Figure 14: The compiled run pays for pre-ops (Dynamo, guards, prologue) before any GEMM runs |
+| Figure 13: The compiled run pays for pre-ops (Dynamo, guards, prologue) before any GEMM runs |
 
 | ![LigerGEGLUMLP trace with an empty box where the compile pre-ops would be, showing the hand-written kernel has no Dynamo or guard overhead](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/torch-mlp-fusion/no-preops.png) |
 | :--: |
-| Figure 15: The Liger kernel has no pre-ops — the box where they would be is empty |
+| Figure 14: The Liger kernel has no pre-ops — the box where they would be is empty |
 
-1. **The fusion is baked in.** The [`LigerGEGLUMLP`](https://huggingface.co/kernels/kernels-community/liger-kernels/blob/v1/build/torch-cuda/layers.py#L307) forward is `down_proj(LigerGELUMulFunction.apply(gate_proj(x), up_proj(x)))`. The [`LigerGELUMulFunction`](https://huggingface.co/kernels/kernels-community/liger-kernels/blob/v1/build/torch-cuda/geglu.py#L130) runs a single Triton kernel, [`_geglu_tanh_forward_kernel`](https://huggingface.co/kernels/kernels-community/liger-kernels/blob/v1/build/torch-cuda/geglu.py#L97), that computes `gelu(gate) * up` in one pass. This is exactly what we saw from `torch.compile`, where the intermediate never makes a round-trip through HBM. We get it here **without the compiler**, as shown in Figures 14 and 15 (no Dynamo guards, no compile latency, no recompilation risk).
+1. **The fusion is baked in.** The [`LigerGEGLUMLP`](https://huggingface.co/kernels/kernels-community/liger-kernels/blob/v1/build/torch-cuda/layers.py#L307) forward is `down_proj(LigerGELUMulFunction.apply(gate_proj(x), up_proj(x)))`. The [`LigerGELUMulFunction`](https://huggingface.co/kernels/kernels-community/liger-kernels/blob/v1/build/torch-cuda/geglu.py#L130) runs a single Triton kernel, [`_geglu_tanh_forward_kernel`](https://huggingface.co/kernels/kernels-community/liger-kernels/blob/v1/build/torch-cuda/geglu.py#L97), that computes `gelu(gate) * up` in one pass. This is exactly what we saw from `torch.compile`, where the intermediate never makes a round-trip through HBM. We get it here **without the compiler**, as shown in Figures 13 and 14 (no Dynamo guards, no compile latency, no recompilation risk).
 
 2. **The launch parameters were chosen for the hardware.** The kernel does not guess its block size at random. Liger's [`calculate_settings`](https://huggingface.co/kernels/kernels-community/liger-kernels/blob/v1/build/torch-cuda/geglu.py#L95) picks them from the column count.
 
-It is worth being honest about what "tuned" does **not** mean. It does not mean "always the fastest for your exact shape". The fused kernel here runs in **92.8 µs**, while Inductor's fused kernel from the compile run was **89.4 µs**. The tuning heuristic is a good general rule (next power of two, capped warps), not an exhaustive per-shape search.
+It is worth being honest about the trade-off here, because the raw numbers can be misleading. The Liger kernel runs in **92.8 µs**, while Inductor's fused kernel from the compile run was **89.4 µs**. At first glance the hand-written kernel looks slightly slower, but that comparison hides the cost that makes it worthwhile.
+
+`torch.compile` specializes for a **static shape**. Inductor's `89.4 µs` kernel is fast precisely because it was generated for *this exact* `[8192, 3072]` problem. Change the batch size, the sequence length, or the hidden dimension, Dynamo re-traces, and you pay the compile cost all over again to get a new specialized kernel.
+
+So the real choice is not "slow human kernel vs fast compiled kernel". It is **a fast generic kernel vs a kernel specialized for one particular input shape**. The Liger kernel takes one set of launch parameters and runs them for *any* shape with no recompilation. It gives up the last few microseconds that per-shape specialization would buy, in exchange for being robust to changing shapes.
 
 ## Conclusion
 
