@@ -228,7 +228,7 @@ The `aten::t`, `aten::transpose`, `aten::reshape`, `aten::view`, `aten::as_strid
 
 ### Why are there two types of GEMM kernels?
 
-The MLP flattens `[batch, seq, dim]` to `[batch * seq, dim]` for the matmul, so the `8192` below is `batch * seq = 64 * 128`.
+The MLP flattens `[batch, seq, dim]` to `[batch * seq, dim]` for the matmul. In our command-line invocation we used 64 for `batch` and 128 for `seq`, so that's where the `8192` (`batch * seq = 64 * 128`) below comes from.
 
 From the trace:
 
@@ -245,7 +245,7 @@ All three GEMMs have the same FLOP count, `2·8192·768·3072 ≈ 38.7 GFLOP` ea
 
 This is exactly why the table had two GEMM rows: the `128x128` row is gate+up and the `128x256` row is down.
 
-### What happens with `torch.compile`?
+### What does `torch.compile` do?
 
 Before compiling the `forward` method and visualizing it, let's do the mental exercise again of asking ourselves what we expect to see in the trace. This is a fun experiment, and an important one to repeat every time you profile something yourself. Always build on your intuition, and the moment something does not match, stop and figure out why.
 
@@ -279,7 +279,7 @@ Why is this a win? In eager mode, the intermediate `h = gelu(g)` is a full `[819
 
 ## Let's use hand tuned kernels
 
-So far we have let PyTorch (eager) and the compiler (`torch.compile`) pick our kernels. Now we plug in a kernel that a human expert wrote and tuned by hand. We use the `LigerGEGLUMLP` layer, but instead of installing the [Liger library](https://github.com/linkedin/Liger-Kernel) and importing it, we fetch it from the [Hugging Face Hub](https://huggingface.co/kernels/kernels-community/liger-kernels) with the `kernels` library.
+So far we have let PyTorch (eager) and the compiler (`torch.compile`) pick our kernels. Now we plug in a kernel that a human expert wrote and tuned by hand. We use the `LigerGEGLUMLP` layer, that we can easily fetch from the [Hugging Face Hub](https://huggingface.co/kernels/kernels-community/liger-kernels) with the `kernels` library.
 
 ```python
 from kernels import get_kernel
@@ -323,7 +323,7 @@ When we say "tuned", we mean two concrete things, and both are visible in the tr
 | :--: |
 | Figure 15: The Liger kernel has no pre-ops — the box where they would be is empty |
 
-1. **The fusion is baked in.** The [`LigerGEGLUMLP`](https://huggingface.co/kernels/kernels-community/liger-kernels/blob/v1/build/torch-cuda/layers.py#L292) forward is `down_proj(LigerGELUMulFunction.apply(gate_proj(x), up_proj(x)))`. The [`LigerGELUMulFunction`](https://huggingface.co/kernels/kernels-community/liger-kernels/blob/v1/build/torch-cuda/geglu.py#L130) runs a single Triton kernel, [`_geglu_tanh_forward_kernel`](https://huggingface.co/kernels/kernels-community/liger-kernels/blob/v1/build/torch-cuda/geglu.py#L97), that computes `gelu(gate) * up` in one pass. This is exactly what we saw from `torch.compile`, where the intermediate never makes a round-trip through HBM. We get it here **without the compiler**, as shown in Figures 14 and 15 (no Dynamo guards, no compile latency, no recompilation risk).
+1. **The fusion is baked in.** The [`LigerGEGLUMLP`](https://huggingface.co/kernels/kernels-community/liger-kernels/blob/v1/build/torch-cuda/layers.py#L307) forward is `down_proj(LigerGELUMulFunction.apply(gate_proj(x), up_proj(x)))`. The [`LigerGELUMulFunction`](https://huggingface.co/kernels/kernels-community/liger-kernels/blob/v1/build/torch-cuda/geglu.py#L130) runs a single Triton kernel, [`_geglu_tanh_forward_kernel`](https://huggingface.co/kernels/kernels-community/liger-kernels/blob/v1/build/torch-cuda/geglu.py#L97), that computes `gelu(gate) * up` in one pass. This is exactly what we saw from `torch.compile`, where the intermediate never makes a round-trip through HBM. We get it here **without the compiler**, as shown in Figures 14 and 15 (no Dynamo guards, no compile latency, no recompilation risk).
 
 2. **The launch parameters were chosen for the hardware.** The kernel does not guess its block size at random. Liger's [`calculate_settings`](https://huggingface.co/kernels/kernels-community/liger-kernels/blob/v1/build/torch-cuda/geglu.py#L95) picks them from the column count.
 
