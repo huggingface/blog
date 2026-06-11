@@ -22,7 +22,7 @@ The catch is that profiling has a **steep** on-ramp. The traces are dense walls 
 This is the opening post of **Profiling in PyTorch**, a series where we slowly build the skill of reading profiler traces and use it to drive optimization. The plan:
 
 1. **Part 1 (this post):** start with the simplest possible operation, a matrix multiplication followed by a bias add, and learn how to read what the profiler hands back.
-2. **Part 2:** scale up to `nn.Linear` and a small MLP, use the traces to motivate optimizations, and peek at the `kernels` underneath.
+2. [**Part 2:**](https://huggingface.co/blog/torch-mlp-fusion) scale up to `nn.Linear` and a small MLP, use the traces to motivate optimizations, and peek at the `kernels` underneath.
 3. **Part 3:** put it all together on Large Language Models with `transformers`.
 
 We document the journey from a beginner's point of view. No prerequisites apart from basic PyTorch. Treat this as a leisurely read with some "Aha!" moments. The structure of the post is intentionally question-led: we open a trace, ask "wait, why is *that* happening?", and chase the answer until something clicks. By the end you should know:
@@ -42,7 +42,7 @@ You don't usually have to write GPU kernels yourself; when you use a PyTorch ope
 With those two ideas in your back pocket, let's start asking questions.
 
 > [!NOTE]
-> Here is the entire script that we use for the post: [`01_matmul_add.py`](https://huggingface.co/datasets/ariG23498/profiling-pytorch/blob/main/01_matmul_add.py). We recommend opening this script in a separate tab and walk through the code step by step. We use the `NVIDIA A100-SXM4-80GB` GPU to run the scripts.
+> Here is the entire script that we use for the post: [`01_matmul_add.py`](https://huggingface.co/datasets/ariG23498/profiling-pytorch/blob/main/01_matmul_add.py). We recommend opening this script in a separate tab and walk through the code step by step. We use the `NVIDIA A100-SXM4-80GB` GPU to run the scripts. It is really easy to setup a GPU on the Hugging Face infrastructure and experiment with the scripts using the [Dev Mode with Spaces](https://huggingface.co/docs/hub/spaces-dev-mode). One could also run the scripts with the [Hugging Face Jobs pipeline](https://huggingface.co/docs/huggingface_hub/en/guides/jobs).
 
 ## The matrix multiplication and addition operation
 
@@ -504,6 +504,6 @@ A quick reference for the patterns we walked through. The idea is: if you see th
 
 ## Conclusion
 
-We started with a tiny `matmul + add` and used it as an excuse to learn how to read a PyTorch profiler. Along the way we picked up a few mental models that travel well to bigger workloads. This was the first stop in the **Profiling PyTorch** series. In the posts that follow, we will gradually leave this two-op toy behind and walk up the ladder of complexity, looking at larger building blocks and, eventually, real models.
+We started with a tiny `matmul + add` and used it as an excuse to learn how to read a PyTorch profiler. Along the way we picked up a few mental models that travel well to bigger workloads. This was the first stop in the **Profiling PyTorch** series. [In the posts](https://huggingface.co/blog/torch-mlp-fusion) that follow, we will gradually leave this two-op toy behind and walk up the ladder of complexity, looking at larger building blocks and, eventually, real models.
 
 Thanks to [Noe Flandre](https://huggingface.co/NoeFlandre), [Suvaditya Mukherjee](https://huggingface.co/suvadityamuk), and [Vidit Ostwal](https://huggingface.co/ViditOstwal) for their reviews on the early draft of the post!

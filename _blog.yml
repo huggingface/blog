@@ -5414,3 +5414,14 @@
     - ci
     - github-actions
     - open-source
+
+- local: torch-mlp-fusion
+  date: June 11, 2026
+  tags:
+    - torch
+    - profile
+    - CUDA
+    - open-source
+    - kernels
+    - mlp
+    - liger
