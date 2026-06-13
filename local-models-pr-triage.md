@@ -123,7 +123,7 @@ Let's be frank: `gemma-4-e4b-it` was designed to run on limited hardware, and by
 
 We selected over 700 PRs and issues, and came up with a set of 40 labels using Codex. We then constructed a prompt that gives context on what each label means, and did an independent DS4 with `localpager` on each PR/issue to generate the reference labels.
 
-The results are saved in [openclaw-classification-dataset](https://huggingface.co/datasets/dutifuldev/openclaw-classification-dataset). The iteration process did not follow an automated approach like GEPA, and was done in an interactive Codex session semi-manually.
+The results are saved in [openclaw-classification-dataset](https://huggingface.co/datasets/dutifuldev/openclaw-classification-dataset). The iteration process did not follow an automated approach like GEPA, and was done in an interactive Codex session semi-manually. Despite that, we were able to get rid of 20% of the false positives and 15% of the false negatives, mostly with the labels that we were concerned about, e.g. `local_models`.
 
 For example, [`PR #72404 fix(models): default input=[text,image] for vision-capable explicit-only models`](http://github.com/openclaw/openclaw/pull/72404) was originally labeled by DS4 as `[config]`, but the same prompt with Gemma 4 had given `[local_model_providers, reliability]`. After optimizing the prompt, however, Gemma 4 also gives `[config]` as the correct label.
 
