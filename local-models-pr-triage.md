@@ -76,7 +76,7 @@ exit_code=2
 reposhell /repo/openclaw>
 ```
 
-We have mentioned earlier that we bundle a specific `pi` configuration that can only perform read-only operations and return classification output. We simply call it [`localpager-agent`](https://github.com/osolmaz/localpager/tree/main/localpager-agent), named after `localpager`, the main project. Each PR and issue generates a prompt, which is then passed to the CLI like below, alongside other args:
+We have mentioned earlier that we bundle a specific `pi` configuration that can only perform read-only operations and return classification output. We call it [`localpager-agent`](https://github.com/osolmaz/localpager/tree/main/localpager-agent), named after `localpager`, the main project here. Each PR and issue generates a prompt, which is then passed to the CLI like below, alongside other args:
 
 ```bash
 localpager-agent \
@@ -90,7 +90,6 @@ localpager-agent \
   --reposhell-visible-repos "<repo-id>[,<repo-id>...]" \
   -p "$(cat <rendered-prompt.md>)"
 ```
-
 
 ## Processing incoming PRs and issues
 

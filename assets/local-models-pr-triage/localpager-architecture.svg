@@ -20,15 +20,15 @@
      inkscape:pageopacity="0.0"
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
-     inkscape:zoom="0.56549285"
-     inkscape:cx="-64.545467"
-     inkscape:cy="845.28036"
+     inkscape:zoom="1.1081934"
+     inkscape:cx="318.98765"
+     inkscape:cy="1259.708"
      inkscape:window-width="1512"
      inkscape:window-height="855"
      inkscape:window-x="0"
      inkscape:window-y="33"
      inkscape:window-maximized="0"
-     inkscape:current-layer="svg25" />
+     inkscape:current-layer="g25" />
   <defs
      id="defs1">
     <marker
@@ -48,7 +48,7 @@
        id="style1">
       .zone { fill: #fff9db; stroke: #8d7b00; stroke-width: 1.4; }
       .box { fill: #f4f0ff; stroke: #5f3dc4; stroke-width: 1.4; rx: 8; }
-      .text { font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 18px; fill: #1e1e1e; text-anchor: middle; dominant-baseline: middle; }
+      .text { font-family: system-ui, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif; font-size: 18px; fill: #1e1e1e; text-anchor: middle; dominant-baseline: middle; }
       .small { font-size: 16px; }
       .label { fill: #eeeeee; opacity: 0.9; }
       .arrow { stroke: #1e1e1e; stroke-width: 1.5; fill: none; marker-end: url(#arrow); }
@@ -237,8 +237,16 @@
     <text
        class="text"
        x="350.70001"
-       y="1135.7"
-       id="text13">Match?</text>
+       y="1127.7"
+       id="text13"><tspan
+         sodipodi:role="line"
+         id="tspan2"
+         x="350.70001"
+         y="1127.7">Match topic</tspan><tspan
+         sodipodi:role="line"
+         id="tspan3"
+         x="350.70001"
+         y="1150.2">of interest?</tspan></text>
     <rect
        class="zone"
        x="220.7"
@@ -305,7 +313,7 @@
        class="text small"
        x="350.70001"
        y="308.70001"
-       id="text17">mirror updates</text>
+       id="text17">Mirror updates</text>
     <line
        class="arrow"
        x1="350.70001"
@@ -324,7 +332,7 @@
        class="text small"
        x="350.70001"
        y="433.20001"
-       id="text18">claim job</text>
+       id="text18">Claim job</text>
     <line
        class="arrow"
        x1="350.70001"
@@ -343,7 +351,7 @@
        class="text small"
        x="350.70001"
        y="558.70001"
-       id="text19">prompt + schema</text>
+       id="text19">Prompt + Schema</text>
     <line
        class="arrow dash"
        x1="220.7"
@@ -363,7 +371,7 @@
        class="text small"
        x="242.15266"
        y="647.75769"
-       id="text20">inference</text>
+       id="text20">Inference</text>
     <line
        class="arrow dash"
        x1="480.70001"
@@ -383,7 +391,7 @@
        class="text small"
        x="456.14343"
        y="649.97479"
-       id="text21">repo context</text>
+       id="text21">Eepo context</text>
     <line
        class="arrow"
        x1="350.70001"
@@ -402,7 +410,7 @@
        class="text small"
        x="350.70001"
        y="762.20001"
-       id="text22">structured output</text>
+       id="text22">Structured output</text>
     <line
        class="arrow"
        x1="350.70001"
@@ -421,7 +429,7 @@
        class="text small"
        x="350.70001"
        y="908.20001"
-       id="text23">classification JSON</text>
+       id="text23">Classification JSON</text>
     <line
        class="arrow"
        x1="350.70001"
@@ -440,7 +448,7 @@
        class="text small"
        x="350.70001"
        y="1038.2"
-       id="text24">notify_topics_any</text>
+       id="text24">Filter by topics</text>
     <line
        class="arrow"
        x1="350.70004"
@@ -459,6 +467,6 @@
        class="text small"
        x="350.70001"
        y="1240.7"
-       id="text25">matching topics only</text>
+       id="text25">Yes</text>
   </g>
 </svg>
