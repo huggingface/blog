@@ -157,8 +157,18 @@ The instructions on how to classify, edit the machine readable, get the false po
 
 ## Conclusion
 
-We think that the issue/PR triage task is a specific case of a broader set of tasks which we call "high throughput triage".
+We think that the issue/PR triage task is a specific case of a broader set of tasks which we call "high throughput triage". This post explored the idea of using a local model to filter out information in real time in only one domain, that is, open source contributions.
 
-TBD. My main point will be that the same approach can be applied to multiple problems like processing news items in journalism, triaging customer support tickets and so on.
+However, the same approach can be applied to other domains as well:
+
+- News categorization in journalism
+- Filtering for posts of interest in social media and forums like X, subreddits
+- Triaging customer support tickets
+- Triaging content moderation appeals
+- Filtering potential outreach while doing sales
+- Filtering for certain topics on arXiv while doing research
+
+The list can be extended, but we think that the idea should be clear.
+
 
 [^1]: See full list of topics and other configuration [here](https://github.com/osolmaz/localpager/blob/main/examples/profiles/openclaw-routing-topics.json)
