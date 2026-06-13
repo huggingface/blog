@@ -19,7 +19,7 @@ With SOTA closed models like GPT-5, Opus, or Sonnet, this is a pretty straightfo
 
 <figure class="image table text-center m-0 w-full" style="text-align: center;">
   <img src="https://i.imgur.com/3cGIhZd.png" alt="NVIDIA DGX Spark" style="display: block; width: 50%; min-width: 280px; margin: 0 auto;" />
-  <figcaption>This tiny box, a.k.a. DGX Spark, can run 4-6 Gemma 4 E4B generations at once.</figcaption>
+  <figcaption>This tiny box, a.k.a. DGX Spark, can run 3-5 Gemma 4 E4B generations at once.</figcaption>
 </figure>
 
 If I set up my OpenClaw main agent running on a $200/mo ChatGPT Pro plan to trigger a job on every new issue or PR, that would use up my quota too quickly. I might instead set it to run every 2 hours, or 6 hours. Since we would be batching a large number of issues, we would be trading real-time notifications for cheaper and lower quality processing.
