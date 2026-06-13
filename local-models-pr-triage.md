@@ -155,7 +155,7 @@ Example Discord follow-up output:
 > - PR #88247 feat: add hosted model providers
 >   - notifier interest: i0; topics: local_model_providers, model_serving, docs, api_surface; notification: sent
 
-The instructions on how to classify, how to edit the machine readable, how to get the false positives and false negatives using script and all are present in an [agent skill](https://github.com/osolmaz/onurclaw/blob/main/.agents/skills/openclaw-onur-inventory/SKILL.md) which is referenced in an [OpenClaw cron job](https://docs.openclaw.ai/automation/cron-jobs) that runs every 2 hours.
+The instructions on how to classify, edit the machine readable, get the false positives and false negatives using script are present in an [agent skill](https://github.com/osolmaz/onurclaw/blob/main/.agents/skills/openclaw-onur-inventory/SKILL.md) which is referenced in an [OpenClaw cron job](https://docs.openclaw.ai/automation/cron-jobs) that runs every 2 hours. The OpenClaw agent then ingests any new issues or PRs, adds them to the JSON file with appropriate labels, runs the scripts and reports back in the same Discord channel. This way, we can observe the local model's performance every few hours, and get notified of the misses.
 
 ## Conclusion
 
