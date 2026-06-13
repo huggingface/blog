@@ -13,9 +13,9 @@ authors:
 
 OpenClaw gets hundreds of issues and PRs every day, which need to be triaged, prioritized and routed to maintainers. I, Onur, am working to make local models work well with OpenClaw. Being a maintainer of this specific vertical, I need to react quickly to any P0 issues.
 
-I also happen to have 128 GB of unified memory, namely an NVIDIA GB10, at my disposal, so I took on the task:
+With SOTA closed models like GPT5, Opus or Sonnet, this is a pretty straightforward task. But I happen to sit on 128 GB of unified memory, namely an NVIDIA GB10. so I took on the task:
 
-> Can I build a real-time notification system that filters and notifies me for only the issues that I am responsible for... with local models?
+> Can I build a real-time notification system that filters and notifies me for only the issues that I am responsible for... with local open-weight models?
 
 <figure class="image table text-center m-0 w-full" style="text-align: center;">
   <img src="https://i.imgur.com/3cGIhZd.png" alt="NVIDIA DGX Spark" style="display: block; width: 50%; min-width: 280px; margin: 0 auto;" />
