@@ -115,7 +115,7 @@ Below is a figure showing the overall architecture of localpager:
 
 The architecture is semi-agentic. Whereas labelling is done agentically, sending a notification is done according to deterministic rules. This is to make the notification pipeline faster by removing the need for inference for the most straightforward parts of the task. Local inference is free but each task has a resource contention cost: GPU bandwidth should be reserved for tasks where inference is absolutely needed.
 
-Separating it this way also reduces the rate of error: whereas the model would have 2 steps which it could make an error, `label + notify`, it now has only one, `label`.
+Separating it this way also reduces the rate of error: whereas the model would have 2 steps which it could make an error, `classify + notify`, it now has only one, `classify`.
 
 ## Making small models not classify horribly
 
