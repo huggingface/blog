@@ -121,7 +121,7 @@ Separating it this way also reduces the rate of error: whereas the model would h
 
 Let's be frank: `gemma-4-e4b-it` was designed to run on limited hardware, and by default it has a tendency to put too many unrelated labels on a PR or issue. But being small, it can run 10-15x faster than a larger model like [DeepSeek-V4-Flash](https://huggingface.co/antirez/deepseek-v4-gguf) and with 4x less memory, which lets me run 3 of them concurrently. And for such triage tasks, we can use the larger DS4 to be the teacher: create a dataset of more correct classifications, and then iterate on the prompt for Gemma to maximize accuracy over the teacher-generated dataset.
 
-That is exactly what we did, and saved the results in [openclaw-classification-dataset](https://huggingface.co/datasets/dutifuldev/openclaw-classification-dataset).
+That is exactly what we did, and saved the results in [openclaw-classification-dataset](https://huggingface.co/datasets/dutifuldev/openclaw-classification-dataset). The iteration process did not follow an automated approach like GEPA, and was done in an interactive Codex session semi-manually.
 
 For example, [`PR #72404 fix(models): default input=[text,image] for vision-capable explicit-only models`](http://github.com/openclaw/openclaw/pull/72404) was originally labeled by DS4 as `[config]`, but the same prompt with Gemma 4 had given `[local_model_providers, reliability]`. After optimizing the prompt, however, Gemma 4 also gives `[config]` as the correct label.
 
