@@ -127,7 +127,7 @@ For example, [`PR #72404 fix(models): default input=[text,image] for vision-capa
 
 In another case, [`PR #84549 fix(deepinfra): load all DeepInfra models when user wants to browse...`](http://github.com/openclaw/openclaw/pull/84549) shows that the "correct" label can still be a bit subjective. DS4 labeled it as `[model_serving]`, while the optimized Gemma prompt gave `[model_releases, chat_integrations]`. Whereas this assignment is not exactly right, it is not exactly wrong either.
 
-You can see the original prompt for DS4 and the optimized Gemma prompt [here](https://huggingface.co/datasets/dutifuldev/openclaw-classification-dataset/blob/main/prompts/README.md). We went through numerous iterations, and ended up drastically increasing the precision and recall! --- `< Let me know if you would prefer me to include some numbers here, they change every time I iterate on the prompt >`
+You can see the original prompt for DS4 and the optimized Gemma prompt [here](https://huggingface.co/datasets/dutifuldev/openclaw-classification-dataset/blob/main/prompts/README.md). We went through multiple iterations, and ended up reducing the number of false positives and false negatives. For a notification system like this one, false positives are more important to get rid of, because they waste attention and time. For that reason, we were biased towards reducing false positives more.
 
 ## Tracking and validating real time performance using OpenClaw
 
