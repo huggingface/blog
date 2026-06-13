@@ -11,7 +11,7 @@ authors:
 
 # We got local models to triage the OpenClaw repo for FREE!
 
-OpenClaw gets hundreds of issues and PRs every day, which need to be triaged, prioritized and routed to maintainers. I, Onur, am working to make local models work well with OpenClaw. 
+OpenClaw gets hundreds of issues and PRs every day, which need to be triaged, prioritized and routed to maintainers. I, Onur, am working to make local models work well with OpenClaw. Being a maintainer of this specific vertical, I need to react quickly to any P0 issues.
 
 I also happen to have 128 GB of unified memory, namely an NVIDIA GB10, at my disposal, so I took on the task:
 
