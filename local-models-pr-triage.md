@@ -119,7 +119,7 @@ Separating it this way also reduces the rate of error: the model would otherwise
 
 ## Making small models not classify horribly
 
-Let's be frank: `gemma-4-e4b-it` was designed to run on limited hardware, and by default it has a tendency to put too many unrelated labels on a PR or issue. But being small, it can run 10-15x faster than a larger model like [DeepSeek-V4-Flash](https://huggingface.co/antirez/deepseek-v4-gguf) and with 4x less memory, which lets me run 3 of them concurrently. And for such triage tasks, we can use a larger local DeepSeek-V4-Flash model, DS4, as the teacher: create a dataset of reference labels, and then iterate on the prompt for Gemma to maximize accuracy over the teacher-generated dataset.
+Let's be frank: `gemma-4-e4b-it` was designed to run on limited hardware, and by default it has a tendency to put too many unrelated labels on a PR or issue. But being small, it can run 10-15x faster than a larger model like [DeepSeek-V4-Flash](https://huggingface.co/antirez/deepseek-v4-gguf) locally and with 4x less memory, which lets us run 3 of them concurrently. For such triage tasks, we can use the larger DeepSeek-V4-Flash model (I will refer to it as DS4) as the teacher: create a dataset of reference labels, and then iterate on the prompt for Gemma to maximize accuracy over the teacher-generated dataset.
 
 We selected over 700 PRs and issues, and came up with a set of 40 labels using Codex. We then constructed a prompt that gives context on what each label means, and did an independent DS4 with `localpager` on each PR/issue to generate the reference labels.
 
