@@ -104,7 +104,7 @@ This part is very simple and does not involve any LLMs:
 
 1. We use [openclaw/gitcrawl](http://github.com/openclaw/gitcrawl) to act as a local mirror for the repo. Whenever there is a new PR or issue, each item is normalized into the same shape and written into localpager's own SQLite database. If the item is new, localpager creates a classification job for it.
 2. A worker then claims jobs from that queue. It builds a GitHub context object containing the issue or PR title, body, labels, author, state, and optionally comments, changed files, and selected diff excerpts. That means the Gemma does not need to browse GitHub or open the URL itself most of the time. It is handed all the relevant context.
-3. The context object is rendered into a prompt and passed to `localpager-agent` as described in the previous section. The agent could thinks, use reposhell, but must eventually output a classification result in the defined schema.
+3. The context object is rendered into a prompt and passed to `localpager-agent` as described in the previous section. The agent could think, use reposhell, but must eventually output a classification result in the defined schema.
 4. The output is stored back in localpager SQLite database, and relayed to Discord based on the notification policy configured by the user (i.e. notify me for these topics, but not these other ones).
 
 Below is a figure showing the overall architecture of localpager:
@@ -112,6 +112,10 @@ Below is a figure showing the overall architecture of localpager:
 <figure class="image table text-center m-0 w-full" style="text-align: center;">
   <img src="assets/local-models-pr-triage/localpager-architecture.svg" alt="Localpager architecture" style="display: block; width: 70%; min-width: 300px; margin: 0 auto;" />
 </figure>
+
+The architecture is semi-agentic. Whereas labelling is done agentically, sending a notification is done according to deterministic rules. This is to make the notification pipeline faster by removing the need for inference for the most straightforward parts of the task. Local inference is free but each task has a resource contention cost: GPU bandwidth should be reserved for tasks where inference is absolutely needed.
+
+Separating it this way also reduces the rate of error: whereas the model would have 2 steps which it could make an error, `label + notify`, it now has only one, `label`.
 
 ## Making small models not classify horribly
 
