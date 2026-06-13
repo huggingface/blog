@@ -13,7 +13,7 @@ authors:
 
 OpenClaw gets hundreds of issues and PRs every day, which need to be triaged, prioritized and routed to maintainers. I, Onur, am working to make local models work well with OpenClaw. Being a maintainer of this specific vertical, I need to react quickly to any P0 issues.
 
-With SOTA closed models like GPT5, Opus or Sonnet, this is a pretty straightforward task. But I happen to sit on 128 GB of unified memory, namely an NVIDIA GB10. so I took on the task:
+With SOTA closed models like GPT5, Opus or Sonnet, this is a pretty straightforward task. But I happen to sit on 128 GB of unified memory, namely an NVIDIA GB10. So I took on the task:
 
 > Can I build a real-time notification system that filters and notifies me for only the issues that I am responsible for... with local open-weight models?
 
@@ -22,9 +22,9 @@ With SOTA closed models like GPT5, Opus or Sonnet, this is a pretty straightforw
   <figcaption>This tiny box, a.k.a. DGX Spark, can run 4-6 Gemma 4 E4B generations at once.</figcaption>
 </figure>
 
-We can of course set up an OpenClaw main agent running on a $200/mo ChatGPT pro plan to trigger a job on every new issue or PR. But then that might use up the quota too quickly—so we might instead set it to run every 2 hours, or 6 hours. Since we would be batching a large number of issues, we would be trading real-time notifications for cheaper and lower quality processing.
+If I set up my OpenClaw main agent running on a $200/mo ChatGPT Pro plan to trigger a job on every new issue or PR, that would use up my quota too quickly. I might instead set it to run every 2 hours, or 6 hours. Since we would be batching a large number of issues, we would be trading real-time notifications for cheaper and lower quality processing.
 
-But a better approach would be to use the hardware we already have up and running to do this for free (or rather, for the cost of electricity).
+If I were to run this on a local model on the hardware I already have up and running, I would not only have near-instantaneous notifications, I would also be able to do it for free (or rather, for the cost of electricity).
 
 How would that work? We show below.
 
