@@ -170,5 +170,7 @@ However, the same approach can be applied to other domains as well:
 
 The list can be extended, but we think that the idea should be clear.
 
+Besides triaging, we have also explored how classification can be performed with agent harnesses running fast local models in a secure manner. We call the approach, where the model is not fed an entire body of information in the first message, but it can search in it to get more context if it chooses to, and finally has to output structured data, as *agentic classification*.
+
 
 [^1]: See full list of topics and other configuration [here](https://github.com/osolmaz/localpager/blob/main/examples/profiles/openclaw-routing-topics.json)
