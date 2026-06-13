@@ -127,7 +127,7 @@ For example, [`PR #72404 fix(models): default input=[text,image] for vision-capa
 
 In another case, [`PR #84549 fix(deepinfra): load all DeepInfra models when user wants to browse...`](http://github.com/openclaw/openclaw/pull/84549) shows that the "correct" label can still be a bit subjective. DS4 labeled it as `[model_serving]`, while the optimized Gemma prompt gave `[model_releases, chat_integrations]`. Whereas this assignment is not exactly right, it is not exactly wrong either.
 
-You can see the original prompt for DS4 and the optimized Gemma prompt [here](https://huggingface.co/datasets/dutifuldev/openclaw-classification-dataset/blob/main/prompts/README.md). We went through multiple iterations, and ended up reducing the number of false positives and false negatives. For a notification system like this one, false positives are more important to get rid of, because they waste attention and time. For that reason, we were biased towards reducing false positives more.
+You can see the original prompt for DS4 and the optimized Gemma prompt [here](https://huggingface.co/datasets/dutifuldev/openclaw-classification-dataset/blob/main/prompts/README.md). We went through multiple iterations, and ended up reducing the number of false positives and false negatives. For this notification system, false positives were more important to get rid of for us, because they waste one's attention and time when an issue is labeled incorrectly. For that reason, we were biased towards reducing false positives more than false negatives.
 
 ## Tracking and validating real time performance using OpenClaw
 
@@ -155,9 +155,7 @@ Example Discord follow-up output:
 > - PR #88247 feat: add hosted model providers
 >   - notifier interest: i0; topics: local_model_providers, model_serving, docs, api_surface; notification: sent
 
-Also check out the [skill I personally use](https://github.com/osolmaz/tools/blob/main/agents/skills/openclaw-onur-inventory/SKILL.md) to maintain my [public "inventory" repo](https://github.com/osolmaz/onurclaw).
-
-TBD, needs fleshing out
+The instructions on how to classify, how to edit the machine readable, how to get the false positives and false negatives using script and all are present in an [agent skill](https://github.com/osolmaz/onurclaw/blob/main/.agents/skills/openclaw-onur-inventory/SKILL.md) which is referenced in an [OpenClaw cron job](https://docs.openclaw.ai/automation/cron-jobs) that runs every 2 hours.
 
 ## Conclusion
 
