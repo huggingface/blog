@@ -30,13 +30,13 @@ How would that work? We show below.
 
 ## Categorizing issues and PRs
 
-Basically, we came up with a finite set of labels representing the categories of issues we need to triage, and then use a local model to classify each issue into one of those categories, like `local_models`, `self_hosted_inference`, `acp`, `agent_runtime`, `codex`, `ui_tui` and so on.[^1]
+We came up with a finite set of labels representing the categories of issues we need to triage, and then use a local model to classify each issue into one of those categories, like `local_models`, `self_hosted_inference`, `acp`, `agent_runtime`, `codex`, `ui_tui` and so on.[^1]
 
 But how to do the classification though? A simple single request to a Chat Completions endpoint with a tool JSON schema, with the topics as an enum?
 
 Kind of. But this is 2026, not 2023, and we have AGENTS. We can do better!
 
-For the local mode of choice, use [`gemma-4-E4B-it`](https://huggingface.co/google/gemma-4-E4B-it), because it makes it possible to make 3 concurrent requests safely with the hardware we have, giving us a lot of throughput!
+For the local mode of choice, use [`gemma-4-E4B-it`](https://huggingface.co/google/gemma-4-E4B-it), because it makes it possible to make at least 3 concurrent requests safely with the hardware we have, giving us a lot of throughput!
 
 We use an agent harness to drive the classification run. For this, we bundle [pi](https://pi.dev) as a harness that can call local model endpoints.
 
