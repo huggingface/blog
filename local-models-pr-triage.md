@@ -119,9 +119,11 @@ Separating it this way also reduces the rate of error: the model would otherwise
 
 ## Making small models not classify horribly
 
-Let's be frank: `gemma-4-e4b-it` was designed to run on limited hardware, and by default it has a tendency to put too many unrelated labels on a PR or issue. But being small, it can run 10-15x faster than a larger model like [DeepSeek-V4-Flash](https://huggingface.co/antirez/deepseek-v4-gguf) and with 4x less memory, which lets me run 3 of them concurrently. And for such triage tasks, we can use a larger local DeepSeek-V4-Flash model, DS4, as the teacher: create a dataset of reference classifications, and then iterate on the prompt for Gemma to maximize accuracy over the teacher-generated dataset.
+Let's be frank: `gemma-4-e4b-it` was designed to run on limited hardware, and by default it has a tendency to put too many unrelated labels on a PR or issue. But being small, it can run 10-15x faster than a larger model like [DeepSeek-V4-Flash](https://huggingface.co/antirez/deepseek-v4-gguf) and with 4x less memory, which lets me run 3 of them concurrently. And for such triage tasks, we can use a larger local DeepSeek-V4-Flash model, DS4, as the teacher: create a dataset of reference labels, and then iterate on the prompt for Gemma to maximize accuracy over the teacher-generated dataset.
 
-That is exactly what we did, and saved the results in [openclaw-classification-dataset](https://huggingface.co/datasets/dutifuldev/openclaw-classification-dataset). The iteration process did not follow an automated approach like GEPA, and was done in an interactive Codex session semi-manually.
+We selected over 700 PRs and issues, and came up with a set of 40 labels using Codex. We then constructed a prompt that gives context on what each label means, and did an independent DS4 with `localpager` on each PR/issue to generate the reference labels.
+
+The results are saved in [openclaw-classification-dataset](https://huggingface.co/datasets/dutifuldev/openclaw-classification-dataset). The iteration process did not follow an automated approach like GEPA, and was done in an interactive Codex session semi-manually.
 
 For example, [`PR #72404 fix(models): default input=[text,image] for vision-capable explicit-only models`](http://github.com/openclaw/openclaw/pull/72404) was originally labeled by DS4 as `[config]`, but the same prompt with Gemma 4 had given `[local_model_providers, reliability]`. After optimizing the prompt, however, Gemma 4 also gives `[config]` as the correct label.
 
