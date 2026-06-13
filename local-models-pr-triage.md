@@ -137,9 +137,7 @@ In that case, we would need a ChatGPT Pro plan. Since the model is SOTA, we can 
 
 Because we want to see how well our prompt-optimized Gemma 4 solution performs against GPT-5.5, we run both simultaneously, and let GPT-5.5 be the judge of false positives and negatives, every 2 hours.
 
-To be safe, we run the OpenClaw job in a sandbox, with only access to the [public repo](https://github.com/osolmaz/onurclaw) we report results to. In our case, we let the OpenClaw job update a machine readable file, then for which a simple script reads the Codex assigned labels, computes the false positive/negative status, and sends a message to Discord.
-
-Example Discord follow-up output:
+To be safe, we run the OpenClaw job in a sandbox, with only access to the [public repo](https://github.com/osolmaz/onurclaw) we report results to. In our case, we let the OpenClaw job update a machine readable file, then for which a simple script reads the Codex assigned labels, computes the false positive/negative status. Example output:
 
 > False negatives
 > 
