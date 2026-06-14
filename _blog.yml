@@ -5341,6 +5341,91 @@
     - research
     - open-source
 
+- local: agent-glossary
+  date: May 25, 2026
+  tags:
+    - agents
+    - llms
+    - guide
+    - rl
+
+- local: delta-weight-sync
+  date: May 27, 2026
+  tags:
+    - llm
+    - rl
+    - trl
+    - open-source
+    - hub
+    - storage
+
+- local: local-reachy-mini-conversation
+  date: May 27, 2026
+  tags:
+    - guide
+    - robotics
+    - audio
+    - speech
+    - local-ai
+    - reachy
+
+- local: torch-profiler
+  date: May 29, 2026
+  tags:
+    - torch
+    - profile
+    - CUDA
+    - open-source
+    - kernels
+
+- local: adding-mcp-tools-to-reachy-mini
+  date: June 3, 2026
+  tags:
+    - guide
+    - robotics
+    - reachy
+    - agents
+    - mcp
+    - tools
+
+- local: hf-cli-for-agents
+  date: June 4, 2026
+  tags:
+    - cli
+    - huggingface_hub
+    - agents
+    - hub
+
+- local: openenv-agentic-rl
+  date: June 8, 2026
+  tags:
+    - announcement
+    - open-source
+    - community
+    - agents
+    - rl
+
+- local: github-ci-hf-jobs
+  date: June 9, 2026
+  tags:
+    - guide
+    - hub
+    - jobs
+    - ci
+    - github-actions
+    - open-source
+
+- local: torch-mlp-fusion
+  date: June 11, 2026
+  tags:
+    - torch
+    - profile
+    - CUDA
+    - open-source
+    - kernels
+    - mlp
+    - liger
+
 - local: intel-kernel-skills
   date: June 15, 2026
   tags:
@@ -5350,4 +5435,4 @@
     - kernels-community
     - optimization
     - hub
-    - open-source
+    - open-source 
