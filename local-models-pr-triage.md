@@ -18,7 +18,7 @@ With SOTA closed models like GPT-5, Opus, or Sonnet, this is a pretty straightfo
 > Can I build a real-time notification system that filters and notifies me for only the issues that I am responsible for... with local open-weight models?
 
 <figure class="image table text-center m-0 w-full" style="text-align: center;">
-  <img src="https://i.imgur.com/3cGIhZd.png" alt="NVIDIA DGX Spark" style="display: block; width: 50%; min-width: 280px; margin: 0 auto;" />
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/local-models-pr-triage/dgx-spark.png" alt="NVIDIA DGX Spark" style="display: block; width: 50%; min-width: 280px; margin: 0 auto;" />
   <figcaption>This tiny box, a.k.a. DGX Spark, can run 3 to 5 Gemma 4 E4B generations at once.</figcaption>
 </figure>
 
@@ -96,7 +96,7 @@ localpager-agent \
 So then what orchestrates everything in between the incoming PR/issue and the final notification on Discord?
 
 <figure class="image table text-center m-0 w-full" style="text-align: center;">
-  <img src="https://i.imgur.com/gPf3nSrh.jpg" alt="Localpager Discord notification" style="display: block; width: 100%; min-width: 300px; margin: 0 auto;" />
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/local-models-pr-triage/discord-notification.jpg" alt="Localpager Discord notification" style="display: block; width: 100%; min-width: 300px; margin: 0 auto;" />
   <figcaption>This is what the final filtered Discord notification looks like: a PR about the desired vertical gets routed to me.</figcaption>
 </figure>
 
