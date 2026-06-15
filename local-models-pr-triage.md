@@ -11,7 +11,9 @@ authors:
 
 # We got local models to triage the OpenClaw repo for FREE!
 
-OpenClaw gets hundreds of issues and PRs every day, which need to be triaged, prioritized and routed to maintainers. I, Onur, am working to make local models work well with OpenClaw. Being a maintainer of this specific vertical, I need to react quickly to any P0 issues.
+These last few days have shown us how important it is to own your AI stack and be able to run models locally, especially if you are building your business on top of AI. In that light, we wanted to share how we use local models like DeepSeek-V4-Flash and Gemma-4-E4B in an agent harness, to run classification tasks. This approach is different from using a model like BERT for classification. A small model in an agent harness like Pi can be used in tandem with structured outputs, to assign labels.
+
+Our starting point was open source contributions in the OpenClaw repo. OpenClaw gets hundreds of issues and PRs every day, which need to be triaged, prioritized and routed to maintainers. I, Onur, am working to make local models work well with OpenClaw. Being a maintainer of this specific vertical, I need to react quickly to any P0 issues.
 
 With SOTA closed models like GPT-5, Opus, or Sonnet, this is a pretty straightforward task. But I happen to sit on 128 GB of unified memory, namely an NVIDIA GB10. So I took on the task:
 
@@ -172,6 +174,6 @@ However, the same approach can be applied to other domains as well:
 
 The list can be extended, but we think that the idea should be clear.
 
-Besides triaging, we have also explored how classification can be performed with agent harnesses running fast local models in a secure manner. We call this approach *agentic classification*: the model is not fed the entire body of information upfront, but can search for more context before returning structured data.
+Besides triaging, we have also explored how classification can be performed with agent harnesses running fast local models in a secure manner. We called this approach *agentic classification*: the model is not fed the entire body of information upfront, but can search for more context before returning structured data.
 
 [^1]: See full list of topics and other configuration [here](https://github.com/osolmaz/localpager/blob/main/examples/profiles/openclaw-routing-topics.json)
