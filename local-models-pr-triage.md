@@ -26,17 +26,16 @@ With SOTA closed models like GPT-5, Opus, or Sonnet, this is a pretty straightfo
   <figcaption>This tiny box, a.k.a. DGX Spark, can run 3 to 5 Gemma 4 E4B generations at once.</figcaption>
 </figure>
 
-If I set up my OpenClaw main agent running on a $200/mo ChatGPT Pro plan to trigger a job on every new issue or PR, that would use up my quota too quickly. I might instead set it to run every 2 hours, or 6 hours. Since we would be batching a large number of issues, we would be trading real-time notifications for cheaper and lower quality processing.
+If I set up my OpenClaw main agent running on a $200/mo ChatGPT Pro plan to trigger a job on every new issue or PR, that would use up my quota. I might instead set it to run every 2 hours, or 6 hours. This would batch issues over longer periods, so we would be trading real-time notifications for delayed processing.
 
 If I were to run this on a local model on the hardware I already have up and running, I would not only have near-instantaneous notifications, I would also be able to do it for free (or rather, for the cost of electricity).
 
-How would that work? We show below.
 
 ## Categorizing issues and PRs
 
 We came up with a finite set of labels representing the categories of issues we need to triage, and then use a local model to classify each issue into one of those categories, like `local_models`, `self_hosted_inference`, `acp`, `agent_runtime`, `codex`, `ui_tui` and so on.[^3]
 
-But how to do the classification though? A simple single request to a Chat Completions endpoint with a tool JSON schema, with the topics as an enum?
+But how do we classify pull requests? A simple single request to a Chat Completions endpoint with a tool JSON schema, with the topics as an enum?
 
 Kind of. But this is 2026, not 2023, and we have AGENTS. We can do better!
 
@@ -117,11 +116,10 @@ Below is a figure showing the overall architecture of localpager:
   <img src="assets/local-models-pr-triage/localpager-architecture.svg" alt="Localpager architecture" style="display: block; width: 70%; min-width: 300px; margin: 0 auto;" />
 </figure>
 
-The architecture is semi-agentic. Labeling is done agentically, while sending a notification is handled by deterministic rules. This is to make the notification pipeline faster by removing the need for inference for the most straightforward parts of the task. Local inference is free but each task has a resource contention cost: GPU bandwidth should be reserved for tasks where inference is absolutely needed.
+The architecture is semi-agentic. Labeling is done agentically, while sending a notification is handled by deterministic rules. This is to make the notification pipeline faster by removing the need for inference for the most straightforward parts of the task. Local inference is free but each task has a resource contention cost: GPU bandwidth should be reserved for tasks where inference is absolutely needed. This also reduces chance of errors from notifcation.
 
-Separating it this way also reduces the rate of error: the model would otherwise have two chances to make an error, `classify + notify`. Now it has only one: `classify`.
 
-## Making small models not classify horribly
+## Can small models triage PRs?
 
 Let's be frank: `gemma-4-e4b-it` was designed to run on limited hardware, and by default it has a tendency to put too many unrelated labels on a PR or issue. But being small, it can run 10-15x faster than a larger model like [DeepSeek-V4-Flash](https://huggingface.co/antirez/deepseek-v4-gguf) locally and with 4x less memory, which lets us run 3 of them concurrently. For such triage tasks, we can use the larger DeepSeek-V4-Flash model (I will refer to it as DS4) as the teacher: create a dataset of reference labels, and then iterate on the prompt for Gemma to maximize accuracy over the teacher-generated dataset.
 
