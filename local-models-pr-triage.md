@@ -13,7 +13,7 @@ authors:
 
 June 2026 will go down as the moment that people realized closed models can be taken away. With the removal of Anthropic's latest flagship model Fable fresh in memory, one can see why it is more important than ever to own your AI stack and be able to run models locally, especially if you are building your business on top of AI.
 
-In that light, we wanted to share how we use local models like DeepSeek-V4-Flash and Gemma-4-E4B in an agent harness, to run classification tasks[^1]. This approach is different from using a model like BERT for classification. A small model in an agent harness like Pi can be used in tandem with structured outputs, to assign labels. We chose this approach, because we already had small models and harness on hand, and have conviction that this setup will increase in popularity as small models improve in capability.[^2]
+In that light, we wanted to share how we use local models like DeepSeek-V4-Flash and Gemma-4-E4B in an agent harness, to run classification tasks[^1]. This approach is different from using a model like BERT for classification. A small model in an agent harness like Pi can be used in tandem with structured outputs, to assign labels. We chose this approach, because we already had small models and harness on hand, and have conviction that similar setups will increase in popularity as small models improve in capability.[^2]
 
 Our starting point was open source contributions in the OpenClaw repo. OpenClaw gets hundreds of issues and PRs every day, which need to be triaged, prioritized and routed to maintainers. I, Onur, am working to make local models work well with OpenClaw. Being a maintainer of this specific vertical, I need to react quickly to any P0 issues.
 
