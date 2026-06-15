@@ -66,8 +66,8 @@ Interop across env libraries. You can define and consume environments across dif
 
 Over the coming months we will focus on the things that turn OpenEnv from a fast-growing project into a dependable standard:
 
-1. Tasksets via datasets: wiring environment tasks to Hugging Face datasets so environments and benchmarks compose cleanly ([RFC 006](https://github.com/huggingface/OpenEnv/pull/731)).
-2. External rewards: letting rewards be defined in whichever library you already use, with OpenEnv as the deployment layer ([RFC 007](https://github.com/huggingface/OpenEnv/pull/727)).
+1. External rewards: letting rewards be defined in whichever library you already use, with OpenEnv as the deployment layer ([RFC 006](https://github.com/huggingface/OpenEnv/pull/794)).
+2. Tasksets via datasets: wiring environment tasks to Hugging Face datasets so environments and benchmarks compose cleanly ([RFC 007](https://github.com/huggingface/OpenEnv/pull/731)).
 3. Continued Harness integration: first-class support for agentic harnesses.
 4. End-to-end examples: full training and evaluation walkthroughs in TRL, Unsloth, and beyond.
 5. Auto-validation: measure environment quality and contribution to model learning. This will give the community a scalable way to evaluate their environments and drive up quality (think hackathons!). [RFC 008](https://github.com/huggingface/OpenEnv/issues/778).
