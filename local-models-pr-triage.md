@@ -1,5 +1,5 @@
 ---
-title: "We got local models to triage the OpenClaw repo for FREE!"
+title: "We got FREE local models to triage the OpenClaw repo!"
 thumbnail: /blog/assets/local-models-pr-triage/thumbnail.png
 authors:
 - user: osolmaz
@@ -9,7 +9,7 @@ authors:
 - user: lysandre
 ---
 
-# We got local models to triage the OpenClaw repo for FREE!
+# We got FREE local models to triage the OpenClaw repo!
 
 These last few days have shown us how important it is to own your AI stack and be able to run models locally, especially if you are building your business on top of AI. In that light, we wanted to share how we use local models like DeepSeek-V4-Flash and Gemma-4-E4B in an agent harness, to run classification tasks. This approach is different from using a model like BERT for classification. A small model in an agent harness like Pi can be used in tandem with structured outputs, to assign labels.
 
