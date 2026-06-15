@@ -11,7 +11,7 @@ authors:
 
 # We got FREE local models to triage the OpenClaw repo!
 
-These last few days have shown us how important it is to own your AI stack and be able to run models locally, especially if you are building your business on top of AI. In that light, we wanted to share how we use local models like DeepSeek-V4-Flash and Gemma-4-E4B in an agent harness, to run classification tasks. This approach is different from using a model like BERT for classification. A small model in an agent harness like Pi can be used in tandem with structured outputs, to assign labels.
+These last few days have shown us how important it is to own your AI stack and be able to run models locally, especially if you are building your business on top of AI. In that light, we wanted to share how we use local models like DeepSeek-V4-Flash and Gemma-4-E4B in an agent harness, to run classification tasks[^1]. This approach is different from using a model like BERT for classification. A small model in an agent harness like Pi can be used in tandem with structured outputs, to assign labels. We chose this approach, because we already had small models and harness on hand, and have conviction that this setup will increase in popularity as small models improve in capability.[^2]
 
 Our starting point was open source contributions in the OpenClaw repo. OpenClaw gets hundreds of issues and PRs every day, which need to be triaged, prioritized and routed to maintainers. I, Onur, am working to make local models work well with OpenClaw. Being a maintainer of this specific vertical, I need to react quickly to any P0 issues.
 
@@ -32,7 +32,7 @@ How would that work? We show below.
 
 ## Categorizing issues and PRs
 
-We came up with a finite set of labels representing the categories of issues we need to triage, and then use a local model to classify each issue into one of those categories, like `local_models`, `self_hosted_inference`, `acp`, `agent_runtime`, `codex`, `ui_tui` and so on.[^1]
+We came up with a finite set of labels representing the categories of issues we need to triage, and then use a local model to classify each issue into one of those categories, like `local_models`, `self_hosted_inference`, `acp`, `agent_runtime`, `codex`, `ui_tui` and so on.[^3]
 
 But how to do the classification though? A simple single request to a Chat Completions endpoint with a tool JSON schema, with the topics as an enum?
 
@@ -176,4 +176,6 @@ The list can be extended, but we think that the idea should be clear.
 
 Besides triaging, we have also explored how classification can be performed with agent harnesses running fast local models in a secure manner. We called this approach *agentic classification*: the model is not fed the entire body of information upfront, but can search for more context before returning structured data.
 
-[^1]: See full list of topics and other configuration [here](https://github.com/osolmaz/localpager/blob/main/examples/profiles/openclaw-routing-topics.json)
+[^1]: For the use case in this post, we have discovered that breaking down a PR/Issue in a way that means the product surface is understood and labelled correctly is a hard problem.
+[^2]: Although in our testing we didn't---it would be quite reasonable for a model to conclude a next-step to gather info, use an external classifier. The agentic approach and the traditional approach are not mutually exclusive.
+[^3]: See full list of topics and other configuration [here](https://github.com/osolmaz/localpager/blob/main/examples/profiles/openclaw-routing-topics.json)
