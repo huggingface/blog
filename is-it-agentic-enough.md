@@ -67,7 +67,7 @@ while the other
 
 - types `transformers classify --model ... --text "..."` and is done in one call.
 
-Both reach `POSITIVE (0.9999)` — here are the two paths an agent actually took on this exact task:
+Both reach `POSITIVE (0.9999)`, and here are the two paths an agent actually took on this exact task:
 
 ```diff
 # Task: classify the sentiment of "I absolutely loved the movie, it was fantastic!"
