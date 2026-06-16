@@ -5425,3 +5425,12 @@
     - kernels
     - mlp
     - liger
+
+- local: is-it-agentic-enough
+  date: June 16, 2026
+  tags:
+    - agents
+    - transformers
+    - evaluation
+    - cli
+    - open-source
