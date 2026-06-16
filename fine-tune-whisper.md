@@ -145,7 +145,7 @@ flashy demo of our fine-tuned model.
 
 ```bash
 !pip install --upgrade pip
-!pip install --upgrade datasets[audio] transformers accelerate evaluate jiwer tensorboard gradio
+!pip install --upgrade "datasets[audio]" transformers accelerate evaluate jiwer tensorboard gradio
 ```
 
 We strongly advise you to upload model checkpoints directly the [Hugging Face Hub](https://huggingface.co/) 
