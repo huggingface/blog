@@ -24,7 +24,7 @@ or stale docs annoys us developers, but it now also sends the agent down a longe
 
 Most benchmarks miss this: they check the final answer and stop. We wanted the full picture, designed for 
 our specific tools. For every run, the whole trace: the turns, tokens, time it took, whether it errored, and which 
-code path it used, measured across many models/agent, library revisions, and tasks. We built that harness and ran 
+code path it used, measured across many models and agents, library revisions, and tasks. We built that harness and ran 
 it on `transformers` as our case study, but it's deliberately tool-agnostic: point it at any library with a command-line entry
 point and you get the same view.
 
@@ -172,7 +172,7 @@ for each class of model:
 - **marker adoption**: tool-defined behavior markers; see below for an explanation
   of what this is.
 
-All of it lands in a extensive report you can examine:
+All of it lands in a report you can directly examine:
 
 <p align="center">
 <iframe
@@ -186,8 +186,9 @@ All of it lands in a extensive report you can examine:
   (Not loading? <a href="https://transformers-community-is-transformers-agentic.static.hf.space">open it in a new tab</a>.)</em>
 </p>
 
-Because it captures the native agent trace of every run, you can also just read what happened, and the traces are 
-shareable through the Hub's [agent-traces viewer](https://huggingface.co/docs/hub/agent-traces).
+And because it captures the native agent trace of every run, numbers are just the beginning: you
+can read exactly what the agent did, command by command. The traces are shareable
+through the Hub's [agent-traces viewer](https://huggingface.co/docs/hub/agent-traces).
 
 The two model categories call for two different experiments.
 
@@ -224,8 +225,8 @@ Reading the clone-variant traces explains why. The commit adds a command, but it
 CLI's implementation and a set of `cli/agentic/*.py` usage examples into the repository directly. 
 
 On the `clone` variant the agent has a full transformers checkout in front of it, and roughly a third of the runs go read the new
-surface (the `/cli/` tree and the example scripts) to learn the interface before calling it. This results
-in a higher median input tokens from ~4k to ~6.4k. 
+surface (the `/cli/` tree and the example scripts) to learn the interface before calling it. This raises the
+median input from ~4k to ~6.4k tokens. 
 
 The two charts are then two sides of one tradeoff: the commit buys the large models less time 
 (they reach for the CLI instead of debugging Python) at the cost of more
@@ -241,7 +242,7 @@ token bump we measure here is closer to a worst case than to what a user would s
 
 ### Small models: hold the revision, vary the model
 
-Open models give us fine-grained control over the variables that matters most here: size, configuration, quantization,
+Open models give us fine-grained control over the variables that matter most here: size, configuration, quantization,
 provider, training, and anything that would differ from one model to the next. They're also where a good tool surface
 matters most: a small model asked to "use `transformers` to do X" on a `bare` environment can
 guess an API that changed some releases ago, may do unnecessary tool calls, and can
@@ -337,17 +338,20 @@ simply reasons that it *can't* run a model and gives up. Either way, rather than
   <em>Qwen3-14B on classify-sentiment (Skill variant): it reasons that read/bash/edit/write can't run a model, and gives up.</em>
 </p>
 
-Unfortunately the Skill resulted in adding another, new interface which the model misread.
+This is exactly what we built the harness to catch: the same change that speeds the frontier models up
+ends up breaking the small ones, which seemed a bit counterintuitive to us at first and something we'd likely have
+shipped as-is.
 
 ## Trying it yourself
 
 The harness is one CLI, `ag`. Install it, run a suite, fan it out across models × revisions on HF Jobs, and publish the
 report as a Hugging Face Space. 
 
-> [!TIP]
-> ⚠️ **Trusted local use only.** The harness runs a coding agent with bypassed permissions and executes code from
+> [!WARNING]
+> **Trusted local use only.** The harness runs a coding agent with bypassed permissions and executes code from
 > whatever revision you point it at, and traces can contain prompts, output, and local paths. See
 > [SECURITY.md](https://github.com/huggingface/is-it-agentic-enough/blob/main/SECURITY.md) before pointing it at code you didn't write or sharing results.
+
 The full, kept-current setup and usage instructions live in the [README](https://github.com/huggingface/is-it-agentic-enough).
 
 ## Closing
