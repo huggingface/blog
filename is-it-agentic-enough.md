@@ -16,13 +16,13 @@ authors:
 
 > This is a human-made, agent-focused blogpost.
 
-Coding agents increasingly work our software instead of us: describe a task, and the agent picks the library,
+Coding agents increasingly work with our software instead of us: describe a task, and the agent picks the library,
 writes the calls, runs them, and debugs its own mistakes. When the library gets in the way, it will
 happily bypass it and rewrite the logic from scratch. This introduces a new concept in library development:
 the code should not only be correct and fast, but should be designed so that an agent can drive it. A clunky API
 or stale docs annoys us developers, but it now also sends the agent down a longer, more expensive path.
 
-Most benchmarks miss this: they check the final answer and stop. We wanted the full picture, designed for 
+Most benchmark focus on the final answer and stop. We wanted to understand the entire process, designed for 
 our specific tools. For every run, the whole trace: the turns, tokens, time it took, whether it errored, and which 
 code path it used, measured across many models and agents, library revisions, and tasks. We built that harness and ran 
 it on `transformers` as our case study, but it's deliberately tool-agnostic: point it at any library with a command-line entry
@@ -30,7 +30,7 @@ point and you get the same view.
 
 We're entering an era where open models and open-source tooling can be used to work with our open-source 
 libraries. The question is no longer "can the agent get the right answer?" but "how do we optimize our tooling
-so that agents circle on the right answer faster". 
+so that agents get the right answer faster". 
 
 Here, we will introduce a tool specific benchmark focusing on how the answer was found, and provide a simple 
 implementation of one such harness, running entirely on open models driven by the
@@ -188,7 +188,13 @@ All of it lands in a report you can directly examine:
 
 And because it captures the native agent trace of every run, numbers are just the beginning: you
 can read exactly what the agent did, command by command. The traces are shareable
-through the Hub's [agent-traces viewer](https://huggingface.co/docs/hub/agent-traces).
+through the Hub's [agent-traces viewer](https://huggingface.co/docs/hub/agent-traces):
+
+<p align="center">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/is-it-agentic-enough/img_11.png" alt="A run rendered in the Hub's agent-traces viewer: MiniMax-M2.7 on the answer-question task" width="85%"><br>
+  <em>A run rendered in the Hub's agent-traces viewer — MiniMax-M2.7 on the answer-question task.</em><br>
+  <a href="https://huggingface.co/buckets/lysandre/transformers-agentic-use/tree/traces/22404f7951/pi/MiniMaxAI--MiniMax-M2.7/bare__answer-question__run1.jsonl"><b>Open this trace on the Hub ↗</b></a>
+</p>
 
 The two model categories call for two different experiments.
 
