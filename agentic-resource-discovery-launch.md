@@ -11,7 +11,7 @@ authors:
 
 If you build with agents today, you probably know three protocols. MCP gives agents a standard way to call tools. Skills give agents a way of consuming instructions. A2A gives agents a way to call other agents. All three assume the user already knows which tool, instruction, or agent they need. The user is still responsible for discovering, integrating, and maintaining those capabilities.
 
-The Agentic Resource Discovery Specification (ARD) is the discovery layer that sits in front of them. It is a draft, open specification developed by contributors from Microsoft, Google, GoDaddy, Hugging Face, and others, with broad participation across the industry. It defines how agents and tools are cataloged, indexed, and searched across federated registries, so an agent can find capabilities at runtime instead of needing them pre-installed. It is not a product or a marketplace. It is a shared standard that any company can implement independently, and that any agent or tool can participate in.
+The Agentic Resource Discovery (ARD) specification is the discovery layer that sits in front of them. It is a draft, open specification developed by contributors from Microsoft, Google, GoDaddy, Hugging Face, and others, with broad participation across the industry. It defines how agents and tools are cataloged, indexed, and searched across federated registries, so an agent can find capabilities at runtime instead of needing them pre-installed. It is not a product or a marketplace. It is a shared standard that any company can implement independently, and that any agent or tool can participate in.
 
 In this post, we'll explore the specification, how Hugging Face has implemented it, and how you can start building on ARD.
 
