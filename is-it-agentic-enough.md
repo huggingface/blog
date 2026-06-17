@@ -50,7 +50,10 @@ examples. If you want your tool to work for an agent, then you should test it fo
 
 We'll use `transformers` as an example throughout this blogpost, but this harness was designed to work with any tool which 
 can be operated from the command line. Our intuition on `transformers` was that it could be dramatically simplified
-with a few changes: a CLI, a Skill, and self-contained, task-specific examples.
+with a few changes: a CLI, a Skill, and self-contained, task-specific examples. This is the same recipe
+recently applied to the [`hf` CLI, redesigned to be agent-optimized](https://huggingface.co/blog/hf-cli-for-agents),
+where agents used 1.3–1.8× (and up to 6×) fewer tokens. We wanted to know whether that kind of win generalizes, and
+whether it could be useful for transformers as well.
 
 Unfortunately, intuition isn't sufficient as the sole driver of agentic features, especially not to warrant large PRs 
 adding several thousand lines of code to such a widely used tool as `transformers`.
