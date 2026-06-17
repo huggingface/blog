@@ -37,9 +37,9 @@ Among all PEFT techniques, LoRA is by far the most popular. Here are a few estim
 
 Although these estimates are not perfect, the conclusion is nonetheless that LoRA is almost certainly by far the most common PEFT technique.
 
-This could just mean that LoRA works best for everyone and this fact is reflected in its usage statistics. There is, however, another possibility: LoRA was one of the earlier, popular PEFT techniques. So maybe its usage became self-reinforcing: LoRA has the highest visibility, the highest number of tutorials/examples, and it has the best support in downstream packages. Thus LoRA’s popularity feeds on itself.
+This could just mean that LoRA works best for everyone and this fact is reflected in its usage statistics. There is, however, another possibility: LoRA was one of the earlier, popular PEFT techniques. So maybe its usage became self-reinforcing: LoRA has the highest visibility, the highest number of tutorials/examples, and it has the best support in downstream packages. Thus LoRA's popularity feeds on itself.
 
-This all leads to the question: *Are we all leaving performance on the table by shunning better techniques?* After all, there are countless researchers whose papers claim their technique beats LoRA. Isn’t that sufficient proof that we should go beyond LoRA in favor of newer techniques?
+This all leads to the question: *Are we all leaving performance on the table by shunning better techniques?* After all, there are countless researchers whose papers claim their technique beats LoRA. Isn't that sufficient proof that we should go beyond LoRA in favor of newer techniques?
 
 # Choosing the right PEFT technique based on paper results is problematic
 
@@ -49,7 +49,7 @@ The trouble with these claims is that researchers are under pressure to provide 
 
 Another complication is that each paper chooses a different set of PEFT techniques to compare to, and a different set of benchmarks to run. And even if the same technique is compared on the same benchmark, the code is often not available or not easy to run yourself, which makes results hard to reproduce.
 
-Overall, it’s difficult to figure out the PEFT technique that works best for you by only checking paper results. Therefore, you might be tempted to just go with the default, LoRA.
+Overall, it's difficult to figure out the PEFT technique that works best for you by only checking paper results. Therefore, you might be tempted to just go with the default, LoRA.
 
 # How we approach benchmarking in `PEFT`
 
@@ -88,7 +88,7 @@ After finishing the benchmark runs, we found that although LoRA works well, othe
 
 One way to interpret the results above is to think in terms of tradeoffs, for example: How well does the model perform on the test set vs how much memory is needed to train it? If a PEFT technique cannot be beaten on both of these metrics at the same time by any other technique, it is on the *Pareto Frontier*. In other words: If you want better test accuracy, you need more memory, and if you want more memory efficiency, you have to give up on accuracy.
 
-Let’s take a closer look at the results for the LLM Math dataset benchmark. When it comes to test accuracy vs memory, we find that LoRA is indeed on the Pareto frontier. It achieves 53.2% test accuracy and requires 22.6 GB of VRAM at the peak. There are, however, other PEFT techniques on the Pareto Frontier. For instance, [BEFT](https://huggingface.co/docs/peft/main/en/package_reference/beft) achieves 32.9% test accuracy and requires only 20.2 GB of memory at max. On the other end, we have [Lily](https://huggingface.co/docs/peft/main/en/package_reference/lily) which achieves 54.9% test accuracy but requires 25.6 GB of memory. Depending on what’s more important to you, you may conclude that LoRA does not present the best tradeoff for you.
+Let's take a closer look at the results for the LLM Math dataset benchmark. When it comes to test accuracy vs memory, we find that LoRA is indeed on the Pareto frontier. It achieves 53.2% test accuracy and requires 22.6 GB of VRAM at the peak. There are, however, other PEFT techniques on the Pareto Frontier. For instance, [BEFT](https://huggingface.co/docs/peft/main/en/package_reference/beft) achieves 32.9% test accuracy and requires only 20.2 GB of memory at max. On the other end, we have [Lily](https://huggingface.co/docs/peft/main/en/package_reference/lily) which achieves 54.9% test accuracy but requires 25.6 GB of memory. Depending on what's more important to you, you may conclude that LoRA does not present the best tradeoff for you.
 
 <table align="center">
   <tr>
@@ -99,9 +99,9 @@ Let’s take a closer look at the results for the LLM Math dataset benchmark. Wh
   </tr>
 </table>
 
-It is also worth noting that even though LoRA does well on this task, we’re not talking about vanilla LoRA. On one side, we have LoRA with [rank stabilized initialization](https://huggingface.co/papers/2312.03732), which is a technique to scale the LoRA contribution differently from the default initialization and provides very good test accuracy (53.2%). On the other end, we have [LoRA-FA](https://huggingface.co/papers/2308.03303), which uses an optimizer specialized for LoRA that freezes part of the LoRA weights and is thus more memory efficient (20.2 GB). Normal LoRA only achieves an accuracy of 48.1% at 22.5 GB memory and should thus be avoided in favor of the alternatives.
+It is also worth noting that even though LoRA does well on this task, we're not talking about vanilla LoRA. On one side, we have LoRA with [rank stabilized initialization](https://huggingface.co/papers/2312.03732), which is a technique to scale the LoRA contribution differently from the default initialization and provides very good test accuracy (53.2%). On the other end, we have [LoRA-FA](https://huggingface.co/papers/2308.03303), which uses an optimizer specialized for LoRA that freezes part of the LoRA weights and is thus more memory efficient (20.2 GB). Normal LoRA only achieves an accuracy of 48.1% at 22.5 GB memory and should thus be avoided in favor of the alternatives.
 
-Next let’s take a look at the image generation benchmark. In the [Hugging Face Space](https://huggingface.co/spaces/peft-internal-testing/PEFT-method-comparison), choose “image-gen” in the “Select Task” dropdown to show the results. The goal of the task is to learn a new concept, namely a cat plushy, and generalize it to new prompts.
+Next let's take a look at the image generation benchmark. In the [Hugging Face Space](https://huggingface.co/spaces/peft-internal-testing/PEFT-method-comparison), choose “image-gen” in the “Select Task” dropdown to show the results. The goal of the task is to learn a new concept, namely a cat plushy, and generalize it to new prompts.
 
 <table align="center">
   <tr>
@@ -112,7 +112,7 @@ Next let’s take a look at the image generation benchmark. In the [Hugging Face
   </tr>
 </table>
 
-For this task, the main metric is “dino similarity”, which measures how much a generated image resembles the picture from a hold out test dataset, with higher values being better. As always, we also want to keep an eye on memory usage. When plotting the Pareto Frontier of these two metrics, we find that LoRA is below that frontier. Let’s get concrete numbers: LoRA achieves a similarity score of 0.697 whereas [OFT](https://huggingface.co/docs/peft/package_reference/oft) achieves 0.708; in terms of memory, LoRA requires 9.97 GB and OFT requires 9.01 GB. Therefore, OFT strictly dominates LoRA on these metrics.
+For this task, the main metric is “dino similarity”, which measures how much a generated image resembles the picture from a hold out test dataset, with higher values being better. As always, we also want to keep an eye on memory usage. When plotting the Pareto Frontier of these two metrics, we find that LoRA is below that frontier. Let's get concrete numbers: LoRA achieves a similarity score of 0.697 whereas [OFT](https://huggingface.co/docs/peft/package_reference/oft) achieves 0.708; in terms of memory, LoRA requires 9.97 GB and OFT requires 9.01 GB. Therefore, OFT strictly dominates LoRA on these metrics.
 
 <table align="center">
   <tr>
@@ -123,25 +123,25 @@ For this task, the main metric is “dino similarity”, which measures how much
   </tr>
 </table>
 
-Of course, you should also check the other PEFT methods that are close to the Pareto frontier, as metrics can be subject to small variations due to randomness. Also, you should explore other metrics: is runtime performance important to you or do you care about the size of the checkpoints? Choose the relevant metric from the dropdown and the picture can change considerably. For the image generation benchmark, do inspect the generated sample images to get a vibe of the fine-tuned model’s capability.
+Of course, you should also check the other PEFT methods that are close to the Pareto frontier, as metrics can be subject to small variations due to randomness. Also, you should explore other metrics: is runtime performance important to you or do you care about the size of the checkpoints? Choose the relevant metric from the dropdown and the picture can change considerably. For the image generation benchmark, do inspect the generated sample images to get a vibe of the fine-tuned model's capability.
 
 # Limitations
 
 > Objection: But the benchmarks favor one method over another!
 
-One criticism that could be leveled at the `PEFT` benchmarks is that the choice of hyper-parameters may favor one technique over another. This is true, doing an exhaustive and fair hyper-parameter sweep with this many techniques is difficult. It is, however, very easy for everyone to contribute their own experiments to `PEFT`: If you believe that a specific PEFT technique can be improved by choosing different hyper-parameters, create a PR\! We added [instructions on how to do that](https://github.com/huggingface/peft/tree/main/method_comparison#creating-new-experiments). In a similar vein, if you want to contribute a completely new benchmark, reach out to us to discuss your idea.
+One criticism that could be leveled at the `PEFT` benchmarks is that the choice of hyper-parameters may favor one technique over another. This is true, doing an exhaustive and fair hyper-parameter sweep with this many techniques is difficult. It is, however, very easy for everyone to contribute their own experiments to `PEFT`: If you believe that a specific PEFT technique can be improved by choosing different hyper-parameters, create a PR! We added [instructions on how to do that](https://github.com/huggingface/peft/tree/main/method_comparison#creating-new-experiments). In a similar vein, if you want to contribute a completely new benchmark, reach out to us to discuss your idea.
 
-Another problem with the benchmarks is that they may not fully reflect the capabilities of a specific PEFT technique. We allow to compare the techniques along many different dimensions and discover the best ones according to these tradeoffs. But it’s impossible to capture all facets this way. For instance, one PEFT technique called Cartridges ([https://huggingface.co/docs/peft/package\_reference/cartridges](https://huggingface.co/docs/peft/package_reference/cartridges)) was developed to compress long prompts, which is not measured in the benchmarks. Other factors can also influence the choice, for instance:
+Another problem with the benchmarks is that they may not fully reflect the capabilities of a specific PEFT technique. We allow to compare the techniques along many different dimensions and discover the best ones according to these tradeoffs. But it's impossible to capture all facets this way. For instance, one PEFT technique called Cartridges ([https://huggingface.co/docs/peft/package_reference/cartridges](https://huggingface.co/docs/peft/package_reference/cartridges)) was developed to compress long prompts, which is not measured in the benchmarks. Other factors can also influence the choice, for instance:
 
 * Depending on the PEFT technique, only certain layer types can be modified.
 * Not all PEFT techniques support quantized base models (but we actively expand the support in `PEFT`).
-* Some PEFT techniques allow [merging of the adapter](https://huggingface.co/docs/peft/main/en/developer_guides/model_merging) to reduce runtime overhead but others don’t.
+* Some PEFT techniques allow [merging of the adapter](https://huggingface.co/docs/peft/main/en/developer_guides/model_merging) to reduce runtime overhead but others don't.
 
 The benchmarks cannot fully lift the responsibility to do your research, but they can be reasonable pointers.
 
 <table align="center">
   <tr>
-    <td align="center"><a href="https://huggingface.co/spaces/BenjaminB/peft-shop"><img src="https://huggingface.co/datasets/peft-internal-testing/peft-blog-assets/resolve/main/peft-beyond-lora/peft-shop.png" width="600"/></a></td>
+    <td align="center"><a href="https://huggingface.co/spaces/peft-internal-testing/PEFT-shop"><img src="https://huggingface.co/datasets/peft-internal-testing/peft-blog-assets/resolve/main/peft-beyond-lora/peft-shop.png" width="600"/></a></td>
   </tr>
   <tr>
     <td align="center"><em>Click on the image to peruse the PEFT shop to find the best PEFT technique for you. It allows you to browse not only by benchmark metrics but also by capabilities, like quantization support.</em></td>
@@ -150,7 +150,7 @@ The benchmarks cannot fully lift the responsibility to do your research, but the
 
 > Objection: But llama.cpp/vLLM/... only supports LoRA
 
-A limitation of using a PEFT technique other than LoRA is that they don’t get the broad support in downstream packages that LoRA sees. For example, if you want to serve the model using vLLM, only LoRA checkpoints can be loaded. Thankfully, `PEFT` now supports [converting other adapters into LoRA](https://huggingface.co/docs/peft/main/en/package_reference/lora_conversion). That way, you can convert a non-LoRA checkpoint into LoRA and use it in vLLM or other downstream packages.
+A limitation of using a PEFT technique other than LoRA is that they don't get the broad support in downstream packages that LoRA sees. For example, if you want to serve the model using vLLM, only LoRA checkpoints can be loaded. Thankfully, `PEFT` now supports [converting other adapters into LoRA](https://huggingface.co/docs/peft/main/en/package_reference/lora_conversion). That way, you can convert a non-LoRA checkpoint into LoRA and use it in vLLM or other downstream packages.
 
 To test this, we converted an image adapter using the GraLoRA technique into a LoRA checkpoint. The test scores were virtually identical after conversion (similarity 0.702 → 0.694, 0.260 → 0.269). Below are test images for the prompt “sks cat at the beach”:
 
@@ -164,7 +164,7 @@ To test this, we converted an image adapter using the GraLoRA technique into a L
   </tr>
 </table>
 
-At the moment, we haven’t implemented conversion for all PEFT techniques, but if there is demand, we will expand the support.
+At the moment, we haven't implemented conversion for all PEFT techniques, but if there is demand, we will expand the support.
 
 # Conclusion and what *you* can do
 
