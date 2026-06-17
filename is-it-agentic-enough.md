@@ -22,7 +22,7 @@ happily bypass it and rewrite the logic from scratch. This introduces a new conc
 the code should not only be correct and fast, but should be designed so that an agent can drive it. A clunky API
 or stale docs annoys us developers, but it now also sends the agent down a longer, more expensive path.
 
-Most benchmark focus on the final answer and stop. We wanted to understand the entire process, designed for 
+Most benchmarks focus on the final answer and stop. We wanted to understand the entire process, designed for 
 our specific tools. For every run, the whole trace: the turns, tokens, time it took, whether it errored, and which 
 code path it used, measured across many models and agents, library revisions, and tasks. We built that harness and ran 
 it on `transformers` as our case study, but it's deliberately tool-agnostic: point it at any library with a command-line entry
@@ -114,7 +114,7 @@ whether a change you shipped to the library (a CLI improvement, better error mes
 Skill) actually helped agents.
 
 Our goal with this harness is to evaluate how much work
-an agent has to do to perform a given task, and measure what changes to the library actually help
+an agent has to do to perform a given task, and whether changes to the library improve performance.
 them out.
 
 ### How do we run evaluations?
@@ -137,7 +137,7 @@ A few more choices:
 
 - For now we only focus on deterministic tasks which can provide an exact match, as they provide a very nice ground for experimentation. Model-as-a-judge and other schemes are the obvious next steps for other tasks.
 - Every run is its own Hugging Face Job: one per (model × revision × task), so the whole sweep runs in parallel on identical hardware, which keeps the comparison fair at scale.
-- Results and traces land in a Hugging Face Bucket: fast, no versioning needed, and happy with very high write concurrency.
+- Results and traces land in a Hugging Face Bucket: fast, no versioning needed, and handles very high write concurrency.
 
 ### Which models to benchmark against?
 
@@ -147,18 +147,18 @@ Not all models driving agents are equal, and their difference changes what you s
 
 At one end, you have the largest, most capable open models. On reasonably common tasks,
 these should get the right answer, eventually. For them, __"match %"__ saturates near
-100% and stops telling you much about your tool; a more interesting benchmark is the effort
+100% and stops telling you much about your tool; a more relevant benchmark is the effort
 it took the agent to get there: how many turns, tokens and seconds it took, and whether they walked a clean
 path or used deprecated APIs.
 
 *Local*
 
 Local models vary widely in size, and so do their abilities.
-Metrics such as __"match %"__ are way more interesting than for their larger counterparts,
+Metrics such as __"match %"__ are more relevant than for their larger counterparts,
 as you can see how model sizes/capabilities affect results on your specific
 tool.
 
-This harness not only provides you guidance, as a library maintainer, on how to update your repository so that agents can better interact with it; it also helps assess how different agents and models perform on the tasks your users care about.
+This harness not only provides guidance to library maintainers on how to improve a repository for agent interactions, it also helps assess how different agents and models perform on the tasks users care about.
 
 The harness scores every run on several axes, so that you can ask what actually matters
 for each class of model:
