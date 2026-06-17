@@ -24,9 +24,12 @@ More than that, depending on the task, the agentic layer can now completely bypa
 favor of rewriting it from scratch. It is not sufficient anymore for the software to be performant and exact: it
 needs to be agent-optimized if we want it to be leveraged by agents.
 
-Most benchmarks focus on "can the agent get the right answer?". Here, we will introduce a tool specific benchmark 
-focusing on how the model got the answer; and provide a simple implementation of one such harness for the open-source 
-ecosystem.
+We're entering an era where open models and open-source tooling can be used to work with our open-source 
+libraries. The question is no longer "can the agent get the right answer?" but "how do we optimize our tooling
+so that agents circle on the right answer faster". 
+
+Here, we will introduce a tool specific benchmark focusing on how the answer was found, and provide a simple 
+implementation of one such harness, running entirely on open models.
 
 <br/>
 <p align="center">
@@ -48,8 +51,11 @@ examples. If you want your tool to work for an agent, then you should test it fo
 
 ## Testing software for agentic-use
 
-We'll use `transformers` as an example throughout this blogpost, but this harness was designed to work with any tool which 
-can be operated from the command line. Our intuition on `transformers` was that usage could be dramatically simplified
+We'll use `transformers` as an example throughout this blogpost — agents *using* it to solve ML tasks (classifying
+text, captioning images, transcribing audio), not contributing code to it — though the harness was designed to work
+with any tool that can be operated from the command line.
+
+Our intuition on `transformers` was that usage could be dramatically simplified
 with a few changes: a CLI, a Skill, and self-contained, task-specific examples. This is the same recipe
 recently applied to the [`hf` CLI, redesigned to be agent-optimized](https://huggingface.co/blog/hf-cli-for-agents),
 where agents used 1.3–1.8× (and up to 6×) fewer tokens. We wanted to know whether that kind of win generalizes, and
@@ -128,7 +134,7 @@ A few more choices:
 
 ### Which models to benchmark against?
 
-Not all models are equal, and their difference changes what you should look at when running them.
+Not all models driving agents are equal, and their difference changes what you should look at when running them.
 
 *Frontier*
 
