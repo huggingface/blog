@@ -49,14 +49,13 @@ examples. If you want your tool to work for an agent, then you should test it fo
 ## Testing software for agentic-use
 
 We'll use `transformers` as an example throughout this blogpost, but this harness was designed to work with any tool which 
-can be operated from the command line. Our intuition on `transformers` was that it could be dramatically simplified
+can be operated from the command line. Our intuition on `transformers` was that usage could be dramatically simplified
 with a few changes: a CLI, a Skill, and self-contained, task-specific examples. This is the same recipe
 recently applied to the [`hf` CLI, redesigned to be agent-optimized](https://huggingface.co/blog/hf-cli-for-agents),
 where agents used 1.3–1.8× (and up to 6×) fewer tokens. We wanted to know whether that kind of win generalizes, and
 whether it could be useful for transformers as well.
 
-Unfortunately, intuition isn't sufficient as the sole driver of agentic features, especially not to warrant large PRs 
-adding several thousand lines of code to such a widely used tool as `transformers`.
+Intuition is a powerful tool, but we wanted more evidence before we opened PRs that add several thousand lines of code to such a widely used codebase as `transformers`. We set out to measure what success looks like.
 
 ### Not all successes are equal
 
@@ -95,22 +94,21 @@ Both reach `POSITIVE (0.9999)`, and here are the two paths an agent actually too
 +   --text "I absolutely loved the movie, it was fantastic!"
 ```
 
-Depending on the model used, it's likely that the two amount to the same result. Still,
-you'll see different **cost, latency, token usage, and failures**.
+Both methods reach the same result. But they have very different profiles in **cost, latency, token usage, and failures**.
 
 If your evaluation only checks the final string, you're blind to these as well as
 whether a change you shipped to the library (a CLI improvement, better error messages, a
 Skill) actually helped agents.
 
-This is what we're trying to do with this harness: we want to evaluate how much work
-an agent had to do a given task, and what changes can be done to the library to help
+Our goal with this harness is to evaluate how much work
+an agent has to do to perform a given task, and measure what changes to the library actually help
 them out.
 
 ### How do we run evaluations?
 
 A few words on how we'll evaluate agents here.
 
-We run every task under three variants, increasing how much help the agent gets to drive `transformers`:
+We run every task under three variants (or "tiers"), increasing how much help the agent gets to drive `transformers`:
 
 ```text
 less help  ───────────────────────────────────────────▶  more help
@@ -124,8 +122,7 @@ nothing else          (source at hand)        examples, in-context
 
 A few more choices:
 
-- For now we only focus on tasks which can provide an exact match: it is deterministic, and provides a very nice 
-  ground for experimentation. Model-as-a-judge and other schemes are the obvious next step for other tasks.
+- For now we only focus on deterministic tasks which can provide an exact match, as they provide a very nice ground for experimentation. Model-as-a-judge and other schemes are the obvious next steps for other tasks.
 - We'll run using Hugging Face Jobs so as to provide an identical environment for all jobs with very high concurrency
 - We'll run using Hugging Face Buckets as a storage option: fast, no versioning, high write concurrency
 
@@ -143,15 +140,12 @@ path or used deprecated APIs.
 
 *Local*
 
-At the other end are the local models. Their size varies greatly, and so do their abilities.
+Local models vary widely in size, and so do their abilities.
 Metrics such as __"match %"__ are way more interesting than for their larger counterparts,
-as you can see how model sizes/capabilities affect the different models on your specific
+as you can see how model sizes/capabilities affect results on your specific
 tool.
 
-On top of guiding you as a library maintainer on how to update
-your repository for agents to interact better with it, it's also useful for you as a user:
-if designing agentic workflows or choosing a model for them, you now have a harness to directly
-evaluate each of them on a set of tools directly related to the task you want to evaluate.
+This harness not only provides you guidance, as a library maintainer, on how to update your repository so that agents can better interact with it; it also helps assess how different agents and models perform on the tasks your users care about.
 
 The harness scores every run on several axes, so that you can ask what actually matters
 for each class of model:
@@ -162,10 +156,10 @@ for each class of model:
 - **runs with error %**: including a guard that flags runs which produced *nothing*
   (0 output tokens, no tool calls, no answer) so silent failures don't masquerade
   as "0";
-- **label adoption**: tool-defined behavior markers; see below for an explanation
+- **marker adoption**: tool-defined behavior markers; see below for an explanation
   of what this is.
 
-All of it lands in a single static report you can take a look at yourself:
+All of it lands in a extensive report you can examine:
 
 <p align="center">
 <iframe
@@ -176,13 +170,13 @@ All of it lands in a single static report you can take a look at yourself:
 ></iframe>
 <br>
   <em>The live report: Overview, Coverage, and Results, all client-side.
-  (Not loading? <a href="https://lysandre-transformers-agentic-use-report.static.hf.space">open it in a new tab</a>.)</em>
+  (Not loading? <a href="https://transformers-community-is-transformers-agentic.static.hf.space">open it in a new tab</a>.)</em>
 </p>
 
 Because it captures the native agent trace of every run, you can also just read what happened, and the traces are 
 shareable through the Hub's [agent-traces viewer](https://huggingface.co/docs/hub/agent-traces).
 
-Those two classes call for two different experiments.
+The two model categories call for two different experiments.
 
 ### Frontier models: hold the model, vary the tool
 
@@ -196,7 +190,7 @@ revisions**, watching whether the load it puts on the agent goes up or down. We 
 the harness on `transformers` exactly this way, to check whether adding a dedicated
 CLI and Skill actually lightened the agents' work.
 
-For the three large models we used in this example, the average seems to indicate that the Skill commit
+For the three large models we used in our tests, the average time spent on all tasks indicates that the Skill commit
 results in less time spent working on the tasks:
 
 <p align="center">
@@ -205,7 +199,7 @@ results in less time spent working on the tasks:
 </p>
 
 On the other hand, in the experiments in which we cloned the repository, we can see a significant increase
-in token consumption due to the introduction of this commit.
+in token consumption due to the commit that introduced the CLI and examples, as we'll see in a moment.
 
 <p align="center">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/is-it-agentic-enough/img_9.png" alt="Token usage on the clone variant across revisions (GLM-5.1, Kimi K2.6, MiniMax 2.7)" width="85%"><br>
@@ -215,7 +209,7 @@ in token consumption due to the introduction of this commit.
 Reading the clone-variant traces explains why. The commit adds a command, but it also ships the
 CLI's implementation and a set of `cli/agentic/*.py` usage examples into the repository directly. 
 
-On the `clone`variant the agent has that checkout in front of it, and roughly a third of the runs go read the new
+On the `clone` variant the agent has a full transformers checkout in front of it, and roughly a third of the runs go read the new
 surface (the `/cli/` tree and the example scripts) to learn the interface before calling it. This results
 in a higher median input tokens from ~4k to ~6.4k. 
 
@@ -229,7 +223,7 @@ tokens (they read the code that taught them the CLI). A tradeoff worth knowing a
 
 Open models give you a knob the closed APIs don't: granular control over size,
 configuration, provider, training, among others. They're also where a good tool surface
-matters most: a small model asked to "use `transformers` to do X" on a `bare` checkout can
+matters most: a small model asked to "use `transformers` to do X" on a `bare` environment can
 guess an API that changed some releases ago, may do unnecessary tool calls, and can
 get the wrong answer.
 
@@ -289,9 +283,7 @@ documentation, that actually reaches for it, at 55.3%.
 
 ### Is the CLI + Skill commit helping?
 
-Comparing the commit across model sizes, the CLI + Skill helps the bigger
-models: Kimi and the other large agents reach for the CLI, finish in fewer turns,
-and burn fewer tokens:
+Comparing the commit across model sizes, the CLI + Skill helps the bigger models: on the `skill` tier, Kimi and the other large agents reach for the CLI and finish in fewer turns. (On `clone` they spend *more* input tokens first - reading the new CLI code, as we saw above - so the win shows up in time and turns, not raw tokens.)
 
 <p align="center">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/is-it-agentic-enough/img_5.png" alt="Kimi-K2.6, GLM-5.1, and MiniMax-M2.7 across revisions" width="85%"><br>
@@ -303,11 +295,11 @@ on memorized API patterns, therefore reproducing `pipeline(...)` snippets
 they've seen in their training data. The new concepts are therefore a larger
 surface for them to get wrong. You can watch this directly on the harness: lower
 match %, more retries, the `cli` marker barely firing (`[[fill in: small-model
-numbers]]`), particularly striking on the Qwen 4B model:
+numbers]]`), particularly striking on the Qwen3-4B model:
 
 <p align="center">
-  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/is-it-agentic-enough/img_7.png" alt="Qwen3-4B across revisions" width="85%"><br>
-  <em>Qwen3-4B across revisions</em>
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/is-it-agentic-enough/img_7.png" alt="Qwen3-4B time and token distributions across revisions" width="85%"><br>
+  <em>Qwen3-4B time and token distributions across revisions</em>
 </p>
 
 Reading the traces shows how the extra surface backfired. Let's look at Qwen3-14B directly: adding the Skill drops its
@@ -332,7 +324,11 @@ Unfortunately the Skill resulted in adding another, new interface which the mode
 The harness is one CLI, `ag`. Install it, run a suite, fan it out across models × revisions on HF Jobs, and publish the
 report as a Hugging Face Space. 
 
-The full, kept-current setup and usage instructions live in the [README](https://github.com/huggingface/is-transformers-agentic-enough).
+> [!TIP]
+> ⚠️ **Trusted local use only.** The harness runs a coding agent with bypassed permissions and executes code from
+> whatever revision you point it at, and traces can contain prompts, output, and local paths. See
+> [SECURITY.md](https://github.com/huggingface/is-it-agentic-enough/blob/main/SECURITY.md) before pointing it at code you didn't write or sharing results.
+The full, kept-current setup and usage instructions live in the [README](https://github.com/huggingface/is-it-agentic-enough).
 
 ## Closing
 
@@ -345,7 +341,7 @@ helps frontier models and hurts the smallest ones. Worth knowing before merging!
 
 It's profile-based, and designed to be adaptable: point it at your own library, define
 a few tasks and their expected answers, get the same report. Code and tasks are in
-the [repo](https://github.com/huggingface/is-transformers-agentic-enough), traces are on the Hub!
+the [repo](https://github.com/huggingface/is-it-agentic-enough), traces are on the Hub!
 
 ## Acknowledgements
 
