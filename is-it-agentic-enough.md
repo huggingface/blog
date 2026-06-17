@@ -16,20 +16,27 @@ authors:
 
 > This is a human-made, agent-focused blogpost.
 
-While software has always aimed to optimize its execution in terms of computational cost and time, we're now rarely
-interacting with the software directly, instead passing through an additional agentic layer doing most of the guessing
-and algorithmic scaffolding without us interacting with it.
+Coding agents increasingly work our software instead of us: describe a task, and the agent picks the library,
+writes the calls, runs them, and debugs its own mistakes. When the library gets in the way, it will
+happily bypass it and rewrite the logic from scratch. This introduces a new concept in library development:
+the code should not only be correct and fast, but should be designed so that an agent can drive it. A clunky API
+or stale docs annoys us developers, but it now also sends the agent down a longer, more expensive path.
 
-More than that, depending on the task, the agentic layer can now completely bypass the software we once used in
-favor of rewriting it from scratch. It is not sufficient anymore for the software to be performant and exact: it
-needs to be agent-optimized if we want it to be leveraged by agents.
+Most benchmarks miss this: they check the final answer and stop. We wanted the full picture, designed for 
+our specific tools. For every run, the whole trace: the turns, tokens, time it took, whether it errored, and which 
+code path it used, measured across many models/agent, library revisions, and tasks. We built that harness and ran 
+it on `transformers` as our case study, but it's deliberately tool-agnostic: point it at any library with a command-line entry
+point and you get the same view.
 
 We're entering an era where open models and open-source tooling can be used to work with our open-source 
 libraries. The question is no longer "can the agent get the right answer?" but "how do we optimize our tooling
 so that agents circle on the right answer faster". 
 
 Here, we will introduce a tool specific benchmark focusing on how the answer was found, and provide a simple 
-implementation of one such harness, running entirely on open models.
+implementation of one such harness, running entirely on open models driven by the
+[pi](https://www.npmjs.com/package/@mariozechner/pi-coding-agent) coding agent, with the full sweep of
+models × revisions × tasks fanned out across [Hugging Face Jobs](https://huggingface.co/docs/huggingface_hub/guides/jobs)
+so every run sees identical hardware.
 
 <br/>
 <p align="center">
@@ -51,8 +58,8 @@ examples. If you want your tool to work for an agent, then you should test it fo
 
 ## Testing software for agentic-use
 
-We'll use `transformers` as an example throughout this blogpost — agents *using* it to solve ML tasks (classifying
-text, captioning images, transcribing audio), not contributing code to it — though the harness was designed to work
+We'll use `transformers` as an example throughout this blogpost: agents *using* it to solve ML tasks (classifying
+text, captioning images, transcribing audio), not contributing code to it; though the harness was designed to work
 with any tool that can be operated from the command line.
 
 Our intuition on `transformers` was that usage could be dramatically simplified
@@ -114,7 +121,7 @@ them out.
 
 A few words on how we'll evaluate agents here.
 
-We run every task under three variants (or "tiers") — three different ways an agent can come at `transformers`:
+We run every task under three variants (or "tiers"); three different ways an agent can come at `transformers`:
 
 ```text
 bare     pip install transformers, and nothing else
@@ -129,8 +136,8 @@ do better on `clone` than on `skill`.
 A few more choices:
 
 - For now we only focus on deterministic tasks which can provide an exact match, as they provide a very nice ground for experimentation. Model-as-a-judge and other schemes are the obvious next steps for other tasks.
-- We'll run using Hugging Face Jobs so as to provide an identical environment for all jobs with very high concurrency
-- We'll run using Hugging Face Buckets as a storage option: fast, no versioning, high write concurrency
+- Every run is its own Hugging Face Job: one per (model × revision × task), so the whole sweep runs in parallel on identical hardware, which keeps the comparison fair at scale.
+- Results and traces land in a Hugging Face Bucket: fast, no versioning needed, and happy with very high write concurrency.
 
 ### Which models to benchmark against?
 
@@ -191,8 +198,8 @@ measuring is the effort it took to do so. Did it take ten turns or one? Did it f
 an API path you deprecated because it trusted obsolete documentation? Did it hit an
 error you hadn't foreseen?
 
-The natural experiment is to **fix one strong model and vary the tool's
-revisions** — the successive git versions of `transformers` we test against, from released tags like
+The natural experiment is to fix one strong model and vary the tool's
+revisions: the successive git versions of `transformers` we test against, from released tags like
 `v5.8.0` and `v5.9.0` to the specific commit that introduces the CLI and Skill. We want to watch whether the load
 it puts on the agent goes up or down. We used the harness on `transformers` to check
 whether adding a dedicated CLI and Skill actually lightened the agents' work.
@@ -225,7 +232,7 @@ The two charts are then two sides of one tradeoff: the commit buys the large mod
 tokens (they read the code that taught them the CLI). A tradeoff worth knowing about before merging PRs.
 
 One caveat works in the CLI's favor, though, which isn't benchmarked yet: the cost of reading it is amortized 
-with successive runs. Our setup is built for one-off experiments — each run is a fresh agent that rediscovers 
+with successive runs. Our setup is built for one-off experiments. Each run is a fresh agent that rediscovers 
 the CLI from scratch, so it pays the discovery cost every time. In real usage an agent learns the interface 
 once and then solves task after task within the same session, amortizing that cost across many requests. The
 token bump we measure here is closer to a worst case than to what a user would see day to day.
@@ -234,8 +241,8 @@ token bump we measure here is closer to a worst case than to what a user would s
 
 ### Small models: hold the revision, vary the model
 
-Open models give us fine-grained control over the variable that matters most here — size — along with
-configuration, provider, and training. They're also where a good tool surface
+Open models give us fine-grained control over the variables that matters most here: size, configuration, quantization,
+provider, training, and anything that would differ from one model to the next. They're also where a good tool surface
 matters most: a small model asked to "use `transformers` to do X" on a `bare` environment can
 guess an API that changed some releases ago, may do unnecessary tool calls, and can
 get the wrong answer.
