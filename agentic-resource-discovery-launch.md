@@ -1,6 +1,6 @@
 ---
 title: "Agentic Resource Discovery: Let agents search" 
-thumbnail: /blog/assets/building-hf-mcp/building-hf-mcp.png
+thumbnail: /blog/assets/agentic-resource-discovery-launch/thumbnail.png
 authors:
 - user: burtenshaw
 - user: evalstate

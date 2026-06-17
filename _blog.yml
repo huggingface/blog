@@ -5425,3 +5425,12 @@
     - kernels
     - mlp
     - liger
+
+- local: agentic-resource-discovery-launch
+  date: June 17, 2026
+  tags:
+    - announcement
+    - agents
+    - mcp
+    - hub
+    - open-source
