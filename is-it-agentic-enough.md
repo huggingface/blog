@@ -192,9 +192,10 @@ an API path you deprecated because it trusted obsolete documentation? Did it hit
 error you hadn't foreseen?
 
 The natural experiment is to **fix one strong model and vary the tool's
-revisions**, watching whether the load it puts on the agent goes up or down. We used
-the harness on `transformers` exactly this way, to check whether adding a dedicated
-CLI and Skill actually lightened the agents' work.
+revisions** — the successive git versions of `transformers` we test against, from released tags like
+`v5.8.0` and `v5.9.0` to the specific commit that introduces the CLI and Skill. We want to watch whether the load
+it puts on the agent goes up or down. We used the harness on `transformers` to check
+whether adding a dedicated CLI and Skill actually lightened the agents' work.
 
 For the three large models we used in our tests, the average time spent on all tasks indicates that the Skill commit
 results in less time spent working on the tasks:
