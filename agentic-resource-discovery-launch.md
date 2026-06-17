@@ -107,10 +107,7 @@ curl -s https://huggingface-hf-discover.hf.space/search \
   }'
 ```
 
-Alternatively, connect any MCP Client to search via MCP endpoint using https://huggingface-hf-discover.hf.space/mcp to search the catalog.
-
-The catalog search is available for both anonymous 
-The Hub's semantic search runs with or without authentication. Authenticated calls have higher rate limits and access to private Spaces. Discover forwards a request-scoped token to the downstream search. There is no persistent token store on the registry.
+Alternatively, connect any MCP Client to search via MCP endpoint using https://huggingface-hf-discover.hf.space/mcp to search the catalog. 
 
 ## What this means for the specification
 
