@@ -73,11 +73,11 @@ https://huggingface.co/.well-known/ai-catalog.json
 
 To call search directly:
 ```
-POST https://evalstate-hf-discover.hf.space/search
+POST https://huggingface-hf-discover.hf.space/search
 ```
 
 ```bash
-curl -s https://evalstate-hf-discover.hf.space/search \
+curl -s https://huggingface-hf-discover.hf.space/search \
   -H "Content-Type: application/json" \
   -d '{
     "query": {
@@ -94,7 +94,7 @@ curl -s https://evalstate-hf-discover.hf.space/search \
 Search for MCP servers
 
 ```bash
-curl -s https://evalstate-hf-discover.hf.space/search \
+curl -s https://huggingface-hf-discover.hf.space/search \
   -H "Content-Type: application/json" \
   -d '{
     "query": {
@@ -107,7 +107,7 @@ curl -s https://evalstate-hf-discover.hf.space/search \
   }'
 ```
 
-Alternatively, connect any MCP Client to search via MCP endpoint using https://evalstate-hf-discover.hf.space/mcp to search the catalog.
+Alternatively, connect any MCP Client to search via MCP endpoint using https://huggingface-hf-discover.hf.space/mcp to search the catalog.
 
 The catalog search is available for both anonymous 
 The Hub's semantic search runs with or without authentication. Authenticated calls have higher rate limits and access to private Spaces. Discover forwards a request-scoped token to the downstream search. There is no persistent token store on the registry.
