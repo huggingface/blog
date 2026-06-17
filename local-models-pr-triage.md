@@ -79,6 +79,8 @@ exit_code=2
 reposhell /repo/openclaw>
 ```
 
+Here is a concrete example where this mattered. In one [saved session example](https://huggingface.co/datasets/dutifuldev/openclaw-classification-dataset/blob/main/session-examples/README.md), the model was classifying [`openclaw/openclaw#84621`](https://github.com/openclaw/openclaw/pull/84621), titled `Fix Kimi tool-call rewriting stop reason handling`. The thinking block shows the model initially considering `coding_agent_integrations` because the changed path `extensions/kimi-coding` made it look plausible. The model used reposhell to inspect the local repo with simple read-only commands like `ls extensions`, `ls extensions/kimi-coding`, and `cat extensions/kimi-coding/package.json`. That package metadata showed the extension was actually `@openclaw/kimi-provider`, an OpenClaw Kimi provider plugin. So the model corrected the final labels to `inference_api` and `tool_calling`, and explicitly excluded `coding_agent_integrations`.
+
 We have mentioned earlier that we bundle a specific `pi` configuration that can only perform read-only operations and return classification output. We call it [`localpager-agent`](https://github.com/osolmaz/localpager/tree/main/localpager-agent), named after `localpager`, the main project here. Each PR and issue generates a prompt, which is then passed to the CLI like below, alongside other args:
 
 ```bash
