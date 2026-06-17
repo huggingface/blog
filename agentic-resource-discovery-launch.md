@@ -46,9 +46,12 @@ For MCP-tagged Spaces, the adapter generates a catalog entry pointing at the Spa
 
 ## Using it
 
-`discover` is built into the [Hugging Face CLI](https://github.com/huggingface/huggingface_hub) (`hf`). Install it standalone with `uv tool install hf-discover`, or use the `hf` CLI directly:
+`discover` is built into the [Hugging Face CLI](https://github.com/huggingface/huggingface_hub) (`hf`). To get started and give you or your agent access:
 
-```shell
+```bash
+# Install the Hugging Face CLI tool:
+uv tool install huggingface_hub
+
 # Search for resources to train a model
 hf discover search "Fine tune a language model"
 
@@ -59,22 +62,54 @@ hf discover search "Generate an image" --json --kind mcp
 hf discover search "Purchase aeroplane tickets" --registry-url <catalog-url>
 ```
 
-Navigate mode locates AI Catalogs from URLs and traverses federated registries.
+### REST API and MCP Tool
 
-### REST API
+You can also Search the catalog directly using either the REST API or an MCP Server. 
 
-You can reach the same data over HTTP. The Hugging Face catalog is published at its well-known URL:
-
+ The Hugging Face catalog is published at its well-known URL:
 ```
 https://huggingface.co/.well-known/ai-catalog.json
 ```
 
-Or call search directly:
-
+To call search directly:
 ```
 POST https://evalstate-hf-discover.hf.space/search
 ```
 
+```bash
+curl -s https://evalstate-hf-discover.hf.space/search \
+  -H "Content-Type: application/json" \
+  -d '{
+    "query": {
+      "text": "fine tune a sentence transformer",
+      "filter": {
+        "type": ["application/ai-skill"]
+      }
+    },
+    "pageSize": 5
+  }'
+```
+
+
+Search for MCP servers
+
+```bash
+curl -s https://evalstate-hf-discover.hf.space/search \
+  -H "Content-Type: application/json" \
+  -d '{
+    "query": {
+      "text": "transcribe some audio",
+      "filter": {
+        "type": ["application/mcp-server-card+json"]
+      }
+    },
+    "pageSize": 5
+  }'
+```
+
+Alternatively, connect any MCP Client to search via MCP endpoint using https://evalstate-hf-discover.hf.space/mcp to search the catalog.
+
+The catalog search is available for both anonymous 
 The Hub's semantic search runs with or without authentication. Authenticated calls have higher rate limits and access to private Spaces. Discover forwards a request-scoped token to the downstream search. There is no persistent token store on the registry.
 
 ## What this means for the specification
