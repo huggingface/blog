@@ -114,17 +114,17 @@ them out.
 
 A few words on how we'll evaluate agents here.
 
-We run every task under three variants (or "tiers"), increasing how much help the agent gets to drive `transformers`:
+We run every task under three variants (or "tiers") — three different ways an agent can come at `transformers`:
 
 ```text
-less help  ───────────────────────────────────────────▶  more help
-
-bare                  clone                   skill
-────                  ─────                   ─────
-pip install           git clone the repo      a packaged Skill: the
-transformers,         into the working dir    CLI's docs + task
-nothing else          (source at hand)        examples, in-context
+bare     pip install transformers, and nothing else
+clone    the full transformers source, checked out in the working directory
+skill    a packaged Skill: the CLI's docs + task examples, loaded in context
 ```
+
+These aren't nested: `skill` doesn't contain `clone` (it ships curated docs, not the source tree), and neither
+strictly contains the other, each gives the agent a different kind of help. As we'll see, a model can sometimes 
+do better on `clone` than on `skill`.
 
 A few more choices:
 
@@ -138,7 +138,7 @@ Not all models driving agents are equal, and their difference changes what you s
 
 *Frontier*
 
-At one end, you have the big, frontier models. On reasonably common tasks,
+At one end, you have the largest, most capable open models. On reasonably common tasks,
 these should get the right answer, eventually. For them, __"match %"__ saturates near
 100% and stops telling you much about your tool; a more interesting benchmark is the effort
 it took the agent to get there: how many turns, tokens and seconds it took, and whether they walked a clean
@@ -184,7 +184,7 @@ shareable through the Hub's [agent-traces viewer](https://huggingface.co/docs/hu
 
 The two model categories call for two different experiments.
 
-### Frontier models: hold the model, vary the tool
+### Frontier models: hold the model, vary the revision
 
 Since a frontier model will usually get to the correct result, what you're really
 measuring is the effort it took to do so. Did it take ten turns or one? Did it follow
@@ -232,15 +232,15 @@ token bump we measure here is closer to a worst case than to what a user would s
 
 ---
 
-### Small models: hold the tool, vary the model
+### Small models: hold the revision, vary the model
 
-Open models give you a knob the closed APIs don't: granular control over size,
-configuration, provider, training, among others. They're also where a good tool surface
+Open models give us fine-grained control over the variable that matters most here — size — along with
+configuration, provider, and training. They're also where a good tool surface
 matters most: a small model asked to "use `transformers` to do X" on a `bare` environment can
 guess an API that changed some releases ago, may do unnecessary tool calls, and can
 get the wrong answer.
 
-So here the experiment is the opposite of the above: hold the tool and sweep the model. This helps
+So here the experiment is the opposite of the above: hold the revision and sweep the model. This helps
 see which models actually take care of the task, not just by token count and time,
 but down to which ones can't reliably handle the tool calls. Our intuition is
 that the smaller the model, the harder both tool use and the task get; we ran the
