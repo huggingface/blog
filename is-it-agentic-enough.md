@@ -215,16 +215,16 @@ For the three large models we used in our tests, the average time spent on all t
 results in less time spent working on the tasks:
 
 <p align="center">
-  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/is-it-agentic-enough/img_8.png" alt="GLM-5.1, Kimi K2.6, and MiniMax 2.7 time spent working on the tasks" width="85%"><br>
-  <em>GLM-5.1, Kimi K2.6, and MiniMax 2.7 time spent working on the tasks</em>
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/is-it-agentic-enough/img_13.png" alt="Median time per revision, by tier" width="85%"><br>
+  <em>Median time per revision, by tier — the skill commit (green) is the fastest.</em>
 </p>
 
 On the other hand, in the experiments in which we cloned the repository, we can see a significant increase
 in token consumption due to the commit that introduced the CLI and examples, as we'll see in a moment.
 
 <p align="center">
-  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/is-it-agentic-enough/img_9.png" alt="Token usage on the clone variant across revisions (GLM-5.1, Kimi K2.6, MiniMax 2.7)" width="85%"><br>
-  <em>Token usage on the clone variant across revisions</em>
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/is-it-agentic-enough/img_12.png" alt="Median new tokens per revision, by tier" width="85%"><br>
+  <em>Median new tokens per revision, by tier — the clone variant jumps once the CLI lands in the repo.</em>
 </p>
 
 Reading the clone-variant traces explains why. The commit adds a command, but it also ships the
@@ -260,9 +260,17 @@ but down to which ones can't reliably handle the tool calls. Our intuition is
 that the smaller the model, the harder both tool use and the task get; we ran the
 harness across a range of model sizes to test exactly that:
 
+
 <p align="center">
-  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/is-it-agentic-enough/img.png" alt="Models swept across sizes on a single tool revision" width="85%"><br>
-  <em>Models swept across sizes, on a single tool revision</em>
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/is-it-agentic-enough/img_14.png" alt="Match % across models, by tier" width="85%"><br>
+  <em>Match % across models, by tier — the skill tier lifts the larger models but drops the smaller ones.</em>
+</p>
+
+which also seems to be correlated with the number of tokens generated
+
+<p align="center">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/is-it-agentic-enough/img_15.png" alt="Median new tokens across models, by tier" width="85%"><br>
+  <em>Median new tokens across models, by tier.</em>
 </p>
 
 > A note on fair comparison: naively averaging across tasks is misleading when
@@ -295,13 +303,13 @@ For `transformers` we declare a handful but we'll only look at the two most rele
   `transformers classify …`) instead of writing Python.
 - **`pipeline`**: it reached for the high-level `pipeline(...)` Python API.
 
-These are what we watch to see whether a change actually shifted the agent's behavior.
-
-Averaging across all models, the results are particularly interesting:
+These are what we watch to see whether a change actually shifted the agent's behavior. Interestingly here,
+the larger the model, the more it leverages the new context instead of using its memory; therefore leveraging
+the newly introduced CLI.
 
 <p align="center">
-  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/is-it-agentic-enough/img_4.png" alt="CLI adoption across all models" width="85%"><br>
-  <em>CLI adoption across all models</em>
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/is-it-agentic-enough/img_16.png" alt="CLI adoption by tier across models" width="85%"><br>
+  <em>CLI adoption by tier across models — only the skill tier reaches for it, and more so as models grow.</em>
 </p>
 
 CLI adoption is new: the CLI lands in a single commit, isn't in any model's training data, and is only
@@ -310,7 +318,7 @@ documentation, that actually reaches for it, at 55.3%.
 
 ### Is the CLI + Skill commit helping?
 
-Comparing the commit across model sizes, the CLI + Skill helps the bigger models: on the `skill` tier, Kimi and the other large agents reach for the CLI and finish in fewer turns. (On `clone` they spend *more* input tokens first - reading the new CLI code, as we saw above - so the win shows up in time and turns, not raw tokens.)
+Comparing the commit across model sizes, the CLI + Skill helps the bigger models: on the `skill` tier, Kimi and the other large agents reach for the CLI and finish in fewer turns. (On `clone` they spend *more* input tokens first, reading the new CLI code, as we saw above, so the win shows up in time and turns, not raw tokens.)
 
 <p align="center">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/is-it-agentic-enough/img_5.png" alt="Kimi-K2.6, GLM-5.1, and MiniMax-M2.7 across revisions" width="85%"><br>
