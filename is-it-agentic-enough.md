@@ -224,6 +224,12 @@ The two charts are then two sides of one tradeoff: the commit buys the large mod
 (they reach for the CLI instead of debugging Python) at the cost of more
 tokens (they read the code that taught them the CLI). A tradeoff worth knowing about before merging PRs.
 
+One caveat works in the CLI's favor, though, which isn't benchmarked yet: the cost of reading it is amortized 
+with successive runs. Our setup is built for one-off experiments — each run is a fresh agent that rediscovers 
+the CLI from scratch, so it pays the discovery cost every time. In real usage an agent learns the interface 
+once and then solves task after task within the same session, amortizing that cost across many requests. The
+token bump we measure here is closer to a worst case than to what a user would see day to day.
+
 ---
 
 ### Small models: hold the tool, vary the model
