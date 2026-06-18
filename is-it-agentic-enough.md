@@ -4,6 +4,7 @@ thumbnail: /blog/assets/is-it-agentic-enough/thumbnail.png
 authors:
 - user: lysandre
 - user: SaylorTwift
+- user: pcuenq
 ---
 
 # Is it agentic enough? Benchmarking open models on your own tooling
