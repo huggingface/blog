@@ -85,7 +85,8 @@ Both reach `POSITIVE (0.9999)`, and here are the two paths an agent actually too
 ```diff
 # Task: classify the sentiment of "I absolutely loved the movie, it was fantastic!"
 
-- # one agent: install deps, write a script, run it, parse the output
+- # one agent: pipe a script into python and parse the output
+- python - <<'PY'
 - from transformers import AutoTokenizer, AutoModelForSequenceClassification
 - import torch
 - import torch.nn.functional as F
@@ -98,6 +99,7 @@ Both reach `POSITIVE (0.9999)`, and here are the two paths an agent actually too
 - probs = F.softmax(logits, dim=1)
 - idx = torch.argmax(probs, dim=1).item()
 - print(model.config.id2label[idx], probs[0][idx].item())
+- PY
 
 + # the other agent: one command
 + transformers classify \
@@ -113,7 +115,6 @@ Skill) actually helped agents.
 
 Our goal with this harness is to evaluate how much work
 an agent has to do to perform a given task, and whether changes to the library improve performance.
-them out.
 
 ### How do we run evaluations?
 
@@ -141,7 +142,7 @@ A few more choices:
 
 Not all models driving agents are equal, and their difference changes what you should look at when running them.
 
-*Frontier*
+*Large open models*
 
 At one end, you have the largest, most capable open models. On reasonably common tasks,
 these should get the right answer, eventually. For them, __"match %"__ saturates near
@@ -190,15 +191,18 @@ through the Hub's [agent-traces viewer](https://huggingface.co/docs/hub/agent-tr
 
 <p align="center">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/is-it-agentic-enough/img_11.png" alt="A run rendered in the Hub's agent-traces viewer: MiniMax-M2.7 on the answer-question task" width="85%"><br>
-  <em>A run rendered in the Hub's agent-traces viewer — MiniMax-M2.7 on the answer-question task.</em><br>
+  <em>A run rendered in the Hub's agent-traces viewer: MiniMax-M2.7 on the answer-question task.</em><br>
   <a href="https://huggingface.co/buckets/lysandre/transformers-agentic-use/tree/traces/22404f7951/pi/MiniMaxAI--MiniMax-M2.7/bare__answer-question__run1.jsonl"><b>Open this trace on the Hub ↗</b></a>
 </p>
 
-The two model categories call for two different experiments.
+Before the results, a quick recap of the setup. Each run varies four things: the **model** driving the agent,
+the **`transformers` revision** it runs against, the **task**, and the **tier** (`bare` / `clone` / `skill`).
+The two experiments below each hold some of these fixed and sweep one; and the two classes of model call for
+different ones.
 
-### Frontier models: hold the model, vary the revision
+### Large open models: hold the model, vary the revision
 
-Since a frontier model will usually get to the correct result, what you're really
+Since a large open model will usually get to the correct result, what you're really
 measuring is the effort it took to do so. Did it take ten turns or one? Did it follow
 an API path you deprecated because it trusted obsolete documentation? Did it hit an
 error you hadn't foreseen?
@@ -214,7 +218,7 @@ results in less time spent working on the tasks:
 
 <p align="center">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/is-it-agentic-enough/img_13.png" alt="Median time per revision, by tier" width="85%"><br>
-  <em>Median time per revision, by tier — the skill commit (green) is the fastest.</em>
+  <em>Median time per revision, by tier: the skill commit (green) is the fastest.</em>
 </p>
 
 On the other hand, in the experiments in which we cloned the repository, we can see a significant increase
@@ -222,7 +226,7 @@ in token consumption due to the commit that introduced the CLI and examples, as 
 
 <p align="center">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/is-it-agentic-enough/img_12.png" alt="Median new tokens per revision, by tier" width="85%"><br>
-  <em>Median new tokens per revision, by tier — the clone variant jumps once the CLI lands in the repo.</em>
+  <em>Median new tokens per revision, by tier: the clone variant jumps once the CLI lands in the repo.</em>
 </p>
 
 Reading the clone-variant traces explains why. The commit adds a command, but it also ships the
@@ -261,7 +265,7 @@ harness across a range of model sizes to test exactly that:
 
 <p align="center">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/is-it-agentic-enough/img_14.png" alt="Match % across models, by tier" width="85%"><br>
-  <em>Match % across models, by tier — the skill tier lifts the larger models but drops the smaller ones.</em>
+  <em>Match % across models, by tier: the skill tier lifts the larger models but drops the smaller ones.</em>
 </p>
 
 which also seems to be correlated with the number of tokens generated
@@ -307,7 +311,7 @@ the newly introduced CLI.
 
 <p align="center">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/is-it-agentic-enough/img_16.png" alt="CLI adoption by tier across models" width="85%"><br>
-  <em>CLI adoption by tier across models — only the skill tier reaches for it, and more so as models grow.</em>
+  <em>CLI adoption by tier across models: only the skill tier reaches for it, and more so as models grow.</em>
 </p>
 
 CLI adoption is new: the CLI lands in a single commit, isn't in any model's training data, and is only
@@ -323,12 +327,11 @@ Comparing the commit across model sizes, the CLI + Skill helps the bigger models
   <em>Kimi-K2.6, GLM-5.1, and MiniMax-M2.7 across revisions</em>
 </p>
 
-But it somehow seems to **hurt the smaller models**. Our intuition is that small models lean
-on memorized API patterns, therefore reproducing `pipeline(...)` snippets
-they've seen in their training data. The new concepts are therefore a larger
+But in some smaller-model settings, it appears to **hurt performance**. One plausible explanation is that small
+models lean on memorized API patterns, reproducing `pipeline(...)` snippets
+they've seen in their training data. The new concepts are then a larger
 surface for them to get wrong. You can watch this directly on the harness: lower
-match %, more retries, the `cli` marker barely firing (`[[fill in: small-model
-numbers]]`), particularly striking on the Qwen3-4B model:
+match %, more retries, the `cli` marker barely firing, particularly striking on the Qwen3-4B model:
 
 <p align="center">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/is-it-agentic-enough/img_7.png" alt="Qwen3-4B time and token distributions across revisions" width="85%"><br>
@@ -339,10 +342,14 @@ Reading the traces shows how the extra surface backfired. Let's look at Qwen3-14
 overall match rate from 49% (bare) to 32%, and on the simplest tasks the collapse is total:
 `classify-sentiment` goes from 100% on the `clone` variant to **0%** with the Skill. 
 
-Looking at the traces, the model treats `transformers` as a tool (as in, an agentic harness tool, like web-search).
-In 39 of its 56 Skill runs it either emits a `transformers(command="classify", ...)` call (a tool that doesn't exist), 
-since the CLI is meant to be run in the shell, or, finding nothing like it among its `read`/`bash`/`edit`/`write` tools,
-simply reasons that it *can't* run a model and gives up. Either way, rather than fall back to the one-line
+Looking at the traces, the model mistakes the CLI for a *tool it can call directly* (as in an agentic-harness
+tool, like web-search). The Skill is **not** an executable tool: it's documentation loaded
+into the agent's context, and the `transformers` CLI is only ever meant to be run from the shell (via `bash`); so this
+will not work.
+
+Qwen3-14B reads the Skill and, in 39 of its 56 Skill runs, either emits a `transformers(command="classify", ...)`
+tool call (a tool that was never registered) or, finding nothing like it among its `read`/`bash`/`edit`/`write`
+tools, concludes it *can't* run a model and gives up. Either way, rather than fall back to the one-line
 `pipeline(...)` that scored 100% on the `clone` checkout, it declares the task impossible.
 
 <p align="center">
@@ -350,10 +357,12 @@ simply reasons that it *can't* run a model and gives up. Either way, rather than
   <em>Qwen3-14B on classify-sentiment (Skill variant): it reasons that read/bash/edit/write can't run a model, and gives up.</em>
 </p>
 
-This is exactly what we built the harness to catch: the same change that speeds the frontier models up
+This is exactly what we built the harness to catch: the same change that speeds the large models
 ends up breaking the small ones, which seemed a bit counterintuitive to us at first and something we'd likely have
-shipped as-is. It also hints at a fix: rather than hand-write a Skill and check it after the fact, you could
-generate and validate one against the weaker models up front. 
+shipped as-is. The takeaway for maintainers: **agent-facing APIs should be evaluated across model sizes, because a
+new affordance can reduce work for strong models while adding ambiguity for smaller ones.** It also hints at a fix:
+rather than hand-write a Skill and check it after the fact, you could generate and validate one against the weaker
+models up front. 
 
 This is exactly what [Upskill](https://huggingface.co/blog/upskill) does: it turns a strong model's solution into 
 a Skill only when it measurably helps the smaller ones.
@@ -377,7 +386,7 @@ doesn't tell you what it costs: the turns, tokens, errors, and the path it took 
 get there. This harness measures that, across the revisions and models you pick.
 
 On `transformers`, it caught something we'd have shipped on faith: the CLI + Skill
-helps frontier models and hurts the smallest ones. Worth knowing before merging!
+helps the largest open models and hurts the smallest ones. Worth knowing before merging!
 
 It's profile-based, and designed to be adaptable: point it at your own library, define
 a few tasks and their expected answers, get the same report. Code and tasks are in
