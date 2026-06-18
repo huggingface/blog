@@ -144,7 +144,7 @@ The benchmarks cannot fully lift the responsibility to do your research, but the
 
 <table align="center">
   <tr>
-    <td align="center"><a href="https://huggingface.co/spaces/peft-internal-testing/PEFT-shop"><img src="https://huggingface.co/datasets/peft-internal-testing/peft-blog-assets/resolve/main/peft-beyond-lora/peft-shop.png" width="600"/></a></td>
+    <td align="center"><a href="https://huggingface.co/spaces/peft-internal-testing/PEFT-shop"><img src="https://huggingface.co/datasets/peft-internal-testing/peft-blog-assets/resolve/main/peft-beyond-lora/peft-shop.png" width="100%"/></a></td>
   </tr>
   <tr>
     <td align="center"><em>Click on the image to peruse the PEFT shop to find the best PEFT technique for you. It allows you to browse not only by benchmark metrics but also by capabilities, like quantization support.</em></td>
