@@ -22,15 +22,13 @@ happily bypass it and rewrite the logic from scratch. This introduces a new conc
 the code should not only be correct and fast, but should be designed so that an agent can drive it. A clunky API
 or stale docs annoys us developers, but it now also sends the agent down a longer, more expensive path.
 
-Most benchmarks focus on the final answer and stop. We wanted to understand the entire process, designed for 
-our specific tools. For every run, the whole trace: the turns, tokens, time it took, whether it errored, and which 
-code path it used, measured across many models and agents, library revisions, and tasks. We built that harness and ran 
-it on `transformers` as our case study, but it's deliberately tool-agnostic: point it at any library with a command-line entry
-point and you get the same view.
+Most benchmarks stop at the final answer. We wanted the whole process instead: not just whether the agent got
+it right, but how much work it took to get there, and how that shifts across models, library revisions, and
+tasks. We measured exactly that, using `transformers` as our case study.
 
-We're entering an era where open models and open-source tooling can be used to work with our open-source 
-libraries. The question is no longer "can the agent get the right answer?" but "how do we optimize our tooling
-so that agents get the right answer faster". 
+We're entering an era where open models, open-source tooling, and our open-source libraries make up a stack we
+can shape end to end. That changes the question a maintainer should ask: not "can the agent get the right
+answer?" (it usually can) but "how do we shape our tooling so it gets there with less work?". 
 
 Here, we will introduce a tool specific benchmark focusing on how the answer was found, and provide a simple 
 implementation of one such harness, running entirely on open models driven by the
@@ -354,11 +352,15 @@ simply reasons that it *can't* run a model and gives up. Either way, rather than
 
 This is exactly what we built the harness to catch: the same change that speeds the frontier models up
 ends up breaking the small ones, which seemed a bit counterintuitive to us at first and something we'd likely have
-shipped as-is.
+shipped as-is. It also hints at a fix: rather than hand-write a Skill and check it after the fact, you could
+generate and validate one against the weaker models up front. 
+
+This is exactly what [Upskill](https://huggingface.co/blog/upskill) does: it turns a strong model's solution into 
+a Skill only when it measurably helps the smaller ones.
 
 ## Trying it yourself
 
-The harness is one CLI, `ag`. Install it, run a suite, fan it out across models × revisions on HF Jobs, and publish the
+The harness is one CLI, `agent-eval`. Install it, run a suite, fan it out across models × revisions on HF Jobs, and publish the
 report as a Hugging Face Space. 
 
 > [!WARNING]
