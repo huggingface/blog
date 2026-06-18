@@ -265,7 +265,7 @@ harness across a range of model sizes to test exactly that:
   <em>Match % across models, by tier: the skill tier lifts the larger models but drops the smaller ones.</em>
 </p>
 
-which also seems to be correlated with the number of tokens generated
+which also seems to be correlated with the number of tokens ingested
 
 <p align="center">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/is-it-agentic-enough/img_15.png" alt="Median new tokens across models, by tier" width="85%"><br>
@@ -324,20 +324,31 @@ Comparing the commit across model sizes, the CLI + Skill helps the bigger models
   <em>Kimi-K2.6, GLM-5.1, and MiniMax-M2.7 across revisions</em>
 </p>
 
-But in some smaller-model settings, it appears to **hurt performance**. One plausible explanation is that small
+But in some smaller-model settings, it appears to hurt performance. One plausible explanation is that small
 models lean on memorized API patterns, reproducing `pipeline(...)` snippets
 they've seen in their training data. The new concepts are then a larger
 surface for them to get wrong. You can watch this directly on the harness: lower
-match %, more retries, the `cli` marker barely firing, particularly striking on the Qwen3-4B model:
+match %, more retries, the `cli` marker barely firing. It is particularly striking on the Qwen3-4B model:
+the Skill barely changes its match rate yet its cost distribution is significantly affected. 
+
+Almost all of that comes from the `clone` tier. The checkout now contains
+the CLI's implementation and `cli/agentic/*.py` examples, and the 4B agent reads them in bulk: its median new
+tokens jump from ~2.4k to ~23k, with time and output skyrocketing as well, for no gain in
+accuracy.
 
 <p align="center">
-  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/is-it-agentic-enough/img_7.png" alt="Qwen3-4B time and token distributions across revisions" width="85%"><br>
-  <em>Qwen3-4B time and token distributions across revisions</em>
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/is-it-agentic-enough/img_7.png" alt="Qwen3-4B cost distributions across revisions: elapsed, new tokens, repeat tokens, out tokens" width="85%"><br>
+  <em>Qwen3-4B across revisions. The CLI + Skill commit fans the cost distribution wide open, on the <code>clone</code> tier the agent reads the newly-shipped CLI source in bulk (~10× the new tokens), for no gain in match %. (<code>repeat tokens</code> stays flat: this setup uses no prompt caching.)</em>
 </p>
 
-Reading the traces shows how the extra surface backfired. Let's look at Qwen3-14B directly: adding the Skill drops its
-overall match rate from 49% (bare) to 32%, and on the simplest tasks the collapse is total:
-`classify-sentiment` goes from 100% on the `clone` variant to **0%** with the Skill. 
+Sometimes, though, the Skill breaks correctness outright. Reading the traces shows how, for example for Qwen3-14B: 
+adding the Skill drops its overall match rate from 67% (bare) to 43%, and on the simplest tasks the collapse is very
+visible: `classify-sentiment` goes from 100% on the `clone` variant to **0%** with the Skill. 
+
+<p align="center">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/is-it-agentic-enough/img_17.png" alt="Qwen3-14B classify-sentiment match % by tier across revisions" width="85%"><br>
+  <em>Qwen3-14B on <code>classify-sentiment</code>, by tier: <code>clone</code> (blue) holds at 100% across revisions, but the Skill variant (green) collapses to 0% at the CLI + Skill revision.</em>
+</p>
 
 Looking at the traces, the model mistakes the CLI for a *tool it can call directly* (as in an agentic-harness
 tool, like web-search). The Skill is **not** an executable tool: it's documentation loaded
