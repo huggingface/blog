@@ -5426,6 +5426,15 @@
     - mlp
     - liger
 
+- local: agentic-resource-discovery-launch
+  date: June 17, 2026
+  tags:
+    - announcement
+    - agents
+    - mcp
+    - hub
+    - open-source
+
 - local: peft-beyond-lora
   date: June 18, 2026
   tags:
