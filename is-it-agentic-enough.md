@@ -179,7 +179,7 @@ All of it lands in a report you can directly examine:
 	style="max-width:100%"
 ></iframe>
 <br>
-  <em>The live report: Overview, Coverage, and Results, all client-side.t </em>
+  <em>The live report: Overview, Coverage, and Results, all client-side.</em>
 </p>
 
 And because it captures the native agent trace of every run, numbers are just the beginning: you
