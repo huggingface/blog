@@ -5442,3 +5442,16 @@
     - evaluation
     - cli
     - open-source
+
+- local: peft-beyond-lora
+  date: June 18, 2026
+  tags:
+    - peft
+    - lora
+    - guide
+    - transformers
+    - diffusers
+    - nlp
+    - stable-diffusion
+    - fine-tuning
+    - community
