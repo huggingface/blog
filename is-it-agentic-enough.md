@@ -175,11 +175,10 @@ All of it lands in a report you can directly examine:
 	src="https://transformers-community-is-transformers-agentic.static.hf.space"
 	frameborder="0"
 	width="850"
-	height="450"
+	height="900"
 ></iframe>
 <br>
-  <em>The live report: Overview, Coverage, and Results, all client-side.
-  (Not loading? <a href="https://transformers-community-is-transformers-agentic.static.hf.space">open it in a new tab</a>.)</em>
+  <em>The live report: Overview, Coverage, and Results, all client-side.t </em>
 </p>
 
 And because it captures the native agent trace of every run, numbers are just the beginning: you
