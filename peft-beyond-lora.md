@@ -10,7 +10,9 @@ authors:
 
 # Beyond LoRA: Can you beat the most popular fine-tuning technique?
 
-<img src="https://huggingface.co/datasets/peft-internal-testing/peft-blog-assets/resolve/main/peft-beyond-lora/lora-celebration.png" alt="Is LoRA the best PEFT technique?" width="600"/>
+<p align="center">
+    <img src="https://huggingface.co/datasets/peft-internal-testing/peft-blog-assets/resolve/main/peft-beyond-lora/lora-celebration.png" alt="Is LoRA the best PEFT technique?" width="600"/>
+</p>
 
 # When you plan to fine-tune a model in a parameter-efficient way, think beyond LoRA
 
