@@ -1,6 +1,6 @@
 ---
 title: "Agentic Resource Discovery: Let agents search" 
-thumbnail: /blog/assets/agentic-resource-discovery-launch/thumbnail.png
+thumbnail: /blog/assets/agentic-resource-discovery-launch/thumbnail_.png
 authors:
 - user: burtenshaw
 - user: evalstate
