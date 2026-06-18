@@ -19,10 +19,10 @@ authors:
 Coding agents increasingly work with our software instead of us: describe a task, and the agent picks the library,
 writes the calls, runs them, and debugs its own mistakes. When the library gets in the way, it will
 happily bypass it and rewrite the logic from scratch. This introduces a new concept in library development:
-the code should not only be correct and fast, but should be designed so that an agent can drive it. A clunky API
-or stale docs annoys us developers, but it now also sends the agent down a longer, more expensive path.
+the code should not only be correct and fast, but should be designed so that an agent can drive it effectively. A clunky API
+or stale docs annoy us developers, but it now also sends the agent down a longer, more expensive path.
 
-Most benchmarks stop at the final answer. We wanted the whole process instead: not just whether the agent got
+Most benchmarks just look at the final answer. We wanted the whole process instead: not just whether the agent got
 it right, but how much work it took to get there, and how that shifts across models, library revisions, and
 tasks. We measured exactly that, using `transformers` as our case study.
 
@@ -197,8 +197,7 @@ through the Hub's [agent-traces viewer](https://huggingface.co/docs/hub/agent-tr
 
 Before the results, a quick recap of the setup. Each run varies four things: the **model** driving the agent,
 the **`transformers` revision** it runs against, the **task**, and the **tier** (`bare` / `clone` / `skill`).
-The two experiments below each hold some of these fixed and sweep one; and the two classes of model call for
-different ones.
+As discussed, we look at different metrics for the two different model categories.
 
 ### Large open models: hold the model, vary the revision
 
@@ -218,7 +217,7 @@ results in less time spent working on the tasks:
 
 <p align="center">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/is-it-agentic-enough/img_13.png" alt="Median time per revision, by tier" width="85%"><br>
-  <em>Median time per revision, by tier: the skill commit (green) is the fastest.</em>
+  <em>Median time per revision, by tier: the skill commit (green dot) is the fastest.</em>
 </p>
 
 On the other hand, in the experiments in which we cloned the repository, we can see a significant increase
@@ -245,8 +244,6 @@ with successive runs. Our setup is built for one-off experiments. Each run is a 
 the CLI from scratch, so it pays the discovery cost every time. In real usage an agent learns the interface 
 once and then solves task after task within the same session, amortizing that cost across many requests. The
 token bump we measure here is closer to a worst case than to what a user would see day to day.
-
----
 
 ### Small models: hold the revision, vary the model
 
@@ -390,7 +387,8 @@ helps the largest open models and hurts the smallest ones. Worth knowing before 
 
 It's profile-based, and designed to be adaptable: point it at your own library, define
 a few tasks and their expected answers, get the same report. Code and tasks are in
-the [repo](https://github.com/huggingface/is-it-agentic-enough), traces are on the Hub!
+the [repo](https://github.com/huggingface/is-it-agentic-enough), traces are on the Hub.
+Let us know if you use it for your project!
 
 ## Acknowledgements
 
