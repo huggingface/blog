@@ -5,6 +5,7 @@ authors:
 - user: BenjaminB
 - user: sayakpaul
 - user: hubnemo
+- user: kashif
 ---
 
 # Beyond LoRA: Can you beat the most popular fine-tuning technique?
@@ -13,17 +14,17 @@ authors:
 
 # When you plan to fine-tune a model in a parameter-efficient way, think beyond LoRA
 
-If you want to fine-tune an open model on your own data, you are probably interested in so-called parameter-efficient fine-tuning, in short *PEFT*. This term describes techniques that significantly reduce the memory requirement to fine-tune a model. Although there are dozens of these techniques, almost everyone chooses one called “LoRA”. In this blog post, we explore if LoRA is really the best choice, what tools are available to make an informed decision, and how you can benefit from extending your horizon beyond LoRA.
+If you want to fine-tune an open model on your own data, you are probably interested in so-called parameter-efficient fine-tuning, in short *PEFT*. This term describes techniques that significantly reduce the memory requirement to fine-tune a model. Although there are dozens of these techniques, almost everyone chooses one called “LoRA”. In this blog post, we explore whether LoRA is really the best choice, what tools are available to make an informed decision, and how you can benefit from extending your horizon beyond LoRA.
 
 # What is PEFT and when do you need it
 
-There are countless open models available, but often they're not quite good enough for your use case. Prompting may help, but usually isn't enough. Rather than training a new model from scratch, you should consider fine-tuning an existing one.
+There are countless open models available, but they often aren't quite good enough for your use case. Prompting may help, but it usually isn't enough. Rather than training a new model from scratch, you should consider fine-tuning an existing one.
 
 Fine-tuning, however, is memory-hungry: you generally need enough memory to fit the whole model several times over. Quantization reduces a model's memory footprint, but quantized models can't be fine-tuned directly. So a set of techniques emerged to cut the memory needed for fine-tuning, called "parameter-efficient fine-tuning", or PEFT.
 
-With PEFT, you can fine-tune a model using only a fraction of that memory and even fine-tune quantized models. It offers other advantages too, such as tiny checkpoint sizes, better resistance to catastrophic forgetting, and serving multiple fine-tunes from the same base model.
+With PEFT, you can fine-tune a model using only a fraction of that memory and even fine-tune quantized models. It offers other advantages, such as tiny checkpoint sizes, greater resistance to catastrophic forgetting, and the ability to serve multiple fine-tunes from the same base model.
 
-At Hugging Face, we develop the [`PEFT` library](https://github.com/huggingface/peft), which implements many PEFT techniques behind a unified API and integrates well with the ecosystem, for example [`Transformers`](https://huggingface.co/docs/transformers/main/en/peft) and [`Diffusers`](https://huggingface.co/docs/diffusers/main/en/api/loaders/peft) . It also supports [multiple quantization methods](https://huggingface.co/docs/peft/developer_guides/quantization), enabling further accessibility in parameter-efficient fine-tuning. `PEFT` provides a good starting point whether you want to fine-tune on your own data or you're researching a new PEFT method.
+At Hugging Face, we develop the [`PEFT` library](https://github.com/huggingface/peft), which implements many PEFT techniques behind a unified API and integrates well with the ecosystem, for example [`Transformers`](https://huggingface.co/docs/transformers/main/en/peft) and [`Diffusers`](https://huggingface.co/docs/diffusers/main/en/api/loaders/peft). It also supports [multiple quantization methods](https://huggingface.co/docs/peft/developer_guides/quantization), enabling further accessibility in parameter-efficient fine-tuning. `PEFT` provides a good starting point, whether you want to fine-tune on your own data or you're researching a new PEFT method.
 
 # LoRA: The queen of fine-tuning techniques 👑
 
@@ -37,7 +38,7 @@ Among all PEFT techniques, LoRA is by far the most popular. Here are a few estim
 
 Although these estimates are not perfect, the conclusion is nonetheless that LoRA is almost certainly by far the most common PEFT technique.
 
-This could just mean that LoRA works best for everyone and this fact is reflected in its usage statistics. There is, however, another possibility: LoRA was one of the earlier, popular PEFT techniques. So maybe its usage became self-reinforcing: LoRA has the highest visibility, the highest number of tutorials/examples, and it has the best support in downstream packages. Thus LoRA's popularity feeds on itself.
+This could just mean that LoRA works best for everyone, and this fact is reflected in its usage statistics. There is, however, another possibility: LoRA was one of the earlier, popular PEFT techniques. So maybe its usage became self-reinforcing: LoRA has the highest visibility, the highest number of tutorials/examples, and it has the best support in downstream packages. Thus LoRA's popularity feeds on itself.
 
 This all leads to the question: *Are we all leaving performance on the table by shunning better techniques?* After all, there are countless researchers whose papers claim their technique beats LoRA. Isn't that sufficient proof that we should go beyond LoRA in favor of newer techniques?
 
@@ -88,7 +89,7 @@ After finishing the benchmark runs, we found that although LoRA works well, othe
 
 One way to interpret the results above is to think in terms of tradeoffs, for example: How well does the model perform on the test set vs how much memory is needed to train it? If a PEFT technique cannot be beaten on both of these metrics at the same time by any other technique, it is on the *Pareto Frontier*. In other words: If you want better test accuracy, you need more memory, and if you want more memory efficiency, you have to give up on accuracy.
 
-Let's take a closer look at the results for the LLM Math dataset benchmark. When it comes to test accuracy vs memory, we find that LoRA is indeed on the Pareto frontier. It achieves 53.2% test accuracy and requires 22.6 GB of VRAM at the peak. There are, however, other PEFT techniques on the Pareto Frontier. For instance, [BEFT](https://huggingface.co/docs/peft/main/en/package_reference/beft) achieves 32.9% test accuracy and requires only 20.2 GB of memory at max. On the other end, we have [Lily](https://huggingface.co/docs/peft/main/en/package_reference/lily) which achieves 54.9% test accuracy but requires 25.6 GB of memory. Depending on what's more important to you, you may conclude that LoRA does not present the best tradeoff for you.
+Let's take a closer look at the results for the LLM Math dataset benchmark. When it comes to test accuracy vs memory, we find that LoRA is indeed on the Pareto frontier. It achieves 53.2% test accuracy and requires 22.6 GB of VRAM at the peak. There are, however, other PEFT techniques on the Pareto Frontier. For instance, [BEFT](https://huggingface.co/docs/peft/main/en/package_reference/beft) achieves 32.9% test accuracy and requires only 20.2 GB of memory at max. On the other end, we have [Lily](https://huggingface.co/docs/peft/main/en/package_reference/lily), which achieves 54.9% test accuracy but requires 25.6 GB of memory. Depending on what's more important to you, you may conclude that LoRA does not present the best tradeoff for you.
 
 <table align="center">
   <tr>
@@ -112,7 +113,7 @@ Next let's take a look at the image generation benchmark. In the [Hugging Face S
   </tr>
 </table>
 
-For this task, the main metric is “dino similarity”, which measures how much a generated image resembles the picture from a hold out test dataset, with higher values being better. As always, we also want to keep an eye on memory usage. When plotting the Pareto Frontier of these two metrics, we find that LoRA is below that frontier. Let's get concrete numbers: LoRA achieves a similarity score of 0.697 whereas [OFT](https://huggingface.co/docs/peft/package_reference/oft) achieves 0.708; in terms of memory, LoRA requires 9.97 GB and OFT requires 9.01 GB. Therefore, OFT strictly dominates LoRA on these metrics.
+For this task, the main metric is “dino similarity”, which measures how much a generated image resembles the picture from a holdout test dataset, with higher values being better. As always, we also want to keep an eye on memory usage. When plotting the Pareto Frontier of these two metrics, we find that LoRA is below that frontier. Let's get concrete numbers: LoRA achieves a similarity score of 0.697 whereas [OFT](https://huggingface.co/docs/peft/package_reference/oft) achieves 0.708; in terms of memory, LoRA requires 9.97 GB, and OFT requires 9.01 GB. Therefore, OFT strictly dominates LoRA on these metrics.
 
 <table align="center">
   <tr>
