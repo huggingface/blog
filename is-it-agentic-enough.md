@@ -27,10 +27,6 @@ Most benchmarks just look at the final answer. We wanted the whole process inste
 it right, but how much work it took to get there, and how that shifts across models, library revisions, and
 tasks. We measured exactly that, using `transformers` as our case study.
 
-We're entering an era where open models, open-source tooling, and our open-source libraries make up a stack we
-can shape end to end. That changes the question a maintainer should ask: not "can the agent get the right
-answer?" (it usually can) but "how do we shape our tooling so it gets there with less work?". 
-
 Here, we will introduce a tool specific benchmark focusing on how the answer was found, and provide a simple 
 implementation of one such harness, running entirely on open models driven by the
 [pi](https://www.npmjs.com/package/@mariozechner/pi-coding-agent) coding agent, with the full sweep of
@@ -146,7 +142,7 @@ Not all models driving agents are equal, and their difference changes what you s
 *Large open models*
 
 At one end, you have the largest, most capable open models. On reasonably common tasks,
-these should get the right answer, eventually. For them, __"match %"__ saturates near
+these should get the right answer, eventually. For them, task completion saturates near
 100% and stops telling you much about your tool; a more relevant benchmark is the effort
 it took the agent to get there: how many turns, tokens and seconds it took, and whether they walked a clean
 path or used deprecated APIs.
