@@ -174,8 +174,9 @@ All of it lands in a report you can directly examine:
 <iframe
 	src="https://transformers-community-is-transformers-agentic.static.hf.space"
 	frameborder="0"
-	width="850"
+	width="100%"
 	height="900"
+	style="max-width:100%"
 ></iframe>
 <br>
   <em>The live report: Overview, Coverage, and Results, all client-side.t </em>
