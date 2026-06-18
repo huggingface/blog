@@ -5433,4 +5433,12 @@
     - agents
     - mcp
     - hub
+
+- local: is-it-agentic-enough
+  date: June 18, 2026
+  tags:
+    - agents
+    - transformers
+    - evaluation
+    - cli
     - open-source
