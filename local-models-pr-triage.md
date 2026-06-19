@@ -146,6 +146,13 @@ We did not need to do prompt optimization for `gemma-4-26b-a4b` or `qwen3.6-35b-
 | Total parameters | 26B | 35B | 284B |
 | Active parameters | 4B | 3B | 13B |
 
+The throughput and wall-clock numbers here are not definitive maximum performance numbers for these models on this hardware. They are the settings we used at the time with the optimizations we had available. For example, in a separate probe, `gemma-4-26b-a4b` also supported concurrency 32 and reached over 700 aggregate output tokens per second.
+
+<figure class="image table text-center m-0 w-full" style="text-align: center;">
+  <img src="assets/local-models-pr-triage/benchmark-comparison.svg" alt="Benchmark comparison across the 330-row label set" style="display: block; width: 100%; min-width: 300px; margin: 0 auto;" />
+  <figcaption>Benchmark comparison across the 330-row label set. Each panel uses its own vertical scale; blue marks the best value for that metric.</figcaption>
+</figure>
+
 For the Gemma benchmark, we served `gemma-4-26b-a4b` with vLLM using the optimizations we found available for this setup. A big part of that is the NVFP4 quantization: on GB10-class Blackwell hardware, it is not just a smaller model file, but a hardware-friendly format that can use the NVIDIA/vLLM execution path more directly than a portable GGUF quantization like Q4_K_M. In practice, that means less memory traffic and more room for batching. We also enabled prefix caching, FP8 KV cache, the CUTLASS MoE backend, and language-model-only mode. The full 330-row run finished in about 7.5 minutes at concurrency 16.
 
 ## Tracking and validating real time performance using OpenClaw
