@@ -131,7 +131,7 @@ For evaluation, we used the 330-row `evalstate-openclaw-git-labels` set from our
 
 We did not need to do prompt optimization for `gemma-4-26b-a4b` or `qwen3.6-35b-a3b` before getting useful results on this evaluation set. Using the same routing prompt, Gemma had higher recall and lower wall-clock time per row, while Qwen had higher precision, higher exact match, and fewer false positives. We also ran the DS4 Flash GGUF setup on the same set as a reference. It had the fewest false positives, but the model size and throughput make it impractical for executing these tasks in real time on the NVIDIA GB10. Since each row can have multiple labels, false positives and false negatives are total label counts across all rows. The Qwen result below is after retrying structured-output failures where the model ran out of output tokens before calling `final_json`.
 
-| Metric | `gemma-4-26b-a4b` | `qwen3.6-35b-a3b` | DS4 Flash GGUF |
+| Metric | `gemma-4-26b-a4b` | `qwen3.6-35b-a3b` | `DeepSeek-V4-Flash` |
 | --- | ---: | ---: | ---: |
 | Concurrency | 16 | 4 | 1 |
 | Precision | 0.706 | 0.834 | 0.938 |
