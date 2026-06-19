@@ -129,18 +129,18 @@ For early prompt work, we also used the larger DeepSeek-V4-Flash model (I will r
 
 For evaluation, we used the 330-row `evalstate-openclaw-git-labels` set from our [OpenClaw classification dataset](https://huggingface.co/datasets/dutifuldev/openclaw-classification-dataset). We generated it programmatically from real OpenClaw issues and PRs: each row had five teacher passes behind it, three GPT teacher runs and two Opus teacher runs, and the pipeline kept rows whose modal labels were stable enough under its quality gates. We use those labels as a fixed comparison target for local model runs while still treating ambiguous cases as genuinely subjective.
 
-We did not need to do prompt optimization for `gemma-4-26b-a4b` or `qwen3.6-35b-a3b` before getting useful results on this evaluation set. Using the same routing prompt, Gemma had higher recall and lower wall-clock time per row, while Qwen had higher precision, higher exact match, and fewer false positives. Since each row can have multiple labels, false positives and false negatives are total label counts across all rows. The Qwen result below is after retrying structured-output failures where the model ran out of output tokens before calling `final_json`.
+We did not need to do prompt optimization for `gemma-4-26b-a4b` or `qwen3.6-35b-a3b` before getting useful results on this evaluation set. Using the same routing prompt, Gemma had higher recall and lower wall-clock time per row, while Qwen had higher precision, higher exact match, and fewer false positives. We also ran DS4 on the same set as a reference. It had the fewest false positives, but the model size and throughput make it impractical for executing these tasks in real time on the NVIDIA GB10. Since each row can have multiple labels, false positives and false negatives are total label counts across all rows. The Qwen result below is after retrying structured-output failures where the model ran out of output tokens before calling `final_json`.
 
-| Metric | `gemma-4-26b-a4b` | `qwen3.6-35b-a3b` |
-| --- | ---: | ---: |
-| Concurrency | 16 | 4 |
-| Precision | 0.706 | 0.834 |
-| Recall | 0.904 | 0.812 |
-| F1 | 0.793 | 0.823 |
-| Exact match | 0.394 | 0.524 |
-| False positives | 238 | 102 |
-| False negatives | 61 | 119 |
-| Wall seconds / row | 1.36 | 14.42 |
+| Metric | `gemma-4-26b-a4b` | `qwen3.6-35b-a3b` | DS4 Flash |
+| --- | ---: | ---: | ---: |
+| Concurrency | 16 | 4 | 1 |
+| Precision | 0.706 | 0.834 | 0.938 |
+| Recall | 0.904 | 0.812 | 0.714 |
+| F1 | 0.793 | 0.823 | 0.811 |
+| Exact match | 0.394 | 0.524 | 0.509 |
+| False positives | 238 | 102 | 30 |
+| False negatives | 61 | 119 | 181 |
+| Wall seconds / row | 1.36 | 14.42 | 144.14 |
 
 For the Gemma benchmark, we served `gemma-4-26b-a4b` with vLLM using the optimizations we found available for this setup. A big part of that is the NVFP4 quantization: on GB10-class Blackwell hardware, it is not just a smaller model file, but a hardware-friendly format that can use the NVIDIA/vLLM execution path more directly than a portable GGUF quantization like Q4_K_M. In practice, that means less memory traffic and more room for batching. We also enabled prefix caching, FP8 KV cache, the CUTLASS MoE backend, and language-model-only mode. The full 330-row run finished in about 7.5 minutes at concurrency 16.
 
