@@ -11,11 +11,11 @@ authors:
 
 # Introducing the FFASR Leaderboard: Benchmarking ASR in the Real World
 
-> 🚀 **First open far-field ASR benchmark:** community-driven evaluation across 14 simulated rooms and 9 acoustic conditions, validated against real-world measurements
+> 🚀 **First open far-field ASR benchmark:** community-driven evaluation across 14 simulated rooms, validated against real-world measurements
 >
 > 📉 **The gap is real and it is large:** across all submitted models, far-field WER at low SNR is consistently several times higher than near-field WER on the same speech content
 >
-> 🔬 **Methodology you can trust:** hybrid wave-based simulation, sim-to-real validation, moving-source splits in beta, held-out audio, and standardized hardware across all submissions
+> 🔬 **Methodology you can trust:** hybrid wave-based simulation, sim-to-real validation, moving-source splits in beta, held-out audio, and standardized evaluation hardware across all submissions
 >
 > ⚡ **Accuracy and speed together:** the Pareto front plots average WER against RTFx so you can evaluate the tradeoff that is right for your deployment
 >
