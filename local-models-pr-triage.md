@@ -133,6 +133,8 @@ We did not need to do prompt optimization for `gemma-4-26b-a4b` or `qwen3.6-35b-
 
 | Metric | `gemma-4-26b-a4b` | `qwen3.6-35b-a3b` | `DeepSeek-V4-Flash` |
 | --- | ---: | ---: | ---: |
+| Total parameters | 26B | 35B | 284B |
+| Active parameters | 4B | 3B | 13B |
 | Concurrency | 16 | 4 | 1 |
 | Precision | 0.706 | 0.834 | 0.938 |
 | Recall | 0.904 | 0.812 | 0.714 |
