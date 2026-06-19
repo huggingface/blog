@@ -5455,3 +5455,12 @@
     - stable-diffusion
     - fine-tuning
     - community
+
+- local: huggingface-hub-release-ci
+  date: TODO TODO TODO
+  tags:
+    - ci
+    - huggingface_hub
+    - agents
+    - hub
+    - release
