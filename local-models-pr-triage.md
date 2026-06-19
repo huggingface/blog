@@ -135,9 +135,6 @@ We did not need to do prompt optimization for `gemma-4-26b-a4b` or `qwen3.6-35b-
 
 | Metric | `gemma-4-26b-a4b` | `qwen3.6-35b-a3b` | `DeepSeek-V4-Flash` |
 | --- | ---: | ---: | ---: |
-| Total parameters | 26B | 35B | 284B |
-| Active parameters | 4B | 3B | 13B |
-| Concurrency | 16 | 4 | 1 |
 | Precision | 0.706 | 0.834 | 0.938 |
 | Recall | 0.904 | 0.812 | 0.714 |
 | F1 | 0.793 | 0.823 | 0.811 |
@@ -145,6 +142,9 @@ We did not need to do prompt optimization for `gemma-4-26b-a4b` or `qwen3.6-35b-
 | False positives | 238 | 102 | 30 |
 | False negatives | 61 | 119 | 181 |
 | Wall seconds / row | 1.36 | 14.42 | 144.14 |
+| Concurrency | 16 | 4 | 1 |
+| Total parameters | 26B | 35B | 284B |
+| Active parameters | 4B | 3B | 13B |
 
 For the Gemma benchmark, we served `gemma-4-26b-a4b` with vLLM using the optimizations we found available for this setup. A big part of that is the NVFP4 quantization: on GB10-class Blackwell hardware, it is not just a smaller model file, but a hardware-friendly format that can use the NVIDIA/vLLM execution path more directly than a portable GGUF quantization like Q4_K_M. In practice, that means less memory traffic and more room for batching. We also enabled prefix caching, FP8 KV cache, the CUTLASS MoE backend, and language-model-only mode. The full 330-row run finished in about 7.5 minutes at concurrency 16.
 
