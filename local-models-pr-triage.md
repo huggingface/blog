@@ -142,6 +142,8 @@ We did not need to do prompt optimization for `gemma-4-26b-a4b` or `qwen3.6-35b-
 | False positives | 238 | 102 | 30 |
 | False negatives | 61 | 119 | 181 |
 | Wall seconds / row | 1.36 | 14.42 | 144.14 |
+| Output tok/s / worker | 25 | 50 | 13 |
+| Output tok/s aggregate | 402.6 | 145.3 | 13 |
 | Concurrency | 16 | 4 | 1 |
 | Total parameters | 26B | 35B | 284B |
 | Active parameters | 4B | 3B | 13B |
