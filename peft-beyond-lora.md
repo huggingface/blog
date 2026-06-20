@@ -48,7 +48,7 @@ This all leads to the question: *Are we all leaving performance on the table by 
 
 There are dozens of papers that investigate fine-tuning techniques other than LoRA. Just in the `PEFT` library, there are more than 40 distinct PEFT techniques at the time of writing (and numerous more when counting variations of PEFT techniques). For almost all of them, you will find researchers claiming that their technique beats LoRA according to their benchmarks.
 
-The trouble with these claims is that researchers are under pressure to provide results that beat the existing benchmark. Even without ill intent, this can bias the results, e.g. by spending less time tuning the alternative techniques compared to the one proposed by the researchers. One study found, for instance, that LoRA can match supposedly better PEFT techniques by tuning the learning rate ([https://arxiv.org/abs/2602.04998](https://arxiv.org/abs/2602.04998)).
+The trouble with these claims is that researchers are under pressure to provide results that beat the existing benchmark. Even without ill intent, this can bias the results, e.g. by spending less time tuning the alternative techniques compared to the one proposed by the researchers. [One study](https://arxiv.org/abs/2602.04998) found, for instance, that LoRA can match supposedly better PEFT techniques by tuning the learning rate.
 
 Another complication is that each paper chooses a different set of PEFT techniques to compare to, and a different set of benchmarks to run. And even if the same technique is compared on the same benchmark, the code is often not available or not easy to run yourself, which makes results hard to reproduce.
 
@@ -106,7 +106,8 @@ It is also worth noting that even though LoRA does well on this task, we're not 
 
 Next let's take a look at the image generation benchmark. In the [Hugging Face Space](https://huggingface.co/spaces/peft-internal-testing/PEFT-method-comparison), choose “image-gen” in the “Select Task” dropdown to show the results. The goal of the task is to learn a new concept, namely a cat plushy, and generalize it to new prompts.
 
-<table align="center">
+<div align="center">
+<table>
   <tr>
     <td align="center"><img src="https://huggingface.co/datasets/peft-internal-testing/peft-blog-assets/resolve/main/peft-beyond-lora/cat-plushy-lora.png" width="400"/></td>
   </tr>
@@ -114,6 +115,7 @@ Next let's take a look at the image generation benchmark. In the [Hugging Face S
     <td align="center"><em>Cat plushy image created with LoRA fine-tuned on <code>FLUX.2-klein-base-4B</code>.</em></td>
   </tr>
 </table>
+</div>
 
 For this task, the main metric is “dino similarity”, which measures how much a generated image resembles the picture from a holdout test dataset, with higher values being better. As always, we also want to keep an eye on memory usage. When plotting the Pareto Frontier of these two metrics, we find that LoRA is below that frontier. Let's get concrete numbers: LoRA achieves a similarity score of 0.697 whereas [OFT](https://huggingface.co/docs/peft/package_reference/oft) achieves 0.708; in terms of memory, LoRA requires 9.97 GB, and OFT requires 9.01 GB. Therefore, OFT strictly dominates LoRA on these metrics.
 
@@ -130,11 +132,12 @@ Of course, you should also check the other PEFT methods that are close to the Pa
 
 # Limitations
 
+> [!WARNING]
 > Objection: But the benchmarks favor one method over another!
 
 One criticism that could be leveled at the `PEFT` benchmarks is that the choice of hyper-parameters may favor one technique over another. This is true, doing an exhaustive and fair hyper-parameter sweep with this many techniques is difficult. It is, however, very easy for everyone to contribute their own experiments to `PEFT`: If you believe that a specific PEFT technique can be improved by choosing different hyper-parameters, create a PR! We added [instructions on how to do that](https://github.com/huggingface/peft/tree/main/method_comparison#creating-new-experiments). In a similar vein, if you want to contribute a completely new benchmark, reach out to us to discuss your idea.
 
-Another problem with the benchmarks is that they may not fully reflect the capabilities of a specific PEFT technique. We make it possible to compare the techniques along many different dimensions and discover the best ones according to these tradeoffs. But it's impossible to capture all facets this way. For instance, one PEFT technique called Cartridges ([https://huggingface.co/docs/peft/package_reference/cartridges](https://huggingface.co/docs/peft/package_reference/cartridges)) was developed to compress long prompts, which is not measured in the benchmarks. Other factors can also influence the choice, for instance:
+Another problem with the benchmarks is that they may not fully reflect the capabilities of a specific PEFT technique. We make it possible to compare the techniques along many different dimensions and discover the best ones according to these tradeoffs. But it's impossible to capture all facets this way. For instance, one PEFT technique called [Cartridges](https://huggingface.co/docs/peft/package_reference/cartridges) was developed to compress long prompts, which is not measured in the benchmarks. Other factors can also influence the choice, for instance:
 
 * Depending on the PEFT technique, only certain layer types can be modified.
 * Not all PEFT techniques support quantized base models (but we actively expand the support in `PEFT`).
@@ -175,13 +178,11 @@ While working on the `PEFT` package, we noticed that LoRA has a lot of momentum 
 
 Given the results we found, we can confidently conclude that LoRA is not a bad choice at all, but there are potentially better choices. Especially when checking the image generation benchmark, LoRA is beaten by other techniques. We discussed that besides metrics, other considerations must be taken into account when choosing the right PEFT technique. However, even then, we are pushing `PEFT` further to achieve feature parity between LoRA and those other techniques.
 
-Our journey is far from finished, we want to extend and improve the existing benchmarks, and we also plan to add more benchmarks in the future. We ensured that it is easy for the community to contribute, so if this is something you would like to do, please open an [issue on the `PEFT` repository](https://github.com/huggingface/peft/issues) and let us know how you would like to contribute.
+Our journey is far from finished; we want to extend and improve the existing benchmarks, and we also plan to add more benchmarks in the future. We ensured that it is easy for the community to contribute, so if this is something you would like to do, please open an [issue on the `PEFT` repository](https://github.com/huggingface/peft/issues) and let us know how you would like to contribute.
 
 If you take away only one thing from this article, it is that LoRA should not be the automatic default when choosing a PEFT technique for your use case. Given the unified API provided by `PEFT`, changing from one PEFT technique to another is as easy as switching one config in your code. And even if you stick with LoRA, check out all the variants that are supported in `PEFT`: DoRA, rs-LoRA, LoRA-FA etc. Give these other techniques a try and you might be pleasantly surprised.
 
-<p align="left">
-  <em>Example: Changing from LoRA to OFT using `PEFT`</em>
-</p>
+Example: Changing from LoRA to OFT using `PEFT`:
 
 ```diff
 from transformers import AutoModelForCausalLM
