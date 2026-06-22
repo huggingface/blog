@@ -11,7 +11,7 @@ authors:
 
 # We got local models to triage the OpenClaw repo for FREE!*
 
-*\*Free as in beer, excluding the cost of electricity, and assuming you already own an NVIDIA GB10*
+*\*Free as in beer, excluding the cost of electricity, and assuming you already own the hardware*
 
 June 2026 will go down as the moment that people realized closed models can be taken away. With the removal of Anthropic's latest flagship model Claude Fable 5 fresh in memory, one can see why it is more important than ever to own your AI stack and be able to run models locally, especially if you are building your business on top of AI.
 
