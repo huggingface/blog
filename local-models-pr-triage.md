@@ -125,7 +125,7 @@ The architecture is semi-agentic. Labeling is done agentically, while sending a 
 
 ## Can local models triage PRs?
 
-Let's be frank: the first local versions of this system were noisy. `gemma-4-e4b-it` was useful for getting the end-to-end local pipeline working, but it also had a tendency to put too many unrelated labels on a PR or issue. That pushed us toward testing larger local models, including `gemma-4-26b-a4b` and `qwen3.6-35b-a3b`, on the 330-row evaluation set below.
+Let's be frank: the first local versions of this system were noisy. The first model tested - `gemma-4-e4b-it` was useful for getting the end-to-end local pipeline working, but it also had a tendency to put too many unrelated labels on a PR or issue. False positive labels make the Discord feed noisy and don't focus my attention on the right issues. That pushed us toward testing larger local models, including `gemma-4-26b-a4b` and `qwen3.6-35b-a3b`, on the 330-row evaluation set below.
 
 For early prompt work, we also used `DeepSeek-V4-Flash` through the antirez DS4 implementation[^4] to create the earlier dataset labels. That setup used the DS4 server over CUDA. We eventually gave up on DS4 as the labeler because it was not labeling consistently across runs. We also did not consider it as the main `localpager-agent` model because it was too big to get enough throughput on our hardware: the DS4 server gave us around 14 tokens per second, with maximum concurrency of 1.
 
