@@ -1,5 +1,5 @@
 ---
-title: "Shipping `huggingface_hub` every week with AI, open tools, and a human in the loop"
+title: "Shipping huggingface_hub every week with AI, open tools, and a human in the loop"
 thumbnail: /blog/assets/huggingface-hub-release-ci/thumbnail.png
 authors:
 - user: Wauplin
