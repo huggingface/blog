@@ -198,7 +198,7 @@ However, the same approach can be applied to other domains as well:
 
 The list can be extended, but we think that the idea should be clear.
 
-Besides triaging, we have also explored how classification can be performed with agent harnesses running fast local models in a secure manner. We called this approach *agentic classification*: the model is not fed the entire body of information upfront, but can search for more context before returning structured data.
+Besides triaging, we have also explored how classification can be performed with agent harnesses running fast local models in a secure manner. A good naming for the approach would be *agentic classification*: the model is not fed the entire body of information upfront, but can search for more context before returning structured data. While we cannot exactly call this a novel approach, we hope for this blog post to be a good reference for the specific [Pi](https://pi.dev)+a restricted shell+`final_json` recipe.
 
 [^1]: For the use case in this post, we have discovered that breaking down a PR/Issue in a way that means the product surface is understood and labelled correctly is a hard problem.
 [^2]: Although in our testing we didn't---it would be quite reasonable for a model to conclude a next-step to gather info, use an external classifier. The agentic approach and the traditional approach are not mutually exclusive.
