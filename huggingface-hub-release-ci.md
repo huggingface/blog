@@ -221,7 +221,7 @@ This is the part we cared about most. The workflow is shaped around `huggingface
 - The exact section taxonomy and tone in the skills.
 - The Slack and bucket destinations.
 
-To adapt it: fork the file, point it at your package, rewrite the skill Markdown for your project's voice, set two repo variables (the model ID and your OpenCode version), setup Trusted Publishing on PyPI, and delete the downstream-testing job if you don't have downstreams. The trust-but-verify loop is the part worth reusing as-is. It's what makes a generated artifact safe to ship.
+To adapt it: fork the [workflow file](https://github.com/huggingface/huggingface_hub/blob/main/.github/workflows/release.yml) and [scripts](https://github.com/huggingface/huggingface_hub/tree/main/utils/release_notes), point it at your package, rewrite the [skill Markdown](https://github.com/huggingface/huggingface_hub/blob/main/.opencode/skills/hf-release-notes/SKILL.md) for your project's voice, set two repo variables (the model ID and your OpenCode version), setup Trusted Publishing on PyPI, and delete the downstream-testing job if you don't have downstreams. The trust-but-verify loop is the part worth reusing as-is. It's what makes a generated artifact safe to ship.
 
 ## What's next
 
