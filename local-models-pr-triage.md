@@ -11,9 +11,9 @@ authors:
 
 # We got local models to triage the OpenClaw repo for FREE!*
 
-*\*Free as in beer, excluding the cost of electricity, and assuming you already own an Nvidia GB10*
+*\*Free as in beer, excluding the cost of electricity, and assuming you already own an NVIDIA GB10*
 
-June 2026 will go down as the moment that people realized closed models can be taken away. With the removal of Anthropic's latest flagship model Fable fresh in memory, one can see why it is more important than ever to own your AI stack and be able to run models locally, especially if you are building your business on top of AI.
+June 2026 will go down as the moment that people realized closed models can be taken away. With the removal of Anthropic's latest flagship model Claude Fable 5 fresh in memory, one can see why it is more important than ever to own your AI stack and be able to run models locally, especially if you are building your business on top of AI.
 
 In that light, we wanted to share how we use local models like Gemma and Qwen in an agent harness, to run classification tasks[^1]. This approach is different from using a model like BERT for classification. A local model in an agent harness like Pi can be used in tandem with structured outputs, to assign labels. We chose this approach because we already had local models and the harness on hand, and have conviction that similar setups will increase in popularity as local models improve in capability.[^2]
 
@@ -107,7 +107,7 @@ So then what orchestrates everything in between the incoming PR/issue and the fi
   <figcaption>This is what the final filtered Discord notification looks like: a PR about the desired vertical gets routed to me.</figcaption>
 </figure>
 
-This part is very simple and does not involve any LLMs:
+The orchestration around this is very simple; only the classification step involves an LLM:
 
 1. We use [openclaw/gitcrawl](http://github.com/openclaw/gitcrawl) to act as a local mirror for the repo. Whenever there is a new PR or issue, each item is normalized into the same shape and written into localpager's own SQLite database. If the item is new, localpager creates a classification job for it.
 2. A worker then claims jobs from that queue. It builds a GitHub context object containing the issue or PR title, body, labels, author, state, and optionally comments, changed files, and selected diff excerpts. That means the local model does not need to browse GitHub or open the URL itself most of the time. It is handed all the relevant context.
@@ -120,7 +120,7 @@ Below is a figure showing the overall architecture of localpager:
   <img src="assets/local-models-pr-triage/localpager-architecture.svg" alt="Localpager architecture" style="display: block; width: 70%; min-width: 300px; margin: 0 auto;" />
 </figure>
 
-The architecture is semi-agentic. Labeling is done agentically, while sending a notification is handled by deterministic rules. This is to make the notification pipeline faster by removing the need for inference for the most straightforward parts of the task. Local inference is free but each task has a resource contention cost: GPU bandwidth should be reserved for tasks where inference is absolutely needed. This also reduces chance of errors from notifcation.
+The architecture is semi-agentic. Labeling is done agentically, while sending a notification is handled by deterministic rules. This is to make the notification pipeline faster by removing the need for inference for the most straightforward parts of the task. Local inference is free but each task has a resource contention cost: GPU bandwidth should be reserved for tasks where inference is absolutely needed. This also reduces chance of errors from notification.
 
 
 ## Can local models triage PRs?
@@ -129,9 +129,9 @@ Let's be frank: the first local versions of this system were noisy. The first mo
 
 For early prompt work, we also used `DeepSeek-V4-Flash` through the antirez DS4 implementation[^4] to create the earlier dataset labels. That setup used the DS4 server over CUDA. We eventually gave up on DS4 as the labeler because it was not labeling consistently across runs. We also did not consider it as the main `localpager-agent` model because it was too big to get enough throughput on our hardware: the DS4 server gave us around 14 tokens per second, with maximum concurrency of 1.
 
-To test model performance, we selected and generated labels for 330 GitHub issues. Each issue was labelled five times (3x GPT-5.5 and 2x Opus 4.8) with the models needing to be in agreement to be accepted. This process involved hand adjudicating, improving label definitions and highlighting internal product design choices for the models. This gave us a set of stable, reproducable labels to compare our smaller models against. 
+To test model performance, we selected and generated labels for 330 GitHub issues and PRs. Each item was labelled five times (3x GPT-5.5 and 2x Opus 4.8) with the models needing to be in agreement to be accepted. This process involved hand adjudicating, improving label definitions and highlighting internal product design choices for the models. This gave us a set of stable, reproducible labels to compare our smaller models against.
 
-We did not need to do prompt optimization for `gemma-4-26b-a4b` or `qwen3.6-35b-a3b` before getting useful results on this evaluation set. Using the same routing prompt, Gemma had higher recall and lower wall-clock time per row, while Qwen had higher precision, higher exact match, and fewer false positives. We also ran `DeepSeek-V4-Flash` on the same set as a reference. It had the fewest false positives, but the model size and throughput make it impractical for executing these tasks in real time on the NVIDIA GB10. Since each row can have multiple labels, false positives and false negatives are total label counts across all rows. The Qwen results below are after retrying structured-output failures where the model ran out of output tokens before calling `final_json`. For Gemma and Qwen, the score and wall-clock rows report mean ± sample standard deviation across three runs. `DeepSeek-V4-Flash` was run once as a reference.
+We did not need to do prompt optimization for `gemma-4-26b-a4b` or `qwen3.6-35b-a3b` before getting useful results on this evaluation set. Using the same routing prompt, Gemma had higher recall and lower wall-clock time per row, while Qwen had higher precision, higher exact match, and fewer false positives. We also ran `DeepSeek-V4-Flash` on the same set as a reference. It had the fewest false positives, but the model size and throughput make it impractical for executing these tasks in real time on the NVIDIA GB10. Since each row can have multiple labels, false positives and false negatives are total label counts across all rows. The Qwen results below are after retrying structured-output failures where the model ran out of output tokens before calling `final_json`. For Gemma and Qwen, repeated-run metrics report mean ± sample standard deviation across three runs. `DeepSeek-V4-Flash` was run once as a reference.
 
 | Metric | `gemma-4-26b-a4b` | `qwen3.6-35b-a3b` | `DeepSeek-V4-Flash` |
 | --- | ---: | ---: | ---: |
@@ -157,7 +157,7 @@ The throughput and wall-clock numbers here are not definitive maximum performanc
 
 For the Gemma benchmark, we served `gemma-4-26b-a4b` with vLLM using the optimizations we found available for this setup. A big part of that is the NVFP4 quantization: on GB10-class Blackwell hardware, it is not just a smaller model file, but a hardware-friendly format that can use the NVIDIA/vLLM execution path more directly than a portable GGUF quantization like Q4_K_M. In practice, that means less memory traffic and more room for batching. We also enabled prefix caching, FP8 KV cache, the CUTLASS MoE backend, and language-model-only mode. The full 330-row run finished in about 7.5 minutes at concurrency 16.
 
-## Tracking and validating real time performance using OpenClaw
+## Tracking and validating real-time performance using OpenClaw
 
 We have mentioned earlier that instead of running a job with a local model for every new issue or PR, we can run a batch job with a SOTA cloud model, like GPT-5.5 running in OpenClaw, every n hours (e.g. every 2 hours) to achieve the same end.[^5]
 
