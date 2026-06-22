@@ -185,7 +185,7 @@ The instructions on how to classify, edit the machine-readable file, get the fal
 
 ## Conclusion
 
-We think that the issue/PR triage task is a specific case of a broader set of tasks which we call "high throughput triage". This post explored the idea of using a local model to filter out information in real time in only one domain, that is, open source contributions.
+We think that the issue/PR triage task is a specific case of a broader set of tasks which we call "high throughput triage". This post explored the idea of using a local model to filter out information in real time in only one domain, that is, open source contributions. The ability of medium-sized local models like `gemma-4-26b-a4b` and `qwen3.6-35b-a3b` to one-shot classify with good accuracy without any need for fine-tuning makes them a good first choice for quick prototyping, before one moves on to more cost-efficient traditional classifier models.
 
 However, the same approach can be applied to other domains as well:
 
