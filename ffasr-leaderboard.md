@@ -23,7 +23,7 @@ authors:
 
 The gap between benchmark performance and real-world deployment is one of the more persistent frustrations in ASR development. Models that score well on standard evaluations often behave differently once real room acoustics are involved: reverberation, background noise, microphone distance. The complex interactions between these factors affect performance in ways that clean-speech benchmarks do not capture. The FFASR Leaderboard is our attempt to quantify that gap.
 
-Today, Treble Technologies and Hugging Face are launching the Far-Field ASR (FFASR) Leaderboard, the first open, community-driven benchmark designed to evaluate ASR models under realistic far-field acoustic conditions. It is live now, and we are inviting the community to submit models, explore the results, and help shape what comes next.
+Today, [Treble Technologies](https://huggingface.co/treble-technologies) and Hugging Face are launching the Far-Field ASR (FFASR) Leaderboard, the first open, community-driven benchmark designed to evaluate ASR models under realistic far-field acoustic conditions. It is live now, and we are inviting the community to submit models, explore the results, and help shape what comes next.
 
 ## Why far-field evaluation matters
 
