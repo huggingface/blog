@@ -28,7 +28,7 @@ hf jobs run --flavor a10g-large --expose 8000 --timeout 2h \
   vllm serve Qwen/Qwen3-4B --host 0.0.0.0 --port 8000
 ```
 
-`--expose 8000` routes the container's port through HF's public jobs proxy. The command prints the URL your server is reachable at:
+`--expose 8000` routes the container's port through HF's public jobs proxy (see the [Serve Models guide](https://huggingface.co/docs/hub/jobs-serving) for the full reference). The command prints the URL your server is reachable at:
 
 ```
 ✓ Job started
@@ -152,3 +152,29 @@ Run it, open `http://127.0.0.1:7860`, and chat — reasoning streams into the co
 <video alt="vllm-jobs-chat-ui" autoplay loop autobuffer muted playsinline>
   <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/vllm-jobs/demo.mp4" type="video/mp4">
 </video>
+
+## Going further: SSH into the running server
+
+Need to debug a startup failure, watch GPU memory, or tail logs interactively? You can open a shell straight into the running job. Launch it with `--ssh` and make sure your public key is registered at [huggingface.co/settings/keys](https://huggingface.co/settings/keys):
+
+```bash
+hf jobs run --flavor a10g-large --expose 8000 --timeout 2h --ssh \
+  vllm/vllm-openai:latest \
+  vllm serve Qwen/Qwen3-4B --host 0.0.0.0 --port 8000
+```
+
+then connect with the job ID:
+
+```bash
+hf jobs ssh <job_id>
+```
+
+You're now inside the container, where you can run `nvidia-smi`, inspect the process, or poke at the model directly — which makes debugging and monitoring much easier than reading logs from the outside. SSH support requires `huggingface_hub >= 1.20.0`.
+
+## HF Jobs or Inference Endpoints?
+
+HF Jobs isn't the only way to serve a model on Hugging Face. [Inference Endpoints](https://huggingface.co/docs/inference-endpoints) cover the same ground from a different angle, and which one fits depends on what you're after.
+
+Reach for **HF Jobs** when you want maximum flexibility and control: it's just `docker run` on HF infrastructure, so you pick the image, the exact `vllm serve` flags, and the hardware, and you pay per second for as long as the job runs. That makes it a great fit for experiments, one-off evals, batch generation, or kicking the tires on a model before committing to anything.
+
+Reach for **Inference Endpoints** when you want something more production-ready. They add the operational niceties a long-lived service needs: finer-grained access control (an endpoint can be public, protected, or private), and scale-to-zero, so you're not billed during periods of inactivity. If you're standing up a durable endpoint rather than running a job, that's the tool to grab.
