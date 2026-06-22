@@ -159,7 +159,7 @@ For the Gemma benchmark, we served `gemma-4-26b-a4b` with vLLM using the optimiz
 
 ## Tracking and validating real time performance using OpenClaw
 
-We have mentioned earlier that instead of running a job with a local model for every new issue or PR, we can run a batch job with a SOTA cloud model, like GPT-5.5 running in OpenClaw, every n hours (e.g. every 2 hours) to achieve the same end.
+We have mentioned earlier that instead of running a job with a local model for every new issue or PR, we can run a batch job with a SOTA cloud model, like GPT-5.5 running in OpenClaw, every n hours (e.g. every 2 hours) to achieve the same end.[^5]
 
 In that case, we would need a ChatGPT Pro plan. Since the model is SOTA, we can still expect it to perform reasonably well, despite batching 2 hours of issues/PRs together.
 
@@ -204,3 +204,4 @@ Besides triaging, we have also explored how classification can be performed with
 [^2]: Although in our testing we didn't---it would be quite reasonable for a model to conclude a next-step to gather info, use an external classifier. The agentic approach and the traditional approach are not mutually exclusive.
 [^3]: See full list of topics and other configuration [here](https://github.com/osolmaz/localpager/blob/main/examples/profiles/openclaw-routing-topics.json)
 [^4]: We used `DeepSeek-V4-Flash-IQ2XXS-w2Q2K-AProjQ8-SExpQ8-OutQ8-chat-v2.gguf` from [antirez/deepseek-v4-gguf](https://huggingface.co/antirez/deepseek-v4-gguf).
+[^5]: While we are aware that using an LLM as a judge negates the "free" aspect, our specific implementation does this for research purposes. In practice, a bigger and more expensive model can be used in tandem during a trial period for calibration, after which the system would transition fully to the smaller one.
