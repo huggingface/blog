@@ -5455,3 +5455,18 @@
     - stable-diffusion
     - fine-tuning
     - community
+
+- local: cross-origin-storage
+  date: June 23, 2026
+  tags:
+    - cross-origin-storage
+    - cos
+    - announcement
+    - open-source
+    - web-standards
+    - browser
+    - transformers.js
+    - javascript
+    - chrome-extension
+    - chrome
+    - on-device
