@@ -39,7 +39,7 @@ A secondary goal is to encourage the development of models that are explicitly r
 
 The FFASR Leaderboard evaluates models across nine conditions. The four that determine the primary ranking score are:
 
-- Near-field (dry) — clean speech as a clean baseline
+- Near-field (dry) — clean speech measured in an anechoic chamber (similar to Librispeech but with minimal reverberation)
 - Far-field high SNR (above 14 dB)
 - Far-field mid SNR (8 to 12 dB)
 - Far-field low SNR (below 6 dB)
