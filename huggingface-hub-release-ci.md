@@ -93,7 +93,7 @@ The remaining manual steps are reviewing and publishing the draft release notes,
 
 Here's the failure mode everyone worries about with AI-generated release notes: the model quietly drops a PR or invents one that isn't in this release. A changelog that's almost right is worse than no changelog because nobody re-checks it.
 
-We don't trust the generated release notes to be complete on first-shot, we verify it deterministically. Before the model runs, a Python script retrieves all PRs that belong to the release and store them as ground truth.
+We don't trust the generated release notes to be complete on the first-shot, we verify it deterministically. Before the model runs, a Python script retrieves all PRs that belong to the release and stores them as ground truth.
 
 ```python
 # Deterministic: extract PR numbers from squash-merge commits in the range.
