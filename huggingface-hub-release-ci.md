@@ -10,7 +10,7 @@ authors:
 
 `huggingface_hub` is the Python client at the base of the Hugging Face ecosystem. `transformers`, `datasets`, `diffusers`, `sentence-transformers` and dozens of other libraries depend on it to talk to the Hub. Every week we don't ship is a week of fixes and features stuck on `main`.
 
-For a long time we released every 4 to 6 weeks. We now release every week from a single GitHub Actions workflow. We built it using open-source tools and open-weights models and kept a human in the loop at the one place where judgment matters. Nothing in this post requires a vendor contract, a closed model, or infrastructure you can't run yourself. That was a design goal from the start since we wanted a workflow other maintainers could pick up and adapt. So can you, by the end of this post.
+For a long time we released every 4 to 6 weeks. We now release every week from a single GitHub Actions workflow. We built it using open-source tools and open-weights models and kept a human in the loop at the one place where judgment matters. Nothing in this post requires a vendor contract, a closed model, or infrastructure you can't run yourself. That was a design goal from the start since we wanted a workflow other maintainers could pick up and adapt. By the end of this post, you'll have everything you need to build your own.
 
 ## Where we started
 
@@ -54,7 +54,7 @@ Here's the entire stack:
 | **[HF Inference Providers](https://huggingface.co/docs/inference-providers/index)**               | Serves the model                                |
 | **[PyPI Trusted Publishing](https://docs.pypi.org/trusted-publishers/)**                          | Publishes the package                           |
 
-The second principle: the model drafts, a human decides. Language models are good at turning thirty terse PR titles into readable release notes. They are not good at being trusted blindly. So the workflow is semi-supervised: the model does the first pass, a deterministic script checks its work, and a human reviews and edits before anything ships (more on that below).
+The second principle: the model drafts, a human decides. Language models are good at turning thirty terse PR titles into readable release notes. They are not good at being trusted blindly. So the workflow is human-supervised: the model does the first pass, a deterministic script checks its work, and a human reviews and edits before anything ships (more on that below).
 
 ## A tour of the pipeline
 
@@ -72,7 +72,7 @@ on:
           - patch-release      # bugfix on an existing release branch
 ```
 
-From there, jobs fan out (roughly in order):
+From there, the jobs run roughly in this order:
 
 - **Prepare.** Compute the next version, create or reuse the release branch, bump `__version__`, commit, tag, push.
 - **Publish to PyPI.** Build and upload `huggingface_hub`. In parallel, build and upload the `hf` CLI as its own PyPI package.
@@ -82,12 +82,12 @@ From there, jobs fan out (roughly in order):
 - **Archive notes.** Upload both the raw AI draft and the human-edited version to a Hugging Face Bucket, side by side.
 - **Post-release bump.** After a stable release, open a PR on `main` bumping to the next `dev0`.
 - **Comment on shipped PRs.** Leave a "this shipped in vX.Y.Z" comment on every PR in the release.
-- **Sync CLI docs.** Push the latest `hf` CLI skill docs to our `skills` repo.
+- **Sync CLI docs.** Open a PR to our [skills](https://github.com/huggingface/skills) repo with the regenerated `hf` CLI skill docs.
 - **Report to Slack.** Every step posts its status as a thread reply; a final job updates the root message with ✅ or ❌.
 
 The remaining manual steps are reviewing and publishing the draft release notes, and reviewing and posting an internal Slack message. Those two steps are where we want a human in the loop.
 
-## Trust but verify: the semi-supervised core
+## Trust but verify: the human-in-the-loop core
 
 Here's the failure mode everyone worries about with AI-generated release notes: the model quietly drops a PR or invents one that isn't in this release. A changelog that's almost right is worse than no changelog because nobody re-checks it.
 
@@ -144,7 +144,7 @@ def fetch_doc_diffs(pr):
 
 That diff goes into the model's context so when it writes "here's the new CLI command," it's quoting the example the PR author actually wrote in the docs. That's the same logic as before: give the model real source material and a narrow job.
 
-The prompts themselves live as Skills: small Markdown files (`SKILL.md` plus reference templates) checked into the repo. The release-notes skill spells out how to pick highlights, how to structure sections, when to add a doc link, etc. It reads like documentation for a careful junior teammate, which is the right mental model.
+The prompts themselves live as [Skills](https://github.com/huggingface/huggingface_hub/tree/main/.opencode/skills/hf-release-notes): small Markdown files (`SKILL.md` plus reference templates) checked into the repo. The release-notes skill spells out how to pick highlights, how to structure sections, when to add a doc link, etc. It reads like onboarding instructions, which is exactly the right mental model.
 
 ## The human checkpoint
 
@@ -194,7 +194,7 @@ Open tooling doesn't mean careless tooling.
 
 ## So, what did it cost?
 
-Almost nothing. A full release (notes plus Slack announcement, across 20 to 40 PRs and several rounds of prompting) runs to well under a dollar on Inference Providers (~0.25$). Open weights served pay-as-you-go means the marginal cost of a release rounds to zero, so the only question left is "is there something worth shipping?", and weekly, there always is.
+Almost nothing. A full release (notes plus the Slack announcement, across 20-40 PRs and a few rounds of prompting) costs about **0.25$** on Inference Providers. With open weights billed pay-as-you-go, the only real question each week is "is there something worth shipping?", and there always is.
 
 ## What changed in practice
 
@@ -202,7 +202,7 @@ The cadence went from one release every 4 to 6 weeks to once a week. The seconda
 
 - **Notes got better, not worse.** A first draft always exists, so review time goes to polishing. Grouping is more consistent and we omit fewer things.
 - **Breakages surface earlier.** Downstream test branches on every RC catch integration issues during the candidate window.
-- **Contributor loops shortened.** The automatic "shipped in vX.Y.Z" comment turned out to be the sleeper feature. When someone reports an issue on a closed PR, everyone can immediately see which release the fix is in. That used to be a manual tag hunt.
+- **Contributor loops shortened.** The automatic "shipped in vX.Y.Z" comment turned out to matter more than we expected. When someone reports an issue on a closed PR, everyone can immediately see which release the fix is in. That used to be a manual tag hunt.
 
 ## Make it yours
 
@@ -221,7 +221,7 @@ This is the part we cared about most. The workflow is shaped around `huggingface
 - The exact section taxonomy and tone in the skills.
 - The Slack and bucket destinations.
 
-To adapt it: fork the file, point it at your package, rewrite the skill Markdown for your project's voice, set two repo variables (the model ID and your OpenCode version), setup Trusted Publishing on PyPI, and delete the downstream-testing job if you don't have downstreams. The trust-but-verify loop is the part worth stealing. It's what makes a generated artifact safe to ship.
+To adapt it: fork the file, point it at your package, rewrite the skill Markdown for your project's voice, set two repo variables (the model ID and your OpenCode version), setup Trusted Publishing on PyPI, and delete the downstream-testing job if you don't have downstreams. The trust-but-verify loop is the part worth reusing as-is. It's what makes a generated artifact safe to ship.
 
 ## What's next
 
