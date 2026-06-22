@@ -10,7 +10,9 @@ authors:
 
 `huggingface_hub` is the Python client at the base of the Hugging Face ecosystem. `transformers`, `datasets`, `diffusers`, `sentence-transformers` and dozens of other libraries depend on it to talk to the Hub. Every week we don't ship is a week of fixes and features stuck on `main`.
 
-For a long time we released every 4 to 6 weeks. We now release every week from a single GitHub Actions workflow. We built it using open-source tools and open-weights models and kept a human in the loop at the one place where judgment matters. Nothing in this post requires a vendor contract, a closed model, or infrastructure you can't run yourself. That was a design goal from the start since we wanted a workflow other maintainers could pick up and adapt. By the end of this post, you'll have everything you need to build your own.
+For a long time we released every 4 to 6 weeks. We now release every week from a single GitHub Actions workflow. We built it using open-source tools and open-weights models and kept a human in the loop at the one place where judgment matters. Nothing in this post requires a vendor contract, a closed model, or infrastructure you can't run yourself. That was a design goal from the start since we wanted a workflow other maintainers could pick up and adapt. 
+
+By the end of this post, you'll have everything you need to build your own.
 
 ## Where we started
 
