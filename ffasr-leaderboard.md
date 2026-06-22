@@ -88,7 +88,7 @@ Open the Submit tab on the [FFASR Leaderboard](https://huggingface.co/spaces/tre
 
 For teams using more complex inference stacks, including systems that combine speech enhancement with ASR, a custom evaluator option allows you to define your own `evaluate()` function. Custom evaluators run on Hub Jobs after moderator review, and the submission notes field is a good place to document any preprocessing steps so results are interpretable by others.
 
-The held-out evaluation set uses 2,000 anechoic speech samples across 14 rooms at three SNR tiers, approximately 8 hours of audio per condition, with Whisper-style text normalization applied consistently. The audio is not exposed to submitters, which keeps the benchmark meaningful as participation grows.
+The held-out evaluation set uses 2,000 anechoic speech samples across 14 rooms at three SNR tiers, approximately 8 hours of audio per condition, with Whisper-style text normalization applied consistently. The audio is not exposed to submitters, to avoid test-set contamination.
 
 ## What is coming next
 
