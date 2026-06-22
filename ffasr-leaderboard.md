@@ -86,7 +86,7 @@ One observation worth highlighting for developers: the leaderboard reports both 
 
 Open the Submit tab on the [FFASR Leaderboard](https://huggingface.co/spaces/treble-technologies/ffasr), paste a Hugging Face model ID, and evaluation runs server-side against the held-out dataset. The pipeline supports Whisper variants, IBM Granite Speech, Cohere Transcribe, Wav2Vec2 and HuBERT CTC heads, SpeechBrain ASR, and most other ASR architectures on the Hub without any custom configuration.
 
-For teams using more complex inference stacks, including systems that combine speech enhancement with ASR, a custom evaluator option allows you to define your own evaluate() function. Custom evaluators run on Hub Jobs after moderator review, and the submission notes field is a good place to document any preprocessing steps so results are interpretable by others.
+For teams using more complex inference stacks, including systems that combine speech enhancement with ASR, a custom evaluator option allows you to define your own `evaluate()` function. Custom evaluators run on Hub Jobs after moderator review, and the submission notes field is a good place to document any preprocessing steps so results are interpretable by others.
 
 The held-out evaluation set uses 2,000 anechoic speech samples across 14 rooms at three SNR tiers, approximately 8 hours of audio per condition, with Whisper-style text normalization applied consistently. The audio is not exposed to submitters, which keeps the benchmark meaningful as participation grows.
 
