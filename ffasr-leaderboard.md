@@ -11,15 +11,15 @@ authors:
 
 # Introducing the FFASR Leaderboard: Benchmarking ASR in the Real World
 
-> 🚀 **First open far-field ASR benchmark:** community-driven evaluation across 14 simulated rooms, validated against real-world measurements
->
-> 📉 **The gap is real and it is large:** across all submitted models, far-field WER at low SNR is consistently several times higher than near-field WER on the same speech content
->
-> 🔬 **Methodology you can trust:** hybrid wave-based simulation, sim-to-real validation, moving-source splits in beta, held-out audio, and standardized evaluation hardware across all submissions
->
-> ⚡ **Accuracy and speed together:** the Pareto front plots average WER against RTFx so you can evaluate the tradeoff that is right for your deployment
->
-> 👀 **More is coming:** multi-talker scenarios, microphone array support, and echo cancellation are on the roadmap
+🚀 **First open far-field ASR benchmark:** community-driven evaluation across 14 simulated rooms, validated against real-world measurements
+
+📉 **The gap is real and it is large:** across all submitted models, far-field WER at low SNR is consistently several times higher than near-field WER on the same speech content
+
+🔬 **Methodology you can trust:** hybrid wave-based simulation, sim-to-real validation, moving-source splits in beta, held-out audio, and standardized evaluation hardware across all submissions
+
+⚡ **Accuracy and speed together:** the Pareto front plots average WER against RTFx so you can evaluate the tradeoff that is right for your deployment
+
+👀 **More is coming:** multi-talker scenarios, microphone array support, and echo cancellation are on the roadmap
 
 The gap between benchmark performance and real-world deployment is one of the more persistent frustrations in ASR development. Models that score well on standard evaluations often behave differently once real room acoustics are involved: reverberation, background noise, microphone distance, and the complex interactions between them change the problem in ways that clean-speech benchmarks do not capture. The FFASR Leaderboard is our attempt to quantify that gap.
 
