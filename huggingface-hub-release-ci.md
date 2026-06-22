@@ -1,6 +1,6 @@
 ---
 title: "Shipping `huggingface_hub` every week with AI, open tools, and a human in the loop"
-thumbnail: TODO TODO TODO
+thumbnail: /blog/assets/huggingface-hub-release-ci/thumbnail.png
 authors:
 - user: Wauplin
 - user: celinah
@@ -78,7 +78,7 @@ From there, jobs fan out (roughly in order):
 
 - **Prepare.** Compute the next version, create or reuse the release branch, bump `__version__`, commit, tag, push.
 - **Publish to PyPI.** Build and upload `huggingface_hub`. In parallel, build and upload the `hf` CLI as its own PyPI package.
-- **Release notes.** Diff the commit range since the last tag, pull PR metadata from the GitHub API, and have the model draft a structured changelog. Saved as a *draft* GitHub release.
+- **Release notes.** Diff the commit range since the last tag, pull PR metadata from the GitHub API, and have the model draft a structured changelog ([here's a recent one](https://github.com/huggingface/huggingface_hub/releases/tag/v1.20.0)). Saved as a *draft* GitHub release.
 - **Downstream test branches.** For RCs, open a branch in `transformers`, `datasets`, `diffusers`, `sentence-transformers` with the RC pinned, so their CI tells us fast if we broke something.
 - **Slack announcement.** Read the notes and produce an internal announcement in our team voice.
 - **Archive notes.** Upload both the raw AI draft and the human-edited version to a Hugging Face Bucket, side by side.
