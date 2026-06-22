@@ -23,7 +23,7 @@ authors:
 
 The gap between benchmark performance and real-world deployment is one of the more persistent frustrations in ASR development. Models that score well on standard evaluations often behave differently once real room acoustics are involved: reverberation, background noise, microphone distance. The complex interactions between these factors affect performance in ways that clean-speech benchmarks do not capture. The FFASR Leaderboard is our attempt to quantify that gap.
 
-Today, [Treble Technologies](https://huggingface.co/treble-technologies) and Hugging Face are launching the Far-Field ASR (FFASR) Leaderboard, the first open, community-driven benchmark designed to evaluate ASR models under realistic far-field acoustic conditions. It is live now, and we are inviting the community to submit models, explore the results, and help shape what comes next.
+[Treble Technologies](https://huggingface.co/treble-technologies) and Hugging Face are launching the Far-Field ASR (FFASR) Leaderboard, the first open, community-driven benchmark designed to evaluate ASR models under realistic far-field acoustic conditions. It is live now, and we are inviting the community to submit models, explore the results, and help shape what comes next.
 
 ## Why far-field evaluation matters
 
@@ -64,7 +64,7 @@ To give a sense of what these conditions actually sound like, the samples below 
 
 Two additional columns, Lab Measured and Lab Simulated, serve as a sim-to-real validation track. The leaderboard also includes moving-source splits, currently in beta, which evaluate models against audio where the speaker is in motion rather than stationary. This condition reflects use cases such as humanoid robots, in-car speech, and mobile voice assistants where the acoustic geometry between speaker and microphone changes continuously.
 
-The acoustic data is generated with Treble's hybrid simulation engine, which combines a wave-based solver at low to mid frequencies with geometrical-acoustics modeling at higher frequencies [REF]. This approach captures physical phenomena that simpler simulation methods often miss: diffraction, scattering, interference, and modal behavior. The result is simulated data that closely matches measured acoustic conditions, which the Lab Measured and Lab Simulated columns confirm directly by running the same evaluation on both.
+The acoustic data is generated with [Treble's hybrid simulation engine](https://docs.treble.tech/intro), which combines a wave-based solver at low to mid frequencies with geometrical-acoustics modeling at higher frequencies. This approach captures physical phenomena that simpler simulation methods often miss: diffraction, scattering, interference, and modal behavior. The result is simulated data that closely matches measured acoustic conditions, which the Lab Measured and Lab Simulated columns confirm directly by running the same evaluation on both.
 
 Fourteen fully furnished rooms are included in the benchmark, ranging from 20 to 470 m³ and covering bathrooms, living rooms with hallways, offices, classrooms, and restaurant spaces. Each acoustic scene contains one target speaker, recorded in an anechoic chamber to avoid reverberation artifacts from the recording environment, and up to three noise sources. Every scene includes both a transient noise source such as coughing and a continuous noise source such as HVAC, at three SNR levels. This coverage is designed to reflect the actual variety of spaces where deployed voice systems operate.
 
