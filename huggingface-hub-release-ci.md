@@ -196,7 +196,7 @@ Open tooling doesn't mean careless tooling.
 
 ## So, what did it cost?
 
-Almost nothing. A full release (notes plus the Slack announcement, across 20-40 PRs and a few rounds of prompting) costs about **0.25$** on Inference Providers. With open weights billed pay-as-you-go, the only real question each week is "is there something worth shipping?", and there always is.
+Almost nothing. A full release (notes plus the Slack announcement, across 20-40 PRs and a few rounds of prompting) costs about **$0.25** on Inference Providers. With open weights billed pay-as-you-go, the only real question each week is "is there something worth shipping?", and there always is.
 
 ## What changed in practice
 
