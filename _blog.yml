@@ -5457,7 +5457,7 @@
     - community
 
 - local: huggingface-hub-release-ci
-  date: TODO TODO TODO
+  date: June 23, 2026
   tags:
     - ci
     - huggingface_hub
