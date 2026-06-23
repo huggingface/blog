@@ -37,7 +37,7 @@ Another goal of FFASR is to encourage the development of models that are explici
 
 ## How the benchmark is constructed
 
-The FFASR Leaderboard evaluates models across nine conditions. The four that determine the primary ranking score are:
+The FFASR Leaderboard evaluates models across nine conditions. The four that determine the primary ranking score are (as of 22 June 2026):
 
 - Near-field (dry) — clean speech measured in an anechoic chamber (similar to Librispeech but with minimal reverberation)
 - Far-field high SNR (above 14 dB)
