@@ -126,7 +126,7 @@ https://cdn.jsdelivr.net/npm/onnxruntime-web@1.26.0-dev.20260416-b7804b056c/dist
   </tbody>
 </table>
 
- So even if the resource URLs are exactly the same, since the Network Isolation Keys don't match, there's no cache hit, which means duplicate download and duplicate storage. This is the challenge that the Cross-Origin Storage proposal aims to tackle.
+So even if the resource URLs are exactly the same, since the Network Isolation Keys don't match, there's no cache hit, which means duplicate download and duplicate storage. This is the challenge that the Cross-Origin Storage proposal aims to tackle.
 
 ## Enter the Cross-Origin Storage API
 
