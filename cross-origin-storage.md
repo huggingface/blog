@@ -30,21 +30,6 @@ console.log(result);
 
 You will notice in the source code that I specified [`Xenova/whisper-tiny.en`](https://huggingface.co/Xenova/whisper-tiny.en) as the model, which is a very decent choice for common English automatic speech recognition tasks. In fact, it's even _the_ default model according to the Transformers.js [default model resolution](https://github.com/huggingface/transformers.js/blob/main/packages/transformers/src/pipelines/index.js), as per the following [excerpt](https://github.com/huggingface/transformers.js/blob/bc9cf7400f4f2c8695016699f879e31026ff0313/packages/transformers/src/pipelines/index.js#L151-L158).
 
-```js
-{
-  /* … */
-  'automatic-speech-recognition': {
-    pipeline: AutomaticSpeechRecognitionPipeline,
-    model: [AutoModelForSpeechSeq2Seq, AutoModelForCTC],
-    default: {
-      model: 'Xenova/whisper-tiny.en',
-    },
-    type: 'multimodal',
-  },
-  /* … */
-}
-```
-
 ### Model resources
 
 When you [run this example in the browser](https://googlechrome.github.io/samples/transformersjs-automatic-speech-recognition/index.html), Transformers.js automatically takes care of downloading and caching the relevant model resources and Wasm files. The following screenshot shows the Chrome DevTools [Cache storage](https://developer.chrome.com/docs/devtools/storage/cache) section after visiting the app. When you reload the page, the resources are served from the [Cache API](https://developer.mozilla.org/en-US/docs/Web/API/Cache), and the model returns results almost instantly.
