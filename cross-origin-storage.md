@@ -122,7 +122,7 @@ The proposed **[Cross-Origin Storage](https://github.com/WICG/cross-origin-stora
 
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/cross-origin-storage/klwb5fryaa.png" alt="The Cross-Origin Storage API logo: a stylized walking person, as typically encountered on crosswalk signs." width="200" height="200">
 
-That last point about cryptographic hashes is key. Because COS identifies files by their **hash** rather than by their URL or origin, the same `ort-wasm-simd-threaded.asyncify.wasm` Wasm runtime you downloaded while visiting `https://googlechrome.github.io` is recognized as identical to the one `https://rawcdn.rawgit.net` is about to request, no matter where either of the two origins fetched it from. See the following code snippet for the basic flow.
+That last point about cryptographic hashes is key. Because COS identifies files by their **hash** rather than by their URL or origin, the same `ort-wasm-simd-threaded.asyncify.wasm` Wasm runtime you downloaded while visiting `https://googlechrome.github.io` is recognized as identical to the one `https://rawcdn.rawgit.net` is about to request, no matter where either of the two origins fetched it from. See the following code snippet that illustrates the basic flow.
 
 ```js
 const hash = {
