@@ -1647,6 +1647,15 @@
     - LLM
     - community
 
+- local: claude-and-mcp
+  date: Aug 19, 2025
+  tags:
+    - mcp
+    - llm
+    - qwen
+    - flux
+    - text-to-image
+
 - local: smollm3
   date: July 8, 2025
   tags:
