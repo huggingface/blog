@@ -3,9 +3,17 @@ title: "Introducing the FFASR Leaderboard: Benchmarking ASR in the Real World"
 thumbnail: /blog/assets/ffasr-leaderboard/thumbnail.png
 authors:
 - user: daniel-treble
+  guest: true
+  org: treble-technologies
 - user: whojavumusic
+  guest: true
+  org: treble-technologies
 - user: alessia-treble
+  guest: true
+  org: treble-technologies
 - user: georg-goetz
+  guest: true
+  org: treble-technologies
 - user: bezzam
 ---
 
