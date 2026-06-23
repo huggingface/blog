@@ -13,7 +13,7 @@ authors:
 Transformers.js provides Web developers with a simple way to use the power of transformers in their Web apps through task-specific pipelines. To run inference in the browser, developers create an instance of [`pipeline()`](https://huggingface.co/docs/transformers.js/en/api/pipelines) and specify a task they want to use the pipeline for. As a concrete example, the following snippet shows how to set up an automatic speech recognition (ASR) pipeline.
 
 ```js
-import { pipeline } from 'https://unpkg.com/@huggingface/transformers@4.2.0/dist/transformers.min.js';
+import { pipeline } from 'https://cdn.jsdelivr.net/npm/@huggingface/transformers@4.2.0';
 
 const asr = await pipeline(
   'automatic-speech-recognition',
