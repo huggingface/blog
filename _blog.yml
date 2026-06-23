@@ -5474,3 +5474,12 @@
     - chrome-extension
     - chrome
     - on-device
+    
+- local: huggingface-hub-release-ci
+  date: June 23, 2026
+  tags:
+    - ci
+    - huggingface_hub
+    - agents
+    - hub
+    - release
