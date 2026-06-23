@@ -33,7 +33,7 @@ The dominant ASR evaluation paradigm has not caught up with this reality. Clean,
 
 A major challenge of far-field evaluation is the availability of data. Collecting far-field recordings across a representative range of room types, microphone distances, and noise conditions at scale is prohibitively expensive with physical measurements alone. Simulation makes it possible to cover that space systematically and to extend coverage over time without a corresponding increase in measurement cost.
 
-A secondary goal is to encourage the development of models that are explicitly robust to these conditions. Leaderboards have historically been effective at directing research effort. By making far-field performance visible and comparable, we hope to raise the priority of real-world acoustic robustness across the field.
+Another goal of FFASR is to encourage the development of models that are explicitly robust to these conditions. Leaderboards have historically been effective at directing research effort. By making far-field performance visible and comparable, we hope to raise the priority of real-world acoustic robustness across the field.
 
 ## How the benchmark is constructed
 
