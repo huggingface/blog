@@ -28,7 +28,7 @@ console.log(result);
 
 ## The cache challenge
 
-You will notice in the source code that I specified [`Xenova/whisper-tiny.en`](https://huggingface.co/Xenova/whisper-tiny.en) as the model, which is a very decent choice for common English automatic speech recognition tasks. In fact, it's even _the_ default model according to the Transformers.js [default model resolution](https://github.com/huggingface/transformers.js/blob/main/packages/transformers/src/pipelines/index.js), as per the following [excerpt](https://github.com/huggingface/transformers.js/blob/bc9cf7400f4f2c8695016699f879e31026ff0313/packages/transformers/src/pipelines/index.js#L151-L158).
+You will notice in the source code that I specified [`Xenova/whisper-tiny.en`](https://huggingface.co/Xenova/whisper-tiny.en) as the model, which is a very decent choice for common English automatic speech recognition tasks. In fact, it's even _the_ default model according to the Transformers.js [default model resolution](https://github.com/huggingface/transformers.js/blob/main/packages/transformers/src/pipelines/index.js), as per the linked [excerpt](https://github.com/huggingface/transformers.js/blob/bc9cf7400f4f2c8695016699f879e31026ff0313/packages/transformers/src/pipelines/index.js#L151-L158).
 
 ### Model resources
 
