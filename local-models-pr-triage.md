@@ -9,11 +9,11 @@ authors:
 
 # We got local models to triage the OpenClaw repo for FREE!*
 
-*\*Free as in beer, excluding the cost of electricity, and assuming you already own the hardware*
+<em>*Free as in beer, excluding the cost of electricity, and assuming you already own the hardware</em>
 
 June 2026 will go down as the moment that people realized closed models can be taken away. With the removal of Anthropic's latest flagship model Claude Fable 5 fresh in memory, one can see why it is more important than ever to own your AI stack and be able to run models locally, especially if you are building your business on top of AI.
 
-In that light, we wanted to share how we use local models like Gemma and Qwen in an agent harness, to run classification tasks[^1]. This approach is different from using a model like BERT for classification. A local model in an agent harness like Pi can be used in tandem with structured outputs, to assign labels. We chose this approach because we already had local models and the harness on hand, and have conviction that similar setups will increase in popularity as local models improve in capability.[^2]
+In that light, we wanted to share how we use local models like Gemma and Qwen in an agent harness, to run classification tasks<sup id="note-1-ref"><a href="#note-1">[1]</a></sup>. This approach is different from using a model like BERT for classification. A local model in an agent harness like Pi can be used in tandem with structured outputs, to assign labels. We chose this approach because we already had local models and the harness on hand, and have conviction that similar setups will increase in popularity as local models improve in capability.<sup id="note-2-ref"><a href="#note-2">[2]</a></sup>
 
 Our starting point was open source contributions in the OpenClaw repo. OpenClaw gets hundreds of issues and PRs every day, which need to be triaged, prioritized and routed to maintainers. I, Onur, am working to make local models work well with OpenClaw. Being a maintainer of this specific vertical, I need to react quickly to any P0 issues.
 
@@ -33,7 +33,7 @@ If I were to run this on a local model on the hardware I already have up and run
 
 ## Categorizing issues and PRs
 
-We came up with a finite set of labels representing the categories of issues we need to triage, and then use a local model to classify each issue into one of those categories, like `local_models`, `self_hosted_inference`, `acp`, `agent_runtime`, `codex`, `ui_tui` and so on.[^3]
+We came up with a finite set of labels representing the categories of issues we need to triage, and then use a local model to classify each issue into one of those categories, like `local_models`, `self_hosted_inference`, `acp`, `agent_runtime`, `codex`, `ui_tui` and so on.<sup id="note-3-ref"><a href="#note-3">[3]</a></sup>
 
 But how do we classify pull requests? A simple single request to a Chat Completions endpoint with a tool JSON schema, with the topics as an enum?
 
@@ -125,7 +125,7 @@ The architecture is semi-agentic. Labeling is done agentically, while sending a 
 
 Let's be frank: the first local versions of this system were noisy. The first model tested - `gemma-4-e4b-it` was useful for getting the end-to-end local pipeline working, but it also had a tendency to put too many unrelated labels on a PR or issue. False positive labels make the Discord feed noisy and don't focus my attention on the right issues. That pushed us toward testing larger local models, including `gemma-4-26b-a4b` and `qwen3.6-35b-a3b`, on the 330-row evaluation set below.
 
-For early prompt work, we also used `DeepSeek-V4-Flash` through the antirez DS4 implementation[^4] to create the earlier dataset labels. That setup used the DS4 server over CUDA. We eventually gave up on DS4 as the labeler because it was not labeling consistently across runs. We also did not consider it as the main `localpager-agent` model because it was too big to get enough throughput on our hardware: the DS4 server gave us around 14 tokens per second, with maximum concurrency of 1.
+For early prompt work, we also used `DeepSeek-V4-Flash` through the antirez DS4 implementation<sup id="note-4-ref"><a href="#note-4">[4]</a></sup> to create the earlier dataset labels. That setup used the DS4 server over CUDA. We eventually gave up on DS4 as the labeler because it was not labeling consistently across runs. We also did not consider it as the main `localpager-agent` model because it was too big to get enough throughput on our hardware: the DS4 server gave us around 14 tokens per second, with maximum concurrency of 1.
 
 To test model performance, we selected and generated labels for 330 GitHub issues and PRs. Each item was labelled five times (3x GPT-5.5 and 2x Opus 4.8) with the models needing to be in agreement to be accepted. This process involved hand adjudicating, improving label definitions and highlighting internal product design choices for the models. This gave us a set of stable, reproducible labels to compare our smaller models against.
 
@@ -157,7 +157,7 @@ For the Gemma benchmark, we served `gemma-4-26b-a4b` with vLLM using the optimiz
 
 ## Tracking and validating real-time performance using OpenClaw
 
-We have mentioned earlier that instead of running a job with a local model for every new issue or PR, we can run a batch job with a SOTA cloud model, like GPT-5.5 running in OpenClaw, every n hours (e.g. every 2 hours) to achieve the same end.[^5]
+We have mentioned earlier that instead of running a job with a local model for every new issue or PR, we can run a batch job with a SOTA cloud model, like GPT-5.5 running in OpenClaw, every n hours (e.g. every 2 hours) to achieve the same end.<sup id="note-5-ref"><a href="#note-5">[5]</a></sup>
 
 In that case, we would need a ChatGPT Pro plan. Since the model is SOTA, we can still expect it to perform reasonably well, despite batching 2 hours of issues/PRs together.
 
@@ -198,8 +198,12 @@ The list can be extended, but we think that the idea should be clear.
 
 Besides triaging, we have also explored how classification can be performed with agent harnesses running fast local models in a secure manner. A good naming for the approach would be *agentic classification*: the model is not fed the entire body of information upfront, but can search for more context before returning structured data. While we cannot exactly call this a novel approach, we hope for this blog post to be a good reference for the specific [Pi](https://pi.dev)+a restricted shell+`final_json` recipe.
 
-[^1]: For the use case in this post, we have discovered that breaking down a PR/Issue in a way that means the product surface is understood and labelled correctly is a hard problem.
-[^2]: Although in our testing we didn't---it would be quite reasonable for a model to conclude a next-step to gather info, use an external classifier. The agentic approach and the traditional approach are not mutually exclusive.
-[^3]: See full list of topics and other configuration [here](https://github.com/osolmaz/localpager/blob/main/examples/profiles/openclaw-routing-topics.json)
-[^4]: We used `DeepSeek-V4-Flash-IQ2XXS-w2Q2K-AProjQ8-SExpQ8-OutQ8-chat-v2.gguf` from [antirez/deepseek-v4-gguf](https://huggingface.co/antirez/deepseek-v4-gguf).
-[^5]: While we are aware that using an LLM as a judge negates the "free" aspect, our specific implementation does this for research purposes. In practice, a bigger and more expensive model can be used in tandem during a trial period for calibration, after which the system would transition fully to the smaller one. In recent runs, this audit loop used roughly 40k total GPT-5.5 tokens per 2-hour check, mostly cached context, costing about 2-3 cents per run at API pricing, or roughly $9/month at 12 runs per day. This was a single batch audit across all new items, not one judge call per item; doing it per item would likely be several times more expensive.
+## Footnotes
+
+<ol>
+  <li id="note-1">For the use case in this post, we have discovered that breaking down a PR/Issue in a way that means the product surface is understood and labelled correctly is a hard problem. <a href="#note-1-ref">back</a></li>
+  <li id="note-2">Although in our testing we didn't---it would be quite reasonable for a model to conclude a next-step to gather info, use an external classifier. The agentic approach and the traditional approach are not mutually exclusive. <a href="#note-2-ref">back</a></li>
+  <li id="note-3">See full list of topics and other configuration <a href="https://github.com/osolmaz/localpager/blob/main/examples/profiles/openclaw-routing-topics.json">here</a>. <a href="#note-3-ref">back</a></li>
+  <li id="note-4">We used <code>DeepSeek-V4-Flash-IQ2XXS-w2Q2K-AProjQ8-SExpQ8-OutQ8-chat-v2.gguf</code> from <a href="https://huggingface.co/antirez/deepseek-v4-gguf">antirez/deepseek-v4-gguf</a>. <a href="#note-4-ref">back</a></li>
+  <li id="note-5">While we are aware that using an LLM as a judge negates the "free" aspect, our specific implementation does this for research purposes. In practice, a bigger and more expensive model can be used in tandem during a trial period for calibration, after which the system would transition fully to the smaller one. In recent runs, this audit loop used roughly 40k total GPT-5.5 tokens per 2-hour check, mostly cached context, costing about 2-3 cents per run at API pricing, or roughly $9/month at 12 runs per day. This was a single batch audit across all new items, not one judge call per item; doing it per item would likely be several times more expensive. <a href="#note-5-ref">back</a></li>
+</ol>
