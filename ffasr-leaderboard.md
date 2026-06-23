@@ -11,7 +11,7 @@ authors:
 
 # Introducing the FFASR Leaderboard: Benchmarking ASR in the Real World
 
-🚀 **First open far-field ASR benchmark:** community-driven evaluation across 14 simulated rooms, validated against real-world measurements
+🚀 **First open far-field ASR benchmark:** community-driven evaluation across 14 simulated rooms, validated against real-world measurements: https://huggingface.co/spaces/treble-technologies/ffasr
 
 📉 **The gap is real and it is large:** across all submitted models, far-field WER at low SNR is consistently several times higher than near-field WER on the same speech content
 
