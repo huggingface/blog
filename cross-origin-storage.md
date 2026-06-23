@@ -200,7 +200,7 @@ Going back to the toy examples from before: the `ort-wasm-simd-threaded.asyncify
 Transformers.js itself is already piloting the COS API at the library level. [Pull request #1549](https://github.com/huggingface/transformers.js/pull/1549) introduced an experimental COS cache backend behind an opt-in flag. Enabling it takes a single line before you set up your pipeline:
 
 ```js
-import { env, pipeline } from "https://unpkg.com/@huggingface/transformers@4.2.0/dist/transformers.min.js";
+import { env, pipeline } from "https://cdn.jsdelivr.net/npm/@huggingface/transformers@4.2.0";
 
 // 👇 Opt in to the experimental Cross-Origin Storage cache backend.
 env.experimental_useCrossOriginStorage = true;
