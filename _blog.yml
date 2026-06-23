@@ -5101,7 +5101,6 @@
     - text-to-video
     - modular-diffusers
 
-
 - local: gradio-html-one-shot-apps
   date: Feb 18, 2026
   tags:
@@ -5141,7 +5140,7 @@
     - transformers-internal
     - inference
     - speed
-    
+
 - local: ulysses-sp
   date: Mar 09, 2026
   tags:
@@ -5151,7 +5150,7 @@
     - transformers
     - trl
     - long-context
-    
+
 - local: async-rl-training-landscape
   date: March 10, 2026
   tags:
@@ -5232,7 +5231,6 @@
     - diffusion
     - world-model
     - game-dev
-
 
 - local: train-multimodal-sentence-transformers
   date: April 16, 2026
@@ -5425,3 +5423,48 @@
     - kernels
     - mlp
     - liger
+
+- local: agentic-resource-discovery-launch
+  date: June 17, 2026
+  tags:
+    - announcement
+    - agents
+    - mcp
+    - hub
+
+- local: is-it-agentic-enough
+  date: June 18, 2026
+  tags:
+    - agents
+    - transformers
+    - evaluation
+    - cli
+    - open-source
+
+- local: peft-beyond-lora
+  date: June 18, 2026
+  tags:
+    - peft
+    - lora
+    - guide
+    - transformers
+    - diffusers
+    - nlp
+    - stable-diffusion
+    - fine-tuning
+    - community
+
+- local: local-models-pr-triage
+  date: June 22, 2026
+  tags:
+    - guide
+    - open-source-collab
+
+- local: huggingface-hub-release-ci
+  date: June 23, 2026
+  tags:
+    - ci
+    - huggingface_hub
+    - agents
+    - hub
+    - release

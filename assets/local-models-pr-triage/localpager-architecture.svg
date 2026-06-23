@@ -1,0 +1,472 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="709.40002"
+   height="1401.4"
+   viewBox="0 0 709.40002 1401.4"
+   version="1.1"
+   id="svg25"
+   sodipodi:docname="localpager-architecture.svg"
+   inkscape:version="1.4.4 (dcaf3e7, 2026-05-05)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview25"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="1.1081934"
+     inkscape:cx="318.98765"
+     inkscape:cy="1259.708"
+     inkscape:window-width="1512"
+     inkscape:window-height="855"
+     inkscape:window-x="0"
+     inkscape:window-y="33"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="g25" />
+  <defs
+     id="defs1">
+    <marker
+       id="arrow"
+       markerWidth="10"
+       markerHeight="10"
+       refX="8"
+       refY="3"
+       orient="auto"
+       markerUnits="strokeWidth">
+      <path
+         d="M 0,0 V 6 L 9,3 Z"
+         fill="#1e1e1e"
+         id="path1" />
+    </marker>
+    <style
+       id="style1">
+      .zone { fill: #fff9db; stroke: #8d7b00; stroke-width: 1.4; }
+      .box { fill: #f4f0ff; stroke: #5f3dc4; stroke-width: 1.4; rx: 8; }
+      .text { font-family: system-ui, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif; font-size: 18px; fill: #1e1e1e; text-anchor: middle; dominant-baseline: middle; }
+      .small { font-size: 16px; }
+      .label { fill: #eeeeee; opacity: 0.9; }
+      .arrow { stroke: #1e1e1e; stroke-width: 1.5; fill: none; marker-end: url(#arrow); }
+      .dash { stroke-dasharray: 5 5; }
+    </style>
+  </defs>
+  <g
+     id="g25"
+     transform="translate(4.0000122,4.0000366)">
+    <rect
+       class="zone"
+       x="220.7"
+       y="0.69999999"
+       width="260"
+       height="120"
+       rx="4"
+       id="rect1"
+       ry="4" />
+    <text
+       class="text small"
+       style="text-anchor:start"
+       x="236.7"
+       y="18.700001"
+       id="text1">Source</text>
+    <rect
+       class="box"
+       x="275.70001"
+       y="42.700001"
+       width="150"
+       height="56"
+       rx="8"
+       id="rect2"
+       ry="8" />
+    <text
+       class="text"
+       x="350.70001"
+       y="70.699997"
+       id="text2">GitHub</text>
+    <rect
+       class="zone"
+       x="0.69999999"
+       y="189.90474"
+       width="700"
+       height="1020.9321"
+       rx="4"
+       id="rect3"
+       ry="4" />
+    <text
+       class="text small"
+       style="text-anchor:start"
+       x="16.700001"
+       y="208.7"
+       id="text3">Local machine</text>
+    <rect
+       class="box"
+       x="275.70001"
+       y="220.7"
+       width="150"
+       height="56"
+       rx="8"
+       id="rect4"
+       ry="8" />
+    <text
+       class="text"
+       x="350.70001"
+       y="248.7"
+       id="text4">gitcrawl</text>
+    <rect
+       class="box"
+       x="250.7"
+       y="340.70001"
+       width="200"
+       height="60"
+       rx="8"
+       id="rect5"
+       ry="8" />
+    <text
+       class="text"
+       x="350.70001"
+       y="370.70001"
+       id="text5">SQLite queue</text>
+    <rect
+       class="box"
+       x="225.7"
+       y="465.70001"
+       width="250"
+       height="62"
+       rx="8"
+       id="rect6"
+       ry="8" />
+    <text
+       class="text"
+       x="350.70001"
+       y="496.70001"
+       id="text6">Localpager worker</text>
+    <rect
+       class="zone"
+       x="40.700001"
+       y="585.70001"
+       width="620"
+       height="300"
+       rx="4"
+       id="rect7"
+       ry="4" />
+    <text
+       class="text small"
+       style="text-anchor:start"
+       x="56.700001"
+       y="603.70001"
+       id="text7">localpager-agent</text>
+    <rect
+       class="box"
+       x="60.700001"
+       y="665.70001"
+       width="160"
+       height="58"
+       rx="8"
+       id="rect8"
+       ry="8" />
+    <text
+       class="text"
+       x="140.7"
+       y="694.70001"
+       id="text8">Gemma 4 E4B</text>
+    <rect
+       class="box"
+       x="270.70001"
+       y="665.70001"
+       width="160"
+       height="58"
+       rx="8"
+       id="rect9"
+       ry="8" />
+    <text
+       class="text"
+       x="350.70001"
+       y="694.70001"
+       id="text9">Pi harness</text>
+    <rect
+       class="box"
+       x="480.70001"
+       y="665.70001"
+       width="150"
+       height="58"
+       rx="8"
+       id="rect10"
+       ry="8" />
+    <text
+       class="text"
+       x="555.70001"
+       y="694.70001"
+       id="text10">reposhell</text>
+    <rect
+       class="box"
+       x="275.70001"
+       y="800.70001"
+       width="150"
+       height="58"
+       rx="8"
+       id="rect11"
+       ry="8" />
+    <text
+       class="text"
+       x="350.70001"
+       y="829.70001"
+       id="text11">final_json</text>
+    <rect
+       class="box"
+       x="250.7"
+       y="945.70001"
+       width="200"
+       height="60"
+       rx="8"
+       id="rect12"
+       ry="8" />
+    <text
+       class="text"
+       x="350.70001"
+       y="975.70001"
+       id="text12">SQLite results</text>
+    <polygon
+       class="box"
+       points="440,1190 525,1255 440,1320 355,1255 "
+       id="polygon12"
+       transform="translate(-89.3,-119.3)" />
+    <text
+       class="text"
+       x="350.70001"
+       y="1127.7"
+       id="text13"><tspan
+         sodipodi:role="line"
+         id="tspan2"
+         x="350.70001"
+         y="1127.7">Match topic</tspan><tspan
+         sodipodi:role="line"
+         id="tspan3"
+         x="350.70001"
+         y="1150.2">of interest?</tspan></text>
+    <rect
+       class="zone"
+       x="220.7"
+       y="1272.7"
+       width="260"
+       height="120"
+       rx="4"
+       id="rect13"
+       ry="4" />
+    <text
+       class="text small"
+       style="text-anchor:start"
+       x="236.7"
+       y="1290.7"
+       id="text14">Destination</text>
+    <rect
+       class="box"
+       x="275.70001"
+       y="1314.7"
+       width="150"
+       height="56"
+       rx="8"
+       id="rect14"
+       ry="8" />
+    <text
+       class="text"
+       x="350.70001"
+       y="1342.7"
+       id="text15">Discord</text>
+    <line
+       class="arrow"
+       x1="350.70001"
+       y1="99.075745"
+       x2="350.70001"
+       y2="221.30128"
+       id="line15" />
+    <rect
+       class="label"
+       x="250.7"
+       y="144.7"
+       width="200"
+       height="26"
+       id="rect15" />
+    <text
+       class="text small"
+       x="350.70001"
+       y="157.7"
+       id="text16">PRs and issues</text>
+    <line
+       class="arrow"
+       x1="350.70001"
+       y1="276.70001"
+       x2="350.70001"
+       y2="340.70001"
+       id="line16" />
+    <rect
+       class="label"
+       x="250.7"
+       y="295.70001"
+       width="200"
+       height="26"
+       id="rect16" />
+    <text
+       class="text small"
+       x="350.70001"
+       y="308.70001"
+       id="text17">Mirror updates</text>
+    <line
+       class="arrow"
+       x1="350.70001"
+       y1="400.70001"
+       x2="350.70001"
+       y2="465.70001"
+       id="line17" />
+    <rect
+       class="label"
+       x="250.7"
+       y="420.20001"
+       width="200"
+       height="26"
+       id="rect17" />
+    <text
+       class="text small"
+       x="350.70001"
+       y="433.20001"
+       id="text18">Claim job</text>
+    <line
+       class="arrow"
+       x1="350.70001"
+       y1="527.70001"
+       x2="350.70001"
+       y2="665.42279"
+       id="line18" />
+    <rect
+       class="label"
+       x="250.7"
+       y="545.70001"
+       width="200"
+       height="26"
+       id="rect18" />
+    <text
+       class="text small"
+       x="350.70001"
+       y="558.70001"
+       id="text19">Prompt + Schema</text>
+    <line
+       class="arrow dash"
+       x1="220.7"
+       y1="694.70001"
+       x2="270.70001"
+       y2="694.70001"
+       id="line19" />
+    <rect
+       class="label"
+       x="196.69295"
+       y="634.75769"
+       width="90.919449"
+       height="26"
+       id="rect19"
+       style="stroke-width:1" />
+    <text
+       class="text small"
+       x="242.15266"
+       y="647.75769"
+       id="text20">Inference</text>
+    <line
+       class="arrow dash"
+       x1="480.70001"
+       y1="694.70001"
+       x2="430.70001"
+       y2="694.70001"
+       id="line20" />
+    <rect
+       class="label"
+       x="394.7207"
+       y="636.97479"
+       width="122.84546"
+       height="26"
+       id="rect20"
+       style="stroke-width:1" />
+    <text
+       class="text small"
+       x="456.14343"
+       y="649.97479"
+       id="text21">Eepo context</text>
+    <line
+       class="arrow"
+       x1="350.70001"
+       y1="723.70001"
+       x2="350.70001"
+       y2="800.70001"
+       id="line21" />
+    <rect
+       class="label"
+       x="250.7"
+       y="749.20001"
+       width="200"
+       height="26"
+       id="rect21" />
+    <text
+       class="text small"
+       x="350.70001"
+       y="762.20001"
+       id="text22">Structured output</text>
+    <line
+       class="arrow"
+       x1="350.70001"
+       y1="858.70001"
+       x2="350.70001"
+       y2="945.70001"
+       id="line22" />
+    <rect
+       class="label"
+       x="250.7"
+       y="895.20001"
+       width="200"
+       height="26"
+       id="rect22" />
+    <text
+       class="text small"
+       x="350.70001"
+       y="908.20001"
+       id="text23">Classification JSON</text>
+    <line
+       class="arrow"
+       x1="350.70001"
+       y1="1005.7"
+       x2="350.70001"
+       y2="1070.7"
+       id="line23" />
+    <rect
+       class="label"
+       x="250.7"
+       y="1025.2"
+       width="200"
+       height="26"
+       id="rect23" />
+    <text
+       class="text small"
+       x="350.70001"
+       y="1038.2"
+       id="text24">Filter by topics</text>
+    <line
+       class="arrow"
+       x1="350.70004"
+       y1="1197.9855"
+       x2="350.70004"
+       y2="1315.2112"
+       id="line24" />
+    <rect
+       class="label"
+       x="250.7"
+       y="1227.7"
+       width="200"
+       height="26"
+       id="rect24" />
+    <text
+       class="text small"
+       x="350.70001"
+       y="1240.7"
+       id="text25">Yes</text>
+  </g>
+</svg>
