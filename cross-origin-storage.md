@@ -3,6 +3,7 @@ title: "Experimenting with the proposed Cross-Origin Storage API in Transformers
 thumbnail: /blog/assets/cross-origin-storage/thumbnail.jpg
 authors:
 - user: tomayac
+  guest: true
 ---
 
 # Experimenting with the proposed Cross-Origin Storage API in Transformers.js
