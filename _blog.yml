@@ -5460,6 +5460,21 @@
     - guide
     - open-source-collab
 
+- local: cross-origin-storage
+  date: June 23, 2026
+  tags:
+    - cross-origin-storage
+    - cos
+    - announcement
+    - open-source
+    - web-standards
+    - browser
+    - transformers.js
+    - javascript
+    - chrome-extension
+    - chrome
+    - on-device
+    
 - local: huggingface-hub-release-ci
   date: June 23, 2026
   tags:
