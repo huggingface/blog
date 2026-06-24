@@ -25,7 +25,7 @@ authors:
 
 # The Open Source Community is backing OpenEnv for Agentic RL
 
-![Thumbnail for the blog post](/blog/assets/openenv/thumbnail3.png)
+![Thumbnail for the blog post](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/openenv-expansion/banner.png)
 
 OpenEnv is a tool for creating an agentic execution environment like terminals, browsers, or anything an agent can interact with. And today, we’re excited to announce that OpenEnv is becoming even more open, to make the future of training agents open source.
 
