@@ -214,7 +214,7 @@ With the extension installed, try the full end-to-end experience right now: open
 
 ## Call to action
 
-If you're building your own Transformers.js app, the call to action is simple: add `env.experimental_useCrossOriginStorage = true` before your first `pipeline()` call, install the extension, and watch the duplicate downloads disappear from your Network tab. Every site that opts in makes the experience faster and cheaper for every other site's users. Opting in is completely risk-free: if the COS API isn't supported because the user doesn't have the COS extension installed, the code just falls back to the default path (the [Web Cache](https://developer.mozilla.org/en-US/docs/Web/API/Cache) API).
+If you're building your own Transformers.js app, the call to action is simple: add `env.experimental_useCrossOriginStorage = true` before your first `pipeline()` call, install the extension, and watch the duplicate downloads disappear from your Network tab. Every site that opts in makes the experience faster and cheaper for every other site's users. Opting in is completely risk-free: if the COS API isn't supported because the user doesn't have the COS extension installed, the code just falls back to the default path (the [Cache](https://developer.mozilla.org/en-US/docs/Web/API/Cache) API).
 
 Transformers.js is not alone in experimenting with COS. [WebLLM](https://webllm.mlc.ai/) (opt-in, see [documentation](https://webllm.mlc.ai/docs/user/advanced_usage.html#using-cross-origin-storage-cache)) and [wllama](https://github.com/ngxson/wllama) (automatic, see [PR](https://github.com/ngxson/wllama/pull/248)) are likewise excited about this proposed API.
 
