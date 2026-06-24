@@ -5484,9 +5484,9 @@
     - hub
     - release
 
-  - local: ffasr-leaderboard
-    date: June 24, 2026
-    tags:
+- local: ffasr-leaderboard
+  date: June 24, 2026
+  tags:
     - audio
     - speech
     - leaderboard
