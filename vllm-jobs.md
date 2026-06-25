@@ -112,8 +112,6 @@ The rule of thumb: `--tensor-parallel-size` should match the number of GPUs in t
 
 The `--max-model-len 32768 --max-num-seqs 256` flags are specific to this model: Qwen3.5-122B is a hybrid Mamba/attention architecture with a 256K-token default context, which doesn't leave enough memory for vLLM's default batch settings. Capping the context length and concurrent-sequence count keeps it within the GPUs' memory. If a model fails to start with an out-of-memory or cache-block error, dialing these two down is the first thing to try. Everything else (the exposed URL, the OpenAI client, the token auth) stays exactly the same.
 
-That's it: one command to serve, one client to query.
-
 ## Going further: Chat with it in a UI
 
 Prefer a chat window over curl? A few lines of [Gradio](https://www.gradio.app/) point at the same endpoint. Add `--reasoning-parser deepseek_r1` to the `vllm serve` command so Qwen3's thinking comes back as a separate field (not necessary, but helpful), then run this code locally (again, you'll need your HF token in `$HF_TOKEN`, and the job ID):
