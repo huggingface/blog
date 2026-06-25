@@ -5493,3 +5493,11 @@
     - partnerships
     - announcement
     - community
+
+- local: vllm-jobs
+  date: June 26, 2026
+  tags:
+    - guide
+    - vllm
+    - inference
+    - jobs
