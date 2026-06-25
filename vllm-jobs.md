@@ -222,3 +222,7 @@ HF Jobs isn't the only way to serve a model on Hugging Face. [Inference Endpoint
 Reach for **HF Jobs** when you want maximum flexibility and control: it's just `docker run` on HF infrastructure, so you pick the image, the exact `vllm serve` flags, and the hardware, and you pay per second for as long as the job runs. That makes it a great fit for experiments, one-off evals, batch generation, or kicking the tires on a model before committing to anything.
 
 Reach for **Inference Endpoints** when you want something more production-ready. They add the operational niceties a long-lived service needs: finer-grained access control (an endpoint can be public, protected, or private), and scale-to-zero, so you're not billed during periods of inactivity. If you're standing up a durable endpoint rather than running a job, that's the tool to grab.
+
+## Further reading
+
+This post sticks to vLLM, but the same expose-a-port pattern works with any OpenAI-compatible server. To serve GGUFs with llama.cpp or run SGLang instead, see the [Serve Models on Jobs guide](https://huggingface.co/docs/hub/jobs-serving), which walks through those backends.
