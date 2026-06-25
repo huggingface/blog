@@ -14,7 +14,7 @@ Here's the whole thing end to end.
 ## Prerequisites
 
 - A payment method or a positive prepaid credit balance (Jobs is billed per‑minute by hardware usage).
-- `huggingface_hub >= 1.19.0`: `pip install -U "huggingface_hub>=1.19.0"`.
+- `huggingface_hub >= 1.20.0`: `pip install -U "huggingface_hub>=1.20.0"`.
 - Logged in locally: `hf auth login`.
 - Your HF token available as `$HF_TOKEN`.
 
