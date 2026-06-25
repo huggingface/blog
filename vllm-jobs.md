@@ -108,7 +108,7 @@ hf jobs run --flavor h200x2 --expose 8000 --timeout 2h \
   --max-model-len 32768 --max-num-seqs 256
 ```
 
-The rule of thumb: `--tensor-parallel-size` should match the number of GPUs in the flavor (`h200x2` → 2, `h200x8` → 8). Run `hf jobs hardware` to see what's available — the H200 flavors are usually the best value for large models — and give bigger models a longer `--timeout`, since they take longer to download and load.
+`--tensor-parallel-size` should match the number of GPUs in the flavor (`h200x2` → 2, `h200x8` → 8). Run `hf jobs hardware` to see what's available and give bigger models a longer `--timeout`, since they take longer to download and load. For large models, H200 flavors are usually the best value.
 
 The `--max-model-len 32768 --max-num-seqs 256` flags are specific to this model: Qwen3.5-122B is a hybrid Mamba/attention architecture with a 256K-token default context, which doesn't leave enough memory for vLLM's default batch settings. Capping the context length and concurrent-sequence count keeps it within the GPUs' memory. If a model fails to start with an out-of-memory or cache-block error, dialing these two down is the first thing to try. Everything else (the exposed URL, the OpenAI client, the token auth) stays exactly the same.
 
