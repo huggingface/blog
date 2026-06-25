@@ -170,6 +170,51 @@ hf jobs ssh <job_id>
 
 You're now inside the container, where you can run `nvidia-smi`, inspect the process, or poke at the model directly — which makes debugging and monitoring much easier than reading logs from the outside. SSH support requires `huggingface_hub >= 1.20.0`.
 
+## Going further: Use it as a coding-agent backend with Pi
+
+The same endpoint can back a terminal coding agent. [Pi](https://pi.dev) is a provider-agnostic agent harness. Point it at the job and you get a Read/Write/Edit/Bash agent running on your own self-hosted model.
+
+One thing to set up first: agents drive the model through tool calls, and vLLM only accepts those if the server is launched with tool calling enabled. So relaunch with `--enable-auto-tool-choice` and a `--tool-call-parser` matching the model family (`hermes` for Qwen3). Agents also benefit from a stronger model, so this is a good place to bring in the bigger one:
+
+```bash
+hf jobs run --flavor h200x2 --expose 8000 --timeout 2h \
+  vllm/vllm-openai:latest \
+  vllm serve Qwen/Qwen3.5-122B-A10B \
+  --host 0.0.0.0 --port 8000 --tensor-parallel-size 2 \
+  --max-model-len 32768 --max-num-seqs 256 \
+  --reasoning-parser deepseek_r1 \
+  --enable-auto-tool-choice --tool-call-parser hermes
+```
+
+Then add the job as a custom provider in `~/.pi/agent/models.json`:
+
+```json
+{
+  "providers": {
+    "hf-jobs": {
+      "baseUrl": "https://<job_id>--8000.hf.jobs/v1",
+      "api": "openai-completions",
+      "apiKey": "!hf auth token",
+      "models": [
+        { "id": "Qwen/Qwen3.5-122B-A10B" }
+      ]
+    }
+  }
+}
+```
+
+Then launch the agent against it:
+
+```bash
+pi
+```
+
+The model you spun up a couple of commands ago, now driving an interactive coding agent in your terminal.
+
+<video alt="vllm-jobs-pi" autoplay loop autobuffer muted playsinline>
+  <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/vllm-jobs/pi.mp4" type="video/mp4">
+</video>
+
 ## HF Jobs or Inference Endpoints?
 
 HF Jobs isn't the only way to serve a model on Hugging Face. [Inference Endpoints](https://huggingface.co/docs/inference-endpoints) are our managed product for the same job, and which one fits depends on what you're after.
