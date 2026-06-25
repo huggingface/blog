@@ -387,3 +387,6 @@ If there is one habit to carry forward, it is the one we practiced before every 
 This was the second stop in the **Profiling in PyTorch** series. In the next post we will keep climbing the ladder, moving from this MLP block towards the attention block and, eventually, a full model.
 
 Thanks to [Noe Flandre](https://huggingface.co/NoeFlandre) and [Pedro Gabriel Gengo Lourenço](https://huggingface.co/pedrogengo) for their reviews on the early draft of the post!
+
+> [!NOTE]
+> The blog post was polished using an LLM. This in no way means that we have let an agent run in the background and let it generate the blog. Some of us in the team are non-english speakers and think LLMs (which are mostly trained in the English Language) can rectify silly grammar mistakes or rephrase sentences that sound less intimidating and cleaner. Hope this helps with the idea of "why should I read, if this was LLM generated". 🤗
