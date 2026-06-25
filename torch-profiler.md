@@ -19,11 +19,38 @@ Whether you are trying to squeeze more tokens per second out of a Large Language
 
 The catch is that profiling has a **steep** on-ramp. The traces are dense walls of colored rectangles. The events carry intimidating names. Most tutorials assume you can already read them. So even when we *know* we should be profiling, opening a trace can feel like a chore best left for later (or for someone else). This post, and the series it kicks off, is our attempt to lower that on-ramp.
 
-This is the opening post of **Profiling in PyTorch**, a series where we slowly build the skill of reading profiler traces and use it to drive optimization. The plan:
+<div style="
+  border: 1px solid #1f5c48;
+  border-radius: 6px;
+  padding: 1.5rem 2rem;
+  background: #17211f;
+  color: #ddd;
+  font-size: 1.1rem;
+  line-height: 1.7;
+">
 
-1. **Part 1 (this post):** start with the simplest possible operation, a matrix multiplication followed by a bias add, and learn how to read what the profiler hands back.
-2. [**Part 2:**](https://huggingface.co/blog/torch-mlp-fusion) scale up to `nn.Linear` and a small MLP, use the traces to motivate optimizations, and peek at the `kernels` underneath.
-3. **Part 3:** put it all together on Large Language Models with `transformers`.
+  <p>
+    This is the opening post of <bold>Profiling in PyTorch</bold>, a series where we slowly build the skill of reading profiler traces and use it to drive optimization:
+  </p>
+
+  <ol>
+    <li>
+      <a href="https://huggingface.co/blog/torch-profiler" style="color: #10b981;">
+        Profiling in PyTorch (Part 1): A Beginner's Guide to torch.profiler [current post]
+      </a>
+      <em style="color: #aaa;">(current)</em>
+    </li>
+    <li>
+      <a href="https://huggingface.co/blog/torch-mlp-fusion" style="color: #10b981;">
+        Profiling in PyTorch (Part 2): From nn.Linear to a Fused MLP
+      </a>
+    </li>
+    <li>
+      Part 3: put it all together on Large Language Models with transformers
+    </li>
+  </ol>
+
+</div>
 
 We document the journey from a beginner's point of view. No prerequisites apart from basic PyTorch. Treat this as a leisurely read with some "Aha!" moments. The structure of the post is intentionally question-led: we open a trace, ask "wait, why is *that* happening?", and chase the answer until something clicks. By the end you should know:
 
