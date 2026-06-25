@@ -32,12 +32,12 @@ authors:
       <a href="https://huggingface.co/blog/torch-profiler" style="color: #10b981;">
         Profiling in PyTorch (Part 1): A Beginner's Guide to torch.profiler
       </a>
-      <em style="color: #aaa;">(current)</em>
     </li>
     <li>
       <a href="https://huggingface.co/blog/torch-mlp-fusion" style="color: #10b981;">
-        Profiling in PyTorch (Part 2): From nn.Linear to a Fused MLP [current post]
+        Profiling in PyTorch (Part 2): From nn.Linear to a Fused MLP
       </a>
+      <em style="color: #aaa;">(current)</em>
     </li>
     <li>
       Part 3: put it all together on Large Language Models with transformers

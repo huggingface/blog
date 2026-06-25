@@ -36,7 +36,7 @@ The catch is that profiling has a **steep** on-ramp. The traces are dense walls 
   <ol>
     <li>
       <a href="https://huggingface.co/blog/torch-profiler" style="color: #10b981;">
-        Profiling in PyTorch (Part 1): A Beginner's Guide to torch.profiler [current post]
+        Profiling in PyTorch (Part 1): A Beginner's Guide to torch.profiler
       </a>
       <em style="color: #aaa;">(current)</em>
     </li>
