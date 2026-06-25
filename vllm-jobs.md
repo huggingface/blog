@@ -9,6 +9,8 @@ authors:
 
 You can spin up a private, OpenAI-compatible LLM endpoint on Hugging Face infrastructure with a single command — no servers to provision, no Kubernetes, pay-per-second. Once it's up, you can query it from your laptop, a notebook, or anywhere else.
 
+It's the quickest way to stand up a model for tests, evals, or batch generation. (If you're after a managed, production-ready service instead, that's what [Inference Endpoints](https://huggingface.co/docs/inference-endpoints) are for — [more on when to pick which](#hf-jobs-or-inference-endpoints) at the end.)
+
 Here's the whole thing end to end.
 
 ## Prerequisites
@@ -16,7 +18,6 @@ Here's the whole thing end to end.
 - A payment method or a positive prepaid credit balance (Jobs is billed per‑minute by hardware usage).
 - `huggingface_hub >= 1.20.0`: `pip install -U "huggingface_hub>=1.20.0"`.
 - Logged in locally: `hf auth login`.
-- Your HF token available as `$HF_TOKEN`.
 
 ## Launch the server
 
@@ -48,7 +49,7 @@ vLLM speaks the OpenAI API, and every request just needs your HF token as a bear
 
 ```bash
 curl https://<job_id>--8000.hf.jobs/v1/chat/completions \
-  -H "Authorization: Bearer $HF_TOKEN" \
+  -H "Authorization: Bearer $(hf auth token)" \
   -H "Content-Type: application/json" \
   -d '{
     "model": "Qwen/Qwen3-4B",
@@ -62,12 +63,12 @@ which returns the usual OpenAI-style JSON, with `choices[0].message.content` hol
 Or, from Python, point the OpenAI client at the exposed URL and pass the token as the API key:
 
 ```python
+from huggingface_hub import get_token
 from openai import OpenAI
-import os
 
 client = OpenAI(
     base_url="https://<job_id>--8000.hf.jobs/v1",
-    api_key=os.environ["HF_TOKEN"],
+    api_key=get_token(),
 )
 resp = client.chat.completions.create(
     model="Qwen/Qwen3-4B",
@@ -81,10 +82,10 @@ print(resp.choices[0].message.content)
 Hello! How can I assist you today? 😊
 ```
 
-Quick health check before you start: `curl https://<job_id>--8000.hf.jobs/v1/models -H "Authorization: Bearer $HF_TOKEN"` should list the model.
+Quick health check before you start: `curl https://<job_id>--8000.hf.jobs/v1/models -H "Authorization: Bearer $(hf auth token)"` should list the model.
 
 > [!WARNING]
-> **🔐 The endpoint is gated, not public.** Every request must carry an HF token with **read access to the job's namespace**. A plain browser visit will be rejected. In effect, the jobs proxy *is* your API gate: access is scoped to you (and your org). That's fine for private use, but treat the URL accordingly: don't share it expecting it to be open, and don't paste your token into untrusted places. If you need finer-grained or public access, put a proper gateway in front instead.
+> **🔐 The endpoint is gated, not public.** Every request must carry an HF token with **read access to the job's namespace**. A plain browser visit will be rejected. In effect, the jobs proxy *is* your API gate: access is scoped to you (and your org). That's fine for private use, but treat the URL accordingly: don't share it expecting it to be open, and don't paste your token into untrusted places. If you need finer-grained or public access, put a proper gateway in front instead. Or see [HF Jobs or Inference Endpoints?](#hf-jobs-or-inference-endpoints) below.
 
 ## Clean up
 
@@ -114,15 +115,15 @@ The `--max-model-len 32768 --max-num-seqs 256` flags are specific to this model:
 
 ## Going further: Chat with it in a UI
 
-Prefer a chat window over curl? A few lines of [Gradio](https://www.gradio.app/) point at the same endpoint. Add `--reasoning-parser deepseek_r1` to the `vllm serve` command so Qwen3's thinking comes back as a separate field (not necessary, but helpful), then run this code locally (again, you'll need your HF token in `$HF_TOKEN`, and the job ID):
+Prefer a chat window over curl? A few lines of [Gradio](https://www.gradio.app/) point at the same endpoint. Add `--reasoning-parser deepseek_r1` to the `vllm serve` command so Qwen3's thinking comes back as a separate field (not necessary, but helpful), then run this code locally (you'll just need the job ID):
 
 ```python
-import os
 import gradio as gr
 from gradio import ChatMessage
+from huggingface_hub import get_token
 from openai import OpenAI
 
-client = OpenAI(base_url="https://<job_id>--8000.hf.jobs/v1", api_key=os.environ["HF_TOKEN"])
+client = OpenAI(base_url="https://<job_id>--8000.hf.jobs/v1", api_key=get_token())
 
 def chat(message, history):
     messages = [{"role": m["role"], "content": m["content"]} for m in history if not m.get("metadata")]
@@ -171,7 +172,7 @@ You're now inside the container, where you can run `nvidia-smi`, inspect the pro
 
 ## HF Jobs or Inference Endpoints?
 
-HF Jobs isn't the only way to serve a model on Hugging Face. [Inference Endpoints](https://huggingface.co/docs/inference-endpoints) cover the same ground from a different angle, and which one fits depends on what you're after.
+HF Jobs isn't the only way to serve a model on Hugging Face. [Inference Endpoints](https://huggingface.co/docs/inference-endpoints) are our managed product for the same job, and which one fits depends on what you're after.
 
 Reach for **HF Jobs** when you want maximum flexibility and control: it's just `docker run` on HF infrastructure, so you pick the image, the exact `vllm serve` flags, and the hardware, and you pay per second for as long as the job runs. That makes it a great fit for experiments, one-off evals, batch generation, or kicking the tires on a model before committing to anything.
 
