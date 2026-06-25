@@ -35,6 +35,7 @@ We collaborated with Google and the community to make them available everywhere:
   - [MLX](#mlx)
   - [Mistral.rs](#mistralrs)
 - [Multi-Token Prediction Drafters](#multi-token-prediction-drafters)
+- [DiffusionGemma: Text Generation via Diffusion](#diffusiongemma-text-generation-via-diffusion)
 - [Fine-tuning & Demos](#fine-tuning--demos)
   - [Fine-tuning with TRL](#fine-tuning-with-trl)
     - [Fine-tuning with TRL on Vertex AI](#fine-tuning-with-trl-on-vertex-ai)
@@ -525,14 +526,13 @@ Gemma 4 models come with image+text support in llama.cpp from the get-go! This u
 You can install llama-cpp as follows.
 
 ```bash
-brew install llama.cpp # MacOS
-winget install llama.cpp # Windows
+curl -LsSf https://llama.app/install.sh | sh
 ```
 
 You can then start a server compatible with the OpenAI API Replace the quantization scheme at the end of the command with the precision of your choice.
 
 ```bash
-llama-server -hf ggml-org/gemma-4-E2B-it-GGUF
+llama serve -hf ggml-org/gemma-4-E2B-it-GGUF
 ```
 
 Check out this link [for more](https://huggingface.co/ggml-org/gemma-4-E2B-it-GGUF?local-app=llama.cpp) options on combining llama.cpp with different coding agents and local apps. Find all the GGUF checkpoints [in this collection](https://huggingface.co/collections/ggml-org/gemma-4).
@@ -544,7 +544,7 @@ We worked on making sure the new models work locally with agents like **openclaw
 First, start your local server:
 
 ```
-llama-server -hf ggml-org/gemma-4-26b-a4b-it-GGUF:Q4_K_M
+llama serve -hf ggml-org/gemma-4-26b-a4b-it-GGUF:Q4_K_M
 ```
 
 For **hermes:**
@@ -586,7 +586,7 @@ For **open code** define a `~/.config/opencode/opencode.json`:
   "provider": {
     "llama.cpp": {
       "npm": "@ai-sdk/openai-compatible",
-      "name": "llama-server (local)",
+      "name": "llama server (local)",
       "options": {
         "baseURL": "http://127.0.0.1:8080/v1"
       },
@@ -668,6 +668,44 @@ Google has released Multi-Token Prediction (MTP) drafters for the Gemma 4 family
 Assistants are available for all four Gemma 4 sizes (E2B, E4B, 26B A4B, 31B). They share the KV cache with the target model to avoid recomputing context, and the smaller edge variants additionally use an embedder clustering trick to keep memory and compute low on-device.
 
 Find the checkpoints in the [Gemma 4 collection](https://huggingface.co/collections/google/gemma-4) and the [mlx-community collection](https://huggingface.co/collections/mlx-community/gemma-4-assistant-mtp).
+
+## DiffusionGemma: Text Generation via Diffusion
+
+Alongside the autoregressive Gemma 4 family, Google DeepMind is releasing [**DiffusionGemma**](https://huggingface.co/google/diffusiongemma-26B-A4B-it), a multimodal model that generates text using **discrete diffusion** instead of token-by-token autoregression. It's built on the same 26B A4B Mixture-of-Experts foundation (25.2B total / 3.8B active parameters, 8 active experts out of 128 plus 1 shared), takes text and image inputs, generates text, and supports up to 256K context — all under the same Apache 2.0 license.
+
+Where a standard causal LM emits one token at a time, DiffusionGemma denoises whole blocks of tokens in parallel. The architecture is encoder-decoder: an autoregressive encoder prefills the prompt and builds the KV cache, while a decoder applies **bidirectional attention** over a "canvas" of 256 tokens. During **multi-canvas sampling**, the model iteratively denoises a full canvas with a diffusion sampler; once a canvas is finalized it's encoded and appended to the KV cache, then the next canvas begins. This block-autoregressive approach increases generation speed.
+
+The headline benefit is **throughput**: parallel denoising generates roughly 15–20 tokens per forward pass, reaching per-user generation speeds **exceeding 1100 tokens/second** at low batch sizes (H100, FP8). Inference compute is adaptive too — simpler prompts and structured tasks like code need fewer denoising steps, so tokens-per-second scales with task complexity. It keeps the broader Gemma 4 toolkit: thinking mode, function calling, long context, native system prompts, and image understanding (OCR, document parsing, object detection, pointing) at variable aspect ratios and resolutions.
+
+Benchmarks show an expected trade-off between speed and evaluation metrics — DiffusionGemma trails the autoregressive 26B A4B on most tasks (e.g. MMLU Pro 77.6% vs 82.6%, AIME 2026 69.1% vs 88.3%, GPQA Diamond 73.2% vs 82.3%) in exchange for its large speed advantage, while edging ahead on a few (HLE no tools 11.0% vs 8.7%).
+
+Getting started looks just like the rest of Gemma 4, via the dedicated diffusion class:
+
+```python
+from transformers import DiffusionGemmaForBlockDiffusion, AutoProcessor
+
+MODEL_ID = "google/diffusiongemma-26B-A4B-it"
+
+processor = AutoProcessor.from_pretrained(MODEL_ID)
+model = DiffusionGemmaForBlockDiffusion.from_pretrained(
+    MODEL_ID,
+    dtype="auto",
+    device_map="auto",
+)
+
+message = [{"role": "user", "content": "Why is the sky blue?"}]
+input_ids = processor.apply_chat_template(
+    message,
+    tokenize=True,
+    add_generation_prompt=True,
+    return_dict=True,
+    return_tensors="pt",
+).to(model.device)
+output = model.generate(**input_ids, max_new_tokens=512)
+text = processor.decode(output[0], skip_special_tokens=False)
+```
+
+For best results, Google recommends the **Entropy-Bounded (EB) sampler** with adaptive stopping (up to 48 denoising steps, a temperature schedule decaying from 0.8 → 0.4, and an entropy bound of 0.1 for token selection). As with Gemma 4, place image content **before** text in your prompt, and toggle reasoning with the `<|think|>` control token.
 
 ## Fine-tuning for all
 
@@ -753,7 +791,7 @@ Then select any of the Gemma 4 models from the hub.
 We have shipped demos for you to try different Gemma 4 models. We include demos based on the transformers implementation for [E4B](https://huggingface.co/spaces/huggingface-projects/gemma-4-e4b-it), [12B Unified](https://huggingface.co/spaces/huggingface-projects/gemma-4-12b-it), [26B/A4B MoE](https://huggingface.co/spaces/huggingface-projects/gemma-4-26b-a4b-it), and [31B dense](https://huggingface.co/spaces/huggingface-projects/gemma-4-31b-it) models. There's also a [WebGPU](https://huggingface.co/spaces/webml-community/Gemma-4-WebGPU) demo with transformers.js 🚀
 
 
-<iframe width="560" height="315" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/g4-blog/webgpu_demo.mp4" title="WebGPU Demo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen> </iframe>
+<iframe width="560" height="315" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/g4-blog/webgpu_demo.mp4" title="WebGPU Demo" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen> </iframe>
 
 ## Benchmark Results
 
