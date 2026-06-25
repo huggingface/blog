@@ -282,7 +282,7 @@ All three GEMMs have the same FLOP count, `2·8192·768·3072 ≈ 38.7 GFLOP` ea
 
 This is exactly why the table had two GEMM rows (Figure 9): the `128x128` row is gate+up and the `128x256` row is down.
 
-### What does `torch.compile` do?
+### What does torch.compile do?
 
 Before compiling the `forward` method and visualizing it, let's do the mental exercise again of asking ourselves what we expect to see in the trace. This is a fun experiment, and an important one to repeat every time you profile something yourself. Always build on your intuition, and the moment something does not match, stop and figure out why.
 

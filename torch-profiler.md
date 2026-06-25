@@ -382,7 +382,7 @@ Figure 18 reveals a similar finding. While each kernel was the exact same, they 
 
 A reader who only saw the average would conclude that a matmul took ~1 ms (mean of 5 = 1084 µs); a reader who looked at the trace would see that the matmul takes ~580 µs except when the GPU throws a fit. Those are very different mental models, and only one of them is correct.
 
-## Let's see some `torch.compile` at work
+## Let's see some torch.compile at work
 
 Working with `torch.compile` has always amazed us. One writes normal eager PyTorch code, but PyTorch tries to capture tensor-heavy regions, turn them into graphs, optimize them, and run generated code. The default backend is usually `TorchInductor`, and the broad pipeline is:
 
