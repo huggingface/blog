@@ -13,6 +13,39 @@ authors:
 
 ![Thumbnail of the blog post](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/torch-mlp-fusion/thumbnail.png)
 
+<div style="
+  border: 1px solid #1f5c48;
+  border-radius: 6px;
+  padding: 1.5rem 2rem;
+  background: #17211f;
+  color: #ddd;
+  font-size: 1.1rem;
+  line-height: 1.7;
+">
+
+  <p>
+    This is the second post of <bold>Profiling in PyTorch</bold>, a series where we slowly build the skill of reading profiler traces and use it to drive optimization:
+  </p>
+
+  <ol>
+    <li>
+      <a href="https://huggingface.co/blog/torch-profiler" style="color: #10b981;">
+        Profiling in PyTorch (Part 1): A Beginner's Guide to torch.profiler
+      </a>
+    </li>
+    <li>
+      <a href="https://huggingface.co/blog/torch-mlp-fusion" style="color: #10b981;">
+        Profiling in PyTorch (Part 2): From nn.Linear to a Fused MLP
+      </a>
+      <em style="color: #aaa;">(current)</em>
+    </li>
+    <li>
+      Part 3: put it all together on Large Language Models with transformers
+    </li>
+  </ol>
+
+</div>
+
 In the [first part of this series "Profiling in PyTorch"](https://huggingface.co/blog/torch-profiler), we used `torch.add(torch.matmul(x, w), b)` to learn how to read PyTorch profiler traces. We also discussed several other topics that came our way - the CPU dispatch chain, launch overhead, the difference between an overhead-bound and a compute-bound regime, and some internals of `torch.compile`.
 
 In the second iteration (this blog post), we climb one rung up the ladder. We replace the hand-written matmul-add pair with an `nn.Linear` (with `bias=True`). This is the building block every deep learning model uses. We then stack three of them (specific to our example), with an activation in between, to form a Multilayer Perceptron (MLP) block.
@@ -249,7 +282,7 @@ All three GEMMs have the same FLOP count, `2·8192·768·3072 ≈ 38.7 GFLOP` ea
 
 This is exactly why the table had two GEMM rows (Figure 9): the `128x128` row is gate+up and the `128x256` row is down.
 
-### What does `torch.compile` do?
+### What does torch.compile do?
 
 Before compiling the `forward` method and visualizing it, let's do the mental exercise again of asking ourselves what we expect to see in the trace. This is a fun experiment, and an important one to repeat every time you profile something yourself. Always build on your intuition, and the moment something does not match, stop and figure out why.
 
@@ -354,3 +387,6 @@ If there is one habit to carry forward, it is the one we practiced before every 
 This was the second stop in the **Profiling in PyTorch** series. In the next post we will keep climbing the ladder, moving from this MLP block towards the attention block and, eventually, a full model.
 
 Thanks to [Noe Flandre](https://huggingface.co/NoeFlandre) and [Pedro Gabriel Gengo Lourenço](https://huggingface.co/pedrogengo) for their reviews on the early draft of the post!
+
+> [!NOTE]
+> The blog post was polished using an LLM. This in no way means that we have let an agent run in the background and let it generate the blog. Some of us in the team are non-english speakers and think LLMs (which are mostly trained in the English Language) can rectify silly grammar mistakes or rephrase sentences that sound less intimidating and cleaner. Hope this helps with the idea of "why should I read, if this was LLM generated". 🤗

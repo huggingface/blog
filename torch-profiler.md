@@ -19,11 +19,38 @@ Whether you are trying to squeeze more tokens per second out of a Large Language
 
 The catch is that profiling has a **steep** on-ramp. The traces are dense walls of colored rectangles. The events carry intimidating names. Most tutorials assume you can already read them. So even when we *know* we should be profiling, opening a trace can feel like a chore best left for later (or for someone else). This post, and the series it kicks off, is our attempt to lower that on-ramp.
 
-This is the opening post of **Profiling in PyTorch**, a series where we slowly build the skill of reading profiler traces and use it to drive optimization. The plan:
+<div style="
+  border: 1px solid #1f5c48;
+  border-radius: 6px;
+  padding: 1.5rem 2rem;
+  background: #17211f;
+  color: #ddd;
+  font-size: 1.1rem;
+  line-height: 1.7;
+">
 
-1. **Part 1 (this post):** start with the simplest possible operation, a matrix multiplication followed by a bias add, and learn how to read what the profiler hands back.
-2. [**Part 2:**](https://huggingface.co/blog/torch-mlp-fusion) scale up to `nn.Linear` and a small MLP, use the traces to motivate optimizations, and peek at the `kernels` underneath.
-3. **Part 3:** put it all together on Large Language Models with `transformers`.
+  <p>
+    This is the opening post of <bold>Profiling in PyTorch</bold>, a series where we slowly build the skill of reading profiler traces and use it to drive optimization:
+  </p>
+
+  <ol>
+    <li>
+      <a href="https://huggingface.co/blog/torch-profiler" style="color: #10b981;">
+        Profiling in PyTorch (Part 1): A Beginner's Guide to torch.profiler
+      </a>
+      <em style="color: #aaa;">(current)</em>
+    </li>
+    <li>
+      <a href="https://huggingface.co/blog/torch-mlp-fusion" style="color: #10b981;">
+        Profiling in PyTorch (Part 2): From nn.Linear to a Fused MLP
+      </a>
+    </li>
+    <li>
+      Part 3: put it all together on Large Language Models with transformers
+    </li>
+  </ol>
+
+</div>
 
 We document the journey from a beginner's point of view. No prerequisites apart from basic PyTorch. Treat this as a leisurely read with some "Aha!" moments. The structure of the post is intentionally question-led: we open a trace, ask "wait, why is *that* happening?", and chase the answer until something clicks. By the end you should know:
 
@@ -355,7 +382,7 @@ Figure 18 reveals a similar finding. While each kernel was the exact same, they 
 
 A reader who only saw the average would conclude that a matmul took ~1 ms (mean of 5 = 1084 µs); a reader who looked at the trace would see that the matmul takes ~580 µs except when the GPU throws a fit. Those are very different mental models, and only one of them is correct.
 
-## Let's see some torch compile at work
+## Let's see some torch.compile at work
 
 Working with `torch.compile` has always amazed us. One writes normal eager PyTorch code, but PyTorch tries to capture tensor-heavy regions, turn them into graphs, optimize them, and run generated code. The default backend is usually `TorchInductor`, and the broad pipeline is:
 
@@ -395,7 +422,7 @@ Looking at Figure 20 we ask the question, did we actually fuse the multiplicatio
 This is operator fusion at the graph level. Inductor took our `torch.add(torch.matmul(x, w), b)` and rewrote it into a single `aten::addmm(b, x, w)` call. The important thing to note here is that it did **not** produce a **new** fused CUDA kernel. The actual GPU work is still `ampere_bf16_s16816gemm_bf16_128x256_ldg8_f2f_stages_64x3_nn`, the same cuBLAS kernel eager mode used. So the "fusion" here is at the dispatcher level, not at the kernel level.
 
 > [!NOTE]
-> PyTorch provides the [`torch.addmm`](https://docs.pytorch.org/docs/2.12/generated/torch.addmm.html) function that does what we did into two steps, that is multiply and add. We encourage the reader to look at the traces of this function and comment your observations in the comments below!
+> PyTorch provides the [`torch.addmm`](https://docs.pytorch.org/docs/2.12/generated/torch.addmm.html) function that does what we did in two steps, that is multiply and add. We encourage the reader to look at the traces of this function and comment your observations in the comments below!
 
 ### torch.compile's runtime architecture
 
@@ -422,7 +449,7 @@ Looking at the traces in Figure 21, we were really happy to notice only one `cud
 
 > If you use different `mode`s for `torch.compile` you would notice different kernel variants being launched. You can try it for yourself and add a comment below about your observations!
 
-So Inductor's generated code does:
+So Inductor-generated code does:
 
 - `out = copy(C)` ← that's the DtoD memcpy (32 MB, takes ~33 µs)
 - `out = α·(A·B) + β·out` ← GEMM with `α=β=1`, fusing the bias add into the writeback
@@ -443,7 +470,7 @@ This is the easiest thing to miss when comparing an eager and a compiled run:
 | #3 | 0.07 | 0.1 |
 | #4 | 0.07 | 0.1 |
 
-Compile is roughly 2× more expensive on the CPU per step. That's because every call walks the full Dynamo > AOTAutograd > Inductor stack, on top of the same `aten::addmm` dispatch we have anyway. The compile pipeline is built for ML models with dozens of ops where the per-call overhead amortizes (for a single op it's a tax).
+`torch.compile` is roughly 2× more expensive on the CPU per step. That's because every call walks the full Dynamo > AOTAutograd > Inductor stack, on top of the same `aten::addmm` dispatch we have anyway. The compile pipeline is built for ML models with dozens of ops where the per-call overhead amortizes (for a single op it's a tax).
 
 > [!TIP]
 > `torch.compile` has a `mode` argument. It is for the reader to take home as an assignment to read the documentation and come up with a `mode` that could take the CPU overhead down. 🤗
@@ -507,3 +534,6 @@ A quick reference for the patterns we walked through. The idea is: if you see th
 We started with a tiny `matmul + add` and used it as an excuse to learn how to read a PyTorch profiler. Along the way we picked up a few mental models that travel well to bigger workloads. This was the first stop in the **Profiling PyTorch** series. [In the posts](https://huggingface.co/blog/torch-mlp-fusion) that follow, we will gradually leave this two-op toy behind and walk up the ladder of complexity, looking at larger building blocks and, eventually, real models.
 
 Thanks to [Noe Flandre](https://huggingface.co/NoeFlandre), [Suvaditya Mukherjee](https://huggingface.co/suvadityamuk), and [Vidit Ostwal](https://huggingface.co/ViditOstwal) for their reviews on the early draft of the post!
+
+> [!NOTE]
+> The blog post was polished using an LLM. This in no way means that we have let an agent run in the background and let it generate the blog. Some of us in the team are non-english speakers and think LLMs (which are mostly trained in the English Language) can rectify silly grammar mistakes or rephrase sentences that sound less intimidating and cleaner. Hope this helps with the idea of "why should I read, if this was LLM generated". 🤗

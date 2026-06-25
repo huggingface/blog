@@ -5484,8 +5484,18 @@
     - hub
     - release
 
-- local: vllm-jobs
+- local: ffasr-leaderboard
   date: June 24, 2026
+  tags:
+    - audio
+    - speech
+    - leaderboard
+    - partnerships
+    - announcement
+    - community
+
+- local: vllm-jobs
+  date: June 26, 2026
   tags:
     - guide
     - vllm
