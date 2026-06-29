@@ -1,6 +1,6 @@
 ---
 title: "Featuring Every Eval Ever Results on Hugging Face Model Pages"
-thumbnail: https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/eee_commevals/eee_commevals_banner.png
+thumbnail: /blog/assets/eee_commevals/eee_commevals_banner.png
 authors:
 - user: deepmage121
   guest: true
