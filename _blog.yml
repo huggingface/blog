@@ -5494,6 +5494,14 @@
     - announcement
     - community
 
+- local: eee-community-evals
+  date: June 29, 2026
+  tags:
+    - evaluation
+    - community
+    - leaderboard
+    - research
+
 - local: vllm-jobs
   date: June 26, 2026
   tags:
