@@ -14,6 +14,7 @@ authors:
   guest: true
   org: evaleval
 - user: irenesolaiman
+- user: julien-c
 ---
 
 # Featuring Every Eval Ever Results on Hugging Face Model Pages
