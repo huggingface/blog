@@ -1,6 +1,6 @@
 ---
 title: "Featuring Every Eval Ever Results on Hugging Face Model Pages"
-thumbnail: /blog/assets/eee-community-evals/thumbnail.png
+thumbnail: https://cdn-uploads.huggingface.co/production/uploads/6413251362e6057cbb6259bd/czIJDDShvtMBs2M2T7B45.gif
 authors:
 - user: deepmage121
   guest: true
@@ -39,7 +39,7 @@ Learn more about the schema and how to contribute <a href="https://evalevalai.co
 
 Now, it comes with better integration and attribution. Contributors can now send EEE results to Hugging Face Community Evals. We built a converter that takes your EEE records and writes the small YAML files Hugging Face expects, so you don't have to keep the same result in two formats by hand.
 
-![][image1]
+![EEE and Hugging Face Community Evals integration](https://cdn-uploads.huggingface.co/production/uploads/6413251362e6057cbb6259bd/czIJDDShvtMBs2M2T7B45.gif)
 
 This is new functionality for everyone who reports or reads evaluations, not only existing EEE contributors. First-party evaluators reporting on their own models and third-party evaluators reporting on someone else's can both submit to Community Evals and to EEE, and anyone browsing the Hub gets results that trace back to a full record. When you submit your data through your organization's official Hugging Face account, your results show up with a <a href="https://evalcards.evalevalai.com/help/get-verified">verified</a> checkmark on EvalEval, a signal to readers that the numbers come straight from the source. The rest of this post walks through what Community Evals are and what the converter does.
 
