@@ -23,7 +23,7 @@ Every Eval Ever (EEE) and Hugging Face Community Evals are now intercompatible. 
 
 EEE [launched](https://evalevalai.com/infrastructure/2026/02/17/everyevalever-launch/) in February 2026 as a project of the [EvalEval Coalition](https://evalevalai.com/), the first cross-institutional effort to improve how AI evaluation results get reported by both first and third party evaluators. Hugging Face launched [Community Evals](https://huggingface.co/blog/community-evals) in February 2026 to decentralize how benchmark scores get reported on the Hub. Combined, they patch gaps in how users, researchers, and policymakers trust, understand, and choose evaluations and models.
 
-Evaluation results are how we measure model capabilities, compare models against each other, and reason about safety and governance, and yet they are scattered and hard to compare. They live in papers, leaderboards, blog posts, and harness logs, among others, each in its own format. The same model on the same benchmark often returns different scores depending on who ran it and how; LLaMA 65B, for one, has been reported at both 63.7 and 48.8 on [MMLU](https://huggingface.co/blog/open-llm-leaderboard-mmlu). These gaps can arise from [evaluation settings that we found are commonly unreported](https://arxiv.org/abs/2606.14516).
+Evaluation results are how we measure model capabilities, compare models against each other, and reason about safety and governance, and yet they are scattered and hard to compare. They live in papers, leaderboards, blog posts, and harness logs, among others, each in its own format. The same model on the same benchmark often returns different scores depending on who ran it and how; LLaMA 65B, for one, has been reported at both 63.7 and 48.8 on [MMLU](https://huggingface.co/blog/open-llm-leaderboard-mmlu). These gaps can arise from [evaluation settings that we found are commonly unreported](https://huggingface.co/papers/2606.14516).
 
 EEE is our fix for the reporting side. It's one JSON schema for an evaluation result that records: 
 
@@ -34,7 +34,7 @@ EEE is our fix for the reporting side. It's one JSON schema for an evaluation re
 - what the metric actually means  
 - \[recommended\] companion JSONL file for per-sample outputs.
 
-The schema was built with feedback from researchers and policy researchers, and it takes in results from any source, so harness logs, leaderboard scrapes, and paper numbers all end up in the same shape. The [GitHub repository](https://github.com/evaleval/every_eval_ever) has the converters, examples, and a contributor guide. Since launching, the [datastore](https://arxiv.org/abs/2606.14516) on Hugging Face has grown to around 229,000 evaluation results across more than 22,000 models and 2,200 benchmarks, pulled from 31 different reporting formats. Reproducing just those runs from scratch would cost somewhere in the hundreds of thousands of dollars, which is a reasonable argument for not letting the data scatter once someone has paid to generate it.
+The schema was built with feedback from researchers and policy researchers, and it takes in results from any source, so harness logs, leaderboard scrapes, and paper numbers all end up in the same shape. The [GitHub repository](https://github.com/evaleval/every_eval_ever) has the converters, examples, and a contributor guide. Since launching, the [datastore](https://huggingface.co/datasets/evaleval/EEE_datastore) on Hugging Face has grown to around 229,000 evaluation results across more than 22,000 models and 2,200 benchmarks, pulled from 31 different reporting formats. Reproducing just those runs from scratch would cost somewhere in the hundreds of thousands of dollars, which is a reasonable argument for not letting the data scatter once someone has paid to generate it.
 
 Learn more about the schema and how to contribute [here](https://evalevalai.com/infrastructure/2026/02/17/everyevalever-launch/).
 
@@ -55,6 +55,9 @@ A model's scores live in `.eval_results/*.yaml` inside the model repo. They show
 Here is what one of these leaderboards looks like:
 
 <iframe src="https://huggingface.co/datasets/cais/hle/embed/leaderboard" frameborder="0" width="100%" height="560px"></iframe>
+
+*Community Evals Leaderboard for [Humanity's Last Exam](https://huggingface.co/datasets/cais/hle) on the Hub*
+
 
 This is where EEE and Community Evals fit together. When you send a result to both, two things happen: First, your score appears on the Hugging Face model page and gets pulled into the benchmark's leaderboard. And second, it carries a source badge that links straight back to the full EEE record, where the generation config, the harness version, the reproducibility notes, and any instance-level data live.
 
