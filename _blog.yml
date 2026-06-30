@@ -5501,3 +5501,11 @@
     - vllm
     - inference
     - jobs
+
+- local: eee-community-evals
+  date: June 30, 2026
+  tags:
+    - evaluation
+    - community
+    - leaderboard
+    - research
