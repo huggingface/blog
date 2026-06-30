@@ -44,7 +44,7 @@ Now, it comes with better integration and attribution. Contributors can now send
 
 This is new functionality for everyone who reports or reads evaluations, not only existing EEE contributors. First-party evaluators reporting on their own models and third-party evaluators reporting on someone else's can both submit to Community Evals and to EEE, and anyone browsing the Hub gets results that trace back to a full record. When you submit your data through your organization's official Hugging Face account, your results show up with a [verified](https://evalcards.evalevalai.com/help/get-verified) checkmark on EvalEval, a signal to readers that the numbers come straight from the source. The rest of this post walks through what Community Evals are and what the converter does.
 
-## **How Hugging Face Community Evals works together with EvalEval**
+## How Hugging Face Community Evals works together with EvalEval
 
 Hugging Face Community Evals has two sides.
 
