@@ -1,0 +1,17 @@
+<svg width="1300" height="650" viewBox="0 0 1300 650" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1300" height="648" fill="url(#paint0_linear_351_40)"/>
+  <rect x="56" y="88" width="1188" height="473" rx="9" fill="#FFFFFF" fill-opacity="0.06" stroke="#BAE6FD" stroke-opacity="0.7" stroke-width="2"/>
+  <g font-family="'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif" text-anchor="middle" fill="#FFFFFF">
+    <text x="650" y="208" font-size="30" font-weight="600" letter-spacing="6" fill="#7DD3FC">SKYPILOT  ×  HUGGING FACE</text>
+    <text x="650" y="310" font-size="68" font-weight="700">Run on any cloud,</text>
+    <text x="650" y="388" font-size="68" font-weight="700">store on Hugging Face</text>
+    <text x="650" y="468" font-size="32" font-weight="400" fill-opacity="0.95">Zero-egress storage — mount your Hub data with <tspan font-family="'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace" font-weight="600">"store: hf"</tspan></text>
+  </g>
+  <defs>
+    <linearGradient id="paint0_linear_351_40" x1="0" y1="0" x2="517.441" y2="1038.08" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0F172A"/>
+      <stop offset="0.5" stop-color="#1D4ED8"/>
+      <stop offset="1" stop-color="#38BDF8"/>
+    </linearGradient>
+  </defs>
+</svg>
