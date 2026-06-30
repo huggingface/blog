@@ -98,7 +98,7 @@ Hugging Face stores eval scores in the model repo as a YAML under `.eval_results
 
 *The converter's review step. Excluded entries (here, models with no matching Hub repo) are listed with their EEE source URLs, and the ready PRs wait on an explicit OPEN PRS confirmation.*
 
-## **Start here**
+## Start here
 
 Submit your full records to [the EEE datastore](https://huggingface.co/datasets/evaleval/EEE_datastore). 
 
