@@ -72,7 +72,7 @@ You can see that cross-compatibility below. The same GPQA scores that surface on
 <iframe src="https://evaleval-general-eval-card.hf.space/embed/eval/leaderboard/openeval/gpqa" frameborder="0" width="100%" height="560px">
 </iframe>
 
-## **How it works**
+## How it works
 
 Hugging Face stores eval scores in the model repo as a YAML under `.eval_results/`. The required fields are just the benchmark dataset, the task, and the value. The source block is the part that creates the backlink to EEE.
 
