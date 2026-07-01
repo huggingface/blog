@@ -16,6 +16,14 @@ authors:
   <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/cerebras-gemma4-voice-ai/s2s-space-demo.mp4" type="video/mp4">
 </video>
 
+<br>
+
+<script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/5.38.0/gradio.js"></script>
+
+<gradio-app theme_mode="light" space="smolagents/hf-realtime-voice"></gradio-app>
+
+<br>
+
 For voice AI, latency is a critical parameter. Developers have made tremendous progress in model quality, but the user experience is still often limited by response times. Hugging Face and Cerebras are changing that experience. Today, we demonstrate what becomes possible when an open, modular voice AI architecture is paired with industry-leading inference speed.
 
 The result is a speech-to-speech experience that feels dramatically more natural. Instead of waiting for an AI to respond, conversations flow with the responsiveness users expect from human interaction.
@@ -48,6 +56,6 @@ This collaboration reflects a shared belief that the future of AI will be both o
 
 We invite developers to explore the demo, experiment with the code, and help shape what comes next for real-time voice AI.
 
-Demo: [Hugging Face Space](https://huggingface.co/spaces/amir-tfrere/minimal-conversation-app-s2s-backend-websocket)
+Demo: [Hugging Face Space](https://huggingface.co/spaces/smolagents/hf-realtime-voice)
 
 Repository: [huggingface/speech-to-speech](https://github.com/huggingface/speech-to-speech)
