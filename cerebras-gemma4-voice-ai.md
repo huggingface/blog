@@ -46,4 +46,4 @@ We invite developers to explore the demo, experiment with the code, and help sha
 
 Demo: [Hugging Face Space](https://huggingface.co/spaces/amir-tfrere/minimal-conversation-app-s2s-backend-websocket)
 
-Repository: huggingface/speech-to-speech
+Repository: [huggingface/speech-to-speech](https://github.com/huggingface/speech-to-speech)
