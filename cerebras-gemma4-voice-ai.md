@@ -20,6 +20,10 @@ For voice AI, latency is a critical parameter. Developers have made tremendous p
 
 The result is a speech-to-speech experience that feels dramatically more natural. Instead of waiting for an AI to respond, conversations flow with the responsiveness users expect from human interaction.
 
+<script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/5.38.0/gradio.js"></script>
+
+<gradio-app theme_mode="light" space="smolagents/hf-realtime-voice"></gradio-app>
+
 ## Architecture: an Open, Cascaded Speech-to-Speech stack
 
 The demo is built as a real-time speech-to-speech pipeline. Each part of the system is modular, open, and replaceable, making it easy for developers to adapt the stack for different assistants, robots, products, or research projects.
@@ -47,10 +51,6 @@ The motivation to use Cerebras is therefore not simply cost reduction. It is low
 This collaboration reflects a shared belief that the future of AI will be both open and performant. Open-source models, open infrastructure, and breakthrough inference speed together create a foundation for the next generation of conversational AI.
 
 We invite developers to explore the demo, experiment with the code, and help shape what comes next for real-time voice AI.
-
-<script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/5.38.0/gradio.js"></script>
-
-<gradio-app theme_mode="light" space="smolagents/hf-realtime-voice"></gradio-app>
 
 Demo: [Hugging Face Space](https://huggingface.co/spaces/smolagents/hf-realtime-voice)
 
