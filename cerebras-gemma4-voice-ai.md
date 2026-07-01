@@ -12,33 +12,27 @@ authors:
 
 # Hugging Face and Cerebras bring Gemma 4 to real-time voice AI
 
-For voice AI, latency is a critical parameter. Developers have made tremendous progress in model quality, but the user experience is still often limited by response times. Hugging Face and Cerebras are changing that experience.
+For voice AI, latency is a critical parameter. Developers have made tremendous progress in model quality, but the user experience is still often limited by response times. Hugging Face and Cerebras are changing that experience. Today, we demonstrate what becomes possible when an open, modular voice AI architecture is paired with industry-leading inference speed.
 
-Today, we demonstrate what becomes possible when an open, modular voice AI architecture is paired with industry-leading inference speed. The result is a speech-to-speech experience that feels dramatically more natural: instead of waiting for an AI to respond, conversations flow with the responsiveness users expect from human interaction.
+The result is a speech-to-speech experience that feels dramatically more natural. Instead of waiting for an AI to respond, conversations flow with the responsiveness users expect from human interaction.
 
-## Architecture: an open, cascaded speech-to-speech stack
+## Architecture: an Open, Cascaded Speech-to-Speech stack
 
-The demo is built as a real-time speech-to-speech pipeline. Each part of the system is modular, open, and replaceable, making it easy for developers to adapt the stack for assistants, robots, products, and research projects.
+The demo is built as a real-time speech-to-speech pipeline. Each part of the system is modular, open, and replaceable, making it easy for developers to adapt the stack for different assistants, robots, products, or research projects.
 
 This creates a fully open speech-to-speech loop:
 
-```text
-Speech input
-  -> speech recognition with NVIDIA Parakeet
-  -> Gemma 4 31B VLM inference on Cerebras
-  -> text-to-speech with Alibaba Qwen3-TTS
-  -> spoken response
-```
+Speech → speech recognition with Nvidia's Parakeet → Gemma 4 VLM inference on Cerebras → text-to-speech with Alibaba's Qwen3TTS → spoken response
 
-The architecture brings together the strength of the open-source AI ecosystem: Cerebras for fast inference, Google DeepMind's Gemma 4 31B for the language model, NVIDIA Parakeet for speech recognition, and Qwen3-TTS for text-to-speech. Every layer can be inspected, modified, and extended by developers.
+The architecture brings together the strength of the open-source AI ecosystem: Cerebras for fast inference, Google DeepMind’s Gemma 4 31B for the language model, and Qwen for text-to-speech. Every layer can be inspected, modified, and extended by the developers
 
-## Why Cerebras matters in the loop
+## Cerebras and Hugging Face Partnership
 
-Today, some production systems see reasonable median latency while still experiencing frustrating multi-second delays at the P95. Those delays become even more noticeable when tool calls or multimodal steps require multiple turns.
+Today, some production systems see a reasonable median latency while still experiencing frustrating multi-second delays at the P95. Those delays become even more noticeable when tool calls or multimodal steps require multiple turns.
 
 Cerebras helps solve one of the most important bottlenecks in the stack: the language-model response time. By making inference dramatically faster and more stable, Cerebras allows the rest of the Hugging Face pipeline to shine.
 
-That stability is especially important at the long tail. Many systems can deliver acceptable median response times, but occasional slow responses still make conversations feel unreliable. For voice AI, predictable low latency is not just an optimization. It changes how natural the interaction feels.
+That stability is especially important at the long tail. Many systems can deliver acceptable median response times, but occasional slow responses still make conversations feel unreliable.
 
 ## Built for real-world interaction
 
@@ -48,9 +42,8 @@ The motivation to use Cerebras is therefore not simply cost reduction. It is low
 
 This collaboration reflects a shared belief that the future of AI will be both open and performant. Open-source models, open infrastructure, and breakthrough inference speed together create a foundation for the next generation of conversational AI.
 
-## Try it
-
 We invite developers to explore the demo, experiment with the code, and help shape what comes next for real-time voice AI.
 
-- Demo: [Hugging Face Space](https://huggingface.co/spaces/amir-tfrere/minimal-conversation-app-s2s-backend-websocket)
-- Repository: [huggingface/speech-to-speech](https://github.com/huggingface/speech-to-speech)
+Demo: [Hugging Face Space](https://huggingface.co/spaces/amir-tfrere/minimal-conversation-app-s2s-backend-websocket)
+
+Repository: huggingface/speech-to-speech
