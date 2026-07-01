@@ -5509,3 +5509,11 @@
     - community
     - leaderboard
     - research
+
+- local: cerebras-gemma4-voice-ai
+  date: July 1, 2026
+  tags:
+    - partnerships
+    - audio
+    - open-source-collab
+    - inference-providers
