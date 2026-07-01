@@ -4,7 +4,7 @@ thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_patronus.png
 authors:
 - user: sunitha98
   guest: true
-- user: RebeccaQian
+- user: rebeccaqian
   guest: true
 - user: anandnk24
   guest: true

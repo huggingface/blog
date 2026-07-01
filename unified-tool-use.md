@@ -2,7 +2,7 @@
 title: "Tool Use, Unified"
 thumbnail: /blog/assets/unified-tool-use/thumbnail.png
 authors:
-- user: rocketknight1
+- user: Rocketknight1
 ---
 
 # Tool Use, Unified

@@ -2,7 +2,7 @@
 title: Image Classification with AutoTrain 
 thumbnail: /blog/assets/105_autotrain-image-classification/thumbnail.png
 authors:
-- user: nimaboscarino
+- user: NimaBoscarino
 ---
 
 # Image Classification with AutoTrain

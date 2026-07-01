@@ -27,7 +27,7 @@ authors:
   guest: true
   org: tiiuae
 - user: clefourrier
-- user: SailorTwift
+- user: SaylorTwift
 ---
 
 # Falcon 2: An 11B parameter pretrained language model and VLM, trained on over 5000B tokens and 11 languages

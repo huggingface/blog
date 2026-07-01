@@ -177,6 +177,7 @@ Continuous batching combines three key techniques to maximize throughput in LLM 
 
 By removing the batch dimension and using attention masks to control token interactions, continuous batching allows mixing prefill and decode phases in the same batch, dramatically improving efficiency for serving multiple requests. This is why services like ChatGPT can handle thousands of concurrent users efficiently. 
 
-In the next article in this series, we'll explore efficient KV cache management through __paged attention__. If you'd like to see a deep dive on other continuous batching topics, please let us know in the comments!
+In the next article in this series, we make continuous batching much more efficient by introducing __asynchronous batching__. [Read it here!](https://huggingface.co/blog/continuous_async)  
+If you'd like to see a deep dive on other continuous batching topics, please let us know in the comments!
 
 *Acknowledgement: thanks to Arthur Zucker for producing the initial concept for the figures used in this article. And thanks to Arthur Zucker, Luc Georges, Lysandre Debut, Merve Noyan and Pedro Cuenca for all providing helpful reviews.*

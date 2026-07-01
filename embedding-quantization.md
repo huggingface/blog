@@ -383,3 +383,14 @@ This project is possible thanks to our collaboration with [mixedbread.ai](https:
 * https://txt.cohere.com/int8-binary-embeddings/
 * https://qdrant.tech/documentation/guides/quantization
 * https://zilliz.com/learn/scalar-quantization-and-product-quantization
+
+## Companion Blogposts
+
+To train the embedding models you're quantizing, or to stack quantization with other efficiency techniques:
+
+* [Training and Finetuning Embedding Models with Sentence Transformers](https://huggingface.co/blog/train-sentence-transformers): train the bi-encoder that produces the embeddings you want to quantize.
+* [Training and Finetuning Reranker Models with Sentence Transformers](https://huggingface.co/blog/train-reranker): Cross Encoder training for the rescoring step that pairs well with binary/int8 retrieval.
+* [Training and Finetuning Sparse Embedding Models with Sentence Transformers](https://huggingface.co/blog/train-sparse-encoder): SPLADE training, another axis for cheap retrieval.
+* [Multimodal Embedding & Reranker Models with Sentence Transformers](https://huggingface.co/blog/multimodal-sentence-transformers) and [Training and Finetuning Multimodal Embedding & Reranker Models](https://huggingface.co/blog/train-multimodal-sentence-transformers): multimodal embedding models can also be quantized.
+* [🪆 Introduction to Matryoshka Embedding Models](https://huggingface.co/blog/matryoshka): truncate the embedding dimensionality first, then quantize the smaller vector so both reductions apply.
+* [Train 400x faster Static Embedding Models with Sentence Transformers](https://huggingface.co/blog/static-embeddings): another route to cheap retrieval, trading model quality for throughput instead of bits-per-dim.

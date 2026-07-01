@@ -6,7 +6,14 @@ authors:
 ---
 
 > [!WARNING]
-> This guide is only suited for Sentence Transformers before v3.0. Read [Training and Finetuning Embedding Models with Sentence Transformers v3](train-sentence-transformers) for an updated guide.
+> **This guide is outdated.** It covers the `SentenceTransformer.fit` API from Sentence Transformers versions before v3.0, which has since been superseded. The current training API uses the [`SentenceTransformerTrainer`](https://sbert.net/docs/package_reference/sentence_transformer/trainer.html) and is covered in these up-to-date guides:
+>
+> - **Embedding models:** [Training and Finetuning Embedding Models with Sentence Transformers](https://huggingface.co/blog/train-sentence-transformers)
+> - **Reranker (Cross Encoder) models:** [Training and Finetuning Reranker Models with Sentence Transformers](https://huggingface.co/blog/train-reranker)
+> - **Sparse embedding models:** [Training and Finetuning Sparse Embedding Models with Sentence Transformers](https://huggingface.co/blog/train-sparse-encoder)
+> - **Multimodal models:** [Training and Finetuning Multimodal Embedding & Reranker Models with Sentence Transformers](https://huggingface.co/blog/train-multimodal-sentence-transformers)
+>
+> Please read one of the guides above instead. The content below is kept only for historical reference.
 
 # Train and Fine-Tune Sentence Transformers Models
 

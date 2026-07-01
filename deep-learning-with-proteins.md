@@ -2,7 +2,7 @@
 title: "Deep Learning with Proteins" 
 thumbnail: /blog/assets/119_deep_learning_with_proteins/folding_example.png
 authors:
-- user: rocketknight1
+- user: Rocketknight1
 ---
 
 # Deep Learning With Proteins

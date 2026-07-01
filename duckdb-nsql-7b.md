@@ -12,6 +12,9 @@ authors:
 - user: lorr
   guest: true
   org: NumbersStation
+- user: vpm238
+  guest: true
+  org: NumbersStation
 ---
 
 # Text2SQL using Hugging Face Dataset Viewer API and Motherduck DuckDB-NSQL-7B

@@ -6,7 +6,7 @@ authors:
 - user: Jiqing
   guest: true
   org: Intel
-- user: Santiago Miret
+- user: smiret
   guest: true
 - user: katarinayuan
   guest: true

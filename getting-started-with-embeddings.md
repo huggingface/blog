@@ -210,4 +210,17 @@ If you want to know more about the Sentence Transformers library:
 - The [Sentence Transformers documentation](https://www.sbert.net/),
 - [Nima's thread](https://twitter.com/NimaBoscarino/status/1535331680805801984) on recent research.
 
+### Training and advanced techniques
+
+Once you're comfortable with using embedding models, you may want to train or finetune your own, or explore related techniques:
+
+- [Training and Finetuning Embedding Models with Sentence Transformers](https://huggingface.co/blog/train-sentence-transformers): train or finetune Sentence Transformer models with the current training API.
+- [Training and Finetuning Reranker Models with Sentence Transformers](https://huggingface.co/blog/train-reranker): train Cross Encoder (reranker) models for the second stage of a retrieve-and-rerank pipeline.
+- [Training and Finetuning Sparse Embedding Models with Sentence Transformers](https://huggingface.co/blog/train-sparse-encoder): train SPLADE and other sparse embedding models.
+- [Multimodal Embedding & Reranker Models with Sentence Transformers](https://huggingface.co/blog/multimodal-sentence-transformers): use text, image, audio, and video models through the same API.
+- [Training and Finetuning Multimodal Embedding & Reranker Models with Sentence Transformers](https://huggingface.co/blog/train-multimodal-sentence-transformers): train or finetune multimodal models, for example for Visual Document Retrieval.
+- [🪆 Introduction to Matryoshka Embedding Models](https://huggingface.co/blog/matryoshka): embeddings that can be truncated to smaller dimensionalities with minimal quality loss.
+- [Train 400x faster Static Embedding Models with Sentence Transformers](https://huggingface.co/blog/static-embeddings): CPU-friendly embedding models without attention.
+- [Binary and Scalar Embedding Quantization for Significantly Faster & Cheaper Retrieval](https://huggingface.co/blog/embedding-quantization): shrink embeddings post-training to cut storage and speed up search.
+
 Thanks for reading!

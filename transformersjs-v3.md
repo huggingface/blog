@@ -2,7 +2,7 @@
 title: "Transformers.js v3: WebGPU Support, New Models & Tasks, and More…"
 thumbnail: /blog/assets/transformersjs-v3/thumbnail.png
 authors:
-  - user: xenova
+  - user: Xenova
 ---
 
 # Transformers.js v3: WebGPU Support, New Models & Tasks, and More…

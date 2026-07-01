@@ -2,7 +2,7 @@
 title: "Introducing the Open Leaderboard for Japanese LLMs!"
 thumbnail: /blog/assets/leaderboards-on-the-hub/thumbnail_japanese.png
 authors:
-- user: akimfromparis
+- user: AkimfromParis
   guest: true
   org: llm-jp
 - user: miyao-yusuke

@@ -2,7 +2,7 @@
 title: "ScreenSuite - The most comprehensive evaluation suite for GUI Agents!"
 thumbnail: /blog/assets/screensuite/thumbnail.png
 authors:
-  - user: a-mahla
+  - user: A-Mahla
   - user: m-ric
   - user: thomwolf
 ---

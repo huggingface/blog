@@ -5,7 +5,7 @@ authors:
 - user: haimbarad
   guest: true
   org: Intel
-- user: nraste
+- user: neharaste
   guest: true
   org: Intel
 - user: joeychou

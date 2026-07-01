@@ -1,20 +1,14 @@
 ---
-title: "Training and Finetuning Sparse Embedding Models with Sentence Transformers v5"
+title: "Training and Finetuning Sparse Embedding Models with Sentence Transformers"
 thumbnail: /blog/assets/train-sentence-transformers/st-hf-thumbnail.png
 authors:
 - user: tomaarsen
 - user: arthurbresnu
 ---
 
-# Training and Finetuning Sparse Embedding Models with Sentence Transformers v5
+# Training and Finetuning Sparse Embedding Models with Sentence Transformers
 
-[Sentence Transformers](https://sbert.net/) is a Python library for using and training embedding and reranker models for a wide range of applications, such as retrieval augmented generation, semantic search, semantic textual similarity, paraphrase mining, and more. The last few major versions have introduced significant improvements to training:
-
-* v3.0: (improved) Sentence Transformer (Dense Embedding) model training
-* v4.0: (improved) Cross Encoder (Reranker) model training
-* v5.0: (new) Sparse Embedding model training
-
-In this blogpost, I'll show you how to use it to finetune a sparse encoder/embedding model and explain why you might want to do so. This results in [sparse-encoder/example-inference-free-splade-distilbert-base-uncased-nq](https://huggingface.co/sparse-encoder/example-inference-free-splade-distilbert-base-uncased-nq), a cheap model that works especially well in hybrid search or retrieve and rerank scenarios.
+[Sentence Transformers](https://sbert.net/) is a Python library for using and training dense embedding, reranker (cross encoder), and sparse embedding models for a wide range of applications, such as retrieval augmented generation, semantic search, semantic textual similarity, paraphrase mining, and more. In this blogpost, I'll show you how to use it to finetune a sparse encoder/embedding model and explain why you might want to do so. This results in [sparse-encoder/example-inference-free-splade-distilbert-base-uncased-nq](https://huggingface.co/sparse-encoder/example-inference-free-splade-distilbert-base-uncased-nq), a cheap model that works especially well in hybrid search or retrieve and rerank scenarios.
 
 Finetuning sparse embedding models involves several components: the model, datasets, loss functions, training arguments, evaluators, and the trainer class. I'll have a look at each of these components, accompanied by practical examples of how they can be used for finetuning strong sparse embedding models.
 
@@ -851,3 +845,15 @@ And lastly, here are some advanced pages that might interest you:
 
 * [Hyperparameter Optimization](https://sbert.net/examples/sentence_transformer/training/hpo/README.html)
 * [Distributed Training](https://sbert.net/docs/sentence_transformer/training/distributed.html)
+
+### Companion Blogposts
+
+For training other Sentence Transformers model types, or techniques that complement sparse retrieval:
+
+* [Training and Finetuning Embedding Models with Sentence Transformers](https://huggingface.co/blog/train-sentence-transformers): the equivalent guide for dense bi-encoder embedding models.
+* [Training and Finetuning Reranker Models with Sentence Transformers](https://huggingface.co/blog/train-reranker): training Cross Encoder models, often used as the second stage on top of sparse retrieval.
+* [Multimodal Embedding & Reranker Models with Sentence Transformers](https://huggingface.co/blog/multimodal-sentence-transformers): using text, image, audio, and video models at inference time.
+* [Training and Finetuning Multimodal Embedding & Reranker Models with Sentence Transformers](https://huggingface.co/blog/train-multimodal-sentence-transformers): the equivalent guide for multimodal dense models.
+* [🪆 Introduction to Matryoshka Embedding Models](https://huggingface.co/blog/matryoshka): variable-size dense embeddings for hybrid search setups.
+* [Train 400x faster Static Embedding Models with Sentence Transformers](https://huggingface.co/blog/static-embeddings): CPU-friendly dense retrievers to complement sparse ones in hybrid pipelines.
+* [Binary and Scalar Embedding Quantization for Significantly Faster & Cheaper Retrieval](https://huggingface.co/blog/embedding-quantization): compress dense embeddings for the dense side of hybrid retrieval.

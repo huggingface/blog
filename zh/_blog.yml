@@ -1647,6 +1647,15 @@
     - LLM
     - community
 
+- local: claude-and-mcp
+  date: Aug 19, 2025
+  tags:
+    - mcp
+    - llm
+    - qwen
+    - flux
+    - text-to-image
+
 - local: smollm3
   date: July 8, 2025
   tags:
@@ -1688,3 +1697,90 @@
     - datasets
     - open-source
     - vision
+
+- local: ocr-open-models
+  date: Oct 21, 2025
+  tags:
+    - ocr
+    - vision
+    - multimodal
+    - vlm
+    - open-source
+
+- local: huggingface-hub-v1
+  date: Oct 27, 2025
+  tags:
+    - huggingface_hub
+    - python
+    - announcement
+    - open-source
+    - hub
+
+- local: streaming-datasets
+  date: Oct 27, 2025
+  tags:
+    - datasets
+    - xet
+    - hub
+    - parquet
+    - streaming
+    - scale
+    - dataloaders
+    - storage
+
+- local: voice-consent-gate
+  date: Oct 28, 2025
+  tags:
+    - ethics
+    - guide
+    - speech
+    - audio
+    - text-to-speech
+    - voice
+    - voice-cloning
+
+- local: lerobotxnvidia-healthcare
+  date: Oct 29, 2025
+  tags:
+    - lerobot
+    - robotics
+
+- local: google-cloud
+  date: Nov 13, 2025
+  tags:
+    - partnerships
+    - google
+    - announcement
+
+- local: hf-skills-training-codex
+  date: Dec 11, 2025
+  tags:
+    - llm
+    - fine-tuning
+    - open-source
+    - community
+    - training
+    - Claude
+    - Codex
+    - Gemini
+    - agents
+
+- local: torch-profiler
+  date: May 29, 2026
+  tags:
+    - torch
+    - profile
+    - CUDA
+    - open-source
+    - kernels
+
+- local: torch-mlp-fusion
+  date: June 11, 2026
+  tags:
+    - torch
+    - profile
+    - CUDA
+    - open-source
+    - kernels
+    - mlp
+    - liger

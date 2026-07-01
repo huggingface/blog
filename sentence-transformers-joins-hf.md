@@ -43,3 +43,19 @@ For those new to Sentence Transformers or looking to explore its capabilities:
 - **GitHub Repository**: [https://github.com/huggingface/sentence-transformers](https://github.com/huggingface/sentence-transformers)  
 - **Models on Hugging Face Hub**: [https://huggingface.co/models?library=sentence-transformers](https://huggingface.co/models?library=sentence-transformers)  
 - **Quick Start Tutorial**: [https://sbert.net/docs/quickstart.html](https://sbert.net/docs/quickstart.html)
+
+## Recent Sentence Transformers blogposts
+
+The most significant updates since Sentence Transformers started being maintained by Hugging Face, in chronological order:
+
+- [Training and Finetuning Embedding Models with Sentence Transformers](https://huggingface.co/blog/train-sentence-transformers): the modern training API for dense embedding models.
+- [Training and Finetuning Reranker Models with Sentence Transformers](https://huggingface.co/blog/train-reranker): equivalent training API for Cross Encoder (reranker) models.
+- [Training and Finetuning Sparse Embedding Models with Sentence Transformers](https://huggingface.co/blog/train-sparse-encoder): equivalent training API for sparse encoder (SPLADE) models.
+- [Multimodal Embedding & Reranker Models with Sentence Transformers](https://huggingface.co/blog/multimodal-sentence-transformers): adds support for text, image, audio, and video models through the same API.
+- [Training and Finetuning Multimodal Embedding & Reranker Models with Sentence Transformers](https://huggingface.co/blog/train-multimodal-sentence-transformers): training companion to the multimodal inference post.
+
+Related technique-focused posts:
+
+- [🪆 Introduction to Matryoshka Embedding Models](https://huggingface.co/blog/matryoshka): truncatable embeddings.
+- [Train 400x faster Static Embedding Models with Sentence Transformers](https://huggingface.co/blog/static-embeddings): attention-free CPU-friendly models.
+- [Binary and Scalar Embedding Quantization for Significantly Faster & Cheaper Retrieval](https://huggingface.co/blog/embedding-quantization): post-training compression of embedding vectors.

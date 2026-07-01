@@ -15,6 +15,7 @@ adopting some combination of:
 - Local models using Core ML or MLX for privacy and offline capability
 - Cloud providers like OpenAI or Anthropic for frontier capabilities
 - Apple's Foundation Models as a system-level fallback
+
 Each comes with different APIs, different requirements, different integration patterns.
 It's a lot, and it adds up quickly.
 When I interviewed developers about building AI-powered apps,

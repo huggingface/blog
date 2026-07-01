@@ -1065,3 +1065,13 @@ Our fine-tuning process achieved a significant improvement of +0.0522 NDCG@10 on
 - [Sentence Transformers > Training Overview documentation](https://sbert.net/docs/sentence_transformer/training_overview.html)
 - [Transformers.js documentation](https://huggingface.co/docs/transformers.js/en/index)
 - [Text Embeddings Inference (TEI) documentation](https://huggingface.co/docs/text-embeddings-inference/en/index)
+
+### Companion Sentence Transformers blogposts
+
+To extend the finetuning approach from this post, or apply related techniques to EmbeddingGemma and other embedding models:
+
+- [Training and Finetuning Embedding Models with Sentence Transformers](https://huggingface.co/blog/train-sentence-transformers): the end-to-end training guide this post's finetuning section is built on.
+- [Training and Finetuning Reranker Models with Sentence Transformers](https://huggingface.co/blog/train-reranker): Cross Encoder training, often used as a second stage on top of an EmbeddingGemma retriever.
+- [Training and Finetuning Sparse Embedding Models with Sentence Transformers](https://huggingface.co/blog/train-sparse-encoder): SPLADE training, useful for hybrid retrieval alongside EmbeddingGemma.
+- [🪆 Introduction to Matryoshka Embedding Models](https://huggingface.co/blog/matryoshka): background on EmbeddingGemma's truncatable embeddings.
+- [Binary and Scalar Embedding Quantization for Significantly Faster & Cheaper Retrieval](https://huggingface.co/blog/embedding-quantization): shrink EmbeddingGemma embeddings further at retrieval time.

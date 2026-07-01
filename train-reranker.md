@@ -1,13 +1,13 @@
 ---
-title: "Training and Finetuning Reranker Models with Sentence Transformers v4"
+title: "Training and Finetuning Reranker Models with Sentence Transformers"
 thumbnail: /blog/assets/train-sentence-transformers/st-hf-thumbnail.png
 authors:
 - user: tomaarsen
 ---
 
-# Training and Finetuning Reranker Models with Sentence Transformers v4
+# Training and Finetuning Reranker Models with Sentence Transformers
 
-[Sentence Transformers](https://sbert.net/) is a Python library for using and training embedding and reranker models for a wide range of applications, such as retrieval augmented generation, semantic search, semantic textual similarity, paraphrase mining, and more. Its v4.0 update introduces a new training approach for rerankers, also known as cross-encoder models, similar to what the v3.0 update introduced for embedding models. In this blogpost, I'll show you how to use it to finetune a reranker model that beats all existing options on exactly your data. This method can also train extremely strong new reranker models from scratch.
+[Sentence Transformers](https://sbert.net/) is a Python library for using and training embedding and reranker models for a wide range of applications, such as retrieval augmented generation, semantic search, semantic textual similarity, paraphrase mining, and more. In this blogpost, I'll show you how to use it to finetune a reranker model (also known as a cross-encoder) that beats all existing options on exactly your data. This method can also train extremely strong new reranker models from scratch.
 
 Finetuning reranker models involves several components: datasets, loss functions, training arguments, evaluators, and the trainer class itself. I'll have a look at each of these components, accompanied by practical examples of how they can be used for finetuning strong reranker models. 
 
@@ -17,7 +17,7 @@ Repeating the recipe with a bigger base model results in [tomaarsen/reranker-Mod
 
 ![Model size vs NDCG for Rerankers on GooAQ](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/train-reranker/reranker_gooaq_model_size_ndcg.png)
 
-If you're interested in finetuning embedding models instead, then consider reading through my prior [Training and Finetuning Embedding Models with Sentence Transformers v3](https://huggingface.co/blog/train-sentence-transformers) blogpost as well.
+If you're interested in finetuning embedding models instead, then consider reading through my prior [Training and Finetuning Embedding Models with Sentence Transformers](https://huggingface.co/blog/train-sentence-transformers) blogpost as well.
 
 ## Table of Contents
 
@@ -823,3 +823,15 @@ For further learning, you may also want to explore the following resources on Se
 And here is an advanced page that might interest you:
 
 * [Distributed Training](https://sbert.net/docs/sentence_transformer/training/distributed.html)
+
+### Companion Blogposts
+
+For training other Sentence Transformers model types, or techniques that pair with a reranker:
+
+* [Training and Finetuning Embedding Models with Sentence Transformers](https://huggingface.co/blog/train-sentence-transformers): the equivalent guide for bi-encoder (embedding) models that power the first stage of retrieve-and-rerank.
+* [Training and Finetuning Sparse Embedding Models with Sentence Transformers](https://huggingface.co/blog/train-sparse-encoder): training SPLADE and other sparse encoders, which pair very well with a reranker.
+* [Multimodal Embedding & Reranker Models with Sentence Transformers](https://huggingface.co/blog/multimodal-sentence-transformers): using multimodal rerankers at inference time.
+* [Training and Finetuning Multimodal Embedding & Reranker Models with Sentence Transformers](https://huggingface.co/blog/train-multimodal-sentence-transformers): the equivalent guide for multimodal models, including reranker training examples.
+* [🪆 Introduction to Matryoshka Embedding Models](https://huggingface.co/blog/matryoshka): variable-size embeddings that pair well with a reranker for shortlisting + reranking.
+* [Train 400x faster Static Embedding Models with Sentence Transformers](https://huggingface.co/blog/static-embeddings): CPU-friendly first-stage retrievers to feed into your reranker.
+* [Binary and Scalar Embedding Quantization for Significantly Faster & Cheaper Retrieval](https://huggingface.co/blog/embedding-quantization): compressed first-stage embeddings that your reranker then rescores.

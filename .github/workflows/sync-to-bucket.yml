@@ -1,0 +1,31 @@
+name: Sync blog to bucket
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  sync:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install huggingface_hub
+        run: pip install -U huggingface_hub
+
+      - name: Sync to bucket
+        env:
+          HF_TOKEN: ${{ secrets.HF_BLOG_PUSH }}
+        run: hf sync . hf://buckets/hf-doc-build/blog --exclude=".git/**"
+
+      # Wait for the hub FUSE mount to pick up the new data (poll interval ~30s) before
+      # notifying the hub to refresh its blog metadata in the DB.
+      - name: Wait for FUSE mount to refresh
+        run: sleep 35
+
+      - name: Notify hub to refresh blog metadata
+        env:
+          HUB_WEBHOOK_SECRET: ${{ secrets.HUB_BLOG_WEBHOOK_SECRET }}
+        run: |
+          curl -sS -X POST https://huggingface.co/api/webhooks/blog \
+            -H "X-Webhook-Secret: $HUB_WEBHOOK_SECRET"

@@ -10,7 +10,7 @@ authors:
   guest: true
 - user: cataluna84
   guest: true
-- user: ghosh-r
+- user: ritog
   guest: true
 - user: sujitpal
   guest: true

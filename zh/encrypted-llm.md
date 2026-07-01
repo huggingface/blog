@@ -2,7 +2,7 @@
 title: "使用 FHE 实现加密大语言模型" 
 thumbnail: /blog/assets/encrypted-llm/thumbnail.png
 authors:
-- user: RomanBredehoft
+- user: romanbredehoft-zama
   guest: true
 - user: jfrery-zama
   guest: true

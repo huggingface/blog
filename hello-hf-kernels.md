@@ -4,7 +4,7 @@ thumbnail: /blog/assets/hello-hf-kernels/kernel-hub-five-mins-short.png
 authors:
 - user: drbh
 - user: danieldk
-- user: narsil
+- user: Narsil
 - user: pcuenq
 - user: pagezyhf
 - user: merve

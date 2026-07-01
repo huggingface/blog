@@ -98,7 +98,7 @@ Let's dive in!
 
 In this tutorial, you'll use the IMDB dataset to fine-tune a DistilBERT model for sentiment analysis. 
 
-The [IMDB dataset](https://huggingface.co/datasets/imdb) contains 25,000 movie reviews labeled by sentiment for training a model and 25,000 movie reviews for testing it. [DistilBERT](https://huggingface.co/docs/transformers/model_doc/distilbert) is a smaller, faster and cheaper version of [BERT](https://huggingface.co/docs/transformers/model_doc/bert). It has 40% smaller than BERT and runs 60% faster while preserving over 95% of BERT’s performance. You'll use the IMDB dataset to fine-tune a DistilBERT model that is able to classify whether a movie review is positive or negative. Once you train the model, you will use it to analyze new data! ⚡️
+The [IMDB dataset](https://huggingface.co/datasets/imdb) contains 25,000 movie reviews labeled by sentiment for training a model and 25,000 movie reviews for testing it. [DistilBERT](https://huggingface.co/docs/transformers/model_doc/distilbert) is a smaller, faster and cheaper version of [BERT](https://huggingface.co/docs/transformers/model_doc/bert). It is 40% smaller than BERT and runs 60% faster while preserving over 95% of BERT’s performance. You'll use the IMDB dataset to fine-tune a DistilBERT model that is able to classify whether a movie review is positive or negative. Once you train the model, you will use it to analyze new data! ⚡️
 
 We have [created this notebook](https://colab.research.google.com/drive/1t-NJadXsPTDT6EWIR0PRzpn5o8oMHzp3?usp=sharing) so you can use it through this tutorial in Google Colab.
 
@@ -178,7 +178,7 @@ from transformers import AutoModelForSequenceClassification
 model = AutoModelForSequenceClassification.from_pretrained("distilbert-base-uncased", num_labels=2)
 ```
 
-Then, let's define the metrics you will be using to evaluate how good is your fine-tuned model ([accuracy and f1 score](https://huggingface.co/metrics)):
+Then, let's define the metrics you will be using to evaluate how good your fine-tuned model is ([accuracy and f1 score](https://huggingface.co/metrics)):
 
 ```python
 import numpy as np
@@ -264,7 +264,7 @@ Now that you have pushed the model to the Hub, you can use it [pipeline class](h
 from transformers import pipeline
  
 sentiment_model = pipeline(model="federicopascual/finetuning-sentiment-model-3000-samples")
-sentiment_model(["I love this move", "This movie sucks!"])
+sentiment_model(["I love this movie", "This movie sucks!"])
 ```
 
 These are the predictions from our model:

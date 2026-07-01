@@ -10,7 +10,7 @@ authors:
 - user: merve  
 - user: pcuenq  
 - user: cyrilzakka  
-- user: xenova  
+- user: Xenova  
 translators:
 - user: yaoqih
 - user: zhongdongy
