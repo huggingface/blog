@@ -12,6 +12,10 @@ authors:
 
 # Hugging Face and Cerebras bring Gemma 4 to real-time voice AI
 
+<video controls width="100%">
+  <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/cerebras-gemma4-voice-ai/s2s-space-demo.mp4" type="video/mp4">
+</video>
+
 For voice AI, latency is a critical parameter. Developers have made tremendous progress in model quality, but the user experience is still often limited by response times. Hugging Face and Cerebras are changing that experience. Today, we demonstrate what becomes possible when an open, modular voice AI architecture is paired with industry-leading inference speed.
 
 The result is a speech-to-speech experience that feels dramatically more natural. Instead of waiting for an AI to respond, conversations flow with the responsiveness users expect from human interaction.
