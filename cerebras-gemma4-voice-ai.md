@@ -30,7 +30,13 @@ The demo is built as a real-time speech-to-speech pipeline. Each part of the sys
 
 This creates a fully open speech-to-speech loop:
 
-Speech → speech recognition with Nvidia's Parakeet → Gemma 4 VLM inference on Cerebras → text-to-speech with Alibaba's Qwen3TTS → spoken response
+```text
+Speech input
+  -> speech recognition with Nvidia's Parakeet
+  -> Gemma 4 VLM inference on Cerebras
+  -> text-to-speech with Alibaba's Qwen3TTS
+  -> spoken response
+```
 
 The architecture brings together the strength of the open-source AI ecosystem: Cerebras for fast inference, Google DeepMind’s Gemma 4 31B for the language model, and Qwen for text-to-speech. Every layer can be inspected, modified, and extended by the developers
 
