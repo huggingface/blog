@@ -21,6 +21,7 @@ authors:
 - user: lewtun
 - user: sergiopaniego
 - user: banghua
+- user: unseenmars
 ---
 
 # The Open Source Community is backing OpenEnv for Agentic RL
