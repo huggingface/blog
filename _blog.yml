@@ -5519,7 +5519,7 @@
     - inference-providers
 
 - local: skypilot-hf-storage
-  date: July 6, 2026
+  date: July 7, 2026
   tags:
     - guide
     - partnerships

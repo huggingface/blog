@@ -2,14 +2,10 @@
 title: "Run AI workloads on any cloud, store on Hugging Face: zero-egress storage with SkyPilot"
 thumbnail: /blog/assets/skypilot-hf-storage/thumbnail.png
 authors:
-  # TODO: replace with the real Hugging Face Hub usernames
-  # Draft credited: "Hugging Face Team, Nikhil Jha, SkyPilot Team".
-  - user: "..."
+  - user: huggingface
+  - user: njha
     guest: true
-    org: "..."
-  - user: "..."
-    guest: true
-    org: "..."
+  # TODO: add SkyPilot org handle
 ---
 
 # Run AI workloads on any cloud, store on Hugging Face: zero-egress storage with SkyPilot
