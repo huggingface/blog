@@ -5,7 +5,8 @@ authors:
   - user: huggingface
   - user: njha
     guest: true
-  # TODO: add SkyPilot org handle
+  - user: skypilot-org
+    guest: true
 ---
 
 # Run AI workloads on any cloud, store on Hugging Face: zero-egress storage with SkyPilot
