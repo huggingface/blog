@@ -1,17 +1,35 @@
-<svg width="1300" height="650" viewBox="0 0 1300 650" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect width="1300" height="648" fill="url(#paint0_linear_351_40)"/>
-  <rect x="56" y="88" width="1188" height="473" rx="9" fill="#FFFFFF" fill-opacity="0.06" stroke="#BAE6FD" stroke-opacity="0.7" stroke-width="2"/>
-  <g font-family="'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif" text-anchor="middle" fill="#FFFFFF">
-    <text x="650" y="208" font-size="30" font-weight="600" letter-spacing="6" fill="#7DD3FC">SKYPILOT  ×  HUGGING FACE</text>
-    <text x="650" y="310" font-size="68" font-weight="700">Run on any cloud,</text>
-    <text x="650" y="388" font-size="68" font-weight="700">store on Hugging Face</text>
-    <text x="650" y="468" font-size="32" font-weight="400" fill-opacity="0.95">Zero-egress storage — mount your Hub data with <tspan font-family="'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace" font-weight="600">"store: hf"</tspan></text>
-  </g>
+<svg width="1300" height="650" viewBox="0 0 1300 650" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
   <defs>
-    <linearGradient id="paint0_linear_351_40" x1="0" y1="0" x2="517.441" y2="1038.08" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#0F172A"/>
-      <stop offset="0.5" stop-color="#1D4ED8"/>
-      <stop offset="1" stop-color="#38BDF8"/>
+    <linearGradient id="bgB" x1="0" y1="0" x2="1300" y2="650" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0A1326"/>
+      <stop offset="0.55" stop-color="#11296A"/>
+      <stop offset="1" stop-color="#0E2E65"/>
+    </linearGradient>
+    <linearGradient id="accentB" x1="90" y1="0" x2="230" y2="0" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#38BDF8"/>
+      <stop offset="1" stop-color="#818CF8"/>
     </linearGradient>
   </defs>
+
+  <rect width="1300" height="650" fill="url(#bgB)"/>
+  <!-- faded SkyPilot mark watermark -->
+  <image xlink:href="skypilot_mark_white.svg" x="815" y="25" width="640" height="640" style="opacity:0.06"/>
+
+  <!-- logos top-left -->
+  <image xlink:href="skypilot_logo_white.svg" x="90" y="84" width="300" height="65.3"/>
+  <text x="424" y="127" text-anchor="middle" font-family="'Source Sans Pro','Helvetica Neue',Arial,sans-serif" font-size="34" font-weight="300" fill="#FFFFFF" fill-opacity="0.55">×</text>
+  <image xlink:href="hf-logo.svg" x="458" y="70" width="94" height="94"/>
+
+  <!-- accent bar -->
+  <rect x="90" y="232" width="132" height="6" rx="3" fill="url(#accentB)"/>
+
+  <g font-family="'Source Sans Pro','Helvetica Neue',Arial,sans-serif">
+    <text x="90" y="320" font-size="72" font-weight="700" fill="#FFFFFF">Run on any cloud,</text>
+    <text x="90" y="398" font-size="72" font-weight="700" fill="#FFFFFF">store on Hugging Face</text>
+    <text x="90" y="462" font-size="30" font-weight="400" fill="#AFC4EE">Zero-egress storage with SkyPilot, across 20+ clouds</text>
+  </g>
+
+  <!-- store: hf pill -->
+  <rect x="90" y="500" width="214" height="50" rx="25" fill="#1E3A8A" fill-opacity="0.5" stroke="#60A5FA" stroke-opacity="0.5" stroke-width="1.5"/>
+  <text x="112" y="533" font-family="'SFMono-Regular',Consolas,Menlo,monospace" font-size="26" font-weight="600" fill="#BFDBFE">"store: hf"</text>
 </svg>
