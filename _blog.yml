@@ -5502,6 +5502,22 @@
     - inference
     - jobs
 
+- local: eee-community-evals
+  date: June 30, 2026
+  tags:
+    - evaluation
+    - community
+    - leaderboard
+    - research
+
+- local: cerebras-gemma4-voice-ai
+  date: July 1, 2026
+  tags:
+    - partnerships
+    - audio
+    - open-source-collab
+    - inference-providers
+
 - local: skypilot-hf-storage
   date: July 6, 2026
   tags:
