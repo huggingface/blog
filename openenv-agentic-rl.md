@@ -21,6 +21,7 @@ authors:
 - user: lewtun
 - user: sergiopaniego
 - user: banghua
+- user: unseenmars
 ---
 
 # The Open Source Community is backing OpenEnv for Agentic RL
@@ -29,9 +30,9 @@ authors:
 
 OpenEnv is a tool for creating an agentic execution environment like terminals, browsers, or anything an agent can interact with. And today, we’re excited to announce that OpenEnv is becoming even more open, to make the future of training agents open source.
 
-Starting today, OpenEnv will be coordinated by a committee that so far includes Meta-PyTorch, Reflection, Unsloth, Modal, Prime Intellect, Nvidia, Mercor, Fleet AI, Microsoft, and Hugging Face. `OpenEnv` now lives at [`huggingface/OpenEnv`](https://github.com/huggingface/OpenEnv)
+Starting today, OpenEnv will be coordinated by a committee that so far includes Meta-PyTorch, Reflection, Unsloth, Modal, Prime Intellect, Nvidia, Mercor, Fleet AI, Microsoft, Hugging Face, and RadixArk. `OpenEnv` now lives at [`huggingface/OpenEnv`](https://github.com/huggingface/OpenEnv)
 
-OpenEnv project is supported and adopted by some of the leading organizations in the AI ecosystem, including PyTorch Foundation, vLLM, SkyRL (UCB), Lightning AI, Axolotl AI, Stanford Scaling Intelligence Lab, Mithril, OpenMined, Scaler AI Labs, Scale AI, Patronus AI, Surge AI, Halluminate, Turing, Scorecard, and Snorkel AI.
+OpenEnv project is supported and adopted by some of the leading organizations in the AI ecosystem, including PyTorch Foundation, vLLM, SkyRL (UCB), Lightning AI, Axolotl AI, Stanford Scaling Intelligence Lab, Mithril, OpenMined, Scaler AI Labs, Scale AI, Patronus AI, Surge AI, Halluminate, Turing, Scorecard, Snorkel AI, SGLang, and Miles.
 
 ## Why we need OpenEnv to train open source agents
 
@@ -70,7 +71,7 @@ Over the coming months we will focus on the things that turn OpenEnv from a fast
 1. External rewards: letting rewards be defined in whichever library you already use, with OpenEnv as the deployment layer ([RFC 006](https://github.com/huggingface/OpenEnv/pull/794)).
 2. Tasksets via datasets: wiring environment tasks to Hugging Face datasets so environments and benchmarks compose cleanly ([RFC 007](https://github.com/huggingface/OpenEnv/pull/795)).
 3. Continued Harness integration: first-class support for agentic harnesses.
-4. End-to-end examples: full training and evaluation walkthroughs in TRL, Unsloth, and beyond.
+4. End-to-end examples: full training and evaluation walkthroughs in TRL, Unsloth, Miles, and beyond.
 5. Auto-validation: measure environment quality and contribution to model learning. This will give the community a scalable way to evaluate their environments and drive up quality (think hackathons!). [RFC 008](https://github.com/huggingface/OpenEnv/issues/778).
 
 ## Get involved
