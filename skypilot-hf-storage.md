@@ -130,3 +130,4 @@ The initial `store: hf` support [started as a contribution](https://github.com/s
 - [Hugging Face Storage Buckets guide](https://huggingface.co/docs/hub/storage-buckets)
 - [`hf-mount`](https://github.com/huggingface/hf-mount)
 - [Xet: content-defined chunking and deduplication](https://huggingface.co/docs/hub/xet/deduplication)
+- [SkyPilot Slack community](https://slack.skypilot.co/)
