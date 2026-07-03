@@ -201,7 +201,7 @@ Together with LIBERO, Meta-World, and NVIDIA IsaacLab-Arena, that makes nine ben
 
 ### lerobot-rollout: deployment gets its own CLI
 
-Deploying a policy used to be a hack on top of `lerobot-record`. The new `lerobot-rollout` CLI makes deployment its own workflow, with pluggable strategies and inference backends (including Real-Time Chunking for slow VLAs). The `base` strategy just runs the policy. `sentry` records continuously, rotating episodes and uploading to the Hub as it goes. `highlight` keeps a ring buffer and saves the last N seconds when you hit a key, so an interesting moment is never lost. `episodic` mirrors the classic episode/reset recording workflow. And `dagger` turns deployment into data collection.
+Deploying a policy used to be a hack on top of `lerobot-record`. The new `lerobot-rollout` CLI makes deployment its own workflow, with pluggable strategies and inference backends (including Real-Time Chunking for slow compatible VLAs). The `base` strategy just runs the policy. `sentry` records continuously, rotating episodes and uploading to the Hub as it goes. `highlight` keeps a ring buffer and saves the last N seconds when you hit a key, so an interesting moment is never lost. `episodic` mirrors the classic episode/reset recording workflow. And `dagger` turns deployment into data collection.
 
 With the DAgger strategy, you watch your policy run, hit a key (or a USB foot pedal) the moment it goes wrong, take over with your leader arm to record the correction, and hand control back. Actuated leaders are driven to the follower's pose before you take over, so the handover is jerk-free. Every correction frame is tagged with an `intervention` flag, and the resulting dataset is ready for the next fine-tune:
 
@@ -258,6 +258,7 @@ v0.6.0 cleans house, and a few changes need your attention when upgrading:
 - `eval_freq` was renamed to `env_eval_freq` in the train config.
 - The RL stack was rebuilt: the `sac` policy type is now `gaussian_actor` under the new modular RL API.
 - Legacy per-frame `subtask_index` annotations are superseded by the new language columns.
+- `--dataset.vcodec` was renamed to `--dataset.rgb_encoder.vcodec`, such that RGB and depth cameras video codecs may be set separately.
 
 Check the [release notes](https://github.com/huggingface/lerobot/releases) for the full list and migration pointers. <!-- TODO: link migration guide when published -->
 
