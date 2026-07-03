@@ -36,32 +36,31 @@ LeRobot v0.6.0 introduces world model policies (VLA-JEPA, FastWAM, LingBot-VA) t
     - [GR00T N1.7](#gr00t-n17)
     - [MolmoAct2](#molmoact2)
     - [EO-1](#eo-1)
-    - [EVO1](#evo1)
     - [Multitask DiT](#multitask-dit)
+    - [EVO1](#evo1)
   - [Reward models: knowing when your robot succeeds](#reward-models-knowing-when-your-robot-succeeds)
     - [Robometer](#robometer)
     - [TOPReward](#topreward)
   - [Datasets: faster loading, richer data](#datasets-faster-loading-richer-data)
-    - [Up to 2x faster data loading](#up-to-2x-faster-data-loading)
     - [Your codec, your rules](#your-codec-your-rules)
-    - [Language annotations at scale](#language-annotations-at-scale)
     - [Depth support, end to end](#depth-support-end-to-end)
+    - [Language annotations at scale](#language-annotations-at-scale)
+    - [Up to 2x faster data loading](#up-to-2x-faster-data-loading)
   - [Benchmarks: one CLI to evaluate them all](#benchmarks-one-cli-to-evaluate-them-all)
-  - [Training & inference](#training--inference)
+  - [Training \& inference](#training--inference)
     - [lerobot-rollout: deployment gets its own CLI](#lerobot-rollout-deployment-gets-its-own-cli)
     - [FSDP: train models bigger than your GPU](#fsdp-train-models-bigger-than-your-gpu)
     - [Cloud training with HF Jobs](#cloud-training-with-hf-jobs)
-    - [Better evals everywhere](#better-evals-everywhere)
   - [Codebase: leaner and cleaner](#codebase-leaner-and-cleaner)
     - [A note on breaking changes](#a-note-on-breaking-changes)
-  - [Community & ecosystem](#community--ecosystem)
+  - [Community \& ecosystem](#community--ecosystem)
   - [Final thoughts](#final-thoughts)
 
 ## World models: policies that imagine
 
 <!-- TODO: gif idea: LingBot-VA imagined rollout vs real rollout side-by-side (save_predicted_video), hosted at documentation-images/lerobot-blog/release-v0.6.0/ -->
 
-The robotics world is asking a big question: do world models actually help robot policies? v0.6.0 brings three policies to LeRobot that answer with a resounding yes. Each one learns to imagine the future as part of its training, and each takes a different path to keep that imagination affordable.
+The robotics world is asking a big question: do world models actually help robot policies? v0.6.0 brings three policies to LeRobot to help answer that question. Each one learns to imagine the future as part of its training, and each takes a different path to keep that imagination affordable.
 
 ### VLA-JEPA
 
