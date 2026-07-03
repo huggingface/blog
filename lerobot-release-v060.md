@@ -272,7 +272,7 @@ Check the [release notes](https://github.com/huggingface/lerobot/releases) for t
 
 Beyond these headline features, v0.6.0 includes hundreds of bug fixes, documentation improvements, and quality-of-life upgrades across the codebase, from smarter defaults to more reliable CI.
 
-We want to extend a huge thank you to everyone in the community. This release includes work from Ai2, NVIDIA, Seeed Studio, and many research teams who chose LeRobot as the home for their models and benchmarks. Every PR and bug report pushes open-source robotics forward.
+We want to extend a huge thank you to everyone in the community. This release includes work from academia, industry and hobbyists teams who chose LeRobot as the home for their models and benchmarks. Every PR and bug report pushes open-source robotics forward.
 
 Stay tuned for more to come 🤗 Get started [here](https://github.com/huggingface/lerobot)!
 – The LeRobot team ❤️
