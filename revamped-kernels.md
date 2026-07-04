@@ -26,8 +26,10 @@ In our [previous post](https://huggingface.co/blog/kernel-builder), we introduce
 
 We introduced a new repository type on the Hub: “kernel”. This enables us to cater to users with compute-related specificities. For example, a user can get a sense of which accelerators, operating systems, and backend versions are supported for a given kernel:
 
-![][image2]  
-Kernel page: [kernels-community/flash-attn3](https://huggingface.co/kernels/kernels-community/flash-attn3)
+<figure align="center">
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/revamped-kernels/flash-attn3.png" alt="Flash Attention 3 Kernel Page" width="600"/>
+    <figcaption>Kernel page: <a href="https://huggingface.co/kernels/kernels-community/flash-attn3">kernels-community/flash-attn3</a></figcaption>
+</figure>
 
 One can browse all available kernels on the Hub here: [https://huggingface.co/kernels](https://huggingface.co/kernels). 
 
@@ -104,8 +106,10 @@ The environment setup for building kernels with `kernel-builder` can be daunting
 
 After the kernels are built, we create a system card for each kernel to expose useful information, including how to use it and its exposed interfaces. When the kernel is pushed to the Hub, this system card becomes the front matter for the kernel:
 
-![][image3]  
-System card for [kernels-community/flash-attn3](https://huggingface.co/kernels/kernels-community/flash-attn3)
+<figure align="center">
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/revamped-kernels/kernel-card.png" alt="System card for a kernel" width="600"/>
+    <figcaption>System card for <a href="https://huggingface.co/kernels/kernels-community/flash-attn3">kernels-community/flash-attn3</a></figcaption>
+</figure>
 
 ### Is a kernel compatible on my system?
 
