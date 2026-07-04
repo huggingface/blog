@@ -55,7 +55,7 @@ kernel_module = get_kernel(
 )  
 ```
 
-By default, users cannot publish kernel repositories on the Hub. They have to request to be a kernel publisher. This gives us time to treat these requests on a case-by-case basis.
+By default, users cannot publish kernel repositories on the Hub. They have to request to be a kernel publisher. Users and organizations can request for access from their account settings. This gives us time to treat these requests on a case-by-case basis.
 
 ### Kernel signing
 
