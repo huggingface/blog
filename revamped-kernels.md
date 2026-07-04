@@ -51,7 +51,7 @@ We still want to support loading kernels from organizations or users that are no
 from kernels import get_kernel
 
 kernel_module = get_kernel(  
-   “sgl-project/sgl-flash-attn3”, version=1, trust_remote_code=True  
+   “Atlas-Inference/gdn”, version=1, trust_remote_code=True  
 )  
 ```
 
