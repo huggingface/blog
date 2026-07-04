@@ -10,7 +10,9 @@ authors:
 
 # 🤗 Kernels: Major Updates
 
-In our [previous post](https://huggingface.co/blog/kernel-builder), we introduced the Kernels project, which aims at standardizing how custom kernels are packaged, distributed, and consumed. We want the project to be frictionless and secure, while making it as Hub-friendly as possible. Over the past few months, we have worked towards this goal. In the process, we also almost completely redesigned the Kernel Builder. This post will summarize the major updates we have shipped and what’s coming.
+In our [previous post (From Zero to GPU)](https://huggingface.co/blog/kernel-builder), we introduced the 🤗 Kernels project, which aims at standardizing how custom kernels are packaged, distributed, and consumed. We want the project to be frictionless and secure, while making it as Hub-friendly as possible.
+
+Over the past few months, we have worked towards this goal. In the process, we also almost completely redesigned the project. This post will summarize the major updates we have shipped and what’s coming.
 
 **Table of contents**
 
@@ -24,7 +26,7 @@ In our [previous post](https://huggingface.co/blog/kernel-builder), we introduce
 
 ## Kernels – a new repository type
 
-We introduced a new repository type on the Hub: “kernel”. This enables us to cater to users with compute-related specificities. For example, a user can get a sense of which accelerators, operating systems, and backend versions are supported for a given kernel:
+We have introduced a new repository type on the Hub called [“kernels”](https://huggingface.co/kernels). This enables us to cater to users with compute-related specificities. For example, a user can get a sense of which accelerators, operating systems, and backend versions are supported for a given kernel:
 
 <figure align="center">
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/revamped-kernels/flash-attn3.png" alt="Flash Attention 3 Kernel Page" width="600"/>
@@ -33,7 +35,7 @@ We introduced a new repository type on the Hub: “kernel”. This enables us to
 
 One can browse all available kernels on the Hub here: [https://huggingface.co/kernels](https://huggingface.co/kernels). 
 
-Making these kernels first-class citizens of the Hub also benefits the AI ecosystem – users can see trends across kernels, models, and the applications that use them. The kernels also become more discoverable to users.
+Making these kernels first-class citizens of the Hub also benefits the AI ecosystem. Users can now see trends across kernels, models, and the applications that use them. The kernels become more discoverable to users.
 
 ## Improved security
 
@@ -85,11 +87,15 @@ We have extended support for frameworks, the most visible changes are:
 
 `kernel-builder` and `kernels` complement the rise of agentic kernel development wherein an agent is leveraged to come up with an (optimized) kernel from scratch. Together, they support a workflow in which agents can scaffold, build, benchmark, and iteratively optimize kernels.
 
-Agentic kernel development is still nascent, and the right development loops will continue to evolve. That makes simple, clear fundamentals especially important: the tools should be easy to compose into whichever agent workflows or frameworks people choose to use.
+Agentic kernel development is still nascent, and the right development loops will continue to evolve. That makes simple, clear fundamentals especially important where the tools should be easy to compose into whichever agent workflows or frameworks people choose to use.
 
 `kernel-builder` helps enforce a structure in how kernel source code should be scaffolded and used to perform reproducible builds. This gives agents a predictable project layout and repeatable workflow to operate within. Its CLI is also meant to be [agent-optimized](https://huggingface.co/blog/is-it-agentic-enough). For example, this can mean non-interactive commands and outputs that are straightforward for an agent to interpret programmatically. To this end, we also have [backend-specific skills](https://huggingface.co/docs/kernels/en/cli-skills) to help agents navigate the idiosyncrasies of different backends. These skills can capture backend-specific toolchains, compilation paths, and performance considerations.
 
-Building a kernel successfully isn’t the full story – we need to ensure that it delivers actual speedups over a baseline on the target hardware. A successful build is therefore only the first validation step. Usually, this target hardware can include many different accelerators, even different families of the same accelerator. This makes it important to evaluate results across hardware vendors and generations where relevant. Our tight [integration with HF Jobs](https://huggingface.co/docs/kernels/en/builder/github-actions) can make this benchmarking process easy. Agents can use this integration to run benchmark suites, collect performance results, and compare them against a defined baseline. This way, agents can run tests across different hardware configurations to get reliable feedback on the performance of the generated kernels and identify what needs to be done. That feedback can then inform the next optimization iteration.
+Building a kernel successfully isn’t the only goal, we need to ensure that it delivers actual speedups over a baseline on the target hardware. A successful build is therefore only the first validation step. Usually, this target hardware can include many different accelerators, even different families of the same accelerator.
+
+ This makes it important to evaluate results across hardware vendors and generations where relevant. Our tight [integration with HF Jobs](https://huggingface.co/docs/kernels/en/builder/github-actions) can make this benchmarking process easy. Agents can use this integration to run benchmark suites, collect performance results, and compare them against a defined baseline.
+ 
+This way, agents can run tests across different hardware configurations to get reliable feedback on the performance of the generated kernels and identify what needs to be done. That feedback can then inform the next optimization iteration.
 
 Below are some examples of agent-augmented kernels. These illustrate the kinds of kernels that can be developed and evaluated through this workflow: 
 
