@@ -164,3 +164,5 @@ To solve this issue, kernels now link `libstdc++` dynamically. To ensure compati
 ## Conclusion
 
 Our goal with the Kernels project is to serve both kernel developers and users of custom kernels. We’re always keen on receiving feedback from the community on how we can improve it. Don’t hesitate to contribute!
+
+*Acknowledgements: Thanks to [Aritra](ariG23498) for reviewing the post.*
