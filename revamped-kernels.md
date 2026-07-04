@@ -39,7 +39,9 @@ Making these kernels first-class citizens of the Hub also benefits the AI ecosys
 
 ## Improved security
 
-Security has always been of utmost importance to the kernels project. This has led to an early focus on reproducibility – a kernel user should be able to recompile a kernel to verify that it was compiled from publicly available source code. This is made possible by using Nix, which makes a build as pure as possible through hermetic evaluation of the build recipe and a strongly isolated build sandbox. We further improve provenance by embedding the source Git SHA1 into the kernel itself.
+Kernels run native code with the same privileges as the Python process that loads them, so a malicious kernel can do real harm. Therefore, security has always been of utmost importance to the Kernels project.
+
+This is why we focused early on reproducibility: you should be able to recompile a kernel yourself and verify that it matches the publicly available source. We use Nix to make this possible, since it keeps builds pure through hermetic evaluation of the build recipe and a strongly isolated sandbox. We further improve provenance by embedding the source Git SHA1 into the kernel itself.
 
 In recent months, we have added additional layers of defense: trusted kernel publishers and code signing.
 
