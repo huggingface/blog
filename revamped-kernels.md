@@ -26,7 +26,7 @@ Over the past few months, we have worked towards this goal. In the process, we a
 
 ## Kernels – a new repository type
 
-We have introduced a new repository type on the Hub called [“kernels”](https://huggingface.co/kernels). This enables us to cater to users with compute-related specificities. For example, a user can get a sense of which accelerators, operating systems, and backend versions are supported for a given kernel:
+We have introduced a new repository type on the Hub called ["kernel"](https://huggingface.co/kernels). This enables us to cater to users with compute-related specificities. For example, a user can get a sense of which accelerators, operating systems, and backend versions are supported for a given kernel:
 
 <figure align="center">
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/revamped-kernels/flash-attn3.png" alt="Flash Attention 3 Kernel Page" width="600"/>
