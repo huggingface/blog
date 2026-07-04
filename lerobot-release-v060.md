@@ -21,7 +21,8 @@ This new release is about closing the robot learning loop: policies that imagine
 
 LeRobot v0.6.0 introduces world model policies (VLA-JEPA, FastWAM, LingBot-VA) that learn to imagine the future, a wave of new VLAs (GR00T N1.7, MolmoAct2, EO-1, EVO1, Multitask DiT), and a new reward models API (Robometer, TOPReward). It ships six new simulation benchmarks unified under `lerobot-eval`, the `lerobot-rollout` CLI with DAgger-style human-in-the-loop corrections, FSDP training, and cloud training on HF Jobs. Datasets get depth support, an automatic language annotation pipeline, custom video encoding, and up to 2x faster data loading, all on top of a leaner installation.
 
-<!-- TODO: add hero image/gif at assets/lerobot-release-v060/ -->
+![LeRobot 0.6.0](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/lerobot-blog/release-v0.6.0/lerobot%20v0.6.0.png)
+
 
 ## Table of contents
 
@@ -58,11 +59,13 @@ LeRobot v0.6.0 introduces world model policies (VLA-JEPA, FastWAM, LingBot-VA) t
 
 ## World models: policies that imagine
 
-<!-- TODO: gif idea: LingBot-VA imagined rollout vs real rollout side-by-side (save_predicted_video), hosted at documentation-images/lerobot-blog/release-v0.6.0/ -->
+![LingBot-VA imagined rollout vs real rollout](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/lerobot-blog/release-v0.6.0/gifs/lingbot_va_viz_1.gif)
 
 The robotics world is asking a big question: do world models actually help robot policies? v0.6.0 brings three policies to LeRobot to help answer that question. Each one learns to imagine the future as part of its training, and each takes a different path to keep that imagination affordable.
 
 ### VLA-JEPA
+
+![VLA JEPA Controlling a Robot with LeRobot](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/lerobot-blog/release-v0.6.0/gifs/vla-jepa.gif)
 
 VLA-JEPA teaches a compact VLA (built on Qwen3-VL-2B) to predict the future in latent space while it learns to act: during training, a JEPA world model has to anticipate upcoming frames from the model's own actions. The trick is that the world model then disappears at inference, so you get world-model supervision at zero extra inference cost. Three ready-to-use checkpoints are on the Hub, including a DROID-pretrained base for fine-tuning:
 
@@ -87,12 +90,16 @@ LingBot-VA goes one step further: an autoregressive video-action model that pred
 
 ### GR00T N1.7
 
+![GROOT N1.7 in LeRobot](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/lerobot-blog/release-v0.6.0/gifs/groot.gif)
+
 We upgraded our NVIDIA GR00T integration to GR00T N1.7, the newest open generation of NVIDIA's cross-embodiment foundation model. N1.7 swaps the previous VLM for Cosmos-Reason2-2B (built on Qwen3-VL) feeding a flow-matching action head, and our integration is parity-tested against NVIDIA's original Isaac-GR00T implementation: same inputs, same outputs. Flash-attention is now optional, so `pip install 'lerobot[groot]'` just works, and you can load [NVIDIA's published checkpoints](https://huggingface.co/nvidia/GR00T-N1.7-3B) directly.
 
 > [!NOTE]
 > GR00T N1.7 replaces N1.5 in LeRobot. If you need N1.5, pin `lerobot==0.5.1`.
 
 ### MolmoAct2
+
+![MolmoAct2 Zero-Shot in LeRobot](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/lerobot-blog/release-v0.6.0/gifs/molmoact2_4.gif)
 
 MolmoAct2, the Allen Institute for AI's vision-language-action model, is now ported into LeRobot with the full lifecycle covered: fine-tuning (full or LoRA), evaluation, and real-robot deployment. Ready-made checkpoints with calibration correction baked in mean you can run it zero-shot (no need to record a dataset!) on an SO-100/101:
 
@@ -125,9 +132,13 @@ Success detection and progress estimation are the missing halves of the robot le
 
 ### Robometer
 
+![LeRobot Robometer](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/lerobot-blog/release-v0.6.0/gifs/rm_robometer.gif)
+
 Robometer is a pretrained, general-purpose reward model: point [lerobot/Robometer-4B](https://huggingface.co/lerobot/Robometer-4B) at any LeRobot dataset and it scores task progress and success from raw video plus a language instruction, with no task-specific training required. It is built on Qwen3-VL-4B and trained via trajectory comparisons over a dataset of more than one million robot trajectories ([RSS 2026 paper](https://arxiv.org/abs/2603.02115)).
 
 ### TOPReward
+
+![LeRobot TOPReward](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/lerobot-blog/release-v0.6.0/gifs/rm_topreward.gif)
 
 TOPReward goes fully zero-shot: no reward weights at all. It wraps an off-the-shelf VLM (Qwen3-VL) and reads the log-probability of the token "True" given the trajectory video and the task instruction. Any capable VLM becomes a reward function.
 
@@ -150,6 +161,8 @@ lerobot-edit-dataset \
 Full details in the [video encoding documentation](https://huggingface.co/docs/lerobot/video_encoding_parameters).
 
 ### Depth support, end to end
+
+![LeRobot Depth Camera](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/lerobot-blog/release-v0.6.0/gifs/depth.gif)
 
 Plug in an Intel RealSense, set `use_depth: true`, and LeRobot records depth maps end to end: captured in millimeters, compressed as compact 12-bit depth video streams alongside your RGB cameras, and decoded back to physical units at training time. Depth renders live during recording and in `lerobot-dataset-viz`, and it works across SO-100/101, Koch, OpenArm, reBot, Unitree G1 and more.
 
