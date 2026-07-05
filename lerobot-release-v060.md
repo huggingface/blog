@@ -253,7 +253,7 @@ LeRobot pushes your local dataset to a private Hub repo if needed, submits the j
 - Pip-installable `lerobot_env_*` packages now self-register their environments. The plugin system covers all five component types: robots, cameras, teleoperators, policies, and envs.
 - Keyboard controls during recording now work on Wayland, over SSH, on headless rigs, and on macOS without Accessibility permissions.
 
-> [!WARN]
+> [!WARNING]
 > Check the [release notes](https://github.com/huggingface/lerobot/releases) for the full list and migration pointers for the breaking changes.
 
 ## Community & ecosystem
