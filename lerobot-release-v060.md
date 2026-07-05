@@ -256,15 +256,14 @@ LeRobot pushes your local dataset to a private Hub repo if needed, submits the j
 > [!WARNING]
 > Check the [release notes](https://github.com/huggingface/lerobot/releases) for the full list and migration pointers for the breaking changes.
 
+![LeLab a graphical user interface for LeRobot](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/lerobot-blog/release-v0.6.0/gifs/LeLab.gif)
+
 ## Community & ecosystem
 
 - LeLab puts the whole LeRobot workflow (calibrate, teleoperate, record, train locally or on HF Jobs, deploy) in a browser UI, no CLI required. It currently supports the SO-ARM101. [Try it out!](https://github.com/huggingface/leLab)
 - Isaac Teleop lets you teleoperate an SO-101 with a VR controller through [NVIDIA's Isaac Teleop stack](https://github.com/NVIDIA/IsaacTeleop) over CloudXR/OpenXR, the result of a collaboration with the NVIDIA team. See the [documentation](https://huggingface.co/docs/lerobot/isaac_teleop).
 - The new [compute hardware guide](https://huggingface.co/docs/lerobot/hardware_guide) answers the two questions every newcomer asks: which GPU do I need, and how long will training take? It gives measured VRAM envelopes per policy family and reference training times from an RTX 4090 to 4x H100.
 - The rewritten [Adding a Policy guide](https://huggingface.co/docs/lerobot/bring_your_own_policies) shows how to ship your own policy, in-tree or as a plugin package with no PR needed.
-
-![LeLab a graphical user interface for LeRobot](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/lerobot-blog/release-v0.6.0/gifs/LeLab.gif)
-
 
 ## Final thoughts
 
