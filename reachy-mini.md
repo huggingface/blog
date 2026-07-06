@@ -13,13 +13,13 @@ authors:
 Tiny price, small size, huge possibilities. Code, learn, share with AI builders of all ages, all around the globe.
 
 
-| <center><a href="https://buy.stripe.com/6oUfZj78P1a5e6b0FS73G02" target="_blank" style="padding:10px 15px; background-color:#2E4787; color:white; text-decoration:none; border-radius:5px;">Order the lite version</a></center> | <center><a href="https://buy.stripe.com/9B65kFfFlaKFbY34W873G03" target="_blank" style="padding:10px 15px; background-color:#2E4787; color:white; text-decoration:none; border-radius:5px;">Order the wireless version</a></center> |
+| <center><a href="https://store.pollen-robotics.com/products/reachy-mini-lite-version" target="_blank" style="padding:10px 15px; background-color:#2E4787; color:white; text-decoration:none; border-radius:5px;">Order the lite version</a></center> | <center><a href="https://store.pollen-robotics.com/products/reachy-mini-wireless-version" target="_blank" style="padding:10px 15px; background-color:#2E4787; color:white; text-decoration:none; border-radius:5px;">Order the wireless version</a></center> |
 | :--: | :--: |
-| $299 (+ taxes + shipping) | $449 (+ taxes + shipping) |
+| $399 (+ taxes + shipping) | $499 (+ taxes + shipping) |
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/JvdBJZ-qR18?si=JSYn_sSwdVKQnCRO" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-Reachy Mini is an expressive, open-source robot designed for human-robot interaction, creative coding, and AI experimentation. Fully programmable in Python (and soon JavaScript, Scratch) and priced from **$299**, it's your gateway into robotics AI: fun, customizable, and ready to be part of your next coding project. Whether you're an AI developer, hacker, researcher, teacher, robot enthusiast, or just coding with your kids on the weekend, Reachy Mini lets you develop, test, deploy, and share real-world AI applications from your desk, using the latest AI models!
+Reachy Mini is an expressive, open-source robot designed for human-robot interaction, creative coding, and AI experimentation. Fully programmable in Python (and soon JavaScript, Scratch) and priced from **$399**, it's your gateway into robotics AI: fun, customizable, and ready to be part of your next coding project. Whether you're an AI developer, hacker, researcher, teacher, robot enthusiast, or just coding with your kids on the weekend, Reachy Mini lets you develop, test, deploy, and share real-world AI applications from your desk, using the latest AI models!
 
 ---
 
@@ -32,6 +32,8 @@ Reachy Mini measures 11“/28cm in height and 6.3“/16cm in width (approximatel
 >Reachy Mini is currently in an early development phase. We’re sharing it as-is, without warranties or guarantees, to engage with early adopters and gather feedback.
 >
 >For multiple-unit orders (+10 units), please contact **sales@pollen-robotics.com**
+>
+>Shipping and import duties: all orders ship DAP (Delivered At Place). Shipping costs and any local import duties, taxes, or customs fees are the responsibility of the buyer and are not included in the product price.
 >
 >Privacy: Reachy Mini does not store, transmit, or process personal data by default. Any use of its camera or microphone functions is fully under the user's control. Pollen Robotics and Hugging Face do not collect or access any user data from the robot.
 
@@ -48,15 +50,15 @@ Reachy Mini measures 11“/28cm in height and 6.3“/16cm in width (approximatel
 | Full body rotation         | <center>✔️</center>                                     | <center>✔️</center>                                     |
 | 2 animated antennas        | <center>✔️</center>                                     | <center>✔️</center>                                     |
 | Delivery                   | <center>~90 days</center>                      | <center>~90 days</center>                |
-| Price                      | <center>$299 (+ taxes + shipping)</center>                  | <center>$449 (+ taxes + shipping)</center>                  |
-|                            | <center><a href="https://buy.stripe.com/6oUfZj78P1a5e6b0FS73G02" target="_blank" style="padding:10px 15px; background-color:#2E4787; color:white; text-decoration:none; border-radius:5px;">Order the lite version</a></center> | <center><a href="https://buy.stripe.com/9B65kFfFlaKFbY34W873G03" target="_blank" style="padding:10px 15px; background-color:#2E4787; color:white; text-decoration:none; border-radius:5px;">Order the wireless version</a></center> |
+| Price                      | <center>$399 (+ taxes + shipping)</center>                  | <center>$499 (+ taxes + shipping)</center>                  |
+|                            | <center><a href="https://store.pollen-robotics.com/products/reachy-mini-lite-version" target="_blank" style="padding:10px 15px; background-color:#2E4787; color:white; text-decoration:none; border-radius:5px;">Order the lite version</a></center> | <center><a href="https://store.pollen-robotics.com/products/reachy-mini-wireless-version" target="_blank" style="padding:10px 15px; background-color:#2E4787; color:white; text-decoration:none; border-radius:5px;">Order the wireless version</a></center> |
 
 
 ![image/png](https://cdn-uploads.huggingface.co/production/uploads/671faa3a541a76b548647676/YldBieuJPvTe6i_545iwu.png)
 
 ## 🧠 Built for Exploring, Playing, Learning & Sharing
 <ul>
-  <li><b>Compact & Affordable</b>: Desktop-sized and starting from $299, ideal for creative prototyping, education and research.</li>
+  <li><b>Compact & Affordable</b>: Desktop-sized and starting from $399, ideal for creative prototyping, education and research.</li>
   <li><b>Plug & Play Behaviors</b>: A set of 15+ robot behaviors is provided at launch on the Hugging Face hub so you can play and learn right out of the box.</li>
   <li><b>Grow with the Community</b>: With easy uploading, sharing, and downloading of new robot behaviors, the possibilities grow exponentially with the Reachy-Mini community.</li>
   <li><b>Programmable in real-life & simulation</b>: Intuitive and accessible coding using the open-source Python SDK (and soon support for more languages). With the simulation SDK, you can even test and develop projects before receiving the robot.</li>
@@ -83,6 +85,6 @@ Made with ❤️ by Pollen Robotics and Hugging Face.
 
 🤗 <b>Join the Reachy Mini Community on <a href="https://discord.gg/HDrGY9eJHt" target="_blank">Discord</a></b>.  
 
-| <center><a href="https://buy.stripe.com/6oUfZj78P1a5e6b0FS73G02" target="_blank" style="padding:10px 15px; background-color:#2E4787; color:white; text-decoration:none; border-radius:5px;">Order the lite version</a></center> | <center><a href="https://buy.stripe.com/9B65kFfFlaKFbY34W873G03" target="_blank" style="padding:10px 15px; background-color:#2E4787; color:white; text-decoration:none; border-radius:5px;">Order the wireless version</a></center> |
+| <center><a href="https://store.pollen-robotics.com/products/reachy-mini-lite-version" target="_blank" style="padding:10px 15px; background-color:#2E4787; color:white; text-decoration:none; border-radius:5px;">Order the lite version</a></center> | <center><a href="https://store.pollen-robotics.com/products/reachy-mini-wireless-version" target="_blank" style="padding:10px 15px; background-color:#2E4787; color:white; text-decoration:none; border-radius:5px;">Order the wireless version</a></center> |
 | :--: | :--: |
-| $299 (+ taxes + shipping) | $449 (+ taxes + shipping) |
+| $399 (+ taxes + shipping) | $499 (+ taxes + shipping) |

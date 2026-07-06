@@ -8,6 +8,10 @@ authors:
 
 # From Zero to GPU: A Guide to Building and Scaling Production-Ready CUDA Kernels
 
+> [!TIP]
+> We have revamped the Kernels project since the publication of this post.
+> Check out the updates [here](https://hf.co/blog/revamped-kernels).
+
 Custom CUDA kernels give your models a serious performance edge, but building them for the real world can feel daunting. How do you move beyond a simple GPU function to create a robust, scalable system without getting bogged down by endless build times and dependency nightmares?
 
 We created the [`kernel-builder` library](https://github.com/huggingface/kernels) for this purpose. You can develop a custom kernel locally, and then build it for multiple architectures and make it available for the world to use.
