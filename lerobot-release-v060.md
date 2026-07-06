@@ -77,7 +77,7 @@ Check out the [VLA-JEPA documentation](https://huggingface.co/docs/lerobot/vla_j
 
 ### LingBot-VA
 
-LingBot-VA goes one step further: an autoregressive video-action model that predicts future video and actions together, chunk by chunk, and feeds real observations back in to keep its imagination grounded. You can even save what the robot imagined (`--policy.save_predicted_video=true`) and compare it with what actually happened, and inference runs on a single 24–32 GB GPU. Check out the [documentation](https://huggingface.co/docs/lerobot/lingbot_va) and the [paper](https://arxiv.org/pdf/2601.21998) for the technical details.
+LingBot-VA goes one step further: an autoregressive video-action model that predicts future video and actions together, chunk by chunk, and feeds real observations back in to keep its imagination grounded. You can even save what the robot imagined (`--policy.save_predicted_video=true`) and compare it with what actually happened. Inference runs on a single 24–32 GB GPU. Check out the [documentation](https://huggingface.co/docs/lerobot/lingbot_va) and the [paper](https://arxiv.org/pdf/2601.21998) for the technical details.
 
 ### FastWAM
 
@@ -123,7 +123,7 @@ VLAs don't have to be huge. EVO1 packs its policy into 0.77B parameters, an Inte
 
 ## Reward models: knowing when your robot succeeds
 
-Success detection and progress estimation are the missing halves of the robot learning loop, and v0.6.0 gives them a home. LeRobot now has a unified reward models API (`lerobot.rewards`), mirroring the policies API, with four reward models behind one interface: the HIL-SERL reward classifier, SARM, and two new additions.
+Success detection and progress estimation are missing pieces in the robot learning loop, and v0.6.0 gives them a home. LeRobot now has a unified reward models API (`lerobot.rewards`), mirroring the policies API, with four reward models behind one interface: the HIL-SERL reward classifier, SARM, and two new additions.
 
 ### Robometer
 
@@ -244,7 +244,7 @@ lerobot-train \
   --job.target=a10g-small
 ```
 
-LeRobot pushes your local dataset to a private Hub repo if needed, submits the job, streams logs to your terminal (Ctrl-C detaches, the job keeps running), and pushes the trained policy to the Hub at the end. Pick anything from a T4 to 8x H200 with `--job.target` (compute is billed pay-as-you-go). [Check out the documentation](https://huggingface.co/docs/lerobot/hardware_guide#hugging-face-jobs)
+LeRobot pushes your local dataset to a private Hub repo if needed, submits the job, streams logs to your terminal, and pushes the trained policy to the Hub at the end. Pick anything from a T4 to 8x H200 with `--job.target` (compute is billed pay-as-you-go). [Check out the documentation](https://huggingface.co/docs/lerobot/hardware_guide#hugging-face-jobs)
 
 ## Codebase: leaner and cleaner
 
