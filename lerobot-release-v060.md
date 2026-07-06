@@ -123,7 +123,7 @@ VLAs don't have to be huge. EVO1 packs its policy into 0.77B parameters, an Inte
 
 ## Reward models: knowing when your robot succeeds
 
-Success detection and progress estimation are missing pieces in the robot learning loop, and v0.6.0 gives them a home. LeRobot now has a unified reward models API (`lerobot.rewards`), mirroring the policies API, with four reward models behind one interface: the HIL-SERL reward classifier, SARM, and two new additions.
+Success detection and progress estimation are missing pieces in the robot learning loop, and v0.6.0 gives them a home. LeRobot now has a unified reward models API (`lerobot.rewards`), mirroring the policies API, with four reward models behind one interface - the HIL-SERL reward classifier, SARM, and two new additions:
 
 ### Robometer
 
@@ -198,7 +198,7 @@ lerobot-eval \
   --eval.n_episodes=100 --eval.batch_size=1
 ```
 
-Simulator backends are Linux affairs with their own install steps; each docs page has the exact recipe, and every benchmark ships a ready-made Docker image if you'd rather skip the setup.
+Simulator backends require specific system dependencies with their own install steps; each docs page has the exact recipe, and every benchmark ships a ready-made Docker image if you'd rather skip the setup.
 
 Together with LIBERO, Meta-World, and NVIDIA IsaacLab-Arena, that makes nine benchmark families under one roof, and a new [Adding a New Benchmark guide](https://huggingface.co/docs/lerobot/adding_benchmarks) documents exactly how to plug in yours. Evaluation also got faster: parallel eval now defaults to async vectorized environments, benchmarked at up to 2x faster.
 
