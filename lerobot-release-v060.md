@@ -73,11 +73,11 @@ lerobot-train \
 
 Check out the [VLA-JEPA documentation](https://huggingface.co/docs/lerobot/v0.6.0/vla_jepa) and the [paper](https://arxiv.org/abs/2602.10098) to learn more.
 
-![LingBot-VA imagined rollout vs real rollout](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/lerobot-blog/release-v0.6.0/gifs/lingbot_va_viz_1.gif)
-
 ### LingBot-VA
 
 LingBot-VA goes one step further: an autoregressive video-action model that predicts future video and actions together, chunk by chunk, and feeds real observations back in to keep its imagination grounded. You can even save what the robot imagined (`--policy.save_predicted_video=true`) and compare it with what actually happened. Inference runs on a single 24–32 GB GPU. Check out the [documentation](https://huggingface.co/docs/lerobot/v0.6.0/lingbot_va) and the [paper](https://arxiv.org/pdf/2601.21998) for the technical details.
+
+![LingBot-VA imagined rollout vs real rollout](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/lerobot-blog/release-v0.6.0/gifs/lingbot_va_viz_1.gif)
 
 ### FastWAM
 
