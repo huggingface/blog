@@ -5517,3 +5517,11 @@
     - audio
     - open-source-collab
     - inference-providers
+
+- local: revamped-kernels
+  date: July 6, 2026
+  tags:
+    - kernels
+    - hub
+    - optimization
+    - kernel-builder
