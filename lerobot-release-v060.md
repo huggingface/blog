@@ -71,17 +71,17 @@ lerobot-train \
   --policy.repo_id=${HF_USER}/my_finetuned_policy
 ```
 
-Check out the [VLA-JEPA documentation](https://huggingface.co/docs/lerobot/vla_jepa) and the [paper](https://arxiv.org/abs/2602.10098) to learn more.
+Check out the [VLA-JEPA documentation](https://huggingface.co/docs/lerobot/v0.6.0/vla_jepa) and the [paper](https://arxiv.org/abs/2602.10098) to learn more.
 
 ![LingBot-VA imagined rollout vs real rollout](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/lerobot-blog/release-v0.6.0/gifs/lingbot_va_viz_1.gif)
 
 ### LingBot-VA
 
-LingBot-VA goes one step further: an autoregressive video-action model that predicts future video and actions together, chunk by chunk, and feeds real observations back in to keep its imagination grounded. You can even save what the robot imagined (`--policy.save_predicted_video=true`) and compare it with what actually happened. Inference runs on a single 24–32 GB GPU. Check out the [documentation](https://huggingface.co/docs/lerobot/lingbot_va) and the [paper](https://arxiv.org/pdf/2601.21998) for the technical details.
+LingBot-VA goes one step further: an autoregressive video-action model that predicts future video and actions together, chunk by chunk, and feeds real observations back in to keep its imagination grounded. You can even save what the robot imagined (`--policy.save_predicted_video=true`) and compare it with what actually happened. Inference runs on a single 24–32 GB GPU. Check out the [documentation](https://huggingface.co/docs/lerobot/v0.6.0/lingbot_va) and the [paper](https://arxiv.org/pdf/2601.21998) for the technical details.
 
 ### FastWAM
 
-FastWAM asks the question in its paper title: do world action models need test-time future imagination? It pairs a ~5B video-generation expert with a compact action expert in a single network, so the model literally learns to dream its own rollouts. At inference it skips the dreaming entirely and directly denoises action chunks. Fine-tune it from [lerobot/fastwam_base](https://huggingface.co/lerobot/fastwam_base), and read more in the [documentation](https://huggingface.co/docs/lerobot/fastwam).
+FastWAM asks the question in its paper title: do world action models need test-time future imagination? It pairs a ~5B video-generation expert with a compact action expert in a single network, so the model literally learns to dream its own rollouts. At inference it skips the dreaming entirely and directly denoises action chunks. Fine-tune it from [lerobot/fastwam_base](https://huggingface.co/lerobot/fastwam_base), and read more in the [documentation](https://huggingface.co/docs/lerobot/v0.6.0/fastwam).
 
 ## VLAs: the model zoo keeps growing
 
@@ -105,21 +105,21 @@ lerobot-rollout \
   --task="pick up the red cube" --duration=30
 ```
 
-Inference fits in ~12 GB at bf16, and LoRA fine-tuning fits on a single 24 GB GPU. See the [MolmoAct2 documentation](https://huggingface.co/docs/lerobot/molmoact2) for the full deployment guide.
+Inference fits in ~12 GB at bf16, and LoRA fine-tuning fits on a single 24 GB GPU. See the [MolmoAct2 documentation](https://huggingface.co/docs/lerobot/v0.6.0/molmoact2) for the full deployment guide.
 
 ![MolmoAct2 Zero-Shot in LeRobot](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/lerobot-blog/release-v0.6.0/gifs/molmoact2_4.gif)
 
 ### EO-1
 
-EO-1, a VLA pretrained upstream on interleaved vision-text-action data, joins LeRobot: a Qwen2.5-VL-3B backbone with a flow-matching action head, contributed by one of the paper's own authors. Train it with the standard `lerobot-train` workflow using `--policy.type=eo1`. Details in the [documentation](https://huggingface.co/docs/lerobot/eo1) and the [paper](https://arxiv.org/abs/2508.21112).
+EO-1, a VLA pretrained upstream on interleaved vision-text-action data, joins LeRobot: a Qwen2.5-VL-3B backbone with a flow-matching action head, contributed by one of the paper's own authors. Train it with the standard `lerobot-train` workflow using `--policy.type=eo1`. Details in the [documentation](https://huggingface.co/docs/lerobot/v0.6.0/eo1) and the [paper](https://arxiv.org/abs/2508.21112).
 
 ### Multitask DiT
 
-The Multitask Diffusion Transformer policy brings the TRI Large Behavior Models recipe to LeRobot: a ~450M-parameter diffusion transformer conditioned on CLIP vision and language embeddings, so one model learns many tasks selected via natural language. It supports both diffusion and flow-matching objectives, and it is small enough to train yourself. See the [documentation](https://huggingface.co/docs/lerobot/multi_task_dit).
+The Multitask Diffusion Transformer policy brings the TRI Large Behavior Models recipe to LeRobot: a ~450M-parameter diffusion transformer conditioned on CLIP vision and language embeddings, so one model learns many tasks selected via natural language. It supports both diffusion and flow-matching objectives, and it is small enough to train yourself. See the [documentation](https://huggingface.co/docs/lerobot/v0.6.0/multi_task_dit).
 
 ### EVO1
 
-VLAs don't have to be huge. EVO1 packs its policy into 0.77B parameters, an InternVL3-1B backbone with a flow-matching action head, small enough to fine-tune and run in real time on modest GPUs. It ships with two-stage fine-tuning and Real-Time Chunking support out of the box. See the [EVO1 documentation](https://huggingface.co/docs/lerobot/evo1) and the [paper](https://arxiv.org/abs/2511.04555).
+VLAs don't have to be huge. EVO1 packs its policy into 0.77B parameters, an InternVL3-1B backbone with a flow-matching action head, small enough to fine-tune and run in real time on modest GPUs. It ships with two-stage fine-tuning and Real-Time Chunking support out of the box. See the [EVO1 documentation](https://huggingface.co/docs/lerobot/v0.6.0/evo1) and the [paper](https://arxiv.org/abs/2511.04555).
 
 ## Reward models: knowing when your robot succeeds
 
@@ -135,7 +135,7 @@ Robometer is a pretrained, general-purpose reward model: point [lerobot/Robomete
 
 TOPReward goes fully zero-shot: no reward weights at all. It wraps an off-the-shelf VLM (Qwen3-VL) and reads the log-probability of the token "True" given the trajectory video and the task instruction. Any capable VLM becomes a reward function.
 
-Both ship with labeling scripts that write per-frame progress curves into your dataset, ready for reward-aware behavior cloning (RA-BC), dataset quality inspection, and progress-overlay videos. Check the [Robometer](https://huggingface.co/docs/lerobot/robometer) and [TOPReward](https://huggingface.co/docs/lerobot/topreward) docs.
+Both ship with labeling scripts that write per-frame progress curves into your dataset, ready for reward-aware behavior cloning (RA-BC), dataset quality inspection, and progress-overlay videos. Check the [Robometer](https://huggingface.co/docs/lerobot/v0.6.0/robometer) and [TOPReward](https://huggingface.co/docs/lerobot/v0.6.0/topreward) docs.
 
 ## Datasets: faster loading, richer data
 
@@ -151,7 +151,7 @@ lerobot-edit-dataset \
     --operation.rgb_encoder.crf 23
 ```
 
-Full details in the [video encoding documentation](https://huggingface.co/docs/lerobot/video_encoding_parameters).
+Full details in the [video encoding documentation](https://huggingface.co/docs/lerobot/v0.6.0/video_encoding_parameters).
 
 ### Depth support, end to end
 
@@ -171,7 +171,7 @@ lerobot-annotate \
     --push_to_hub=true
 ```
 
-A YAML recipe layer then renders these annotations into chat-style training messages at sample time: exactly the data tomorrow's long-horizon, talking robot policies will train on. Scale it up with HF Jobs, and read the [annotation pipeline docs](https://huggingface.co/docs/lerobot/annotation_pipeline) to learn more.
+A YAML recipe layer then renders these annotations into chat-style training messages at sample time: exactly the data tomorrow's long-horizon, talking robot policies will train on. Scale it up with HF Jobs, and read the [annotation pipeline docs](https://huggingface.co/docs/lerobot/v0.6.0/annotation_pipeline) to learn more.
 
 ### Up to 2x faster data loading
 
@@ -183,12 +183,12 @@ Training on video datasets is now up to ~2x faster out of the box: multi-camera 
 
 v0.5.0 planted the flag on LeRobot as an evaluation hub for VLAs; v0.6.0 makes it the real deal with six new simulation benchmarks, all runnable through the same `lerobot-eval` CLI, each with a docs page, a Docker image, and a SmolVLA baseline checkpoint smoke-tested in CI:
 
-- [LIBERO-plus](https://huggingface.co/docs/lerobot/libero_plus) stress-tests VLAs with roughly 10,000 perturbed variants of LIBERO across seven axes, from lighting and camera viewpoints to rewritten instructions. It tells you when a policy breaks.
-- [RoboTwin 2.0](https://huggingface.co/docs/lerobot/robotwin) covers 50 bimanual manipulation tasks on SAPIEN with heavy domain randomization, and comes with [more than 100k ready-to-train trajectories](https://huggingface.co/datasets/lerobot/robotwin_unified) on the Hub.
-- [RoboCasa365](https://huggingface.co/docs/lerobot/robocasa) spans 365 kitchen tasks in 2,500 procedurally generated kitchens on a mobile manipulator, the largest task surface in our lineup.
-- [RoboCerebra](https://huggingface.co/docs/lerobot/robocerebra) evaluates long-horizon behavior with episodes that chain 3 to 6 sub-goals under language-grounded intermediate instructions, plus a 6,660-episode dataset.
-- [RoboMME](https://huggingface.co/docs/lerobot/robomme) is a memory exam: can your policy count repetitions, track hidden objects, and imitate demonstrated procedures? 16 tasks across 4 memory suites.
-- [VLABench](https://huggingface.co/docs/lerobot/vlabench) tests knowledge and reasoning in manipulation, from physics questions to composite tasks like brewing coffee end to end.
+- [LIBERO-plus](https://huggingface.co/docs/lerobot/v0.6.0/libero_plus) stress-tests VLAs with roughly 10,000 perturbed variants of LIBERO across seven axes, from lighting and camera viewpoints to rewritten instructions. It tells you when a policy breaks.
+- [RoboTwin 2.0](https://huggingface.co/docs/lerobot/v0.6.0/robotwin) covers 50 bimanual manipulation tasks on SAPIEN with heavy domain randomization, and comes with [more than 100k ready-to-train trajectories](https://huggingface.co/datasets/lerobot/robotwin_unified) on the Hub.
+- [RoboCasa365](https://huggingface.co/docs/lerobot/v0.6.0/robocasa) spans 365 kitchen tasks in 2,500 procedurally generated kitchens on a mobile manipulator, the largest task surface in our lineup.
+- [RoboCerebra](https://huggingface.co/docs/lerobot/v0.6.0/robocerebra) evaluates long-horizon behavior with episodes that chain 3 to 6 sub-goals under language-grounded intermediate instructions, plus a 6,660-episode dataset.
+- [RoboMME](https://huggingface.co/docs/lerobot/v0.6.0/robomme) is a memory exam: can your policy count repetitions, track hidden objects, and imitate demonstrated procedures? 16 tasks across 4 memory suites.
+- [VLABench](https://huggingface.co/docs/lerobot/v0.6.0/vlabench) tests knowledge and reasoning in manipulation, from physics questions to composite tasks like brewing coffee end to end.
 
 ```bash
 lerobot-eval \
@@ -200,7 +200,7 @@ lerobot-eval \
 
 Simulator backends require specific system dependencies with their own install steps; each docs page has the exact recipe, and every benchmark ships a ready-made Docker image if you'd rather skip the setup.
 
-Together with LIBERO, Meta-World, and NVIDIA IsaacLab-Arena, that makes nine benchmark families under one roof, and a new [Adding a New Benchmark guide](https://huggingface.co/docs/lerobot/adding_benchmarks) documents exactly how to plug in yours. Evaluation also got faster: parallel eval now defaults to async vectorized environments, benchmarked at up to 2x faster.
+Together with LIBERO, Meta-World, and NVIDIA IsaacLab-Arena, that makes nine benchmark families under one roof, and a new [Adding a New Benchmark guide](https://huggingface.co/docs/lerobot/v0.6.0/adding_benchmarks) documents exactly how to plug in yours. Evaluation also got faster: parallel eval now defaults to async vectorized environments, benchmarked at up to 2x faster.
 
 ![LeRobot benchmarks](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/lerobot-blog/release-v0.6.0/gifs/benchmarks2.gif)
 
@@ -224,13 +224,13 @@ lerobot-rollout \
     --dataset.single_task="Grasp the block"
 ```
 
-Deploy, collect corrections, fine-tune, repeat: the robot learning flywheel is now a CLI flag. Read the [deployment docs](https://huggingface.co/docs/lerobot/inference).
+Deploy, collect corrections, fine-tune, repeat: the robot learning flywheel is now a CLI flag. Read the [deployment docs](https://huggingface.co/docs/lerobot/v0.6.0/inference).
 
 <!-- TODO: gif idea: DAgger takeover moment (policy fails, human grabs leader arm, correction recorded), hosted at documentation-images/lerobot-blog/release-v0.6.0/ -->
 
 ### FSDP: train models bigger than your GPU
 
-Robot foundation models are outgrowing single GPUs. LeRobot training now supports FSDP (fully sharded data parallel) through Accelerate: parameters, gradients, and optimizer state are sharded across GPUs, and checkpoints are gathered back into a plain single-file `model.safetensors` that loads like any other policy. You can even resume an FSDP run on a different number of GPUs. See the [multi-GPU training docs](https://huggingface.co/docs/lerobot/multi_gpu_training).
+Robot foundation models are outgrowing single GPUs. LeRobot training now supports FSDP (fully sharded data parallel) through Accelerate: parameters, gradients, and optimizer state are sharded across GPUs, and checkpoints are gathered back into a plain single-file `model.safetensors` that loads like any other policy. You can even resume an FSDP run on a different number of GPUs. See the [multi-GPU training docs](https://huggingface.co/docs/lerobot/v0.6.0/multi_gpu_training).
 
 ### Cloud training with HF Jobs
 
@@ -244,7 +244,7 @@ lerobot-train \
   --job.target=a10g-small
 ```
 
-LeRobot pushes your local dataset to a private Hub repo if needed, submits the job, streams logs to your terminal, and pushes the trained policy to the Hub at the end. Pick anything from a T4 to 8x H200 with `--job.target` (compute is billed pay-as-you-go). [Check out the documentation](https://huggingface.co/docs/lerobot/hardware_guide#hugging-face-jobs)
+LeRobot pushes your local dataset to a private Hub repo if needed, submits the job, streams logs to your terminal, and pushes the trained policy to the Hub at the end. Pick anything from a T4 to 8x H200 with `--job.target` (compute is billed pay-as-you-go). [Check out the documentation](https://huggingface.co/docs/lerobot/v0.6.0/hardware_guide#hugging-face-jobs)
 
 ## Codebase: leaner and cleaner
 
@@ -263,9 +263,9 @@ LeRobot pushes your local dataset to a private Hub repo if needed, submits the j
 ## Community & ecosystem
 
 - LeLab puts the whole LeRobot workflow (calibrate, teleoperate, record, train locally or on HF Jobs, deploy) in a browser UI, no CLI required. It currently supports the SO-ARM101. [Try it out!](https://github.com/huggingface/leLab)
-- Isaac Teleop lets you teleoperate an SO-101 with a VR controller through [NVIDIA's Isaac Teleop stack](https://github.com/NVIDIA/IsaacTeleop) over CloudXR/OpenXR, the result of a collaboration with the NVIDIA team. See the [documentation](https://huggingface.co/docs/lerobot/isaac_teleop).
-- The new [compute hardware guide](https://huggingface.co/docs/lerobot/hardware_guide) answers the two questions every newcomer asks: which GPU do I need, and how long will training take? It gives measured VRAM envelopes per policy family and reference training times from an RTX 4090 to 4x H100.
-- The rewritten [Adding a Policy guide](https://huggingface.co/docs/lerobot/bring_your_own_policies) shows how to ship your own policy, in-tree or as a plugin package with no PR needed.
+- Isaac Teleop lets you teleoperate an SO-101 with a VR controller through [NVIDIA's Isaac Teleop stack](https://github.com/NVIDIA/IsaacTeleop) over CloudXR/OpenXR, the result of a collaboration with the NVIDIA team. See the [documentation](https://huggingface.co/docs/lerobot/v0.6.0/isaac_teleop).
+- The new [compute hardware guide](https://huggingface.co/docs/lerobot/v0.6.0/hardware_guide) answers the two questions every newcomer asks: which GPU do I need, and how long will training take? It gives measured VRAM envelopes per policy family and reference training times from an RTX 4090 to 4x H100.
+- The rewritten [Adding a Policy guide](https://huggingface.co/docs/lerobot/v0.6.0/bring_your_own_policies) shows how to ship your own policy, in-tree or as a plugin package with no PR needed.
 
 ## Final thoughts
 
