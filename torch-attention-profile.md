@@ -347,7 +347,7 @@ uvx trace-util -f traces -b <hf_uname>/traces
 
 By now the pattern is familiar. Like flash and efficient, cuDNN gives us one fused, flash-style kernel per forward (Figure 18). So the natural question is: **if flash already fuses attention, why does PyTorch ship yet another flash backend?** The answer is _who writes the kernel and how it is built_, and that difference is what makes the trace look different.
 
-#### How cuDNN is different: a generated kernel, not a shipped one
+#### How is cuDNN kernel different
 
 Flash and efficient are **fixed, pre-compiled kernels** vendored into PyTorch. You get the same binary every time. cuDNN is NVIDIA's own deep learning library, and its attention kernel is **generated and tuned for the specific problem** at hand. It is closer in spirit to `torch.compile`'s codegen than to a fixed cuBLAS binary. You can read that straight off the (very long) kernel name:
 
