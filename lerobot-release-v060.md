@@ -6,7 +6,7 @@ authors:
   - user: pepijn223
   - user: CarolinePascal
   - user: lilkm
-  - user: Maximellerbach
+  - user: maximellerbach
   - user: nepyope
   - user: nikodembartnik
   - user: Nico-robot
