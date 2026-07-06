@@ -5474,7 +5474,7 @@
     - chrome-extension
     - chrome
     - on-device
-    
+
 - local: huggingface-hub-release-ci
   date: June 23, 2026
   tags:
@@ -5525,3 +5525,9 @@
     - hub
     - optimization
     - kernel-builder
+
+- local: lerobot-release-v060
+  date: Jul 07, 2026
+  tags:
+    - lerobot
+    - robotics
