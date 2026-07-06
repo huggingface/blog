@@ -1,6 +1,6 @@
 ---
 title: "Profiling in PyTorch (Part 3): Attention is all you profile"
-thumbnail: /blog/assets/torch-attention-profile/TODO
+thumbnail: /blog/assets/torch-attention-profile/thumbnail.png
 authors:
   - user: ariG23498
 ---
