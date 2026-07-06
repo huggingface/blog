@@ -78,7 +78,10 @@ As a result of this, both `kernels` and `kernel-builder` are now much leaner and
 * [`kernels` CLI](https://huggingface.co/docs/kernels/en/cli)  
 * [`kernel-builder` CLI](https://huggingface.co/docs/kernels/en/builder-cli)
 
-## More coverage of frameworks and backends {#more-coverage-of-frameworks-and-backends}
+This improved CLI experience also lets us cater to the rise of agentic kernel
+development in a better manner. More on this [later](#foundation-for-agentic-kernel-development).
+
+## More coverage of frameworks and backends
 
 We have extended support for frameworks, the most visible changes are:
 
