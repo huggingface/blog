@@ -4802,12 +4802,6 @@
     - lerobot
     - robotics
 
-- local: lerobot-release-v060
-  date: Jul 07, 2026
-  tags:
-    - lerobot
-    - robotics
-
 - local: lerobotxnvidia-healthcare
   date: Oct 29, 2025
   tags:
@@ -5523,3 +5517,9 @@
     - audio
     - open-source-collab
     - inference-providers
+
+- local: lerobot-release-v060
+  date: Jul 07, 2026
+  tags:
+    - lerobot
+    - robotics
