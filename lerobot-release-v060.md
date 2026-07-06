@@ -202,6 +202,8 @@ Simulator backends are Linux affairs with their own install steps; each docs pag
 
 Together with LIBERO, Meta-World, and NVIDIA IsaacLab-Arena, that makes nine benchmark families under one roof, and a new [Adding a New Benchmark guide](https://huggingface.co/docs/lerobot/adding_benchmarks) documents exactly how to plug in yours. Evaluation also got faster: parallel eval now defaults to async vectorized environments, benchmarked at up to 2x faster.
 
+![LeRobot benchmarks](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/lerobot-blog/release-v0.6.0/gifs/benchmarks2.gif)
+
 ## Training & inference
 
 ### `lerobot-rollout`: deployment gets its own CLI
