@@ -5518,6 +5518,14 @@
     - open-source-collab
     - inference-providers
 
+- local: revamped-kernels
+  date: July 6, 2026
+  tags:
+    - kernels
+    - hub
+    - optimization
+    - kernel-builder
+
 - local: lerobot-release-v060
   date: Jul 07, 2026
   tags:
