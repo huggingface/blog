@@ -5526,7 +5526,7 @@
     - optimization
     - kernel-builder
 
-- local: torch-attention-fusion
+- local: torch-attention-profile
   date: July 6, 2026
   tags:
     - torch
