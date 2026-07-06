@@ -5525,3 +5525,12 @@
     - hub
     - optimization
     - kernel-builder
+
+- local: torch-attention-fusion
+  date: July 6, 2026
+  tags:
+    - torch
+    - profile
+    - flash
+    - xformers
+    - cudnn
