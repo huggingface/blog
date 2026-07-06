@@ -90,7 +90,7 @@ Before opening the trace, let's do our usual exercise and guess what we should s
 
 ```bash
 uv run 04_a_naive_attention.py
-uvx trace-util -f traces/ -b <hf_name>/traces
+uvx trace-util -f traces/ -b <hf_uname>/traces
 ```
 
 | ![CPU lane of the naive attention profiler trace, with the `attn_fwd` block expanded to show its matmul, mul, masked_fill and softmax operations](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/torch-attention-profile/cpu-profile-naive.png) |
@@ -148,7 +148,7 @@ Let's look at the trace and see if something changed.
 
 ```bash
 uv run 04_b_inplace_ops_attention.py
-uvx trace-util -f traces/ -b <Hf_uname>/traces
+uvx trace-util -f traces/ -b <hf_uname>/traces
 ```
 
 | Type | CPU stream |
@@ -304,7 +304,7 @@ The `void pytorch_flash` kernel (Figure 15) is [FlashAttention-2](https://arxiv.
 
 Before we read the trace any further, it is worth answering the question you should be asking by now: _why is there a whole backend named "flash", and why does it matter so much?_
 
-#### Why flash attention exists
+#### Why flash attention exists?
 
 Let's go back to the math backend for a moment. Its real problem was not the count of 20 kernels, it was what those kernels handed to each other.
 
