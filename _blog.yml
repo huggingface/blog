@@ -5531,3 +5531,12 @@
   tags:
     - lerobot
     - robotics
+
+- local: skypilot-hf-storage
+  date: July 7, 2026
+  tags:
+    - guide
+    - partnerships
+    - open-source-collab
+    - storage
+    - skypilot
