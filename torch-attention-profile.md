@@ -3,6 +3,7 @@ title: "Profiling in PyTorch (Part 3): Attention is all you profile"
 thumbnail: /blog/assets/torch-attention-profile/thumbnail.png
 authors:
   - user: ariG23498
+  - user: sergiopaniego
 ---
 
 # Profiling in PyTorch (Part 3): Attention is all you profile
@@ -399,6 +400,19 @@ Fewer visible ATen ops did not mean less CPU work, it **moved the work into the 
 
 On the GPU, cuDNN (186.3 µs) lands between efficient and flash. On this very flash-friendly shape, hand-written FlashAttention-2 edges it out. cuDNN often wins on _other_ shapes (larger head dimensions, different sequence lengths) precisely because its generator retunes per problem, but that retuning is also what you just paid for on the CPU.
 
+## Everything we covered, at a glance
+
+Before we wrap up, here is a single table to review every attention variant we profiled and the one lesson each trace taught us.
+
+| Variant | What we changed | Kernels / forward | What the trace revealed |
+| :-- | :-- | :--: | :-- |
+| Naive attention | Attention built by hand from primitives (matmul, mul, mask, softmax, matmul) | 6 | A hidden `Memcpy` from the out-of-place `masked_fill`. |
+| Naive in-place | `masked_fill` → `masked_fill_` | 5 | One line drops the `Memcpy` kernel entirely. |
+| SDPA math | `F.scaled_dot_product_attention` pinned to the math backend | 20 | The reference: FP32 on CUDA cores, mask rebuilt every call, `_safe_softmax`. Correct but ~3.7x slower. |
+| SDPA efficient | Efficient (xformers) backend | 1 | One fused `fmha_cutlassF` kernel, stays in bf16 on Tensor cores. |
+| SDPA flash | Flash backend | 1 | One fused `pytorch_flash` kernel (FlashAttention-2). Fastest, despite "wrong-looking" 13% occupancy. |
+| SDPA cuDNN | cuDNN backend | 1 | A per-problem generated kernel: no transposes, `cuLaunchKernelEx`, but the cost moved to a fat CPU bar. |
+
 ## Concluding the series
 
 If you take away only one thing from the whole series, let it be the habit we repeated before every single trace which is to **guess first, then look.**
@@ -408,3 +422,8 @@ State out loud what you expect the trace to contain, open it, and treat any mism
 Profiling is not a separate, intimidating skill reserved for GPU experts. It is just the discipline of looking closely and asking "wait, why is _that_ happening?" until the answer clicks. You now have the vocabulary and the reflexes to do that on your own models. Open a trace, form a guess, and go find the mismatch.
 
 Thanks for reading the **Profiling in PyTorch** series. Now go profile something. 🤗
+
+Thanks to [Noe Flandre](https://huggingface.co/NoeFlandre) for their reviews on the early draft of the post!
+
+> [!NOTE]
+> The blog post was polished using an LLM. This in no way means that we have let an agent run in the background and let it generate the blog. Some of us in the team are non-english speakers and think LLMs (which are mostly trained in the English Language) can rectify silly grammar mistakes or rephrase sentences that sound less intimidating and cleaner. Hope this helps with the idea of "why should I read, if this was LLM generated". 🤗
