@@ -94,7 +94,7 @@ run: |
 
 What we measured:
 
-- **The model loaded free on every cloud.** Lazy reads pull only what `from_pretrained` touches, so it was ready to train in about 30 seconds (up to ~500 MB/s). Because Hugging Face charges no egress, that pull cost nothing; had the model lived in S3, every read to a GPU on another cloud would have been billed egress (~$0.09/GB on AWS).
+- **The model loaded free on every cloud.** Lazy reads pull only what `from_pretrained` touches, so it was ready to train in about 30 seconds (up to \~500 MB/s). Because Hugging Face charges no egress, that pull cost nothing; had the model lived in S3, every read to a GPU on another cloud would have been billed egress (\~$0.09/GB on AWS).
 - **Checkpoints streamed straight to the bucket** at up to ~170 MB/s (8.43 GB of weights each) and persisted past the GPU instance.
 
 Per cloud, checkpoints wrote to the bucket at:
