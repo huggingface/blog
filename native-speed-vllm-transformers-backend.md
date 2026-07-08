@@ -82,7 +82,7 @@ The transformers modeling backend for vLLM now uses `torch.fx` to perform static
 **What can we achieve with this?**
 
 * Fused operations that are many-to-one mapped to (ultra) optimized vLLM kernels, such as the ones used for Expert Parallelization (EP) in Mixture-of-Experts (MoE) models.
-* Automatic detection of optimal parallel plans for TP (tensor-parallel) and PP (pipeline-parallel), allowing the use of vLLM's `MergedColumnParallelLinear` and `QKVParallelLinear` layers.
+* The main other fused operations are vLLM's `MergedColumnParallelLinear` and `QKVParallelLinear`. These blocks allow us to infer parallel plans for TP (tensor-parallel). PP (pipeline-parallel) plans can also be inferred if the decoder block list is easily identifiable.
 * The manipulated models are still fully (torch) compilable, being passed through `torch.compile` and CUDA Graphs, just the same as a dedicated vLLM model implementation.
 * Unlike vLLM model implementations, Transformers model implementations can be used in **training**. So you can use the same model code for training/evals/RL rollouts.
 
