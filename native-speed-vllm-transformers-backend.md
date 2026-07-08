@@ -4,8 +4,6 @@ thumbnail: /blog/assets/native-speed-vllm-transformers-backend/thumbnail.png
 authors:
 - user: hmellor
 - user: lysandre
-- user: pcuenq
-- user: ariG23498
 ---
 
 # Native-speed vLLM transformers backend
