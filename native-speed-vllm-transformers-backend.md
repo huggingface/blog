@@ -8,7 +8,7 @@ authors:
 
 # Native-speed vLLM transformers backend
 
-**TL;DR**: The transformers vLLM backend is now as fast (or faster) than custom vLLM implementations for many LLM architectures. Model authors can automatically leverage their transformers implementations to get ultra-fast vLLM inference, for free.
+**TL;DR**: The transformers vLLM backend is now as fast (or faster) than custom vLLM implementations for many LLM architectures. Model authors can automatically leverage their transformers implementations to get ultra fast vLLM inference, for free.
 
 ```bash
 # Upgrade the vllm pip package
@@ -59,7 +59,7 @@ The full, reproducible runner is available as a gist: [`benchmark.sh`](https://h
 
 ## So, what's new?
 
-The transformers backend for vLLM used to focus on _attention_ as the bottleneck for inference. By plugging vLLM’s attention implementation at runtime, we could make a transformers model run efficiently inside the vLLM engine. But there are many dimensions to deployments, that only a custom port can target to extract maximum inference performance. Parallelization across GPUs, compilation, fused kernels, and many more, all contribute to leveraging your hardware to achieve ultra-fast inference.
+The transformers backend for vLLM used to focus on _attention_ as the bottleneck for inference. By plugging vLLM’s attention implementation at runtime, we could make a transformers model run efficiently inside the vLLM engine. But there are many dimensions to deployments that only a custom port can target to extract maximum inference performance. Parallelization across GPUs, compilation, fused kernels, and many more, all contribute to leveraging your hardware to achieve ultra-fast inference.
 
 | ![New model integration to transformers and vLLM](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/vllm-backend/previous-pipeline.png) |
 | :--: |
@@ -80,9 +80,9 @@ The transformers backend for vLLM now uses `torch.fx` to perform static analysis
 **What can we achieve with this?**
 
 * Fused operations that are many-to-one mapped to (ultra) optimized vLLM kernels, such as the ones used for Expert Parallelization (EP) in Mixture-of-Experts (MoE) models.
-* Automatic detection of optimal parallel plans for TP (tensor-parallel) and PP (pipeline-parallel), allowing the use of vLLMs `MergedColumnParallelLinear` and `QKVParallelLinear` layers.
+* Automatic detection of optimal parallel plans for TP (tensor-parallel) and PP (pipeline-parallel), allowing the use of vLLM's `MergedColumnParallelLinear` and `QKVParallelLinear` layers.
 * Use of CUDA streams to parallelize compute and data synchronization, especially useful for large scale parallel architectures such as `Deepseek`-style MoEs.
-* The manipulated models are still fully (torch) compilable, being passed through `torch.compile` and CUDA Graphs, just the same as a dedicated vLLM model implementation
+* The manipulated models are still fully (torch) compilable, being passed through `torch.compile` and CUDA Graphs, just the same as a dedicated vLLM model implementation.
 * Unlike vLLM model implementations, Transformers model implementations can be used in **training**. So you can use the same model code for training/evals/RL rollouts.
 
 As shown above, this results in native vLLM inference speed for compatible models, without having to write a single line of code to optimize the model for inference.

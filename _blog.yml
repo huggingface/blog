@@ -5546,5 +5546,5 @@
   tags:
     - vllm
     - transformers
-    - backend
-    - speed
+    - inference
+    - optimization
