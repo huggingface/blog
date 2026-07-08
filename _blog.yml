@@ -5540,3 +5540,11 @@
     - open-source-collab
     - storage
     - skypilot
+
+- local: native-speed-vllm-transformers-backend
+  date: July 8, 2026
+  tags:
+    - vllm
+    - transformers
+    - inference
+    - optimization
