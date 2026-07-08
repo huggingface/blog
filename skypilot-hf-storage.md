@@ -2,11 +2,17 @@
 title: "Run AI workloads on any cloud, store on Hugging Face: zero-egress storage with SkyPilot"
 thumbnail: /blog/assets/skypilot-hf-storage/thumbnail.png
 authors:
-  - user: huggingface
   - user: njha
     guest: true
-  - user: skypilot-org
+    org: skypilot-org
+  - user: michaelvll
     guest: true
+    org: skypilot-org
+  - user: hopechong
+    guest: true
+    org: skypilot-org
+  - user: XciD
+  - user: julien-c
 ---
 
 # Run AI workloads on any cloud, store on Hugging Face: zero-egress storage with SkyPilot
