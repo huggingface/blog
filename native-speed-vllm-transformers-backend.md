@@ -11,6 +11,7 @@ authors:
 **TL;DR**: The transformers vLLM backend is now as fast (or faster) than custom vLLM implementations for many LLM architectures. Model authors can automatically leverage their transformers implementations to get ultra-fast vLLM inference, for free.
 
 ```bash
+# Upgrade the vllm pip package
 uv pip install --upgrade vllm --torch-backend auto
 ```
 
@@ -22,7 +23,39 @@ This integration gets better now 🚀!
 
 ## Showcase
 
-TODO
+We put the transformers backend for vLLM head to head with vLLM's hand written native implementations across three very different Qwen3 models:
+
+* 4B dense model on a single GPU
+* 32B dense model on tensor parallelism
+* 235B-parameter FP8 Mixture-of-Experts on data + expert parallelism on the same 8×H100 node
+
+| ![Pre and Post PR benchmarks with trasnformers vllm backend](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/vllm-backend/pre-post-pr.png) |
+| :--: |
+| The result: the transformers backend now **meets or beats** native throughput on every one of them. |
+
+Running any Hugging Face model through the transformers backend is a single flag — `--model-impl transformers`. It composes with the usual parallelism options, so nothing about your serving setup changes:
+
+```bash
+# Qwen3-4B dense, single GPU
+vllm serve Qwen/Qwen3-4B --model-impl transformers
+
+# Qwen3-32B dense, tensor-parallel across 2 GPUs
+vllm serve Qwen/Qwen3-32B --model-impl transformers --tensor-parallel-size 2
+
+# Qwen3-235B-A22B-FP8 MoE, data-parallel + expert-parallel across 8 GPUs
+vllm serve Qwen/Qwen3-235B-A22B-FP8 --model-impl transformers --data-parallel-size 8 --enable-expert-parallel
+# add --max-model-len 8192 if your node is memory constrained
+```
+
+### How we measured
+
+Each model is compared under three conditions that are identical in every way except the code path:
+
+1. **native** — `--model-impl vllm`, vLLM's hand-written model (the bar to match)
+2. **after** — `--model-impl transformers` _with_ the PR
+3. **before** — `--model-impl transformers` _without_ the PR
+
+The full, reproducible runner is available as a gist: [`benchmark.sh`](https://huggingface.co/datasets/ariG23498/useful-scripts/blob/main/transformers-backend-vllm-benchmark.sh)
 
 ## So, what's new?
 
