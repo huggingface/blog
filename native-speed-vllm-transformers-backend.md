@@ -33,7 +33,7 @@ We put the transformers modeling backend for vLLM head to head with vLLM's hand 
 | :--: |
 | The result: the transformers modeling backend now **meets or beats** native throughput on every one of them. |
 
-Running any Hugging Face model through the transformers modeling backend is a single flag — `--model-impl transformers`. It composes with the usual parallelism options, so nothing about your serving setup changes:
+Running any* Hugging Face model through the transformers modeling backend is a single flag — `--model-impl transformers`. It composes with the usual parallelism options, so nothing about your serving setup changes:
 
 ```bash
 # Qwen3-4B dense, single GPU
@@ -46,6 +46,8 @@ vllm serve Qwen/Qwen3-32B --model-impl transformers --tensor-parallel-size 2
 vllm serve Qwen/Qwen3-235B-A22B-FP8 --model-impl transformers --data-parallel-size 8 --enable-expert-parallel
 # add --max-model-len 8192 if your node is memory constrained
 ```
+
+_\*Models that use linear attention are not currently supported, but they will be soon! Custom models where the code lives in a Hub repo are unlikely to work as they will not have been written compliantly._
 
 ### How we measured
 
@@ -81,7 +83,6 @@ The transformers modeling backend for vLLM now uses `torch.fx` to perform static
 
 * Fused operations that are many-to-one mapped to (ultra) optimized vLLM kernels, such as the ones used for Expert Parallelization (EP) in Mixture-of-Experts (MoE) models.
 * Automatic detection of optimal parallel plans for TP (tensor-parallel) and PP (pipeline-parallel), allowing the use of vLLM's `MergedColumnParallelLinear` and `QKVParallelLinear` layers.
-* Use of CUDA streams to parallelize compute and data synchronization, especially useful for large scale parallel architectures such as `Deepseek`-style MoEs.
 * The manipulated models are still fully (torch) compilable, being passed through `torch.compile` and CUDA Graphs, just the same as a dedicated vLLM model implementation.
 * Unlike vLLM model implementations, Transformers model implementations can be used in **training**. So you can use the same model code for training/evals/RL rollouts.
 
