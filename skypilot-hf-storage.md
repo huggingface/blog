@@ -4,7 +4,6 @@ thumbnail: /blog/assets/skypilot-hf-storage/thumbnail.png
 authors:
   - user: njha
     guest: true
-    org: skypilot-org
   - user: michaelvll
     guest: true
     org: skypilot-org
