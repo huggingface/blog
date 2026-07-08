@@ -1,12 +1,12 @@
 ---
-title: Native-speed vLLM transformers backend
+title: Native-speed vLLM transformers modeling backend
 thumbnail: /blog/assets/native-speed-vllm-transformers-backend/thumbnail.png
 authors:
 - user: hmellor
 - user: lysandre
 ---
 
-# Native-speed vLLM transformers backend
+# Native-speed vLLM transformers modeling backend
 
 **TL;DR**: The transformers vLLM backend is now as fast (or faster) than custom vLLM implementations for many LLM architectures. Model authors can automatically leverage their transformers implementations to get ultra fast vLLM inference, for free.
 
@@ -23,7 +23,7 @@ This integration gets better now 🚀!
 
 ## Showcase
 
-We put the transformers backend for vLLM head to head with vLLM's hand written native implementations across three very different Qwen3 models:
+We put the transformers modeling backend for vLLM head to head with vLLM's hand written native implementations across three very different Qwen3 models:
 
 * 4B dense model on a single GPU
 * 32B dense model on tensor parallelism
@@ -31,9 +31,9 @@ We put the transformers backend for vLLM head to head with vLLM's hand written n
 
 | ![Pre and Post PR benchmarks with trasnformers vllm backend](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/vllm-backend/pre-post-pr.png) |
 | :--: |
-| The result: the transformers backend now **meets or beats** native throughput on every one of them. |
+| The result: the transformers modeling backend now **meets or beats** native throughput on every one of them. |
 
-Running any Hugging Face model through the transformers backend is a single flag — `--model-impl transformers`. It composes with the usual parallelism options, so nothing about your serving setup changes:
+Running any Hugging Face model through the transformers modeling backend is a single flag — `--model-impl transformers`. It composes with the usual parallelism options, so nothing about your serving setup changes:
 
 ```bash
 # Qwen3-4B dense, single GPU
@@ -59,7 +59,7 @@ The full, reproducible runner is available as a gist: [`benchmark.sh`](https://h
 
 ## So, what's new?
 
-The transformers backend for vLLM used to focus on _attention_ as the bottleneck for inference. By plugging vLLM’s attention implementation at runtime, we could make a transformers model run efficiently inside the vLLM engine. But there are many dimensions to deployments that only a custom port can target to extract maximum inference performance. Parallelization across GPUs, compilation, fused kernels, and many more, all contribute to leveraging your hardware to achieve ultra-fast inference.
+The transformers modeling backend for vLLM used to focus on _attention_ as the bottleneck for inference. By plugging vLLM’s attention implementation at runtime, we could make a transformers model run efficiently inside the vLLM engine. But there are many dimensions to deployments that only a custom port can target to extract maximum inference performance. Parallelization across GPUs, compilation, fused kernels, and many more, all contribute to leveraging your hardware to achieve ultra-fast inference.
 
 | ![New model integration to transformers and vLLM](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/vllm-backend/previous-pipeline.png) |
 | :--: |
@@ -71,11 +71,11 @@ When model authors wanted the absolute best performance, they were still writing
 | :--: |
 | A new model once integrated to transformers, can now be immediately used in vLLM with native vLLM implementation speed |
 
-The latest iteration of the transformers backend for vLLM dynamically applies inference specific layer fusions at runtime to match the speed of custom code implementations, for compatible architectures.
+The latest iteration of the transformers modeling backend for vLLM dynamically applies inference specific layer fusions at runtime to match the speed of custom code implementations, for compatible architectures.
 
 ## How does it work?
 
-The transformers backend for vLLM now uses `torch.fx` to perform static analysis on the model’s graph. This process searches for known patterns that can be optimised. After any patterns have been identified, it uses ast (abstract syntax tree) to manipulate the source code and rewrite some of the operations in place.
+The transformers modeling backend for vLLM now uses `torch.fx` to perform static analysis on the model’s graph. This process searches for known patterns that can be optimised. After any patterns have been identified, it uses ast (abstract syntax tree) to manipulate the source code and rewrite some of the operations in place.
 
 **What can we achieve with this?**
 
@@ -93,7 +93,7 @@ As shown above, this results in native vLLM inference speed for compatible model
 ## Resources
 
 * [Transformers model definition](https://huggingface.co/blog/transformers-model-definition#a-model-definition-library)
-* [Transformers backend in vLLM](https://vllm.ai/blog/2025-04-11-transformers-backend)
+* [Transformers modeling backend in vLLM](https://vllm.ai/blog/2025-04-11-transformers-backend)
 * [Large scale serving](https://vllm.ai/blog/2025-12-17-large-scale-serving)
 * [Torch FX](https://docs.pytorch.org/docs/2.12/fx.html)
 * [Abstract syntax tree](https://docs.python.org/3/library/ast.html)
