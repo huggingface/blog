@@ -5474,7 +5474,7 @@
     - chrome-extension
     - chrome
     - on-device
-    
+
 - local: huggingface-hub-release-ci
   date: June 23, 2026
   tags:
@@ -5526,8 +5526,31 @@
     - optimization
     - kernel-builder
 
+- local: lerobot-release-v060
+  date: Jul 07, 2026
+  tags:
+    - lerobot
+    - robotics
+
+- local: skypilot-hf-storage
+  date: July 7, 2026
+  tags:
+    - guide
+    - partnerships
+    - open-source-collab
+    - storage
+    - skypilot
+
+- local: native-speed-vllm-transformers-backend
+  date: July 8, 2026
+  tags:
+    - vllm
+    - transformers
+    - inference
+    - optimization
+
 - local: torch-attention-profile
-  date: July 6, 2026
+  date: July 9, 2026
   tags:
     - torch
     - profile
