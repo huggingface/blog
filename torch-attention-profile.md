@@ -4,6 +4,7 @@ thumbnail: /blog/assets/torch-attention-profile/thumbnail.png
 authors:
   - user: ariG23498
   - user: sergiopaniego
+  - user: sayakpaul
 ---
 
 # Profiling in PyTorch (Part 3): Attention is all you profile
@@ -56,13 +57,13 @@ From the perspective of the Transformer architecture, the next logical step for 
 
 ## Naive attention
 
-Attention works with Queries (`Q`), Keys (`K`), and Values (`V`). The interaction between them can be written as a short sequence of steps:
+Attention works with Queries (`q`), Keys (`k`), and Values (`v`). The interaction between them can be written as a short sequence of steps:
 
-1. Build the attention scores `S`: `matmul(Q, K.T)`
-2. Scale the scores: `S * scale`
-3. Apply a causal mask to the scores: `S.masked_fill(mask, "-inf")`
-4. Normalize the scores with softmax to get the attention weights `A`: `softmax(S)`
-5. Reweight the values with those weights: `matmul(A, V)`
+1. Build the attention scores `scores`: `matmul(q, k.T)`
+2. Scale the scores: `scores * scale`
+3. Apply a causal mask to the scores: `scores.masked_fill(mask, "-inf")`
+4. Normalize the scores with softmax to get the attention weights `attn`: `softmax(scores)`
+5. Reweight the values with those weights: `matmul(attn, v)`
 
 So attention is really a collection of primitive operations. Some of them we already know (the matmuls), and the rest are easy to spot. Let's write a naive attention module in PyTorch and profile it.
 
@@ -83,11 +84,11 @@ class NaiveCausalAttention(nn.Module):
 
 Before opening the trace, let's do our usual exercise and guess what we should see. Tracing the `forward` of this module, we expect:
 
-- a matmul kernel (`Q . K.T`)
+- a matmul kernel (`q . k.T`)
 - a mul kernel (the scaling)
 - an operation for the masking
 - a softmax kernel
-- a matmul kernel (`A . V`)
+- a matmul kernel (`atten . v`)
 
 ```bash
 uv run 04_a_naive_attention.py
@@ -205,10 +206,10 @@ uvx trace-util -f traces/ -b <hf_uname>/traces
 
 Before we open anything, let's guess. We have replaced hand written attention (matmul, mul, mask, softmax, matmul) with a single one liner, so we should expect the trace to get _simpler and faster_. Fewer kernels, less CPU dispatch, maybe even a fused kernel. Let's check the profiler table first.
 
-| Metric | Naive in-place | SDPA math |
-| :--: | :--: | :--: |
-| *_fwd CUDA time avg | 1.955 ms | 7.239 ms |
-| Self CUDA time total | 7.194 ms | 27.279 ms |
+| Metric | Where to look? | Naive in-place | SDPA math |
+| :--: | :--: | :--: | :--: |
+| `*_fwd` CUDA time avg | The "CUDA time avg" column for the `*_fwd` op | 1.955 ms | 7.239 ms |
+| Self CUDA time total | At the bottom of the profiler table | 7.194 ms | 27.279 ms |
 
 This is our first surprise, the one liner is `3.7x` slower.
 
@@ -221,16 +222,16 @@ Opening the trace (Figure 9) shows why the alarm bells ring, the math backend la
 
 #### Tensor cores left vacant
 
-In [Part 2](https://huggingface.co/blog/torch-mlp-fusion) we learned to read a kernel name like a fingerprint. Let's use that habit here:
+In [Part 2](https://huggingface.co/blog/torch-mlp-fusion#where-did-the-transpose-go-kernel-layouts-and-pre-ops) we learned to read a kernel name like a fingerprint. Let's use that habit here:
 
 | Run | matmul kernel |
 | :--: | :--: |
 | Figure 10: Naive attention | ![Matmul kernel name for naive attention in Perfetto, carrying the s16816 bfloat16 Tensor-core GEMM signature](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/torch-attention-profile/cuda-core-kernels.png) |
 | Figure 11: SDPA with math backend | ![Matmul kernel name for the SDPA math backend, carrying the sgemm FP32 CUDA-core signature](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/torch-attention-profile/tensor-core-kernels.png) |
 
-The `s16816` in the naive kernel (Figure 10) is the signature of a `bfloat16` Tensor core matmul (the `16x8x16` Tensor core instruction). `sgemm` (Figure 11) is the classic single precision (`FP32`) matmul that runs on the ordinary CUDA cores. So the math backend is not touching the Tensor cores at all.
+The A100s we used to capture these traces ship with [Tensor Cores](https://www.nvidia.com/en-us/data-center/tensor-cores/), specialised hardware for accelerated matmuls that is known to be far faster than the ordinary CUDA cores. To see why that matters here, it helps to know what lives inside a GPU. A Streaming Multiprocessor (SM) is the compute unit of a GPU, and each SM has two kinds of arithmetic units, the CUDA cores and the Tensor Cores. CUDA cores are general purpose and process a handful of elements at a time, while Tensor Cores multiply and accumulate a whole small matrix tile in a single instruction. So the question is simple, "Is each backend actually using the fast path?"
 
-How does this matter? A Streaming Multiprocessor (SM) is the compute unit of a GPU, and each SM has two kinds of arithmetic units, the CUDA cores and the Tensor cores. CUDA cores are general purpose and process a handful of elements at a time. Tensor Cores are specialised hardware that multiply and accumulate a whole small matrix tile in a single instruction. So when the math backend deliberately trades speed for numerical accuracy it upcasts tensors to `FP32` (doubling the data moved) and uses the CUDA cores instead of the faster Tensor cores.
+The kernel names answer it. The `s16816` in the naive kernel (Figure 10) is the signature of a `bfloat16` Tensor Core matmul (the `16x8x16` Tensor Core instruction), so the naive version is on the fast path. `sgemm` (Figure 11) is the classic single precision (`FP32`) matmul that runs on the ordinary CUDA cores. In other words, the math backend never touches the Tensor Cores at all: to trade speed for numerical accuracy it upcasts tensors to `FP32` (doubling the data moved, even when the inputs are in `bf16`) and falls back to the slower CUDA cores.
 
 #### Causal masks built
 
@@ -309,7 +310,7 @@ Before we read the trace any further, it is worth answering the question you sho
 
 Let's go back to the math backend for a moment. Its real problem was not the count of 20 kernels, it was what those kernels handed to each other.
 
-Step 1 builds the full score matrix `S = Q . K.T`, which is `[seq, seq]` **per head**. For a sequence length of 4096 that is roughly 16 million numbers for a single head. That matrix is written out to the HBM (the GPU's main memory), read back to be scaled, written again for the mask, read again for the softmax, and so on. Attention's cost is dominated by this **back and forth traffic to HBM**, not by the matmuls themselves.
+Step 1 builds the full score matrix `S = Q . K.T`, which is `[seq, seq]` **per head**. For a sequence length of 4096 that is `4096 x 4096 ≈ 16 million` numbers for a single head. That matrix is written out to the HBM (the GPU's main memory), read back to be scaled, written again for the mask, read again for the softmax, and so on. Attention's cost is dominated by this **back and forth traffic to HBM**, not by the matmuls themselves.
 
 FlashAttention attacks exactly this. Instead of computing the whole `S` matrix and only then reducing it, it walks over `K` and `V` in **tiles**, keeps a running softmax as it goes (the "online softmax" trick), and accumulates the output one tile at a time. The full `[seq, seq]` score matrix is **never written to HBM**, it only ever lives on-chip. This is the single idea that lets the entire attention pipeline collapse into one fused kernel that stays in bf16 on the Tensor cores.
 
