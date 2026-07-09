@@ -5,6 +5,7 @@ authors:
   - user: ariG23498
   - user: sergiopaniego
   - user: sayakpaul
+  - user: ror
 ---
 
 # Profiling in PyTorch (Part 3): Attention is all you profile
@@ -165,10 +166,10 @@ The in-place version (Figure 5) wraps far fewer CPU ops inside the masking step 
 | Figure 6: Naive masking | ![GPU kernels for naive attention including a separate Memcpy kernel before the masking](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/torch-attention-profile/each-kernels-naive.png) |
 | Figure 7: In place masking | ![GPU kernels for naive attention with in-place masking, with the Memcpy kernel gone](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/torch-attention-profile/each-kernels-inpace.png) |
 
-On the GPU lane the `Memcpy` kernel is gone for good (Figures 6 and 7). With a one line change we shaved a whole kernel off each forward pass. This may not look like much on its own, but remember this is a single attention operation. In the context of a transformer based large model (LLMs, Diffusion models, etc.), it repeats once per layer and head, and there are many layers and heads, so the saving adds up quickly (and if it earns you a raise, sharing at least 10% with us feels only fair).
+On the GPU lane the `Memcpy` kernel is gone for good (Figures 6 and 7). With a one line change we shaved a whole kernel off each forward pass. This may not look like much on its own, but remember this is a single attention operation. In the context of a transformer based large model (LLMs, Diffusion models, etc.), it repeats once per layer, and there are many layers, so the saving adds up quickly (and if it earns you a raise, sharing at least 10% with us feels only fair).
 
 > [!NOTE]
-> Out-of-place is PyTorch's default for a reason. To compute gradients, autograd has to remember the tensor values it saw on the forward pass, because many backward formulas reuse them. An in-place operation overwrites those values in memory, so the backward pass would read the wrong numbers. Due to the fact that we run `forward` under `torch.no_grad`, in-place is safe for us, with no backward pass and nothing to corrupt.
+> Out-of-place is PyTorch's default for a reason. To compute gradients, autograd has to remember the tensor values it saw on the forward pass, because many backward formulas reuse them. An in-place operation overwrites those values in memory, so the backward pass would read the wrong numbers. Due to the fact that we run `forward` under `torch.no_grad`, in-place is safe for us, with no backward pass and nothing to corrupt. It is also noteworthy that in-place operations do not only save time (like we see in our case) but also memory (due to no extra copy) which is great for large tensors like logits!
 
 ## Scaled Dot Product Attention
 
@@ -310,9 +311,9 @@ Before we read the trace any further, it is worth answering the question you sho
 
 Let's go back to the math backend for a moment. Its real problem was not the count of 20 kernels, it was what those kernels handed to each other.
 
-Step 1 builds the full score matrix `S = Q . K.T`, which is `[seq, seq]` **per head**. For a sequence length of 4096 that is `4096 x 4096 ≈ 16 million` numbers for a single head. That matrix is written out to the HBM (the GPU's main memory), read back to be scaled, written again for the mask, read again for the softmax, and so on. Attention's cost is dominated by this **back and forth traffic to HBM**, not by the matmuls themselves.
+Step 1 builds the full score matrix `attn = q . k.T`, which is `[seq, seq]` **per head**. For a sequence length of 4096 that is `4096 x 4096 ≈ 16 million` numbers for a single head. That matrix is written out to the HBM (the GPU's main memory), if there is even enough space to do so. Then, it is read back to be scaled, written again for the mask, read again for the softmax, and so on. Attention's cost is dominated by this **back and forth traffic to HBM**, not by the matmuls themselves.
 
-FlashAttention attacks exactly this. Instead of computing the whole `S` matrix and only then reducing it, it walks over `K` and `V` in **tiles**, keeps a running softmax as it goes (the "online softmax" trick), and accumulates the output one tile at a time. The full `[seq, seq]` score matrix is **never written to HBM**, it only ever lives on-chip. This is the single idea that lets the entire attention pipeline collapse into one fused kernel that stays in bf16 on the Tensor cores.
+FlashAttention attacks exactly this. Instead of computing the whole `s` matrix and only then reducing it, it walks over `k` and `v` in **tiles**, keeps a running softmax as it goes (the "online softmax" trick), and accumulates the output one tile at a time. The full `[seq, seq]` score matrix is **never written to HBM**, it only ever lives on-chip. This is the single idea that lets the entire attention pipeline collapse into one fused kernel that stays in bf16 on the Tensor cores.
 
 #### Why flash looks "wrong" under the profiler
 
@@ -322,9 +323,12 @@ FlashAttention attacks exactly this. Instead of computing the whole `S` matrix a
 
 Here is where flash surprises people who read profiler footprints. It is the fastest backend, yet the profiler reports it with very **low occupancy** (shown in Figure 16). To see why that is fine, we need three quick definitions.
 
-A CUDA kernel is launched as a **grid** of **blocks** (of threads). Each block contains many **threads**, and the hardware executes those threads in groups of 32 called **warps**.
+A GPU kernel is essentially a series of instructions executed by many small execution units. These individual execution units (threads) take care of loading variables, adding them together, storing them back, etc. For each kernel, we launch many, many threads, and to keep track of them, we group them by blocks.
 
 Blocks are scheduled onto Streaming Multiprocessors (SMs), the main compute units of a GPU. A block lives entirely on one SM, and an SM can host multiple blocks at once _if it has enough resources_. Those resources include registers, shared memory, maximum resident threads, and maximum resident warps. So when we say a kernel has low **occupancy**, we mean each SM has fewer resident warps than it could theoretically support.
+
+> [!TIP]
+> If you want to know more about threads, blocks, grids, etc. here is a [great resource](https://huggingface.co/blog/mi300kernels#a-quick-introduction-to-the-mi300x).
 
 If you click the flash kernel in the trace, its footprint tells the story (Figure 17).
 
