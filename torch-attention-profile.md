@@ -49,7 +49,7 @@ The series "Profiling in PyTorch" is meant to make you comfortable reading profi
 
 In [Part 2](https://huggingface.co/blog/torch-mlp-fusion) we wrapped that addition and multiplication into a torch linear layer. We then stacked several linear layers on top of each other (a multilayer perceptron) and profiled that. Along the way we also profiled fused and hand-tuned kernels.
 
-The next logical step is another fundamental algorithm, attention. Attention looks like a fairly simple operation, but a lot of clever tricks go into making it fast. Our goal here is not to cover every trick in detail. Instead, we want to see how each one looks different under the profiler.
+From the perspective of the Transformer architecture, the next logical step for us to profile is yet another fundamental algorithm, attention. While being infamous for its quadratic-time complexity, many clever tricks exist to mitigate that issue and make it fast. Our goal here is not to cover every trick in detail. Instead, we want to see how each one looks different under the profiler.
 
 > [!NOTE]
 > The scripts for this blog post live here: [`04_a_naive_attention.py`](https://huggingface.co/datasets/ariG23498/profiling-pytorch/blob/main/04_a_naive_attention.py), [`04_b_inplace_ops_attention.py`](https://huggingface.co/datasets/ariG23498/profiling-pytorch/blob/main/04_b_inplace_ops_attention.py), [`04_c_sdpa_attention.py`](https://huggingface.co/datasets/ariG23498/profiling-pytorch/blob/main/04_c_sdpa_attention.py), and [`04_d_kernels_attention.py`](https://huggingface.co/datasets/ariG23498/profiling-pytorch/blob/main/04_d_kernels_attention.py). Like before, it helps to open them in a separate tab and walk through the code as you read. We use an `NVIDIA A100-SXM4-80GB` GPU to run the scripts. It is really easy to set up a GPU on the Hugging Face infrastructure and experiment with the scripts using [Dev Mode with Spaces](https://huggingface.co/docs/hub/spaces-dev-mode). One could also run the scripts with the [Hugging Face Jobs pipeline](https://huggingface.co/docs/huggingface_hub/en/guides/jobs).
@@ -98,7 +98,7 @@ uvx trace-util -f traces/ -b <hf_uname>/traces
 | :--: |
 | Figure 1: The CPU lane of the profile trace for naive attention highlighting the discrete operations |
 
-Figure 1 shows the CPU lane of the profile (the GPU lane is folded so it does not overwhelm us). Inside `attn_fwd` (our annotated forward call) we can see exactly the operations we guessed. The matmul is an old friend by now, and the new operations are easy to place:
+Figure 1 shows the CPU lane of the profile (the GPU lane is folded so it does not overwhelm us). Inside `attn_fwd` (our annotated forward call) we can see exactly the operations we guessed. The matmul is an old friend by now, and the new operations are easy to spot:
 
 - `mul`: the scaling
 - `masked_fill`: the causal masking
@@ -125,7 +125,7 @@ Figure 3 lets us read off the individual kernels for one profiler step:
 5. softmax (produces the attention weights)
 6. matmul (attention weights and values)
 
-Five of these are expected. The memory copy is the odd one out, so where does this come from? The clue is that PyTorch has in-place operations. When you operate on a tensor the ordinary (out-of-place) way, PyTorch often makes a copy, applies the operation to it, and returns the copy. Following the sequence of operations, the culprit here is our `masked_fill`.
+Five of these are expected. The memory copy is the odd one out, so where does this come from? The clue is that PyTorch has in-place operations. When you operate on a tensor the ordinary (out-of-place) way, PyTorch often makes a copy, applies the requested operation to it, and returns the copy. Following the sequence of operations, the culprit here is our [`masked_fill`](https://docs.pytorch.org/docs/2.13/generated/torch.Tensor.masked_fill.html).
 
 What if we replaced this with an in-place operation?
 
@@ -219,7 +219,7 @@ This is our first surprise, the one liner is `3.7x` slower.
 
 Opening the trace (Figure 9) shows why the alarm bells ring, the math backend launches `20` GPU kernels per forward instead of the `5` launched with our naive attention implementation (Figure 8). This is the opposite of what we guessed. Let's figure out why this happens.
 
-#### Tensor Cores left vacant
+#### Tensor cores left vacant
 
 In [Part 2](https://huggingface.co/blog/torch-mlp-fusion) we learned to read a kernel name like a fingerprint. Let's use that habit here:
 
@@ -234,7 +234,7 @@ How does this matter? A Streaming Multiprocessor (SM) is the compute unit of a G
 
 #### Causal masks built
 
-In the naive version we built the causal mask once and reused it. Here we passed `is_causal=True` and the math backend materialized one for us, on every single call. You can watch it happen on the CPU lane:
+In the naive version we built the causal mask once and reused it. Here we passed `is_causal=True` and the math backend materialized one for us, on _every_ single call. You can watch it happen on the CPU lane:
 
 | ![CPU lane of the SDPA math backend showing the ops that rebuild the causal mask: aten::ones, aten::tril, aten::scalar_tensor, aten::fill_ and aten::where](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/torch-attention-profile/mask-math.png) |
 | :--: |
