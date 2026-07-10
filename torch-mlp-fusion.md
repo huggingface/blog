@@ -40,7 +40,9 @@ authors:
       <em style="color: #aaa;">(current)</em>
     </li>
     <li>
-      Part 3: put it all together on Large Language Models with transformers
+      <a href="https://huggingface.co/blog/torch-attention-profile" style="color: #10b981;">
+        Profiling in PyTorch (Part 3): Attention is all you profile
+      </a>
     </li>
   </ol>
 
@@ -80,7 +82,7 @@ Where `x` is the input, `w` is the weight and `b` is the bias. Let's run [`02_li
 
 ```bash
 uv run 02_linear.py --batch 1024 --in_dim 32 --out_dim 64
-uvx trace-util traces -b traces
+uvx trace-util -f traces -b <hf_uname>/traces
 ```
 
 > [!TIP]
@@ -128,7 +130,7 @@ Let's compile the forward call and look at the profiler trace. (The profiler tra
 
 ```bash
 uv run 02_linear.py --batch 1024 --in_dim 32 --out_dim 64 --compile
-uvx trace-util traces -b traces
+uvx trace-util -f traces -b <hf_uname>/traces
 ```
 
 If you compare the eager and compiled traces for a single `nn.Linear`'s `forward`, you will find:
@@ -230,7 +232,7 @@ You will find the entire script here: [`03_simple_mlp.py`](https://huggingface.c
 
 ```bash
 uv run 03_simple_mlp.py --batch 64 --seq 128 --dim 768 --hidden 3072
-uvx trace-util traces -b traces
+uvx trace-util -f traces -b <hf_uname>/traces
 ```
 
 Before we open the trace, let's think together about what we should expect to see. The `forward` function does a fair amount of computation, but most of it is already familiar to us.
@@ -288,7 +290,7 @@ Before compiling the `forward` method and visualizing it, let's do the mental ex
 
 ```bash
 uv run 03_simple_mlp.py --batch 64 --seq 128 --dim 768 --hidden 3072 --compile
-uvx trace-util traces -b traces
+uvx trace-util -f traces -b <hf_uname>/traces
 ```
 
 | ![Profiler trace of the compiled GeGLU MLP showing three aten::mm calls and one fused triton kernel on the CPU lane, labelled mm, mm, fused, mm](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/torch-mlp-fusion/simple-mlp-compile-trace.png) |
@@ -329,7 +331,7 @@ The full script is here: [`03_kernels_mlp.py`](https://huggingface.co/datasets/a
 
 ```bash
 uv run 03_kernels_mlp.py --batch 64 --seq 128 --dim 768 --hidden 3072
-uvx trace-util traces -b traces
+uvx trace-util -f traces -b <hf_uname>/traces
 ```
 
 | ![Profiler trace of the LigerGEGLUMLP forward pass showing three aten::linear groups and a single LigerGELUMulFunction group on the CPU lane](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/torch-mlp-fusion/kernels-profile.png) |

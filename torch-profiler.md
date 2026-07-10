@@ -46,7 +46,9 @@ The catch is that profiling has a **steep** on-ramp. The traces are dense walls 
       </a>
     </li>
     <li>
-      Part 3: put it all together on Large Language Models with transformers
+      <a href="https://huggingface.co/blog/torch-attention-profile" style="color: #10b981;">
+        Profiling in PyTorch (Part 3): Attention is all you profile
+      </a>
     </li>
   </ol>
 
@@ -172,7 +174,7 @@ Self CUDA time total: 4.495ms
 
 Both times are in ms, which means we have materialized more GPU time just by increasing the size of the matrix multiplications. If you look at Figure 2 you would also notice that the most CUDA time is now taken by the GPU kernel (`ampere_bf16_s16816gemm_..`) and not by the CPU operation that launched it (`matmul_add`). This means that we were indeed able to move from overhead bound to compute bound.
 
-We now move into visualising the dispatch chain, which lives inside the `.json` artifacts. You can upload them to [Perfetto UI](https://ui.perfetto.dev) and see the traces, or you can use `uvx trace-util traces -b traces` to generate the Perfetto links directly.
+We now move into visualising the dispatch chain, which lives inside the `.json` artifacts. You can upload them to [Perfetto UI](https://ui.perfetto.dev) and see the traces, or you can use `uvx trace-util -f traces -b <hf_uname>/traces` to generate the Perfetto links directly.
 
 ## 64x64 traces
 

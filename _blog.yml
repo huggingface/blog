@@ -5548,3 +5548,12 @@
     - transformers
     - inference
     - optimization
+
+- local: torch-attention-profile
+  date: July 10, 2026
+  tags:
+    - torch
+    - profile
+    - flash
+    - xformers
+    - cudnn
