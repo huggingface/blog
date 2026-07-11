@@ -227,8 +227,8 @@ In [Part 2](https://huggingface.co/blog/torch-mlp-fusion#where-did-the-transpose
 
 | Run | matmul kernel |
 | :--: | :--: |
-| Figure 10: Naive attention | ![Matmul kernel name for naive attention in Perfetto, carrying the s16816 bfloat16 Tensor-core GEMM signature](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/torch-attention-profile/cuda-core-kernels.png) |
-| Figure 11: SDPA with math backend | ![Matmul kernel name for the SDPA math backend, carrying the sgemm FP32 CUDA-core signature](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/torch-attention-profile/tensor-core-kernels.png) |
+| Figure 10: Naive attention | ![Matmul kernel name for naive attention in Perfetto, carrying the s16816 bfloat16 Tensor-core GEMM signature](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/torch-attention-profile/tensor-core-kernels.png) |
+| Figure 11: SDPA with math backend | ![Matmul kernel name for the SDPA math backend, carrying the sgemm FP32 CUDA-core signature](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/torch-attention-profile/cuda-core-kernels.png) |
 
 The A100s we used to capture these traces ship with [Tensor Cores](https://www.nvidia.com/en-us/data-center/tensor-cores/), specialised hardware for accelerated matmuls that is known to be far faster than the ordinary CUDA cores. To see why that matters here, it helps to know what lives inside a GPU. A Streaming Multiprocessor (SM) is the compute unit of a GPU, and each SM has two kinds of arithmetic units, the CUDA cores and the Tensor Cores. CUDA cores are general purpose and process a handful of elements at a time, while Tensor Cores multiply and accumulate a whole small matrix tile in a single instruction. So the question is simple, "Is each backend actually using the fast path?"
 
