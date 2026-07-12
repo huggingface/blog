@@ -2,9 +2,7 @@
 title: "Hugging Face Machine Learning Demos on arXiv" 
 thumbnail: /blog/assets/arxiv/thumbnail.png
 authors:
-- user: abidlabs
-- user: osanseviero
-- user: pcuenq
+- user: pathum25
 ---
 
 # Hugging Face Machine Learning Demos on arXiv
