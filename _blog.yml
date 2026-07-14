@@ -5557,3 +5557,12 @@
     - flash
     - xformers
     - cudnn
+
+- local: real-world-voiceeq
+  date: July 15, 2026
+  tags:
+    - audio
+    - speech
+    - benchmark
+    - leaderboard
+    - announcement
