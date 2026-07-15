@@ -10,7 +10,7 @@ authors:
 
 # Welcome Inkling by Thinking Machines
 
-Inkling is a large (1T params!) open model to natively accept image, text, and audio inputs.
+[Inkling](https://huggingface.co/thinkingmachines/Inkling) is a large (1T params!) open model to natively accept image, text, and audio inputs.
 
 TLDR; Inkling by Thinking Machines is out on Hugging Face. Inkling is a huge multimodal LLM that understands all modalities (image, audio, text), has agentic capabilities, and supports 1M context. It comes in full BF16 and a well-calibrated NVFP4 variant, and includes speculative MTP layers for faster inference. There’s day-0 support in transformers, SGLang, and llama.cpp.
 
