@@ -5576,7 +5576,7 @@
     - inference
     - open-source
 
-- local: security-incident-2026
+- local: security-incident-july-2026
   date: July 15, 2026
   tags:
     - security
