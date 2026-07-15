@@ -1,11 +1,11 @@
 ---
-title: "Responding to an AI-driven intrusion"
+title: "Security incident disclosure — July 2026"
 thumbnail: /blog/assets/security-incident-2026/thumbnail.png
 authors:
 - user: huggingface
 ---
 
-# Responding to an AI-driven intrusion
+# Security incident disclosure — July 2026
 
 Earlier this week, we detected and responded to an intrusion into part of our production infrastructure. This one was different from anything we had handled before in one important way: it was driven, end to end, by an autonomous AI agent system - and we detected and dissected it largely with AI of our own.
 
