@@ -5,6 +5,7 @@ authors:
 - user: XciD
 - user: christopher
 - user: raphael-gl
+- user: rtrompier
 ---
 
 # Responding to an AI-driven intrusion
