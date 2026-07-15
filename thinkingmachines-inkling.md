@@ -422,7 +422,7 @@ If you would like to use Inkling for post-training, Thinking Machines have built
 
 We post trained Inkling with tinker and OpenEnv, an agentic RL environment tool. We used the ECHO algorithm that trains a model to predict the environment without a verifier, applying next-token cross-entropy loss to tokens produced by the environment, alongside the usual policy learning on agent actions. This teaches the policy an implicit world model without requiring a separate model, teacher, or additional rollouts. Check out the [example](https://github.com/huggingface/OpenEnv/blob/main/examples/echo_world_model/backends/tinker_echo_demo.py).
 
-![Inkling post-training metrics](https://huggingface.co/buckets/huggingface/inkling-blog-assets/resolve/macro.png)
+![Inkling post-training metrics](https://huggingface.co/buckets/huggingface/inkling-blog-assets/resolve/trackio.png)
 
 <details>
 <summary>RL Example with Tinker and OpenEnv</summary>
