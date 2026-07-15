@@ -1,6 +1,6 @@
 ---
 title: "Security incident disclosure — July 2026"
-thumbnail: /blog/assets/security-incident-2026/thumbnail.png
+thumbnail: /blog/assets/security-incident-july-2026/thumbnail.png
 authors:
 - user: huggingface
 ---
