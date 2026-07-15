@@ -59,7 +59,7 @@ To measure those qualities, we built [Real World VoiceEQ](https://www.hume.ai/rw
 
 Real World VoiceEQ evaluates more than **40 leading proprietary and open-source voice models** across **15+ key evaluation dimensions** and more than **60 metrics** spanning Automatic Speech Recognition (ASR), Text-to-Speech (TTS), Speech-to-Speech (S2S), and Speech Understanding.
 
-![The four components of Real World VoiceEQ — Text-to-Speech, Speech-to-Speech, Speech Understanding, and ASR Robustness — each with its evaluation dimensions.](/blog/assets/real-world-voiceeq/benchmark-overview.png)
+![The four components of Real World VoiceEQ — Text-to-Speech, Speech-to-Speech, Speech Understanding, and ASR Robustness — each with its evaluation dimensions.](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/real-world-voiceeq/benchmark-overview.png)
 
 Real World VoiceEQ was developed from more than 1 million individual human ratings collected across different demographics, speaking styles, and acoustic environments. The current benchmark includes 785,000 TTS ratings and 48,000 STS ratings, making it one of the largest human evaluations of voice AI conducted to date.
 
