@@ -766,4 +766,28 @@ Also available [here](https://huggingface.co/buckets/huggingface/inkling-blog-as
 
 ## Benchmark Results
 
-## Acknowledgements
+|Benchmark|GLM-5.2|GLM-5.1|Qwen3.7-Max|MiniMax M3|DeepSeek-V4-Pro|Claude Opus 4.8|GPT-5.5|Gemini 3.1 Pro|
+|:---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+|Reasoning|||||||||||
+|HLE|40.5|31|41.4|37|37.7|49.8*|41.4*|45|
+|HLE (w/ Tools)|54.7|52.3|53.5|-|48.2|57.9*|52.2*|51.4*|
+|CritPt|20.9|4.6|13.4|3.7|12.9|20.9|27.1|17.7|
+|AIME 2026|99.2|95.3|97|-|94.6|95.7|98.3|98.2|
+|HMMT Nov. 2025|94.4|94|95|84.4|94.4|96.5|96.5|94.8|
+|HMMT Feb. 2026|92.5|82.6|97.1|84.4|95.2|96.7|96.7|87.3|
+|IMOAnswerBench|91.0|83.8|90|-|89.8|83.5|-|81|
+|GPQA-Diamond|91.2|86.2|90|93|90.1|93.6|93.6|94.3|
+|Coding|||||||||||
+|SWE-bench Pro|62.1|58.4|60.6|59|55.4|69.2|58.6|54.2|
+|NL2Repo|48.9|42.7|47.2|42.1|35.5|69.7|50.7|33.4|
+|DeepSWE|46.2|18|18|20|8|58|70|10|
+|ProgramBench|63.7|50.9|-|-|47.8|71.9|70.8|39.5|
+|Terminal Bench 2.1 (Terminus-2)|81.0|63.5|75|65|64| 85|84|74|
+|Terminal Bench 2.1 (Best Reported Harness)|82.7|69|-|-|-|78.9|83.4|70.7|
+|FrontierSWE (Dominance)|74.4|30.5|-|-|29.0|75.1|72.6|39.6|
+|PostTrainBench|34.3|20.1|-|-|-|37.2|28.4|21.6|
+|SWE-Marathon|13.0|1.0|-|-|-|26.0|12.0|4.0|
+|Agentic|||||||||||
+|MCP-Atlas (Public Set)|76.8|71.8|76.4|74.2|73.6|77.8|75.3|69.2|
+|Tool-Decathlon|48.2|40.7|-|-|52.8|59.9|55.6|48.8|
+
