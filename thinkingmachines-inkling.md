@@ -314,11 +314,9 @@ This starts an OpenAI-compatible server running at [`http://localhost:8000`](htt
 
 Llama cpp also ships with a built-in UI that supports tools, mcp, and agentic workloads. Checkout Inkling running at 1-bit precision in the llama app:
 
-![Inkling running in the llama app](https://huggingface.co/buckets/huggingface/inkling-blog-assets/resolve/llama-app.gif)
+![Inkling running in Unsloth Studio](https://huggingface.co/buckets/huggingface/inkling-blog-assets/resolve/unsloth.png)
 
 Inkling GGUFs are also runnable in Unsloth Studio with dynamic 1-bit GGUFs which retain ~74.2% of top-1% accuracy whilst being 86% smaller.
-
-![Inkling running in Unsloth Studio](https://huggingface.co/buckets/huggingface/inkling-blog-assets/resolve/unsloth.png)
 
 ## Use Cases
 
@@ -346,9 +344,7 @@ Pi is a minimal coding agent harness you can use with different language models.
 
 Then you can start Pi in your project directory by calling `pi` and you’re good to go! In this demo, we give the model a hard math reasoning problem and it uses tools in pi to solve it.
 
-<video controls width="100%">
-  <source src="https://huggingface.co/buckets/huggingface/inkling-blog-assets/resolve/thinky.mp4" type="video/mp4">
-</video>
+![Visual reasoning gif demo](https://huggingface.co/buckets/huggingface/inkling-blog-assets/resolve/visual-reasoning.gif)
 
 Inkling is focused on broad multimodality reasoning and low token consumption, so try it out with document processing or audio tasks.
 
@@ -381,8 +377,6 @@ print(processor.decode(generated[0], skip_special_tokens=True))
 ### Multimodal Vision
 
 We have prepared a small suite of reasoning questions from expert-level sources and university entrance exams. We have taken photos of the screen with watermarks in the screenshot to challenge the model. The model has solved all of them on high one, failed one in highest and medium reasoning efforts, so we provide a link to the model answers for you to check out how the model sounds and provide the number of tokens the model has taken to solve each of them. Note that we provide no system prompts in these vibe evals, and these reasoning questions should often be run with a good system prompt. The vibe eval images and results live [here](https://huggingface.co/buckets/merve/inkling).
-
-![Inkling visual reasoning examples](https://huggingface.co/buckets/huggingface/inkling-blog-assets/resolve/visual-reasoning.gif)
 
 | Category | Question | Number of Tokens (Reasoning Effort Medium) | Number of Tokens (Reasoning Effort High) | Number of Tokens (Reasoning Effort Max) |
 | :---- | :---- | :---- | :---- | :---- |
