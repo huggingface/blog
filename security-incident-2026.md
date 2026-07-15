@@ -2,10 +2,7 @@
 title: "Responding to an AI-driven intrusion"
 thumbnail: /blog/assets/security-incident-2026/thumbnail.png
 authors:
-- user: XciD
-- user: chris-rannou
-- user: raphael-gl
-- user: rtrompier
+- user: huggingface
 ---
 
 # Responding to an AI-driven intrusion
