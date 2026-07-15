@@ -48,7 +48,7 @@ The multimodal towers are relatively simple modules, unlike other models that em
 
 ## Inference Support
 
-Inkling model comes with a day-0 transformers support and therefore is supported in major inference engines like SGLang and vLLM.
+Inkling comes with day-0 transformers support and is supported in major inference engines like SGLang and vLLM.
 
 This model is huge. The bf16 checkpoint requires 2 TB of VRAM, while the nvfp4 version requires 600 GB of VRAM. You can try the model through serverless inference routers like Inference Providers, or use ggml quants for local deployment with llama.cpp.
 
@@ -233,9 +233,11 @@ processor.parse_response(response)
 
 </details>
 
+For more realistic parallel deployment in a cluster of several nodes, please refer to the [Slurm](#slurm-scripts) section below.
+
 ### SGLang
 
-SGLang is the fastest deployment framework for Inkling at the time of release, as it includes a custom model implementation. The launch command below shards the model across 8 GPUs and serves an OpenAI-compatible API on port 30000.
+SGLang is one of the fastest deployment frameworks for Inkling at the time of release, as it includes a custom model implementation. The launch command below shards the model across 8 GPUs and serves an OpenAI-compatible API on port 30000.
 
 ```shell
 pip install sglang
@@ -275,7 +277,7 @@ curl http://localhost:8000/v1/chat/completions \
 
 ### Remote Inference with Hugging Face Inference Providers
 
-You can infer with this model using Inference Providers from a wide variety of inference providers. You can see all the code snippets to consume [here](https://huggingface.co/thinkingmachines/inkling?inference_provider=fastest&language=python&client=openai&inference_api=true). Below you can see how to use with OpenAI client.
+You can infer with this model using several inference providers through Hugging Face. You can see all the code snippets to consume [here](https://huggingface.co/thinkingmachines/inkling?inference_provider=fastest&language=python&client=openai&inference_api=true). Below you can see how to use with the OpenAI client.
 
 ```python
 import os
@@ -300,9 +302,11 @@ completion = client.chat.completions.create(
 print(completion.choices[0].message)
 ```
 
-Using the `“:auto”` suffix routes to your preferred provider you route to the  `“cheapest”` provider, or the  `“:fastest”` provider. For this release, we cover the inference costs for 2 hours within the release for everyone. As of the release date, audio support in Inference Providers is work in progress and will be added shortly. In the meantime, you can use image-text or text-only inference.
+Using the `“:auto”` suffix routes to your preferred provider in your settings; you can also use `“cheapest”` or `“:fastest”` as well. For this release, we cover the inference costs for 2 hours within the release for everyone.
 
-### Local Inference with Llama.cpp and Unsloth
+Note: audio support in Inference Providers is work in progress and will be added shortly.
+
+### Local Inference with llama.cpp and Unsloth
 
 You can use `llama.cpp` to run quantized versions of the model on limited hardware. Unsloth have quantized the model down to 1-bit precision, reducing VRAM consumption by 95% over the original model.
 
@@ -354,7 +358,7 @@ Inkling is focused on broad multimodality reasoning and low token consumption, s
 
 ### Multi Token Prediction Drafters
 
-MTP adds extra heads to the model that predict several tokens ahead at each position, not just the next one. During inference, the extra heads act as “drafters” for speculative decoding, speeding up generation without compromising performance. With MTP, you get the exact same generated outputs, multipliers in generation speed-up at small memory cost in VRAM (due to serving the drafter). Thinking Machines also provides an MTP drafter with this release.
+MTP adds extra layers to the model that predict several tokens at once, not just the next one. During inference, the extra layers act as “drafters” for speculative decoding, speeding up generation without compromising performance. With MTP, you get the exact same generated outputs, multipliers in generation speed-up at small memory cost in VRAM (due to serving the drafter). Thinking Machines also provides an MTP drafter with this release.
 
 ```python
 import torch
@@ -413,7 +417,7 @@ We have vibe-evaluated the model on some audio reasoning examples from BigBenchA
 | Formal Fallacy (39) | 275 (fails) | 555 | 778 |
 | Object Counting (680) | 150 | 233 | 161 |
 
-**Few notes on the vibes:**
+**Some notes on the vibes:**
 
 - Similar to vision, the model first transcribes the speech before answering the question.
 - It resists decoys: in Russian test, the model picked the right answer despite other answers appearing in the audio.
