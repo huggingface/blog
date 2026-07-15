@@ -5566,3 +5566,12 @@
     - benchmark
     - leaderboard
     - announcement
+
+- local: thinkingmachines-inkling
+  date: July 15, 2026
+  tags:
+    - announcement
+    - multimodal
+    - transformers
+    - inference
+    - open-source
