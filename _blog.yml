@@ -5575,3 +5575,8 @@
     - transformers
     - inference
     - open-source
+
+- local: security-incident-july-2026
+  date: July 16, 2026
+  tags:
+    - security
