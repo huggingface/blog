@@ -23,7 +23,7 @@ That's what we're releasing today: Grabette, an open, low-cost system for record
 And that's the bigger goal: if recording a demonstration is as easy as shooting a video, anyone can contribute. We want Grabette to seed a **large, open, collaborative manipulation dataset**. One no single lab could ever build alone.
 
 <div align="center">
-  <img src="https://cdn-uploads.huggingface.co/production/uploads/62f62a29d278a8f3e781e28a/9Pn2TjbnL5uHgpxKO3f6s.gif" alt="open_cabinet" width="600">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/grabette/cup.gif" alt="open_cabinet" width="600">
 </div>
 
 ---
@@ -43,7 +43,7 @@ For months we have been developing Grabette. We are now feeling that it has beco
 Grabette is a **handheld gripper** instrumented with everything needed to reconstruct a manipulation demonstration.
 
 <div align="center">
-  <img src="https://cdn-uploads.huggingface.co/production/uploads/62f62a29d278a8f3e781e28a/1vzyFTESXC0csZEAGtmpX.png" alt="grabette_label" width="600">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/grabette/grabette_label.png" alt="grabette_label" width="600">
 </div>
 
 It carries **two cameras, each with a distinct job.** Splitting the two roles is deliberate: the cheap wide fisheye gives the policy the context-rich, wrist-camera-style view it needs, while the RGBD camera does the heavy lifting of robust 6-DoF tracking.
@@ -55,7 +55,7 @@ The family shares the same hardware DNA:
 - **Gripette,** the motorized gripper (Feetech servos) that closes the loop on a real or simulated arm
 
 <div align="center">
-  <img src="https://cdn-uploads.huggingface.co/production/uploads/62f62a29d278a8f3e781e28a/jRrDblwGORB1qUA8CUsGE.png" alt="Grabette and Gripette" width="600">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/grabette/grabette_gripette.png" alt="Grabette and Gripette" width="600">
   <p><em>Grabette hand held recording device (left) and Gripette robot gripper (right)</em></p>
 </div>
 
@@ -84,8 +84,8 @@ The heart of this release is a recording system built so that going from “I wa
 ### 1. Record
 
 <p align="center">
-  <img alt="web_processing" src="https://cdn-uploads.huggingface.co/production/uploads/62f62a29d278a8f3e781e28a/Yyl704g99z0Ivmg1gkb_V.gif" align="left" width="48%">
-  <img alt="record_coffee_med" src="https://cdn-uploads.huggingface.co/production/uploads/62f62a29d278a8f3e781e28a/xb6IesUqLiWfZ0eagIT_M.gif" align="right" width="50%">
+  <img alt="web_processing" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/grabette/start_session.gif" align="left" width="48%">
+  <img alt="record_coffee" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/grabette/record_coffee_convert_small.gif" align="right" width="50%">
 </p>
 
 <br clear="both"/>
@@ -93,7 +93,7 @@ The heart of this release is a recording system built so that going from “I wa
 
 ### 2. Process, directly in your browser
 
-![browser-post-process](https://cdn-uploads.huggingface.co/production/uploads/67f8d7925e7217d4ae752fcf/fr-l_fJQdafK1YJXNaFS-.gif)
+![browser-post-process](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/grabette/browser_postprocess.gif)
 
 ---
 
@@ -129,7 +129,7 @@ Our example takes 200 recorded demonstrations such as :
 
 
 <div align="center">
-  <img src="https://cdn-uploads.huggingface.co/production/uploads/67f8d7925e7217d4ae752fcf/a2CYRnafEevGNXSA8_Rk1.gif" alt="Grasp a cup episodes" width="40%">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/grabette/recorded_episode.gif" alt="Grasp a cup episodes" width="40%">
   <p><em>Dataset available on this <a href="https://huggingface.co/datasets/chouziel/dataset-cup-0107" target="_blank" rel="noopener noreferrer">HF Dataset</a></em></p>
 </div>
 
@@ -140,7 +140,7 @@ and:
 
 
 <div align="center">
-  <img src="https://cdn-uploads.huggingface.co/production/uploads/67f8d7925e7217d4ae752fcf/FfLWm-RfgN65XA9Se-Luh.gif" alt="Grasp a cup episodes" width="40%">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/grabette/openarm_model.gif" alt="Grasp a cup on robot" width="40%">
   <p><em>Policy available on this <a href="https://huggingface.co/SteveNguyen/pick_cup_0107_smooth-best" target="_blank" rel="noopener noreferrer">HF Model</a></em></p>
 </div>
 
@@ -152,12 +152,12 @@ and:
 The data bottleneck doesn’t get solved by one lab, but by a community recording demonstrations everywhere. You can now help build the dataset: build a Grabette, record tasks you are interested in, and share them on the Hub. Every episode makes the open dataset bigger and more diverse, and every contributor makes robot learning a little less gated behind expensive hardware.
 
 <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 1.5rem 0;">
-  <img src="https://cdn-uploads.huggingface.co/production/uploads/62f62a29d278a8f3e781e28a/7JFBk7creoqyPyammZCcO.gif" alt="" style="width: 100%; height: 100%; object-fit: cover; border-radius: 6px;">
-  <img src="https://cdn-uploads.huggingface.co/production/uploads/62f62a29d278a8f3e781e28a/poP5z_D6llgnVi27riI4u.gif" alt="" style="width: 100%; height: 100%; object-fit: cover; border-radius: 6px;">
-  <img src="https://cdn-uploads.huggingface.co/production/uploads/62f62a29d278a8f3e781e28a/wnWbQP3xI_YPllnnhn0nm.gif" alt="" style="width: 100%; height: 100%; object-fit: cover; border-radius: 6px;">
-  <img src="https://cdn-uploads.huggingface.co/production/uploads/62f62a29d278a8f3e781e28a/76YUwZ2tTUtvVGJpa1HzP.gif" alt="" style="width: 100%; height: 100%; object-fit: cover; border-radius: 6px;">
-  <img src="https://cdn-uploads.huggingface.co/production/uploads/62f62a29d278a8f3e781e28a/eUBpuNl-GqDbdaKROx9sF.gif" alt="" style="width: 100%; height: 100%; object-fit: cover; border-radius: 6px;">
-  <img src="https://cdn-uploads.huggingface.co/production/uploads/62f62a29d278a8f3e781e28a/MCnQo_4dVljzE3N_B4BUp.gif" alt="" style="width: 100%; height: 100%; object-fit: cover; border-radius: 6px;">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/grabette/sugar1.gif" alt="" style="width: 100%; height: 100%; object-fit: cover; border-radius: 6px;">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/grabette/sugar2.gif" alt="" style="width: 100%; height: 100%; object-fit: cover; border-radius: 6px;">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/grabette/spoon.gif" alt="" style="width: 100%; height: 100%; object-fit: cover; border-radius: 6px;">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/grabette/sponge.gif" alt="" style="width: 100%; height: 100%; object-fit: cover; border-radius: 6px;">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/grabette/screws.gif" alt="" style="width: 100%; height: 100%; object-fit: cover; border-radius: 6px;">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/grabette/screwdiver.gif" alt="" style="width: 100%; height: 100%; object-fit: cover; border-radius: 6px;">
 </div>
 
 ---
