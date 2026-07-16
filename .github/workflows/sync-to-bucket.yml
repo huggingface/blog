@@ -27,5 +27,5 @@ jobs:
         env:
           HUB_WEBHOOK_SECRET: ${{ secrets.HUB_BLOG_WEBHOOK_SECRET }}
         run: |
-          curl -sS -X POST https://huggingface.co/api/webhooks/blog \
+          curl -sSf -X POST https://huggingface.co/api/webhooks/blog \
             -H "X-Webhook-Secret: $HUB_WEBHOOK_SECRET"
