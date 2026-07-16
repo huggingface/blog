@@ -1,4 +1,4 @@
-# Grabette: an open system to record robot-manipulation data. And build a shared dataset together
+# Grabette: an open system to record robot-manipulation data. <br> And build a shared dataset together.
 
 *Record your own manipulation tasks in minutes with a handheld gripper, turn them into robot-ready datasets automatically, and help grow an open, collaborative dataset for robot learning.*
 
@@ -36,7 +36,7 @@ UMI proved the recipe works. Our goal was to make it effortless to use, to get t
 
 ## Meet Grabette
 
-For months we have been developing Grabette. We are now feeling that it had become usable enough to share!
+For months we have been developing Grabette. We are now feeling that it has become usable enough to share!
 
 Grabette is a **handheld gripper** instrumented with everything needed to reconstruct a manipulation demonstration.
 
@@ -46,7 +46,7 @@ Grabette is a **handheld gripper** instrumented with everything needed to recons
 
 It carries **two cameras, each with a distinct job.** Splitting the two roles is deliberate: the cheap wide fisheye gives the policy the context-rich, wrist-camera-style view it needs, while the RGBD camera does the heavy lifting of robust 6-DoF tracking.
 
-And **Grabette** works with **Gripette**, its motorized counterpart.
+And while Grabette records data during tasks performed by a user, it relies on its robotic counterpart to execute the movements it has learned after training. So, meet **Gripette**. It can replace the end-effector of any type of robotic arm.
 
 The family shares the same hardware DNA:
 - **Grabette,** the handheld demonstration device (camera + IMU + gripper)
@@ -161,7 +161,7 @@ The data bottleneck doesn’t get solved by one lab, but by a community recordin
 ---
 ### What's next
 
-This release is only the start of the project! Grabette will keep evolving. We already have more coming, including a bimanual version with **Casquette**, a head-mounted POV variant for egocentric capture. But the most important next step isn’t only ours, it’s also yours: start recording, and let’s build the dataset together.
+This release is only the start of the project! Grabette will keep evolving. We already have more coming, including **Casquette**, a head-mounted POV variant for egocentric capture (_still a work in progress_). But the most important next step isn’t only ours, it’s also yours: start recording, and let’s build the dataset together.
 
 
 👉 **[Build a Grabette (GitHub)](https://github.com/pollen-robotics/grabette)** · [Process your data (HF Space)](https://huggingface.co/spaces/pollen-robotics/grabette-slam) · Contribute to the dataset
