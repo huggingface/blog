@@ -314,7 +314,7 @@ You can use `llama.cpp` to run quantized versions of the model on limited hardwa
 llama serve -hf unsloth/inkling-GGUF:UD-IQ1_S
 ```
 
-This starts an OpenAI-compatible server running at [`http://localhost:8000`](http://localhost:8000)`/v1` that you connect to in your preferred tool or clients. Heading there, you can start chatting with the model, and set it up with your favorite MCPs, pass in images or files conveniently and more!
+This starts an OpenAI-compatible server running at [`http://localhost:8080`](http://localhost:8080)`/v1` that you connect to in your preferred tool or clients. Heading there, you can start chatting with the model, and set it up with your favorite MCPs, pass in images or files conveniently and more!
 
 Llama cpp also ships with a built-in UI that supports tools, mcp, and agentic workloads. Checkout Inkling running at 1-bit precision in the llama app:
 
