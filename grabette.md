@@ -17,7 +17,7 @@ That's what we're releasing today: Grabette, an open, low-cost system for record
 
 
 <div align="center">
-  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/grabette/grabette.gif" alt="put_on_grabettes" width="600">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/grabette/grabette.gif" alt="put_on_grabettes" width="600">
 </div>
 
 And that's the bigger goal: if recording a demonstration is as easy as shooting a video, anyone can contribute. We want Grabette to seed a **large, open, collaborative manipulation dataset**. One no single lab could ever build alone.
