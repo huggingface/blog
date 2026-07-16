@@ -1,4 +1,4 @@
-# Grabette: an open system to record robot-manipulation data. <br> And build a shared dataset together.
+# Grabette: an open system to record robot-manipulation data. <br> And build a shared dataset, together.
 
 *Record your own manipulation tasks in minutes with a handheld gripper, turn them into robot-ready datasets automatically, and help grow an open, collaborative dataset for robot learning.*
 
@@ -32,13 +32,13 @@ And that's the bigger goal: if recording a demonstration is as easy as shooting 
 
 Grabette is directly inspired by the **Universal Manipulation Interface** (UMI) from Stanford: a handheld gripper with a fisheye camera that records demonstrations "in the wild", recovers camera trajectories with SLAM, and trains visuomotor policies from them.
 
-UMI proved the recipe works. Our goal was to make it effortless to use, to get the barrier from "I have a task" to "I have a trained model" as low as possible. Grabette is built into the modern open ecosystem: LeRobot for datasets, the Hugging Face Hub for sharing, and a processing pipeline you run **from your browser** with nothing to install. Grabette is something anyone can build on a workbench, use in the field, and contribute data from.
+UMI proved the recipe works. Other (closed source) devices exists like Agibot's MEgo gripper, Genrobot's DAS gripper and Sunday Robotics skill capture glove. Our goal was to make it effortless to use, to get the barrier from "I have a task" to "I have a trained model" as low as possible. Grabette is built into the modern open ecosystem: LeRobot for datasets, the Hugging Face Hub for sharing, and a processing pipeline you run **from your browser** with nothing to install. Grabette is something anyone can build on a workbench, use in the field, and contribute data from.
 
 ---
 
 ## Meet Grabette
 
-For months we have been developing Grabette. We are now feeling that it has become usable enough to share!
+For months we have been developing Grabette. We are now feeling that it had become usable enough to share!
 
 Grabette is a **handheld gripper** instrumented with everything needed to reconstruct a manipulation demonstration.
 
@@ -48,11 +48,11 @@ Grabette is a **handheld gripper** instrumented with everything needed to recons
 
 It carries **two cameras, each with a distinct job.** Splitting the two roles is deliberate: the cheap wide fisheye gives the policy the context-rich, wrist-camera-style view it needs, while the RGBD camera does the heavy lifting of robust 6-DoF tracking.
 
-And while Grabette records data during tasks performed by a user, it relies on its robotic counterpart to execute the movements it has learned after training. So, meet **Gripette**. It can replace the end-effector of any type of robotic arm.
+And while Grabette records data during tasks performed by a user, it relies on its robotic counterpart to execute the movements it has learned after training. So, meet **Gripette** the robotic arm end-effector twin of Grabette.
 
 The family shares the same hardware DNA:
-- **Grabette,** the handheld demonstration device (camera + IMU + gripper)
-- **Gripette,** the motorized gripper (Feetech servos) that closes the loop on a real or simulated arm
+- **Grabette,** the handheld demonstration device (camera + IMU + gripper, BOM cost ~490€)
+- **Gripette,** the motorized gripper (camera + two servomotors, BOM cost ~120€) that closes the loop on a real or simulated robot arm
 
 <div align="center">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/grabette/grabette_gripette.png" alt="Grabette and Gripette" width="600">
@@ -73,7 +73,9 @@ The family shares the same hardware DNA:
 - **Example downstream stack**: stock LeRobot training + the OpenArm evaluation, as a reference
 
 **Components.** Standards sensors you can buy, no closed pipeline, no fork lock-in . A Raspberry Pi, a standard Pi camera, an off-the-shelf OAK-D depth camera, magnetic encoders. The whole point is that anyone can build one from parts you can just order.
-**Robot-agnostic by design.** Nothing in the capture or the data format assumes a particular arm. Demonstrations are stored as camera-local 6-DoF deltas plus gripper state, the output is a standard LeRobot dataset on the Hugging Face Hub, so the same data can drive different robots and different learning methods. You will still need the matching Gripette gripper on your arm though.
+**Robot-agnostic by design.** Nothing in the capture or the data format assumes a particular arm. Demonstrations are stored as camera-local 6-DoF cartesian pose plus gripper state, the output is a standard LeRobot dataset on the Hugging Face Hub, so the same data can drive different robots and different learning methods. You will still need the matching Gripette gripper on your arm though.
+
+
 
 ---
 
@@ -93,7 +95,7 @@ The heart of this release is a recording system built so that going from “I wa
 
 ### 2. Process, directly in your browser
 
-![browser-post-process](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/grabette/browser_postprocess.gif)
+![browser-post-process](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/grabette/browser_postprocess_small2.gif)
 
 ---
 
@@ -163,7 +165,7 @@ The data bottleneck doesn’t get solved by one lab, but by a community recordin
 ---
 ### What's next
 
-This release is only the start of the project! Grabette will keep evolving. We already have more coming, including **Casquette**, a head-mounted POV variant for egocentric capture (_still a work in progress_). But the most important next step isn’t only ours, it’s also yours: start recording, and let’s build the dataset together.
+This release is only the start of the project! Grabette will keep evolving. We already have more coming, including **Casquette**, a head-mounted POV device to complement Grabette for egocentric capture (_still a work in progress_). But the most important next step isn’t only ours, it’s also yours: start recording, and let’s build the dataset together.
 
 
 👉 **[Build a Grabette (GitHub)](https://github.com/pollen-robotics/grabette)** · [Process your data (HF Space)](https://huggingface.co/spaces/pollen-robotics/grabette-slam) · Contribute to the dataset
