@@ -95,6 +95,30 @@ The heart of this release is a recording system built so that going from “I wa
 
 ---
 
+
+## How It Works under the hood
+
+### The process involves two different steps:
+
+1. Recording the episode
+
+Press the button, and data from the observation camera, the tracking camera (color, depth, and IMU), and the gripper’s encoder joint values are recorded simultaneously, using a single shared clock to ensure proper synchronization. Press the button again to stop the episode, and the data is saved locally on the Raspberry Pi.
+
+2. Post-processing
+
+Open the Grabette dashboard in your browser. Select the episodes you want to add to the dataset, and with one click, post-processing begins.
+
+- The episodes are uploaded to the HF Hub
+- The grabette-slam space performs SLAM using RTAB-MAP library and verifies that the trajectory is correct (with no jumps or loss of tracking)
+- The episodes are converted to LeRobot format
+- A new dataset is uploaded to your space, where you can view the data for each episode using the Le Robot visualizer
+
+
+=> Everything is now ready to start training!
+
+
+---
+
 ## What can you do with the data? Here’s one example.
 
 A dataset is only interesting if it trains something. So, to show the loop end-to-end, we ship a **complete example.** But to be clear, this is *an* example of what is enables, not the product: the release is the recording system. Your Grabette data works with any method that consumes LeRobot datasets.
