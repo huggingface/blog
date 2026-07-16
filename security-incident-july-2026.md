@@ -31,7 +31,7 @@ We are working with outside cybersecurity forensic specialists to investigate th
 
 The attack was initially surfaced through AI-assisted detection. Our anomaly-detection pipeline uses LLM-based triage over security telemetry to separate real signals from the daily noise, and it was the correlation of those signals that flagged the compromise.
 
-To understand what a swarm of tens of thousands of automated actions did, we ran LLM-driven analysis agents over the full attacker action log - 17,000+ recorded commands - to reconstruct the timeline, extract indicators of compromise, map the credentials touched, and separate genuine impact from decoy activity. Thanks to this approach, we were able to do in hours what would usually take days, and match the adversary's speed.
+To understand what a swarm of tens of thousands of automated actions did, we ran LLM-driven analysis agents over the full attacker action log, comprised of more than 17,000 recorded events. This allowed us to reconstruct the timeline, extract indicators of compromise, map the credentials touched, and separate genuine impact from decoy activity. Thanks to this approach, we were able to do in hours what would usually take days, and match the adversary's speed.
 
 The choice of models we could use for this analysis was constrained in a way we did not anticipate; we describe this below.
 
