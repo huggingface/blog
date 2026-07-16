@@ -41,7 +41,7 @@ To understand what a swarm of tens of thousands of automated actions did, we ran
 
 The choice of models we could use for this analysis was constrained in a way we did not anticipate; we describe this below.
 
-### What got in the way of AI-assisted response
+### The asymmetry problem
 
 When we started the log analysis, we first used frontier models behind commercial APIs. This did not work: the analysis requires submitting large volumes of real attack commands, exploit payloads, and C2 artifacts, and these requests were blocked by the providers' safety guardrails, which cannot distinguish an incident responder from an attacker. We ran the forensic analysis instead on GLM 5.2, an open-weight model, on our own infrastructure. This had a second benefit: no attacker data, and none of the credentials it referenced, left our environment.
 
