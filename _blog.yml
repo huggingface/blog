@@ -5566,3 +5566,12 @@
     - benchmark
     - leaderboard
     - announcement
+
+- local: grabette
+  date: July 17, 2026
+  tags:
+    - robotics
+    - ai
+    - community
+    - datasets
+    - lerobot
