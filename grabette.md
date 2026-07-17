@@ -44,7 +44,10 @@ And that's the bigger goal: if recording a demonstration is as easy as shooting 
 
 Grabette is directly inspired by the **Universal Manipulation Interface** (UMI) from Stanford: a handheld gripper with a fisheye camera that records demonstrations "in the wild", recovers camera trajectories with SLAM, and trains visuomotor policies from them.
 
-UMI proved the recipe works. Other (closed source) devices exists like Agibot's MEgo gripper, Genrobot's DAS gripper and Sunday Robotics skill capture glove. Our goal was to make it effortless to use, to get the barrier from "I have a task" to "I have a trained model" as low as possible. Grabette is built into the modern open ecosystem: LeRobot for datasets, the Hugging Face Hub for sharing, and a processing pipeline you run **from your browser** with nothing to install. Grabette is something anyone can build on a workbench, use in the field, and contribute data from.
+UMI proved the recipe works. Other (closed source) devices exists like Agibot's MEgo gripper, Genrobot's DAS gripper and Sunday Robotics skill capture glove.
+Our goal was to make it effortless to use, to get the barrier from "I have a task" to "I have a trained model" as low as possible.
+
+Grabette is built into the modern open ecosystem: LeRobot for datasets, the Hugging Face Hub for sharing, and a processing pipeline you run **from your browser** with nothing to install. Grabette is something anyone can build on a workbench, use in the field, and contribute data from.
 
 ---
 
