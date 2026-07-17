@@ -110,7 +110,7 @@ The heart of this release is a recording system built so that going from “I wa
 
 ### 2. Process, directly in your browser
 
-![browser-post-process](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/grabette/browser_postprocess_small2.gif)
+![browser-post-process](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/grabette/Browser_postprocess_small2.gif)
 
 ---
 
