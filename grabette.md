@@ -1,3 +1,15 @@
+---
+title: "Grabette: an open system to record robot-manipulation data"
+thumbnail: /blog/assets/grabette/thumbnail_grabette.png
+authors:
+- user: SteveNguyen
+- user: chouziel
+- user: glannuzel
+- user: simheo
+- user: Jeremy-Pollen
+- user: etienne-pollen
+---
+
 # Grabette: an open system to record robot-manipulation data. <br> And build a shared dataset, together.
 
 *Record your own manipulation tasks in minutes with a handheld gripper, turn them into robot-ready datasets automatically, and help grow an open, collaborative dataset for robot learning.*
@@ -43,7 +55,7 @@ For months we have been developing Grabette. We are now feeling that it had beco
 Grabette is a **handheld gripper** instrumented with everything needed to reconstruct a manipulation demonstration.
 
 <div align="center">
-  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/grabette/grabette_label.png" alt="grabette_label" width="600">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/grabette/grabette_label_big.png" alt="grabette_label" width="600">
 </div>
 
 It carries **two cameras, each with a distinct job.** Splitting the two roles is deliberate: the cheap wide fisheye gives the policy the context-rich, wrist-camera-style view it needs, while the RGBD camera does the heavy lifting of robust 6-DoF tracking.
