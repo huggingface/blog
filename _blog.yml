@@ -5567,6 +5567,20 @@
     - leaderboard
     - announcement
 
+- local: thinkingmachines-inkling
+  date: July 15, 2026
+  tags:
+    - announcement
+    - multimodal
+    - transformers
+    - inference
+    - open-source
+
+- local: security-incident-july-2026
+  date: July 16, 2026
+  tags:
+    - security
+
 - local: grabette
   date: July 17, 2026
   tags:
