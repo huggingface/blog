@@ -36,8 +36,6 @@ And that's the bigger goal: if recording a demonstration is as easy as shooting 
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/grabette/cup.gif" alt="open_cabinet" width="600">
 </div>
 
----
-
 ## Standing on the shoulders of UMI
 
 Grabette is directly inspired by the **Universal Manipulation Interface** (UMI) from Stanford: a handheld gripper with a fisheye camera that records demonstrations "in the wild", recovers camera trajectories with SLAM, and trains visuomotor policies from them.
@@ -46,8 +44,6 @@ UMI proved the recipe works. Other (closed source) devices exists like Agibot's 
 Our goal was to make it effortless to use, to get the barrier from "I have a task" to "I have a trained model" as low as possible.
 
 Grabette is built into the modern open ecosystem: LeRobot for datasets, the Hugging Face Hub for sharing, and a processing pipeline you run **from your browser** with nothing to install. Grabette is something anyone can build on a workbench, use in the field, and contribute data from.
-
----
 
 ## Meet Grabette
 
@@ -61,7 +57,7 @@ Grabette is a **handheld gripper** instrumented with everything needed to recons
 
 It carries **two cameras, each with a distinct job.** Splitting the two roles is deliberate: the cheap wide fisheye gives the policy the context-rich, wrist-camera-style view it needs, while the RGBD camera does the heavy lifting of robust 6-DoF tracking.
 
-And while Grabette records data during tasks performed by a user, it relies on its robotic counterpart to execute the movements it has learned after training. So, meet **Gripette** the robotic arm end-effector twin of Grabette.
+And while Grabette records data during tasks performed by a user, it relies on its robotic counterpart to execute the movements it has learned after training. So, meet **Gripette**, the robotic arm end-effector twin of Grabette.
 
 The family shares the same hardware DNA:
 - **Grabette,** the handheld demonstration device (camera + IMU + gripper, BOM cost ~490€)
@@ -71,8 +67,6 @@ The family shares the same hardware DNA:
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/grabette/grabette_gripette.png" alt="Grabette and Gripette" width="600">
   <p><em>Grabette hand held recording device (left) and Gripette robot gripper (right)</em></p>
 </div>
-
----
 
 ## Built for everyone
 
@@ -85,13 +79,9 @@ The family shares the same hardware DNA:
 - **Processing pipeline**: run locally, or online via our Hugging Face Space
 - **Example downstream stack**: stock LeRobot training + the OpenArm evaluation, as a reference
 
-**Components.** Standards sensors you can buy, no closed pipeline, no fork lock-in . A Raspberry Pi, a standard Pi camera, an off-the-shelf OAK-D depth camera, magnetic encoders. The whole point is that anyone can build one from parts you can just order.
+**Components.** Standard sensors you can buy, no closed pipeline, no fork lock-in. A Raspberry Pi, a standard Pi camera, an off-the-shelf OAK-D depth camera, magnetic encoders. The whole point is that anyone can build one from parts you can just order.
 
 **Robot-agnostic by design.** Nothing in the capture or the data format assumes a particular arm. Demonstrations are stored as camera-local 6-DoF cartesian pose plus gripper state, the output is a standard LeRobot dataset on the Hugging Face Hub, so the same data can drive different robots and different learning methods. You will still need the matching Gripette gripper on your arm though.
-
-
-
----
 
 ## From your hand to a dataset, in two steps
 
@@ -110,9 +100,6 @@ The heart of this release is a recording system built so that going from “I wa
 ### 2. Process, directly in your browser
 
 ![browser-post-process](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/grabette/Browser_postprocess_small2.gif)
-
----
-
 
 ## How It Works under the hood
 
@@ -148,7 +135,7 @@ Our example takes 200 recorded demonstrations such as :
 
 and:
 
-- **Trains a policy** with stack **LeRobot** — a Diffusion Policy (ResNet18 + SpatialSoftmax encoder, DDIM scheduler, 6-D rotation actions) that fits on a single consumer GPU.
+- **Trains a policy** with the **LeRobot** stack — a Diffusion Policy (ResNet18 + SpatialSoftmax encoder, DDIM scheduler, 6-D rotation actions) that fits on a single consumer GPU.
 - **Evaluates it** on a OpenArm 7-DoF arm with the Gripette gripper, driven over a gRPC API, with this result :
 
 
@@ -156,9 +143,6 @@ and:
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/grabette/openarm_model.gif" alt="Grasp a cup on robot" width="40%">
   <p><em>Policy available on this <a href="https://huggingface.co/SteveNguyen/pick_cup_0107_smooth-best" target="_blank" rel="noopener noreferrer">HF Model</a></em></p>
 </div>
-
-
----
 
 ## Now it's your turn
 
@@ -173,7 +157,6 @@ The data bottleneck doesn’t get solved by one lab, but by a community recordin
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/grabette/screwdiver.gif" alt="" style="width: 100%; height: 100%; object-fit: cover; border-radius: 6px;">
 </div>
 
----
 ### What's next
 
 This release is only the start of the project! Grabette will keep evolving. We already have more coming, including **Casquette**, a head-mounted POV device to complement Grabette for egocentric capture (_still a work in progress_). But the most important next step isn’t only ours, it’s also yours: start recording, and let’s build the dataset together.
