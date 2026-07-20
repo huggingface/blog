@@ -3,14 +3,20 @@ title: "Grabette: an open system to record robot-manipulation data"
 thumbnail: /blog/assets/grabette/thumbnail_grabette.png
 authors:
 - user: SteveNguyen
+  org: pollen-robotics
 - user: chouziel
+  org: pollen-robotics
 - user: glannuzel
+  org: pollen-robotics
 - user: simheo
+  org: pollen-robotics
 - user: Jeremy-Pollen
+  org: pollen-robotics
 - user: etienne-pollen
+  org: pollen-robotics
 ---
 
-# Grabette: an open system to record robot-manipulation data. <br> And build a shared dataset, together.
+# Grabette: an open system to record robot-manipulation data. <br> *And build a shared dataset, together.*
 
 *Record your own manipulation tasks in minutes with a handheld gripper, turn them into robot-ready datasets automatically, and help grow an open, collaborative dataset for robot learning.*
 
@@ -47,7 +53,7 @@ Grabette is built into the modern open ecosystem: LeRobot for datasets, the Hugg
 
 ## Meet Grabette
 
-For months we have been developing Grabette. We are now feeling that it had become usable enough to share!
+We have been developing Grabette for months, and we feel it has become usable enough to share. We are excited to share it now with you!
 
 Grabette is a **handheld gripper** instrumented with everything needed to reconstruct a manipulation demonstration.
 
@@ -85,7 +91,7 @@ The family shares the same hardware DNA:
 
 ## From your hand to a dataset, in two steps
 
-The heart of this release is a recording system built so that going from “I want to demonstrate a task” to “I have a training-ready dataset” is fast and requires no expertise.
+This release enables anyone to go from "I want to demonstrate a task" to "I have a training-ready dataset" quickly and without prior expertise.
 
 ### 1. Record
 
@@ -96,20 +102,11 @@ The heart of this release is a recording system built so that going from “I wa
 
 <br clear="both"/>
 
+Press the button, and data from the observation camera, the tracking camera (color, depth, and IMU), and the gripper’s encoder joint values are recorded simultaneously, using a single shared clock to ensure proper synchronization. Press the button again to stop the episode, and the data is saved locally on the Raspberry Pi.
 
 ### 2. Process, directly in your browser
 
 ![browser-post-process](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/grabette/Browser_postprocess_small2.gif)
-
-## How It Works under the hood
-
-### The process involves two different steps:
-
-#### 1. Recording the episode
-
-Press the button, and data from the observation camera, the tracking camera (color, depth, and IMU), and the gripper’s encoder joint values are recorded simultaneously, using a single shared clock to ensure proper synchronization. Press the button again to stop the episode, and the data is saved locally on the Raspberry Pi.
-
-#### 2. Post-processing
 
 Open the Grabette dashboard in your browser. Select the episodes you want to add to the dataset, and with one click, post-processing begins.
 
@@ -120,6 +117,7 @@ Open the Grabette dashboard in your browser. Select the episodes you want to add
 
 
 Everything is now ready to start training!
+
 
 ## What can you do with the data? Here’s one example.
 
