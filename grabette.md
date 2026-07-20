@@ -134,9 +134,6 @@ Open the Grabette dashboard in your browser. Select the episodes you want to add
 
 Everything is now ready to start training!
 
-
----
-
 ## What can you do with the data? Here’s one example.
 
 A dataset is only interesting if it trains something. So, to show the loop end-to-end, we ship a **complete example.** But to be clear, this is *an* example of what is enables, not the product: the release is the recording system. Your Grabette data works with any method that consumes LeRobot datasets.
