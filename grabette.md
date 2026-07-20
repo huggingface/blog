@@ -24,7 +24,7 @@ authors:
 
 Robot learning has a supply problem. We have capable policy architectures (transformer-based VLAs, diffusion and flow-matching policies, and even world models) and the GPUs to train them. What we lack is large, diverse, real-world manipulation data.
 
-Teleoperating a robot to collect it is slow and expensive: every hour of data costs an hour of human time and a robot. That doesn't scale to the millions of demonstrations modern policies need.
+Teleoperating a robot to collect it can be expensive and demanding: first of all, *it requires **a robot***. And depending on the teleoperation method, data collection can be tedious for the user if it takes hours and involve significant hardware and logistical challenges. That is difficult to scale with the wide variety of tasks and environnements required. 
 
 But **you don't need a robot to collect robot data.** Just a human hand, a gripper, a camera, and a way to recover the 6-DoF trajectory of what the hand did. Capture the demonstration and you have data a robot can learn from.
 
@@ -44,7 +44,7 @@ And that's the bigger goal: if recording a demonstration is as easy as shooting 
 
 ## Standing on the shoulders of UMI
 
-Grabette is directly inspired by the **Universal Manipulation Interface** (UMI) from Stanford: a handheld gripper with a fisheye camera that records demonstrations "in the wild", recovers camera trajectories with SLAM, and trains visuomotor policies from them.
+Grabette is directly inspired by the [**Universal Manipulation Interface** (UMI)](https://umi-gripper.github.io/) from Stanford: a handheld gripper with a fisheye camera that records demonstrations "in the wild", recovers camera trajectories with SLAM, and trains visuomotor policies from them.
 
 UMI proved the recipe works. Other (closed source) devices exists like Agibot's MEgo gripper, Genrobot's DAS gripper and Sunday Robotics skill capture glove.
 Our goal was to make it effortless to use, to get the barrier from "I have a task" to "I have a trained model" as low as possible.
