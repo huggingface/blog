@@ -88,6 +88,7 @@ The family shares the same hardware DNA:
 - **Example downstream stack**: stock LeRobot training + the OpenArm evaluation, as a reference
 
 **Components.** Standards sensors you can buy, no closed pipeline, no fork lock-in . A Raspberry Pi, a standard Pi camera, an off-the-shelf OAK-D depth camera, magnetic encoders. The whole point is that anyone can build one from parts you can just order.
+
 **Robot-agnostic by design.** Nothing in the capture or the data format assumes a particular arm. Demonstrations are stored as camera-local 6-DoF cartesian pose plus gripper state, the output is a standard LeRobot dataset on the Hugging Face Hub, so the same data can drive different robots and different learning methods. You will still need the matching Gripette gripper on your arm though.
 
 
@@ -119,11 +120,11 @@ The heart of this release is a recording system built so that going from “I wa
 
 ### The process involves two different steps:
 
-1. Recording the episode
+#### 1. Recording the episode
 
 Press the button, and data from the observation camera, the tracking camera (color, depth, and IMU), and the gripper’s encoder joint values are recorded simultaneously, using a single shared clock to ensure proper synchronization. Press the button again to stop the episode, and the data is saved locally on the Raspberry Pi.
 
-2. Post-processing
+#### 2. Post-processing
 
 Open the Grabette dashboard in your browser. Select the episodes you want to add to the dataset, and with one click, post-processing begins.
 
@@ -133,7 +134,7 @@ Open the Grabette dashboard in your browser. Select the episodes you want to add
 - A new dataset is uploaded to your space, where you can view the data for each episode using the Le Robot visualizer
 
 
-=> Everything is now ready to start training!
+Everything is now ready to start training!
 
 
 ---
