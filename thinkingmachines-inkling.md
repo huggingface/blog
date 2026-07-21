@@ -12,7 +12,7 @@ authors:
 
 [Inkling](https://huggingface.co/thinkingmachines/Inkling) is a large (1T params!) open model to natively accept image, text, and audio inputs.
 
-TLDR; Inkling by Thinking Machines is out on Hugging Face. Inkling is a huge multimodal LLM that understands all modalities (image, audio, text), has agentic capabilities, and supports 1M context. It comes in full BF16 and a well-calibrated NVFP4 variant, and includes speculative MTP layers for faster inference. There’s day-0 support in transformers, SGLang, and llama.cpp.
+TLDR; Inkling by Thinking Machines is out on Hugging Face. Inkling is a huge multimodal LLM that understands all modalities (image, audio, text), has agentic capabilities, and supports 1M context. It comes in full BF16 and a well-calibrated NVFP4 variant, and includes speculative MTP layers for faster inference. There’s day-0 support in transformers, SGLang, vLLM, and llama.cpp.
 
 ## What makes Inkling special?
 
@@ -254,17 +254,26 @@ Match `--tp-size` to your GPU count. Add `--mem-fraction-static` (e.g. `0.85`) i
 
 ### vLLM
 
-vLLM is strong for production serving. A single `vllm serve` command downloads the weights from the Hub, shards the model across your GPUs with tensor parallelism, and starts an OpenAI-compatible server on port 8000.
+vLLM is strong for production serving. A single `vllm serve` command downloads the weights from the Hub, shards the model across your GPUs with tensor parallelism, and starts an OpenAI-compatible server on port 8000. You can view the vLLM Recipe for the model [here](https://recipes.vllm.ai/thinkingmachines/Inkling) to customize to your hardware.
 
 ```shell
-pip install vllm
+# Requires nightly or vllm>=0.26 (once released)
+uv pip install -U vllm --pre \
+  --extra-index-url https://wheels.vllm.ai/nightly/cu130 \
+  --extra-index-url https://download.pytorch.org/whl/cu130 \
+  --index-strategy unsafe-best-match
 
-vllm serve thinkingmachine/Inkling \
+vllm serve thinkingmachines/Inkling-NVFP4 \
+  --trust-remote-code \
+  --tokenizer-mode inkling \
   --tensor-parallel-size 8 \
+  --enable-auto-tool-choice \
+  --tool-call-parser inkling \
+  --reasoning-parser inkling \
   --served-model-name inkling
 ```
 
-In practice, you will need multiple nodes and a distribution tool like SLURM (see below). Key parameters are `--tensor-parallel-size` to the number of GPUs on your node, and use `--max-model-len` to cap the context window if you hit KV-cache memory limits.
+In practice, you might need multiple nodes and a distribution tool like SLURM (see below). Key parameters are `--tensor-parallel-size` to the number of GPUs on your node, and use `--max-model-len` to cap the context window if you hit KV-cache memory limits.
 
 ```shell
 curl http://localhost:8000/v1/chat/completions \
