@@ -2,7 +2,8 @@
 title: "How to Install and Use the Hugging Face Unity API"
 thumbnail: /blog/assets/124_ml-for-games/unity-api-thumbnail.png
 authors:
-- user: dylanebert
+- user: Pq234
+- Pathum25
 ---
 
 # How to Install and Use the Hugging Face Unity API
