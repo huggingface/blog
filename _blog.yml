@@ -5589,3 +5589,11 @@
     - community
     - datasets
     - lerobot
+
+- local: nunchaku-diffusers
+  date: July 22, 2026
+  tags:
+    - guide
+    - diffusers
+    - quantization
+    - diffusion-transformers
