@@ -174,3 +174,6 @@ Get started at
 [`github.com/huggingface/funes`](https://github.com/huggingface/funes). One `funes add
 claude` — or `codex`, `pi`, or `hermes` — connects the agent to the memory. Then you
 just work.
+
+funes is open source — [open an issue](https://github.com/huggingface/funes/issues) for
+anything from an install snag to a recall that missed, or an agent you'd like supported.
