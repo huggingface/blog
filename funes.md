@@ -167,6 +167,11 @@ already hosts open weights and open datasets. `funes` adds open working memory. 
 the decisions, failed approaches, and rationale behind a project, queryable by another
 agent and traceable to the sessions that produced them.
 
+funes invents little of this. It leans on open-source embedding models good enough to
+run locally, on [Lance](https://lancedb.github.io/lance/)'s append-only datasets with
+cheap incremental writes, and on the Hub's caching and content-dedup for datasets. The
+work is in fitting them into a memory an agent can actually use.
+
 > *“To think is to forget differences, generalize, make abstractions.”*
 > — Jorge Luis Borges, *Funes the Memorious*
 
