@@ -69,7 +69,7 @@ image.save("output.png")
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/nunchaku-diffusers/fox_bf16_vs_nunchaku_no_metrics.png" alt="BF16 and Nunchaku Lite outputs for a red fox prompt">
 </figure>
 
-No custom pipeline class or separate inference engine is needed, and there is nothing to compile locally. The NVFP4 kernels are downloaded from the Hub the first time they are used. This checkpoint pairs a Nunchaku NVFP4 transformer with a bitsandbytes NF4 text encoder, and generates a 1024x1024 image in about 1.7 seconds on an RTX 5090 with a peak memory usage of about 12 GB, compared with about 24 GB for the BF16 pipeline. You can find more details about the Nunchaku Lite checkpoint format in the [official Diffusers documentation](https://huggingface.co/docs/diffusers/main/en/quantization/nunchaku).
+No custom pipeline class or separate inference engine is needed, and there is nothing to compile locally. The NVFP4 kernels are downloaded from the Hub through the [Nunchaku Lite kernels page](https://huggingface.co/kernels/rootonchair/nunchaku-lite-kernels) the first time they are used. This checkpoint pairs a Nunchaku NVFP4 transformer with a bitsandbytes NF4 text encoder, and generates a 1024x1024 image in about 1.7 seconds on an RTX 5090 with a peak memory usage of about 12 GB, compared with about 24 GB for the BF16 pipeline. You can find more details about the Nunchaku Lite checkpoint format in the [official Diffusers documentation](https://huggingface.co/docs/diffusers/main/en/quantization/nunchaku).
 
 > [!NOTE]
 > NVFP4 checkpoints require an NVIDIA Blackwell GPU (RTX 50 series, RTX PRO 6000, B200). For earlier generations, use the INT4 variants. See the [hardware support](#hardware-support) table below for details.
@@ -85,7 +85,7 @@ No custom pipeline class or separate inference engine is needed, and there is no
 
 ## Introducing Nunchaku Lite
 
-The original Nunchaku engine gets much of its speed from model-specific graph fusions, such as fused QKV projections, fused adaLN modulation, and fused GELU/MLP kernels. Those fusions are tied to each architecture's module layout and checkpoint format, so supporting a new model family usually requires model-specific integration work.
+The original [Nunchaku engine](https://github.com/nunchaku-ai/nunchaku) gets much of its speed from [model-specific fused execution paths](#quantizing-models-with-structural-rewrites), such as fused QKV projections and fused GELU/MLP kernels. Those optimizations are tied to each architecture's module layout and checkpoint format, so supporting a new model family usually requires model-specific integration work.
 
 **Nunchaku Lite** is the new integration path in Diffusers. With it, Diffusers can load Nunchaku-style checkpoints without a custom pipeline or a separate inference engine. Under the hood, Nunchaku Lite patches the relevant `nn.Linear` modules of a stock Diffusers model with runtime SVDQ/AWQ linear layers before the checkpoint is loaded. The CUDA kernels come from the Hub through the `kernels` package. Two kernel families are used:
 
@@ -199,13 +199,12 @@ Always read this report before quantizing. For FLUX.2 Klein 4B, the expected res
 
 ### 2. Run quantization
 
-The following command runs SVDQuant on the transformer and writes the quantized checkpoint:
+The following command runs SVDQuant on the transformer and writes the quantized checkpoint to `outputs/checkpoints/svdq-int4_r32-flux-2-klein-4b.safetensors`:
 
 ```bash
 python examples/text_to_image/quantize_hf.py black-forest-labs/FLUX.2-klein-4B \
-  --precision int4 --rank 32 \
-  --num-samples 128 --batch-size 1 --sample-batch-size 32 \
-  --compute-device cuda --pipeline-offload model --svd-backend svd_lowrank
+  --precision int4 \
+  --output outputs/checkpoints/svdq-int4_r32-flux-2-klein-4b.safetensors
 ```
 
 Replace `--precision int4` with `nvfp4` to build Blackwell-native weights.
@@ -219,7 +218,8 @@ python examples/convert_nunchaku_lite_diffusers.py \
   --checkpoint outputs/checkpoints/svdq-int4_r32-flux-2-klein-4b.safetensors \
   --model-id black-forest-labs/FLUX.2-klein-4B \
   --bnb4-text-encoder text_encoder \
-  --compute-dtype bfloat16
+  --compute-dtype bfloat16 \
+  --output-dir outputs/diffusers/FLUX.2-klein-4B-nunchaku-lite-int4-bnb4-text-encoder
 ```
 
 ### 4. Load, verify, and push to the Hub
@@ -241,7 +241,57 @@ image = pipe(
 
 Once the outputs look good, run `pipe.push_to_hub("your-name/your-model-nunchaku-lite-int4")`. Other users can then load it with the same `from_pretrained()` pattern shown above.
 
-Note that the generic path assumes the architecture can be quantized without structural rewrites. Models whose runtime requires grouped QKV tensors, split fused projections, or other structural changes need a small model-specific target config in diffuse-compressor. See the [FLUX.2 Klein 4B quantization script](https://github.com/rootonchair/diffuse-compressor/blob/main/examples/text_to_image/quantize_flux2_klein_4b.py) as a concrete example. For checkpoints that use grouped QKV tensors or additional fused kernels, [`rootonchair/nunchaku-lite`](https://github.com/rootonchair/nunchaku-lite) provides a lean runtime package for loading Nunchaku-quantized Diffusers pipelines and isolating those model-specific operations in small adapters. The [Adding A New Model](https://github.com/rootonchair/diffuse-compressor/blob/main/docs/adding_new_model.md) guide covers that path.
+### Quantizing models with structural rewrites
+
+Note that the generic path assumes the architecture can be quantized without structural rewrites. For additional speedup, the original Nunchaku engine rewrites groups of Diffusers layers as fused modules. The generic path cannot infer these changes on its own, such as combining separate Q, K, and V projections into one module or splitting a fused projection across several modules.
+
+FLUX.1-dev's QKV projection is a concrete example. [Diffusers defines three separate modules](https://github.com/huggingface/diffusers/blob/main/src/diffusers/models/transformers/transformer_flux.py#L313-L329):
+
+```python
+self.to_q = torch.nn.Linear(query_dim, self.inner_dim, bias=bias)
+self.to_k = torch.nn.Linear(query_dim, self.inner_dim, bias=bias)
+self.to_v = torch.nn.Linear(query_dim, self.inner_dim, bias=bias)
+```
+
+The [Nunchaku FLUX module combines those layers](https://github.com/nunchaku-ai/nunchaku/blob/main/nunchaku/models/transformers/transformer_flux_v2.py#L63-L79) into one quantized `to_qkv` module:
+
+```python
+to_qkv = fuse_linears([other.to_q, other.to_k, other.to_v])
+self.to_qkv = SVDQW4A4Linear.from_linear(to_qkv, **kwargs)
+```
+
+This grouped module is required because Nunchaku's fused operator consumes the QKV projection, Q/K normalization, and rotary embeddings together. By comparison, the [default Diffusers path](https://github.com/huggingface/diffusers/blob/main/src/diffusers/models/transformers/transformer_flux.py#L45-L116) executes them separately:
+
+```python
+query = attn.to_q(hidden_states)
+key = attn.to_k(hidden_states)
+value = attn.to_v(hidden_states)
+
+query = query.unflatten(-1, (attn.heads, -1))
+key = key.unflatten(-1, (attn.heads, -1))
+value = value.unflatten(-1, (attn.heads, -1))
+
+query = attn.norm_q(query)
+key = attn.norm_k(key)
+
+if image_rotary_emb is not None:
+    query = apply_rotary_emb(query, image_rotary_emb, sequence_dim=1)
+    key = apply_rotary_emb(key, image_rotary_emb, sequence_dim=1)
+```
+
+The [Nunchaku path](https://github.com/nunchaku-ai/nunchaku/blob/main/nunchaku/models/attention_processors/flux.py#L69-L93) supplies the grouped projection, normalization modules, and rotary embeddings to one fused operator:
+
+```python
+qkv = fused_qkv_norm_rottary(
+    hidden_states, attn.to_qkv, attn.norm_q, attn.norm_k, image_rotary_emb
+)
+```
+
+This is the structural rewrite that the generic path cannot infer. Diffusers has three destination modules with `to_q`, `to_k`, and `to_v` parameter prefixes, while Nunchaku has one grouped module under `to_qkv`. A model-specific target config or adapter must state that the Q, K, and V parameters should be concatenated along the output dimension, in that order, and loaded into `to_qkv`.
+
+Structural rewrites like these are described by a model-specific target config during quantization and handled by a small runtime adapter when the checkpoint is loaded.
+The [FLUX.2 Klein 4B quantization script](https://github.com/rootonchair/diffuse-compressor/blob/main/examples/text_to_image/quantize_flux2_klein_4b.py) provides a concrete target-config example for producing a structurally rewritten checkpoint, while [rootonchair/nunchaku-lite](https://github.com/rootonchair/nunchaku-lite) provides the runtime adapters needed to load grouped QKV tensors, split fused projections, and other fused operations.
+For the complete workflow, you can check the [Adding A New Model](https://github.com/rootonchair/diffuse-compressor/blob/main/docs/adding_new_model.md) guide.
 
 ## Ready-to-use checkpoints
 
