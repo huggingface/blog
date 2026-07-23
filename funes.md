@@ -23,15 +23,15 @@ off the streaming parser?”* across ten thousand turns. For an agent to use tho
 while it works, they need **indexing**, **retrieval**, **ranking**, and
 **exact provenance**.
 
-That is what [`funes`](https://github.com/huggingface/funes) provides. It is a durable
+That is what [funes](https://github.com/huggingface/funes) provides. It is a durable
 memory layer for your agents (Claude Code, Codex, pi, and Hermes). It is built from the
 sessions already on your machine. It works locally, becomes part of your agent's normal
-workflow with one command, and can be published as a Hugging Face **private** dataset
-when you want it to travel.
+workflow with one command, and can travel to a Hugging Face dataset you own — private
+by default — when you want it to.
 
 ## Add memory to the agent you already use
 
-`funes` is a single binary. Its default inference backend has no ML runtime dependency,
+funes is a single binary. Its default inference backend has no ML runtime dependency,
 and embedding and reranking happen *on your machine*. Install it, then add it to an
 agent:
 
@@ -161,14 +161,14 @@ This matters in a few different scopes:
   history of why the project is the way it is instead of a page someone must keep
   rewriting. Anyone can read a public project memory with `--memory`.
 
-Published memories carry a dataset card and the `funes` tag, making them recognizable
+Published memories carry a dataset card and the funes tag, making them recognizable
 and [discoverable on the Hub](https://huggingface.co/datasets?other=funes). The Hub
-already hosts open weights and open datasets. `funes` adds open working memory. It holds
+already hosts open weights and datasets. funes adds open working memory. It holds
 the decisions, failed approaches, and rationale behind a project, queryable by another
 agent and traceable to the sessions that produced them.
 
 funes invents little of this. It leans on open-source embedding models good enough to
-run locally, on [Lance](https://lancedb.github.io/lance/)'s append-only datasets with
+run locally, on [Lance](https://github.com/lancedb/lance)'s append-only datasets with
 cheap incremental writes, and on the Hub's caching and content-dedup for datasets. The
 work is in fitting them into a memory an agent can actually use.
 
