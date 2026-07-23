@@ -318,6 +318,6 @@ To learn more, check out the following resources:
 
 ## Acknowledgements
 
-Thanks to the Diffusers maintainers for reviews and guidance throughout the integration, and to the MIT HAN Lab / Nunchaku team for the original SVDQuant work.
+Thanks to the Diffusers maintainers for reviews and guidance throughout the integration, and to the MIT HAN Lab / Nunchaku team for the original SVDQuant work. Thanks to Marc Sun for providing feedback on the blog post. Thanks to Álvaro Somoza for trying out `nunchaku-lite` and for providing feedback.
 
 `rootonchair` is also grateful to SilverAI for supporting this work and providing the environment in which much of this development took place.
