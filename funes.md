@@ -32,11 +32,15 @@ by default — when you want it to.
 ## Add memory to the agent you already use
 
 funes is a single binary. Its default inference backend has no ML runtime dependency,
-and embedding and reranking happen *on your machine*. Install it, then add it to an
-agent:
+and embedding and reranking happen *on your machine*. Install it:
 
 ```bash
 curl -fsSL https://huggingface.co/buckets/huggingface/funes/resolve/install.sh | sh
+```
+
+Then add it to an agent:
+
+```bash
 funes add claude    # or: codex, pi, hermes
 ```
 
