@@ -83,27 +83,22 @@ more useful when the next agent is running somewhere else.
 
 ## A memory is a dataset, not a service
 
-To make a memory follow your work, bind it when you add funes to an agent:
+To make a memory follow your work, bind one when you add funes to an agent:
 
 ```bash
-# acme/funes-memory is a memory dataset built in the past
 funes add codex acme/funes-memory
 ```
 
-The agent now recalls from that memory (`acme/funes-memory`). For agents with hooks
-(Claude Code, Codex, and Hermes), funes continues to index locally each turn and
-publishes at session boundaries. Run the same command on another machine and the memory
-follows you there.
+The bind publishes your current memory there, and — for agents with hooks (Claude Code,
+Codex, and Hermes) — funes keeps it current, indexing each turn locally and publishing
+at session boundaries. The agent recalls from it throughout. Run the same command on
+another machine and the memory follows you there.
 
 Underneath, the local memory is a Lance dataset, and the shared memory is a Hugging
-Face dataset (private by default) you own. Publishing is also available directly:
-
-```bash
-funes push acme/funes-memory
-```
+Face dataset (private by default) you own.
 
 Before anything reaches the Hub, credentials have already been redacted during
-indexing. The push then scans every chunk again and withholds anything that still
+indexing. Publishing then scans every chunk again and withholds anything that still
 looks like a secret.
 
 When an agent reads a remote memory, funes caches the dataset files locally, so warm
@@ -111,6 +106,8 @@ queries return to local speed. The Hub supplies the ownership, access control,
 versioning, and distribution it already supplies for other datasets. Your memory does
 not become an account in a separate memory service, and you do not rent it back
 through an API.
+
+## Ask first, wire later
 
 `recall` is shaped for agents. When you want to put a question to a memory yourself,
 use `ask`. It reads your local memory by default:
