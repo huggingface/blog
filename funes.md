@@ -99,7 +99,8 @@ Face dataset (private by default) you own.
 
 Before anything reaches the Hub, credentials have already been redacted during
 indexing. Publishing then scans every chunk again and withholds anything that still
-looks like a secret.
+looks like a secret. The scanner behind this — and what it does and doesn't cover — is
+documented in [`SECURITY.md`](https://github.com/huggingface/funes/blob/main/SECURITY.md).
 
 When an agent reads a remote memory, funes caches the dataset files locally, so warm
 queries return to local speed. The Hub supplies the ownership, access control,
