@@ -46,15 +46,13 @@ How? In the ways that they prefer. Here are some examples of the first Fellows:
 
 Additionally, there are strategic areas where Hugging Face is looking for open-source contributions. These areas will be added and updated frequently on the [Fellowship Doc with specific projects](https://docs.google.com/document/d/11mh36a4fgBlj8sh3_KoP2TckuPcnD-_S_UAtsEWgs50/edit). Prospects should not hesitate to write in the #looking-for-collaborators channel in the [Hugging Face Discord](https://t.co/1n75wi976V?amp=1) if they want to undertake a project in these areas, support or be considered as a Fellow. Additionally, refer to the **Where and how can I contribute?** question below.
 
-If you are currently a student, consider applying to the [Student Ambassador Program](https://huggingface.co/blog/ambassadors). The application deadline is June 13, 2022.
-
 Hugging Face is actively working to build a culture that values ​​diversity, equity, and inclusion. Hugging Face intentionally creates a community where people feel respected and supported, regardless of who they are or where they come from. This is critical to building the future of open Machine Learning. The Fellowship will not discriminate based on race, religion, color, national origin, gender, sexual orientation, age, marital status, veteran status, or disability status.
 
 ## Frequently Asked Questions
 
 * **I am just starting to contribute. Can I be a fellow?**
 
-Fellows are nominated based on their open-source and community contributions. If you want to participate in the Fellowship, the best way to start is to begin contributing! If you are a student, the [Student Ambassador Program](https://huggingface.co/blog/ambassadors) might be more suitable for you (the application deadline is June 13, 2022).
+Fellows are nominated based on their open-source and community contributions. If you want to participate in the Fellowship, the best way to start is to begin contributing!
 
 
 * **Where and how can I contribute?**
@@ -65,7 +63,6 @@ It depends on your interests. Here are some ideas of areas where you can contrib
 - Create tutorials and projects using different open-source libraries—for example, Stable-Baselines 3, fastai, or Keras.
 - Organize local sprints to promote open source Machine Learning in different languages or niches. For example, the [Somos NLP Hackathon](https://huggingface.co/hackathon-pln-es) focused on Spanish speakers. The [HugGAN sprint](https://github.com/huggingface/community-events/tree/main/huggan) focused on generative models.
 - Translate the [Hugging Face Course](https://github.com/huggingface/course#-languages-and-translations), the [Transformers documentation](https://github.com/huggingface/transformers/blob/main/docs/TRANSLATING.md) or the [Educational Toolkit](https://github.com/huggingface/education-toolkit/blob/main/TRANSLATING.md).
-- [Doc with specific projects](https://docs.google.com/document/d/11mh36a4fgBlj8sh3_KoP2TckuPcnD-_S_UAtsEWgs50/edit) where contributions would be valuable. The Hugging Face team will frequently update the doc with new projects.
 
 Please share in the #looking-for-contributors channel on the [Hugging Face Discord](https://hf.co/join/discord) if you want to work on a particular project.
 
