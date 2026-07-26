@@ -5597,3 +5597,12 @@
     - diffusers
     - quantization
     - diffusion-transformers
+
+- local: funes
+  date: July 24, 2026
+  tags:
+    - agents
+    - open-source
+    - datasets
+    - guide
+    - announcement
