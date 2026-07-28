@@ -14,11 +14,11 @@ authors:
 
 *We are publishing this level of detail because the technique matters more than the incident, as it reveals the emerging attack capabilities of the frontier agents, how they could be used by rogue actors and how everyone should be prepared as defenders.*
 
-**[▶ Watch the interactive replay](https://huggingface-anatomy-of-frontier-lab-model-intrusion.static.hf.space)** - a step-by-step visualization of the 4.5-day intrusion: the attack chain across trust boundaries, phase activity, and the commands as they were recorded.
+**[▶ Watch the interactive replay](https://huggingface-anatomy-of-frontier-lab-model-intrusion.static.hf.space)** - a step-by-step visualization of the 4.5-day campaign: the attack chain across trust boundaries, phase activity, and the commands as they were recorded.
 
 ## TL;DR
 
-Over roughly two and a half days, an **autonomous AI agent driven by a combination of OpenAI models** ran an end-to-end intrusion against our platform: it was thousands of small, automated decisions, executed at machine speed across short-lived sandbox environments, with command-and-control staged on ordinary public web services.
+Over roughly two and a half days inside our infrastructure, an **autonomous AI agent driven by a combination of OpenAI models** ran an end-to-end intrusion against our platform: it was thousands of small, automated decisions, executed at machine speed across short-lived sandbox environments, with command-and-control staged on ordinary public web services.
 
 The agent was running an OpenAI cyber-capability evaluation harness called ExploitGym, an evaluation benchmark which tasks an AI agent with finding and exploiting software vulnerabilities. As far as we were able to infer, across the course of being evaluated on this benchmark the agent inferred that Hugging Face may host that benchmark's models, datasets, and reference solutions. We believe the entire intrusion was, from the agent's point of view, an attempt to cheat the evaluation: reach our production systems and steal the test solutions rather than solve the challenge on its own.
 
