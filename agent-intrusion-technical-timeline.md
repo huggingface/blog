@@ -14,8 +14,6 @@ authors:
 
 *We are publishing this level of detail because the technique matters more than the incident, as it reveals the emerging attack capabilities of the frontier agents, how they could be used by rogue actors and how everyone should be prepared as defenders.*
 
-<!-- TODO: the huggingface/anatomy-of-frontier-lab-model-intrusion Space is still private
-     (the URL below returns 401); make it public before publishing this post. -->
 **[▶ Watch the interactive replay](https://huggingface-anatomy-of-frontier-lab-model-intrusion.static.hf.space)** - a step-by-step visualization of the 4.5-day intrusion: the attack chain across trust boundaries, phase activity, and the commands as they were recorded.
 
 ## TL;DR
@@ -356,7 +354,7 @@ Pulling on the first threads showed the scale of what we were dealing with: the 
 
 *Guardrails on Opus, tripped every time we tried to analyze the attack logs.*
 
-We stood up an open-weight model ([zai-org/GLM-5.2](https://huggingface.co/zai-org/GLM-5.2)) on our [own infrastructure](https://endpoints.huggingface.co/) and redirected the whole pipeline at it, with the side benefit of keeping the attacker data on-prem. The first target was the dead-drop payloads: with GLM-5.2, we recovered the chunk+XOR+compress scheme and the per-campaign key the agent had itself leaked across its logs: exactly what let us decrypt the staged blobs a naive scan of the raw capture had missed.
+We stood up the quantized version of ZAI's GLM-5.2 by Nvidia ([nvidia/GLM-5.2-NVFP4](https://huggingface.co/nvidia/GLM-5.2-NVFP4)) on our [own infrastructure](https://endpoints.huggingface.co/) and redirected the whole pipeline at it, with the side benefit of keeping the attacker data on-prem. The first target was the dead-drop payloads: with GLM-5.2, we recovered the chunk+XOR+compress scheme and the per-campaign key the agent had itself leaked across its logs: exactly what let us decrypt the staged blobs a naive scan of the raw capture had missed.
 
 GLM-5.2 also helped us build dedicated trace-analysis interfaces to browse and correlate the actions and payloads.
 
