@@ -5597,3 +5597,8 @@
     - diffusers
     - quantization
     - diffusion-transformers
+
+- local: agent-intrusion-technical-timeline
+  date: July 27, 2026
+  tags:
+    - security

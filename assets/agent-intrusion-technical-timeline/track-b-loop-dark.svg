@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1330 440" width="1330" height="440"><defs>
+<marker id="mk-orange" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#e8820c"/></marker>
+<marker id="mk-mut" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#8b949e"/></marker>
+<marker id="mk-red" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#ff7b72"/></marker>
+<marker id="mk-blue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#79c0ff"/></marker>
+</defs><style>
+  text{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif}
+  .title{font-size:20px;font-weight:700;fill:#e6edf3}
+  .sub{font-size:12.5px;fill:#8b949e}
+  .lane{font-size:12px;font-weight:700;letter-spacing:.4px;font-family:ui-monospace,Menlo,monospace}
+  .tag{font-size:9px;letter-spacing:.7px;font-weight:700;font-family:ui-monospace,Menlo,monospace}
+  .nt{font-size:13.5px;font-weight:700;fill:#e6edf3}
+  .nd{font-size:11px;fill:#8b949e}
+  .el{font-size:10.5px;font-family:ui-monospace,Menlo,monospace}
+</style>
+<rect width="1330" height="440" fill="#0a0d13"/>
+<text class="title" x="30" y="36">Stage 2: the injection &amp; read-back loop</text>
+<text class="sub" x="30" y="58">The AI agent drives a prod pod through our dataset pipeline and reads results back over the HF API.</text>
+<text class="lane" x="30" y="132" fill="#e8820c">inject ▸</text>
+<text class="lane" x="30" y="414" fill="#79c0ff">◂ read-back</text>
+<rect x="30.0" y="199.0" width="180" height="122" rx="10" fill="#12161f" stroke="#e8820c" stroke-width="1.6"/>
+<text class="tag" x="120" y="218.0" fill="#e8820c" text-anchor="middle">ATTACKER · BASE</text>
+<text class="nt" x="120" y="238.0" text-anchor="middle">Agent</text>
+<text class="nd" x="120" y="254.0" text-anchor="middle">rooted 3rd-party sandbox</text>
+<text class="nd" x="120" y="270.0" text-anchor="middle">(drives every step)</text>
+<rect x="448.0" y="182.0" width="184" height="156" rx="10" fill="#12161f" stroke="#e3b341" stroke-width="1.6"/>
+<text class="tag" x="540" y="201.0" fill="#e3b341" text-anchor="middle">HUGGING FACE</text>
+<text class="nt" x="540" y="221.0" text-anchor="middle">HF Hub / API</text>
+<text class="nd" x="540" y="237.0" text-anchor="middle">dataset upload + serve</text>
+<rect x="735.0" y="151.0" width="190" height="78" rx="10" fill="#12161f" stroke="#e3b341" stroke-width="1.6"/>
+<text class="tag" x="830" y="170.0" fill="#e3b341" text-anchor="middle">HUGGING FACE</text>
+<text class="nt" x="830" y="190.0" text-anchor="middle">Dataset server</text>
+<text class="nd" x="830" y="206.0" text-anchor="middle">config renderer</text>
+<rect x="1105.0" y="199.0" width="190" height="122" rx="10" fill="#12161f" stroke="#ff7b72" stroke-width="1.6"/>
+<text class="tag" x="1200" y="218.0" fill="#ff7b72" text-anchor="middle">PROD POD</text>
+<text class="nt" x="1200" y="238.0" text-anchor="middle">Conversion worker</text>
+<text class="nd" x="1200" y="254.0" text-anchor="middle">HDF5 read /</text>
+<text class="nd" x="1200" y="270.0" text-anchor="middle">Jinja2 SSTI</text>
+<rect x="735.0" y="291.0" width="190" height="78" rx="10" fill="#12161f" stroke="#e8820c" stroke-width="1.6"/>
+<text class="tag" x="830" y="310.0" fill="#e8820c" text-anchor="middle">ATTACKER-CONTROLLED</text>
+<text class="nt" x="830" y="330.0" text-anchor="middle">Dead-drop dataset</text>
+<text class="nd" x="830" y="346.0" text-anchor="middle">gzip blobs in commits / branches</text>
+<path d="M210,240 C317.1,240 340.9,225 448,225" fill="none" stroke="#e8820c" stroke-width="1.8" marker-end="url(#mk-orange)"/>
+<rect x="233.9" y="135" width="192.2" height="20" rx="5" fill="#0a0d13" fill-opacity=".9" stroke="#232a36"/>
+<text class="el" x="330" y="149" fill="#e8820c" text-anchor="middle">1 · upload malicious config</text>
+<path d="M632,205 C678.35,205 688.65,190 735,190" fill="none" stroke="#8b949e" stroke-width="1.8" marker-end="url(#mk-mut)"/>
+<rect x="618.6" y="135" width="132.8" height="20" rx="5" fill="#0a0d13" fill-opacity=".9" stroke="#232a36"/>
+<text class="el" x="685" y="149" fill="#8b949e" text-anchor="middle">2 · process config</text>
+<path d="M925,190 C1006.0,190 1024.0,235 1105,235" fill="none" stroke="#ff7b72" stroke-width="1.8" marker-end="url(#mk-red)"/>
+<rect x="932.1" y="135" width="165.79999999999998" height="20" rx="5" fill="#0a0d13" fill-opacity=".9" stroke="#232a36"/>
+<text class="el" x="1015" y="149" fill="#ff7b72" text-anchor="middle">3 · loader: read / exec</text>
+<path d="M1105,300 C1024.0,300 1006.0,330 925,330" fill="none" stroke="#79c0ff" stroke-width="1.8" marker-end="url(#mk-blue)"/>
+<rect x="915.6" y="385" width="198.79999999999998" height="20" rx="5" fill="#0a0d13" fill-opacity=".9" stroke="#232a36"/>
+<text class="el" x="1015" y="399" fill="#79c0ff" text-anchor="middle">4 · output committed as blob</text>
+<path d="M735,330 C688.65,330 678.35,310 632,310" fill="none" stroke="#79c0ff" stroke-width="1.8" marker-end="url(#mk-blue)"/>
+<rect x="605.4" y="385" width="159.2" height="20" rx="5" fill="#0a0d13" fill-opacity=".9" stroke="#232a36"/>
+<text class="el" x="685" y="399" fill="#79c0ff" text-anchor="middle">5 · served over HF API</text>
+<path d="M448,300 C340.9,300 317.1,300 210,300" fill="none" stroke="#79c0ff" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#mk-blue)"/>
+<rect x="227.3" y="385" width="205.39999999999998" height="20" rx="5" fill="#0a0d13" fill-opacity=".9" stroke="#232a36"/>
+<text class="el" x="330" y="399" fill="#79c0ff" text-anchor="middle">6 · read → craft next command</text></svg>
