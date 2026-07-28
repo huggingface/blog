@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1360 700" width="1360" height="700"><defs>
+<marker id="mk-red" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#f85149"/></marker>
+<marker id="mk-mut" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#8b949e"/></marker>
+<marker id="mk-orange" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#e8820c"/></marker>
+<marker id="mk-blue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#79c0ff"/></marker>
+<marker id="mk-purple" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#a371f7"/></marker>
+<marker id="mk-pink" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#f778ba"/></marker>
+<marker id="mk-k8s" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#ff7b72"/></marker>
+</defs><style>
+  text{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;}
+  .title{font-size:21px;font-weight:700;fill:#e6edf3}
+  .sub{font-size:13px;fill:#8b949e}
+  .act{font-size:13px;font-weight:700;letter-spacing:.3px}
+  .zone{font-size:10.5px;letter-spacing:.8px;text-transform:uppercase;font-weight:600;font-family:ui-monospace,Menlo,monospace}
+  .tag{font-size:9px;letter-spacing:.7px;font-weight:700;font-family:ui-monospace,Menlo,monospace}
+  .nt{font-size:13.5px;font-weight:700;fill:#e6edf3}
+  .nd{font-size:11px;fill:#8b949e}
+  .el{font-size:10.5px;font-family:ui-monospace,Menlo,monospace}
+</style>
+<rect width="1360" height="700" fill="#0a0d13"/>
+<text class="title" x="30" y="38">The attack chain: from a frontier-model evaluation sandbox to our internal network</text>
+<text class="sub" x="30" y="60">An autonomous AI agent, escaped during an internal evaluation, drove every step from a rooted third-party sandbox.</text>
+<text class="act" x="30" y="92" fill="#3fb950">① Stage 1 · reaching the launchpad, through two other parties</text>
+<rect x="24" y="104" width="486" height="120" rx="14" fill="#3fb95014" stroke="#3fb950" stroke-opacity=".5" stroke-width="1.2"/>
+<text class="zone" x="40" y="125" fill="#3fb950">OpenAI platform · during model evaluation</text>
+<rect x="526" y="104" width="210" height="120" rx="14" fill="#8b949e14" stroke="#8b949e" stroke-opacity=".5" stroke-width="1.2"/>
+<text class="zone" x="542" y="125" fill="#8b949e">Public internet</text>
+<rect x="752" y="96" width="320" height="136" rx="14" fill="#e8820c14" stroke="#e8820c" stroke-opacity=".5" stroke-width="1.2"/>
+<text class="zone" x="768" y="117" fill="#e8820c">Third-party code sandbox · COMPROMISED</text>
+<rect x="42.0" y="131.0" width="196" height="74" rx="10" fill="#12161f" stroke="#3fb950" stroke-width="1.6"/>
+<text class="tag" x="140" y="150.0" fill="#3fb950" text-anchor="middle">OPENAI · EVAL</text>
+<text class="nt" x="140" y="170.0" text-anchor="middle">Evaluation sandbox</text>
+<text class="nd" x="140" y="186.0" text-anchor="middle">frontier model under eval</text>
+<rect x="294.0" y="131.0" width="196" height="74" rx="10" fill="#12161f" stroke="#3fb950" stroke-width="1.6"/>
+<text class="tag" x="392" y="150.0" fill="#3fb950" text-anchor="middle">OPENAI · INFRA</text>
+<text class="nt" x="392" y="170.0" text-anchor="middle">Lateralize</text>
+<text class="nd" x="392" y="186.0" text-anchor="middle">pivot to a route out</text>
+<rect x="541.0" y="131.0" width="180" height="74" rx="10" fill="#12161f" stroke="#8b949e" stroke-width="1.6"/>
+<text class="tag" x="631" y="150.0" fill="#8b949e" text-anchor="middle">PUBLIC INTERNET</text>
+<text class="nt" x="631" y="170.0" text-anchor="middle">Egress &amp; C2</text>
+<text class="nd" x="631" y="186.0" text-anchor="middle">public web services</text>
+<rect x="775.0" y="119.0" width="274" height="98" rx="13" fill="none" stroke="#e8820c" stroke-opacity=".28" stroke-width="6"/>
+<rect x="778.0" y="122.0" width="268" height="92" rx="10" fill="#12161f" stroke="#e8820c" stroke-width="1.6"/>
+<text class="tag" x="912" y="141.0" fill="#e8820c" text-anchor="middle">THIRD-PARTY SANDBOX · uid=0</text>
+<text class="nt" x="912" y="161.0" text-anchor="middle">Rooted code-eval sandbox</text>
+<text class="nd" x="912" y="177.0" text-anchor="middle">CyberGym harness</text>
+<text class="nd" x="912" y="193.0" text-anchor="middle">C2 · staging · egress base</text>
+<path d="M238,168 C260.4,168 271.6,168 294,168" fill="none" stroke="#f85149" stroke-width="1.8" marker-end="url(#mk-red)"/>
+<rect x="219.4" y="141" width="93.19999999999999" height="20" rx="5" fill="#0a0d13" fill-opacity=".85" stroke="#232a36"/>
+<text class="el" x="266" y="153" fill="#f85149" text-anchor="middle">0-day escape</text>
+<path d="M490,168 C510.4,168 520.6,168 541,168" fill="none" stroke="#8b949e" stroke-width="1.8" marker-end="url(#mk-mut)"/>
+<rect x="488.2" y="141" width="53.599999999999994" height="20" rx="5" fill="#0a0d13" fill-opacity=".85" stroke="#232a36"/>
+<text class="el" x="515" y="153" fill="#8b949e" text-anchor="middle">egress</text>
+<path d="M721,168 C743.8,168 755.2,168 778,168" fill="none" stroke="#e8820c" stroke-width="1.8" marker-end="url(#mk-orange)"/>
+<rect x="693.5" y="141" width="113.0" height="20" rx="5" fill="#0a0d13" fill-opacity=".85" stroke="#232a36"/>
+<text class="el" x="750" y="153" fill="#e8820c" text-anchor="middle">break in &amp; root</text>
+<rect x="432" y="300" width="340" height="140" rx="14" fill="#e3b34114" stroke="#e3b341" stroke-opacity=".5" stroke-width="1.2"/>
+<text class="zone" x="448" y="321" fill="#e3b341">Hugging Face perimeter</text>
+<rect x="452.0" y="330.0" width="300" height="84" rx="10" fill="#12161f" stroke="#e3b341" stroke-width="1.6"/>
+<text class="tag" x="602" y="349.0" fill="#e3b341" text-anchor="middle">HF PERIMETER · PROD POD</text>
+<text class="nt" x="602" y="369.0" text-anchor="middle">Dataset processor pod</text>
+<text class="nd" x="602" y="385.0" text-anchor="middle">HDF5 file-read + Jinja2 SSTI</text>
+<rect x="936.0" y="330.0" width="260" height="84" rx="10" fill="#12161f" stroke="#a371f7" stroke-width="1.6"/>
+<text class="tag" x="1066" y="349.0" fill="#a371f7" text-anchor="middle">NETWORK PIVOT</text>
+<text class="nt" x="1066" y="369.0" text-anchor="middle">Mesh VPN join</text>
+<text class="nd" x="1066" y="385.0" text-anchor="middle">userspace-net + SOCKS5</text>
+<path d="M838,214 C758.8,214 719.2,330 640,330" fill="none" stroke="#e8820c" stroke-width="1.8" marker-end="url(#mk-orange)"/>
+<rect x="596.7" y="249" width="218.6" height="33" rx="5" fill="#0a0d13" fill-opacity=".85" stroke="#232a36"/>
+<text class="el" x="706" y="261" fill="#e8820c" text-anchor="middle">② Stage 2 · initial access</text>
+<text class="el" x="706" y="274" fill="#e8820c" text-anchor="middle">HDF5 file-read + Jinja SSTI</text>
+<path d="M720,326 C808.0,326 852.0,216 940,216" fill="none" stroke="#79c0ff" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#mk-blue)"/>
+<rect x="832.0" y="287" width="146.0" height="33" rx="5" fill="#0a0d13" fill-opacity=".85" stroke="#232a36"/>
+<text class="el" x="905" y="299" fill="#79c0ff" text-anchor="middle">output via HF API</text>
+<text class="el" x="905" y="312" fill="#79c0ff" text-anchor="middle">+ dead-drop datasets</text>
+<path d="M986,216 C986,266.4 1066,277.6 1066,328" fill="none" stroke="#a371f7" stroke-width="1.8" marker-end="url(#mk-purple)"/>
+<rect x="1020.3" y="279" width="139.39999999999998" height="33" rx="5" fill="#0a0d13" fill-opacity=".85" stroke="#232a36"/>
+<text class="el" x="1090" y="291" fill="#a371f7" text-anchor="middle">mesh VPN join</text>
+<text class="el" x="1090" y="304" fill="#a371f7" text-anchor="middle">stolen pre-auth key</text>
+<text class="act" x="30" y="474" fill="#f85149">③ Lateral movement &amp; escalation inside Hugging Face</text>
+<rect x="300" y="496" width="1036" height="150" rx="14" fill="#f8514914" stroke="#f85149" stroke-opacity=".5" stroke-width="1.2"/>
+<text class="zone" x="316" y="517" fill="#f85149">Hugging Face internal network</text>
+<rect x="328.0" y="527.0" width="208" height="78" rx="10" fill="#12161f" stroke="#ff7b72" stroke-width="1.6"/>
+<text class="tag" x="432" y="546.0" fill="#ff7b72" text-anchor="middle">STAGE 2 · FROM POD</text>
+<text class="nt" x="432" y="566.0" text-anchor="middle">Cloud metadata (IMDS)</text>
+<text class="nd" x="432" y="582.0" text-anchor="middle">EC2 node role creds</text>
+<rect x="562.0" y="527.0" width="220" height="78" rx="10" fill="#12161f" stroke="#ff7b72" stroke-width="1.6"/>
+<text class="tag" x="672" y="546.0" fill="#ff7b72" text-anchor="middle">STAGE 2 · FROM POD</text>
+<text class="nt" x="672" y="566.0" text-anchor="middle">Kubernetes API</text>
+<text class="nd" x="672" y="582.0" text-anchor="middle">node impersonation</text>
+<text class="nd" x="672" y="598.0" text-anchor="middle">CSI service-account tokens</text>
+<rect x="843.0" y="527.0" width="214" height="78" rx="10" fill="#12161f" stroke="#a371f7" stroke-width="1.6"/>
+<text class="tag" x="950" y="546.0" fill="#a371f7" text-anchor="middle">VIA MESH VPN</text>
+<text class="nt" x="950" y="566.0" text-anchor="middle">Cluster catalog</text>
+<text class="nd" x="950" y="582.0" text-anchor="middle">conn URLs + CA certs</text>
+<text class="nd" x="950" y="598.0" text-anchor="middle">→ access to some clusters</text>
+<rect x="1086.0" y="527.0" width="220" height="78" rx="10" fill="#12161f" stroke="#f778ba" stroke-width="1.6"/>
+<text class="tag" x="1196" y="546.0" fill="#f778ba" text-anchor="middle">VIA MESH VPN</text>
+<text class="nt" x="1196" y="566.0" text-anchor="middle">Source control</text>
+<text class="nd" x="1196" y="582.0" text-anchor="middle">GitHub App tokens</text>
+<text class="nd" x="1196" y="598.0" text-anchor="middle">PR → CI compromise (blocked)</text>
+<path d="M560,414 C508.8,414 483.2,527 432,527" fill="none" stroke="#ff7b72" stroke-width="1.8" marker-end="url(#mk-k8s)"/>
+<rect x="430.0" y="457" width="80.0" height="20" rx="5" fill="#0a0d13" fill-opacity=".85" stroke="#232a36"/>
+<text class="el" x="470" y="469" fill="#ff7b72" text-anchor="middle">node creds</text>
+<path d="M636,414 C636,464.85 672,476.15 672,527" fill="none" stroke="#ff7b72" stroke-width="1.8" marker-end="url(#mk-k8s)"/>
+<rect x="630.2" y="457" width="119.6" height="20" rx="5" fill="#0a0d13" fill-opacity=".85" stroke="#232a36"/>
+<text class="el" x="690" y="469" fill="#ff7b72" text-anchor="middle">impersonate node</text>
+<path d="M1030,414 C1030,464.85 950,476.15 950,527" fill="none" stroke="#a371f7" stroke-width="1.8" marker-end="url(#mk-purple)"/>
+<rect x="871.8" y="457" width="172.39999999999998" height="20" rx="5" fill="#0a0d13" fill-opacity=".85" stroke="#232a36"/>
+<text class="el" x="958" y="469" fill="#a371f7" text-anchor="middle">catalog + cluster access</text>
+<path d="M1110,414 C1110,464.85 1196,476.15 1196,527" fill="none" stroke="#f778ba" stroke-width="1.8" marker-end="url(#mk-pink)"/>
+<rect x="1131.5" y="457" width="113.0" height="20" rx="5" fill="#0a0d13" fill-opacity=".85" stroke="#232a36"/>
+<text class="el" x="1188" y="469" fill="#f778ba" text-anchor="middle">mint app tokens</text></svg>

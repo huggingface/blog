@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 500" width="1280" height="500">
+    <defs>
+        <marker id="mk-orange" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7"
+                orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" fill="#e8820c"/>
+        </marker>
+        <marker id="mk-mut" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7"
+                orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" fill="#8b949e"/>
+        </marker>
+        <marker id="mk-blue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7"
+                orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" fill="#79c0ff"/>
+        </marker>
+    </defs>
+    <style>
+        text{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif}
+        .title{font-size:20px;font-weight:700;fill:#e6edf3}
+        .sub{font-size:12.5px;fill:#8b949e}
+        .tag{font-size:9px;letter-spacing:.7px;font-weight:700;font-family:ui-monospace,Menlo,monospace}
+        .nt{font-size:13.5px;font-weight:700;fill:#e6edf3}
+        .nd{font-size:11px;fill:#8b949e}
+        .el{font-size:10.5px;font-family:ui-monospace,Menlo,monospace}
+        .cap{font-size:12.5px;font-weight:700}
+        .seg{font-size:12px;font-weight:700;font-family:ui-monospace,Menlo,monospace}
+        .segd{font-size:10.5px}
+        .disp{font-size:11.5px;font-family:ui-monospace,Menlo,monospace}
+    </style>
+    <rect width="1280" height="500" fill="#0a0d13"/>
+    <text class="title" x="30" y="36">Improvised C2 protocol</text>
+    <text class="sub" x="30" y="58">The agent created a small typed message format on a public
+        request-capture service (with dataset commits and error text as fallback transports).
+    </text>
+    <rect x="45.0" y="111.0" width="210" height="78" rx="10" fill="#12161f" stroke="#e8820c" stroke-width="1.6"/>
+    <text class="tag" x="150" y="130.0" fill="#e8820c" text-anchor="middle">SENDER</text>
+    <text class="nt" x="150" y="150.0" text-anchor="middle">Foothold</text>
+    <text class="nd" x="150" y="166.0" text-anchor="middle">attack base / prod pod</text>
+    <rect x="352.0" y="111.0" width="236" height="78" rx="10" fill="#12161f" stroke="#8b949e" stroke-width="1.6"/>
+    <text class="tag" x="470" y="130.0" fill="#8b949e" text-anchor="middle">PUBLIC · MESSAGE BUS</text>
+    <text class="nt" x="470" y="150.0" text-anchor="middle">Request-capture service</text>
+    <text class="nd" x="470" y="166.0" text-anchor="middle">stores any text it receives</text>
+    <rect x="692.0" y="111.0" width="196" height="78" rx="10" fill="#12161f" stroke="#79c0ff" stroke-width="1.6"/>
+    <text class="tag" x="790" y="130.0" fill="#79c0ff" text-anchor="middle">RECEIVER</text>
+    <text class="nt" x="790" y="150.0" text-anchor="middle">Polling loop</text>
+    <text class="nd" x="790" y="166.0" text-anchor="middle">reads recent messages</text>
+    <rect x="992.0" y="111.0" width="196" height="78" rx="10" fill="#12161f" stroke="#3fb950" stroke-width="1.6"/>
+    <text class="tag" x="1090" y="130.0" fill="#3fb950" text-anchor="middle">DISPATCH</text>
+    <text class="nt" x="1090" y="150.0" text-anchor="middle">Decode &amp; run</text>
+    <text class="nd" x="1090" y="166.0" text-anchor="middle">by declared type</text>
+    <path d="M255,150 C298.65,150 308.35,150 352,150" fill="none" stroke="#e8820c" stroke-width="1.8"
+          marker-end="url(#mk-orange)"/>
+    <rect x="247.5" y="105" width="113.0" height="20" rx="5" fill="#0a0d13" fill-opacity=".9" stroke="#232a36"/>
+    <text class="el" x="304" y="119" fill="#e8820c" text-anchor="middle">① post envelope</text>
+    <path d="M588,150 C634.8,150 645.2,150 692,150" fill="none" stroke="#8b949e" stroke-width="1.8"
+          marker-end="url(#mk-mut)"/>
+    <rect x="613.2" y="105" width="53.599999999999994" height="20" rx="5" fill="#0a0d13" fill-opacity=".9"
+          stroke="#232a36"/>
+    <text class="el" x="640" y="119" fill="#8b949e" text-anchor="middle">② poll</text>
+    <path d="M888,150 C934.8,150 945.2,150 992,150" fill="none" stroke="#79c0ff" stroke-width="1.8"
+          marker-end="url(#mk-blue)"/>
+    <rect x="893.4" y="105" width="93.19999999999999" height="20" rx="5" fill="#0a0d13" fill-opacity=".9"
+          stroke="#232a36"/>
+    <text class="el" x="940" y="119" fill="#79c0ff" text-anchor="middle">③ reassemble</text>
+    <text class="cap" x="90" y="238" fill="#e6edf3">The self-describing envelope</text>
+    <rect x="90" y="250" width="172.0" height="48" rx="7" fill="#ff7b7222" stroke="#ff7b72" stroke-width="1.5"/>
+    <text class="seg" x="176.0" y="272" fill="#ff7b72" text-anchor="middle">‹type›</text>
+    <text class="segd" x="176.0" y="289" fill="#8b949e" text-anchor="middle">what kind of payload</text>
+    <rect x="266.0" y="250" width="172.0" height="48" rx="7" fill="#a371f722" stroke="#a371f7" stroke-width="1.5"/>
+    <text class="seg" x="352.0" y="272" fill="#a371f7" text-anchor="middle">‹channel›</text>
+    <text class="segd" x="352.0" y="289" fill="#8b949e" text-anchor="middle">which message stream</text>
+    <rect x="442.0" y="250" width="128.0" height="48" rx="7" fill="#e3b34122" stroke="#e3b341" stroke-width="1.5"/>
+    <text class="seg" x="506.0" y="272" fill="#e3b341" text-anchor="middle">‹seq›</text>
+    <text class="segd" x="506.0" y="289" fill="#8b949e" text-anchor="middle">chunk order</text>
+    <rect x="574.0" y="250" width="436.0" height="48" rx="7" fill="#79c0ff22" stroke="#79c0ff" stroke-width="1.5"/>
+    <text class="seg" x="792.0" y="272" fill="#79c0ff" text-anchor="middle">‹body›</text>
+    <text class="segd" x="792.0" y="289" fill="#8b949e" text-anchor="middle">base64 of compressed bytes</text>
+    <rect x="1014.0" y="250" width="172.0" height="48" rx="7" fill="#3fb95022" stroke="#3fb950" stroke-width="1.5"/>
+    <text class="seg" x="1100.0" y="272" fill="#3fb950" text-anchor="middle">‹sum›</text>
+    <text class="segd" x="1100.0" y="289" fill="#8b949e" text-anchor="middle">integrity check</text>
+    <text class="cap" x="90" y="360" fill="#e6edf3">Receiver: keep my channel ▸ order by seq ▸ verify sum ▸ dispatch on
+        type
+    </text>
+    <text class="disp" x="90" y="386" fill="#8b949e">type ⇒ run as shell · exec as script stage · or store as a result
+    </text>
+    <rect x="90" y="420" width="1100" height="52" rx="10" fill="#12161f" stroke="#232a36"/>
+    <text class="cap" x="106" y="441" fill="#e3b341">Same envelope, other transports</text>
+    <text class="segd" x="106" y="460" fill="#8b949e">carried equally over a capture-service URL · a dataset commit
+        (dead-drop) · or text smuggled inside an error message: so closing one channel does not break it.
+    </text>
+</svg>
