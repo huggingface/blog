@@ -14,7 +14,11 @@ authors:
 
 *We are publishing this level of detail because the technique matters more than the incident, as it reveals the emerging attack capabilities of the frontier agents, how they could be used by rogue actors, and how everyone should be prepared as defenders.*
 
-**[▶ Watch the interactive replay](https://huggingface-anatomy-of-frontier-lab-model-intrusion.static.hf.space)** - a step-by-step visualization of the 4.5-day campaign: the attack chain across trust boundaries, phase activity, and the commands as they were recorded.
+Below is an interactive replay of the intrusion - a step-by-step visualization of the 4.5-day campaign: the attack chain across trust boundaries, phase activity, and the commands as they were recorded.
+
+<iframe src="https://huggingface-anatomy-of-frontier-lab-model-intrusion.static.hf.space/index.html#embed" style="width:100%; height:1420px; border:0; border-radius:12px;" title="Interactive replay of the July 2026 agent intrusion"></iframe>
+
+**[⛶ Watch the interactive replay in full screen](https://huggingface-anatomy-of-frontier-lab-model-intrusion.static.hf.space)**
 
 ## TL;DR
 
