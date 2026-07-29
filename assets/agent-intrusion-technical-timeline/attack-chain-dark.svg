@@ -43,7 +43,7 @@
 <rect x="778.0" y="122.0" width="268" height="92" rx="10" fill="#12161f" stroke="#e8820c" stroke-width="1.6"/>
 <text class="tag" x="912" y="141.0" fill="#e8820c" text-anchor="middle">THIRD-PARTY SANDBOX · uid=0</text>
 <text class="nt" x="912" y="161.0" text-anchor="middle">Rooted code-eval sandbox</text>
-<text class="nd" x="912" y="177.0" text-anchor="middle">CyberGym harness</text>
+<text class="nd" x="912" y="177.0" text-anchor="middle">unknown third-party harness</text>
 <text class="nd" x="912" y="193.0" text-anchor="middle">C2 · staging · egress base</text>
 <path d="M238,168 C260.4,168 271.6,168 294,168" fill="none" stroke="#f85149" stroke-width="1.8" marker-end="url(#mk-red)"/>
 <rect x="219.4" y="141" width="93.19999999999999" height="20" rx="5" fill="#0a0d13" fill-opacity=".85" stroke="#232a36"/>
