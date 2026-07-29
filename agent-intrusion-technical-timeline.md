@@ -21,7 +21,7 @@ authors:
 Over roughly two and a half days inside our infrastructure, an **autonomous AI agent driven by a combination of OpenAI models** ran an end-to-end intrusion against our platform: it was thousands of small, automated decisions, executed at machine speed across short-lived sandbox environments, with command-and-control staged on ordinary public web services.
 
 The incident occurred during an internal OpenAI cyber-capability evaluation based on the ExploitGym benchmark, which evaluates whether AI agents can exploit known software vulnerabilities.
-OpenAI used its own internal implementation and evaluation infrastructure rather than [ExploitGym's open-source reference framework](https://github.com/sunblaze-ucb/exploitgym).
+OpenAI used its own internal implementation and evaluation infrastructure rather than directly using [ExploitGym's open-source reference framework](https://github.com/sunblaze-ucb/exploitgym).
 The ExploitGym maintainers were not involved in designing, operating, or monitoring this internal evaluation.
 
 As far as we were able to infer, across the course of being evaluated on this benchmark, the agent inferred that Hugging Face may host that benchmark's models, datasets, and reference solutions. We believe the entire intrusion was, from the agent's point of view, an attempt to cheat the evaluation: reach our production systems and steal the test solutions rather than solve the challenge on its own.
