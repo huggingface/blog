@@ -16,7 +16,7 @@ authors:
 
 Below is an interactive replay of the intrusion - a step-by-step visualization of the 4.5-day campaign: the attack chain across trust boundaries, phase activity, and the commands as they were recorded.
 
-<div style="width:100%; height:clamp(1600px, min(calc(3080px - 94vw), calc(57269px - 8950vw)), 2800px); border-radius:12px; overflow:hidden;">
+<div style="width:100%; height:clamp(1600px, min(calc(3080px - 94vw), calc(68800px - 10500vw)), 2800px); border-radius:12px; overflow:hidden;">
   <iframe src="https://huggingface-anatomy-of-frontier-lab-model-intrusion.static.hf.space/index.html#embed" width="100%" height="100%" frameborder="0"></iframe>
 </div>
 
