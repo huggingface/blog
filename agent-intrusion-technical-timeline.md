@@ -16,7 +16,7 @@ authors:
 
 Below is an interactive replay of the intrusion - a step-by-step visualization of the 4.5-day campaign: the attack chain across trust boundaries, phase activity, and the commands as they were recorded.
 
-<iframe src="https://huggingface-anatomy-of-frontier-lab-model-intrusion.static.hf.space/index.html#embed" style="width:100%; height:1420px; border:0; border-radius:12px;" title="Interactive replay of the July 2026 agent intrusion"></iframe>
+<iframe src="https://huggingface-anatomy-of-frontier-lab-model-intrusion.static.hf.space/index.html#embed" width="100%" height="1420px" frameborder="0" title="Interactive replay of the July 2026 agent intrusion"></iframe>
 
 **[⛶ Watch the interactive replay in full screen](https://huggingface-anatomy-of-frontier-lab-model-intrusion.static.hf.space)**
 
