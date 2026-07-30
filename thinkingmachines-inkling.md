@@ -473,14 +473,15 @@ Below you can find each Inkling checkpoint as well as their VRAM requirements.
 | **Inkling-Small (BF16)** | 600 GB | • 4× NVIDIA B300 / GB200 (W4A4)<br>• 8× NVIDIA H200 (W4A16) | Does not require Blackwell architecture; easily deployed to 8× H200s. |
 | **Inkling-Small (NVFP4)** | 180 GB | • 1× NVIDIA B300 (W4A4)<br>• 2× NVIDIA H200 (W4A16) | W4A4 supported on single Blackwell GPU; W4A16 supported on 2× H200s. |
 
-## Deploying Inkling on cluster
+## Deploying Inkling on a cluster
 
 To deploy Inkling on a cluster, we provide SLURM scripts serving with transformers API, as well as how to query the endpoint with different modalities. You can adapt these scripts to vLLM or SGlang by updating the commands. These scripts live [here](https://huggingface.co/buckets/merve/inkling).
 
 * [Submit inference job](https://huggingface.co/buckets/merve/inkling/tree/slurm/submit_inkling_generate.sbatch)
-* Python generation script
+* [Python generation script](https://huggingface.co/buckets/merve/inkling/tree/slurm/generate_inkling.py)
 
-Deploying Inkling-Small on Inference Endpoints 
+## Deploying Inkling-Small on Inference Endpoints
+
 You can deploy an Inkling-Small NVFP4 checkpoint using Inference Endpoints. We provide a pre-tested configuration to deploy it on 8 RTX PRO 6000s with an aggregated VRAM of·768 GB, giving large space for KV cache, costs $ 22 per hourly uptime (scales to zero when unused). To deploy, run hf endpoints catalog deploy --repo thinkingmachines/Inkling-Small-NVFP4 using the Hugging Face CLI or alternatively, head to https://endpoints.huggingface.co/new/thinkingmachines/Inkling-Small-NVFP4. With this setup, you can get 140 TPS (single user inference, prepared for multi-user support with continuous batching)
 
 Once the endpoint is up, you can query as follows. 
@@ -491,7 +492,7 @@ curl "YOUR_ENDPOINT_HERE" \
 -H "Authorization: Bearer $HF_TOKEN" \
 -H "Content-Type: application/json" \
 -d '{
-    "model": "huggingface/Inkling-Small-NVFP4",
+    "model": "thinkingmachines/Inkling-Small-NVFP4",
     "messages": [
         {
             "role": "user",
