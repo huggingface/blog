@@ -5603,7 +5603,7 @@
   tags:
     - security
 
-- local: inference-providers-baseten
+- local: baseten
   date: August 4, 2026
   tags:
     - llms
