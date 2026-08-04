@@ -5604,7 +5604,7 @@
     - security
 
 - local: inference-providers-baseten
-  date: April 29, 2026
+  date: August 4, 2026
   tags:
     - llms
     - inference-providers
