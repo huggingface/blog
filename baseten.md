@@ -1,13 +1,13 @@
 ---
 title: "Baseten on Hugging Face Inference Providers 🔥"
-thumbnail: /blog/assets/inference-providers/welcome-baseten.jpg
+thumbnail: /blog/assets/inference-providers/welcome-baseten.png
 authors:
   - user: celinah
   - user: sbrandeis
   - user: Wauplin
 ---
 
-![banner image](https://huggingface.co/blog/assets/inference-providers/welcome-baseten.jpg)
+![banner image](https://huggingface.co/blog/assets/inference-providers/welcome-baseten.png)
 
 # Baseten on Hugging Face Inference Providers 🔥
 
