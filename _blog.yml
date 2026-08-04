@@ -5602,3 +5602,13 @@
   date: July 27, 2026
   tags:
     - security
+
+- local: inference-providers-baseten
+  date: April 29, 2026
+  tags:
+    - llms
+    - inference-providers
+    - baseten
+    - enterprise
+    - partnerships
+    - hub
