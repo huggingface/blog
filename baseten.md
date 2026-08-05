@@ -2,9 +2,13 @@
 title: "Baseten on Hugging Face Inference Providers 🔥"
 thumbnail: /blog/assets/inference-providers/welcome-baseten.png
 authors:
+  - user: alexker-baseten
+    guest: true
+    org: baseten
   - user: celinah
   - user: sbrandeis
   - user: Wauplin
+  - user: merve
 ---
 
 ![banner image](https://huggingface.co/blog/assets/inference-providers/welcome-baseten.png)
@@ -15,7 +19,7 @@ We're thrilled to share that **Baseten** is now a supported Inference Provider o
 
 Baseten joins our growing ecosystem, enhancing the breadth and capabilities of serverless inference directly on the Hub's model pages. Inference Providers are also seamlessly integrated into our client SDKs (for both JS and Python), making it super easy to use a wide variety of models with your preferred providers.
 
-[Baseten](https://baseten.com) is an AI infrastructure platform that covers serverless AI, training and more. With a catalog of 10 models, Baseten makes it easy for developers to integrate a wide range of AI capabilities into their applications with minimal setup.
+[Baseten](https://baseten.com) is an AI infrastructure platform that covers serverless AI, training and more. With a catalog of many frontier models, Baseten makes it easy for developers to integrate a wide range of AI capabilities into their applications with minimal setup.
 
 Baseten supports a broad spectrum of model types - from LLMs to text-to-speech and more. As part of this initial integration, Baseten is launching support for **conversational and text-generation tasks** on Hugging Face, enabling access to popular open-weight LLMs such as [Kimi K3](https://huggingface.co/moonshotai/Kimi-K3?inference_provider=baseten), latest [DeepSeek V4 Flash](https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731?inference_provider=baseten), [GLM-5.2](https://huggingface.co/zai-org/GLM-5.2?inference_provider=baseten), and many more. **Support for additional tasks** will roll out soon!
 
