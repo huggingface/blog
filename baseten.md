@@ -5,6 +5,15 @@ authors:
   - user: alexker-baseten
     guest: true
     org: baseten
+  - user: rolandcrosby-baseten
+    guest: true
+    org: baseten
+  - user: squidarth
+    guest: true
+    org: baseten
+  - user: johan-baseten
+    guest: true
+    org: baseten
   - user: celinah
   - user: sbrandeis
   - user: Wauplin
@@ -36,7 +45,7 @@ Follow Baseten on Hugging Face: [https://huggingface.co/baseten](https://hugging
 - Set your own API keys for the providers you've signed up with. If no custom key is set, your requests will be routed through HF.
 - Order providers by preference. This applies to the widget and code snippets in the model pages.
 
-<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/inference-providers/user-setting-v2.png" alt="Inference Providers"/>
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/inference-providers/inference-providers-baseten.png" alt="Inference Providers"/>
 
 2. As mentioned, there are two modes when calling Inference Providers:
 
