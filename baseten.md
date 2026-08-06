@@ -60,7 +60,7 @@ Follow Baseten on Hugging Face: [https://huggingface.co/baseten](https://hugging
 
 ### From the client SDKs
 
-Baseten is available through the Hugging Face SDKs - `huggingface_hub` (>= 1.11.2) for Python and `@huggingface/inference` for JavaScript.
+Baseten is available through the Hugging Face SDKs - `huggingface_hub` (>= 1.26.1) for Python and `@huggingface/inference` for JavaScript.
 
 The following examples show how to use the latest [DeepSeek V4 Flash](deepseek-ai/DeepSeek-V4-Flash-0731) through Baseten. Use a [Hugging Face token](https://huggingface.co/settings/tokens) to authenticate - the request will be routed to Baseten automatically.
 
