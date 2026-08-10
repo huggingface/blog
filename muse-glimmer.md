@@ -2,9 +2,9 @@
 title: "Meta is back with Muse Glimmer: local, agentic, multimodal, and open source" 
 thumbnail: /blog/assets/muse-glimmer/thumbnail.png
 authors:
+- user: pcuenq
 - user: merve
 - user: burtenshaw
-- user: pcuenq
 - user: ariG23498
 ---
 
@@ -14,6 +14,43 @@ Great news from the OGs of open source LLMs! Muse Glimmer, released today, is Me
 
 To celebrate, we are shipping with Meta day-0 support in `transformers`, `llama.cpp`, `vLLM`, Inference Endpoints, and other libraries. We built a few cool things and explain our findings in this blog. **Check out the demos below for inspiration.**
 You can find all Muse Glimmer models [in this collection](https://huggingface.co/collections/meta-models/muse-glimmer).
+
+## Benchmarks
+
+<details>
+<summary>Benchmark results</summary>
+
+Scores are reported as published. **Bold** indicates the best result among the compared models; ↓ indicates lower is better.
+
+| Category | Benchmark | Muse Glimmer-30B<br>High Reasoning | Gemma4-31B<br>Thinking Mode | Qwen3.6-27B<br>Thinking Mode |
+| --- | --- | ---: | ---: | ---: |
+| General Agentic | MCP Atlas | **75.5** | 54.2 | 62.5 |
+| General Agentic | DeepSearch QA | **74.6** | 61.7 | 71.1 |
+| General Agentic | τ³-Banking | **23.5** | 15.1 | 16.7 |
+| General Agentic | WildClawBench | **47.6** | 37.6 | 43.2 |
+| General Agentic | GDPval-AA | 953 | 811 | **1141** |
+| General Agentic | GAIA2 | **43.3** | 36.4 | 40.0 |
+| General Agentic | SkillsBench (With Skills) | 44.3 | 32.4 | **46.6** |
+| General Agentic | OSWorld-Verified | 65.9 | 58.5 | **75.6** |
+| Agentic Coding | SWE-Bench Pro | **51.2** | 36.9 | 50.2 |
+| Agentic Coding | SWE-Bench Verified | 76.0 | 66.6 | **77.2** |
+| Agentic Coding | TerminalBench 2.1 | 51.7 | 43.4 | **60.7** |
+| Agentic Coding | SciCode | **43.6** | 43.4 | 39.8 |
+| Multimodal | Charxiv Reasoning | **78.8** | 77.7 | 78.4 |
+| Multimodal | ScreenSpot Pro | 75.4 | 75.9 | **76.1** |
+| Multimodal | OmniDocBench v1.5 | 75.8 | 72.5 | **77.8** |
+| Multimodal | MMMU Pro | 74 | 73 | **75** |
+| Safety | CI Memories | Violation (↓): 26.4<br>Coverage: 64.8 | **Violation (↓): 12.1**<br>Coverage: 53.0 | Violation (↓): 53.4<br>Coverage: 66.9 |
+| Safety | Siren AgentDojo | Attack Success Rate (↓): 28.4<br>Utility: 94.2 | **Attack Success Rate (↓): 25.6**<br>Utility: 90.8 | Attack Success Rate (↓): 40.3<br>Utility: 92.7 |
+| General Capabilities and Reasoning | IFBench | **77.0** | 76.0 | 70.8 |
+| General Capabilities and Reasoning | AIME 2026 | **94.7** | 89.2 | 94.1 |
+| General Capabilities and Reasoning | GPQA Diamond | 83.5 | **85.7** | 84.2 |
+| General Capabilities and Reasoning | Humanity’s Last Exam (Text + No Tools) | 22.0 | **23.6** | 23.1 |
+| General Capabilities and Reasoning | AA-LCR | **80.0** | 68.3 | 73.3 |
+| General Capabilities and Reasoning | Beam 128K | **65.1** | 58.2 | 63.0 |
+
+</details>
+
 ## Architecture
 
 Muse Glimmer is a dense 30B parameter model consisting of:
@@ -318,6 +355,7 @@ Below you can see how speculative decoding can speed-up generation in realistic 
 <video controls width="100%">
   <source src="https://huggingface.co/merve/smol-vision/resolve/main/llama.cpp-spec.mp4" type="video/mp4">
 </video>
+
 ### Speculative Decoding with transformers
 
 You can load the drafter and model as follows, and infer like how you would with base model with an additional parameter (shown in the upcoming snippets).
@@ -397,7 +435,7 @@ You can use TRL to fine-tune Muse Glimmer using various methods from SFT to Asyn
 
 As part of this release, we ship an example to fine-tune [Muse Glimmer on small split of MolmoWeb dataset](https://huggingface.co/merve/smol-vision/blob/main/qlora_click_grounding.ipynb). This shows how to make model generate structured outputs and how to fine-tune on images.
 
-We also experimented with running the model on [OpenCode with AsyncGRPO example](https://github.com/huggingface/trl/blob/main/examples/scripts/openenv/opencode.py). Model shows strong coding capabilities, so we encourage you to try training with coding environments.
+We also experimented with running the model on [OpenCode with AsyncGRPO example](https://github.com/huggingface/trl/blob/main/examples/scripts/openenv/opencode.py). Model shows strong coding capabilities, so we encourage you to try training with coding environments in OpenEnv and TRL.
 
 ## Demos
 
@@ -575,9 +613,6 @@ Never fabricate, interpolate, or count correctness-failing measurements.
 
 [https://huggingface.co/buckets/huggingface/muse-glimmer-assets/resolve/onyx-optimization-progress.gif?download=true](https://huggingface.co/buckets/huggingface/muse-glimmer-assets/resolve/onyx-optimization-progress.gif?download=true)
 
-## Wrapping Up
-
-We are happy to welcome Muse Glimmer in Hugging Face Hub. Try the models in [this collection](https://huggingface.co/collections/meta-models/muse-glimmer) with your local coding setups today!
 
 ### Hey Muse Glimmer, research the Hub
 
@@ -590,3 +625,7 @@ Try Muse Glimmer as a Hugging Face research agent. The Gradio Space sends each m
   height="700"
   allow="clipboard-read; clipboard-write"
 ></iframe>
+
+## Wrapping Up
+
+We are happy to welcome Muse Glimmer in Hugging Face Hub. Try the models in [this collection](https://huggingface.co/collections/meta-models/muse-glimmer) with your local coding setups today!
