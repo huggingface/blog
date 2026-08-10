@@ -12,7 +12,10 @@ authors:
 
 Great news from the OGs of open source LLMs! Muse Glimmer, released today, is Meta’s new multimodal model, especially designed for local agentic use cases. Distilled from Muse to **30B** parameters, and released under the **Apache 2.0 license**, it’s ideal deploying locally for privacy, reducing costs, or just hacking around. It’s intended for privacy-aware applications such as coding, document analysis, personal assistants, Claw- or Hermes-like setups.
 
-To celebrate, we are shipping with Meta day-0 support in `transformers`, `llama.cpp`, `vLLM`, Inference Endpoints, and other libraries. We built a few cool things and explain our findings in this blog. **Check out the demos below for inspiration.**
+To celebrate, we are shipping with Meta day-0 support in `transformers`, `llama.cpp`, `vLLM`, Inference Endpoints, and other libraries. We built a few cool things and explain our findings in this blog.
+
+[**Check out the demos below for inspiration.**](#demos)
+
 You can find [Muse Glimmer on the Hugging Face Hub](https://huggingface.co/meta-models/Muse-Glimmer-30B).
 
 ## Benchmarks
@@ -77,7 +80,7 @@ After transformer, pixel shuffle concatenates 2x2 groups of neighboring spatial 
 
 Videos go through the same encoder frame by frame, where each frame is converted into patches (of shape [batch, temporal groups, grid height, grid width, 2 frames, 3 channels, 14, 14]). The processor targets 2 frames per second and caps the clip at 96 frames sampled evenly across video. The processor creates timestamped video placeholders, interleaving text with frame e.g. “Time: 0.0s <|video|> x N” in which the final video embeddings are replaced before the final projection layer.
 
-### Transformers
+## Transformers
 
 Upgrade transformers to the latest version to be able to use Muse Glimmer.
 
@@ -103,11 +106,23 @@ model = AutoModelForMultimodalLM.from_pretrained(
 
 The same snippet runs unchanged on NVIDIA (CUDA), AMD (ROCm) and Intel (XPU) GPUs, `device_map="auto"` places the model on whichever accelerator is available.
 
-#### Text-only Inference
+### Text-only Inference
 
 After loading the model, you can do text-only inference with it as follows.
 
 ```py
+from transformers import AutoProcessor, AutoModelForMultimodalLM
+
+MODEL_ID = "meta-models/Muse-Glimmer-30B"
+
+# Load model
+processor = AutoProcessor.from_pretrained(MODEL_ID)
+model = AutoModelForMultimodalLM.from_pretrained(
+    MODEL_ID,
+    dtype="auto",
+    device_map="auto"
+)
+
 # Prompt
 messages = [
     {"role": "user", "content": "Write a short joke about saving RAM."},
@@ -125,12 +140,12 @@ inputs = processor.apply_chat_template(
 input_len = inputs["input_ids"].shape[-1]
 
 # Generate output
-outputs = model.generate(**inputs, max_new_tokens=1024)
+outputs = model.generate(**inputs)
 response = processor.decode(outputs[0][input_len:], skip_special_tokens=False)
 print(response)
 ```
 
-#### Prompting the model with images and text
+### Prompting the model with images and text
 
 We would need `torchvision` to be able to use images and text.
 
@@ -141,6 +156,19 @@ pip install torchvision
 Muse Glimmer accepts images as input, as demonstrated here:
 
 ```py
+from transformers import AutoProcessor, AutoModelForMultimodalLM
+
+MODEL_ID = "meta-models/Muse-Glimmer-30B"
+
+# Load model
+processor = AutoProcessor.from_pretrained(MODEL_ID)
+model = AutoModelForMultimodalLM.from_pretrained(
+    MODEL_ID,
+    dtype="auto",
+    device_map="auto"
+)
+
+# Images + Text
 messages = [
     {
         "role": "user", "content": [
@@ -161,18 +189,83 @@ inputs = processor.apply_chat_template(
 input_len = inputs["input_ids"].shape[-1]
 
 # Generate output
-outputs = model.generate(**inputs, max_new_tokens=512)
+outputs = model.generate(**inputs)
 response = processor.decode(outputs[0][input_len:], skip_special_tokens=False)
 print(response)
 ```
 
-#### Multimodal tool calling
+### Video Inference
+
+To work with videos we recommend installing `torchcodec` into the environment.
+
+```bash
+pip install torchcodec
+```
+
+Muse Glimmer can answer complex questions about videos *without audio*. You can do video inference as follows, here’s an example from VideoMME2, which is the most popular video question answering benchmark.
+
+```py
+from transformers import AutoProcessor, AutoModelForMultimodalLM
+
+MODEL_ID = "meta-models/Muse-Glimmer-30B"
+
+# Load model
+processor = AutoProcessor.from_pretrained(MODEL_ID)
+model = AutoModelForMultimodalLM.from_pretrained(
+    MODEL_ID,
+    dtype="auto",
+    device_map="auto"
+)
+
+# Videos + Text
+messages = [
+    {
+        "role": "user",
+        "content": [
+            {"type": "video", "video": "https://huggingface.co/datasets/merve/vl-test-suite/resolve/main/IMG_8137.mp4"},
+            {"type": "text", "text": "Describe what happens in this video."},
+        ],
+    },
+]
+
+inputs = processor.apply_chat_template(
+    messages,
+    tokenize=True,
+    return_dict=True,
+    return_tensors="pt",
+    add_generation_prompt=True,
+    reasoning_strength="low",
+    processor_kwargs={"num_frames": 96},
+).to(model.device)
+
+input_len = inputs["input_ids"].shape[-1]
+outputs = model.generate(**inputs)
+
+response = processor.decode(
+    outputs[0, input_len:],
+    skip_special_tokens=False,
+)
+print(response)
+```
+
+### Multimodal tool calling
 
 Muse Glimmer can do multimodal tool calling, here’s how you can do it. In the example below, we ask the model to call the weather tool based on the city in the image.
 
 ```py
 import json
 import re
+from transformers import AutoProcessor, AutoModelForMultimodalLM
+
+MODEL_ID = "meta-models/Muse-Glimmer-30B"
+
+# Load model
+processor = AutoProcessor.from_pretrained(MODEL_ID)
+model = AutoModelForMultimodalLM.from_pretrained(
+    MODEL_ID,
+    dtype="auto",
+    device_map="auto"
+)
 
 tools = [
     {
@@ -213,19 +306,27 @@ inputs = processor.apply_chat_template(
 ).to(model.device)
 
 input_len = inputs["input_ids"].shape[-1]
-outputs = model.generate(**inputs, max_new_tokens=128)
+outputs = model.generate(**inputs)
 response = processor.decode(outputs[0][input_len:], skip_special_tokens=False)
-
-parsed = processor.tokenizer.parse_response(response)
-
+print(response)
 ```
 
-#### Object Detection
+### Object Detection
 
 You can use Muse Glimmer to do open ended object detection in images as follows.
 
 ```py
-import json
+from transformers import AutoProcessor, AutoModelForMultimodalLM
+
+MODEL_ID = "meta-models/Muse-Glimmer-30B"
+
+# Load model
+processor = AutoProcessor.from_pretrained(MODEL_ID)
+model = AutoModelForMultimodalLM.from_pretrained(
+    MODEL_ID,
+    dtype="auto",
+    device_map="auto"
+)
 
 messages = [{
     "role": "user",
@@ -247,6 +348,7 @@ inputs = processor.apply_chat_template(
     return_dict=True,
     return_tensors="pt",
     add_generation_prompt=True,
+    reasoning_strength="low",
 ).to(model.device)
 
 input_len = inputs["input_ids"].shape[-1]
@@ -255,67 +357,14 @@ response = processor.decode(outputs[0][input_len:], skip_special_tokens=False)
 
 detections = json.loads(response.removesuffix("<|eot|>"))
 print(detections)
-# [{"x_min": 0, "y_min": 390, "x_max": 520, "y_max": 603}]
-
-# note that you need to scale X and Y values to image size to visualize:
-xyxy = (
-round(box["x_min"] / 1000 * width),
-round(box["y_min"] / 1000 * height),
-round(box["x_max"] / 1000 * width),
-round(box["y_max"] / 1000 * height),
-)
 ```
 
-#### Video Inference
+> [!TIP]
+> Here is an end to end script to perform object detection [GitHub Gist](https://gist.github.com/ariG23498/4f3587eb7753c0ff77c269e2c1efe2c0)
 
-To work with videos we recommend installing `torchcodec` into the environment.
+## Llama.cpp
 
-```bash
-pip install torchcodec
-```
-
-Muse Glimmer can answer complex questions about videos without audio. You can do video inference as follows, here’s an example from VideoMME2, which is the most popular video question answering benchmark.
-
-```py
-messages = [
-    {"role": "system", "content": "You are a helpful assistant."},
-    {
-        "role": "user",
-        "content": [
-            {"type": "video", "video": "https://huggingface.co/datasets/merve/vl-test-suite/resolve/main/IMG_8137.mp4"},
-            {"type": "text", "text": "Describe what happens in this video."},
-        ],
-    },
-]
-inputs = processor.apply_chat_template(
-    messages,
-    tokenize=True,
-    return_dict=True,
-    return_tensors="pt",
-    add_generation_prompt=True,
-    reasoning_strength="low",
-    processor_kwargs={"num_frames": 96},
-).to(model.device)
-
-input_len = inputs["input_ids"].shape[-1]
-outputs = model.generate(**inputs, max_new_tokens=1024)
-
-response = processor.decode(
-    outputs[0, input_len:],
-    skip_special_tokens=False,
-)
-
-parsed = processor.parse_response(
-    response,
-    prefix=inputs["input_ids"],
-)
-print(parsed)
-
-```
-
-### Llama.cpp
-
-Muse Glimmer comes with day-0 llama.cpp support. Meta has distributed calibrated quants in [this repo](https://huggingface.co/meta-models/Muse-Glimmer-30B-GGUF), and Uunsloth is releasing optimized quants as well. DFlash speculative decoding is supported as well. You can use a pre-built llama binary to start a llama server or a CLI. To install llama.cpp, run
+Muse Glimmer comes with day-0 llama.cpp support. Meta has distributed calibrated quants in [this repo](https://huggingface.co/meta-models/Muse-Glimmer-30B-GGUF), and Unsloth is releasing optimized quants as well. DFlash speculative decoding is supported as well. You can use a pre-built llama binary to start a llama server or a CLI. To install llama.cpp, run:
 
 ```bash
 curl -LsSf https://llama.app/install.sh | sh
@@ -324,12 +373,10 @@ curl -LsSf https://llama.app/install.sh | sh
 Then you can start the server as follows.
 
 ```bash
-llama serve meta-models/Muse-Glimmer-30B-GGUF
+llama serve -hf meta-models/Muse-Glimmer-30B-GGUF
 ```
 
 Once the server has started, you can head to localhost:8080 to chat with the built-in WebUI.
-
-TODO: Insert webui video with this model
 
 You can also query the server as follows.
 
@@ -350,7 +397,7 @@ You can also use llama server with coding agents like Pi.
 
 DFlash uses a lightweight block-diffusion drafter model to provide same output with extra speed-ups in decoding phase. Transformers and llama.cpp ship support for DFlash drafter of Muse Glimmer day-0.
 
-Below you can see how speculative decoding can speed-up generation in realistic setups. The video shows llama.cpp webui with DFlash on the left and regular generation on the right. 
+Below you can see how speculative decoding can speed-up generation in realistic setups. The video shows llama.cpp webui with DFlash on the left and regular generation on the right.
 
 <video controls width="100%">
   <source src="https://huggingface.co/merve/smol-vision/resolve/main/llama.cpp-spec.mp4" type="video/mp4">
@@ -365,8 +412,9 @@ import torch
 from transformers import AutoProcessor, MuseGlimmerAssistantModel, MuseGlimmerForConditionalGeneration
 
 model_id = "meta-models/Muse-Glimmer-30B"
+assistant_model_id = "meta-models/Muse-Glimmer-30B-assistant"
 target = MuseGlimmerForConditionalGeneration.from_pretrained(model_id, dtype=torch.bfloat16, device_map="auto")
-assistant = MuseGlimmerAssistantModel.from_pretrained(model_id, dtype=torch.bfloat16, device_map="auto")
+assistant = MuseGlimmerAssistantModel.from_pretrained(assistant_model_id, dtype=torch.bfloat16, device_map="auto")
 processor = AutoProcessor.from_pretrained(model_id)
 
 messages = [
@@ -378,8 +426,24 @@ messages = [
     }
 ]
 
-out = target.generate(**inputs, assistant_model=assistant, speculation_type="dflash", max_new_tokens=64, do_sample=True)
-print(processor.batch_decode(out)[0])
+inputs = processor.apply_chat_template(
+    messages,
+    tokenize=True,
+    return_dict=True,
+    return_tensors="pt",
+    add_generation_prompt=True,
+    reasoning_strength="low"
+).to(target.device)
+input_len = inputs["input_ids"].shape[-1]
+
+outputs = target.generate(
+    **inputs,
+    assistant_model=assistant,
+    speculation_type="dflash",
+    do_sample=True
+)
+response = processor.decode(outputs[0][input_len:], skip_special_tokens=False)
+print(response)
 ```
 
 ### Speculative Decoding with llama.cpp
