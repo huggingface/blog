@@ -5612,3 +5612,14 @@
     - enterprise
     - partnerships
     - hub
+
+- local: muse-glimmer
+  date: August 10, 2026
+  tags:
+    - llms
+    - vlms
+    - meta
+    - muse
+    - llama.cpp
+    - vllm
+    - hub
