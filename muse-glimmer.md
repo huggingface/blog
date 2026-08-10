@@ -13,7 +13,7 @@ authors:
 Great news from the OGs of open source LLMs! Muse Glimmer, released today, is Meta’s new multimodal model, especially designed for local agentic use cases. Distilled from Muse to **30B** parameters, and released under the **Apache 2.0 license**, it’s ideal deploying locally for privacy, reducing costs, or just hacking around. It’s intended for privacy-aware applications such as coding, document analysis, personal assistants, Claw- or Hermes-like setups.
 
 To celebrate, we are shipping with Meta day-0 support in `transformers`, `llama.cpp`, `vLLM`, Inference Endpoints, and other libraries. We built a few cool things and explain our findings in this blog. **Check out the demos below for inspiration.**
-You can find all Muse Glimmer models [in this collection](https://huggingface.co/collections/meta-models/muse-glimmer).
+You can find [Muse Glimmer on the Hugging Face Hub](https://huggingface.co/meta-models/Muse-Glimmer-30B).
 
 ## Benchmarks
 
@@ -90,7 +90,7 @@ Muse Glimmer comes with day-0 support in transformers, both for the main model a
 ```py
 from transformers import AutoProcessor, AutoModelForMultimodalLM
 
-MODEL_ID = "meta/Muse-Glimmer-30B"
+MODEL_ID = "meta-models/Muse-Glimmer-30B"
 
 # Load model
 processor = AutoProcessor.from_pretrained(MODEL_ID)
@@ -410,7 +410,7 @@ vllm serve meta-models/Muse-Glimmer-30B --model-impl transformers --tensor-paral
 curl -s http://127.0.0.1:8000/v1/chat/completions \
     -H 'Content-Type: application/json' \
     -d '{
-      "model": "username/muse-glimmer-hf-v2",
+      "model": "meta-models/Muse-Glimmer-30B",
       "messages": [
         {"role": "user", "content": "Explain tensor parallelism briefly."}
       ],
@@ -465,7 +465,7 @@ Set `HF_TOKEN` in the OpenClaw gateway environment, then add this to `~/.opencla
         api: "openai-completions",
         authHeader: true,
         models: [{
-          id: "meta/Muse-Glimmer-30B",
+          id: "meta-models/Muse-Glimmer-30B",
           name: "Muse Glimmer",
           reasoning: false,
           input: ["text", "image"],
@@ -477,7 +477,7 @@ Set `HF_TOKEN` in the OpenClaw gateway environment, then add this to `~/.opencla
   },
   agents: {
     defaults: {
-      model: { primary: "muse/meta/Muse-Glimmer-30B" }
+      model: { primary: "muse/meta-models/Muse-Glimmer-30B" }
     }
   }
 }
@@ -628,4 +628,4 @@ Try Muse Glimmer as a Hugging Face research agent. The Gradio Space sends each m
 
 ## Wrapping Up
 
-We are happy to welcome Muse Glimmer in Hugging Face Hub. Try the models in [this collection](https://huggingface.co/collections/meta-models/muse-glimmer) with your local coding setups today!
+We are happy to welcome Muse Glimmer to the Hugging Face Hub. Try [Muse Glimmer](https://huggingface.co/meta-models/Muse-Glimmer-30B) with your local coding setups today!
