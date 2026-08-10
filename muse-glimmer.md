@@ -574,3 +574,15 @@ Never fabricate, interpolate, or count correctness-failing measurements.
 \</details\>
 
 [https://huggingface.co/buckets/huggingface/muse-glimmer-assets/resolve/onyx-optimization-progress.gif?download=true](https://huggingface.co/buckets/huggingface/muse-glimmer-assets/resolve/onyx-optimization-progress.gif?download=true)
+
+### Hey Muse Glimmer, research the Hub
+
+Try Muse Glimmer as a Hugging Face research agent. The Gradio Space sends each model request to a private Hugging Face Inference Endpoint through its OpenAI-compatible API. It also connects to the official Hugging Face MCP server, giving the agent read-only tools to search and inspect Hub repositories, models, datasets, Spaces, documentation, and papers.
+
+<iframe
+  src="https://burtenshaw-muse-glimmer-chat.hf.space"
+  frameborder="0"
+  width="100%"
+  height="700"
+  allow="clipboard-read; clipboard-write"
+></iframe>
