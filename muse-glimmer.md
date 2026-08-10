@@ -15,6 +15,42 @@ Great news from the OGs of open source LLMs! Muse Glimmer, released today, is Me
 To celebrate, we are shipping with Meta day-0 support in `transformers`, `llama.cpp`, `vLLM`, Inference Endpoints, and other libraries. We built a few cool things and explain our findings in this blog. **Check out the demos below for inspiration.**
 You can find all Muse Glimmer models [in this collection](https://huggingface.co/collections/meta-models/muse-glimmer).
 
+## Benchmarks
+
+<details>
+<summary>Benchmark results</summary>
+
+Scores are reported as published. **Bold** indicates the best result among the compared models; ↓ indicates lower is better.
+
+| Category | Benchmark | Muse Glimmer-30B<br>High Reasoning | Gemma4-31B<br>Thinking Mode | Qwen3.6-27B<br>Thinking Mode |
+| --- | --- | ---: | ---: | ---: |
+| General Agentic | MCP Atlas | **75.5** | 54.2 | 62.5 |
+| General Agentic | DeepSearch QA | **74.6** | 61.7 | 71.1 |
+| General Agentic | τ³-Banking | **23.5** | 15.1 | 16.7 |
+| General Agentic | WildClawBench | **47.6** | 37.6 | 43.2 |
+| General Agentic | GDPval-AA | 953 | 811 | **1141** |
+| General Agentic | GAIA2 | **43.3** | 36.4 | 40.0 |
+| General Agentic | SkillsBench (With Skills) | 44.3 | 32.4 | **46.6** |
+| General Agentic | OSWorld-Verified | 65.9 | 58.5 | **75.6** |
+| Agentic Coding | SWE-Bench Pro | **51.2** | 36.9 | 50.2 |
+| Agentic Coding | SWE-Bench Verified | 76.0 | 66.6 | **77.2** |
+| Agentic Coding | TerminalBench 2.1 | 51.7 | 43.4 | **60.7** |
+| Agentic Coding | SciCode | **43.6** | 43.4 | 39.8 |
+| Multimodal | Charxiv Reasoning | **78.8** | 77.7 | 78.4 |
+| Multimodal | ScreenSpot Pro | 75.4 | 75.9 | **76.1** |
+| Multimodal | OmniDocBench v1.5 | 75.8 | 72.5 | **77.8** |
+| Multimodal | MMMU Pro | 74 | 73 | **75** |
+| Safety | CI Memories | Violation (↓): 26.4<br>Coverage: 64.8 | **Violation (↓): 12.1**<br>Coverage: 53.0 | Violation (↓): 53.4<br>Coverage: 66.9 |
+| Safety | Siren AgentDojo | Attack Success Rate (↓): 28.4<br>Utility: 94.2 | **Attack Success Rate (↓): 25.6**<br>Utility: 90.8 | Attack Success Rate (↓): 40.3<br>Utility: 92.7 |
+| General Capabilities and Reasoning | IFBench | **77.0** | 76.0 | 70.8 |
+| General Capabilities and Reasoning | AIME 2026 | **94.7** | 89.2 | 94.1 |
+| General Capabilities and Reasoning | GPQA Diamond | 83.5 | **85.7** | 84.2 |
+| General Capabilities and Reasoning | Humanity’s Last Exam (Text + No Tools) | 22.0 | **23.6** | 23.1 |
+| General Capabilities and Reasoning | AA-LCR | **80.0** | 68.3 | 73.3 |
+| General Capabilities and Reasoning | Beam 128K | **65.1** | 58.2 | 63.0 |
+
+</details>
+
 ## Architecture
 
 Muse Glimmer is a dense 30B parameter model consisting of:
