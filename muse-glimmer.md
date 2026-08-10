@@ -328,7 +328,7 @@ from transformers import AutoProcessor, MuseGlimmerAssistantModel, MuseGlimmerFo
 
 model_id = "meta-models/Muse-Glimmer-30B"
 target = MuseGlimmerForConditionalGeneration.from_pretrained(model_id, dtype=torch.bfloat16, device_map="auto")
-+ assistant = MuseGlimmerAssistantModel.from_pretrained(model_id, dtype=torch.bfloat16, device_map="auto")
+assistant = MuseGlimmerAssistantModel.from_pretrained(model_id, dtype=torch.bfloat16, device_map="auto")
 processor = AutoProcessor.from_pretrained(model_id)
 
 messages = [
@@ -340,13 +340,13 @@ messages = [
     }
 ]
 
-+ out = target.generate(**inputs, assistant_model=assistant, speculation_type="dflash", max_new_tokens=64, do_sample=True)
+out = target.generate(**inputs, assistant_model=assistant, speculation_type="dflash", max_new_tokens=64, do_sample=True)
 print(processor.batch_decode(out)[0])
 ```
 
 ### Speculative Decoding with llama.cpp
 
-You can start llama server using following command. `--spec-draft-n-max` argument controls how many future tokens DFlash proposes during each speculative-decoding step. Muse Glimmer’s DFlash model was trained with a block size of 16, one anchor token plus 15 proposed tokens, so any value above 15 will be clamped to 15\.
+You can start llama server using following command. `--spec-draft-n-max` argument controls how many future tokens DFlash proposes during each speculative-decoding step. Muse Glimmer’s DFlash model was trained with a block size of 16, one anchor token plus 15 proposed tokens, so any value above 15 will be clamped to 15.
 
 ```bash
 llama serve -hf meta-models/Muse-Glimmer-30B-GGUF --spec-type draft-dflash --spec-draft-n-max 15
@@ -387,8 +387,8 @@ curl -s http://127.0.0.1:8000/v1/chat/completions \
 You can use TRL to fine-tune Muse Glimmer using various methods from SFT to Async GRPO. We have run two experiments on bf16 with Hopper-class GPUs with 80GB VRAM each.
 
 | Workload | Practical minimum |
-|---|---:|---:|
-| Inference / eval, BF16 | 1×80 GB H100 | 1×H100 |  
+| --- | ---: |
+| Inference / eval, BF16 | 1×80 GB H100 |
 | LoRA SFT, BF16 | 1×80 GB H100, microbatch 1 + checkpointing |
 | Full SFT, BF16 | 8×80 GB H100 with FSDP/ZeRO-3 |
 | LoRA GRPO, Transformers rollouts | 1×80 GB H100, but slow/tight |  
@@ -401,7 +401,7 @@ We also experimented with running the model on [OpenCode with AsyncGRPO example]
 
 ## Demos
 
-Here are some fun ways to try out Muse Glimmer. In our opinion, the coolest thing about this model is that it is a local scale personal assistant that can code. That means you can make it do things like, quantize itself, find quantized weights on the Hub, deploy itself to inference endpoints, and even optimize itself for specific hardware\! Let’s go team local 🚀
+Here are some fun ways to try out Muse Glimmer. In our opinion, the coolest thing about this model is that it is a local scale personal assistant that can code. That means you can make it do things like, quantize itself, find quantized weights on the Hub, deploy itself to inference endpoints, and even optimize itself for specific hardware! Let’s go team local 🚀
 
 ## Connect OpenClaw to Muse Glimmer
 
@@ -467,16 +467,16 @@ If we hook up Muse Glimmer to the [Hugging Face MCP](https://huggingface.co/mcp)
 
 If you do this a second time, Muse Glimmer will find the cached weights and switch to them, so feel free to add a convenient command like `/spawn`. 
 
-Muse Glimmer inspects the machine and Hub, selects or creates a Q4\_K\_M GGUF, launches llama-server, and validates model discovery and chat completion. The result is a smaller local build behind an OpenAI-compatible API. Here’s the prompt we added to `AGENTS.md`.
+Muse Glimmer inspects the machine and Hub, selects or creates a Q4_K_M GGUF, launches llama-server, and validates model discovery and chat completion. The result is a smaller local build behind an OpenAI-compatible API. Here’s the prompt we added to `AGENTS.md`.
 
 [https://huggingface.co/buckets/huggingface/muse-glimmer-assets/resolve/Muse%20Glimmer%20Quantisation%20Demo%20-%20explained.mp4?download=true](https://huggingface.co/buckets/huggingface/muse-glimmer-assets/resolve/Muse%20Glimmer%20Quantisation%20Demo%20-%20explained.mp4?download=true)
 
 By adding this to [`AGENTS.md`](http://AGENTS.md) openclaw or hermes will be able to solve the rest.
 
-\<details\>  
-\<summary\>Local quantization prompt\</summary\>
+<details>
+<summary>Local quantization prompt</summary>
 
-```bash
+```text
 ## Local model deployment
 
 When asked to deploy locally, perform the work; do not give instructions.
@@ -491,7 +491,7 @@ When asked to deploy locally, perform the work; do not give instructions.
 8. Report concise progress and logs. Claim completion only after validation passes.
 ```
 
-\</details\>
+</details>
 
 ### Hey Muse Glimmer, deploy yourself
 
@@ -501,10 +501,10 @@ N.B. You can also just deploy [Muse Glimmer to Inference Endpoints](https://endp
 
 Muse Glimmer pins the model revision, deploys it to a protected Hugging Face Inference Endpoint, and verifies health, model discovery, and chat completion. It then connects the Claw agent with secrets and rollback preserved. Here’s the prompt we added to [`AGENTS.md`](http://AGENTS.md). Muse glimmer will also need the [Hugging Face MCP](https://huggingface.co/mcp) and/or the [Hugging Face CLI and Skills](https://huggingface.co/docs/hub/en/agents-skills).
 
-\<details\>  
-\<summary\>Inference Endpoint deployment prompt\</summary\>
+<details>
+<summary>Inference Endpoint deployment prompt</summary>
 
-```bash
+```text
 ## Hugging Face Inference Endpoint deployment
 
 When asked to deploy on Hugging Face Inference Endpoints, perform the work; do
@@ -533,7 +533,7 @@ not give instructions.
    completion only after every required check passes.
 ```
 
-\</details\>
+</details>
 
 ### Hey Muse Glimmer, optimize yourself
 
@@ -541,10 +541,10 @@ Finally, let’s get Muse Glimmer to do some light RSI. We can instruct our agen
 
 Muse Glimmer benchmarks its own single-H100 serving stack, testing one reversible change at a time while holding the workload fixed. It keeps only correctness-passing gains and finishes with the fastest reproducible configuration. Here’s the prompt we added to [`AGENTS.md`](http://AGENTS.md). Muse glimmer need the [Hugging Face MCP](https://huggingface.co/mcp) and the [Hugging Face CLI and Skills](https://huggingface.co/docs/hub/en/agents-skills).
 
-\<details\>  
-\<summary\>Self-optimization prompt\</summary\>
+<details>
+<summary>Self-optimization prompt</summary>
 
-```bash
+```text
 You are Muse Glimmer acting as an autonomous inference-optimization engineer for your own serving stack.
 
 Goal: maximize valid single-H100 aggregate completion throughput in tokens/second.
@@ -571,7 +571,7 @@ Create a minimal scientific animation of the results:
 Never fabricate, interpolate, or count correctness-failing measurements.
 ```
 
-\</details\>
+</details>
 
 [https://huggingface.co/buckets/huggingface/muse-glimmer-assets/resolve/onyx-optimization-progress.gif?download=true](https://huggingface.co/buckets/huggingface/muse-glimmer-assets/resolve/onyx-optimization-progress.gif?download=true)
 
