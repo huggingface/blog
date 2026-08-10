@@ -438,23 +438,13 @@ Set `HF_TOKEN` in the OpenClaw gateway environment, then add this to `~/.opencla
 }
 ```
 
-</details>
-
 Restart OpenClaw:
-
-<details>
-<summary>Restart command</summary>
 
 ```bash
 openclaw gateway restart
 ```
 
-</details>
-
 Validate from a fresh session:
-
-<details>
-<summary>Validation command</summary>
 
 ```bash
 openclaw agent --message "Reply with: muse-ready"
