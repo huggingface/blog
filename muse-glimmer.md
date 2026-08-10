@@ -13,7 +13,7 @@ authors:
 Great news from the OGs of open source LLMs! Muse Glimmer, released today, is Meta’s new multimodal model, especially designed for local agentic use cases. Distilled from Muse to **30B** parameters, and released under the **Apache 2.0 license**, it’s ideal deploying locally for privacy, reducing costs, or just hacking around. It’s intended for privacy-aware applications such as coding, document analysis, personal assistants, Claw- or Hermes-like setups.
 
 To celebrate, we are shipping with Meta day-0 support in `transformers`, `llama.cpp`, `vLLM`, Inference Endpoints, and other libraries. We built a few cool things and explain our findings in this blog. **Check out the demos below for inspiration.**
-
+You can find all Muse Glimmer models [in this collection](https://huggingface.co/collections/meta-models/muse-glimmer).
 ## Architecture
 
 Muse Glimmer is a dense 30B parameter model consisting of:
