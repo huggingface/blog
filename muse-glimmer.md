@@ -346,43 +346,6 @@ curl http://localhost:8080/v1/chat/completions \
 
 You can also use llama server with coding agents like Pi.
 
-### Inference Endpoints
-
-For a managed, autoscaling deployment, open the [Muse Glimmer 30B Inference Endpoints preset](https://endpoints.huggingface.co/huggingface/new/meta-models/Muse-Glimmer-30B). The model is already selected: choose the organization, cloud provider, region, compatible GPU instance, authentication, and autoscaling settings, then review the hourly price and click **Create Endpoint**. Once its status is **Running**, you can test it in the Playground and copy the endpoint URL and model name from the Overview.
-
-[![Deploy Muse Glimmer 30B with Hugging Face Inference Endpoints](https://endpoints.huggingface.co/social-share/thumbnail-main.jpg)](https://endpoints.huggingface.co/huggingface/new/meta-models/Muse-Glimmer-30B)
-
-The deployed model exposes an OpenAI-compatible Chat Completions API. Keep your Hugging Face token in an environment variable, set `HF_ENDPOINT_URL` to the URL shown in the Overview without `/v1`, and set `HF_ENDPOINT_MODEL` to the endpoint's model name.
-
-```bash
-export HF_TOKEN="hf_..."
-export HF_ENDPOINT_URL="https://<endpoint-id>.<region>.<cloud>.endpoints.huggingface.cloud"
-export HF_ENDPOINT_MODEL="<endpoint-model-name>"
-pip install --upgrade openai
-```
-
-```python
-import os
-from openai import OpenAI
-
-client = OpenAI(
-    base_url=f"{os.environ['HF_ENDPOINT_URL'].rstrip('/')}/v1/",
-    api_key=os.environ["HF_TOKEN"],
-)
-
-response = client.chat.completions.create(
-    model=os.environ["HF_ENDPOINT_MODEL"],
-    messages=[
-        {"role": "system", "content": "You are a helpful assistant."},
-        {"role": "user", "content": "Write a limerick about Python exceptions."},
-    ],
-    max_tokens=256,
-)
-print(response.choices[0].message.content)
-```
-
-See the [Inference Endpoints documentation](https://huggingface.co/docs/inference-endpoints/en/index) for configuration, autoscaling, security, logs, and monitoring.
-
 ## Speculative Decoding
 
 DFlash uses a lightweight block-diffusion drafter model to provide same output with extra speed-ups in decoding phase. Transformers and llama.cpp ship support for DFlash drafter of Muse Glimmer day-0.
@@ -433,6 +396,43 @@ You can also use llama cli with speculative decoding drafter as follows.
 llama cli -hf meta-models/Muse-Glimmer-30B-GGUF --spec-type draft-dflash
 
 ```
+
+### Inference Endpoints
+
+For a managed, autoscaling deployment, open the [Muse Glimmer 30B Inference Endpoints preset](https://endpoints.huggingface.co/huggingface/new/meta-models/Muse-Glimmer-30B). The model is already selected: choose the organization, cloud provider, region, compatible GPU instance, authentication, and autoscaling settings, then review the hourly price and click **Create Endpoint**. Once its status is **Running**, you can test it in the Playground and copy the endpoint URL and model name from the Overview.
+
+[![Deploy Muse Glimmer 30B with Hugging Face Inference Endpoints](https://endpoints.huggingface.co/social-share/thumbnail-main.jpg)](https://endpoints.huggingface.co/huggingface/new/meta-models/Muse-Glimmer-30B)
+
+The deployed model exposes an OpenAI-compatible Chat Completions API. Keep your Hugging Face token in an environment variable, set `HF_ENDPOINT_URL` to the URL shown in the Overview without `/v1`, and set `HF_ENDPOINT_MODEL` to the endpoint's model name.
+
+```bash
+export HF_TOKEN="hf_..."
+export HF_ENDPOINT_URL="https://<endpoint-id>.<region>.<cloud>.endpoints.huggingface.cloud"
+export HF_ENDPOINT_MODEL="<endpoint-model-name>"
+pip install --upgrade openai
+```
+
+```python
+import os
+from openai import OpenAI
+
+client = OpenAI(
+    base_url=f"{os.environ['HF_ENDPOINT_URL'].rstrip('/')}/v1/",
+    api_key=os.environ["HF_TOKEN"],
+)
+
+response = client.chat.completions.create(
+    model=os.environ["HF_ENDPOINT_MODEL"],
+    messages=[
+        {"role": "system", "content": "You are a helpful assistant."},
+        {"role": "user", "content": "Write a limerick about Python exceptions."},
+    ],
+    max_tokens=256,
+)
+print(response.choices[0].message.content)
+```
+
+See the [Inference Endpoints documentation](https://huggingface.co/docs/inference-endpoints/en/index) for configuration, autoscaling, security, logs, and monitoring.
 
 ## Support for Muse Glimmer vLLM with transformers backend
 
