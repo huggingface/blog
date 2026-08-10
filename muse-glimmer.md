@@ -2,9 +2,9 @@
 title: "Meta is back with Muse Glimmer: local, agentic, multimodal, and open source" 
 thumbnail: /blog/assets/muse-glimmer/thumbnail.png
 authors:
+- user: pcuenq
 - user: merve
 - user: burtenshaw
-- user: pcuenq
 - user: ariG23498
 ---
 
@@ -575,9 +575,6 @@ Never fabricate, interpolate, or count correctness-failing measurements.
 
 [https://huggingface.co/buckets/huggingface/muse-glimmer-assets/resolve/onyx-optimization-progress.gif?download=true](https://huggingface.co/buckets/huggingface/muse-glimmer-assets/resolve/onyx-optimization-progress.gif?download=true)
 
-## Wrapping Up
-
-We are happy to welcome Muse Glimmer in Hugging Face Hub. Try the models in [this collection](https://huggingface.co/collections/meta-models/muse-glimmer) with your local coding setups today!
 
 ### Hey Muse Glimmer, research the Hub
 
@@ -590,3 +587,7 @@ Try Muse Glimmer as a Hugging Face research agent. The Gradio Space sends each m
   height="700"
   allow="clipboard-read; clipboard-write"
 ></iframe>
+
+## Wrapping Up
+
+We are happy to welcome Muse Glimmer in Hugging Face Hub. Try the models in [this collection](https://huggingface.co/collections/meta-models/muse-glimmer) with your local coding setups today!
