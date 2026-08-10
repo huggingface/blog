@@ -390,7 +390,9 @@ You can use TRL to fine-tune Muse Glimmer using various methods from SFT to Asyn
 | LoRA GRPO, separate vLLM rollout server | 8×H100: 4 rollout + 4 training |
 | Full-finetune GRPO | 8 GPUs is usually insufficient |
 
-As part of this release, we ship an example to fine-tune Muse Glimmer to fine-tune on small split of MolmoWeb dataset. This shows how to make model generate structured outputs and how to fine-tune on images.
+As part of this release, we ship an example to fine-tune [Muse Glimmer on small split of MolmoWeb dataset](https://huggingface.co/merve/smol-vision/blob/main/qlora_click_grounding.ipynb). This shows how to make model generate structured outputs and how to fine-tune on images.
+
+We also experimented with running the model on [OpenCode with AsyncGRPO example](https://github.com/huggingface/trl/blob/main/examples/scripts/openenv/opencode.py). Model shows strong coding capabilities, so we encourage you to try training with coding environments.
 
 ## Demos
 
