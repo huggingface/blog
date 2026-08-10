@@ -396,6 +396,74 @@ As part of this release, we ship an example to fine-tune Muse Glimmer to fine-tu
 
 Here are some fun ways to try out Muse Glimmer. In our opinion, the coolest thing about this model is that it is a local scale personal assistant that can code. That means you can make it do things like, quantize itself, find quantized weights on the Hub, deploy itself to inference endpoints, and even optimize itself for specific hardware\! Let’s go team local 🚀
 
+## Connect OpenClaw to Muse Glimmer
+
+Assume the Inference Endpoint exposes an OpenAI-compatible `/v1` API.
+
+Set `HF_TOKEN` in the OpenClaw gateway environment, then add this to `~/.openclaw/openclaw.json`:
+
+<details>
+<summary>OpenClaw configuration</summary>
+
+```json5
+{
+  models: {
+    mode: "merge",
+    providers: {
+      muse: {
+        baseUrl: "https://YOUR-ENDPOINT.endpoints.huggingface.cloud/v1",
+        apiKey: {
+          source: "env",
+          provider: "default",
+          id: "HF_TOKEN"
+        },
+        api: "openai-completions",
+        authHeader: true,
+        models: [{
+          id: "meta/Muse-Glimmer-30B",
+          name: "Muse Glimmer",
+          reasoning: false,
+          input: ["text", "image"],
+          contextWindow: 32768,
+          maxTokens: 8192
+        }]
+      }
+    }
+  },
+  agents: {
+    defaults: {
+      model: { primary: "muse/meta/Muse-Glimmer-30B" }
+    }
+  }
+}
+```
+
+</details>
+
+Restart OpenClaw:
+
+<details>
+<summary>Restart command</summary>
+
+```bash
+openclaw gateway restart
+```
+
+</details>
+
+Validate from a fresh session:
+
+<details>
+<summary>Validation command</summary>
+
+```bash
+openclaw agent --message "Reply with: muse-ready"
+```
+
+</details>
+
+Use the exact model ID returned by the endpoint’s `/v1/models` response if it differs.
+
 ### Hey Muse Glimmer, quantize yourself
 
 If we hook up Muse Glimmer to the [Hugging Face MCP](https://huggingface.co/mcp) and update its [`AGENTS.md`](http://AGENTS.md) we give it the capability to find a quantized version of itself on the hub and run locally. This is handy if you want to work on something private, or just cut costs.
