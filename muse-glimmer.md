@@ -14,6 +14,7 @@ Great news from the OGs of open source LLMs! Muse Glimmer, released today, is Me
 
 To celebrate, we are shipping with Meta day-0 support in `transformers`, `llama.cpp`, `vLLM`, Inference Endpoints, and other libraries. We built a few cool things and explain our findings in this blog. **Check out the demos below for inspiration.**
 You can find all Muse Glimmer models [in this collection](https://huggingface.co/collections/meta-models/muse-glimmer).
+
 ## Architecture
 
 Muse Glimmer is a dense 30B parameter model consisting of:
@@ -318,6 +319,7 @@ Below you can see how speculative decoding can speed-up generation in realistic 
 <video controls width="100%">
   <source src="https://huggingface.co/merve/smol-vision/resolve/main/llama.cpp-spec.mp4" type="video/mp4">
 </video>
+
 ### Speculative Decoding with transformers
 
 You can load the drafter and model as follows, and infer like how you would with base model with an additional parameter (shown in the upcoming snippets).
@@ -397,7 +399,7 @@ You can use TRL to fine-tune Muse Glimmer using various methods from SFT to Asyn
 
 As part of this release, we ship an example to fine-tune [Muse Glimmer on small split of MolmoWeb dataset](https://huggingface.co/merve/smol-vision/blob/main/qlora_click_grounding.ipynb). This shows how to make model generate structured outputs and how to fine-tune on images.
 
-We also experimented with running the model on [OpenCode with AsyncGRPO example](https://github.com/huggingface/trl/blob/main/examples/scripts/openenv/opencode.py). Model shows strong coding capabilities, so we encourage you to try training with coding environments.
+We also experimented with running the model on [OpenCode with AsyncGRPO example](https://github.com/huggingface/trl/blob/main/examples/scripts/openenv/opencode.py). Model shows strong coding capabilities, so we encourage you to try training with coding environments in OpenEnv and TRL.
 
 ## Demos
 
