@@ -575,7 +575,7 @@ Never fabricate, interpolate, or count correctness-failing measurements.
 
 [https://huggingface.co/buckets/huggingface/muse-glimmer-assets/resolve/onyx-optimization-progress.gif?download=true](https://huggingface.co/buckets/huggingface/muse-glimmer-assets/resolve/onyx-optimization-progress.gif?download=true)
 
-## Wrapping Up
+## Wrapping Up
 
 We are happy to welcome Muse Glimmer in Hugging Face Hub. Try the models in [this collection](https://huggingface.co/collections/meta-models/muse-glimmer) with your local coding setups today!
 
