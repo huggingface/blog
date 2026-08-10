@@ -313,6 +313,11 @@ You can also use llama server with coding agents like Pi.
 
 DFlash uses a lightweight block-diffusion drafter model to provide same output with extra speed-ups in decoding phase. Transformers and llama.cpp ship support for DFlash drafter of Muse Glimmer day-0.
 
+Below you can see how speculative decoding can speed-up generation in realistic setups. The video shows llama.cpp webui with DFlash on the left and regular generation on the right. 
+
+<video controls width="100%">
+  <source src="https://huggingface.co/merve/smol-vision/resolve/main/llama.cpp-spec.mp4" type="video/mp4">
+</video>
 ### Speculative Decoding with transformers
 
 You can load the drafter and model as follows, and infer like how you would with base model with an additional parameter (shown in the upcoming snippets).
