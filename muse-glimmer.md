@@ -575,6 +575,10 @@ Never fabricate, interpolate, or count correctness-failing measurements.
 
 [https://huggingface.co/buckets/huggingface/muse-glimmer-assets/resolve/onyx-optimization-progress.gif?download=true](https://huggingface.co/buckets/huggingface/muse-glimmer-assets/resolve/onyx-optimization-progress.gif?download=true)
 
+## Wrapping Up
+
+We are happy to welcome Muse Glimmer in Hugging Face Hub. Try the models in [this collection](https://huggingface.co/collections/meta-models/muse-glimmer) with your local coding setups today!
+
 ### Hey Muse Glimmer, research the Hub
 
 Try Muse Glimmer as a Hugging Face research agent. The Gradio Space sends each model request to a private Hugging Face Inference Endpoint through its OpenAI-compatible API. It also connects to the official Hugging Face MCP server, giving the agent read-only tools to search and inspect Hub repositories, models, datasets, Spaces, documentation, and papers.
