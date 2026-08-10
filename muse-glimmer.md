@@ -382,7 +382,7 @@ curl -s http://127.0.0.1:8000/v1/chat/completions \
 You can use TRL to fine-tune Muse Glimmer using various methods from SFT to Async GRPO. We have run two experiments on bf16 with Hopper-class GPUs with 80GB VRAM each.
 
 | Workload | Practical minimum |
-|---|---:|---:|  
+|---|---:|---:|
 | Inference / eval, BF16 | 1×80 GB H100 | 1×H100 |  
 | LoRA SFT, BF16 | 1×80 GB H100, microbatch 1 + checkpointing |
 | Full SFT, BF16 | 8×80 GB H100 with FSDP/ZeRO-3 |
