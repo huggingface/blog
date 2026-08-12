@@ -5623,3 +5623,12 @@
     - llama.cpp
     - vllm
     - hub
+
+- local: funes
+  date: August 24, 2026
+  tags:
+    - agents
+    - open-source
+    - datasets
+    - guide
+    - announcement
