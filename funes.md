@@ -171,6 +171,36 @@ already hosts open weights and datasets. funes adds open working memory. It hold
 the decisions, failed approaches, and rationale behind a project, queryable by another
 agent and traceable to the sessions that produced them.
 
+## What handing over costs
+
+There is a cheaper-looking way to do all this by hand. When a session's context grows
+until every turn is dominated by carrying it, the usual move is to start a fresh session
+and write a handoff first. That works, but the writing is not free. We measured it on
+the [handoff-vs-recall
+benchmark](https://huggingface.co/datasets/dacorvo/funes-handoff-recall-benchmark): two
+tasks whose answer cannot be reconstructed from the code, the dependencies'
+documentation, or the model's own priors, four ways of getting the prior investigation
+into a fresh session, and a hidden grader deciding whether an arm actually arrived.
+
+| getting the investigation into the next session | `rerank-triage` | `recall-features` |
+|---|---|---|
+| Carry nothing, re-derive it | never arrives | never arrives |
+| Write a handoff, then read it | $4.30 | $4.65 |
+| Recall the origin session | **$0.64** | **$0.84** |
+| Keep the whole context, don't switch | $6.15 | $3.25 |
+
+*Cost per successful task, in dollars of model spend. Writing the handoff is charged
+once and amortised over the runs that read it.*
+
+Carrying nothing never arrives, which is what makes the rest of the column mean
+anything: the knowledge really did have to be transferred. Recall is then the cheapest
+way to transfer it, by roughly fivefold to sevenfold over a written handoff, because
+nobody pays to write one, and by fourfold to tenfold over keeping the whole session
+alive, because it reads a few passages instead of replaying an entire context every
+turn. This is two tasks and twenty-four runs, not a broad benchmark. Each run's full
+trajectory and item-by-item grade is published beside its cost, so any number in the
+table can be checked against the transcript behind it.
+
 funes invents little of this. It leans on open-source embedding models good enough to
 run locally, on [Lance](https://github.com/lancedb/lance)'s append-only datasets with
 cheap incremental writes, and on the Hub's caching and content-dedup for datasets. The
