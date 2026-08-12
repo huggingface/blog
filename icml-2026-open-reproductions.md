@@ -10,7 +10,7 @@ authors:
 
 Back in July, we ran [a hackathon](https://huggingface.co/ICML-2026-agent-repro) where more than 1,200 community members brought their own coding agents and tried the reproduce the papers published at ICML 2026, claim by claim. In 19 days, participants published [6,816 Trackio logbooks](https://icml-2026-agent-repro-challenge.static.hf.space/gallery.html) reproducing 2,226 papers, about a third of the conference 🤯
 
-In this post, we're sharing what we learned from running this hackathon, and what role it suggests humans will play when agents are doing the research experiments.
+In this post, we're sharing what we learned from running this hackathon, and what it suggests about _the role humans will play_ when agents are doing the research experiments.
 
 ## More papers than anyone can review
 
