@@ -170,6 +170,28 @@ already hosts open weights and datasets. funes adds open working memory. It hold
 the decisions, failed approaches, and rationale behind a project, queryable by another
 agent and traceable to the sessions that produced them.
 
+## The cheapest way out of a long session
+
+A long investigation bloats a session until each turn costs more to carry the context
+than to do the work. The usual answers are to let the agent compact and carry on, or to
+write a handoff and start fresh. Recall is a third, so we measured them against each
+other on the [handoff-vs-recall
+benchmark](https://huggingface.co/datasets/dacorvo/funes-handoff-recall-benchmark/blob/main/results/README.md):
+two tasks whose answer cannot be reconstructed without the session prior knowledge.
+
+Compaction is what most agents do by default, and it was the only one of the three whose
+result divided: it arrived on one task and never arrived on the other. Where it failed,
+its summary had flattened the findings that mattered. Recall returns the passages
+themselves, so a finding does not have to survive summarization.
+
+Recall was the cheapest of the three on both tasks, 8x cheaper than a written handoff on
+one and 4x on the other.
+
+Every run's transcript, grade, and token count is published beside the numbers, along
+with two canaries: one carrying nothing, which never arrives and confirms the tasks
+cannot be answered without the prior session, and one keeping the whole session alive,
+which always costs more than recall.
+
 funes invents little of this. It leans on open-source embedding models good enough to
 run locally, on [Lance](https://github.com/lancedb/lance)'s append-only datasets with
 cheap incremental writes, and on the Hub's caching and content-dedup for datasets. The
