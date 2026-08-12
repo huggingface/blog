@@ -5623,3 +5623,12 @@
     - llama.cpp
     - vllm
     - hub
+
+- local: multi-vector-encoder
+  date: August xx, 2026
+  tags:
+    - nlp
+    - guide
+    - community
+    - open-source
+    - multimodal
