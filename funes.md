@@ -20,14 +20,13 @@ leave behind a dense account of not just *what* changed, but *why*.
 While the diagnosis is correct, traces are only potential memory. The session logs of
 an agent are still just an archive. You cannot `grep` your way to *“why did we move
 off the streaming parser?”* across ten thousand turns. For an agent to use those traces
-while it works, they need **indexing**, **retrieval**, **ranking**, and
-**exact provenance**.
+while it works, they need indexing, retrieval, ranking, and exact provenance.
 
 That is what [funes](https://github.com/huggingface/funes) provides. It is a durable
 memory layer for your agents (Claude Code, Codex, pi, and Hermes). It is built from the
-sessions already on your machine. It works locally, becomes part of your agent's normal
-workflow with one command, and can travel to a Hugging Face dataset you own — private
-by default — when you want it to.
+sessions already on your machine. It works locally and becomes part of your agent's
+normal workflow with one command. When you want it to, it can also travel to a Hugging
+Face dataset you own, private by default.
 
 ## Add memory to the agent you already use
 
@@ -93,8 +92,8 @@ To make a memory follow your work, bind one when you add funes to an agent:
 funes add codex acme/funes-memory
 ```
 
-The bind publishes your current memory there, and — for agents with hooks (Claude Code,
-Codex, and Hermes) — funes keeps it current, indexing each turn locally and publishing
+The bind publishes your current memory there. For agents with hooks (Claude Code,
+Codex, and Hermes), funes keeps it current, indexing each turn locally and publishing
 at session boundaries. The agent recalls from it throughout. Run the same command on
 another machine and the memory follows you there.
 
@@ -103,8 +102,9 @@ Face dataset (private by default) you own.
 
 Before anything reaches the Hub, credentials have already been redacted during
 indexing. Publishing then scans every chunk again and withholds anything that still
-looks like a secret. The scanner behind this — and what it does and doesn't cover — is
-documented in [`SECURITY.md`](https://github.com/huggingface/funes/blob/main/SECURITY.md).
+looks like a secret. The scanner behind this is documented in
+[`SECURITY.md`](https://github.com/huggingface/funes/blob/main/SECURITY.md), including
+what it does and doesn't cover.
 
 When an agent reads a remote memory, funes caches the dataset files locally, so warm
 queries return to local speed. The Hub supplies the ownership, access control,
@@ -151,7 +151,7 @@ router, then return to Claude.
 ![Claude Code chooses an embedding model, then Codex recalls that decision in a separate session](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/funes/cross-agents.gif)
 
 *Claude makes a decision; a hook indexes it; Codex recalls it in another session. The
-older hits in the demo are earlier recordings of the same experiment — an append-only
+older hits in the demo are earlier recordings of the same experiment: an append-only
 memory remembered the rehearsals too.*
 
 This matters in a few different scopes:
@@ -161,9 +161,9 @@ This matters in a few different scopes:
 - **Across a team:** A new teammate's agent can retrieve months of decisions on day
   one, including dead ends and rationale that never made it into a pull request.
 - **Alongside an open-source project:** A maintainer can curate reviewed sessions into
-  a project memory — something like a searchable `CLAUDE.md`, except it contains the
-  history of why the project is the way it is instead of a page someone must keep
-  rewriting. Anyone can read a public project memory with `--memory`.
+  a project memory. Think of it as a searchable `CLAUDE.md` that holds the history of
+  why the project is the way it is, instead of a page someone must keep rewriting.
+  Anyone can read a public project memory with `--memory`.
 
 Published memories carry a dataset card and the funes tag, making them recognizable
 and [discoverable on the Hub](https://huggingface.co/datasets?other=funes). The Hub
@@ -181,8 +181,8 @@ work is in fitting them into a memory an agent can actually use.
 
 Get started at
 [`github.com/huggingface/funes`](https://github.com/huggingface/funes). One `funes add
-claude` — or `codex`, `pi`, or `hermes` — connects the agent to the memory. Then you
+claude` (or `codex`, `pi`, or `hermes`) connects the agent to the memory. Then you
 just work.
 
-funes is open source — [open an issue](https://github.com/huggingface/funes/issues) for
+funes is open source. [Open an issue](https://github.com/huggingface/funes/issues) for
 anything from an install snag to a recall that missed, or an agent you'd like supported.
