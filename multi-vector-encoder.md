@@ -39,6 +39,8 @@ In this blogpost, we'll show you how to use these models: loading the various ch
 * [Retrieve and Rerank](#retrieve-and-rerank)
 * [Indexing](#indexing)
 * [Visual Document Retrieval](#visual-document-retrieval)
+* [Audio Retrieval](#audio-retrieval)
+* [Video Retrieval](#video-retrieval)
 * [Interpretability](#interpretability)
 * [Token Pooling](#token-pooling)
 * [Speeding Up Inference](#speeding-up-inference)
@@ -49,7 +51,7 @@ In this blogpost, we'll show you how to use these models: loading the various ch
 
 ## What are Multi-Vector Models?
 
-A dense embedding model reads a text and returns a single fixed-size vector. Everything the model noticed has to fit in those 384, 768, or 1024 numbers, and similarity is one dot product between two such summaries. This works remarkably well, but the compression is lossy in a specific way: a rare entity, an exact identifier, or one crucial clause in a long passage all have to compete for room in the same vector.
+A dense embedding model reads a text and returns a single fixed-size vector. Everything the model noticed has to fit in those 384, 768, or 1024 numbers, and similarity is one dot product between two such summaries. This works remarkably well, but the compression is lossy in a specific way: a rare entity, an exact identifier, or one crucial clause in a long passage all have to compete for room in the same vector. A query with several requirements at once runs into the same wall. For "green sofa with wooden legs and rounded cushions", a single vector has to blend all four into one point, so a green sofa with the wrong legs ends up sitting close to the one you actually asked for.
 
 A multi-vector model (also called a late-interaction or ColBERT-style model, after the [ColBERT paper](https://arxiv.org/abs/2004.12832)) skips that compression. It runs the same transformer, but instead of pooling the token embeddings into one vector, it projects each token embedding down to a small dimension (classically 128) and keeps all of them. A 9-token document becomes a 9x128 matrix, not a 1x128 vector.
 
@@ -61,9 +63,9 @@ The interaction between query and document is then deferred until scoring time, 
 
 Scoring uses MaxSim: for each query token, take its highest similarity against any document token, then sum those maxima across the query.
 
-$$\text{MaxSim}(Q, D) = \sum_{i=1}^{|Q|} \max_{j=1}^{|D|} Q_i \cdot D_j$$
+$$\text{MaxSim}(Q, D) = \sum_{Q_i \in Q} \max_{D_j \in D} Q_i \cdot D_j$$
 
-Because the token embeddings are L2-normalized, each of those dot products is a cosine similarity in `[-1, 1]`, so the sum lands in `[-|Q|, |Q|]`.
+Because the token embeddings are L2-normalized, each of those dot products is a cosine similarity in `[-1, 1]`, so the whole sum lands within `[-num_query_tokens, num_query_tokens]`.
 
 You can read the operator as a soft alignment: every query token points at the one document token that best explains it, and the score is how well the document explains the query overall.
 
@@ -71,7 +73,7 @@ The alignment doesn't have to be lexical, since the token embeddings are context
 
 ### What You Gain, and What It Costs
 
-You gain retrieval quality, particularly on queries where one specific piece of a document is what makes it relevant, and on out-of-domain data where a dense model's compression was tuned for a different distribution.
+You gain retrieval quality, particularly on queries where one specific piece of a document is what makes it relevant, on multi-requirement queries like the sofa above where each requirement gets to find its own evidence, and on out-of-domain data where a dense model's compression was tuned for a different distribution.
 
 The cost is index size. One vector per token instead of one vector per document is a lot more vectors, only partly offset by the smaller dimension. Encoding 4,874 Natural Questions passages with [`lightonai/LateOn`](https://huggingface.co/lightonai/LateOn) produced 608,414 token vectors, an average of 124.8 per passage:
 
@@ -81,7 +83,7 @@ The cost is index size. One vector per token instead of one vector per document 
 | Dense, [`gte-modernbert-base`](https://huggingface.co/Alibaba-NLP/gte-modernbert-base) | 4,874 | 768 | 15.0 MB |
 | Multi-vector, `LateOn` | 608,414 | 128 | 311.5 MB |
 
-That's about 42x the storage of the MiniLM index, or 62 KiB per passage. [Token Pooling](#token-pooling) shrinks that index, and [Retrieve and Rerank](#retrieve-and-rerank) avoids building one at all.
+That's about 42x the storage of the MiniLM index, or 62 KiB per passage. However, indexes are often compressed, e.g. the same 608,414 vectors take 88 MB as a [fast-plaid](#indexing) index, since PLAID stores a centroid id plus a quantized residual per vector rather than the vector itself. [Token Pooling](#token-pooling) cuts the vector count before any of that, and [Retrieve and Rerank](#retrieve-and-rerank) avoids building an index at all.
 
 With the tradeoff in mind, let's get a model running.
 
@@ -339,6 +341,8 @@ Several vector databases index and score multi-vectors natively: [Qdrant](https:
 
 A few others get you partway. [OpenSearch](https://docs.opensearch.org/latest/search-plugins/search-relevance/rerank-by-field-late-interaction/) and [Elasticsearch](https://www.elastic.co/docs/reference/elasticsearch/mapping-reference/rank-vectors) can rescore candidates with MaxSim but not retrieve on it, and the Elasticsearch field is additionally in technical preview and Enterprise-tier. [turbopuffer](https://turbopuffer.com/docs/schema) has late-interaction indexing in private beta.
 
+The snippets below index text, but nothing in them is text-specific. `encode_document` hands back the same list of token-vector matrices whether the document was a passage, a page image, an audio clip, or a video, so the ColPali-style models from [Visual Document Retrieval](#visual-document-retrieval) go into any of these unchanged. There are simply more vectors per document, which is what makes [Token Pooling](#token-pooling) worth reaching for sooner there.
+
 fast-plaid, Qdrant, Weaviate, and Vespa all take exactly what `encode_document` returns, so the code is the same up to the client library. Here's a working snippet for each, run against the 4,874 passages and 608,414 token vectors from the [Semantic Search](#semantic-search) example. Each one carries the ingestion and query times it produced on one machine (RTX 3090, i7-13700K), with no tuning beyond what the code shows, to give a sense of the shape of the work. All four answer the query faster than the 98ms `model.similarity` took in that section, and three of them do it on the CPU, since fast-plaid is the only one here using the GPU.
 
 All four returned the same three passages in the same order as the exhaustive PyTorch MaxSim earlier in this post, and the three databases reproduce its scores to four decimals! That is because their snippets score every document, which is affordable at this size and removes approximation as a variable. fast-plaid is approximate by design, so its scores differ slightly. The notes under each one say what changes when you switch to an approximate index, which is where rankings start to drift.
@@ -377,6 +381,8 @@ for index, score in results[0]:
 11.6758  Battle of Appomattox Court House The Battle of Appomattox Court House (Virginia, U.S.), fo
 """
 ```
+
+The `index` argument is a directory, not just a label, so the index is written to disk as it is built. Pointing a new `FastPlaid` at the same path reopens it for searching or for adding more documents, instead of rebuilding from the embeddings each time. On this corpus it occupies 88 MB, against 311.5 MB for the raw float32 vectors.
 
 This is the only one of the four that is approximate, and it is the one place in this section where the scores do not match the exhaustive MaxSim. PLAID prunes with centroids and stores quantized residuals, so the three scores drift by a few hundredths in both directions against the 11.9192 / 11.7591 / 11.6710 computed earlier. The ranking is unaffected here, and that is the trade PLAID is making: it was designed for corpora far larger than this one, where scanning everything is not an option.
 
@@ -592,7 +598,7 @@ Late interaction is the state of the art for visual document retrieval: matching
 ```python
 from sentence_transformers import MultiVectorEncoder
 
-model = MultiVectorEncoder("vidore/colqwen2-v1.0", revision="refs/pr/N", trust_remote_code=True)
+model = MultiVectorEncoder("vidore/colqwen2-v1.0", revision="refs/pr/N")
 
 queries = [
     "What is the variable represented on the y-axis of the graph?",
@@ -620,9 +626,80 @@ Each query retrieves its own page (the diagonal), and the second query separates
 
 The code is unchanged. Underneath, the processor handles the visual prompt and the image patches, and MaxSim scores query text tokens against document image patches. A page holds many separate regions, which is exactly what makes late interaction a natural fit here, since a single vector would have to average a chart, a table, and three paragraphs into one summary. That fidelity costs index space, though. The shapes above are 755 token vectors for one page against 25 for the query, where a Natural Questions passage from earlier averaged about 125, so [token pooling](#token-pooling) is worth reaching for earlier here than it is for text.
 
-Page images are the common case, but they're not the only non-text modality. Sentence Transformers accepts text, images, audio, and video, and a checkpoint supports whichever of those its processor does, which `model.modalities` reports. [vidore/colqwen-omni-v0.1](https://huggingface.co/vidore/colqwen-omni-v0.1) is built on Qwen2.5-Omni, for example, so it also embeds audio documents through the same `encode_document` call, passed as file paths, arrays, or `torchcodec` decoder objects. A single document can combine modalities too, by passing a dict like `{"text": ..., "image": ...}` in place of a bare value.
-
 These are VLMs, so plan for the memory they need. [The table in Supported Models](#visual-document-retrieval-models) runs from 252M to 4.4B parameters, and the small end of it stays practical on CPU where the multi-billion ones don't.
+
+Page images are the common case, but they're not the only non-text modality. Sentence Transformers accepts text, images, audio, and video, and a checkpoint supports whichever of those its processor does, which `model.modalities` reports. A single document can combine modalities too, by passing a dict like `{"text": ..., "image": ...}` in place of a bare value. [Multimodal Embedding & Reranker Models](https://huggingface.co/blog/multimodal-sentence-transformers) covers multimodal models in Sentence Transformers more broadly, and the [Usage documentation](https://sbert.net/docs/sentence_transformer/usage/usage.html) lists exactly which input formats each modality accepts.
+
+## Audio Retrieval
+
+[vidore/colqwen-omni-v0.1](https://huggingface.co/vidore/colqwen-omni-v0.1) is built on Qwen2.5-Omni and takes all four modalities. Retrieving a recorded conversation with it is the same two calls as retrieving a page:
+
+```python
+# pip install -U "sentence-transformers[audio,video]"
+import torch
+from datasets import Audio, load_dataset
+
+from sentence_transformers import MultiVectorEncoder
+
+model = MultiVectorEncoder(
+    "vidore/colqwen-omni-v0.1",
+    revision="refs/pr/N",
+    model_kwargs={"dtype": torch.bfloat16},
+)
+print(model.modalities)
+# ['text', 'image', 'audio', 'video', 'message']
+
+# 20 recorded conversations, averaging 28 seconds each
+dataset = load_dataset("eustlb/dailytalk-conversations-grouped", split="train[:20]")
+dataset = dataset.cast_column("audio", Audio(sampling_rate=16_000))
+audio = [row["array"] for row in dataset["audio"]]  # raw mono waveforms, float32 at 16 kHz
+
+query_embeddings = model.encode_query(["medicine for car nausea"])
+document_embeddings = model.encode_document(audio, batch_size=2)
+scores = model.similarity(query_embeddings, document_embeddings)[0]
+
+top_scores, top_indices = scores.topk(3)
+for score, index in zip(top_scores.tolist(), top_indices.tolist()):
+    print(f"{score:.4f}  {' / '.join(dataset[index]['texts'][:2])}")
+"""
+50.8902  Excuse me? Do you have anything for a carsickness? / Yes, but you look fine.
+46.1028  Excuse me, could you tell me where you have got that music book? / Certainly. Let me see. Oh, it's on that shelf.
+46.0514  Jeff, I'm going to the supermarket. Do you want to come with me? / I think the supermarket is closed now.
+"""
+```
+
+ColQwen-Omni was trained purely on image-text pairs, so its audio retrieval is zero-shot: it never heard a training example, and there is no transcription step anywhere in the pipeline. The query says `nausea` where the recording says `carsickness`, and it still picks the pharmacy conversation out of twenty by a wide margin.
+
+## Video Retrieval
+
+Video works the same way, but sample the frames or it will eat your VRAM. Its [release blogpost](https://huggingface.co/blog/manu/colqwen-omni-omnimodal-retrieval) is blunt about this, that video "is very memory-intensive, so it's best suited for short clips":
+
+```python
+import torch
+
+from sentence_transformers import MultiVectorEncoder
+
+model = MultiVectorEncoder(
+    "vidore/colqwen-omni-v0.1",
+    revision="refs/pr/N",
+    model_kwargs={"dtype": torch.bfloat16},
+)
+
+# Sparse, low-resolution frames: 0.5 fps rather than the full frame rate
+model[0].processing_kwargs.update(
+    {"video": {"max_pixels": 32 * 28 * 28, "do_sample_frames": True, "fps": 0.5}}
+)
+
+query_embeddings = model.encode_query(["How to cook Mapo Tofu?"])
+document_embeddings = model.encode_document([
+    "https://huggingface.co/Tevatron/OmniEmbed-v0.1/resolve/main/assets/mapo_tofu.mp4",
+    "https://huggingface.co/Tevatron/OmniEmbed-v0.1/resolve/main/assets/zhajiang_noodle.mp4",
+], batch_size=1)
+print(model.similarity(query_embeddings, document_embeddings))
+# tensor([[53.3100, 51.0561]])
+```
+
+At 1 fps and full resolution the same pair of videos produces 8,426 and 5,137 token vectors and peaks at 20.8 GB of VRAM, against 4,240 and 2,446 vectors and 12.5 GB here, for a model that occupies 9.0 GB on its own. The ranking is identical either way. Long audio wants the same treatment, and the release blogpost recommends 30-second chunks, which come to roughly 800 tokens each.
 
 ## Interpretability
 
@@ -718,7 +795,7 @@ from sentence_transformers import MultiVectorEncoder
 
 model = MultiVectorEncoder(
     "lightonai/GTE-ModernColBERT-v1",
-    model_kwargs={"attn_implementation": "flash_attention_2", "torch_dtype": "float16"},
+    model_kwargs={"attn_implementation": "flash_attention_2", "dtype": "float16"},
 )
 ```
 
@@ -831,30 +908,33 @@ These load with their trained prefix tokens, query expansion, and punctuation sk
 ColPali-style models embed page images as documents and text as queries. Each one needs a small Sentence Transformers configuration in its repository, and most of those are open pull requests at the time of writing. Where a `revision` is listed, pass it until the pull request is merged, after which the plain model name is enough:
 
 ```python
-model = MultiVectorEncoder("vidore/colqwen2.5-v0.2", revision="refs/pr/N", trust_remote_code=True)
+model = MultiVectorEncoder("vidore/colqwen2.5-v0.2", revision="refs/pr/N")
 ```
 
 | Model | Parameters | Backbone | Notes |
 | --- | :---: | --- | --- |
-| [vidore/colpali-v1.3](https://huggingface.co/vidore/colpali-v1.3) | 2.9B | PaliGemma-3B | `revision="refs/pr/N"`, needs `trust_remote_code=True` |
-| [vidore/colpali-v1.2](https://huggingface.co/vidore/colpali-v1.2) | 2.9B | PaliGemma-3B | `revision="refs/pr/N"`, needs `trust_remote_code=True` |
-| [vidore/colpali-v1.1](https://huggingface.co/vidore/colpali-v1.1) | 2.9B | PaliGemma-3B | `revision="refs/pr/N"`, needs `trust_remote_code=True` |
-| [vidore/colpali](https://huggingface.co/vidore/colpali) | 2.9B | PaliGemma-3B | `revision="refs/pr/N"`, needs `trust_remote_code=True` |
-| [vidore/colqwen2-v1.0](https://huggingface.co/vidore/colqwen2-v1.0) | 2.2B | Qwen2-VL-2B | `revision="refs/pr/N"`, needs `trust_remote_code=True` |
-| [vidore/colqwen2-v0.1](https://huggingface.co/vidore/colqwen2-v0.1) | 2.2B | Qwen2-VL-2B | `revision="refs/pr/N"`, needs `trust_remote_code=True` |
-| [vidore/colqwen2.5-v0.2](https://huggingface.co/vidore/colqwen2.5-v0.2) | 3.8B | Qwen2.5-VL-3B | `revision="refs/pr/N"`, needs `trust_remote_code=True` |
-| [vidore/colqwen2.5-v0.1](https://huggingface.co/vidore/colqwen2.5-v0.1) | 3.8B | Qwen2.5-VL-3B | `revision="refs/pr/N"`, needs `trust_remote_code=True` |
-| [vidore/colsmolvlm-v0.1](https://huggingface.co/vidore/colsmolvlm-v0.1) | 2.1B | SmolVLM-Instruct | `revision="refs/pr/N"`, needs `trust_remote_code=True` |
-| [vidore/colSmol-500M](https://huggingface.co/vidore/colSmol-500M) | 507M | SmolVLM-500M | `revision="refs/pr/N"`, needs `trust_remote_code=True` |
-| [vidore/colSmol-256M](https://huggingface.co/vidore/colSmol-256M) | 256M | SmolVLM-256M | `revision="refs/pr/N"`, needs `trust_remote_code=True` |
-| [vidore/colqwen-omni-v0.1](https://huggingface.co/vidore/colqwen-omni-v0.1) | 4.4B | Qwen2.5-Omni-3B (also audio) | `revision="refs/pr/N"`, needs `trust_remote_code=True` |
-| [ModernVBERT/colmodernvbert](https://huggingface.co/ModernVBERT/colmodernvbert) | 252M | ModernVBERT (250M) | `revision="refs/pr/N"`, needs `trust_remote_code=True` |
+| [vidore/colpali-v1.3](https://huggingface.co/vidore/colpali-v1.3) | 2.9B | PaliGemma-3B | `revision="refs/pr/N"` |
+| [vidore/colpali-v1.2](https://huggingface.co/vidore/colpali-v1.2) | 2.9B | PaliGemma-3B | `revision="refs/pr/N"` |
+| [vidore/colpali-v1.1](https://huggingface.co/vidore/colpali-v1.1) | 2.9B | PaliGemma-3B | `revision="refs/pr/N"` |
+| [vidore/colpali](https://huggingface.co/vidore/colpali) | 2.9B | PaliGemma-3B | `revision="refs/pr/N"` |
+| [vidore/colqwen2-v1.0](https://huggingface.co/vidore/colqwen2-v1.0) | 2.2B | Qwen2-VL-2B | `revision="refs/pr/N"` |
+| [vidore/colqwen2-v0.1](https://huggingface.co/vidore/colqwen2-v0.1) | 2.2B | Qwen2-VL-2B | `revision="refs/pr/N"` |
+| [vidore/colqwen2.5-v0.2](https://huggingface.co/vidore/colqwen2.5-v0.2) | 3.8B | Qwen2.5-VL-3B | `revision="refs/pr/N"` |
+| [vidore/colqwen2.5-v0.1](https://huggingface.co/vidore/colqwen2.5-v0.1) | 3.8B | Qwen2.5-VL-3B | `revision="refs/pr/N"` |
+| [vidore/colsmolvlm-v0.1](https://huggingface.co/vidore/colsmolvlm-v0.1) | 2.1B | SmolVLM-Instruct | `revision="refs/pr/N"` |
+| [vidore/colSmol-500M](https://huggingface.co/vidore/colSmol-500M) | 507M | SmolVLM-500M | `revision="refs/pr/N"` |
+| [vidore/colSmol-256M](https://huggingface.co/vidore/colSmol-256M) | 256M | SmolVLM-256M | `revision="refs/pr/N"` |
+| [vidore/colqwen-omni-v0.1](https://huggingface.co/vidore/colqwen-omni-v0.1) | 4.4B | Qwen2.5-Omni-3B (also [audio](#audio-retrieval) and [video](#video-retrieval)) | `revision="refs/pr/N"` |
+| [ModernVBERT/colmodernvbert](https://huggingface.co/ModernVBERT/colmodernvbert) | 252M | ModernVBERT (250M) | `revision="refs/pr/N"` |
 | [TomoroAI/tomoro-colqwen3-embed-4b](https://huggingface.co/TomoroAI/tomoro-colqwen3-embed-4b) | 4.4B | Qwen3-VL-4B | `revision="refs/pr/N"`, needs `trust_remote_code=True` |
+| [TomoroAI/tomoro-colqwen3-embed-8b](https://huggingface.co/TomoroAI/tomoro-colqwen3-embed-8b) | 8.8B | Qwen3-VL-8B | `revision="refs/pr/N"`, needs `trust_remote_code=True` |
+| [webAI-Official/webAI-ColVec1.1-4b](https://huggingface.co/webAI-Official/webAI-ColVec1.1-4b) | 4.5B | Qwen3.5-4B (bidirectional) | `revision="refs/pr/N"`, needs `trust_remote_code=True` |
+| [webAI-Official/webAI-ColVec1.1-8b](https://huggingface.co/webAI-Official/webAI-ColVec1.1-8b) | 8.4B | Qwen3.5-9B (bidirectional) | `revision="refs/pr/N"`, needs `trust_remote_code=True` |
 | [vidore/colpali-v1.3-hf](https://huggingface.co/vidore/colpali-v1.3-hf) | 2.9B | PaliGemma-3B | No `revision` needed |
 | [vidore/colpali-v1.2-hf](https://huggingface.co/vidore/colpali-v1.2-hf) | 2.9B | PaliGemma-3B | No `revision` needed |
 | [vidore/colqwen2-v1.0-hf](https://huggingface.co/vidore/colqwen2-v1.0-hf) | 2.2B | Qwen2-VL-2B | No `revision` needed |
 
-Nearly all of these are LoRA adapter repositories, which is what `trust_remote_code=True` is for: they ship a small modeling file that merges the adapter onto its base at load time. Most of them also have a `-merged` sibling on the Hub (e.g. [vidore/colpali-v1.3-merged](https://huggingface.co/vidore/colpali-v1.3-merged)) with the adapter already folded into the weights, which loads without remote code.
+Most of these are LoRA adapter repositories. On `transformers>=5.15.0` they load with the stock `Transformer` and no `trust_remote_code`, since the adapter is applied directly onto its base at load time. Some also have a `-merged` sibling on the Hub (e.g. [vidore/colpali-v1.3-merged](https://huggingface.co/vidore/colpali-v1.3-merged)) with the adapter already folded into the weights.
 
 The three `-hf` entries at the bottom are the transformers-native `*ForRetrieval` ports. They load without any configuration, since the projection and normalization live inside the model, but they're separate uploads that lag the originals, so prefer the checkpoint the authors publish and maintain.
 
