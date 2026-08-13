@@ -5625,7 +5625,7 @@
     - hub
 
 - local: multi-vector-encoder
-  date: August xx, 2026
+  date: August 18, 2026
   tags:
     - nlp
     - guide
