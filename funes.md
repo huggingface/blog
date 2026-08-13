@@ -192,18 +192,23 @@ with two canaries: one carrying nothing, which never arrives and confirms the ta
 cannot be answered without the prior session, and one keeping the whole session alive,
 which always costs more than recall.
 
+## Stop starting from zero
+
+> *“To think is to forget differences, generalize, make abstractions.”*
+> — Jorge Luis Borges, *Funes the Memorious*
+
+Your agents already wrote the record. funes lives at
+[`github.com/huggingface/funes`](https://github.com/huggingface/funes), one command away
+from turning that record into a memory the next agent can read, on whichever machine you
+happen to be on.
+
+## Built on open source
+
 funes invents little of this. It leans on open-source embedding models good enough to
 run locally, on [Lance](https://github.com/lancedb/lance)'s append-only datasets with
 cheap incremental writes, and on the Hub's caching and content-dedup for datasets. The
 work is in fitting them into a memory an agent can actually use.
 
-> *“To think is to forget differences, generalize, make abstractions.”*
-> — Jorge Luis Borges, *Funes the Memorious*
-
-Get started at
-[`github.com/huggingface/funes`](https://github.com/huggingface/funes). One `funes add
-claude` (or `codex`, `pi`, or `hermes`) connects the agent to the memory. Then you
-just work.
-
-funes is open source. [Open an issue](https://github.com/huggingface/funes/issues) for
-anything from an install snag to a recall that missed, or an agent you'd like supported.
+funes is open source too. [Open an issue](https://github.com/huggingface/funes/issues)
+for anything from an install snag to a recall that missed, or an agent you'd like
+supported.
