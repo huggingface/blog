@@ -8,7 +8,7 @@ authors:
 # What We Learned by Reproducing 2,200 papers from ICML
 
 
-Back in July, we ran [a hackathon](https://huggingface.co/ICML-2026-agent-repro) where more than 1,200 community members brought their own coding agents and tried the reproduce the papers published at ICML 2026, claim by claim. In 19 days, participants published [6,816 Trackio logbooks](https://icml-2026-agent-repro-challenge.static.hf.space/gallery.html) reproducing 2,226 papers, about a third of the conference 🤯
+Back in July, we ran a [hackathon](https://huggingface.co/ICML-2026-agent-repro) where more than 1,200 community members brought their own coding agents and tried to reproduce the papers published at ICML 2026, claim by claim. In 19 days, participants published [6,816 Trackio logbooks](https://icml-2026-agent-repro-challenge.static.hf.space/gallery.html) reproducing 2,226 papers, about a third of the conference 🤯
 
 In this post, we're sharing what we learned from running this hackathon, and what it suggests about _the role humans will play_ when agents are doing the research experiments.
 
@@ -18,11 +18,13 @@ Questions about how reproducible AI research really is are older than the curren
 
 Reviewing capacity has not doubled along with it. Reviewers at most conferences are volunteers who may not have the time or expertise to fully review a paper. Here is a review of one accepted ICML 2026 spotlight paper, in the reviewer's own words:
 
-![An OpenReview review admitting the proofs were not checked carefully](/blog/assets/icml-2026-open-reproductions/reviewer-quote.png)
+![An OpenReview reviewer admitting the proofs were not checked carefully](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/icml-2026-open-reproductions/reviewer-quote.png)
 
 > "My low confidence score is because I did not check all the proofs carefully."
 
 Note that **this paper got strong scores and a spotlight**. Keep it in mind, because we will come back to this exact paper later in the post, and to what happened when we finally did check the proofs carefully.
+
+What has changed, though, is that the same technology driving the flood of submissions can also help us keep up with it. Coding agents like Claude Code, Codex, Cursor, and Pi can now read a paper, write the code, launch the experiments, and report back on what they found. Checking a paper carefully used to cost a reviewer a weekend; an agent can attempt it in an afternoon, in parallel, thousands of times over.
 
 So the question we wanted to ask was: **if we actually re-examined a major conference at scale, and tried to reproduce every paper, what would we find?**
 
@@ -39,7 +41,7 @@ Participants received $20 in Hugging Face compute credits to run experiments on 
 
 Here is what a finished reproduction looks like:
 
-![Anatomy of a reproduction logbook: logbook pages, agent traces, and artifacts](/blog/assets/icml-2026-open-reproductions/anatomy.png)
+![Anatomy of a reproduction logbook: logbook pages, agent traces, and artifacts](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/icml-2026-open-reproductions/anatomy.png)
 
 By the numbers, this hackathon was probably the largest attempted reproduction of a scientific conference:
 
@@ -88,20 +90,20 @@ A few of the confirmed falsifications, linking to the logbook that found it:
 
 We have begun writing to the authors of every confirmed finding, with a simple framing: here is what we found, here is all the evidence, do you agree or is our analysis wrong? The early responses have been very positive:
 
-![An author response confirming the finding and promising an arXiv correction](/blog/assets/icml-2026-open-reproductions/author-response.png)
+![An author response confirming the finding and promising an arXiv correction](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/icml-2026-open-reproductions/author-response.png)
 
 So far authors have confirmed findings on multiple papers, two arXiv corrections are in flight, and in one case an author had quietly fixed the error in a new arXiv version a month before the challenge found it, which we count as independent convergence 🤗
 
 
 ### The role of humans
 
-The most interesting question that this hackathon raises is: do humans still have a role in reviewing papers. We think so, for several reasons:
+The most interesting question that this hackathon raises is: do humans still have a role in reviewing papers? We think so, for several reasons:
 
 **Pure agent execution hits real limits.** Agents got stuck in local loops, misread scale-dependent behavior (several "verified" verdicts on the paging paper came from checks that stopped before the log-k growth became visible), and occasionally built an entire falsification on top of a units mismatch. The challenge's most reliable results came from workflows where a human was steering: re-pointing the agent, questioning an assumption, or deciding that an experiment's premise was wrong before burning a week of compute on it.
 
 **Some evaluation is irreducibly human, for now.** Our [human-in-the-loop winner](https://huggingface.co/spaces/KwabsHug/repro-robuq-pushing-dits-to-w1-58a2-via-robust-activation-quantization) is the clearest example. The paper claimed stable image generation under extreme quantization. Numerical metrics said "no collapse"; whether the images were actually *usable* was a perceptual question. The agent built a purpose-built review UI, and the human personally judged all 128 image pairs, with the annotations committed to the repo and the agent validating their consistency afterward. The published agent trace captures the whole exchange, down to the participant asking how the review tool works and coming back with "I have gone over the pairs and put the csv in the repo, please check."
 
-So what are our roles as human reviewers? We think it is to **manage intelligence effectively.** Much like a professor or PI sets up an environment where grad students can do good work, with compute, harnesses, data access, and targeted feedback at the right moments, the participants who got the most out of their agents were the ones who built the right environment and _asked the right questions_, then let the agents do the running.
+So what are our roles as human reviewers? We think it is to **manage intelligence effectively.** Much like a professor or principal investigator (PI) sets up an environment where grad students can do good work, with compute, harnesses, data access, and targeted feedback at the right moments, the participants who got the most out of their agents were the ones who built the right environment and _asked the right questions_, then let the agents do the running.
 
 ## Thank you
 
