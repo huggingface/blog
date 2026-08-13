@@ -121,10 +121,9 @@ use `ask`. It reads your local memory by default:
 funes ask claude "what did we decide about the streaming parser"
 ```
 
-Or point it at a shared memory. We published funes's development history as the public
-[`huggingface/funes-memory`](https://huggingface.co/datasets/huggingface/funes-memory)
-dataset, so you can ask why funes works the way it does without creating a memory of
-your own:
+Or point it at a shared memory. We published a curated
+[memory](https://huggingface.co/datasets/huggingface/funes-memory) of funes development,
+so you can ask why funes works the way it does without creating a memory of your own:
 
 ```bash
 funes ask claude "why is funes append-only" --memory huggingface/funes-memory
