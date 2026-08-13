@@ -121,9 +121,8 @@ use `ask`. It reads your local memory by default:
 funes ask claude "what did we decide about the streaming parser"
 ```
 
-Or point it at a shared memory. We published funes's development history as the public
-[`huggingface/funes-memory`](https://huggingface.co/datasets/huggingface/funes-memory)
-dataset, so you can ask why funes works the way it does without creating a memory of
+Or point it at a shared memory. We published a curated [memory](https://huggingface.co/datasets/huggingface/funes-memory)
+datset of funes development, so you can ask why funes works the way it does without creating a memory of
 your own:
 
 ```bash
@@ -171,48 +170,43 @@ already hosts open weights and datasets. funes adds open working memory. It hold
 the decisions, failed approaches, and rationale behind a project, queryable by another
 agent and traceable to the sessions that produced them.
 
-## What handing over costs
+## What carrying an investigation costs
 
-There is a cheaper-looking way to do all this by hand. When a session's context grows
-until every turn is dominated by carrying it, the usual move is to start a fresh session
-and write a handoff first. That works, but the writing is not free. We measured it on
-the [handoff-vs-recall
-benchmark](https://huggingface.co/datasets/dacorvo/funes-handoff-recall-benchmark): two
-tasks whose answer cannot be reconstructed from the code, the dependencies'
-documentation, or the model's own priors, four ways of getting the prior investigation
-into a fresh session, and a hidden grader deciding whether an arm actually arrived.
+A long investigation bloats a session until each turn costs more to carry the context
+than to do the work. The usual answers are to write a handoff and start fresh, or to let
+the agent compact and carry on. Recall is a third, so we measured the five channels
+against each other on the [handoff-vs-recall
+benchmark](https://huggingface.co/datasets/dacorvo/funes-handoff-recall-benchmark/blob/main/results/README.md): two
+tasks whose answer cannot be reconstructed without the session prior knowledge.
 
-| getting the investigation into the next session | `rerank-triage` | `recall-features` |
-|---|---|---|
-| Carry nothing, re-derive it | never arrives | never arrives |
-| Write a handoff, then read it | $4.30 | $4.65 |
-| Recall the origin session | **$0.64** | **$0.84** |
-| Keep the whole context, don't switch | $6.15 | $3.25 |
+Carrying nothing never arrives, as expected. Recall was then the cheapest channel that
+got there, 8x cheaper on one task and 4x on the other.
+The rival barely matters: a handoff pays a writer to read everything once, a session kept
+alive re-reads everything every turn, and the two land within a few percent.
 
-*Cost per successful task, in dollars of model spend. Writing the handoff is charged
-once and amortised over the runs that read it.*
+Compaction is what most agents do by default, and it split. On one task its summary
+flattened the findings that mattered, and the arm never arrived.
+Recall returns the passages themselves, so a finding does not have to survive
+summarization. Every run's transcript, grade, and token count is published beside the
+numbers.
 
-Carrying nothing never arrives, which is what makes the rest of the column mean
-anything: the knowledge really did have to be transferred. Recall is then the cheapest
-way to transfer it, by roughly fivefold to sevenfold over a written handoff, because
-nobody pays to write one, and by fourfold to tenfold over keeping the whole session
-alive, because it reads a few passages instead of replaying an entire context every
-turn. This is two tasks and twenty-four runs, not a broad benchmark. Each run's full
-trajectory and item-by-item grade is published beside its cost, so any number in the
-table can be checked against the transcript behind it.
+## Stop starting from zero
+
+> *“To think is to forget differences, generalize, make abstractions.”*
+> — Jorge Luis Borges, *Funes the Memorious*
+
+Your agents already wrote the record. funes lives at
+[`github.com/huggingface/funes`](https://github.com/huggingface/funes), one command away
+from turning that record into a memory the next agent can read, on whichever machine you
+happen to be on.
+
+## Built on open source
 
 funes invents little of this. It leans on open-source embedding models good enough to
 run locally, on [Lance](https://github.com/lancedb/lance)'s append-only datasets with
 cheap incremental writes, and on the Hub's caching and content-dedup for datasets. The
 work is in fitting them into a memory an agent can actually use.
 
-> *“To think is to forget differences, generalize, make abstractions.”*
-> — Jorge Luis Borges, *Funes the Memorious*
-
-Get started at
-[`github.com/huggingface/funes`](https://github.com/huggingface/funes). One `funes add
-claude` (or `codex`, `pi`, or `hermes`) connects the agent to the memory. Then you
-just work.
-
-funes is open source. [Open an issue](https://github.com/huggingface/funes/issues) for
-anything from an install snag to a recall that missed, or an agent you'd like supported.
+funes is open source too. [Open an issue](https://github.com/huggingface/funes/issues)
+for anything from an install snag to a recall that missed, or an agent you'd like
+supported.
