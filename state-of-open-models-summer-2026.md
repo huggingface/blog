@@ -11,7 +11,7 @@ authors:
 
 In the AI world, time feels compressed. A few months after our [spring report](https://huggingface.co/blog/huggingface/state-of-os-hf-spring-2026) in our biannual analysis worked through the ecosystem, there are quite a few findings that we have observed until this summer. This report lays out these observations from January to August 2026 and presents the data behind each one.
 
-![Cumulative growth of Hugging Face datasets by task category, reaching one million in 2026](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/state-of-open-models-summer-2026/dataset-growth.png)
+![Cumulative growth of Hugging Face datasets by task category, reaching one million in 2026](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/state-of-open-models-summer-2026/dataset-growth.svg)
 
 Models and datasets on HF hub are growing on a daily basis. Public model repositories grew from 2.43 to 2.96 million over the period, datasets from 711,000 to 1 million, Spaces from 1.00 to 1.44 million. The distribution underneath stays extreme, roughly 85.6% of models have fewer than 200 lifetime downloads, and 1.5% of repositories account for 99.2% of all downloads. Everything below happens inside that shape.
 
@@ -19,11 +19,11 @@ Models and datasets on HF hub are growing on a daily basis. Public model reposit
 
 There used to be a clear progression path: labs would start by releasing smaller models and gradually work their way toward the top end of the scale. In 2026, several Chinese labs skipped this progression entirely.
 
-![Largest open-model releases from Chinese and US labs by month in 2026](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/state-of-open-models-summer-2026/frontier-ceiling-by-country.png)
+![Largest open-model releases from Chinese and US labs by month in 2026](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/state-of-open-models-summer-2026/frontier-ceiling-by-country.svg)
 
 **In almost every month of 2026, the largest and most performant open model from a Chinese lab was larger than anything an American lab released of its own.** China's monthly ceiling ran between 754B and 2.78 trillion parameters; America's own ceiling stayed under 130B in five of seven months, the exception being NVIDIA's [Nemotron 3 Ultra](https://huggingface.co/collections/nvidia/nvidia-nemotron-v3) at 561B in May and June, and [Inkling](https://huggingface.co/collections/thinkingmachines/inkling) from Thinking Machines Lab.
 
-![Every lab has a different size strategy](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/state-of-open-models-summer-2026/lab-size-strategy.png)
+![Every lab has a different size strategy](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/state-of-open-models-summer-2026/lab-size-strategy.svg)
 
 The chart splits the labs into two camps. [Moonshot](https://huggingface.co/moonshotai), [MiniMax](https://huggingface.co/MiniMaxAI), [Xiaomi](https://huggingface.co/XiaomiMiMo) and [Z.ai](http://Z.ai) publish almost nothing below 70B, so a developer's first encounter with them is a model too large to run on anything they own. [Tencent](https://huggingface.co/tencent) and [Alibaba Qwen](https://huggingface.co/Qwen) cover the whole range instead, from under 1B upward.
 
@@ -33,7 +33,7 @@ That leaves the size profile as a statement of intent rather than of capability.
 
 The United States, meanwhile, is not absent from open source.
 
-![New homegrown models](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/state-of-open-models-summer-2026/new-homegrown-models.png)
+![New homegrown models](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/state-of-open-models-summer-2026/new-homegrown-models.svg)
 
 The two organizations publishing the most new open models this year are also the companies making the hardware: [AMD](https://huggingface.co/amd) and [NVIDIA](https://huggingface.co/nvidia). Each released more than 200 new model repositories, far ahead of the rest of the field, with [LiquidAI](https://huggingface.co/LiquidAI) ranking third at around 100\. Hardware vendors have realized that open models are a way to sell chips: a model optimized for your hardware and freely available is the clearest proof that the hardware works.
 
@@ -51,13 +51,13 @@ Meanwhile, Chinese open models are increasingly optimized for domestic chips,  t
 
 We took the top 25 model repositories by downloads accumulated this year and the top 25 by likes. **Exactly one repository appears in both lists.**
 
-**![Attention and usage are two different economies](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/state-of-open-models-summer-2026/attention-vs-usage.png)**
+**![Attention and usage are two different economies](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/state-of-open-models-summer-2026/attention-vs-usage.svg)**
 
 We counted downloads inside the window rather than lifetime, so nothing is credited for merely having existed longer,  and controlling for age makes the split sharper. Not one model published in 2026 reaches the download top 25, while thirteen of the twenty-five date from 2022\. [all-MiniLM-L6-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2) was pulled 1.55 billion times in seven months against 5,156 likes; [Kimi-K3](https://huggingface.co/moonshotai/Kimi-K3) was pulled about 60 times per like it received.
 
 The two numbers record different acts. A like says a release matters, and goes to frontier models in the weeks after they ship. A download says something is wired into a pipeline that runs on a schedule, and accrues to small, stable models over years. Likes are the right instrument for reading what the field is excited about, downloads for reading what it currently depends on. Treating either as a proxy for the other is the most common mistake we see in coverage of the Hub, including our own earlier work. The same split appears at the level of the publisher.
 
-![Who downloads what](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/state-of-open-models-summer-2026/downloads-by-lab-and-model-size.png)
+![Who downloads what](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/state-of-open-models-summer-2026/downloads-by-lab-and-model-size.svg)
 
 Chinese frontier labs are the only accounts on the Hub where the heavy band carries the volume. Effectively all of MiniMax's 2026 downloads are of models above 70B, along with 88% of Moonshot's, 55% of DeepSeek's and 39% of Z.ai's. No large American account looks like this: Google, Microsoft and IBM Granite record essentially none of their 2026 downloads above 70B, and NVIDIA and Meta only 14% and 9%.
 
@@ -71,7 +71,7 @@ This helps explain why today’s download volume is often driven not by the newe
 
 If frontier models were a licensing business, you would expect the biggest releases to carry the tightest terms. However, the data below shows a different story.
 
-![The licence is not the business model](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/state-of-open-models-summer-2026/model-licenses-by-region-and-size.png)
+![The licence is not the business model](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/state-of-open-models-summer-2026/model-licenses-by-region-and-size.svg)
 
 Of 178 Chinese releases above 20B parameters this year, 59% carry Apache 2.0 and 22% carry MIT, and **exactly none carry a non-commercial restriction**.
 
@@ -83,7 +83,7 @@ Whatever these releases are for, it is not licence revenue. The weights are give
 
 A model’s ecosystem position is not defined only by its own releases, but by how much the community builds on top of it. As mentioned above, Qwen is one exception which is getting attention and adoption.
 
-![Derivatives on Hugging Face by organization](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/state-of-open-models-summer-2026/derivatives-by-organization.png)
+![Derivatives on Hugging Face by organization](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/state-of-open-models-summer-2026/derivatives-by-organization.svg)
 
 Data from Hugging Face
 
@@ -101,23 +101,23 @@ This position was built largely by the community. The **151,448 derivatives** re
 
 Among models that declare a parameter count, those under 1B take 83% of all-time downloads and everything above 100B takes 1%. Restricting to downloads accumulated in 2026 changes nothing: 3% of the volume goes to models above 70B. This is the March finding that has held up most cleanly, for the same reason as before,  small models are the only ones that run on the hardware most developers actually have.
 
-![Downloads still belong to small models](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/state-of-open-models-summer-2026/downloads-by-model-size.png)
+![Downloads still belong to small models](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/state-of-open-models-summer-2026/downloads-by-model-size.svg)
 
 So how does a trillion-parameter model reach anyone at all? Through llama.cpp.
 
 In February the ggml team [joined Hugging Face](https://huggingface.co/blog/ggml-joins-hf), with the project remaining fully open-source, community-governed and in the same technical direction. What changed is that the most important project in local inference now has durable resources behind it.
 
-![llama.cpp on the Hub in 2026](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/state-of-open-models-summer-2026/llama-cpp-hub-growth.png)
+![llama.cpp on the Hub in 2026](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/state-of-open-models-summer-2026/llama-cpp-hub-growth.svg)
 
 The ceiling moved with llama.cpp. The July snapshot carries GGUF builds of DeepSeek-V4-Flash at roughly 284B parameters and Kimi-K3 at roughly 2.8 trillion. Local inference used to mean an 8B model on a laptop. It now means a trillion-parameter mixture-of-experts spread across a few consumer machines, which is the alternative route the frontier did not have a year ago, and the reason a frontier-first release strategy is viable at all.
 
-![What people actually run locally](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/state-of-open-models-summer-2026/local-downloads-by-model-family.png)
+![What people actually run locally](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/state-of-open-models-summer-2026/local-downloads-by-model-family.svg)
 
 And that route runs on Qwen: 39.6 million GGUF downloads a month, nearly twice Gemma's 20.8 million and more than five times Llama's 7.5 million. The Llama gap is not a supply problem, Llama-derived GGUF repositories slightly outnumber Qwen's. Same shelf space, a fifth of the traffic.
 
 Model repositories grew 21.5% over these seven months. Several things around them grew several times faster.
 
-![The runtime layer is growing fastest](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/state-of-open-models-summer-2026/runtime-layer-growth.png)
+![The runtime layer is growing fastest](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/state-of-open-models-summer-2026/runtime-layer-growth.svg)
 
 Repositories declaring the gguf library rose 464%, lerobot 194% and Apple's mlx148%, against 16% for transformers and peft and 21% for diffusers. The modelling core is growing at roughly the platform average. The layer that decides where a model can physically run local inference formats, Apple silicon, robot control stacks, is growing three to seven times faster than that.
 
@@ -127,7 +127,7 @@ Across the ten largest model families, the labs behind these models publish very
 
 We could not have written this section in March, because the instrument did not exist. The [agent-usage](https://huggingface.co/datasets/huggingface/agent-usage) dataset, published in July, records the agent/\<name\> token that coding agents send when they call the Hub through huggingface\_hub or the hf CLI — searching for models, pushing datasets, running Jobs, creating Spaces. For the first time we can see how much agent traffic the Hub receives and which harnesses it comes from.
 
-![Agents calling the Hugging Face Hub](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/state-of-open-models-summer-2026/agent-hub-traffic.png)
+![Agents calling the Hugging Face Hub](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/state-of-open-models-summer-2026/agent-hub-traffic.svg)
 Claude Code led July with 44.4%, but a single month conceals the real finding: it held 67.8% in April and 6.4% in May, while Codex climbed steadily from 10.4% to 20.8%. This is a market with no incumbent, where one release or one changed default can move half the traffic in a month.
 
 The second finding is the unregistered row. Nearly a quarter of agent-tagged traffic in July came from harnesses not yet named in the dataset, and in May that figure was 59.8%. Between April and July more than a dozen new client identifiers appeared. New entrants are arriving faster than any registry can name them — which is itself the finding.
