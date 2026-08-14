@@ -1,6 +1,6 @@
 ---
 title: "Give Your Coding Agents a Memory You Own"
-thumbnail: /blog/assets/funes/thumbnail.png
+thumbnail: /blog/assets/funes/thumbnail.jpg
 authors:
 - user: dacorvo
 ---
