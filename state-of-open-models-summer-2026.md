@@ -21,7 +21,7 @@ There used to be a clear progression path: labs would start by releasing smaller
 
 ![Largest open-model releases from Chinese and US labs by month in 2026](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/state-of-open-models-summer-2026/frontier-ceiling-by-country.png)
 
-**In almost every month of 2026, the largest and most performant open model from a Chinese lab was larger than anything an American lab released of its own.** China's monthly ceiling ran between 754B and 2.78 trillion parameters; America's own ceiling stayed under 130B in five of seven months, the exception being NVIDIA's [Nemotron 3 Ultra](https://huggingface.co/collections/nvidia/nvidia-nemotron-v3) at 561B in May and June, and [Inkling](https://huggingface.co/collections/thinkingmachines/inkling) from Thinking Machines Lab.
+**In almost every month of 2026, the largest and most performant open model from a Chinese lab was larger than any model an American lab released.** China's monthly ceiling ran between 754B and 2.78 trillion parameters; U.S. models stayed under 130B in five of seven months, the exception being NVIDIA's [Nemotron 3 Ultra](https://huggingface.co/collections/nvidia/nvidia-nemotron-v3) at 561B in May and June, and [Inkling](https://huggingface.co/collections/thinkingmachines/inkling) from Thinking Machines Lab.
 
 ![Every lab has a different size strategy](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/state-of-open-models-summer-2026/lab-size-strategy.png)
 
@@ -31,21 +31,21 @@ Two things made the first camp possible. Building large stopped being a differen
 
 That leaves the size profile as a statement of intent rather than of capability. A frontier only portfolio stakes everything on benchmark position and API demand. A full spectrum portfolio is a bid to be the family developers standardise on. Both are rational, they are playing for different prizes.
 
-The United States, meanwhile, is not absent from open source.
+The United States is not absent from open source.
 
 ![New homegrown models](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/state-of-open-models-summer-2026/new-homegrown-models.png)
 
 The two organizations publishing the most new open models this year are also the companies making the hardware: [AMD](https://huggingface.co/amd) and [NVIDIA](https://huggingface.co/nvidia). Each released more than 200 new model repositories, far ahead of the rest of the field, with [LiquidAI](https://huggingface.co/LiquidAI) ranking third at around 100\. Hardware vendors have realized that open models are a way to sell chips: a model optimized for your hardware and freely available is the clearest proof that the hardware works.
 
-When smaller models and embedding models are included, where Google, Microsoft, IBM Granite, and OpenAI’s older vision and speech models generate hundreds of millions of downloads annually,  **U.S. participation in open source AI is still growing.**
+When smaller models and embedding models are included, where Google, Microsoft, IBM Granite, and OpenAI’s older vision and speech models generate hundreds of millions of downloads annually,  **U.S. open source AI is growing.**
 
-However, the center of gravity has shifted. Google and Meta now rank well below NVIDIA in new model releases, despite being the companies that defined open model publishing in previous years. Meta’s move toward closed flagship models further highlights this change. Open source has moved from model labs to **hardware and infrastructure companies**.
+More hardware and infrastructure organizations such as NVIDIA are training and open-weighting competitive models. NVIDIA's Nemotron model family boasts high performance. Long-time leaders such as Meta reignite open roots with Meta's [Muse Glimmer](https://huggingface.co/meta-models/Muse-Glimmer-30B).
 
-At the frontier scale, the picture is very different. Most U.S. releases above 100B parameters this year are not new models, but built on top of Chinese models. Only a few major original American models appear at this scale: Thinking Machines’ [Inkling](https://huggingface.co/collections/thinkingmachines/inkling) (952B), NVIDIA’s [Nemotron 3 Ultra](https://huggingface.co/collections/nvidia/nvidia-nemotron-v3) (561B), [Nemotron 3 Super](https://huggingface.co/collections/nvidia/nvidia-nemotron-v3) (124B), and Arcee AI’s [Trinity-Large](https://huggingface.co/collections/arcee-ai/trinity-large-thinking) (399B).
+At the frontier scale, some U.S. model releases above 100B parameters this year are built on top of Chinese models or leverage artifacts from Chinese labs, such as Thinking Machines’ [Inkling](https://huggingface.co/collections/thinkingmachines/inkling) (952B). Major original American models include NVIDIA’s [Nemotron 3 Ultra](https://huggingface.co/collections/nvidia/nvidia-nemotron-v3) (561B), [Nemotron 3 Super](https://huggingface.co/collections/nvidia/nvidia-nemotron-v3) (124B), and Arcee AI’s [Trinity-Large](https://huggingface.co/collections/arcee-ai/trinity-large-thinking) (399B).
 
-AMD contributed many conversions but no original model at this scale. This work is still important: it enables trillion-parameter Chinese models to run efficiently on American hardware. But it represents a **distribution and optimization layer rather than model creation**.
+AMD contributed many conversions. This work is important: it enables trillion-parameter models to run efficiently on U.S. hardware. This represents a **distribution and optimization layer**.
 
-Meanwhile, Chinese open models are increasingly optimized for domestic chips,  the same competition in reverse, where models are designed around specific hardware ecosystems.
+Meanwhile, Chinese open models are increasingly optimized for domestic chips in China,  the same competition in reverse, where models are designed around specific hardware ecosystems.
 
 ## **2\. Attention ≠ Adoption**
 
@@ -59,7 +59,7 @@ The two numbers record different acts. A like says a release matters, and goes t
 
 ![Who downloads what](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/state-of-open-models-summer-2026/downloads-by-lab-and-model-size.png)
 
-Chinese frontier labs are the only accounts on the Hub where the heavy band carries the volume. Effectively all of MiniMax's 2026 downloads are of models above 70B, along with 88% of Moonshot's, 55% of DeepSeek's and 39% of Z.ai's. No large American account looks like this: Google, Microsoft and IBM Granite record essentially none of their 2026 downloads above 70B, and NVIDIA and Meta only 14% and 9%.
+China's frontier labs are the only accounts on the Hub where the heavy band carries the volume. Effectively all of MiniMax's 2026 downloads are of models above 70B, along with 88% of Moonshot's, 55% of DeepSeek's and 39% of Z.ai's. No large American account looks like this: Google, Microsoft and IBM Granite record essentially none of their 2026 downloads above 70B, and NVIDIA and Meta only 14% and 9%.
 
 The difference becomes clearer in total downloads. Moonshot’s frontier-only portfolio recorded 37M downloads over the year, while Qwen’s broader release strategy across model sizes reached 2,045M (across repositories with declared parameter counts, 2,061M including all repositories) , about 55 times more. The continued expansion of the family, from the 2.4T-parameter Qwen 3.8 Max to smaller variants such as 27B, shows the same focus on coverage across different use cases.
 
@@ -73,7 +73,7 @@ If frontier models were a licensing business, you would expect the biggest relea
 
 ![The licence is not the business model](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/state-of-open-models-summer-2026/model-licenses-by-region-and-size.png)
 
-Of 178 Chinese releases above 20B parameters this year, 59% carry Apache 2.0 and 22% carry MIT, and **exactly none carry a non-commercial restriction**.
+Of 178 Chinese releases above 20B parameters this year, 59% carry Apache 2.0 and 22% carry MIT, and **most carry a non-commercial restriction**. However, in the last few weeks, we started to see a change on this trend for the really large models, with [Kimi K3](https://huggingface.co/moonshotai/Kimi-K3) and [Qwen3.8](https://huggingface.co/Qwen/Qwen3.8-27B) starting to include some non-commercial restrictions and revenue share requirements to their licenses
 
 DeepSeek and Z.ai ship models between 700 billion and 1.65 trillion parameters under plain MIT. Chinese labs license their largest models about as permissively as their smallest, and more permissively than American labs license theirs: on the American side of the same size band, 29% is Apache or MIT, 41% sits under custom terms and 30% declares nothing at all.
 
@@ -138,13 +138,13 @@ Then, in July, an agent stopped being a reader and became an intruder. What appe
 
 ## **Looking forward**
 
-Compared to the spring report, the geographical rebalancing of power continues to accelerate. While the US open source models continue, the racing between several Chinese frontier models, drawing also strong attention within the community. Many likes on these frontier models are pointing to what excites the community the most, and growth opportunity for companies leveraging the attention for valuations.
+Compared to the spring report, the geographical rebalancing of power continues to accelerate. While U.S. open source models continue to be competitive, the race between several Chinese frontier model labs draws strong attention. Many likes on these frontier models point to what excites the community the most, and growth opportunity for companies leveraging the attention for valuations.
 
-However, the AI race is not only sprints, but also a marathon, tools like llama.cpp helps deploying the big models locally, but a broad model family and its adoption is still the key, to build a positive feedback loop between developers, publisher and future users. Models to be embedded in the infrastructure and being part of the ecosystem, may lead to a commercially sound exit at the end of the tunnel.
+However, the AI race is not only sprints, but also a marathon; tools like llama.cpp helps deploying the big models locally, but a broad model family and its adoption is still the key, to build a positive feedback loop between developers, publisher and future users. Models to be embedded in the infrastructure and being part of the ecosystem, may lead to a commercially sound exit at the end of the tunnel.
 
-In the end, having for the first time agents being the number 1 user on HF hub, the next report may also look very different.
+In the end, with agents being the number 1 user on HF Hub for the first time, the next report may look very different.
 
-As In AI, a few months can reshape the ecosystem.
+In AI, a few months can reshape the ecosystem.
 
 ---
 
@@ -159,3 +159,7 @@ Downloads indicate usage within the Hub ecosystem, but they do not capture API u
 Likes reflect community attention and interest, while derivative models provide a signal of how much developers build on top of an existing model.
 
 Because open-source AI adoption happens across many channels, Hub activity should be viewed as one perspective on ecosystem development rather than a complete measurement of the AI market.
+
+### **Edited**
+
+This article was edited to include latest releases in early August.
