@@ -27,7 +27,7 @@ There used to be a clear progression path: labs would start by releasing smaller
 
 The chart splits the labs into two camps. [Moonshot](https://huggingface.co/moonshotai), [MiniMax](https://huggingface.co/MiniMaxAI), [Xiaomi](https://huggingface.co/XiaomiMiMo) and [Z.ai](http://Z.ai) publish almost nothing below 70B, so a developer's first encounter with them is a model too large to run on anything they own. [Tencent](https://huggingface.co/tencent) and [Alibaba Qwen](https://huggingface.co/Qwen) cover the whole range instead, from under 1B upward.
 
-Two things made the first camp possible. Building large stopped being a differentiator. Xiaomi, [Ant Group](https://huggingface.co/inclusionAI) and [Meituan](https://huggingface.co/meituan-longcat) both cleared a trillion parameters this year, and neither was a household name in open weights twelve months ago. And a lab no longer has to ship a small model to be reachable, because the community's quantization layer will make a large one runnable within days, a dependency we return to below.
+Two things made the first camp possible. Building large stopped being a differentiator. Xiaomi, [Ant Group](https://huggingface.co/inclusionAI) and [Meituan](https://huggingface.co/meituan-longcat) all cleared a trillion parameters this year, and neither was a household name in open weights twelve months ago. And a lab no longer has to ship a small model to be reachable, because the community's quantization layer will make a large one runnable within days, a dependency we return to below.
 
 That leaves the size profile as a statement of intent rather than of capability. A frontier only portfolio stakes everything on benchmark position and API demand. A full spectrum portfolio is a bid to be the family developers standardise on. Both are rational, they are playing for different prizes.
 
@@ -73,7 +73,7 @@ If frontier models were a licensing business, you would expect the biggest relea
 
 ![The licence is not the business model](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/state-of-open-models-summer-2026/model-licenses-by-region-and-size.png)
 
-Of 178 Chinese releases above 20B parameters this year, 59% carry Apache 2.0 and 22% carry MIT, and **most carry a non-commercial restriction**. However, in the last few weeks, we started to see a change on this trend for the really large models, with [Kimi K3](https://huggingface.co/moonshotai/Kimi-K3) and [Qwen3.8](https://huggingface.co/Qwen/Qwen3.8-27B) starting to include some non-commercial restrictions and revenue share requirements to their licenses
+Of 178 Chinese releases above 20B parameters this year, 59% carry Apache 2.0 and 22% carry MIT, and **almost none carry non-commercial restrictions**. However, in the last few weeks, we started to see a change on this trend for the really large models, with [Kimi K3](https://huggingface.co/moonshotai/Kimi-K3) and [Qwen 3.8 2.4T](https://huggingface.co/Qwen/Qwen3.8-2.4T-A95B) starting to include some non-commercial restrictions and revenue share requirements to their licenses
 
 DeepSeek and Z.ai ship models between 700 billion and 1.65 trillion parameters under plain MIT. Chinese labs license their largest models about as permissively as their smallest, and more permissively than American labs license theirs: on the American side of the same size band, 29% is Apache or MIT, 41% sits under custom terms and 30% declares nothing at all.
 
@@ -128,7 +128,7 @@ Across the ten largest model families, the labs behind these models publish very
 We could not have written this section in March, because the instrument did not exist. The [agent-usage](https://huggingface.co/datasets/huggingface/agent-usage) dataset, published in July, records the agent/\<name\> token that coding agents send when they call the Hub through huggingface\_hub or the hf CLI — searching for models, pushing datasets, running Jobs, creating Spaces. For the first time we can see how much agent traffic the Hub receives and which harnesses it comes from.
 
 ![Agents calling the Hugging Face Hub](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/state-of-open-models-summer-2026/agent-hub-traffic.png)
-Claude Code led July with 44.4%, but a single month conceals the real finding: it held 67.8% in April and 6.4% in May, while Codex climbed steadily from 10.4% to 20.8%. This is a market with no incumbent, where one release or one changed default can move half the traffic in a month.
+Claude Code led July with 44.4%, but a single month conceals the real finding: it held 67.8% in April and 64% in May, while Codex climbed steadily from 10.4% to 20.8%. This is a market with no incumbent, where one release or one changed default can move half the traffic in a month.
 
 The second finding is the unregistered row. Nearly a quarter of agent-tagged traffic in July came from harnesses not yet named in the dataset, and in May that figure was 59.8%. Between April and July more than a dozen new client identifiers appeared. New entrants are arriving faster than any registry can name them — which is itself the finding.
 
