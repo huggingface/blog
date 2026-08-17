@@ -598,7 +598,7 @@ Late interaction is the state of the art for visual document retrieval: matching
 ```python
 from sentence_transformers import MultiVectorEncoder
 
-model = MultiVectorEncoder("vidore/colqwen2-v1.0", revision="refs/pr/N")
+model = MultiVectorEncoder("vidore/colqwen2-v1.0")
 
 queries = [
     "What is the variable represented on the y-axis of the graph?",
@@ -626,7 +626,7 @@ Each query retrieves its own page (the diagonal), and the second query separates
 
 The code is unchanged. Underneath, the processor handles the visual prompt and the image patches, and MaxSim scores query text tokens against document image patches. A page holds many separate regions, which is exactly what makes late interaction a natural fit here, since a single vector would have to average a chart, a table, and three paragraphs into one summary. That fidelity costs index space, though. The shapes above are 755 token vectors for one page against 25 for the query, where a Natural Questions passage from earlier averaged about 125, so [token pooling](#token-pooling) is worth reaching for earlier here than it is for text.
 
-These are VLMs, so plan for the memory they need. [The table in Supported Models](#visual-document-retrieval-models) runs from 252M to 4.4B parameters, and the small end of it stays practical on CPU where the multi-billion ones don't.
+These are VLMs, so plan for the memory they need. [The table in Supported Models](#visual-document-retrieval-models) runs from 252M to 8.8B parameters, and the small end of it stays practical on CPU where the multi-billion ones don't.
 
 Page images are the common case, but they're not the only non-text modality. Sentence Transformers accepts text, images, audio, and video, and a checkpoint supports whichever of those its processor does, which `model.modalities` reports. A single document can combine modalities too, by passing a dict like `{"text": ..., "image": ...}` in place of a bare value. [Multimodal Embedding & Reranker Models](https://huggingface.co/blog/multimodal-sentence-transformers) covers multimodal models in Sentence Transformers more broadly, and the [Usage documentation](https://sbert.net/docs/sentence_transformer/usage/usage.html) lists exactly which input formats each modality accepts.
 
@@ -643,7 +643,7 @@ from sentence_transformers import MultiVectorEncoder
 
 model = MultiVectorEncoder(
     "vidore/colqwen-omni-v0.1",
-    revision="refs/pr/N",
+    revision="refs/pr/1",
     model_kwargs={"dtype": torch.bfloat16},
 )
 print(model.modalities)
@@ -681,7 +681,7 @@ from sentence_transformers import MultiVectorEncoder
 
 model = MultiVectorEncoder(
     "vidore/colqwen-omni-v0.1",
-    revision="refs/pr/N",
+    revision="refs/pr/1",
     model_kwargs={"dtype": torch.bfloat16},
 )
 
@@ -871,72 +871,83 @@ Note that save compatibility is one-way in every case: PyLate, Stanford-NLP ColB
 
 The [`sentence-transformers` tag](https://huggingface.co/models?library=sentence-transformers&other=multi-vector) on the Hub is the list that stays current, and we're working to get it onto every model that works. The tables below are what we test against directly, so treat them as a starting point rather than the full set. For text retrieval in particular, any PyLate or Stanford-NLP ColBERT checkpoint loads whether or not it carries the tag yet.
 
+Some entries need a small Sentence Transformers configuration added to their repository first, and several of those are still open pull requests at the time of writing. Where a `revision` is listed below, pass it until that pull request is merged, after which the plain model name is enough:
+
+```python
+model = MultiVectorEncoder("vidore/colqwen-omni-v0.1", revision="refs/pr/N")
+```
+
 ### Text Retrieval Models
 
-These load with their trained prefix tokens, query expansion, and punctuation skiplist recovered from the saved configuration. Where a `revision` is listed, pass it until the pull request on that repository is merged, after which the plain model name is enough.
+These load with their trained prefix tokens, query expansion, and punctuation skiplist recovered from the saved configuration.
 
-| Model | Parameters | Backbone | Notes |
-| --- | :---: | --- | --- |
-| [lightonai/GTE-ModernColBERT-v1](https://huggingface.co/lightonai/GTE-ModernColBERT-v1) | 149M | gte-modernbert-base | No `revision` needed |
-| [lightonai/Reason-ModernColBERT](https://huggingface.co/lightonai/Reason-ModernColBERT) | 149M | ModernBERT-base | No `revision` needed |
-| [lightonai/Agent-ModernColBERT](https://huggingface.co/lightonai/Agent-ModernColBERT) | 149M | ModernBERT-base | No `revision` needed |
-| [lightonai/ColBERT-Zero](https://huggingface.co/lightonai/ColBERT-Zero) | 149M | ModernBERT-base | No `revision` needed |
-| [lightonai/LateOn](https://huggingface.co/lightonai/LateOn) | 149M | ModernBERT-base | No `revision` needed |
-| [lightonai/LateOn-hpool-regularized](https://huggingface.co/lightonai/LateOn-hpool-regularized) | 149M | ModernBERT-base | No `revision` needed |
-| [lightonai/LateOn-Code](https://huggingface.co/lightonai/LateOn-Code) | 149M | ModernBERT-base (code) | No `revision` needed |
-| [lightonai/LateOn-Code-edge](https://huggingface.co/lightonai/LateOn-Code-edge) | 17M | ModernBERT (17M, code, 48-dim output) | No `revision` needed |
-| [lightonai/mLateOn](https://huggingface.co/lightonai/mLateOn) | 307M | ModernBERT (multilingual) | No `revision` needed |
-| [LiquidAI/LFM2-ColBERT-350M](https://huggingface.co/LiquidAI/LFM2-ColBERT-350M) | 353M | LFM2 (350M) | No `revision` needed |
-| [LiquidAI/LFM2.5-ColBERT-350M](https://huggingface.co/LiquidAI/LFM2.5-ColBERT-350M) | 353M | LFM2.5 (350M) | `revision="refs/pr/N"`, needs `trust_remote_code=True` |
-| [mixedbread-ai/mxbai-edge-colbert-v0-32m](https://huggingface.co/mixedbread-ai/mxbai-edge-colbert-v0-32m) | 32M | ModernBERT (32M) | No `revision` needed |
-| [mixedbread-ai/mxbai-edge-colbert-v0-17m](https://huggingface.co/mixedbread-ai/mxbai-edge-colbert-v0-17m) | 17M | ModernBERT (17M) | No `revision` needed |
-| [mixedbread-ai/mxbai-colbert-large-v1](https://huggingface.co/mixedbread-ai/mxbai-colbert-large-v1) | 335M | bert-large-uncased | `revision="refs/pr/N"` |
-| [VAGOsolutions/SauerkrautLM-EuroColBERT](https://huggingface.co/VAGOsolutions/SauerkrautLM-EuroColBERT) | 212M | EuroBERT-210m | No `revision` needed |
-| [VAGOsolutions/SauerkrautLM-Reason-EuroColBERT](https://huggingface.co/VAGOsolutions/SauerkrautLM-Reason-EuroColBERT) | 212M | EuroBERT-210m | No `revision` needed |
-| [jinaai/jina-colbert-v2](https://huggingface.co/jinaai/jina-colbert-v2) | 559M | XLM-RoBERTa (multilingual) | No `revision` needed, needs `trust_remote_code=True` |
-| [antoinelouis/colbert-xm](https://huggingface.co/antoinelouis/colbert-xm) | 853M | X-MOD (multilingual) | No `revision` needed |
-| [yjoonjang/colbert-ko-v1](https://huggingface.co/yjoonjang/colbert-ko-v1) | 149M | ModernBERT (Korean) | No `revision` needed |
-| [ytu-ce-cosmos/turkish-colbert](https://huggingface.co/ytu-ce-cosmos/turkish-colbert) | 111M | BERT (Turkish, 256-dim output) | No `revision` needed |
-| [samheym/GerColBERT](https://huggingface.co/samheym/GerColBERT) | 110M | BERT (German) | No `revision` needed |
-| [answerdotai/answerai-colbert-small-v1](https://huggingface.co/answerdotai/answerai-colbert-small-v1) | 33M | BERT (33M) | No `revision` needed |
-| [colbert-ir/colbertv2.0](https://huggingface.co/colbert-ir/colbertv2.0) | 110M | bert-base-uncased | No `revision` needed |
-| [lightonai/colbertv2.0](https://huggingface.co/lightonai/colbertv2.0) | 110M | bert-base-uncased | No `revision` needed |
-| [perplexity-ai/pplx-embed-v1-late-0.6b](https://huggingface.co/perplexity-ai/pplx-embed-v1-late-0.6b) | 596M | Qwen3-0.6B (bidirectional) | No `revision` needed, needs `trust_remote_code=True` |
+The NanoBEIR column reports the mean NDCG@10 (higher is better) across the 13 [NanoBEIR datasets](https://huggingface.co/datasets/sentence-transformers/NanoBEIR-en), each a 50-query subsample of a BEIR dataset, as a fast proxy for English text retrieval quality. We used the `MultiVectorNanoBEIREvaluator` to compute the scores for the primarily-English models. A `-` means the model was not evaluated on it. Note that NanoBEIR is a small benchmark, and its scores aren't a substitute for evaluating on your own data, which is always the right way to pick a model.
+
+| Model | Parameters | Dimensionality | NanoBEIR | Notes |
+| --- | :---: | :---: | :---: | --- |
+| [lightonai/LateOn-regularized](https://huggingface.co/lightonai/LateOn-regularized) | 149M | 128 | 0.6897 | - |
+| [lightonai/LateOn-hpool-regularized](https://huggingface.co/lightonai/LateOn-hpool-regularized) | 149M | 128 | 0.6876 | - |
+| [lightonai/LateOn](https://huggingface.co/lightonai/LateOn) | 149M | 128 | 0.6868 | - |
+| [LiquidAI/LFM2.5-ColBERT-350M](https://huggingface.co/LiquidAI/LFM2.5-ColBERT-350M) | 353M | 128 | 0.6864 | `revision="refs/pr/3"`, needs `trust_remote_code=True` |
+| [lightonai/mLateOn](https://huggingface.co/lightonai/mLateOn) | 307M | 128 | 0.6851 | - |
+| [lightonai/GTE-ModernColBERT-v1](https://huggingface.co/lightonai/GTE-ModernColBERT-v1) | 149M | 128 | 0.6720 | - |
+| [topk-io/Iso-ModernColBERT](https://huggingface.co/topk-io/Iso-ModernColBERT) | 149M | 128 | 0.6687 | - |
+| [perplexity-ai/pplx-embed-v1-late-0.6b](https://huggingface.co/perplexity-ai/pplx-embed-v1-late-0.6b) | 596M | 128 | 0.6662 | needs `trust_remote_code=True` |
+| [lightonai/ColBERT-Zero](https://huggingface.co/lightonai/ColBERT-Zero) | 149M | 128 | 0.6569 | - |
+| [answerdotai/answerai-colbert-small-v1](https://huggingface.co/answerdotai/answerai-colbert-small-v1) | 33M | 96 | 0.6550 | - |
+| [mixedbread-ai/mxbai-edge-colbert-v0-32m](https://huggingface.co/mixedbread-ai/mxbai-edge-colbert-v0-32m) | 32M | 64 | 0.6524 | - |
+| [LiquidAI/LFM2-ColBERT-350M](https://huggingface.co/LiquidAI/LFM2-ColBERT-350M) | 353M | 128 | 0.6441 | - |
+| [mixedbread-ai/mxbai-edge-colbert-v0-17m](https://huggingface.co/mixedbread-ai/mxbai-edge-colbert-v0-17m) | 17M | 48 | 0.6407 | - |
+| [lightonai/colbertv2.0](https://huggingface.co/lightonai/colbertv2.0) | 110M | 128 | 0.6201 | - |
+| [lightonai/LateOn-Code](https://huggingface.co/lightonai/LateOn-Code) | 149M | 128 | 0.6169 | - |
+| [lightonai/Agent-ModernColBERT](https://huggingface.co/lightonai/Agent-ModernColBERT) | 149M | 128 | 0.6164 | - |
+| [lightonai/Reason-ModernColBERT](https://huggingface.co/lightonai/Reason-ModernColBERT) | 149M | 128 | 0.6078 | - |
+| [colbert-ir/colbertv2.0](https://huggingface.co/colbert-ir/colbertv2.0) | 110M | 128 | 0.6053 | - |
+| [VAGOsolutions/SauerkrautLM-EuroColBERT](https://huggingface.co/VAGOsolutions/SauerkrautLM-EuroColBERT) | 212M | 128 | 0.5982 | - |
+| [antoinelouis/colbert-xm](https://huggingface.co/antoinelouis/colbert-xm) | 853M | 128 | 0.5915 | - |
+| [VAGOsolutions/SauerkrautLM-Multi-ModernColBERT](https://huggingface.co/VAGOsolutions/SauerkrautLM-Multi-ModernColBERT) | 149M | 128 | 0.5886 | - |
+| [mixedbread-ai/mxbai-colbert-large-v1](https://huggingface.co/mixedbread-ai/mxbai-colbert-large-v1) | 335M | 128 | 0.5733 | `revision="refs/pr/4"` |
+| [lightonai/LateOn-Code-edge](https://huggingface.co/lightonai/LateOn-Code-edge) | 17M | 48 | 0.5274 | - |
+| [VAGOsolutions/SauerkrautLM-Multi-Reason-ModernColBERT](https://huggingface.co/VAGOsolutions/SauerkrautLM-Multi-Reason-ModernColBERT) | 149M | 128 | 0.5267 | - |
+| [VAGOsolutions/SauerkrautLM-Reason-EuroColBERT](https://huggingface.co/VAGOsolutions/SauerkrautLM-Reason-EuroColBERT) | 212M | 128 | 0.4479 | - |
+| [NeuML/biomedbert-base-colbert](https://huggingface.co/NeuML/biomedbert-base-colbert) | 110M | 128 | 0.4320 | - |
+| [yjoonjang/colbert-ko-v1](https://huggingface.co/yjoonjang/colbert-ko-v1) | 149M | 128 | - | - |
+| [ytu-ce-cosmos/turkish-colbert](https://huggingface.co/ytu-ce-cosmos/turkish-colbert) | 111M | 256 | - | - |
+| [samheym/GerColBERT](https://huggingface.co/samheym/GerColBERT) | 110M | 128 | - | - |
 
 ### Visual Document Retrieval Models
 
-ColPali-style models embed page images as documents and text as queries. Each one needs a small Sentence Transformers configuration in its repository, and most of those are open pull requests at the time of writing. Where a `revision` is listed, pass it until the pull request is merged, after which the plain model name is enough:
+ColPali-style models embed page images as documents and text as queries.
 
-```python
-model = MultiVectorEncoder("vidore/colqwen2.5-v0.2", revision="refs/pr/N")
-```
+The NanoViDoRe column reports the mean NDCG@10 (higher is better) across [NanoViDoRe v3](https://huggingface.co/datasets/lightonai/NanoViDoRe_v3), a compact visual document retrieval benchmark spanning 8 subsets (computer science, energy, finance in English and French, HR, industrial, pharmaceuticals, and physics). Like with NanoBEIR, NanoViDoRe is a small benchmark which shouldn't replace evaluation on your own data.
 
-| Model | Parameters | Backbone | Notes |
-| --- | :---: | --- | --- |
-| [vidore/colpali-v1.3](https://huggingface.co/vidore/colpali-v1.3) | 2.9B | PaliGemma-3B | `revision="refs/pr/N"` |
-| [vidore/colpali-v1.2](https://huggingface.co/vidore/colpali-v1.2) | 2.9B | PaliGemma-3B | `revision="refs/pr/N"` |
-| [vidore/colpali-v1.1](https://huggingface.co/vidore/colpali-v1.1) | 2.9B | PaliGemma-3B | `revision="refs/pr/N"` |
-| [vidore/colpali](https://huggingface.co/vidore/colpali) | 2.9B | PaliGemma-3B | `revision="refs/pr/N"` |
-| [vidore/colqwen2-v1.0](https://huggingface.co/vidore/colqwen2-v1.0) | 2.2B | Qwen2-VL-2B | `revision="refs/pr/N"` |
-| [vidore/colqwen2-v0.1](https://huggingface.co/vidore/colqwen2-v0.1) | 2.2B | Qwen2-VL-2B | `revision="refs/pr/N"` |
-| [vidore/colqwen2.5-v0.2](https://huggingface.co/vidore/colqwen2.5-v0.2) | 3.8B | Qwen2.5-VL-3B | `revision="refs/pr/N"` |
-| [vidore/colqwen2.5-v0.1](https://huggingface.co/vidore/colqwen2.5-v0.1) | 3.8B | Qwen2.5-VL-3B | `revision="refs/pr/N"` |
-| [vidore/colsmolvlm-v0.1](https://huggingface.co/vidore/colsmolvlm-v0.1) | 2.1B | SmolVLM-Instruct | `revision="refs/pr/N"` |
-| [vidore/colSmol-500M](https://huggingface.co/vidore/colSmol-500M) | 507M | SmolVLM-500M | `revision="refs/pr/N"` |
-| [vidore/colSmol-256M](https://huggingface.co/vidore/colSmol-256M) | 256M | SmolVLM-256M | `revision="refs/pr/N"` |
-| [vidore/colqwen-omni-v0.1](https://huggingface.co/vidore/colqwen-omni-v0.1) | 4.4B | Qwen2.5-Omni-3B (also [audio](#audio-retrieval) and [video](#video-retrieval)) | `revision="refs/pr/N"` |
-| [ModernVBERT/colmodernvbert](https://huggingface.co/ModernVBERT/colmodernvbert) | 252M | ModernVBERT (250M) | `revision="refs/pr/N"` |
-| [TomoroAI/tomoro-colqwen3-embed-4b](https://huggingface.co/TomoroAI/tomoro-colqwen3-embed-4b) | 4.4B | Qwen3-VL-4B | `revision="refs/pr/N"`, needs `trust_remote_code=True` |
-| [TomoroAI/tomoro-colqwen3-embed-8b](https://huggingface.co/TomoroAI/tomoro-colqwen3-embed-8b) | 8.8B | Qwen3-VL-8B | `revision="refs/pr/N"`, needs `trust_remote_code=True` |
-| [webAI-Official/webAI-ColVec1.1-4b](https://huggingface.co/webAI-Official/webAI-ColVec1.1-4b) | 4.5B | Qwen3.5-4B (bidirectional) | `revision="refs/pr/N"`, needs `trust_remote_code=True` |
-| [webAI-Official/webAI-ColVec1.1-8b](https://huggingface.co/webAI-Official/webAI-ColVec1.1-8b) | 8.4B | Qwen3.5-9B (bidirectional) | `revision="refs/pr/N"`, needs `trust_remote_code=True` |
-| [vidore/colpali-v1.3-hf](https://huggingface.co/vidore/colpali-v1.3-hf) | 2.9B | PaliGemma-3B | No `revision` needed |
-| [vidore/colpali-v1.2-hf](https://huggingface.co/vidore/colpali-v1.2-hf) | 2.9B | PaliGemma-3B | No `revision` needed |
-| [vidore/colqwen2-v1.0-hf](https://huggingface.co/vidore/colqwen2-v1.0-hf) | 2.2B | Qwen2-VL-2B | No `revision` needed |
+| Model | Parameters | Dimensionality | NanoViDoRe | Notes |
+| --- | :---: | :---: | :---: | --- |
+| [webAI-Official/webAI-ColVec1.1-8b](https://huggingface.co/webAI-Official/webAI-ColVec1.1-8b) | 8.4B | 640 | 0.6580 | needs `trust_remote_code=True` |
+| [webAI-Official/webAI-ColVec1.1-4b](https://huggingface.co/webAI-Official/webAI-ColVec1.1-4b) | 4.5B | 640 | 0.6520 | needs `trust_remote_code=True` |
+| [TomoroAI/tomoro-colqwen3-embed-8b](https://huggingface.co/TomoroAI/tomoro-colqwen3-embed-8b) | 8.8B | 320 | 0.6206 | needs `trust_remote_code=True` |
+| [TomoroAI/tomoro-colqwen3-embed-4b](https://huggingface.co/TomoroAI/tomoro-colqwen3-embed-4b) | 4.4B | 320 | 0.6019 | needs `trust_remote_code=True` |
+| [vidore/colqwen2.5-v0.2](https://huggingface.co/vidore/colqwen2.5-v0.2) | 3.8B | 128 | 0.5402 | - |
+| [vidore/colqwen2.5-v0.1](https://huggingface.co/vidore/colqwen2.5-v0.1) | 3.8B | 128 | 0.5395 | - |
+| [vidore/colqwen-omni-v0.1](https://huggingface.co/vidore/colqwen-omni-v0.1) | 4.4B | 128 | 0.5309 | `revision="refs/pr/1"` |
+| [vidore/colpali-v1.3](https://huggingface.co/vidore/colpali-v1.3) | 2.9B | 128 | 0.4802 | - |
+| [vidore/colpali-v1.3-hf](https://huggingface.co/vidore/colpali-v1.3-hf) | 2.9B | 128 | 0.4793 | - |
+| [vidore/colpali-v1.2](https://huggingface.co/vidore/colpali-v1.2) | 2.9B | 128 | 0.4691 | - |
+| [vidore/colqwen2-v1.0](https://huggingface.co/vidore/colqwen2-v1.0) | 2.2B | 128 | 0.4685 | - |
+| [vidore/colqwen2-v0.1](https://huggingface.co/vidore/colqwen2-v0.1) | 2.2B | 128 | 0.4526 | - |
+| [vidore/colpali](https://huggingface.co/vidore/colpali) | 2.9B | 128 | 0.4516 | - |
+| [vidore/colpali-v1.1](https://huggingface.co/vidore/colpali-v1.1) | 2.9B | 128 | 0.4314 | - |
+| [vidore/colsmolvlm-v0.1](https://huggingface.co/vidore/colsmolvlm-v0.1) | 2.1B | 128 | 0.4054 | - |
+| [vidore/colpali-hard-v1.1](https://huggingface.co/vidore/colpali-hard-v1.1) | 2.9B | 128 | 0.3949 | `revision="refs/pr/2"` |
+| [vidore/colSmol-500M](https://huggingface.co/vidore/colSmol-500M) | 507M | 128 | 0.3459 | - |
+| [vidore/colSmol-256M](https://huggingface.co/vidore/colSmol-256M) | 256M | 128 | 0.2673 | - |
+| [ModernVBERT/colmodernvbert](https://huggingface.co/ModernVBERT/colmodernvbert) | 252M | 128 | 0.2632 | - |
+| [vidore/colpali-v1.2-hf](https://huggingface.co/vidore/colpali-v1.2-hf) | 2.9B | 128 | - | - |
+| [vidore/colqwen2-v1.0-hf](https://huggingface.co/vidore/colqwen2-v1.0-hf) | 2.2B | 128 | - | - |
 
-Most of these are LoRA adapter repositories. On `transformers>=5.15.0` they load with the stock `Transformer` and no `trust_remote_code`, since the adapter is applied directly onto its base at load time. Some also have a `-merged` sibling on the Hub (e.g. [vidore/colpali-v1.3-merged](https://huggingface.co/vidore/colpali-v1.3-merged)) with the adapter already folded into the weights.
+Most of these are LoRA adapter repositories, with the adapter applied directly onto its base at load time. Some also have a `-merged` sibling on the Hub (e.g. [vidore/colpali-v1.3-merged](https://huggingface.co/vidore/colpali-v1.3-merged)) with the adapter already folded into the weights.
 
-The three `-hf` entries at the bottom are the transformers-native `*ForRetrieval` ports. They load without any configuration, since the projection and normalization live inside the model, but they're separate uploads that lag the originals, so prefer the checkpoint the authors publish and maintain.
+The three `-hf` entries are the transformers-native `*ForRetrieval` ports. They load without any configuration, but use more modeling from `transformers` and less from `sentence_transformers`. Generally, it's preferable to use the original models instead, as the ports score approximately the same.
 
 ## Additional Resources
 
