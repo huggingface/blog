@@ -17,6 +17,8 @@ authors:
 
 Where a regular embedding model compresses a whole text into one vector, a multi-vector model keeps **one vector per token** and scores query against document with the MaxSim operator. That preserves token-level matching information that a single vector has to average away, which usually means stronger retrieval at the cost of a bigger index. It's also the state of the art for visual document retrieval, where a text query is matched against page images directly, with no OCR step in between.
 
+[PyLate](https://github.com/lightonai/pylate) comes up throughout this post, so briefly: Sentence Transformers handled dense and sparse models but not late interaction, and LightOn built PyLate on top of it to close that gap. Much of what you'll load here was trained with PyLate, and an ecosystem grew up around it, [fast-plaid](https://github.com/lightonai/fast-plaid) included. With v6.0, those capabilities land in Sentence Transformers itself.
+
 In this blogpost, we'll show you how to use these models: loading the various checkpoint formats, encoding and scoring, plugging them into a search stack, running them on page images, and keeping the index affordable.
 
 <!--
@@ -55,7 +57,7 @@ A dense embedding model reads a text and returns a single fixed-size vector. Eve
 
 A multi-vector model (also called a late-interaction or ColBERT-style model, after the [ColBERT paper](https://arxiv.org/abs/2004.12832)) skips that compression. It runs the same transformer, but instead of pooling the token embeddings into one vector, it projects each token embedding down to a small dimension (classically 128) and keeps all of them. A 9-token document becomes a 9x128 matrix, not a 1x128 vector.
 
-The interaction between query and document is then deferred until scoring time, which is where the name "late interaction" comes from. A cross-encoder interacts early (both texts go through the model together, which is accurate but too slow to precompute). A bi-encoder barely interacts at all (one dot product between two finished summaries). Late interaction sits in between: documents are still encoded independently and can be indexed offline, but scoring compares every query token against every document token.
+The interaction between query and document is then deferred until scoring time, which is where the name "late interaction" comes from. A cross-encoder interacts early: both texts go through the model together, which is accurate but leaves nothing to precompute, since every document has to be re-encoded for each new query. A bi-encoder barely interacts at all (one dot product between two finished summaries), which is exactly what lets you encode a collection once and query it fast. Late interaction sits in between: documents are still encoded independently and can be indexed offline, but scoring compares every query token against every document token, which leaves far more room for the two to interact.
 
 ![Dense embedding versus multi-vector late interaction: a dense model encodes each text into one vector and scores with cosine similarity, while a multi-vector model keeps one vector per token and scores every query token against every document token with MaxSim](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/multi-vector-encoder/maxsim_explainer.gif)
 
@@ -67,13 +69,13 @@ $$\text{MaxSim}(Q, D) = \sum_{Q_i \in Q} \max_{D_j \in D} Q_i \cdot D_j$$
 
 Because the token embeddings are L2-normalized, each of those dot products is a cosine similarity in `[-1, 1]`, so the whole sum lands within `[-num_query_tokens, num_query_tokens]`.
 
-You can read the operator as a soft alignment: every query token points at the one document token that best explains it, and the score is how well the document explains the query overall.
+You can read the operator as a soft alignment: every query token points at the one document token that best explains it, and the score is how well the document supports the query overall.
 
-The alignment doesn't have to be lexical, since the token embeddings are contextualized. Encode "Where do penguins live?" against "Penguins inhabit Antarctica." with [`lightonai/mLateOn`](https://huggingface.co/lightonai/mLateOn) and the query token `live` finds its best match on `inhabit` at 0.94, a word it shares no characters with! It isn't one-to-one either, since several query tokens routinely settle on the same document token. But when an exact match does matter to you (a product code, a surname, a function name), MaxSim has a token sitting right there to match it, where a single-vector model had to fold it into an average.
+The alignment doesn't have to be lexical, since the token embeddings are contextualized. Encode "Where do penguins live?" against "Penguins inhabit Antarctica." with [`lightonai/mLateOn`](https://huggingface.co/lightonai/mLateOn) and the query token `live` finds its best match on `inhabit` at 0.94, a word it shares no characters with! That is the thing lexical retrieval cannot do, BM25 and its relatives need the term itself, so synonyms and paraphrases slip past them. It isn't one-to-one either, since several query tokens routinely settle on the same document token. But when an exact match does matter to you (a product code, a surname, a function name), MaxSim has a token sitting right there to match it, where a single-vector model had to fold it into an average.
 
 ### What You Gain, and What It Costs
 
-You gain retrieval quality, particularly on queries where one specific piece of a document is what makes it relevant, on multi-requirement queries like the sofa above where each requirement gets to find its own evidence, and on out-of-domain data where a dense model's compression was tuned for a different distribution.
+You gain retrieval quality, particularly on queries where one specific piece of a document is what makes it relevant, on multi-requirement queries like the sofa above where each requirement gets to find its own evidence, and on out-of-domain data where a dense model's compression was tuned for a different distribution. That compression is learned from the training queries, so the model discards whatever those never asked for, and your production queries may well ask for it. The effect grows with document length, since more text has to fit in the same fixed vector.
 
 The cost is index size. One vector per token instead of one vector per document is a lot more vectors, only partly offset by the smaller dimension. Encoding 4,874 Natural Questions passages with [`lightonai/LateOn`](https://huggingface.co/lightonai/LateOn) produced 608,414 token vectors, an average of 124.8 per passage:
 
@@ -95,7 +97,7 @@ Multi-vector models work with a plain install:
 pip install -U sentence-transformers
 ```
 
-For ColPali-style visual document retrieval, you also need the image dependencies (see [Installation](https://sbert.net/docs/installation.html) for all extras):
+For ColPali-style visual document retrieval, you also need the image dependencies (see [Installation](https://sbert.net/docs/installation.html) for all extras, and [Multimodal Embedding & Reranker Models](https://huggingface.co/blog/multimodal-sentence-transformers) for multimodal support in general):
 
 ```bash
 pip install -U "sentence-transformers[image]"
@@ -111,7 +113,7 @@ Loading a multi-vector model looks exactly like loading any other Sentence Trans
 ```python
 from sentence_transformers import MultiVectorEncoder
 
-model = MultiVectorEncoder("lightonai/GTE-ModernColBERT-v1")
+model = MultiVectorEncoder("lightonai/LateOn")
 ```
 
 To find models that work, look for the [`sentence-transformers` tag](https://huggingface.co/models?library=sentence-transformers&other=multi-vector) on the Hub. Anything carrying it loads with the line above, whether it started life as a PyLate checkpoint, a Stanford-NLP ColBERT checkpoint, or a ColPali-family model for visual document retrieval. We're working through the ecosystem to get that tag onto every model that works, so the list keeps growing.
@@ -125,7 +127,7 @@ from sentence_transformers import MultiVectorEncoder
 # so any PyLate checkpoint loads identically
 model = MultiVectorEncoder("lightonai/LateOn")
 model = MultiVectorEncoder("mixedbread-ai/mxbai-edge-colbert-v0-17m")
-model = MultiVectorEncoder("LiquidAI/LFM2-ColBERT-350M")
+model = MultiVectorEncoder("LiquidAI/LFM2.5-ColBERT-350M", trust_remote_code=True)
 
 # Any Stanford-NLP ColBERT checkpoint, detected via the `HF_ColBERT` architecture
 # marker. The inline projection weight and the recipe come from `artifact.metadata`
@@ -188,7 +190,7 @@ print(document_embeddings[0].shape, document_embeddings[1].shape)
 # (10, 128) (10, 128)
 ```
 
-Note what you get back: a *list* of 2D arrays, one per input, each of shape `(num_tokens, embedding_dim)`. Unlike dense embeddings, you can't stack these into one rectangular array, because every input has its own token count. These two documents happen to tokenize to the same length, but a longer passage would produce a taller matrix.
+Note what you get back: a *list* of 2D tensors, one per input, each of shape `(num_tokens, embedding_dim)`. Unlike dense embeddings, you can't stack these into one rectangular tensor, because every input has its own token count. These two documents happen to tokenize to the same length, but a longer passage would produce a taller matrix.
 
 Each call applies the model's own recipe for you. `encode_query` prepends the query marker, expands the query to a fixed length if the checkpoint asks for it, and caps it at the query length. `encode_document` prepends the document marker, caps at the document length, and drops any skiplisted tokens (punctuation, for most checkpoints) from the scoring mask.
 
@@ -740,7 +742,7 @@ Top 3 of 4874 documents by exhaustive MaxSim (191.0ms):
 
 ## Token Pooling
 
-If the index footprint worries you, the most effective knob is to store fewer token vectors. `HierarchicalTokenPooling` implements the [token pooling](https://www.answer.ai/posts/colbert-pooling.html) technique from Answer.AI: it clusters each document's token vectors with Ward linkage on cosine similarity and replaces each cluster with its mean, keeping roughly `1 / pool_factor` of the tokens. Within one document a lot of token vectors end up close to each other, so much of what you drop is redundancy rather than signal:
+If the index footprint worries you, the most effective knob is to store fewer token vectors. `HierarchicalTokenPooling` implements the [token pooling](https://arxiv.org/abs/2409.14683v1) technique from Clavié, Chaffin, and Adams: it clusters each document's token vectors with Ward linkage on cosine distance and replaces each cluster with its mean, keeping roughly `1 / pool_factor` of the tokens. Within one document a lot of token vectors end up close to each other, so much of what you drop is redundancy rather than signal:
 
 ```python
 from datasets import load_dataset
@@ -780,7 +782,7 @@ By default, pooling applies to documents only, since queries are short and are t
 | 3 | 204,407 | 2.98x | 104.7 MB |
 | 4 | 153,936 | 3.95x | 78.8 MB |
 
-A cluster mean is a worse match for a query token than the best of its members was, and the coarser the clusters, the more that shows. The [original experiments](https://www.answer.ai/posts/colbert-pooling.html) measured that cost on BEIR and found very little of it: 100.6% of the unpooled retrieval performance on average at `pool_factor=2`, and about 99% at `pool_factor=3`. Halving your index for free is a good deal, so 2 is a reasonable place to start. How much it costs on your data is corpus-specific though, so measure it with an [evaluator](#evaluating-a-model) before you settle on a factor. The runnable comparison is [token_pooling.py](https://github.com/huggingface/sentence-transformers/blob/main/examples/multi_vector_encoder/compression/token_pooling.py).
+A cluster mean is a worse match for a query token than the best of its members was, and the coarser the clusters, the more that shows. The [original experiments](https://arxiv.org/abs/2409.14683v1) measured that cost on BEIR and found very little of it: 100.6% of the unpooled retrieval performance on average at `pool_factor=2`, and 99.0% at `pool_factor=3`. Halving your index for free is a good deal, so 2 is a reasonable place to start. How much it costs on your data is corpus-specific though, so measure it with an [evaluator](#evaluating-a-model) before you settle on a factor. The runnable comparison is [token_pooling.py](https://github.com/huggingface/sentence-transformers/blob/main/examples/multi_vector_encoder/compression/token_pooling.py).
 
 How far you can push `pool_factor` is also partly a property of the model. LightOn's [hierarchical pooling regularization](https://huggingface.co/blog/lightonai/lateon-hpool-regularization) trains for exactly that, shaping the embedding space so pooling costs less and reporting 99.4% retention at 5x compression. Training with that regularizer isn't in Sentence Transformers yet, but the resulting checkpoints are ordinary PyLate models, so [`lightonai/LateOn-hpool-regularized`](https://huggingface.co/lightonai/LateOn-hpool-regularized) loads and pools like any other.
 
@@ -831,6 +833,7 @@ print(f"{evaluator.primary_metric}: {results[evaluator.primary_metric]:.4f}")
 
 This also makes it easy to check the claim from the top of this post. [`lightonai/GTE-ModernColBERT-v1`](https://huggingface.co/lightonai/GTE-ModernColBERT-v1) is a late-interaction finetune of [`Alibaba-NLP/gte-modernbert-base`](https://huggingface.co/Alibaba-NLP/gte-modernbert-base), so running both over five NanoBEIR subsets compares multi-vector against dense at the same backbone and the same parameter count:
 
+<!-- TODO: A more modern version of this would be DenseOn and LateOn -->
 | Model | Params | MSMARCO | NFCorpus | NQ | FiQA2018 | SciFact | Mean |
 | --- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | **GTE-ModernColBERT-v1** (multi-vector, 128d) | 149M | **0.7089** | **0.3958** | **0.7719** | 0.5664 | **0.8298** | **0.6546** |
@@ -981,6 +984,7 @@ See the companion blogpost: [Training and Finetuning Multi-Vector Embedding Mode
 - [Multi-Vector Encoder > Training Overview](https://sbert.net/docs/multi_vector_encoder/training_overview.html)
 - [Multi-Vector Encoder > Loss Overview](https://sbert.net/docs/multi_vector_encoder/loss_overview.html)
 - [Multi-Vector Encoder > Training Examples](https://sbert.net/docs/multi_vector_encoder/training/examples.html)
+- [LateOn and mLateOn training scripts](https://github.com/lightonai/mdenseon-mlateon): LightOn's PyLate recipes for LateOn, mLateOn, DenseOn, and mDenseOn, where the finetuning scripts show practical details like splitting a 16,384-example batch into mini-batches of 16.
 
 ### Hugging Face Hub
 
