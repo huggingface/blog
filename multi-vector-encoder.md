@@ -601,17 +601,17 @@ Late interaction is the state of the art for visual document retrieval: matching
 ```python
 from sentence_transformers import MultiVectorEncoder
 
-model = MultiVectorEncoder("vidore/colqwen2-v1.0")
+model = MultiVectorEncoder("vidore/colqwen2.5-v0.2")
 
 queries = [
     "What is the variable represented on the y-axis of the graph?",
     "Total outlay is maximum in which year?",
 ]
 images = [
-    "https://huggingface.co/tomaarsen/colpali-v1.3-merged-st/resolve/main/assets/doc1.jpg",
-    "https://huggingface.co/tomaarsen/colpali-v1.3-merged-st/resolve/main/assets/doc2.jpg",
-    "https://huggingface.co/tomaarsen/colpali-v1.3-merged-st/resolve/main/assets/doc3.jpg",
-    "https://huggingface.co/tomaarsen/colpali-v1.3-merged-st/resolve/main/assets/doc4.jpg",
+    "https://huggingface.co/datasets/sentence-transformers/example-documents/resolve/main/doc1.jpg",
+    "https://huggingface.co/datasets/sentence-transformers/example-documents/resolve/main/doc2.jpg",
+    "https://huggingface.co/datasets/sentence-transformers/example-documents/resolve/main/doc3.jpg",
+    "https://huggingface.co/datasets/sentence-transformers/example-documents/resolve/main/doc4.jpg",
 ]
 
 query_embeddings = model.encode_query(queries)
@@ -621,8 +621,8 @@ print(query_embeddings[0].shape, document_embeddings[0].shape)
 
 scores = model.similarity(query_embeddings, document_embeddings)
 print(scores)
-# tensor([[13.7065, 11.3266, 11.2454, 10.2928],
-#         [ 7.2340, 15.9825,  6.8053,  6.3357]])
+# tensor([[13.8672, 12.3115, 12.1670, 11.0293],
+#         [ 7.2012, 14.7207,  6.9414,  6.9746]])
 ```
 
 Each query retrieves its own page (the diagonal), and the second query separates much more cleanly than the first, since only one of the four pages is about outlay over time.
@@ -693,8 +693,8 @@ model[0].processing_kwargs.update(
 
 query_embeddings = model.encode_query(["How to cook Mapo Tofu?"])
 document_embeddings = model.encode_document([
-    "https://huggingface.co/Tevatron/OmniEmbed-v0.1/resolve/main/assets/mapo_tofu.mp4",
-    "https://huggingface.co/Tevatron/OmniEmbed-v0.1/resolve/main/assets/zhajiang_noodle.mp4",
+    "https://huggingface.co/datasets/sentence-transformers/example-documents/resolve/main/mapo_tofu.mp4",
+    "https://huggingface.co/datasets/sentence-transformers/example-documents/resolve/main/zhajiang_noodle.mp4",
 ], batch_size=1)
 print(model.similarity(query_embeddings, document_embeddings))
 # tensor([[53.3100, 51.0561]])
