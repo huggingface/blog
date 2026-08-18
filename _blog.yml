@@ -149,6 +149,7 @@
   tags:
     - open-source-collab
     - nlp
+    - sentence-transformers
 
 - local: deploy-hugging-face-models-easily-with-amazon-sagemaker
   date: July 8, 2021
@@ -578,6 +579,7 @@
   tags:
     - guide
     - nlp
+    - sentence-transformers
 
 - local: eval-on-the-hub
   date: June 28, 2022
@@ -595,6 +597,7 @@
   date: June 29, 2022
   tags:
     - guide
+    - sentence-transformers
 
 - local: deep-rl-pg
   date: June 30, 2022
@@ -620,6 +623,7 @@
   tags:
     - nlp
     - guide
+    - sentence-transformers
 
 - local: bloom-megatron-deepspeed
   date: July 14, 2022
@@ -688,6 +692,7 @@
   tags:
     - guide
     - nlp
+    - sentence-transformers
 
 - local: deploy-tfserving-kubernetes
   date: August 11, 2022
@@ -2381,6 +2386,7 @@
     - nlp
     - community
     - guide
+    - sentence-transformers
 
 - local: leaderboard-haizelab
   date: Feb 23, 2024
@@ -2521,6 +2527,7 @@
     - guide
     - collaboration
     - research
+    - sentence-transformers
 
 - local: noob_intro_transformers
   date: March 22, 2024
@@ -2832,6 +2839,7 @@
     - guide
     - community
     - open-source
+    - sentence-transformers
 
 - local: tgi-benchmarking
   date: May 29, 2024
@@ -3725,6 +3733,7 @@
     - guide
     - community
     - open-source
+    - sentence-transformers
 
 - local: tgi-multi-backend
   date: January 16, 2025
@@ -4035,6 +4044,7 @@
     - guide
     - community
     - open-source
+    - sentence-transformers
 
 - local: intel-gaudi-backend-for-tgi
   date: March 28, 2025
@@ -4383,6 +4393,7 @@
     - guide
     - community
     - open-source
+    - sentence-transformers
 
 - local: mmdp
   date: Jul 8, 2025
@@ -4647,6 +4658,7 @@
     - community
     - nlp
     - guide
+    - sentence-transformers
 
 - local: mmbert
   date: Sep 9, 2025
@@ -4840,6 +4852,7 @@
     - nlp
     - open-source
     - community
+    - sentence-transformers
 
 - local: virustotal
   date: October 22, 2025
@@ -5223,6 +5236,7 @@
     - multimodal
     - vision
     - open-source
+    - sentence-transformers
 
 - local: waypoint-1-5
   date: April 9, 2026
@@ -5241,6 +5255,7 @@
     - multimodal
     - vision
     - open-source
+    - sentence-transformers
 
 - local: transformers-to-mlx
   date: April 16, 2026
@@ -5338,6 +5353,7 @@
     - community
     - research
     - open-source
+    - sentence-transformers
 
 - local: agent-glossary
   date: May 25, 2026
@@ -5637,3 +5653,14 @@
     - research
     - community
     - hub
+
+- local: multi-vector-encoder
+  date: August 18, 2026
+  tags:
+    - nlp
+    - guide
+    - community
+    - open-source
+    - multimodal
+    - embeddings
+    - sentence-transformers
