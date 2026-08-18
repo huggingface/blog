@@ -197,13 +197,12 @@ Note what you get back: a *list* of 2D tensors, one per input, each of shape `(n
 
 Each call applies the model's own recipe for you. `encode_query` prepends the query marker, expands the query to a fixed length if the checkpoint asks for it, and caps it at the query length. `encode_document` prepends the document marker, caps at the document length, and drops any skiplisted tokens (punctuation, for most checkpoints) from the scoring mask.
 
-The usual `encode()` arguments all still apply, so `batch_size`, `show_progress_bar`, `convert_to_tensor`, `device`, and multi-process pools work the way you'd expect:
+The usual `encode()` arguments all still apply, so `batch_size`, `show_progress_bar`, `convert_to_numpy`, `device`, and multi-process pools work the way you'd expect:
 
 ```python
 document_embeddings = model.encode_document(
     documents,
     batch_size=64,
-    convert_to_tensor=True,
     show_progress_bar=True,
 )
 ```
@@ -281,11 +280,11 @@ dataset = load_dataset("sentence-transformers/natural-questions", split="train[:
 corpus = list(dict.fromkeys(dataset["answer"]))  # 5,000 rows -> 4,874 passages
 
 model = MultiVectorEncoder("lightonai/LateOn")
-corpus_embeddings = model.encode_document(corpus, convert_to_tensor=True, show_progress_bar=True)
+corpus_embeddings = model.encode_document(corpus, show_progress_bar=True)
 
 query = "when did richmond last play in a preliminary final"
 start = time.perf_counter()
-query_embeddings = model.encode_query([query], convert_to_tensor=True)
+query_embeddings = model.encode_query([query])
 scores = model.similarity(query_embeddings, corpus_embeddings)[0]  # 98ms
 top_scores, top_indices = scores.topk(3)
 print(f"Search took {(time.perf_counter() - start) * 1000:.1f}ms")
@@ -367,8 +366,8 @@ corpus = list(dict.fromkeys(dataset["answer"]))
 model = MultiVectorEncoder("lightonai/LateOn")
 query = "when did richmond last play in a preliminary final"
 
-document_embeddings = model.encode_document(corpus, batch_size=32, convert_to_tensor=True)
-query_embedding = model.encode_query(query, convert_to_tensor=True)
+document_embeddings = model.encode_document(corpus, batch_size=32)
+query_embedding = model.encode_query(query)
 
 fast_plaid = search.FastPlaid(index="natural-questions", device="cuda")
 
