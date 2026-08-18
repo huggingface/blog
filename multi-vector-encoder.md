@@ -84,7 +84,7 @@ The cost is index size. One vector per token instead of one vector per document 
 | Dense, [`gte-modernbert-base`](https://huggingface.co/Alibaba-NLP/gte-modernbert-base) | 4,874 | 768 | 15.0 MB |
 | Multi-vector, `LateOn` | 608,414 | 128 | 311.5 MB |
 
-That's about 42x the storage of the MiniLM index, or 62 KiB per passage. However, indexes are often compressed, e.g. the same 608,414 vectors take 88 MB as a [fast-plaid](#indexing) index, since PLAID stores a centroid id plus a quantized residual per vector rather than the vector itself. [Token Pooling](#token-pooling) cuts the vector count before any of that, and [Retrieve and Rerank](#retrieve-and-rerank) avoids building an index at all.
+That's about 42x the storage of the MiniLM index, or 62 KiB per passage. However, indexes are often compressed, e.g. the same 608,414 vectors take 92 MB as a [fast-plaid](#indexing) index, since PLAID stores a centroid id plus a quantized residual per vector rather than the vector itself. For scale, a 4096-dimensional dense model like [Qwen3-Embedding-8B](https://huggingface.co/Qwen/Qwen3-Embedding-8B) would need about 80 MB for these same 4,874 passages, so a compressed multi-vector index sits in the same territory as the dense indexes people already run. [Token Pooling](#token-pooling) cuts the vector count before any of that, and [Retrieve and Rerank](#retrieve-and-rerank) avoids building an index at all.
 
 [PyLate](https://github.com/lightonai/pylate) comes up throughout this post, so briefly: Sentence Transformers handled dense and sparse models but not late interaction, so [LightOn](https://huggingface.co/lightonai) built PyLate on top of it to close that gap, adding the training, inference, and retrieval pieces these models need. Much of what you'll load below was trained with it, and LightOn built an ecosystem around it too, including [fast-plaid](https://github.com/lightonai/fast-plaid), the late-interaction index that turns up in [Indexing](#indexing). With v6.0 those capabilities live in Sentence Transformers itself.
 
@@ -384,7 +384,7 @@ for index, score in results[0]:
 """
 ```
 
-The `index` argument is a directory, not just a label, so the index is written to disk as it is built. Pointing a new `FastPlaid` at the same path reopens it for searching or for adding more documents, instead of rebuilding from the embeddings each time. On this corpus it occupies 88 MB, against 311.5 MB for the raw float32 vectors.
+The `index` argument is a directory, not just a label, so the index is written to disk as it is built. Pointing a new `FastPlaid` at the same path reopens it for searching or for adding more documents, instead of rebuilding from the embeddings each time. On this corpus it occupies 92 MB, against 311.5 MB for the raw float32 vectors.
 
 This is the only one of the four that is approximate, and it is the one place in this section where the scores do not match the exhaustive MaxSim. PLAID prunes with centroids and stores quantized residuals, so the three scores drift by a few hundredths in both directions against the 11.9192 / 11.7591 / 11.6710 computed earlier. The ranking is unaffected here, and that is the trade PLAID is making: it was designed for corpora far larger than this one, where scanning everything is not an option.
 
