@@ -5624,6 +5624,20 @@
     - vllm
     - hub
 
+- local: icml-2026-open-reproductions
+  date: August 13, 2026
+  tags:
+    - research
+    - community
+    - agents
+
+- local: state-of-open-models-summer-2026
+  date: August 14, 2026
+  tags:
+    - research
+    - community
+    - hub
+
 - local: multi-vector-encoder
   date: August 18, 2026
   tags:
@@ -5632,3 +5646,5 @@
     - community
     - open-source
     - multimodal
+    - embeddings
+    - sentence-transformers
