@@ -5664,3 +5664,13 @@
     - multimodal
     - embeddings
     - sentence-transformers
+
+- local: gradio-workflow-guide
+  date: August 18, 2026
+  tags:
+    - gradio
+    - workflows
+    - tutorial
+    - spaces
+    - models
+    - inference-providers
