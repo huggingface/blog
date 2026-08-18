@@ -49,6 +49,7 @@ In this blogpost, we'll show you how to use these models: loading the various ch
 * [Evaluating a Model](#evaluating-a-model)
 * [Coming from PyLate or colpali-engine](#coming-from-pylate-or-colpali-engine)
 * [Supported Models](#supported-models)
+* [Acknowledgements](#acknowledgements)
 * [Additional Resources](#additional-resources)
 
 ## What are Multi-Vector Models?
@@ -829,16 +830,26 @@ results = evaluator(model)
 print(f"{evaluator.primary_metric}: {results[evaluator.primary_metric]:.4f}")
 ```
 
-This also makes it easy to check the claim from the top of this post. [`lightonai/GTE-ModernColBERT-v1`](https://huggingface.co/lightonai/GTE-ModernColBERT-v1) is a late-interaction finetune of [`Alibaba-NLP/gte-modernbert-base`](https://huggingface.co/Alibaba-NLP/gte-modernbert-base), so running both over five NanoBEIR subsets compares multi-vector against dense at the same backbone and the same parameter count:
+This also makes it easy to check the claim from the top of this post. [`lightonai/LateOn`](https://huggingface.co/lightonai/LateOn) and [`lightonai/DenseOn`](https://huggingface.co/lightonai/DenseOn) were trained by LightOn on the same data with the same ModernBERT backbone and the same 149M parameters, differing only in whether they keep one vector per token or pool down to one per document. Running both over all 13 NanoBEIR datasets isolates what that choice buys:
 
-<!-- TODO: A more modern version of this would be DenseOn and LateOn -->
-| Model | Params | MSMARCO | NFCorpus | NQ | FiQA2018 | SciFact | Mean |
-| --- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **GTE-ModernColBERT-v1** (multi-vector, 128d) | 149M | **0.7089** | **0.3958** | **0.7719** | 0.5664 | **0.8298** | **0.6546** |
-| gte-modernbert-base (dense, 768d) | 149M | 0.6446 | 0.3474 | 0.7237 | **0.6198** | 0.8203 | 0.6312 |
-| all-MiniLM-L6-v2 (dense, 384d) | 23M | 0.5540 | 0.3323 | 0.5904 | 0.4775 | 0.7265 | 0.5361 |
+| NanoBEIR dataset | LateOn (multi-vector, 128d) | DenseOn (dense, 768d) |
+| --- | :---: | :---: |
+| MSMARCO | **0.7194** | 0.6517 |
+| NQ | **0.7810** | 0.7511 |
+| HotpotQA | **0.9295** | 0.8802 |
+| FEVER | **0.9702** | 0.9612 |
+| ClimateFEVER | **0.4887** | 0.4846 |
+| DBPedia | **0.6836** | 0.6748 |
+| QuoraRetrieval | **0.9795** | 0.9687 |
+| Touche2020 | **0.5938** | 0.5673 |
+| ArguAna | 0.5562 | **0.5660** |
+| NFCorpus | **0.3949** | 0.3851 |
+| SciFact | 0.7978 | **0.8057** |
+| SCIDOCS | 0.4469 | **0.4484** |
+| FiQA2018 | 0.5871 | **0.6491** |
+| **Mean** | **0.6868** | 0.6764 |
 
-Late interaction wins on four of the five subsets and on the mean! FiQA2018 (financial question answering) goes the other way, which is the shape of the tradeoff you should expect: a solid gain in retrieval quality for the same model size, paid for in index footprint, rather than a universal win on every dataset.
+Late interaction wins on 9 of the 13 datasets and on the mean, by roughly one NDCG point. The four it loses (ArguAna, FiQA2018, SCIDOCS, and SciFact) are the shape of the tradeoff you should expect: a real gain in retrieval quality at the same model size, paid for in index footprint, rather than a universal win on every dataset. The same pair scores 57.22 against 56.20 on the full 15-dataset BEIR, a comparable gap, so the margin is not an artifact of the small benchmark.
 
 Alongside NanoBEIR, `MultiVectorInformationRetrievalEvaluator`, `MultiVectorRerankingEvaluator`, `MultiVectorTripletEvaluator`, and `MultiVectorDistillationEvaluator` cover the usual evaluation setups on your own data. They're documented in the [Evaluation API Reference](https://sbert.net/docs/package_reference/multi_vector_encoder/evaluation.html).
 
@@ -950,6 +961,16 @@ The NanoViDoRe column reports the mean NDCG@10 (higher is better) across [NanoVi
 Most of these are LoRA adapter repositories, with the adapter applied directly onto its base at load time. Some also have a `-merged` sibling on the Hub (e.g. [vidore/colpali-v1.3-merged](https://huggingface.co/vidore/colpali-v1.3-merged)) with the adapter already folded into the weights.
 
 The three `-hf` entries are the transformers-native `*ForRetrieval` ports. They load without any configuration, but use more modeling from `transformers` and less from `sentence_transformers`. Generally, it's preferable to use the original models instead, as the ports score approximately the same.
+
+## Acknowledgements
+
+Late interaction in Sentence Transformers rests on a lot of earlier work. Thanks to Omar Khattab and Matei Zaharia for [ColBERT](https://arxiv.org/abs/2004.12832), which everything here descends from, and to the LightOn team (Antoine Chaffin, Raphael Sourty, Paulo Moura, and Amélie Chatelain) for [PyLate](https://github.com/lightonai/pylate) and [fast-plaid](https://github.com/lightonai/fast-plaid), which carried late interaction for years and shaped a good deal of the API described above.
+
+Thanks to the ColPali team (Manuel Faysse, Hugues Sibille, Tony Wu, Bilel Omrani, Gautier Viaud, Céline Hudelot, and Pierre Colombo) for [ColPali](https://arxiv.org/abs/2407.01449) and colpali-engine, which brought late interaction to page images, and to Benjamin Clavié, Antoine Chaffin, and Griffin Adams for [token pooling](https://arxiv.org/abs/2409.14683v1).
+
+Thanks as well to the core MTEB team, Kenneth Enevoldsen and Roman Solomatin among many others, for [MTEB](https://github.com/embeddings-benchmark/mteb) and for the kind of hidden work that keeps information retrieval research running.
+
+And thanks to everyone who trained and released the checkpoints in [Supported Models](#supported-models). Without them this post would have had nothing to measure.
 
 ## Additional Resources
 
