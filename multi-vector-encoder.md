@@ -19,7 +19,7 @@ Where a regular embedding model compresses a whole text into one vector, a multi
 
 [PyLate](https://github.com/lightonai/pylate) comes up throughout this post, so briefly: Sentence Transformers handled dense and sparse models but not late interaction, and LightOn built PyLate on top of it to close that gap. Much of what you'll load here was trained with PyLate, and an ecosystem grew up around it, [fast-plaid](https://github.com/lightonai/fast-plaid) included. With v6.0, those capabilities land in Sentence Transformers itself.
 
-In this blogpost, we'll show you how to use these models: loading the various checkpoint formats, encoding and scoring, plugging them into a search stack, running them on page images, and keeping the index affordable.
+In this blogpost, we'll show you how to use these models: loading the various checkpoint formats, encoding and scoring, plugging them into a search stack, running them on page images, and keeping the index affordable. Everything below runs on a plain `pip install -U sentence-transformers`.
 
 <!--
 > [!TIP]
