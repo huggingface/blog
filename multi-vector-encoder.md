@@ -17,8 +17,6 @@ authors:
 
 Where a regular embedding model compresses a whole text into one vector, a multi-vector model keeps **one vector per token** and scores query against document with the MaxSim operator. That preserves token-level matching information that a single vector has to average away, which usually means stronger retrieval at the cost of a bigger index. It's also the state of the art for visual document retrieval, where a text query is matched against page images directly, with no OCR step in between.
 
-[PyLate](https://github.com/lightonai/pylate) comes up throughout this post, so briefly: Sentence Transformers handled dense and sparse models but not late interaction, and LightOn built PyLate on top of it to close that gap. Much of what you'll load here was trained with PyLate, and an ecosystem grew up around it, [fast-plaid](https://github.com/lightonai/fast-plaid) included. With v6.0, those capabilities land in Sentence Transformers itself.
-
 In this blogpost, we'll show you how to use these models: loading the various checkpoint formats, encoding and scoring, plugging them into a search stack, running them on page images, and keeping the index affordable. Everything below runs on a plain `pip install -U sentence-transformers`.
 
 <!--
@@ -58,7 +56,7 @@ A dense embedding model reads a text and returns a single fixed-size vector. Eve
 
 A multi-vector model (also called a late-interaction or ColBERT-style model, after the [ColBERT paper](https://arxiv.org/abs/2004.12832)) skips that compression. It runs the same transformer, but instead of pooling the token embeddings into one vector, it projects each token embedding down to a small dimension (classically 128) and keeps all of them. A 9-token document becomes a 9x128 matrix, not a 1x128 vector.
 
-The interaction between query and document is then deferred until scoring time, which is where the name "late interaction" comes from. A cross-encoder interacts early: both texts go through the model together, which is accurate but leaves nothing to precompute, since every document has to be re-encoded for each new query. A bi-encoder barely interacts at all (one dot product between two finished summaries), which is exactly what lets you encode a collection once and query it fast. Late interaction sits in between: documents are still encoded independently and can be indexed offline, but scoring compares every query token against every document token, which leaves far more room for the two to interact.
+The interaction between query and document is then deferred until scoring time, which is where the name "late interaction" comes from. A cross-encoder interacts early: both texts go through the model together, which is accurate but leaves nothing to precompute, since every document has to be re-encoded for each new query. A bi-encoder, which is what the dense embedding model above is, barely interacts at all (one dot product between two finished summaries), and that is exactly what lets you encode a collection once and query it fast. Late interaction sits in between: documents are still encoded independently and can be indexed offline, but scoring compares every query token against every document token, which leaves far more room for the two to interact.
 
 ![Dense embedding versus multi-vector late interaction: a dense model encodes each text into one vector and scores with cosine similarity, while a multi-vector model keeps one vector per token and scores every query token against every document token with MaxSim](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/multi-vector-encoder/maxsim_explainer.gif)
 
@@ -72,21 +70,23 @@ Because the token embeddings are L2-normalized, each of those dot products is a 
 
 You can read the operator as a soft alignment: every query token points at the one document token that best explains it, and the score is how well the document supports the query overall.
 
-The alignment doesn't have to be lexical, since the token embeddings are contextualized. Encode "Where do penguins live?" against "Penguins inhabit Antarctica." with [`lightonai/mLateOn`](https://huggingface.co/lightonai/mLateOn) and the query token `live` finds its best match on `inhabit` at 0.94, a word it shares no characters with! That is the thing lexical retrieval cannot do, BM25 and its relatives need the term itself, so synonyms and paraphrases slip past them. It isn't one-to-one either, since several query tokens routinely settle on the same document token. But when an exact match does matter to you (a product code, a surname, a function name), MaxSim has a token sitting right there to match it, where a single-vector model had to fold it into an average.
+The alignment doesn't have to be lexical, since the token embeddings are contextualized. Encode "Where do penguins live?" against "Penguins inhabit Antarctica." with [`lightonai/mLateOn`](https://huggingface.co/lightonai/mLateOn) and the query token `live` finds its best match on `inhabit` at 0.94, a word it shares no characters with! That is the thing lexical retrieval cannot do, BM25 and its relatives need the term itself, so synonyms and paraphrases slip past them. Dense embedding models bridge that gap as well, of course. What late interaction adds is that it does so without giving up the other direction: when an exact match is what matters (a product code, a surname, a function name), MaxSim still has that token sitting there on its own, where a single-vector model had to average it in with everything else. It isn't one-to-one either, since several query tokens routinely settle on the same document token.
 
 ### What You Gain, and What It Costs
 
-You gain retrieval quality, particularly on queries where one specific piece of a document is what makes it relevant, on multi-requirement queries like the sofa above where each requirement gets to find its own evidence, and on out-of-domain data where a dense model's compression was tuned for a different distribution. That compression is learned from the training queries, so the model discards whatever those never asked for, and your production queries may well ask for it. The effect grows with document length, since more text has to fit in the same fixed vector.
+You gain retrieval quality, particularly on queries where one specific piece of a document is what makes it relevant, on multi-requirement queries like the sofa above where each requirement gets to find its own evidence, and on out-of-domain data where a dense model's compression was tuned for a different distribution. That compression is learned from the training queries, so the model learns to keep what they needed and drop everything else, which may include exactly what your production queries ask about. The effect grows with document length, since more text has to fit in the same fixed vector.
 
 The cost is index size. One vector per token instead of one vector per document is a lot more vectors, only partly offset by the smaller dimension. Encoding 4,874 Natural Questions passages with [`lightonai/LateOn`](https://huggingface.co/lightonai/LateOn) produced 608,414 token vectors, an average of 124.8 per passage:
 
-| Representation | Vectors | Dimensions | float32 index |
+| Representation | Vectors | Dimensions | float32 size |
 | --- | ---: | ---: | ---: |
 | Dense, [`all-MiniLM-L6-v2`](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2) | 4,874 | 384 | 7.5 MB |
 | Dense, [`gte-modernbert-base`](https://huggingface.co/Alibaba-NLP/gte-modernbert-base) | 4,874 | 768 | 15.0 MB |
 | Multi-vector, `LateOn` | 608,414 | 128 | 311.5 MB |
 
 That's about 42x the storage of the MiniLM index, or 62 KiB per passage. However, indexes are often compressed, e.g. the same 608,414 vectors take 88 MB as a [fast-plaid](#indexing) index, since PLAID stores a centroid id plus a quantized residual per vector rather than the vector itself. [Token Pooling](#token-pooling) cuts the vector count before any of that, and [Retrieve and Rerank](#retrieve-and-rerank) avoids building an index at all.
+
+[PyLate](https://github.com/lightonai/pylate) comes up throughout this post, so briefly: Sentence Transformers handled dense and sparse models but not late interaction, so [LightOn](https://huggingface.co/lightonai) built PyLate on top of it to close that gap, adding the training, inference, and retrieval pieces these models need. Much of what you'll load below was trained with it, and LightOn built an ecosystem around it too, including [fast-plaid](https://github.com/lightonai/fast-plaid), the late-interaction index that turns up in [Indexing](#indexing). With v6.0 those capabilities live in Sentence Transformers itself.
 
 With the tradeoff in mind, let's get a model running.
 
@@ -117,7 +117,7 @@ from sentence_transformers import MultiVectorEncoder
 model = MultiVectorEncoder("lightonai/LateOn")
 ```
 
-To find models that work, look for the [`sentence-transformers` tag](https://huggingface.co/models?library=sentence-transformers&other=multi-vector) on the Hub. Anything carrying it loads with the line above, whether it started life as a PyLate checkpoint, a Stanford-NLP ColBERT checkpoint, or a ColPali-family model for visual document retrieval. We're working through the ecosystem to get that tag onto every model that works, so the list keeps growing.
+To find models that work, look for the [`multi-vector` and `sentence-transformers` tags](https://huggingface.co/models?library=sentence-transformers&other=multi-vector) on the Hub. Any model with those tags loads with the line above, whether it started life as a PyLate checkpoint, a Stanford-NLP ColBERT checkpoint, or a ColPali-family model for visual document retrieval. We're working through the ecosystem to get that tag onto every model that works, so the list keeps growing.
 
 Underneath, `MultiVectorEncoder` reads each of the formats these checkpoints have been published in over the years, so PyLate and Stanford-NLP checkpoints load directly even where the tag hasn't been added yet:
 
@@ -179,7 +179,7 @@ model = MultiVectorEncoder("lightonai/mLateOn")
 queries = ["What is the capital of France?"]
 documents = [
     "Paris is the capital of France.",
-    "Berlin is the capital of Germany.",
+    "Berlin is the capital and largest city of Germany, by both area and population.",
 ]
 
 query_embeddings = model.encode_query(queries)
@@ -188,10 +188,10 @@ document_embeddings = model.encode_document(documents)
 print(query_embeddings[0].shape)
 # (10, 128)
 print(document_embeddings[0].shape, document_embeddings[1].shape)
-# (10, 128) (10, 128)
+# (10, 128) (19, 128)
 ```
 
-Note what you get back: a *list* of 2D tensors, one per input, each of shape `(num_tokens, embedding_dim)`. Unlike dense embeddings, you can't stack these into one rectangular tensor, because every input has its own token count. These two documents happen to tokenize to the same length, but a longer passage would produce a taller matrix.
+Note what you get back: a *list* of 2D tensors, one per input, each of shape `(num_tokens, embedding_dim)`. Unlike dense embeddings, you can't stack these into one rectangular tensor, because every input has its own token count. The second document is longer than the first, so it comes back as a taller matrix.
 
 Each call applies the model's own recipe for you. `encode_query` prepends the query marker, expands the query to a fixed length if the checkpoint asks for it, and caps it at the query length. `encode_document` prepends the document marker, caps at the document length, and drops any skiplisted tokens (punctuation, for most checkpoints) from the scoring mask.
 
@@ -315,19 +315,18 @@ from sentence_transformers.util import semantic_search
 dataset = load_dataset("sentence-transformers/natural-questions", split="train[:50000]")
 corpus = list(dict.fromkeys(dataset["answer"]))
 
-# First stage: index the corpus once with a fast bi-encoder
 retriever = SentenceTransformer("jinaai/jina-embeddings-v5-text-nano-retrieval")
-corpus_embeddings = retriever.encode_document(corpus, convert_to_tensor=True, show_progress_bar=True)
-
-# Second stage: rescore the candidates with MaxSim
 reranker = MultiVectorEncoder("perplexity-ai/pplx-embed-v1-late-0.6b", trust_remote_code=True)
+
+# First stage: index the corpus once with a fast bi-encoder
+corpus_embeddings = retriever.encode_document(corpus, convert_to_tensor=True, show_progress_bar=True)
 
 # Retrieve the top 50
 query = "when did richmond last play in a preliminary final"
 hits = semantic_search(retriever.encode_query([query], convert_to_tensor=True), corpus_embeddings, top_k=50)[0]
 candidates = [corpus[hit["corpus_id"]] for hit in hits]
 
-# And rerank them with the multi-vector model
+# Second stage: rescore just those candidates with MaxSim
 query_embeddings = reranker.encode_query([query])
 document_embeddings = reranker.encode_document(candidates)
 scores = reranker.similarity(query_embeddings, document_embeddings)[0]
@@ -881,7 +880,7 @@ Note that save compatibility is one-way in every case: PyLate, Stanford-NLP ColB
 
 ## Supported Models
 
-The [`sentence-transformers` tag](https://huggingface.co/models?library=sentence-transformers&other=multi-vector) on the Hub is the list that stays current, and we're working to get it onto every model that works. The tables below are what we test against directly, so treat them as a starting point rather than the full set. For text retrieval in particular, any PyLate or Stanford-NLP ColBERT checkpoint loads whether or not it carries the tag yet.
+Models carrying the [`multi-vector` and `sentence-transformers` tags](https://huggingface.co/models?library=sentence-transformers&other=multi-vector) on the Hub are the list that stays current, and we're working to get those tags onto every model that works. The tables below are what we test against directly, so treat them as a starting point rather than the full set. For text retrieval in particular, any PyLate or Stanford-NLP ColBERT checkpoint loads whether or not it carries the tag yet.
 
 Some entries need a small Sentence Transformers configuration added to their repository first, and several of those are still open pull requests at the time of writing. Where a `revision` is listed below, pass it until that pull request is merged, after which the plain model name is enough:
 
