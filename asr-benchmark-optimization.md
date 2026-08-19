@@ -6,6 +6,7 @@ authors:
   guest: true
   org: HumeAI
 - user: bezzam
+- user: aliceebaird
   guest: true
   org: HumeAI
 - user: dayllon
@@ -158,7 +159,6 @@ Our findings suggest that, on two major open-source datasets, some models detect
 For people selecting models, these findings underscore the importance of using fully held-out evaluation sets, as RW-Voice-EQ Bench and the Open ASR Leaderboard do, and of looking beyond word error rate on a single public benchmark.
 
 Our findings also suggest that benchmark developers should avoid simple independent and identically distributed test splits in favor of temporal, speaker, or other metadata-based separation. Greater transparency around training data and model-selection procedures would also help researchers understand how these behaviors arise.
-
-We are looking forward to incorporating these probes into the Open ASR Leaderboard to make benchmark-specific behavior more visible.
+We are incorporating these probes into the Open ASR Leaderboard to make benchmark-specific behavior more visible.
 
 Public benchmarks remain valuable: they are transparent, repeatable, easy to run, and well understood by the research community. But they are most useful when we can distinguish genuine transcription improvements from benchmark-specific gains that do not generalize to new audio.
