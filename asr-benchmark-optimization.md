@@ -12,7 +12,7 @@ authors:
 
 Public voice AI benchmarks increasingly suggest that models are performing at a human levels. Yet those scores don't always reflect how models work in the real-world. Since public benchmarks are open and widely used, models can also become optimized for the tests themselves. Their scores may improve because they have learned benchmark-specific patterns and not because they have become better at the underlying task.
 
-One reason is that traditional benchmarks overlook many of the conditions and qualities that make voice systems reliable, natural, contextually appropriate, and effective in practice. That's why we recently introduced the [Real World VoiceEQ](https://huggingface.co/spaces/HumeAI/rw-voice-eq), the [Open-ASR Leaderboard](https://huggingface.co/blog/open-asr-leaderboard-private-data), and t[he Far-field ASR Leaderboard](https://huggingface.co/spaces/treble-technologies/ffasr) held out subsets: to measure more of what matters in real-world use.
+One reason is that traditional benchmarks overlook many of the conditions and qualities that make voice systems reliable, natural, contextually appropriate, and effective in practice. That's why we recently introduced held-out sets in [Real World VoiceEQ](https://huggingface.co/spaces/HumeAI/rw-voice-eq), the [Open-ASR Leaderboard](https://huggingface.co/blog/open-asr-leaderboard-private-data), and the [Far-field ASR Leaderboard](https://huggingface.co/spaces/treble-technologies/ffasr): to measure more of what matters in real-world use.
 
 However, broader measurement alone does not solve the problem. This phenomenon, sometimes called benchmark optimization or "benchmaxxing," is often discussed around machine learning, however, it has been difficult to measure in speech recognition.
 
