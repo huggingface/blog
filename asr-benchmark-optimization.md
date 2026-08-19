@@ -73,7 +73,10 @@ Models exhibiting benchmark-optimized behavior reproduced erroneous reference tr
 
 To build on the consensus disagreement probe, we deliberately silence numbers in the audio samples of test datasets and ask the models to transcribe what it hears. The number is literally absent from the audio, so models should not output any number, much less the exact number in the text.
 
-Some of these numbers are semi-predictable (although still unlikely for a model to predict), yet others are quite surprising. The following clip combines both probes, showing both how models recreate reference transcript errors including an incorrect number and one model even autocompletes a relatively random year (2011) despite it being silenced. In each model's row below, green highlighting with strikethrough marks reference-transcript words the model correctly did not reproduce (audio-faithful); green highlighting with <u>underline</u> marks a correct, audio-faithful insertion in place of the reference's erroneous wording; red highlighting (plain text) reproduces the reference transcript's erroneous, audio-unsupported content.
+Some of these numbers are semi-predictable (although still unlikely for a model to predict), yet others are quite surprising. The following clip combines both probes, showing both how models recreate reference transcript errors including an incorrect number and one model even autocompletes a relatively random year (2011) despite it being silenced. In each model's row below:
+- green highlighting with strikethrough marks reference-transcript words the model correctly did not reproduce (audio-faithful);
+- green highlighting with <u>underline</u> marks a correct, audio-faithful insertion in place of the reference's erroneous wording;
+- red highlighting (plain text) reproduces the reference transcript's erroneous, audio-unsupported content, e.g. addition of "Mr President" or omission of "thousand six hundred".
 
 **2011 draft budget (masked numbers)**
 
