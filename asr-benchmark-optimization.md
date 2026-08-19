@@ -32,7 +32,7 @@ For example, one VoxPopuli clip audibly includes the phrase "Thank you, Mr. Pres
 
 When we present the same content in newly collected voices from EU parliamentary recordings or generic voices, this behavior often weakens or disappears. In the below samples, all but one model flips back to transcribing the audio-faithful transcript for a clone of a new parliamentary recording. This suggests that the models are responding to acoustic cues that help them identify the benchmark membership and thus produce the expected transcript even if it contradicts the audio.
 
-The reference transcript for this clip reads "Mr President, I have another complaint about this procedure, which is that it is not secret." The audio in all three clips below actually says the same thing, preceded by an audible "Thank you,"—the clones are text-to-speech renditions of that true sentence, so the courtesy is audible in all three. ✅ marks a transcript that includes the audible "Thank you"; ❌ marks a transcript that reproduces the benchmark's erroneous omission. All transcripts are raw model output, prior to any normalization—casing and punctuation are preserved exactly as generated, including lowercase output from some models.
+The reference transcript for this clip reads "Mr President, I have another complaint about this procedure, which is that it is not secret." The audio in all three clips below actually says the same thing, preceded by an audible "Thank you,"—the clones are text-to-speech renditions of that true sentence, so the courtesy is audible in all three. Green highlighting and ✅ mark a transcript that includes the audible "Thank you"; red highlighting and ❌ mark a transcript that reproduces the benchmark's erroneous omission. All transcripts are raw model output, prior to any normalization—casing and punctuation are preserved exactly as generated, including lowercase output from some models.
 
 **Original VoxPopuli recording**
 
@@ -48,17 +48,17 @@ The reference transcript for this clip reads "Mr President, I have another compl
 
 | Model | Real clip | Same-speaker clone | ep-fresh clone |
 | --- | --- | --- | --- |
-| Cohere-transcribe | ❌ Mr President… | ❌ Mr President… | ✅ Thank you, Mr President… |
-| Canary-qwen-2.5b | ❌ Mr President… | ❌ Mr President… | ✅ Thank you Mr. President… |
-| Granite-4.1-2b | ❌ mr president… | ❌ mr president… | ✅ thank you mr president… |
-| phi4-multimodal | ❌ Mr President… | ❌ Mr President… | ❌ Mr President… |
-| parakeet-tdt-0.6b-v2 | ❌ Mr President… | ✅ Thank you, Mr President… | ✅ Thank you, Mr. President… |
-| Higgs-Audio-v3-8B | ❌ mr president… | ❌ mr president… | ✅ thank you mr president… |
-| qwen3-asr-0.6b | ✅ Thank you, Mr. President… | ✅ Thank you, Mister President… | ✅ Thank you, Mister President… |
-| Voxtral-mini | ✅ Thank you, Mr. President… | ✅ Thank you, Mr. President… | ✅ Thank you, Mr. President… |
-| Kimi audio | ✅ Thank you, mr. President… | ✅ Thank you, Mr. President… | ✅ Thank you, mr. President… |
-| Whisper large v3 | ✅ Thank you, Mr. President… | ✅ Thank you, Mr. President… | ✅ Thank you, Mr. President… |
-| moonshine-streaming-medium | ✅ thank you mr president… | ✅ thank you mr president… | ✅ thank you mr president… |
+| Cohere-transcribe | <span style="background-color:#fee2e2">❌ Mr President…</span> | <span style="background-color:#fee2e2">❌ Mr President…</span> | <span style="background-color:#dcfce7">✅ Thank you, Mr President…</span> |
+| Canary-qwen-2.5b | <span style="background-color:#fee2e2">❌ Mr President…</span> | <span style="background-color:#fee2e2">❌ Mr President…</span> | <span style="background-color:#dcfce7">✅ Thank you Mr. President…</span> |
+| Granite-4.1-2b | <span style="background-color:#fee2e2">❌ mr president…</span> | <span style="background-color:#fee2e2">❌ mr president…</span> | <span style="background-color:#dcfce7">✅ thank you mr president…</span> |
+| phi4-multimodal | <span style="background-color:#fee2e2">❌ Mr President…</span> | <span style="background-color:#fee2e2">❌ Mr President…</span> | <span style="background-color:#fee2e2">❌ Mr President…</span> |
+| parakeet-tdt-0.6b-v2 | <span style="background-color:#fee2e2">❌ Mr President…</span> | <span style="background-color:#dcfce7">✅ Thank you, Mr President…</span> | <span style="background-color:#dcfce7">✅ Thank you, Mr. President…</span> |
+| Higgs-Audio-v3-8B | <span style="background-color:#fee2e2">❌ mr president…</span> | <span style="background-color:#fee2e2">❌ mr president…</span> | <span style="background-color:#dcfce7">✅ thank you mr president…</span> |
+| qwen3-asr-0.6b | <span style="background-color:#dcfce7">✅ Thank you, Mr. President…</span> | <span style="background-color:#dcfce7">✅ Thank you, Mister President…</span> | <span style="background-color:#dcfce7">✅ Thank you, Mister President…</span> |
+| Voxtral-mini | <span style="background-color:#dcfce7">✅ Thank you, Mr. President…</span> | <span style="background-color:#dcfce7">✅ Thank you, Mr. President…</span> | <span style="background-color:#dcfce7">✅ Thank you, Mr. President…</span> |
+| Kimi audio | <span style="background-color:#dcfce7">✅ Thank you, mr. President…</span> | <span style="background-color:#dcfce7">✅ Thank you, Mr. President…</span> | <span style="background-color:#dcfce7">✅ Thank you, mr. President…</span> |
+| Whisper large v3 | <span style="background-color:#dcfce7">✅ Thank you, Mr. President…</span> | <span style="background-color:#dcfce7">✅ Thank you, Mr. President…</span> | <span style="background-color:#dcfce7">✅ Thank you, Mr. President…</span> |
+| moonshine-streaming-medium | <span style="background-color:#dcfce7">✅ thank you mr president…</span> | <span style="background-color:#dcfce7">✅ thank you mr president…</span> | <span style="background-color:#dcfce7">✅ thank you mr president…</span> |
 | **Drops the courtesy (❌) out of 11** | **6** | **5** | **1** |
 
 Parakeet is the model that flips between reproducing the benchmark on the real clip and getting it right on the same-speaker clone. Phi-4 is the only model still dropping the courtesy on the ep-fresh clone. When we instead resynthesize the sentence in a generic TTS voice unconnected to any parliamentary recording, all eleven models restore the courtesy.
@@ -75,25 +75,25 @@ Models exhibiting benchmark-optimized behavior reproduced erroneous reference tr
 
 To build on the consensus disagreement probe, we deliberately silence numbers in the audio samples of test datasets and ask the models to transcribe what it hears. The number is literally absent from the audio, so models should not output any number, much less the exact number in the text.
 
-Some of these numbers are semi-predictable (although still unlikely for a model to predict), yet others are quite surprising. The following clip combines both probes, showing both how models recreate reference transcript errors including an incorrect number and one model even autocompletes a relatively random year (2011) despite it being silenced. In each model's row below, strikethrough marks reference-transcript words the model correctly did not reproduce (audio-faithful); **bold** marks a correct, audio-faithful insertion in place of the reference's erroneous wording; plain text reproduces the reference transcript's erroneous, audio-unsupported content.
+Some of these numbers are semi-predictable (although still unlikely for a model to predict), yet others are quite surprising. The following clip combines both probes, showing both how models recreate reference transcript errors including an incorrect number and one model even autocompletes a relatively random year (2011) despite it being silenced. In each model's row below, green highlighting with strikethrough marks reference-transcript words the model correctly did not reproduce (audio-faithful); green highlighting with <u>underline</u> marks a correct, audio-faithful insertion in place of the reference's erroneous wording; red highlighting (plain text) reproduces the reference transcript's erroneous, audio-unsupported content.
 
 **2011 draft budget (masked numbers)**
 
 <audio controls src="https://huggingface.co/datasets/HumeAI/hf-assets/resolve/main/blog/asr-benchmark-optimization/2011_draft_budget.wav"></audio>
 
-| Reference  | Mr President, in the Committee on Budgets we voted on more than one amendments to the 2011 draft … voted in the plenary |
+| Reference  | <span style="background-color:#fee2e2">Mr President,</span> in the Committee on Budgets we voted on more than one amendments to the <span style="background-color:#fee2e2">2011</span> draft … voted in the <span style="background-color:#fee2e2">plenary</span> |
 | --- | --- |
-| Masked and corrected | ~~Mr President~~ In the Committee on Budgets we voted on more than one thousand six hundred amendments to the ~~2011~~ draft …voted in the ~~plenary~~ |
-| Cohere-transcribe  | Mr President, in the Committee on Budgets we voted on more than one thousand six hundred amendments to the 2011 draft… voted in the plenary. |
-| Canary-qwen-2.5b | Mr President in the Committee on Budgets we voted on more than one thousand six hundred amendments to the ~~2011~~ draft… voted in the ~~plenary~~. |
-| Granite-4.1-2b | ~~Mr President~~ In the Committee on Budgets we voted on more than one thousand six hundred amendments to the ~~2011~~ draft …voted in the plenary session |
-| phi4-multimodal | ~~Mr President,~~  In the Committee on Budgets we voted on more than one thousand six hundred amendments to the ~~2011~~ draft… voted in the plenary. |
-| parakeet-tdt-0.6b-v2 | ~~Mr President,~~  In the Committee on Budgets we voted on more than one thousand six hundred amendments to the ~~2011~~ draft… voted in the plenary. |
-| Higgs-Audio-v3-8B | ~~Mr President,~~ in the committee on budgets we voted on more than **one thousand six hundred** amendments to the ~~2011~~ draft… voted in the ~~plenary~~ |
-| qwen3-asr-0.6b | ~~Mr President~~ In the Committee on Budgets we voted on more than **1,600** amendments to the ~~2011~~ draft …voted in the ~~plenary~~ |
-| Voxtral-mini | **In** the Committee on Budgets, we voted on more than **1,600** amendments to the ~~2011~~ draft... voted in the…~~plenary~~ |
-| Kimi audio | **Ah In** the committee on budgets we voted on more than **one thousand six hundred** amendments to the ~~2011~~ draft... voted in the ~~plenary~~ |
-| Whisper large v3 | **In** the Committee on Budgets, we voted on more than **1,600** amendments to the ~~2011~~ draft... voted in the…~~plenary~~ |
+| Masked and corrected | <span style="background-color:#dcfce7">~~Mr President~~</span> In the Committee on Budgets we voted on more than one <span style="background-color:#dcfce7"><u>thousand six hundred</u></span> amendments to the <span style="background-color:#dcfce7">~~2011~~</span> draft …voted in the <span style="background-color:#dcfce7">~~plenary~~</span> |
+| Cohere-transcribe  | <span style="background-color:#fee2e2">Mr President,</span> in the Committee on Budgets we voted on more than one <span style="background-color:#fee2e2">thousand six hundred</span> amendments to the <span style="background-color:#fee2e2">2011</span> draft… voted in the <span style="background-color:#fee2e2">plenary</span>. |
+| Canary-qwen-2.5b | <span style="background-color:#fee2e2">Mr President</span> in the Committee on Budgets we voted on more than one <span style="background-color:#fee2e2">thousand six hundred</span> amendments to the <span style="background-color:#dcfce7">~~2011~~</span> draft… voted in the <span style="background-color:#dcfce7">~~plenary~~</span>. |
+| Granite-4.1-2b | <span style="background-color:#dcfce7">~~Mr President~~</span> In the Committee on Budgets we voted on more than one <span style="background-color:#fee2e2">thousand</span> six hundred amendments to the <span style="background-color:#dcfce7">~~2011~~</span> draft …voted in the <span style="background-color:#fee2e2">plenary session</span> |
+| phi4-multimodal | <span style="background-color:#dcfce7">~~Mr President,~~</span>  In the Committee on Budgets we voted on more than one <span style="background-color:#fee2e2">thousand six hundred</span> amendments to the <span style="background-color:#dcfce7">~~2011~~</span> draft… voted in the <span style="background-color:#fee2e2">plenary</span>. |
+| parakeet-tdt-0.6b-v2 | <span style="background-color:#dcfce7">~~Mr President,~~</span>  In the Committee on Budgets we voted on more than one thousand six hundred amendments to the <span style="background-color:#dcfce7">~~2011~~</span> draft… voted in the <span style="background-color:#fee2e2">plenary</span>. |
+| Higgs-Audio-v3-8B | <span style="background-color:#dcfce7">~~Mr President,~~</span> in the committee on budgets we voted on more than <span style="background-color:#dcfce7"><u>one thousand six hundred</u></span> amendments to the <span style="background-color:#dcfce7">~~2011~~</span> draft… voted in the <span style="background-color:#dcfce7">~~plenary~~</span> |
+| qwen3-asr-0.6b | <span style="background-color:#dcfce7">~~Mr President~~</span> In the Committee on Budgets we voted on more than <span style="background-color:#dcfce7"><u>1,600</u></span> amendments to the <span style="background-color:#dcfce7">~~2011~~</span> draft …voted in the <span style="background-color:#dcfce7">~~plenary~~</span> |
+| Voxtral-mini | <span style="background-color:#dcfce7"><u>In</u></span> the Committee on Budgets, we voted on more than <span style="background-color:#dcfce7"><u>1,600</u></span> amendments to the <span style="background-color:#dcfce7">~~2011~~</span> draft... voted in the…<span style="background-color:#dcfce7">~~plenary~~</span> |
+| Kimi audio | <span style="background-color:#dcfce7"><u>Ah In</u></span> the committee on budgets we voted on more than <span style="background-color:#dcfce7"><u>one thousand six hundred</u></span> amendments to the <span style="background-color:#dcfce7">~~2011~~</span> draft... voted in the <span style="background-color:#dcfce7">~~plenary~~</span> |
+| Whisper large v3 | <span style="background-color:#dcfce7"><u>In</u></span> the Committee on Budgets, we voted on more than <span style="background-color:#dcfce7"><u>1,600</u></span> amendments to the <span style="background-color:#dcfce7">~~2011~~</span> draft... voted in the…<span style="background-color:#dcfce7">~~plenary~~</span> |
 
 Recovery rates were highest on the public benchmarks and lower on held-out or newly collected audio (ep-fresh and LibriVox-fresh below). On LibriSpeech, some of the strongest benchmark-performing models reproduced masked numbers in roughly 30–40% of examples, even though the number itself had been removed. The effect weakened on freshly collected data for several models, suggesting that the surrounding benchmark-associated audio—not only textual autocomplete—helped the models recover the reference.
 
