@@ -20,7 +20,7 @@ Our latest research introduces three tests to help quantify it. We evaluated 11 
 
 In some cases, models appeared to rely not only on what was said, but also on subtle acoustic cues that indicated which benchmark they were being tested on. As a result, their scores overstated how well they could transcribe speech more generally.
 
-## Reference disagreement
+## Reference disagreement (VoxPopuli case study)
 
 VoxPopuli is known to contain a high number of transcription errors (which is why Artificial Analysis released a [cleaned version](https://huggingface.co/datasets/ArtificialAnalysis/VoxPopuli-Cleaned-AA)). Our consensus disagreement probe tests what happens when leading ASR models encounter these errors: *Do they accurately transcribe what the audio says, or reproduce the benchmark's incorrect reference transcript?*
 
