@@ -59,7 +59,7 @@ The reference transcript for this clip reads "Mr President, I have another compl
 | moonshine-streaming-medium | <span style="background-color:#dcfce7">✅ thank you mr president…</span> | <span style="background-color:#dcfce7">✅ thank you mr president…</span> | <span style="background-color:#dcfce7">✅ thank you mr president…</span> |
 | **Drops the courtesy (❌) out of 11** | **6** | **5** | **1** |
 
-Parakeet is the model that flips between reproducing the benchmark on the real clip and getting it right on the same-speaker clone. Phi-4 is the only model still dropping the courtesy on the ep-fresh clone. When we instead resynthesize the sentence in a generic TTS voice unconnected to any parliamentary recording, all eleven models restore the courtesy.
+Parakeet is the only model that flips between reproducing the benchmark on the real clip and getting it right on the same-speaker clone. Phi-4 is the only model still dropping the courtesy on the ep-fresh clone. When we instead resynthesize the sentence in a generic TTS voice unconnected to any parliamentary recording, all eleven models restore the courtesy.
 
 The results suggest that this problem is both widespread and meaningful. Our methodology flagged potential reference errors in 40% of the VoxPopuli test clips we analyzed, affecting roughly 3% of all reference words.
 
