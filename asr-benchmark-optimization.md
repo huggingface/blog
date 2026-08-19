@@ -75,7 +75,7 @@ Models exhibiting benchmark-optimized behavior reproduced erroneous reference tr
 
 To build on the consensus disagreement probe, we deliberately silence numbers in the audio samples of test datasets and ask the models to transcribe what it hears. The number is literally absent from the audio, so models should not output any number, much less the exact number in the text.
 
-Some of these numbers are semi-predictable (although still unlikely for a model to predict), yet others are quite surprising. The following clip combines both probes, showing both how models recreate reference transcript errors including an incorrect number and one model even autocompletes a relatively random year (2011) despite it being silenced. In each model's row below, strikethrough marks reference-transcript words the model correctly did not reproduce (audio-faithful); plain text reproduces the reference transcript's erroneous, audio-unsupported content.
+Some of these numbers are semi-predictable (although still unlikely for a model to predict), yet others are quite surprising. The following clip combines both probes, showing both how models recreate reference transcript errors including an incorrect number and one model even autocompletes a relatively random year (2011) despite it being silenced. In each model's row below, strikethrough marks reference-transcript words the model correctly did not reproduce (audio-faithful); **bold** marks a correct, audio-faithful insertion in place of the reference's erroneous wording; plain text reproduces the reference transcript's erroneous, audio-unsupported content.
 
 **2011 draft budget (masked numbers)**
 
@@ -89,11 +89,11 @@ Some of these numbers are semi-predictable (although still unlikely for a model 
 | Granite-4.1-2b | ~~Mr President~~ In the Committee on Budgets we voted on more than one thousand six hundred amendments to the ~~2011~~ draft …voted in the plenary session |
 | phi4-multimodal | ~~Mr President,~~  In the Committee on Budgets we voted on more than one thousand six hundred amendments to the ~~2011~~ draft… voted in the plenary. |
 | parakeet-tdt-0.6b-v2 | ~~Mr President,~~  In the Committee on Budgets we voted on more than one thousand six hundred amendments to the ~~2011~~ draft… voted in the plenary. |
-| Higgs-Audio-v3-8B | ~~Mr President,~~ in the committee on budgets we voted on more than one thousand six hundred amendments to the ~~2011~~ draft… voted in the ~~plenary~~ |
-| qwen3-asr-0.6b | ~~Mr President~~ In the Committee on Budgets we voted on more than 1,600 amendments to the ~~2011~~ draft …voted in the ~~plenary~~ |
-| Voxtral-mini | In the Committee on Budgets, we voted on more than 1,600 amendments to the ~~2011~~ draft... voted in the…~~plenary~~ |
-| Kimi audio | Ah In the committee on budgets we voted on more than one thousand six hundred amendments to the ~~2011~~ draft... voted in the ~~plenary~~ |
-| Whisper large v3 | In the Committee on Budgets, we voted on more than 1,600 amendments to the ~~2011~~ draft... voted in the…~~plenary~~ |
+| Higgs-Audio-v3-8B | ~~Mr President,~~ in the committee on budgets we voted on more than **one thousand six hundred** amendments to the ~~2011~~ draft… voted in the ~~plenary~~ |
+| qwen3-asr-0.6b | ~~Mr President~~ In the Committee on Budgets we voted on more than **1,600** amendments to the ~~2011~~ draft …voted in the ~~plenary~~ |
+| Voxtral-mini | **In** the Committee on Budgets, we voted on more than **1,600** amendments to the ~~2011~~ draft... voted in the…~~plenary~~ |
+| Kimi audio | **Ah In** the committee on budgets we voted on more than **one thousand six hundred** amendments to the ~~2011~~ draft... voted in the ~~plenary~~ |
+| Whisper large v3 | **In** the Committee on Budgets, we voted on more than **1,600** amendments to the ~~2011~~ draft... voted in the…~~plenary~~ |
 
 Recovery rates were highest on the public benchmarks and lower on held-out or newly collected audio (ep-fresh and LibriVox-fresh below). On LibriSpeech, some of the strongest benchmark-performing models reproduced masked numbers in roughly 30–40% of examples, even though the number itself had been removed. The effect weakened on freshly collected data for several models, suggesting that the surrounding benchmark-associated audio—not only textual autocomplete—helped the models recover the reference.
 
