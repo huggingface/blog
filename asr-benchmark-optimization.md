@@ -6,8 +6,6 @@ authors:
   guest: true
   org: HumeAI
 - user: bezzam
-  guest: true
-  org: HumeAI
 ---
 
 # Towards quantifying benchmark optimization in leading speech recognition models
