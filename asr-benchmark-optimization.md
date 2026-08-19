@@ -67,13 +67,15 @@ The results suggest that this problem is both widespread and meaningful. Our met
 
 Models exhibiting benchmark-optimized behavior reproduced erroneous reference transcripts 20–33% of the time. The scatterplot below compares VoxPopuli word error rate (WER) on the x-axis with the rate at which each model reproduces the benchmark's incorrect reference instead of the consensus correction. The models with the lowest WER—and therefore the strongest reported benchmark performance—are also the most likely to reproduce these errors.
 
-![Scatterplot comparing VoxPopuli WER to the rate at which each model reproduces the benchmark's incorrect reference transcript.](https://huggingface.co/datasets/HumeAI/hf-assets/resolve/main/blog/asr-benchmark-optimization/wer_vs_badref.png)
+<div align="center">
+  <img src="https://huggingface.co/datasets/HumeAI/hf-assets/resolve/main/blog/asr-benchmark-optimization/wer_vs_badref.png" width="800px" alt="Scatterplot comparing VoxPopuli WER to the rate at which each model reproduces the benchmark's incorrect reference transcript." />
+</div>
 
 ## Masked Entity Retrieval
 
 To build on the consensus disagreement probe, we deliberately silence numbers in the audio samples of test datasets and ask the models to transcribe what it hears. The number is literally absent from the audio, so models should not output any number, much less the exact number in the text.
 
-Some of these numbers are semi-predictable (although still unlikely for a model to predict), yet others are quite surprising. The following clip combines both probes, showing both how models recreate reference transcript errors including an incorrect number and one model even autocompletes a relatively random year (2011) despite it being silenced. Struck-through text signals text erroneously inserted from the reference transcript that is absent from the audio.
+Some of these numbers are semi-predictable (although still unlikely for a model to predict), yet others are quite surprising. The following clip combines both probes, showing both how models recreate reference transcript errors including an incorrect number and one model even autocompletes a relatively random year (2011) despite it being silenced. In each model's row below, strikethrough marks reference-transcript words the model correctly did not reproduce (audio-faithful); plain text reproduces the reference transcript's erroneous, audio-unsupported content.
 
 **2011 draft budget (masked numbers)**
 
@@ -95,7 +97,9 @@ Some of these numbers are semi-predictable (although still unlikely for a model 
 
 Recovery rates were highest on the public benchmarks and lower on held-out or newly collected audio (ep-fresh and LibriVox-fresh below). On LibriSpeech, some of the strongest benchmark-performing models reproduced masked numbers in roughly 30–40% of examples, even though the number itself had been removed. The effect weakened on freshly collected data for several models, suggesting that the surrounding benchmark-associated audio—not only textual autocomplete—helped the models recover the reference.
 
-![Recovery rate of masked numbers on public benchmarks versus freshly collected held-out audio.](https://huggingface.co/datasets/HumeAI/hf-assets/resolve/main/blog/asr-benchmark-optimization/masking_freshpairs.png)
+<div align="center">
+  <img src="https://huggingface.co/datasets/HumeAI/hf-assets/resolve/main/blog/asr-benchmark-optimization/masking_freshpairs.png" width="700px" alt="Recovery rate of masked numbers on public benchmarks versus freshly collected held-out audio." />
+</div>
 
 ## Orthographic Switching
 
@@ -111,13 +115,17 @@ Our orthographic switching probe tests whether models reproduce the exact spelli
 
 Within LibriSpeech, we test one *intra-dataset* switch involving an older spacing convention: some reference transcripts use "any one", while others use "anyone." We measure the minimum accuracy for a given variant, which we call "switch rate". If a model only uses one variant it would have a 0% switch rate; a model which picks randomly would be expected to have a 50% switch rate. A model which knows which variant to use in every test sample would earn a 100% switch rate.
 
-![Switch rate for the "any one" vs "anyone" spacing convention, sorted by model.](https://huggingface.co/datasets/HumeAI/hf-assets/resolve/main/blog/asr-benchmark-optimization/pair_spacing_sorted.png)
+<div align="center">
+  <img src="https://huggingface.co/datasets/HumeAI/hf-assets/resolve/main/blog/asr-benchmark-optimization/pair_spacing_sorted.png" width="700px" alt="Switch rate for the &quot;any one&quot; vs &quot;anyone&quot; spacing convention, sorted by model." />
+</div>
 
 Our second probe tests an *inter-dataset switch*, in which each benchmark uses a different spelling convention consistently across its test corpus. For example, VoxPopuli uses the abbreviation "Mr.," while LibriSpeech spells out "Mister."
 
 Multiple models exceed the 50% random-choice baseline, with some reaching roughly 90% switch accuracy. **This suggests that the models can identify which dataset an audio sample comes from and select the spelling convention that benchmark expects, even though both forms sound identical.**
 
-![Switch rate for the "Mr." vs "Mister" convention across VoxPopuli and LibriSpeech, sorted by model.](https://huggingface.co/datasets/HumeAI/hf-assets/resolve/main/blog/asr-benchmark-optimization/pair_mister_sorted.png)
+<div align="center">
+  <img src="https://huggingface.co/datasets/HumeAI/hf-assets/resolve/main/blog/asr-benchmark-optimization/pair_mister_sorted.png" width="700px" alt="Switch rate for the &quot;Mr.&quot; vs &quot;Mister&quot; convention across VoxPopuli and LibriSpeech, sorted by model." />
+</div>
 
 ## Localizing the switches
 
@@ -125,7 +133,9 @@ To test whether these behaviors generalize beyond the public benchmarks, we also
 
 Other interventions point to the same conclusion. Phrases which are present in the audio but are omitted in the reference transcript can reappear when a model is asked to translate the audio or when its attention is restricted to the relevant frames. Trimming away surrounding benchmark context, or appending ordinary conversational audio, can also restore the faithful transcript. Appending VoxPopuli audio can have the opposite effect, making otherwise faithful synthetic or mined samples more likely to match the benchmark reference.
 
-![Effect of steering the amount of surrounding benchmark-associated audio context on transcription behavior.](https://huggingface.co/datasets/HumeAI/hf-assets/resolve/main/blog/asr-benchmark-optimization/steer_input_level_full.png)
+<div align="center">
+  <img src="https://huggingface.co/datasets/HumeAI/hf-assets/resolve/main/blog/asr-benchmark-optimization/steer_input_level_full.png" width="800px" alt="Effect of steering the amount of surrounding benchmark-associated audio context on transcription behavior." />
+</div>
 
 **Together, these results suggest that the model is able to faithfully transcribe the literal spoken words, but are using surrounding acoustic context to decide whether to follow the audio or a benchmark-specific transcription policy.**
 
