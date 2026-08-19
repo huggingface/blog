@@ -2,43 +2,10 @@
 title: "Towards quantifying benchmark optimization in leading speech recognition models"
 thumbnail: /blog/assets/asr-benchmark-optimization/thumbnail.png
 authors:
-- user: dayllon
-  guest: true
-  org: HumeAI
-- user: aliceebaird
-  guest: true
-  org: HumeAI
-- user: jeffbrooks
-  guest: true
-  org: HumeAI
-- user: francamps
-  guest: true
-  org: HumeAI
-- user: jpc
-  guest: true
-  org: HumeAI
 - user: tlebryk02
   guest: true
   org: HumeAI
-- user: jens-hume-ai
-  guest: true
-  org: HumeAI
-- user: itsolyaossi
-  guest: true
-  org: HumeAI
-- user: sharath25
-  guest: true
-  org: HumeAI
-- user: hoon-hume
-  guest: true
-  org: HumeAI
-- user: tig88
-  guest: true
-  org: HumeAI
-- user: rashisht
-  guest: true
-  org: HumeAI
-- user: tzirakis
+- user: bezzam
   guest: true
   org: HumeAI
 ---
