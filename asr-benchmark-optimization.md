@@ -15,6 +15,9 @@ authors:
 - user: jpc
   guest: true
   org: HumeAI
+- user: jens-hume-ai
+  guest: true
+  org: HumeAI
 - user: tzirakis
   guest: true
   org: HumeAI
