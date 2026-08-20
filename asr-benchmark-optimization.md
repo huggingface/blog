@@ -1,5 +1,5 @@
 ---
-title: "Towards quantifying benchmark optimization in leading speech recognition models"
+title: "Measuring benchmark optimization in speech recognition"
 thumbnail: /blog/assets/asr-benchmark-optimization/thumbnail.png
 authors:
 - user: tlebryk02
