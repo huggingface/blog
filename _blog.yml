@@ -5664,3 +5664,13 @@
     - multimodal
     - embeddings
     - sentence-transformers
+
+- local: pwc-search
+  date: August 20, 2026
+  tags:
+    - research
+    - search
+    - embeddings
+    - inference
+    - jobs
+    - storage
