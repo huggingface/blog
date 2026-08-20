@@ -101,7 +101,7 @@ pip install wandb torchvision
 
 ### 演练一遍
 
-`trl` 库中负责 DDPO 训练的主要是 `DDPOTrainer` 和 `DDPOConfig` 这两个类。有关 `DDPOTrainer` 和 `DDPOConfig` 的更多信息，请参阅 [相应文档](https://huggingface.co/docs/trl/ddpo_trainer#getting-started-with-examplesscriptsstablediffusiontuningpy)。 `trl` 代码库中有一个 [示例训练脚本](https://github.com/huggingface/trl/blob/main/examples/scripts/stable_diffusion_tuning.py)。它默认使用这两个类，并有一套默认的输入和参数用于微调 `RunwayML` 中的预训练 Stable Diffusion 模型。
+`trl` 库中负责 DDPO 训练的主要是 `DDPOTrainer` 和 `DDPOConfig` 这两个类。有关 `DDPOTrainer` 和 `DDPOConfig` 的更多信息，请参阅 [相应文档](https://huggingface.co/docs/trl/ddpo_trainer#getting-started-with-examplesscriptsstablediffusiontuningpy)。 `trl` 代码库中有一个 [示例训练脚本](https://github.com/huggingface/trl/blob/v0.9.6/examples/scripts/ddpo.py)。它默认使用这两个类，并有一套默认的输入和参数用于微调 `RunwayML` 中的预训练 Stable Diffusion 模型。
 
 此示例脚本使用 `wandb` 记录训练日志，并使用美学奖励模型，其权重是从公开的 Hugging Face 存储库读取的 (因此数据收集和美学奖励模型训练均已经帮你做完了)。默认提示数据是一系列动物名。
 

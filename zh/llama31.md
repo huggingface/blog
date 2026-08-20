@@ -696,7 +696,7 @@ _注意: 我们目前正在与我们的合作伙伴 AWS、Google Cloud、Microso
 <details close>
 <summary>使用 Hugging Face TRL 的微调示例</summary>
 
-首先，安装最新版本的 🤗 TRL 并克隆 repo 以访问 [训练脚本](https://github.com/huggingface/trl/blob/main/examples/scripts/sft.py):
+首先，安装最新版本的 🤗 TRL 并克隆 repo 以访问 [训练脚本](https://github.com/huggingface/trl/blob/main/trl/scripts/sft.py):
 
 ```
 pip install "transformers>=4.43" --upgrade
@@ -711,7 +711,7 @@ cd trl
 
 ```
 python \
-    examples/scripts/sft.py \
+    trl/scripts/sft.py \
     --model_name meta-llama/Meta-Llama-3.1-8B \
     --dataset_name OpenAssistant/oasst_top1_2023-08-25 \
     --dataset_text_field="text" \
@@ -736,7 +736,7 @@ python \
 
 ```
 accelerate launch --config_file=examples/accelerate_configs/deepspeed_zero3.yaml \
-    examples/scripts/sft.py \
+    trl/scripts/sft.py \
     --model_name meta-llama/Meta-Llama-3.1-8B \
     --dataset_name OpenAssistant/oasst_top1_2023-08-25 \
     --dataset_text_field="text" \

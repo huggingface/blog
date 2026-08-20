@@ -811,7 +811,7 @@ In this section, we’ll look at the tools available in the Hugging Face ecosyst
 <details close>
 <summary>Fine-Tuning Example with Hugging Face TRL</summary>
 
-First, install the nightly version of 🤗 TRL and clone the repo to access the [training script](https://github.com/huggingface/trl/blob/main/examples/scripts/sft.py):
+First, install the nightly version of 🤗 TRL and clone the repo to access the [training script](https://github.com/huggingface/trl/blob/main/trl/scripts/sft.py):
 
 ``` 
 pip install "transformers>=4.43.2" --upgrade
@@ -826,7 +826,7 @@ Then you can run the script:
 
 ```
 python \
-    examples/scripts/sft.py \
+    trl/scripts/sft.py \
     --model_name meta-llama/Meta-Llama-3.1-8B \
     --dataset_name OpenAssistant/oasst_top1_2023-08-25 \
     --dataset_text_field="text" \
@@ -851,7 +851,7 @@ If you have more GPUs to spare, you can run training with DeepSpeed and ZeRO Sta
 
 ```
 accelerate launch --config_file=examples/accelerate_configs/deepspeed_zero3.yaml \
-    examples/scripts/sft.py \
+    trl/scripts/sft.py \
     --model_name meta-llama/Meta-Llama-3.1-8B \
     --dataset_name OpenAssistant/oasst_top1_2023-08-25 \
     --dataset_text_field="text" \
