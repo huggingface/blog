@@ -22,7 +22,7 @@ authors:
 
 # Measuring benchmark optimization in speech recognition
 
-Public voice AI benchmarks increasingly suggest that models are performing at a human levels. Yet those scores don't always reflect how models work in the real-world. Since public benchmarks are open and widely used, models can also become optimized for the tests themselves. Their scores may improve because they have learned benchmark-specific patterns and not because they have become better at the underlying task.
+Public voice AI benchmarks increasingly suggest that models are performing at human levels. Yet those scores don't always reflect how models work in the real-world. Since public benchmarks are open and widely used, models can also become optimized for the tests themselves. Their scores may improve because they have learned benchmark-specific patterns and not because they have become better at the underlying task.
 
 One reason is that traditional benchmarks overlook many of the conditions and qualities that make voice systems reliable, natural, contextually appropriate, and effective in practice. That's why we recently introduced held-out sets in [Real World VoiceEQ](https://huggingface.co/spaces/HumeAI/rw-voice-eq), the [Open-ASR Leaderboard](https://huggingface.co/blog/open-asr-leaderboard-private-data), and the [Far-field ASR Leaderboard](https://huggingface.co/spaces/treble-technologies/ffasr): to measure more of what matters in real-world use.
 
@@ -75,7 +75,7 @@ Parakeet is the only model that flips between reproducing the benchmark on the r
 
 The results suggest that this problem is both widespread and meaningful. Our methodology flagged potential reference errors in 40% of the VoxPopuli test clips we analyzed, affecting roughly 3% of all reference words.
 
-Models exhibiting benchmark-optimized behavior reproduced erroneous reference transcripts 20–33% of the time. The scatterplot below compares VoxPopuli word error rate (WER) on the x-axis with the rate at which each model reproduces the benchmark's incorrect reference instead of the consensus correction. The models with the lowest WER—and therefore the strongest reported benchmark performance—are also the most likely to reproduce these errors.
+Models exhibiting benchmark-optimized behavior reproduced erroneous reference transcripts 18–30% of the time. The scatterplot below compares VoxPopuli word error rate (WER) on the x-axis with the rate at which each model reproduces the benchmark's incorrect reference instead of the consensus correction. The models with the lowest WER—and therefore the strongest reported benchmark performance—are also the most likely to reproduce these errors.
 
 <div align="center">
   <img src="https://huggingface.co/datasets/HumeAI/hf-assets/resolve/main/blog/asr-benchmark-optimization/wer_vs_badref.png" width="800px" alt="Scatterplot comparing VoxPopuli WER to the rate at which each model reproduces the benchmark's incorrect reference transcript." />
@@ -108,7 +108,7 @@ Some of these numbers are semi-predictable (although still unlikely for a model 
 | Kimi audio | <span style="background-color:#dcfce7"><u>Ah In</u></span> the committee on budgets we voted on more than <span style="background-color:#dcfce7"><u>one thousand six hundred</u></span> amendments to the <span style="background-color:#dcfce7">~~2011~~</span> draft... voted in the <span style="background-color:#dcfce7">~~plenary~~</span> |
 | Whisper large v3 | <span style="background-color:#dcfce7"><u>In</u></span> the Committee on Budgets, we voted on more than <span style="background-color:#dcfce7"><u>1,600</u></span> amendments to the <span style="background-color:#dcfce7">~~2011~~</span> draft... voted in the…<span style="background-color:#dcfce7">~~plenary~~</span> |
 
-Recovery rates were highest on the public benchmarks and lower on held-out or newly collected audio (ep-fresh and LibriVox-fresh below). On LibriSpeech, some of the strongest benchmark-performing models reproduced masked numbers in roughly 30–40% of examples, even though the number itself had been removed. The effect weakened on freshly collected data for several models, suggesting that the surrounding benchmark-associated audio—not only textual autocomplete—helped the models recover the reference.
+Recovery rates were highest on the public benchmarks and lower on held-out or newly collected audio (ep-fresh and libri-fresh below). On LibriSpeech, some of the strongest benchmark-performing models reproduced masked numbers in roughly 30–40% of examples, even though the number itself had been removed. The effect weakened on freshly collected data for several models, suggesting that the surrounding benchmark-associated audio—not only textual autocomplete—helped the models recover the reference.
 
 <div align="center">
   <img src="https://huggingface.co/datasets/HumeAI/hf-assets/resolve/main/blog/asr-benchmark-optimization/masking_freshpairs.png" width="700px" alt="Recovery rate of masked numbers on public benchmarks versus freshly collected held-out audio." />
@@ -116,7 +116,7 @@ Recovery rates were highest on the public benchmarks and lower on held-out or ne
 
 ## Orthographic Switching
 
-Our orthographic switching probe tests whether models reproduce the exact spelling used in a benchmark's reference transcript despite it not being clear in the audio. Orthographic variants are words that are semantically and phonetically identical but can be spelled different ways (1 vs one, Mr. vs mister, John vs Jon, Honor vs Honour, etc). In theory, models should be consistently prefer one spelling over another, or alternate between them at roughly random rates. If models systematically switch to match what is in each benchmark's reference transcript, that suggest the models are picking up on which spelling the test expects.
+Our orthographic switching probe tests whether models reproduce the exact spelling used in a benchmark's reference transcript despite it not being clear in the audio. Orthographic variants are words that are semantically and phonetically identical but can be spelled different ways (1 vs one, Mr. vs mister, John vs Jon, Honor vs Honour, etc). In theory, models should consistently prefer one spelling over another, or alternate between them at roughly random rates. If models systematically switch to match what is in each benchmark's reference transcript, that suggests the models are picking up on which spelling the test expects.
 
 **Transcription: "I URGED ON THE BOYS THAT WHATEVER HAPPENED WE SHOULD NOT SHOOT ANY ONE" — models using "any one": 6/11, models using "anyone": 5/11**
 
@@ -150,7 +150,7 @@ Other interventions point to the same conclusion. Phrases which are present in t
   <img src="https://huggingface.co/datasets/HumeAI/hf-assets/resolve/main/blog/asr-benchmark-optimization/steer_input_level_full.png" width="800px" alt="Effect of steering the amount of surrounding benchmark-associated audio context on transcription behavior." />
 </div>
 
-**Together, these results suggest that the model is able to faithfully transcribe the literal spoken words, but are using surrounding acoustic context to decide whether to follow the audio or a benchmark-specific transcription policy.**
+**Together, these results suggest that models are able to faithfully transcribe the literal spoken words, but are using surrounding acoustic context to decide whether to follow the audio or a benchmark-specific transcription policy.**
 
 ## Conclusion
 
