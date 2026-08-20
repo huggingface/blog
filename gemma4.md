@@ -722,7 +722,7 @@ Get started:
 ```shell
 # pip install git+https://github.com/huggingface/trl.git
 
-python examples/scripts/openenv/carla_vlm_gemma.py \
+python examples/grpo_carla/carla_vlm_gemma.py \
 	--env-urls https://sergiopaniego-carla-env.hf.space \
 			https://sergiopaniego-carla-env-2.hf.space \
 	--model google/gemma-4-E2B-it
