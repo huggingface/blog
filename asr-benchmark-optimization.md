@@ -20,7 +20,7 @@ authors:
   org: HumeAI
 ---
 
-# Towards quantifying benchmark optimization in leading speech recognition models
+# Measuring benchmark optimization in speech recognition
 
 Public voice AI benchmarks increasingly suggest that models are performing at a human levels. Yet those scores don't always reflect how models work in the real-world. Since public benchmarks are open and widely used, models can also become optimized for the tests themselves. Their scores may improve because they have learned benchmark-specific patterns and not because they have become better at the underlying task.
 
