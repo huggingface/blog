@@ -165,3 +165,5 @@ For people selecting models, these findings underscore the importance of using f
 Our findings also suggest that benchmark developers should avoid simple independent and identically distributed test splits in favor of temporal, speaker, or other metadata-based separation. Greater transparency around training data and model-selection procedures would also help researchers understand how these behaviors arise.
 
 Public benchmarks remain valuable: they are transparent, repeatable, easy to run, and well understood by the research community. But they are most useful when we can distinguish genuine transcription improvements from benchmark-specific gains that do not generalize to new audio.
+
+For more information, we encourage you to read our [full report](https://huggingface.co/papers/2608.19936).
