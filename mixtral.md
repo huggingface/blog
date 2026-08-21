@@ -188,7 +188,7 @@ Training LLMs can be technically and computationally challenging. In this sectio
 
 An example command to fine-tune Mixtral on OpenAssistant’s [chat dataset](https://huggingface.co/datasets/OpenAssistant/oasst_top1_2023-08-25) can be found below. To conserve memory, we make use of 4-bit quantization and [QLoRA](https://arxiv.org/abs/2305.14314) to target all the linear layers in the attention blocks. Note that unlike dense transformers, one should not target the MLP layers as they are sparse and don’t interact well with PEFT.
 
-First, install the nightly version of 🤗 TRL and clone the repo to access the [training script](https://github.com/huggingface/trl/blob/main/examples/scripts/sft.py):
+First, install the nightly version of 🤗 TRL and clone the repo to access the [training script](https://github.com/huggingface/trl/blob/main/trl/scripts/sft.py):
 
 ```bash
 pip install -U transformers
@@ -201,7 +201,7 @@ Then you can run the script:
 
 ```bash
 accelerate launch --config_file examples/accelerate_configs/multi_gpu.yaml --num_processes=1 \
-	examples/scripts/sft.py \
+	trl/scripts/sft.py \
 	--model_name mistralai/Mixtral-8x7B-v0.1 \
 	--dataset_name trl-lib/ultrachat_200k_chatml \
 	--batch_size 2 \

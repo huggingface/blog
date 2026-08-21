@@ -220,7 +220,7 @@ Training LLMs can be technically and computationally challenging. In this sectio
 
 An example command to fine-tune Gemma on OpenAssistant’s [chat dataset](https://huggingface.co/datasets/OpenAssistant/oasst_top1_2023-08-25) can be found below. We use 4-bit quantization and [QLoRA](https://arxiv.org/abs/2305.14314) to conserve memory to target all the attention blocks' linear layers. Note that, unlike dense transformers, one should not target the MLP layers as they are sparse and don’t interact well with PEFT.
 
-First, install the nightly version of 🤗 TRL and clone the repo to access the [training script](https://github.com/huggingface/trl/blob/main/examples/scripts/sft.py):
+First, install the nightly version of 🤗 TRL and clone the repo to access the [training script](https://github.com/huggingface/trl/blob/main/trl/scripts/sft.py):
 
 ```jsx
 pip install "transformers>=4.42.3" --upgrade
@@ -236,7 +236,7 @@ Then you can run the script:
 ```bash
 # peft tuning; single GPU; https://wandb.ai/costa-huang/huggingface/runs/l1l53cst
 python \
-	examples/scripts/sft.py \
+	trl/scripts/sft.py \
 	--model_name google/gemma-2-27b \
 	--dataset_name OpenAssistant/oasst_top1_2023-08-25 \
 	--dataset_text_field="text" \
@@ -267,7 +267,7 @@ If you have more GPUs to spare, you can run training with DeepSpeed and ZeRO Sta
 
 ```bash
 accelerate launch --config_file=examples/accelerate_configs/deepspeed_zero3.yaml \
-	examples/scripts/sft.py \
+	trl/scripts/sft.py \
 	--model_name google/gemma-2-27b \
 	--dataset_name OpenAssistant/oasst_top1_2023-08-25 \
 	--dataset_text_field="text" \

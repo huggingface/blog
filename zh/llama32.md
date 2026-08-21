@@ -29,7 +29,7 @@ Llama 3.2 还包括可以在设备上运行的小型仅文本语言模型。它�
 - [Hub 上的模型检查点](https://huggingface.co/collections/meta-llama/llama-32-66f448ffc8c32f949b04c8cf)
 - Hugging Face Transformers 和 TGI 对视觉模型的集成
 - 在 Google Cloud、Amazon SageMaker 和 DELL 企业中心的推理与部署集成
-- 使用 [transformers🤗](https://github.com/huggingface/huggingface-llama-recipes/tree/main/Llama-Vision%20FT.ipynb) 和 [TRL](https://github.com/huggingface/trl/tree/main/examples/scripts/sft_vlm.py) 在单个 GPU 上微调 Llama 3.2 11B 视觉模型
+- 使用 [transformers🤗](https://github.com/huggingface/huggingface-llama-recipes/tree/main/Llama-Vision%20FT.ipynb) 和 [TRL](https://github.com/huggingface/trl/tree/main/examples/sft_visual_chat/sft_vlm.py) 在单个 GPU 上微调 Llama 3.2 11B 视觉模型
 
 ## 目录
 
@@ -415,12 +415,12 @@ trl sft --model_name_or_path meta-llama/Llama-3.2-3B \
          --gradient_checkpointing
 ```
 
-TRL 还支持使用 [这个脚本](https://github.com/huggingface/trl/tree/main/examples/scripts/sft_vlm.py) 微调 Llama 3.2 Vision。
+TRL 还支持使用 [这个脚本](https://github.com/huggingface/trl/tree/main/examples/sft_visual_chat/sft_vlm.py) 微调 Llama 3.2 Vision。
 
 ```bash
 # Tested on 8x H100 GPUs
 accelerate launch --config_file=examples/accelerate_configs/deepspeed_zero3.yaml \
-    examples/scripts/sft_vlm.py \
+    examples/sft_visual_chat/sft_vlm.py \
     --dataset_name HuggingFaceH4/llava-instruct-mix-vsft \
     --model_name_or_path meta-llama/Llama-3.2-11B-Vision-Instruct \
     --per_device_train_batch_size 8 \

@@ -247,7 +247,7 @@ Training LLMs can be technically and computationally challenging. In this sectio
 
 An example command to fine-tune Gemma on OpenAssistant’s [chat dataset](https://huggingface.co/datasets/OpenAssistant/oasst_top1_2023-08-25) can be found below. We use 4-bit quantization and [QLoRA](https://arxiv.org/abs/2305.14314) to conserve memory to target all the attention blocks' linear layers.
 
-First, install the nightly version of 🤗 TRL and clone the repo to access the [training script](https://github.com/huggingface/trl/blob/main/examples/scripts/sft.py):
+First, install the nightly version of 🤗 TRL and clone the repo to access the [training script](https://github.com/huggingface/trl/blob/main/trl/scripts/sft.py):
 
 ```jsx
 pip install -U transformers trl peft bitsandbytes
@@ -259,7 +259,7 @@ Then you can run the script:
 
 ```jsx
 accelerate launch --config_file examples/accelerate_configs/multi_gpu.yaml --num_processes=1 \
-	examples/scripts/sft.py \
+	trl/scripts/sft.py \
 	--model_name google/gemma-7b \
 	--dataset_name OpenAssistant/oasst_top1_2023-08-25 \
 	--per_device_train_batch_size 2 \
