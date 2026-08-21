@@ -223,7 +223,7 @@ Corpus embedding and query embedding use the same model, but they are different 
 
 ### 2. Make storage the explicit contract between compute and production
 
-Mounting a Bucket into a Job is convenient. The bigger win is operational: checksummed artifacts give us a reviewable boundary before data enters the production index.
+Buckets provide an explicit handoff between compute and production. Checksummed artifacts create a reviewable boundary before data enters the production index.
 
 ### 3. Pin more than the model name
 
@@ -240,17 +240,3 @@ Matryoshka embeddings let us evaluate quality, memory, index size, and latency a
 ### 6. Activation should be boring
 
 New generations are imported beside the current one, indexed independently, checked for complete and current coverage, and then activated atomically. Rollback is a configuration change, not an emergency recomputation.
-
-## A small stack with clear responsibilities
-
-The architecture is made up of various components, each serving a purpose:
-
-- Jobs provide on-demand GPU compute when the corpus needs to be rebuilt.
-- Buckets make ephemeral compute durable, reproducible, and resumable.
-- Inference Endpoints provide the small online inference surface needed for on-demand semantic search.
-- PostgreSQL and pgvector keep ranking close to the rest of the Papers with Code catalog.
-- Full-text search keeps the experience fast and dependable when semantic inference is unavailable.
-
-Together, these services let a small team operate a semantic search system over a growing research catalog without maintaining a permanent batch GPU fleet or making every search request depend on a model being warm.
-
-Try the search on [Papers with Code](https://paperswithcode.co), and explore the Hugging Face documentation for [Jobs](https://huggingface.co/docs/hub/jobs), [Storage Buckets](https://huggingface.co/docs/hub/storage-buckets), and [Inference Endpoints](https://huggingface.co/docs/inference-endpoints/index) to build a similar offline/online retrieval pipeline.
