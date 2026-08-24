@@ -5666,7 +5666,7 @@
     - sentence-transformers
 
 - local: gradio-workflow-guide
-  date: August 20, 2026
+  date: August 24, 2026
   tags:
     - gradio
     - workflows
