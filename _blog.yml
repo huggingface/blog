@@ -5674,3 +5674,11 @@
     - spaces
     - models
     - inference-providers
+    
+- local: asr-benchmark-optimization
+  date: August 21, 2026
+  tags:
+    - audio
+    - speech
+    - benchmark
+    - research
