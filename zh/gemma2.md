@@ -222,7 +222,7 @@ pipeline = pipeline(
 
 下面是在 OpenAssistant 的[聊天数据集](https://huggingface.co/datasets/OpenAssistant/oasst_top1_2023-08-25)上微调 Gemma 的示例命令。我们使用 4 位量化和 [QLoRA](https://arxiv.org/abs/2305.14314) 来节省内存,以针对所有注意力块的线性层。请注意,与密集变换器不同,不应针对 MLP 层,因为它们是稀疏的,与 PEFT 不太兼容。
 
-首先,安装 🤗 TRL 的每日版本并克隆仓库以访问[训练脚本](https://github.com/huggingface/trl/blob/main/examples/scripts/sft.py):
+首先,安装 🤗 TRL 的每日版本并克隆仓库以访问[训练脚本](https://github.com/huggingface/trl/blob/main/trl/scripts/sft.py):
 
 ```jsx
 pip install "transformers>=4.42.3" --upgrade
@@ -238,7 +238,7 @@ cd trl
 ```bash
 # peft 调优;单 GPU;https://wandb.ai/costa-huang/huggingface/runs/l1l53cst
 python \
-	examples/scripts/sft.py \
+	trl/scripts/sft.py \
 	--model_name google/gemma-2-27b \
 	--dataset_name OpenAssistant/oasst_top1_2023-08-25 \
 	--dataset_text_field="text" \
@@ -268,7 +268,7 @@ python \
 
 ```bash
 accelerate launch --config_file=examples/accelerate_configs/deepspeed_zero3.yaml \
-	examples/scripts/sft.py \
+	trl/scripts/sft.py \
 	--model_name google/gemma-2-27b \
 	--dataset_name OpenAssistant/oasst_top1_2023-08-25 \
 	--dataset_text_field="text" \

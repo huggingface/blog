@@ -238,7 +238,7 @@ for message in chat_completion:
 
 一个微调 Gemma 的示例命令如下。我们利用 4 位量化和 QLoRA（一种参数效率微调技术）来减少内存使用，目标是所有注意力块的线性层。值得注意的是，与密集型 Transformer 不同，MLP 层（多层感知器层）因其稀疏性不适合与 PEFT（参数效率微调）技术结合使用。
 
-首先，安装 🤗 TRL 的最新版本并克隆仓库以获取 [训练脚本](https://github.com/huggingface/trl/blob/main/examples/scripts/sft.py)：
+首先，安装 🤗 TRL 的最新版本并克隆仓库以获取 [训练脚本](https://github.com/huggingface/trl/blob/main/trl/scripts/sft.py)：
 
 ```jsx
 pip install -U transformers trl peft bitsandbytes
@@ -250,7 +250,7 @@ cd trl
 
 ```jsx
 accelerate launch --config_file examples/accelerate_configs/multi_gpu.yaml --num_processes=1 \
-    examples/scripts/sft.py \
+    trl/scripts/sft.py \
     --model_name google/gemma-7b \
     --dataset_name OpenAssistant/oasst_top1_2023-08-25 \
     --per_device_train_batch_size 2 \
