@@ -5682,3 +5682,13 @@
     - speech
     - benchmark
     - research
+
+- local: train-multi-vector-encoder
+  date: August 26, 2026
+  tags:
+    - nlp
+    - guide
+    - community
+    - open-source
+    - embeddings
+    - sentence-transformers
