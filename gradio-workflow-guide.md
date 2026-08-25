@@ -1,5 +1,5 @@
 ---
-title: "Build Anything with gr.Workflow: The Complete Guide"
+title: "Wire It, Run It, Deploy It: AI Workflows in Gradio"
 thumbnail: /blog/assets/gradio-workflow-guide/thumbnail.png
 authors:
 - user: ysharma
