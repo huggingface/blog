@@ -354,10 +354,10 @@ Try it yourself and see how the model performs on your own examples!
 
 ## Finetuning Llava 1.5, PaliGemma and others
 
-At the time of writing, the DPO implementation in TRL supports Idefics2, Llava 1.5, and PaliGemma, with ongoing efforts to add support for more models. The easiest way to fine-tune these models is to use the [example script](https://github.com/huggingface/trl/blob/main/examples/dpo_reduce_hallucinations/dpo_vlm.py) provided in the TRL repository. For example, to finetune PaliGemma, you can use the following command:
+At the time of writing, the DPO implementation in TRL supports Idefics2, Llava 1.5, and PaliGemma, with ongoing efforts to add support for more models. The easiest way to fine-tune these models is to use the [example script](https://github.com/huggingface/trl/blob/main/examples/dpo_reduce_hallucinations/dpo_reduce_hallucinations.py) provided in the TRL repository. For example, to finetune PaliGemma, you can use the following command:
 
 ```sh
-accelerate launch examples/dpo_reduce_hallucinations/dpo_vlm.py \
+accelerate launch examples/dpo_reduce_hallucinations/dpo_reduce_hallucinations.py \
     --dataset_name HuggingFaceH4/rlaif-v_formatted \
     --model_name_or_path google/paligemma-3b-pt-224 \
     --per_device_train_batch_size 2 \

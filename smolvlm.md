@@ -284,7 +284,7 @@ SmolVLM also comes with TRL integration so you can apply Direct Preference Optim
 
 ``` bash
 accelerate launch \
-  --config_file examples/accelerate_configs/multi_gpu.yaml examples/dpo_reduce_hallucinations/dpo_vlm.py  \
+  --config_file examples/accelerate_configs/multi_gpu.yaml examples/dpo_reduce_hallucinations/dpo_reduce_hallucinations.py  \
   --dataset_name HuggingFaceH4/rlaif-v_formatted \
   --model_name_or_path HuggingFaceTB/SmolVLM-Instruct \
   --per_device_train_batch_size 8 \

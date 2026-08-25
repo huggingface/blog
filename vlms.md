@@ -147,7 +147,7 @@ We are excited to announce that [TRL](https://github.com/huggingface/trl)’s `S
 The dataset contains user-assistant interactions formatted as a sequence of messages. For example, each conversation is paired with an image that the user asks questions about.
 
 To use the experimental VLM training support, you must install the latest version of TRL, with `pip install -U trl`.
-The full example script can be found [here](https://github.com/huggingface/trl/blob/main/examples/sft_visual_chat/sft_vlm.py).
+The full example script can be found [here](https://github.com/huggingface/trl/blob/main/examples/sft_visual_chat/sft_visual_chat.py).
 
 ```python
 from trl.commands.cli_utils import SftScriptArguments, TrlParser

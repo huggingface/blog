@@ -202,7 +202,7 @@ In addition to MPO, GRPO, and GSPO, TRL now supports [Reinforce Leave One Out](h
 
 #### Reinforce Leave One Out (RLOO)
 
-RLOO now supports common VLMs. You can find a complete training example in the [`rloo_vlm.py`](https://github.com/huggingface/trl/blob/main/examples/rloo_visual_math/rloo_vlm.py) script.
+RLOO now supports common VLMs. You can find a complete training example in the [`rloo_vlm.py`](https://github.com/huggingface/trl/blob/main/examples/rloo_visual_math/rloo_visual_math.py) script.
 
 Here’s how to set up a `RLOOTrainer`:
 
@@ -221,17 +221,17 @@ trainer.train()
 And to launch training directly from the example script:
 
 ```bash
-CUDA_VISIBLE_DEVICES=1,2 python3 examples/rloo_visual_math/rloo_vlm.py --model_name_or_path Qwen/Qwen2.5-VL-3B-Instruct
+CUDA_VISIBLE_DEVICES=1,2 python3 examples/rloo_visual_math/rloo_visual_math.py --model_name_or_path Qwen/Qwen2.5-VL-3B-Instruct
 ```
 
 #### Online Direct Preference Optimization (Online DPO)
 
-Online DPO also supports VLMs. See the [`online_dpo_vlm.py`](https://github.com/huggingface/trl/blob/main/examples/online_dpo_visual_math/online_dpo_vlm.py) script for a simple example.
+Online DPO also supports VLMs. See the [`online_dpo_vlm.py`](https://github.com/huggingface/trl/blob/main/examples/online_dpo_visual_math/online_dpo_visual_math.py) script for a simple example.
 
 To run the example script (vLLM integration will be discussed later):
 
 ```bash
-CUDA_VISIBLE_DEVICES=1,2 python3 examples/online_dpo_visual_math/online_dpo_vlm.py --model_name_or_path Qwen/Qwen2.5-VL-3B-Instruct --use_vllm --vllm_mode server
+CUDA_VISIBLE_DEVICES=1,2 python3 examples/online_dpo_visual_math/online_dpo_visual_math.py --model_name_or_path Qwen/Qwen2.5-VL-3B-Instruct --use_vllm --vllm_mode server
 ```
 
 > [!NOTE]
@@ -256,14 +256,14 @@ trainer.train()
 
 To train a VLM, you need to provide a dataset with an additional `images` column containing the images to be processed. You can take a look at [Dataset Formats — Vision Datasets](https://huggingface.co/docs/trl/en/dataset_formats#vision-datasets) for more information on how it should look like. A good example is [LLaVA Instruct Mix](https://huggingface.co/datasets/trl-lib/llava-instruct-mix).
 
-We also have a [`sft_vlm.py`](https://github.com/huggingface/trl/blob/main/examples/sft_visual_chat/sft_vlm.py) script that works out of the box for transformers vision language models. 
+We also have a [`sft_vlm.py`](https://github.com/huggingface/trl/blob/main/examples/sft_visual_chat/sft_visual_chat.py) script that works out of the box for transformers vision language models. 
 
 ## vLLM Integration in TRL
 
 vLLM is integrated in TRL to support online alignment methods where you need to generate samples during training. Running the example scripts like the following enables vLLM: 
 
 ```bash
-CUDA_VISIBLE_DEVICES=1,2 python3 examples/grpo_visual_math/grpo_vlm.py --model_name_or_path Qwen/Qwen2.5-VL-3B-Instruct --use_vllm --vllm_mode colocate
+CUDA_VISIBLE_DEVICES=1,2 python3 examples/grpo_visual_math/grpo_visual_math.py --model_name_or_path Qwen/Qwen2.5-VL-3B-Instruct --use_vllm --vllm_mode colocate
 ```
 
 There’s mainly two modes: `colocate` and `server`. [`colocate`](https://huggingface.co/blog/vllm-colocate) runs vLLM in the same process as the training loop, sharing the same GPU between training and generation, creating a vLLM LLM instance inside the `GRPOTrainer`. Meanwhile `server` requires you to serve vLLM separately in a different process where you can hit the server. You can start this server with the command:
@@ -275,7 +275,7 @@ trl vllm-serve --model Qwen/Qwen2.5-VL-3B-Instruct --tensor-parallel-size 1
 Then you can run the script as follows.
 
 ```bash
-CUDA_VISIBLE_DEVICES=1,2 python3 examples/grpo_visual_math/grpo_vlm.py --model_name_or_path Qwen/Qwen2.5-VL-3B-Instruct --use_vllm --vllm_mode server
+CUDA_VISIBLE_DEVICES=1,2 python3 examples/grpo_visual_math/grpo_visual_math.py --model_name_or_path Qwen/Qwen2.5-VL-3B-Instruct --use_vllm --vllm_mode server
 ```
 
 One more tip: we have added support for using vLLM with transformers backend in TRL. You can enable it when running a script with colocate or when serving the model by passing the `--vllm_model_impl transformers` flag.
