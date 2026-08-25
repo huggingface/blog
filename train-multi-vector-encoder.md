@@ -474,7 +474,7 @@ Each training/evaluation batch will only contain samples from one of the dataset
 
 ## Evaluation
 
-To find out where the finetuned model stands, I evaluated it against over 40 retrieval model configurations across four architecture families on the MIRIAD evaluation set, built exactly as in the [Evaluator](#evaluator) section above: 1,000 held-out medical questions searching **200,000 unique passages** (the 10k gold passages hidden among 190k deduplicated distractors from the training split).
+To find out where the finetuned model stands, I evaluated it against over 50 retrieval model configurations across four architecture families on the MIRIAD evaluation set, built exactly as in the [Evaluator](#evaluator) section above: 1,000 held-out medical questions searching **200,000 unique passages** (the 10k gold passages hidden among 190k deduplicated distractors from the training split). This corpus is four times the size of the 50,000-passage one from [Which starting point should you pick?](#which-starting-point-should-you-pick), so scores are not comparable between the two tables.
 
 ![NDCG@10 versus active parameters on the MIRIAD 200k benchmark, with an arrow marking the finetuning jump from mLateOn-unsupervised to mLateOn-medical](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/train-multi-vector-encoder/mve_medical_model_size_ndcg.png)
 
@@ -482,7 +482,7 @@ The headline results, with the full table in the collapsible below:
 
 | Model | Family | NDCG@10 |
 |---|---|---:|
-| [**multi-vector-encoder/mLateOn-medical (ours)**](https://huggingface.co/multi-vector-encoder/mLateOn-medical) | **Multi-vector, finetuned** | **0.9139** |
+| [**multi-vector-encoder/mLateOn-medical (mine)**](https://huggingface.co/multi-vector-encoder/mLateOn-medical) | **Multi-vector, finetuned** | **0.9139** |
 | [lightonai/mLateOn](https://huggingface.co/lightonai/mLateOn) | Multi-vector, zero-shot | 0.8520 |
 | [lightonai/GTE-ModernColBERT-v1](https://huggingface.co/lightonai/GTE-ModernColBERT-v1) (cap lifted) | Multi-vector, zero-shot | 0.8502 |
 | [Qwen/Qwen3-Embedding-4B](https://huggingface.co/Qwen/Qwen3-Embedding-4B) | Dense, zero-shot | 0.7817 |
@@ -492,7 +492,7 @@ The headline results, with the full table in the collapsible below:
 
 The finetuned model tops the table, beating the strongest zero-shot model of any architecture by +0.062 NDCG@10. In other words, the strongest zero-shot model returns the right passage as the very first hit for 75.8% of the queries, while the finetuned model does so for 84.9%, cutting the rank-1 error by more than a third.
 
-The architecture pattern is just as clear: the top of the table is exclusively late interaction. On long documents, one vector per token beats one vector per document, even at matched training and matched backbones. DenseOn and LateOn share training data and architecture except for the head, and the late-interaction sibling wins by +0.12, with the multilingual pair (mDenseOn and mLateOn) replicating this at +0.13 and the pplx-embed pair at +0.03 once its length cap is lifted. Scale doesn't rescue single vectors either: [Qwen3-Embedding-4B](https://huggingface.co/Qwen/Qwen3-Embedding-4B), the strongest dense model with roughly 33x the active (non-embedding) parameters of mine, still stops 0.13 short, and the 8B version scores lower than the 4B.
+The architecture pattern is just as clear: the top of the table is exclusively late interaction. On long documents, one vector per token beats one vector per document, even at matched training and matched backbones. DenseOn and LateOn share training data and architecture except for the head, and the late-interaction sibling wins by +0.12, with the multilingual pair (mDenseOn and mLateOn) replicating this at +0.13. Scale doesn't rescue single vectors either: [Qwen3-Embedding-4B](https://huggingface.co/Qwen/Qwen3-Embedding-4B), the strongest dense model with roughly 33x the active (non-embedding) parameters of mine, still stops 0.13 short, and the 8B version scores lower than the 4B.
 
 BM25 also performs surprisingly well, beating every sparse model, every truncation-capped multi-vector model, and all but three dense models: the multi-billion [Qwen3-Embedding-4B](https://huggingface.co/Qwen/Qwen3-Embedding-4B) and [8B](https://huggingface.co/Qwen/Qwen3-Embedding-8B), and [voyage-4-nano](https://huggingface.co/voyageai/voyage-4-nano), which reads its full 32k token context to edge past by just 0.006. Don't expect that to transfer to your own data though: MIRIAD's questions are generated from the passages, so the lexical overlap between a query and its gold passage is far larger than in typical retrieval, and BM25's unlimited context length lets it use every one of those overlapping words while most neural checkpoints truncate. A BM25 baseline is cheap and always worth running, just don't count on this margin.
 
@@ -504,8 +504,7 @@ The full field at a glance, sorted by score and colored by architecture family:
 
 | Model | Family | NDCG@10 | acc@1 |
 |---|---|---:|---:|
-| [**multi-vector-encoder/mLateOn-medical (ours)**](https://huggingface.co/multi-vector-encoder/mLateOn-medical) | Multi-vector, finetuned | **0.9139** | 0.849 |
-| [tomaarsen/multivector-gte-modernbert-base-miriad](https://huggingface.co/tomaarsen/multivector-gte-modernbert-base-miriad) (ours, previous) | Multi-vector, finetuned | 0.9063 | 0.838 |
+| [**multi-vector-encoder/mLateOn-medical (mine)**](https://huggingface.co/multi-vector-encoder/mLateOn-medical) | Multi-vector, finetuned | **0.9139** | 0.849 |
 | [lightonai/mLateOn](https://huggingface.co/lightonai/mLateOn) | Multi-vector | 0.8520 | 0.758 |
 | [lightonai/GTE-ModernColBERT-v1](https://huggingface.co/lightonai/GTE-ModernColBERT-v1) @1024 | Multi-vector | 0.8502 | 0.763 |
 | [lightonai/LateOn](https://huggingface.co/lightonai/LateOn) @1024 | Multi-vector | 0.8485 | 0.760 |
@@ -587,7 +586,7 @@ I measured it post-hoc on the finished model, with no pooling-aware training, an
 
 (Every size in that figure is measured rather than nominal: I encoded a sample of the corpus with each model at its evaluated configuration and counted the vectors it actually stores, at fp16, with the sparse and BM25 rows counting one id plus one weight per active dimension.)
 
-Halving the index costs 0.0033 NDCG@10 and leaves rank-1 accuracy untouched, a quarter of the index still scores 0.8991, and even at pool factor 10, with the index down to 4.5 GB and inside dense-model territory, the model scores 0.8765: still ahead of every other model in the benchmark. If index size has kept you away from late interaction, this curve is the answer.
+Halving the index costs 0.0033 NDCG@10 and leaves rank-1 accuracy untouched, a quarter of the index still scores 0.8991, and even at pool factor 10, with the index down to 4.5 GB and inside dense-model territory, the model scores 0.8765: still ahead of every other model in the benchmark. If index size has kept you away from late interaction, token pooling might be your solution.
 
 ## Additional Resources
 
