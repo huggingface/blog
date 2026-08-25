@@ -116,6 +116,10 @@ The fastest way in is to open any demo above, click **Duplicate**, and start rew
 
 ```python
 import gradio as gr
+
+def your_function(text: str) -> str:
+  pass
+
 gr.Workflow(bind=[your_function]).launch()
 ```
 
