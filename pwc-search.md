@@ -230,7 +230,7 @@ The same document embeddings also power related-paper recommendations on each pa
   <figcaption>Related papers for <a href="https://paperswithcode.co/paper/2605.12500">SenseNova-U1</a>.</figcaption>
 </figure>
 
-Because the source paper already has a stored vector, related-paper retrieval requires no model call at request time. It is a single nearest-neighbor query over the active generation. If a vector is temporarily missing, the application can use a previous arXiv version or fill results from the existing task- and citation-based fallback. We fetch citation data through the [Semantic Scholar API](https://www.semanticscholar.org/product/api) and also built [`s2-cli`](https://github.com/huggingface/s2-cli), a command-line interface for querying its citation graph.
+Because the source paper already has a stored vector, related-paper retrieval requires no model call at request time. It is a single nearest-neighbor query over the active generation. If a vector is temporarily missing, the application can use a previous arXiv version or fill results from the existing task- and citation-based fallback. We fetch citation data through the [Semantic Scholar API](https://www.semanticscholar.org/product/api) and also built [`s2-cli`](https://github.com/huggingface/s2-cli), a command-line interface for querying its citation graph. The latter is used by the agent at https://paperswithcode.co/chat.
 
 ## What we learned
 
