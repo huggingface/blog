@@ -125,6 +125,6 @@ gr.Workflow(bind=[your_function]).launch()
 
 For the full walkthrough, the operator kinds, the JSON schema, and reusable patterns, see the official [gr.Workflow guide](https://gradio.app/guides/workflows) in the Gradio docs.
 
-You can even build something as involved as AUTOMATIC1111 with `gr.Workflow`. Keep an eye out for our next post, where we walk through building it step by step. Here is a sneak peek 😉👇
+You can even build something as involved as [AUTOMATIC1111](https://github.com/automatic1111/stable-diffusion-webui) with `gr.Workflow`. Keep an eye out for our next post, where we walk through building it step by step. Here is a sneak peek 😉👇
 
 <video controls autoplay loop muted playsinline src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/gradio-workflow-guide/workflow1111-sample2.mp4"></video>
