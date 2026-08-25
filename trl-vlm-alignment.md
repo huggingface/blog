@@ -202,7 +202,7 @@ In addition to MPO, GRPO, and GSPO, TRL now supports [Reinforce Leave One Out](h
 
 #### Reinforce Leave One Out (RLOO)
 
-RLOO now supports common VLMs. You can find a complete training example in the [`rloo_vlm.py`](https://github.com/huggingface/trl/blob/main/examples/rloo_visual_math/rloo_visual_math.py) script.
+RLOO now supports common VLMs. You can find a complete training example in the [`rloo_visual_math.py`](https://github.com/huggingface/trl/blob/main/examples/rloo_visual_math/rloo_visual_math.py) script.
 
 Here’s how to set up a `RLOOTrainer`:
 
@@ -226,7 +226,7 @@ CUDA_VISIBLE_DEVICES=1,2 python3 examples/rloo_visual_math/rloo_visual_math.py -
 
 #### Online Direct Preference Optimization (Online DPO)
 
-Online DPO also supports VLMs. See the [`online_dpo_vlm.py`](https://github.com/huggingface/trl/blob/main/examples/online_dpo_visual_math/online_dpo_visual_math.py) script for a simple example.
+Online DPO also supports VLMs. See the [`online_dpo_visual_math.py`](https://github.com/huggingface/trl/blob/main/examples/online_dpo_visual_math/online_dpo_visual_math.py) script for a simple example.
 
 To run the example script (vLLM integration will be discussed later):
 
@@ -256,7 +256,7 @@ trainer.train()
 
 To train a VLM, you need to provide a dataset with an additional `images` column containing the images to be processed. You can take a look at [Dataset Formats — Vision Datasets](https://huggingface.co/docs/trl/en/dataset_formats#vision-datasets) for more information on how it should look like. A good example is [LLaVA Instruct Mix](https://huggingface.co/datasets/trl-lib/llava-instruct-mix).
 
-We also have a [`sft_vlm.py`](https://github.com/huggingface/trl/blob/main/examples/sft_visual_chat/sft_visual_chat.py) script that works out of the box for transformers vision language models. 
+We also have a [`sft_visual_chat.py`](https://github.com/huggingface/trl/blob/main/examples/sft_visual_chat/sft_visual_chat.py) script that works out of the box for transformers vision language models. 
 
 ## vLLM Integration in TRL
 
