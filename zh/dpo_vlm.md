@@ -354,10 +354,10 @@ print(response_text)
 
 ## 微调 Llava 1.5 和 PaliGemma 等模型
 
-截至本文完稿时，TRL 的 DPO 实现已支持 Idefics2、Llava 1.5 和 PaliGemma，同时 TRL 也在努力支持更多的模型。最简单的调用方法还是使用 TRL 提供的 [示例脚本](https://github.com/huggingface/trl/blob/main/examples/scripts/dpo_visual.py)。例如，如果你想微调 PaliGemma，你可以这样:
+截至本文完稿时，TRL 的 DPO 实现已支持 Idefics2、Llava 1.5 和 PaliGemma，同时 TRL 也在努力支持更多的模型。最简单的调用方法还是使用 TRL 提供的 [示例脚本](https://github.com/huggingface/trl/blob/main/examples/dpo_reduce_hallucinations/dpo_reduce_hallucinations.py)。例如，如果你想微调 PaliGemma，你可以这样:
 
 ```sh
-accelerate launch examples/scripts/dpo_visual.py \
+accelerate launch examples/dpo_reduce_hallucinations/dpo_reduce_hallucinations.py \
     --dataset_name HuggingFaceH4/rlaif-v_formatted \
     --model_name_or_path google/paligemma-3b-pt-224 \
     --per_device_train_batch_size 2 \

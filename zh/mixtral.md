@@ -195,7 +195,7 @@ docker run --gpus all --shm-size 1g -p 3000:80 -v /data:/data ghcr.io/huggingfac
 
 下面是在 OpenAssistant 的 [聊天数据集](https://huggingface.co/datasets/OpenAssistant/oasst_top1_2023-08-25) 上微调 Mixtral 的示例命令。为了节省内存，我们对注意力块中的所有线性层执行 4 比特量化和 [QLoRA](https://arxiv.org/abs/2305.14314)。请注意，与稠密 transformer 模型不同，我们不对专家网络中的 MLP 层进行量化，因为它们很稀疏并且量化后 PEFT 效果不好。
 
-首先，安装 🤗 TRL 的每日构建版并下载代码库以获取 [训练脚本](https://github.com/huggingface/trl/blob/main/examples/scripts/sft.py):
+首先，安装 🤗 TRL 的每日构建版并下载代码库以获取 [训练脚本](https://github.com/huggingface/trl/blob/main/trl/scripts/sft.py):
 
 ```bash
 pip install -U transformers
@@ -208,7 +208,7 @@ cd trl
 
 ```bash
 accelerate launch --config_file examples/accelerate_configs/multi_gpu.yaml --num_processes=1 \
-	examples/scripts/sft.py \
+	trl/scripts/sft.py \
 	--model_name mistralai/Mixtral-8x7B-v0.1 \
 	--dataset_name trl-lib/ultrachat_200k_chatml \
 	--batch_size 2 \

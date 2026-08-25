@@ -150,7 +150,7 @@ print(processor.decode(output[0], skip_special_tokens=True))
 
 `llava-instruct` 数据集将用户与助理之间的交互组织成消息序列的格式，且每个消息序列皆与用户问题所指的图像配对。
 
-要用上 VLM 训练的功能，你必须使用 `pip install -U trl` 安装最新版本的 TRL。你可在 [此处](https://github.com/huggingface/trl/blob/main/examples/scripts/vsft_llava.py) 找到完整的示例脚本。
+要用上 VLM 训练的功能，你必须使用 `pip install -U trl` 安装最新版本的 TRL。你可在 [此处](https://github.com/huggingface/trl/blob/main/examples/sft_visual_chat/sft_visual_chat.py) 找到完整的示例脚本。
 
 ```python
 from trl.commands.cli_utils import SftScriptArguments, TrlParser

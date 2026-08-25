@@ -476,12 +476,12 @@ trl sft  --model_name_or_path meta-llama/Llama-3.2-3B \
          --gradient_checkpointing
 ```
 
-Support for fine tuning Llama 3.2 Vision is also available in TRL with [this script](https://github.com/huggingface/trl/tree/main/examples/scripts/sft_vlm.py).
+Support for fine tuning Llama 3.2 Vision is also available in TRL with [this script](https://github.com/huggingface/trl/tree/main/examples/sft_visual_chat/sft_visual_chat.py).
 
 ```bash
 # Tested on 8x H100 GPUs
 accelerate launch --config_file=examples/accelerate_configs/deepspeed_zero3.yaml \
-    examples/scripts/sft_vlm.py \
+    examples/sft_visual_chat/sft_visual_chat.py \
     --dataset_name HuggingFaceH4/llava-instruct-mix-vsft \
     --model_name_or_path meta-llama/Llama-3.2-11B-Vision-Instruct \
     --per_device_train_batch_size 8 \
