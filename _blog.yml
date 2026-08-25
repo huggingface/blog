@@ -5665,6 +5665,16 @@
     - embeddings
     - sentence-transformers
 
+- local: gradio-workflow-guide
+  date: August 25, 2026
+  tags:
+    - gradio
+    - workflows
+    - tutorial
+    - spaces
+    - models
+    - inference-providers
+
 - local: asr-benchmark-optimization
   date: August 21, 2026
   tags:
