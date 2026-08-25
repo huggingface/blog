@@ -62,7 +62,7 @@ For each vector generation, we record:
 - the normalization method;
 - a content hash for the source title and abstract.
 
-Our production generation uses [`Qwen/Qwen3-Embedding-0.6B`](https://huggingface.co/Qwen/Qwen3-Embedding-0.6B), pinned to an exact revision, with 256-dimensional L2-normalized vectors. Note that newer embedding models like Qwen3 allow for 2 new features:
+Our production generation uses [`Qwen/Qwen3-Embedding-0.6B`](https://huggingface.co/Qwen/Qwen3-Embedding-0.6B), pinned to an exact revision, with 256-dimensional L2-normalized vectors. We selected the model with help from the [MTEB leaderboard](https://huggingface.co/spaces/mteb/leaderboard), the go-to benchmark for comparing embedding models. Note that newer embedding models like Qwen3 allow for 2 new features:
 - one can specify a **dynamic embedding size**, which allows to trade-off quality with speed/storage costs. Qwen models call this "MRL" which is short for [Matryoshka Representation Learning](https://paperswithcode.co/paper/2205.13147). You can learn all about it [here](https://huggingface.co/blog/matryoshka). We chose an embedding size of 256 to make the search fast.
 - one can provide an **instruction prompt**. Qwen embedding models support a `document` prompt (which we use to embed the papers) and live searches use their `query` prompt (to embed the user query).
 
@@ -230,7 +230,7 @@ The same document embeddings also power related-paper recommendations on each pa
   <figcaption>Related papers for <a href="https://paperswithcode.co/paper/2605.12500">SenseNova-U1</a>.</figcaption>
 </figure>
 
-Because the source paper already has a stored vector, related-paper retrieval requires no model call at request time. It is a single nearest-neighbor query over the active generation. If a vector is temporarily missing, the application can use a previous arXiv version or fill results from the existing task- and citation-based fallback.
+Because the source paper already has a stored vector, related-paper retrieval requires no model call at request time. It is a single nearest-neighbor query over the active generation. If a vector is temporarily missing, the application can use a previous arXiv version or fill results from the existing task- and citation-based fallback. We fetch citation data through the [Semantic Scholar API](https://www.semanticscholar.org/product/api) and also built [`s2-cli`](https://github.com/huggingface/s2-cli), a command-line interface for querying its citation graph.
 
 ## What we learned
 
