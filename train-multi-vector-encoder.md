@@ -7,7 +7,7 @@ authors:
 
 # Training and Finetuning Multi-Vector Embedding Models with Sentence Transformers
 
-[Sentence Transformers](https://sbert.net/) is a Python library for using and training embedding and reranker models for a wide range of applications, such as retrieval augmented generation, semantic search, semantic textual similarity, and more. Its v6.0 update introduces a fourth model type: `MultiVectorEncoder`, for ColBERT-style late interaction retrieval, alongside a complete training approach for it. In this blogpost, I'll show you how to use it to finetune a multi-vector model that outperforms general-purpose retrievers on your data. This method can also train strong new multi-vector models from scratch.
+[Sentence Transformers](https://sbert.net/) is a Python library for using and training embedding and reranker models for a wide range of applications, such as retrieval augmented generation, semantic search, semantic textual similarity, and more. Its v6.0 update introduces a fourth model type: `MultiVectorEncoder`, for ColBERT-style late interaction retrieval, alongside a complete training approach for it. In this blogpost, I'll show you how to use it to finetune a multi-vector model that outperforms general-purpose retrievers on your data. This method can also train strong new multi-vector models from scratch. Everything below runs on `pip install -U "sentence-transformers[train]"`.
 
 Finetuning multi-vector models involves several components: the model itself, datasets, loss functions, training arguments, evaluators, and the trainer class. I'll have a look at each of these components, accompanied by practical examples of how they can be used for finetuning strong multi-vector models.
 
@@ -15,7 +15,10 @@ Lastly, in the [Evaluation](#evaluation) section, I'll show you that my finetune
 
 ![NDCG@10 on MIRIAD versus active parameters: the finetuned mLateOn-medical reaches the top at a fraction of the size of the strongest general-purpose models](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/train-multi-vector-encoder/mve_medical_model_size_ndcg.png)
 
-If you're interested in finetuning dense embedding models, sparse embedding models, or rerankers instead, then consider reading through my prior [Training and Finetuning Embedding Models](https://huggingface.co/blog/train-sentence-transformers), [Training and Finetuning Sparse Embedding Models](https://huggingface.co/blog/train-sparse-encoder), and [Training and Finetuning Reranker Models](https://huggingface.co/blog/train-reranker) blogposts. And if you first want to learn how to *use* multi-vector models, from loading and encoding to indexing in vector databases, see the companion [Multi-Vector (Late Interaction) Embedding Models with Sentence Transformers](https://huggingface.co/blog/multi-vector-encoder) blogpost.
+If you're interested in finetuning dense embedding models, sparse embedding models, or rerankers instead, then consider reading through my prior [Training and Finetuning Embedding Models](https://huggingface.co/blog/train-sentence-transformers), [Training and Finetuning Sparse Embedding Models](https://huggingface.co/blog/train-sparse-encoder), and [Training and Finetuning Reranker Models](https://huggingface.co/blog/train-reranker) blogposts.
+
+> [!TIP]
+> This blogpost is about *training* multi-vector models. If you want to learn how to *use* them, from loading and encoding to indexing in vector databases, see the companion [Multi-Vector (Late Interaction) Embedding Models with Sentence Transformers](https://huggingface.co/blog/multi-vector-encoder) blogpost.
 
 ## Table of Contents
 
@@ -44,7 +47,7 @@ If you're interested in finetuning dense embedding models, sparse embedding mode
 
 ## What are Multi-Vector models?
 
-A dense embedding model compresses a whole text into a single vector, and similarity is one dot product between two such summaries. A multi-vector model (also called a late-interaction or ColBERT-style model) skips that compression: it keeps **one small vector per token** and scores a query against a document with the MaxSim operator, where every query token finds its best-matching document token and the scores are summed. Token-level matching preserves exactly the fine-grained signals that a single vector has to average away, which usually means stronger retrieval, at the cost of a bigger index.
+A dense embedding model compresses a whole text into a single vector, and similarity is one dot product between two such summaries. A multi-vector model (also called a late-interaction or ColBERT-style model) skips that compression. It keeps **one small vector per token** and scores a query against a document with the MaxSim operator, where every query token finds its best-matching document token and the scores are summed. Token-level matching preserves exactly the fine-grained signals that a single vector has to average away, which usually means stronger retrieval, at the cost of a bigger index.
 
 The companion [Multi-Vector Embedding Models](https://huggingface.co/blog/multi-vector-encoder) blogpost covers the architecture, encoding, scoring, and indexing in detail, so I'll keep this section short and get to the training.
 
@@ -54,9 +57,9 @@ The companion [Multi-Vector Embedding Models](https://huggingface.co/blog/multi-
 
 Finetuning multi-vector models significantly improves their retrieval performance on your specific domain: the vocabulary, the query style, and the notion of relevance all differ between web search, legal discovery, code search, and scientific literature review. Because queries and documents are matched token by token, multi-vector models pick up fine-grained domain signals that single-vector models tend to average away, and they respond very well to even modest amounts of in-domain finetuning data.
 
-There is a second, less obvious reason: **most released retrieval models were configured for short passages**. The classic ColBERT checkpoints truncate documents at 180 or 300 tokens, and many popular dense models at 256 or 512, because their MS MARCO-style training data rarely goes beyond that. If your documents are long, these models silently discard most of every document before scoring it. On my medical evaluation with passages averaging 941 tokens, I measured that this truncation costs up to 0.24 NDCG@10, considerably more than any difference between model architectures. When you train your own model, you configure the document length that *your* data needs.
+Beyond that, most released retrieval models were configured for short passages. The classic ColBERT checkpoints truncate documents at 180 or 300 tokens, and many popular dense models at 256 or 512, because their MS MARCO-style training data rarely goes beyond that. If your documents are long, these models silently discard most of every document before scoring it. On my medical evaluation with passages averaging 941 tokens, I measured that this truncation costs up to 0.24 NDCG@10, considerably more than any difference between model architectures. When you train your own model, you configure the document length that *your* data needs.
 
-LightOn ran into this same dynamic with code retrieval: general [LateOn](https://huggingface.co/lightonai/LateOn) wasn't enough, so they trained [LateOn-Code](https://huggingface.co/lightonai/LateOn-Code). Your domain, whether that's medical, legal, financial, or your company's internal documents, is not getting an official model. This blogpost shows you how to build it yourself, in a matter of hours, on a single consumer GPU.
+LightOn ran into this same dynamic with code retrieval, where general [LateOn](https://huggingface.co/lightonai/LateOn) wasn't enough and they trained [LateOn-Code](https://huggingface.co/lightonai/LateOn-Code). Your domain, whether that's medical, legal, financial, or your company's internal documents, is not getting an official model. This blogpost shows you how to build it yourself, in a matter of hours, on a single consumer GPU.
 
 ## Training Components
 
@@ -90,7 +93,7 @@ model = MultiVectorEncoder(
 )
 ```
 
-The checkpoint brings its own recipe along: its query and document marker tokens, its projection head, its scoring skiplist. For finetuning, you generally want to keep all of that and change only what your data demands. The first thing to check is the length configuration: many released checkpoints cap documents at 180 to 512 tokens (see [Why Finetune?](#why-finetune)), and my medical passages run to 1,400 tokens. The mLateOn family already serves the backbone's full 8192 token context, but if your starting checkpoint carries caps, lift them:
+The checkpoint brings its own recipe along: its query and document marker tokens, its projection head, its scoring skiplist. For finetuning, you generally want to keep all of that and change only what your data demands. The first thing to check is the length configuration, since many released checkpoints cap documents at 180 to 512 tokens (see [Why Finetune?](#why-finetune)), and my medical passages run to 1,400 tokens. The mLateOn family already serves the backbone's full 8192 token context, but if your starting checkpoint carries caps, lift them:
 
 ```python
 # Let the model read full documents instead of the caps it was trained with,
@@ -101,7 +104,7 @@ model[0].document_length = None
 
 With the per-task caps unset, truncation falls back to the tokenizer's `model_max_length`, which is why I configure that limit at load time above.
 
-I made one more change: a punctuation skiplist, which excludes punctuation tokens from document-side scoring and storage. In a 4-way ablation (none, punctuation, stopwords, both) it modestly won on quality, and it shrinks the document index by 9.6% on this data for free:
+I made one more change, adding a punctuation skiplist that excludes punctuation tokens from document-side scoring and storage. In a 4-way ablation (none, punctuation, stopwords, both) it modestly won on quality, and it shrinks the document index by 9.6% on this data for free:
 
 ```python
 import string
@@ -127,13 +130,13 @@ model = MultiVectorEncoder("answerdotai/ModernBERT-base", model_kwargs={"torch_d
 # )
 ```
 
-That's the classic ColBERT pipeline: a `Transformer` producing contextualized token embeddings, a token-level `Dense` projecting each of them down to 128 dimensions, a `MultiVectorMask` deciding which tokens count during scoring, and a token-level `Normalize`. The projection starts random, so training is required before this model is useful. Interestingly, this works with strong dense embedding backbones too: a fresh projection on [Alibaba-NLP/gte-modernbert-base](https://huggingface.co/Alibaba-NLP/gte-modernbert-base) reached within 0.03 of the existing-checkpoint starting points in my experiments, from nothing but the projection and 25k training pairs.
+That's the classic ColBERT pipeline: a `Transformer` producing contextualized token embeddings, a token-level `Dense` projecting each of them down to 128 dimensions, a `MultiVectorMask` deciding which tokens count during scoring, and a token-level `Normalize`. The projection starts random, so training is required before this model is useful. Interestingly, this works with strong dense embedding backbones too. A fresh projection on [Alibaba-NLP/gte-modernbert-base](https://huggingface.co/Alibaba-NLP/gte-modernbert-base) reached within 0.03 of the existing-checkpoint starting points in my experiments, from nothing but the projection and 25k training pairs.
 
 The classic ColBERT tokenization tricks (`[MASK]` query expansion, `[Q]` / `[D]` prefix tokens, a document length cap, a punctuation skiplist) are all off by default and configurable. See [Creating Custom Models](https://sbert.net/docs/multi_vector_encoder/usage/custom_models.html) for the full set. For what it's worth, I tested `[MASK]` query expansion in four configurations for my domain finetune and none of them made a measurable difference, so don't feel obliged to reach for the classic recipe.
 
 ### Which starting point should you pick?
 
-I measured this directly while preparing this blogpost. I took six starting points and trained each with the identical recipe on 25k medical question-passage pairs from [MIRIAD](https://huggingface.co/datasets/tomaarsen/miriad-4.4M-split), then evaluated on 1,000 held-out questions against a 50,000 passage corpus:
+I measured this directly while preparing this blogpost, taking six starting points and training each with the identical recipe on 25k medical question-passage pairs from [MIRIAD](https://huggingface.co/datasets/tomaarsen/miriad-4.4M-split), then evaluating on 1,000 held-out questions against a 50,000 passage corpus:
 
 | Starting point | Zero-shot NDCG@10 | After 25k pairs | Delta |
 |---|---:|---:|---:|
@@ -144,9 +147,9 @@ I measured this directly while preparing this blogpost. I took six starting poin
 | [lightonai/GTE-ModernColBERT-v1](https://huggingface.co/lightonai/GTE-ModernColBERT-v1) | 0.9198 | 0.9007 | -0.0191 |
 | Fresh head on [gte-modernbert-base](https://huggingface.co/Alibaba-NLP/gte-modernbert-base) | - | 0.9177 | - |
 
-The result surprised me, and it replicated across two model families: **the `-unsupervised` checkpoints adapt to a new domain far better than their finished siblings**, overtaking them despite starting lower. These checkpoints sit after large-scale contrastive pretraining but before supervised finetuning on general retrieval, so they carry all the late-interaction structure with none of the general-purpose tuning that domain training then has to undo. The finished checkpoints, by contrast, barely moved or even regressed, at every learning rate I tried.
+The result surprised me, and it replicated across two model families. *The `-unsupervised` checkpoints adapt to a new domain far better than their finished siblings, overtaking them despite starting lower. These checkpoints sit after large-scale contrastive pretraining but before supervised finetuning on general retrieval, so they carry all the late-interaction structure with none of the general-purpose tuning that domain training then has to undo. The finished checkpoints, by contrast, barely moved or even regressed, at every learning rate I tried.
 
-My recommendation: **if the model family you like publishes a pre-supervised checkpoint, start there.** If not, a fresh projection on a strong retrieval-pretrained backbone is a close runner-up. Continuing from a fully finished checkpoint is the weakest option for domain adaptation, despite being the most natural-feeling one.
+So, if the model family you like publishes a pre-supervised checkpoint, start there. If not, a fresh projection on a strong retrieval-pretrained backbone is a close runner-up. Continuing from a fully finished checkpoint is the weakest option for domain adaptation, despite being the most natural-feeling one.
 
 ## Dataset
 
@@ -211,14 +214,14 @@ It is important that your dataset format matches your loss function (or that you
 
 There are two multi-vector specific conventions on top of this:
 
-- **Positional query and document assignment**: the first column is embedded as the *query* and all following columns as *documents*, regardless of the column names. This default can be overridden per column via the standard `router_mapping` training argument.
-- **Knowledge distillation format**: one column per candidate document, i.e. `(query, document_1, ..., document_N, scores)` where `scores` is a list of N teacher scores per row. For KD datasets that store query and document *IDs* alongside separate text datasets (e.g. [lightonai/ms-marco-en-bge](https://huggingface.co/datasets/lightonai/ms-marco-en-bge)), you can use [`resolve_ids`](https://sbert.net/docs/package_reference/util.html#sentence_transformers.util.dataset.resolve_ids) to resolve the IDs to texts on the fly.
+- Positional query and document assignment: the first column is embedded as the *query* and all following columns as *documents*, regardless of the column names. This default can be overridden per column via the standard `router_mapping` training argument.
+- Knowledge distillation format: one column per candidate document, i.e. `(query, document_1, ..., document_N, scores)` where `scores` is a list of N teacher scores per row. For KD datasets that store query and document *IDs* alongside separate text datasets (e.g. [lightonai/ms-marco-en-bge](https://huggingface.co/datasets/lightonai/ms-marco-en-bge)), you can use [`resolve_ids`](https://sbert.net/docs/package_reference/util.html#sentence_transformers.util.dataset.resolve_ids) to resolve the IDs to texts on the fly.
 
 ## Loss Function
 
 Loss functions quantify how well a model performs for a given batch of data, allowing an optimizer to update the model weights to produce more favourable (i.e., lower) loss values. The right loss function for your task depends on the data you have and what you're trying to achieve. You can find a full list of options in the [Loss Overview](https://sbert.net/docs/multi_vector_encoder/loss_overview.html).
 
-For the common case of question-answer or question-passage pairs, the workhorse is in-batch negatives training with [`MultiVectorMultipleNegativesRankingLoss`](https://sbert.net/docs/package_reference/multi_vector_encoder/losses.html#multivectormultiplenegativesrankingloss): every other document in the batch acts as a negative for each query. Bigger batches mean more negatives and stronger training, so in practice you'll want its GradCache variant, [`CachedMultiVectorMultipleNegativesRankingLoss`](https://sbert.net/docs/package_reference/multi_vector_encoder/losses.html#cachedmultivectormultiplenegativesrankingloss), which decouples the effective batch size from what fits on your GPU:
+For the common case of question-answer or question-passage pairs, the workhorse is in-batch negatives training with [`MultiVectorMultipleNegativesRankingLoss`](https://sbert.net/docs/package_reference/multi_vector_encoder/losses.html#multivectormultiplenegativesrankingloss), where every other document in the batch acts as a negative for each query. Bigger batches mean more negatives and stronger training, so in practice you'll want its GradCache variant, [`CachedMultiVectorMultipleNegativesRankingLoss`](https://sbert.net/docs/package_reference/multi_vector_encoder/losses.html#cachedmultivectormultiplenegativesrankingloss), which decouples the effective batch size from what fits on your GPU:
 
 ```python
 from sentence_transformers import MultiVectorEncoder
@@ -232,9 +235,9 @@ loss = CachedMultiVectorMultipleNegativesRankingLoss(
 )
 ```
 
-The `mini_batch_size` parameter bounds the memory: documents are encoded in chunks of this size, while the effective contrastive batch size (128 in my run below, and in my ablations bigger batches bought nothing further) stays a free choice. GradCache guarantees identical results regardless of the chunk size, so lower it for smaller GPUs at only a wall-clock cost. When your document lengths vary a lot, consider its sibling `mini_batch_num_tokens`, which packs each chunk to a total token budget instead of a document count, so a chunk of unusually long documents can never spike your memory (my `mini_batch_size=16` at roughly 940 tokens per document corresponds to `mini_batch_num_tokens=15_000`).
+The `mini_batch_size` parameter bounds the memory by encoding documents in chunks of this size, while the effective contrastive batch size (128 in my run below, and in my ablations bigger batches bought nothing further) stays a free choice. GradCache guarantees identical results regardless of the chunk size, so lower it for smaller GPUs at only a wall-clock cost. When your document lengths vary a lot, consider its sibling `mini_batch_num_tokens`, which packs each chunk to a total token budget instead of a document count, so a chunk of unusually long documents can never spike your memory (my `mini_batch_size=16` at roughly 940 tokens per document corresponds to `mini_batch_num_tokens=15_000`).
 
-One multi-vector specific trap: the contrastive losses default to `scale=1.0`, unlike the dense embedding equivalent which defaults to `scale=20.0`. That 20.0 exists because a cosine similarity is a single value in [-1, 1], too narrow a range for a sharp softmax. A MaxSim score instead sums one best-match similarity per query token, so it already spans roughly [0, query_length]: a 32-token query can score up to 32. So, don't copy `scale=20.0` over from a dense training script: it would saturate the softmax and kill your gradients.
+One multi-vector specific trap is that the contrastive losses default to `scale=1.0`, unlike the dense embedding equivalent which defaults to `scale=20.0`. That 20.0 exists because a cosine similarity is a single value in [-1, 1], too narrow a range for a sharp softmax. A MaxSim score instead sums one best-match similarity per query token, so it already spans roughly [0, query_length]: a 32-token query can score up to 32. So don't copy `scale=20.0` over from a dense training script, since it would saturate the softmax and kill your gradients.
 
 For distillation from a stronger teacher, which is how the strongest general-purpose late-interaction models are trained, see [`MultiVectorDistillKLDivLoss`](https://sbert.net/docs/package_reference/multi_vector_encoder/losses.html#multivectordistillkldivloss) and the Knowledge Distillation tab in the [Training Overview](https://sbert.net/docs/multi_vector_encoder/training_overview.html#trainer) documentation.
 
@@ -275,9 +278,9 @@ args = MultiVectorEncoderTrainingArguments(
 
 A few of these deserve a comment:
 
-- **`prompts`**: training does not automatically apply the prompts stored in the model, so map them onto your training columns explicitly. Here that is the checkpoint's `[Q] ` marker for the question column and `[D] ` for the passage column, keeping training consistent with inference.
-- **`max_length` (deliberately not set)**: this argument caps tokenization during *training only*, for when you want cheaper training than the model's full serving length. I measured what that shortcut costs on this data: training at 512 tokens lost about 0.015 NDCG@10 for about 2x the speed, and the deficit did not shrink with more data, because the model simply never sees what got cut off. Leave it unset so training matches inference, unless you need the speedup more than the quality.
-- **`learning_rate=1e-4`**: after a sweep from 5e-6 to 2e-4, I had the best luck with this higher-than-usual learning rate.
+- `prompts`: training does not automatically apply the prompts stored in the model, so map them onto your training columns explicitly. Here that is the checkpoint's `[Q] ` marker for the question column and `[D] ` for the passage column, keeping training consistent with inference.
+- `max_length` (deliberately not set): this argument caps tokenization during *training only*, for when you want cheaper training than the model's full serving length. I measured what that shortcut costs on this data. Training at 512 tokens lost about 0.015 NDCG@10 for about 2x the speed, and the deficit did not shrink with more data, because the model simply never sees what got cut off. Leave it unset so training matches inference, unless you need the speedup more than the quality.
+- `learning_rate=1e-4`: after a sweep from 5e-6 to 2e-4, I had the best luck with this higher-than-usual learning rate.
 
 ## Evaluator
 
@@ -291,7 +294,7 @@ To track your model's performance during training, you can pass an `eval_dataset
 | [`MultiVectorRerankingEvaluator`](https://sbert.net/docs/package_reference/multi_vector_encoder/evaluation.html#multivectorrerankingevaluator) | List of `{'query': '...', 'positive': [...], 'negative': [...]}` dictionaries |
 | [`MultiVectorDistillationEvaluator`](https://sbert.net/docs/package_reference/multi_vector_encoder/evaluation.html#multivectordistillationevaluator) | Queries with candidate documents and teacher scores |
 
-For domain finetuning, the [`MultiVectorInformationRetrievalEvaluator`](https://sbert.net/docs/package_reference/multi_vector_encoder/evaluation.html#multivectorinformationretrievalevaluator) built from your own held-out data is the one that matters. One tip on constructing it: **the corpus should be hard enough that models can be told apart**. In my case the MIRIAD questions are generated from their own source passages, which makes retrieval unusually easy: against just the 10k gold passages, nearly every model scored above 0.97 NDCG@10. If your evaluation saturates like that, add *distractor* passages (I use deduplicated passages from the training split) until the scores spread out:
+For domain finetuning, the [`MultiVectorInformationRetrievalEvaluator`](https://sbert.net/docs/package_reference/multi_vector_encoder/evaluation.html#multivectorinformationretrievalevaluator) built from your own held-out data is the one that matters. One tip on constructing it is that the corpus should be hard enough that models can be told apart. In my case the MIRIAD questions are generated from their own source passages, which makes retrieval unusually easy. Against just the 10k gold passages, nearly every model scored above 0.97 NDCG@10. If your evaluation saturates like that, add *distractor* passages (I use deduplicated passages from the training split) until the scores spread out:
 
 ```python
 from datasets import load_dataset
@@ -446,7 +449,7 @@ if __name__ == "__main__":
 
 That's the whole recipe: a pre-supervised checkpoint, a million domain pairs, in-batch negatives, full document length, and a higher-than-usual learning rate. The run took 14.5 hours on my single RTX 3090 at a peak of 17.5 GB VRAM, and every one of those choices was the winner of a measured comparison rather than a guess.
 
-For readers on smaller budgets: my scaling experiments put 100k pairs (75 minutes of training) within 0.012 NDCG@10 of the full million-pair run. Most of the gain comes in the first hour.
+For readers on smaller budgets, my scaling experiments put 100k pairs (75 minutes of training) within 0.012 NDCG@10 of the full million-pair run. Most of the gain comes in the first hour.
 
 ### Callbacks
 
@@ -474,7 +477,7 @@ Each training/evaluation batch will only contain samples from one of the dataset
 
 ## Evaluation
 
-To find out where the finetuned model stands, I evaluated it against over 50 retrieval model configurations across four architecture families on the MIRIAD evaluation set, built exactly as in the [Evaluator](#evaluator) section above: 1,000 held-out medical questions searching **200,000 unique passages** (the 10k gold passages hidden among 190k deduplicated distractors from the training split). This corpus is four times the size of the 50,000-passage one from [Which starting point should you pick?](#which-starting-point-should-you-pick), so scores are not comparable between the two tables.
+To find out where the finetuned model stands, I evaluated it against over 50 retrieval model configurations across four architecture families on the MIRIAD evaluation set, built exactly as in the [Evaluator](#evaluator) section above, with 1,000 held-out medical questions searching 200,000 unique passages (the 10k gold passages hidden among 190k deduplicated distractors from the training split). This corpus is four times the size of the 50,000-passage one from [Which starting point should you pick?](#which-starting-point-should-you-pick), so scores are not comparable between the two tables.
 
 ![NDCG@10 versus active parameters on the MIRIAD 200k benchmark, with an arrow marking the finetuning jump from mLateOn-unsupervised to mLateOn-medical](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/train-multi-vector-encoder/mve_medical_model_size_ndcg.png)
 
@@ -492,11 +495,11 @@ The headline results, with the full table in the collapsible below:
 
 The finetuned model tops the table, beating the strongest zero-shot model of any architecture by +0.062 NDCG@10. In other words, the strongest zero-shot model returns the right passage as the very first hit for 75.8% of the queries, while the finetuned model does so for 84.9%, cutting the rank-1 error by more than a third.
 
-The architecture pattern is just as clear: the top of the table is exclusively late interaction. On long documents, one vector per token beats one vector per document, even at matched training and matched backbones. DenseOn and LateOn share training data and architecture except for the head, and the late-interaction sibling wins by +0.12, with the multilingual pair (mDenseOn and mLateOn) replicating this at +0.13. Scale doesn't rescue single vectors either: [Qwen3-Embedding-4B](https://huggingface.co/Qwen/Qwen3-Embedding-4B), the strongest dense model with roughly 33x the active (non-embedding) parameters of mine, still stops 0.13 short, and the 8B version scores lower than the 4B.
+The architecture pattern is just as clear, with the top of the table exclusively late interaction. On long documents, one vector per token beats one vector per document, even at matched training and matched backbones. DenseOn and LateOn share training data and architecture except for the head, and the late-interaction sibling wins by +0.12, with the multilingual pair (mDenseOn and mLateOn) replicating this at +0.13. Scale doesn't rescue single vectors either. [Qwen3-Embedding-4B](https://huggingface.co/Qwen/Qwen3-Embedding-4B), the strongest dense model with roughly 33x the active (non-embedding) parameters of mine, still stops 0.13 short, and the 8B version scores lower than the 4B.
 
-BM25 also performs surprisingly well, beating every sparse model, every truncation-capped multi-vector model, and all but three dense models: the multi-billion [Qwen3-Embedding-4B](https://huggingface.co/Qwen/Qwen3-Embedding-4B) and [8B](https://huggingface.co/Qwen/Qwen3-Embedding-8B), and [voyage-4-nano](https://huggingface.co/voyageai/voyage-4-nano), which reads its full 32k token context to edge past by just 0.006. Don't expect that to transfer to your own data though: MIRIAD's questions are generated from the passages, so the lexical overlap between a query and its gold passage is far larger than in typical retrieval, and BM25's unlimited context length lets it use every one of those overlapping words while most neural checkpoints truncate. A BM25 baseline is cheap and always worth running, just don't count on this margin.
+BM25 also performs surprisingly well, beating every sparse model, every truncation-capped multi-vector model, and all but three dense models: the multi-billion [Qwen3-Embedding-4B](https://huggingface.co/Qwen/Qwen3-Embedding-4B) and [8B](https://huggingface.co/Qwen/Qwen3-Embedding-8B), and [voyage-4-nano](https://huggingface.co/voyageai/voyage-4-nano), which reads its full 32k token context to edge past by just 0.006. Don't expect that to transfer to your own data though. MIRIAD's questions are generated from the passages, so the lexical overlap between a query and its gold passage is far larger than in typical retrieval, and BM25's unlimited context length lets it use every one of those overlapping words while most neural checkpoints truncate. A BM25 baseline is cheap and always worth running, just don't count on this margin.
 
-The full field at a glance, sorted by score and colored by architecture family:
+The full field at a glance, sorted by score and colored by architecture family.
 
 ![Sorted NDCG@10 on the MIRIAD 200k benchmark for every evaluated model, colored by architecture family](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/train-multi-vector-encoder/mve_medical_ndcg_by_model.png)
 
@@ -565,13 +568,13 @@ Models marked `@N` are evaluated with their document length cap lifted to N toke
 
 </details>
 
-Note that this does not mean that [multi-vector-encoder/mLateOn-medical](https://huggingface.co/multi-vector-encoder/mLateOn-medical) is the strongest model on *all* domains: it's simply the strongest in *my* domain. This is totally fine, as I just need this model to work well on my data.
+Note that this does not mean that [multi-vector-encoder/mLateOn-medical](https://huggingface.co/multi-vector-encoder/mLateOn-medical) is the strongest model on *all* domains. It's simply the strongest in *my* domain. This is totally fine, as I just need this model to work well on my data.
 
 Don't underestimate the power of finetuning multi-vector models on your domain. Fourteen and a half hours on a single consumer GPU produced a model that no general-purpose retriever comes close to on this data, and the recipe is a single script with no teacher model and no mined negatives!
 
 ### Shrinking the index with token pooling
 
-The fair objection to multi-vector retrieval is index size, and this domain is close to the worst case for it. Storing one vector per token, my model needs about 878 vectors per passage, so the 200,000-passage corpus takes roughly 45 GB at fp16, where a dense model needs well under 1 GB. Document length is what makes that gap so wide: the Natural Questions passages in the [companion post](https://huggingface.co/blog/multi-vector-encoder) average about 125 token vectors each, seven times fewer, so a corpus of short passages starts from a far smaller index than this one does. The [`HierarchicalTokenPooling`](https://sbert.net/docs/package_reference/multi_vector_encoder/modules.html#hierarchicaltokenpooling) module compresses exactly this: it clusters each document's token embeddings and stores the cluster means, keeping roughly `1 / pool_factor` of the vectors:
+The fair objection to multi-vector retrieval is index size, and this domain is close to the worst case for it. Storing one vector per token, my model needs about 878 vectors per passage, so the 200,000-passage corpus takes roughly 45 GB at fp16, where a dense model needs well under 1 GB. Document length is what makes that gap so wide. The Natural Questions passages in the [companion post](https://huggingface.co/blog/multi-vector-encoder) average about 125 token vectors each, seven times fewer, so a corpus of short passages starts from a far smaller index than this one does. The [`HierarchicalTokenPooling`](https://sbert.net/docs/package_reference/multi_vector_encoder/modules.html#hierarchicaltokenpooling) module compresses exactly this by clustering each document's token embeddings and storing the cluster means, keeping roughly `1 / pool_factor` of the vectors:
 
 ```python
 from sentence_transformers.multi_vector_encoder.modules import HierarchicalTokenPooling
@@ -580,13 +583,13 @@ pooling = HierarchicalTokenPooling(pool_factor=4)
 document_embeddings = model.encode_document(passages, token_pooling=pooling)
 ```
 
-I measured it post-hoc on the finished model, with no pooling-aware training, and on long documents it is remarkably cheap:
+I measured it post-hoc on the finished model, with no pooling-aware training, and on long documents it is remarkably cheap.
 
 ![Index size for the 200,000-passage corpus versus NDCG@10, with the token pooling trajectory sweeping the multi-vector index into dense-model territory](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/train-multi-vector-encoder/mve_medical_index_size_ndcg.png)
 
-(Every size in that figure is measured rather than nominal: I encoded a sample of the corpus with each model at its evaluated configuration and counted the vectors it actually stores, at fp16, with the sparse and BM25 rows counting one id plus one weight per active dimension.)
+(Every size in that figure is measured rather than nominal. I encoded a sample of the corpus with each model at its evaluated configuration and counted the vectors it actually stores, at fp16, with the sparse and BM25 rows counting one id plus one weight per active dimension.)
 
-Halving the index costs 0.0033 NDCG@10 and leaves rank-1 accuracy untouched, a quarter of the index still scores 0.8991, and even at pool factor 10, with the index down to 4.5 GB and inside dense-model territory, the model scores 0.8765: still ahead of every other model in the benchmark. If index size has kept you away from late interaction, token pooling might be your solution.
+Halving the index costs 0.0033 NDCG@10 and leaves rank-1 accuracy untouched, a quarter of the index still scores 0.8991, and even at pool factor 10, with the index down to 4.5 GB and inside dense-model territory, the model scores 0.8765, still ahead of every other model in the benchmark. If index size has kept you away from late interaction, token pooling might be your solution.
 
 ## Additional Resources
 
