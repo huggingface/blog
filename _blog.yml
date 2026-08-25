@@ -5666,7 +5666,7 @@
     - sentence-transformers
 
 - local: gradio-workflow-guide
-  date: August 24, 2026
+  date: August 25, 2026
   tags:
     - gradio
     - workflows
@@ -5674,7 +5674,7 @@
     - spaces
     - models
     - inference-providers
-    
+
 - local: asr-benchmark-optimization
   date: August 21, 2026
   tags:
