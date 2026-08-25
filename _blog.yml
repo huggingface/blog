@@ -5665,6 +5665,24 @@
     - embeddings
     - sentence-transformers
 
+- local: asr-benchmark-optimization
+  date: August 21, 2026
+  tags:
+    - audio
+    - speech
+    - benchmark
+    - research
+
+- local: pwc-search
+  date: August 21, 2026
+  tags:
+    - research
+    - search
+    - embeddings
+    - inference
+    - jobs
+    - storage
+
 - local: gradio-workflow-guide
   date: August 25, 2026
   tags:
@@ -5674,11 +5692,3 @@
     - spaces
     - models
     - inference-providers
-
-- local: asr-benchmark-optimization
-  date: August 21, 2026
-  tags:
-    - audio
-    - speech
-    - benchmark
-    - research
