@@ -5702,3 +5702,12 @@
     - open-source
     - embeddings
     - sentence-transformers
+
+- local: microduck
+  date: August 27, 2026
+  tags:
+    - robotics
+    - reinforcement-learning
+    - community
+    - open-source
+    - hardware
