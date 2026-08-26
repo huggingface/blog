@@ -19,10 +19,8 @@ Where a regular embedding model compresses a whole text into one vector, a multi
 
 In this blogpost, we'll show you how to use these models: loading the various checkpoint formats, encoding and scoring, plugging them into a search stack, running them on page images, and keeping the index affordable. Everything below runs on a plain `pip install -U sentence-transformers`.
 
-<!--
 > [!TIP]
-> If you want to train your own multi-vector models, check out the companion blogpost: [Training and Finetuning Multi-Vector Embedding Models with Sentence Transformers](https://huggingface.co/blog/train-multi-vector-encoder).
--->
+> This blog is about using multi-vector models. If you want to learn how to *train* them, see the companion [Training and Finetuning Multi-Vector Embedding Models with Sentence Transformers](https://huggingface.co/blog/train-multi-vector-encoder) blogpost.
 
 ## Table of Contents
 
@@ -56,7 +54,7 @@ A dense embedding model reads a text and returns a single fixed-size vector. Eve
 
 A multi-vector model (also called a late-interaction or ColBERT-style model, after the [ColBERT paper](https://arxiv.org/abs/2004.12832)) skips that compression. It runs the same transformer, but instead of pooling the token embeddings into one vector, it projects each token embedding down to a small dimension (classically 128) and keeps all of them. A 9-token document becomes a 9x128 matrix, not a 1x128 vector.
 
-The interaction between query and document is then deferred until scoring time, which is where the name "late interaction" comes from. A cross-encoder interacts early: both texts go through the model together, which is accurate but leaves nothing to precompute, since every document has to be re-encoded for each new query. A bi-encoder, which is what the dense embedding model above is, barely interacts at all (one dot product between two finished summaries), and that is exactly what lets you encode a collection once and query it fast. Late interaction sits in between: documents are still encoded independently and can be indexed offline, but scoring compares every query token against every document token, which leaves far more room for the two to interact.
+The interaction between query and document is then deferred until scoring time, which is where the name "late interaction" comes from. A cross-encoder interacts early, with both texts going through the model together, which is accurate but leaves nothing to precompute, since every document has to be re-encoded for each new query. A bi-encoder, which is what the dense embedding model above is, barely interacts at all (one dot product between two finished summaries), and that is exactly what lets you encode a collection once and query it fast. Late interaction sits in between. Documents are still encoded independently and can be indexed offline, but scoring compares every query token against every document token, which leaves far more room for the two to interact.
 
 ![Dense embedding versus multi-vector late interaction: a dense model encodes each text into one vector and scores with cosine similarity, while a multi-vector model keeps one vector per token and scores every query token against every document token with MaxSim](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/multi-vector-encoder/maxsim_explainer.gif)
 
@@ -68,9 +66,9 @@ $$\text{MaxSim}(Q, D) = \sum_{Q_i \in Q} \max_{D_j \in D} Q_i \cdot D_j$$
 
 Because the token embeddings are L2-normalized, each of those dot products is a cosine similarity in `[-1, 1]`, so the whole sum lands within `[-num_query_tokens, num_query_tokens]`.
 
-You can read the operator as a soft alignment: every query token points at the one document token that best explains it, and the score is how well the document supports the query overall.
+You can read the operator as a soft alignment, where every query token points at the one document token that best explains it, and the score is how well the document supports the query overall.
 
-The alignment doesn't have to be lexical, since the token embeddings are contextualized. Encode "Where do penguins live?" against "Penguins inhabit Antarctica." with [`lightonai/mLateOn`](https://huggingface.co/lightonai/mLateOn) and the query token `live` finds its best match on `inhabit` at 0.94, a word it shares no characters with! That is the thing lexical retrieval cannot do, BM25 and its relatives need the term itself, so synonyms and paraphrases slip past them. Dense embedding models bridge that gap as well, of course. What late interaction adds is that it does so without giving up the other direction: when an exact match is what matters (a product code, a surname, a function name), MaxSim still has that token sitting there on its own, where a single-vector model had to average it in with everything else. It isn't one-to-one either, since several query tokens routinely settle on the same document token.
+The alignment doesn't have to be lexical, since the token embeddings are contextualized. Encode "Where do penguins live?" against "Penguins inhabit Antarctica." with [`lightonai/mLateOn`](https://huggingface.co/lightonai/mLateOn) and the query token `live` finds its best match on `inhabit` at 0.94, a word it shares no characters with! That is the thing lexical retrieval cannot do, BM25 and its relatives need the term itself, so synonyms and paraphrases slip past them. Dense embedding models bridge that gap as well, of course. What late interaction adds is that it does so without giving up the other direction. When an exact match is what matters (a product code, a surname, a function name), MaxSim still has that token sitting there on its own, where a single-vector model had to average it in with everything else. It isn't one-to-one either, since several query tokens routinely settle on the same document token.
 
 ### What You Gain, and What It Costs
 
@@ -86,7 +84,7 @@ The cost is index size. One vector per token instead of one vector per document 
 
 That's about 42x the storage of the MiniLM index, or 62 KiB per passage. However, indexes are often compressed, e.g. the same 608,414 vectors take 92 MB as a [fast-plaid](#indexing) index, since PLAID stores a centroid id plus a quantized residual per vector rather than the vector itself. For scale, a 4096-dimensional dense model like [Qwen3-Embedding-8B](https://huggingface.co/Qwen/Qwen3-Embedding-8B) would need about 80 MB for these same 4,874 passages, so a compressed multi-vector index sits in the same territory as the dense indexes people already run. [Token Pooling](#token-pooling) cuts the vector count before any of that, and [Retrieve and Rerank](#retrieve-and-rerank) avoids building an index at all.
 
-[PyLate](https://github.com/lightonai/pylate) comes up throughout this post, so briefly: Sentence Transformers handled dense and sparse models but not late interaction, so [LightOn](https://huggingface.co/lightonai) built PyLate on top of it to close that gap, adding the training, inference, and retrieval pieces these models need. Much of what you'll load below was trained with it, and LightOn built an ecosystem around it too, including [fast-plaid](https://github.com/lightonai/fast-plaid), the late-interaction index that turns up in [Indexing](#indexing). With v6.0 those capabilities live in Sentence Transformers itself.
+[PyLate](https://github.com/lightonai/pylate) comes up throughout this post, so here is the short version. Sentence Transformers handled dense and sparse models but not late interaction, so [LightOn](https://huggingface.co/lightonai) built PyLate on top of it to close that gap, adding the training, inference, and retrieval pieces these models need. Much of what you'll load below was trained with it, and LightOn built an ecosystem around it too, including [fast-plaid](https://github.com/lightonai/fast-plaid), the late-interaction index that turns up in [Indexing](#indexing). With v6.0 those capabilities live in Sentence Transformers itself.
 
 With the tradeoff in mind, let's get a model running.
 
@@ -171,7 +169,7 @@ One value is worth checking against your own data, though. `document_length` tru
 
 ## Encoding Queries and Documents
 
-Multi-vector models are asymmetric: queries and documents go through different prefixes, different length caps, and different scoring masks. Unlike many dense models, where the two are interchangeable, [`encode_query()`](https://sbert.net/docs/package_reference/multi_vector_encoder/model.html#sentence_transformers.multi_vector_encoder.model.MultiVectorEncoder.encode_query) and [`encode_document()`](https://sbert.net/docs/package_reference/multi_vector_encoder/model.html#sentence_transformers.multi_vector_encoder.model.MultiVectorEncoder.encode_document) are required to get correct embeddings:
+Multi-vector models are asymmetric, so queries and documents go through different prefixes, different length caps, and different scoring masks. Unlike many dense models, where the two are interchangeable, [`encode_query()`](https://sbert.net/docs/package_reference/multi_vector_encoder/model.html#sentence_transformers.multi_vector_encoder.model.MultiVectorEncoder.encode_query) and [`encode_document()`](https://sbert.net/docs/package_reference/multi_vector_encoder/model.html#sentence_transformers.multi_vector_encoder.model.MultiVectorEncoder.encode_document) are required to get correct embeddings:
 
 ```python
 from sentence_transformers import MultiVectorEncoder
@@ -193,7 +191,7 @@ print(document_embeddings[0].shape, document_embeddings[1].shape)
 # (10, 128) (19, 128)
 ```
 
-Note what you get back: a *list* of 2D tensors, one per input, each of shape `(num_tokens, embedding_dim)`. Unlike dense embeddings, you can't stack these into one rectangular tensor, because every input has its own token count. The second document is longer than the first, so it comes back as a taller matrix.
+What you get back is a *list* of 2D tensors, one per input, each of shape `(num_tokens, embedding_dim)`. Unlike dense embeddings, you can't stack these into one rectangular tensor, because every input has its own token count. The second document is longer than the first, so it comes back as a taller matrix.
 
 Each call applies the model's own recipe for you. `encode_query` prepends the query marker, expands the query to a fixed length if the checkpoint asks for it, and caps it at the query length. `encode_document` prepends the document marker, caps at the document length, and drops any skiplisted tokens (punctuation, for most checkpoints) from the scoring mask.
 
@@ -229,7 +227,7 @@ print(scores)
 # tensor([[10.7942, 11.1104, 10.9743, 11.0811]])
 ```
 
-Mars wins, as it should. Note how close the runners-up are: Saturn also contains the literal phrase "the Red Planet", and Jupiter is a planet with a red spot, so a token-level operator has plenty to latch onto in all three. The ordering is what matters.
+Mars wins, as it should, though the runners-up are close behind. Saturn also contains the literal phrase "the Red Planet", and Jupiter is a planet with a red spot, so a token-level operator has plenty to latch onto in all three. The ordering is what matters.
 
 Scores often sit this close together, as [GLInt](https://huggingface.co/blog/chungimungi/glint#1-mining-in-maxsim-space) shows by measuring the spread across a full candidate pool. MaxSim takes a *maximum* per query token, so a document will usually give every query token some decent best match, and scores start from a floor. Contextualized token embeddings are also anisotropic, clustering in a narrow cone rather than spreading out, so even arbitrary token pairs tend to score high.
 
@@ -301,7 +299,7 @@ Search took 122.7ms
 
 Those 4,874 passages encoded in 20 seconds on an RTX 3090, and each search takes about 120ms end to end, most of that the MaxSim scoring against all 608,414 token vectors. This is exact, but it scales linearly in total corpus tokens and keeps every token vector in memory, so reach for it when you have a few thousand documents rather than a few million. The runnable version of this script is [semantic_search.py](https://github.com/huggingface/sentence-transformers/blob/main/examples/multi_vector_encoder/applications/semantic_search.py).
 
-Past that size you want a real late-interaction index, which Sentence Transformers doesn't ship. It doesn't need to: these indexes store whatever `encode_document` produced, so you encode here and hand the token embeddings to something built for them. [Indexing](#indexing) has working snippets for four of the options, and the section directly below covers how to skip the index entirely.
+Past that size you want a real late-interaction index, which Sentence Transformers doesn't ship. It doesn't need to, because these indexes store whatever `encode_document` produced, so you encode here and hand the token embeddings to something built for them. [Indexing](#indexing) has working snippets for four of the options, and the section directly below covers how to skip the index entirely.
 
 ## Retrieve and Rerank
 
@@ -387,7 +385,7 @@ for index, score in results[0]:
 
 The `index` argument is a directory, not just a label, so the index is written to disk as it is built. Pointing a new `FastPlaid` at the same path reopens it for searching or for adding more documents, instead of rebuilding from the embeddings each time. On this corpus it occupies 92 MB, against 311.5 MB for the raw float32 vectors.
 
-This is the only one of the four that is approximate, and it is the one place in this section where the scores do not match the exhaustive MaxSim. PLAID prunes with centroids and stores quantized residuals, so the three scores drift by a few hundredths in both directions against the 11.9192 / 11.7591 / 11.6710 computed earlier. The ranking is unaffected here, and that is the trade PLAID is making: it was designed for corpora far larger than this one, where scanning everything is not an option.
+This is the only one of the four that is approximate, and it is the one place in this section where the scores do not match the exhaustive MaxSim. PLAID prunes with centroids and stores quantized residuals, so the three scores drift by a few hundredths in both directions against the 11.9192 / 11.7591 / 11.6710 computed earlier. The ranking is unaffected here, and that is the trade PLAID is making. It was designed for corpora far larger than this one, where scanning everything is not an option.
 
 </details>
 
@@ -507,9 +505,9 @@ for result in results.objects:
 client.close()
 ```
 
-Defaults are enough here: Weaviate's dynamic `ef` resolves to 100 for a top-3 query, and this ranking is already exact from about 32 upward. That margin is a property of the embeddings rather than of Weaviate, so it's worth confirming on your own model instead of assuming the defaults hold.
+Defaults are enough here. Weaviate's dynamic `ef` resolves to 100 for a top-3 query, and this ranking is already exact from about 32 upward. That margin is a property of the embeddings rather than of Weaviate, so it's worth confirming on your own model instead of assuming the defaults hold.
 
-Weaviate also supports MUVERA encoding, which made ingestion 3x faster and queries 1.8x faster in our test. It cost far more accuracy than that speed is worth at this size though: the correct third passage didn't appear even in its top 50.
+Weaviate also supports MUVERA encoding, which made ingestion 3x faster and queries 1.8x faster in our test. It cost far more accuracy than that speed is worth at this size though, since the correct third passage didn't appear even in its top 50.
 
 </details>
 
@@ -588,15 +586,15 @@ for hit in response.hits:
 """
 ```
 
-Vespa asks for the most upfront structure of the four, because you're declaring a ranking pipeline rather than just an index. In exchange you get to write MaxSim out as a tensor expression and see exactly what it computes. This version puts MaxSim in `first-phase` over `where true`, which scores all 4,874 documents and is why the output matches exhaustive MaxSim exactly. It's deliberately not what Vespa recommends at scale: their [ColBERT sample app](https://github.com/vespa-engine/sample-apps/tree/master/colbert) stores int8-binarized vectors and moves MaxSim into `second-phase` to rerank a cheaper first stage.
+Vespa asks for the most upfront structure of the four, because you're declaring a ranking pipeline rather than just an index. In exchange you get to write MaxSim out as a tensor expression and see exactly what it computes. This version puts MaxSim in `first-phase` over `where true`, which scores all 4,874 documents and is why the output matches exhaustive MaxSim exactly. It's deliberately not what Vespa recommends at scale. Their [ColBERT sample app](https://github.com/vespa-engine/sample-apps/tree/master/colbert) stores int8-binarized vectors and moves MaxSim into `second-phase` to rerank a cheaper first stage.
 
-Moving to that phased setup needs care: `second-phase` rescores only the best 100 candidates by default, and here that window left two of the three correct passages unscored entirely. Raising `rerank-count` to cover your candidate set fixes that, though at this size the phased version still came out slower than simply scanning everything.
+Moving to that phased setup needs care, because `second-phase` rescores only the best 100 candidates by default, and here that window left two of the three correct passages unscored entirely. Raising `rerank-count` to cover your candidate set fixes that, though at this size the phased version still came out slower than simply scanning everything.
 
 </details>
 
 ## Visual Document Retrieval
 
-Late interaction is the state of the art for visual document retrieval: matching a text query against page *images*, with charts, tables, and layout intact, and no OCR step. This is what the [ColPali](https://arxiv.org/abs/2407.01449) family of models does, and those checkpoints load and run through the same API, with the `revision` pinning the open pull request that adds this one's Sentence Transformers configuration ([Supported Models](#visual-document-retrieval-models) has the full list). Image documents are passed as URLs, local paths, or PIL images:
+Late interaction is the state of the art for visual document retrieval, matching a text query against page *images*, with charts, tables, and layout intact, and no OCR step. This is what the [ColPali](https://arxiv.org/abs/2407.01449) family of models does, and those checkpoints load and run through the same API, with the `revision` pinning the open pull request that adds this one's Sentence Transformers configuration ([Supported Models](#visual-document-retrieval-models) has the full list). Image documents are passed as URLs, local paths, or PIL images:
 
 ```python
 from sentence_transformers import MultiVectorEncoder
@@ -670,7 +668,7 @@ for score, index in zip(top_scores.tolist(), top_indices.tolist()):
 """
 ```
 
-ColQwen-Omni was trained purely on image-text pairs, so its audio retrieval is zero-shot: it never heard a training example, and there is no transcription step anywhere in the pipeline. The query says `nausea` where the recording says `carsickness`, and it still picks the pharmacy conversation out of twenty by a wide margin.
+ColQwen-Omni was trained purely on image-text pairs, so its audio retrieval is zero-shot. It never heard a training example, and there is no transcription step anywhere in the pipeline. The query says `nausea` where the recording says `carsickness`, and it still picks the pharmacy conversation out of twenty by a wide margin.
 
 ## Video Retrieval
 
@@ -704,7 +702,7 @@ At 1 fps and full resolution the same pair of videos produces 8,426 and 5,137 to
 
 ## Interpretability
 
-Because MaxSim is a sum of per-query-token maxima, a ranking decomposes exactly: every point of a document's score belongs to one query token and one document token. That lets you answer "why did this rank here?" precisely, rather than by eye.
+Because MaxSim is a sum of per-query-token maxima, a ranking decomposes exactly, so every point of a document's score belongs to one query token and one document token. That lets you answer "why did this rank here?" precisely, rather than by eye.
 
 For image documents, `sentence_transformers.multi_vector_encoder.interpretability` overlays that decomposition onto the page as the standard ColPali heatmap, either aggregated over the query or one map per query token. Asking "How much was spent on water resources and power?" against the outlays page from above, this is where the `water` token went:
 
@@ -737,11 +735,11 @@ Top 3 of 4874 documents by exhaustive MaxSim (191.0ms):
   MaxSim score                           12.3489  100.0%
 ```
 
-`rich`, `mond`, `preliminary`, and `final` matched themselves, while `when` settled on `since` and `play` on `game`. The special tokens are worth noticing too: three of them contribute 22.7% of the score while carrying none of the query's content. Below this table the script prints the passage itself, with the winning tokens highlighted in place.
+`rich`, `mond`, `preliminary`, and `final` matched themselves, while `when` settled on `since` and `play` on `game`. Three special tokens contribute 22.7% of the score while carrying none of the query's content. Below this table the script prints the passage itself, with the winning tokens highlighted in place.
 
 ## Token Pooling
 
-If the index footprint worries you, the most effective knob is to store fewer token vectors. `HierarchicalTokenPooling` implements the [token pooling](https://arxiv.org/abs/2409.14683v1) technique from Clavié, Chaffin, and Adams: it clusters each document's token vectors with Ward linkage on cosine distance and replaces each cluster with its mean, keeping roughly `1 / pool_factor` of the tokens. Within one document a lot of token vectors end up close to each other, so much of what you drop is redundancy rather than signal:
+If the index footprint worries you, the most effective knob is to store fewer token vectors. `HierarchicalTokenPooling` implements the [token pooling](https://arxiv.org/abs/2409.14683v1) technique from Clavié, Chaffin, and Adams by clustering each document's token vectors with Ward linkage on cosine distance and replacing each cluster with its mean, keeping roughly `1 / pool_factor` of the tokens. Within one document a lot of token vectors end up close to each other, so much of what you drop is redundancy rather than signal:
 
 ```python
 from datasets import load_dataset
@@ -781,7 +779,7 @@ By default, pooling applies to documents only, since queries are short and are t
 | 3 | 204,407 | 2.98x | 104.7 MB |
 | 4 | 153,936 | 3.95x | 78.8 MB |
 
-A cluster mean is a worse match for a query token than the best of its members was, and the coarser the clusters, the more that shows. The [original experiments](https://arxiv.org/abs/2409.14683v1) measured that cost on BEIR and found very little of it: 100.6% of the unpooled retrieval performance on average at `pool_factor=2`, and 99.0% at `pool_factor=3`. Halving your index for free is a good deal, so 2 is a reasonable place to start. How much it costs on your data is corpus-specific though, so measure it with an [evaluator](#evaluating-a-model) before you settle on a factor. The runnable comparison is [token_pooling.py](https://github.com/huggingface/sentence-transformers/blob/main/examples/multi_vector_encoder/compression/token_pooling.py).
+A cluster mean is a worse match for a query token than the best of its members was, and the coarser the clusters, the more that shows. The [original experiments](https://arxiv.org/abs/2409.14683v1) measured that cost on BEIR and found very little of it, at 100.6% of the unpooled retrieval performance on average at `pool_factor=2`, and 99.0% at `pool_factor=3`. Halving your index for free is a good deal, so 2 is a reasonable place to start. How much it costs on your data is corpus-specific though, so measure it with an [evaluator](#evaluating-a-model) before you settle on a factor. The runnable comparison is [token_pooling.py](https://github.com/huggingface/sentence-transformers/blob/main/examples/multi_vector_encoder/compression/token_pooling.py).
 
 How far you can push `pool_factor` is also partly a property of the model. LightOn's [hierarchical pooling regularization](https://huggingface.co/blog/lightonai/lateon-hpool-regularization) trains for exactly that, shaping the embedding space so pooling costs less and reporting 99.4% retention at 5x compression. Training with that regularizer isn't in Sentence Transformers yet, but the resulting checkpoints are ordinary PyLate models, so [`lightonai/LateOn-hpool-regularized`](https://huggingface.co/lightonai/LateOn-hpool-regularized) loads and pools like any other.
 
@@ -849,7 +847,7 @@ This also makes it easy to check the claim from the top of this post. [`lightona
 | FiQA2018 | 0.5871 | **0.6491** |
 | **Mean** | **0.6868** | 0.6764 |
 
-Late interaction wins on 9 of the 13 datasets and on the mean, by roughly one NDCG point. The four it loses (ArguAna, FiQA2018, SCIDOCS, and SciFact) are the shape of the tradeoff you should expect: a real gain in retrieval quality at the same model size, paid for in index footprint, rather than a universal win on every dataset. The same pair scores 57.22 against 56.20 on the full 15-dataset BEIR, a comparable gap, so the margin is not an artifact of the small benchmark.
+Late interaction wins on 9 of the 13 datasets and on the mean, by roughly one NDCG point. The four it loses (ArguAna, FiQA2018, SCIDOCS, and SciFact) are the shape of the tradeoff you should expect, a real gain in retrieval quality at the same model size, paid for in index footprint, rather than a universal win on every dataset. The same pair scores 57.22 against 56.20 on the full 15-dataset BEIR, a comparable gap, so the margin is not an artifact of the small benchmark.
 
 Alongside NanoBEIR, `MultiVectorInformationRetrievalEvaluator`, `MultiVectorRerankingEvaluator`, `MultiVectorTripletEvaluator`, and `MultiVectorDistillationEvaluator` cover the usual evaluation setups on your own data. They're documented in the [Evaluation API Reference](https://sbert.net/docs/package_reference/multi_vector_encoder/evaluation.html).
 
@@ -875,9 +873,9 @@ Alongside NanoBEIR, `MultiVectorInformationRetrievalEvaluator`, `MultiVectorRera
 | `HierarchicalTokenPooler` | `HierarchicalTokenPooling` |
 | `colpali_engine.interpretability` | `sentence_transformers.multi_vector_encoder.interpretability` |
 
-One difference worth calling out: on a **bare** (non-ColBERT) checkpoint, PyLate's `ColBERT("bert-base-uncased")` applies the classic recipe by default, while `MultiVectorEncoder("bert-base-uncased")` builds a plain stack and leaves the prefixes, query expansion, and skiplist as explicit choices. The training loss and evaluator equivalents, and the data-handling differences, are in the [Migration Guide](https://sbert.net/docs/migration_guide.html#migrating-from-pylate).
+The difference worth knowing about is on bare (non-ColBERT) checkpoints, where PyLate's `ColBERT("bert-base-uncased")` applies the classic recipe by default while `MultiVectorEncoder("bert-base-uncased")` builds a plain stack, leaving the prefixes, query expansion, and skiplist as explicit choices. The training loss and evaluator equivalents, and the data-handling differences, are in the [Migration Guide](https://sbert.net/docs/migration_guide.html#migrating-from-pylate).
 
-Note that save compatibility is one-way in every case: PyLate, Stanford-NLP ColBERT, and colpali-engine checkpoints all load into `MultiVectorEncoder`, but `MultiVectorEncoder.save_pretrained` output isn't loadable by any of them.
+Save compatibility is one-way in every case. PyLate, Stanford-NLP ColBERT, and colpali-engine checkpoints all load into `MultiVectorEncoder`, but `MultiVectorEncoder.save_pretrained` output isn't loadable by any of them.
 
 ## Supported Models
 
@@ -910,7 +908,10 @@ The NanoBEIR column reports the mean NDCG@10 (higher is better) across the 13 [N
 | [lightonai/ColBERT-Zero](https://huggingface.co/lightonai/ColBERT-Zero) | 149M | 128 | 0.6569 | - |
 | [answerdotai/answerai-colbert-small-v1](https://huggingface.co/answerdotai/answerai-colbert-small-v1) | 33M | 96 | 0.6550 | - |
 | [mixedbread-ai/mxbai-edge-colbert-v0-32m](https://huggingface.co/mixedbread-ai/mxbai-edge-colbert-v0-32m) | 32M | 64 | 0.6524 | - |
+| [jinaai/jina-colbert-v2](https://huggingface.co/jinaai/jina-colbert-v2) | 559M | 128 | 0.6517 | needs `trust_remote_code=True` |
+| [DataScience-UIBK/Reason-mxbai-colbert-v0.1-32m](https://huggingface.co/DataScience-UIBK/Reason-mxbai-colbert-v0.1-32m) | 32M | 128 | 0.6486 | - |
 | [LiquidAI/LFM2-ColBERT-350M](https://huggingface.co/LiquidAI/LFM2-ColBERT-350M) | 353M | 128 | 0.6441 | - |
+| [lightonai/ColBERT-Zero-unsupervised-noprompts](https://huggingface.co/lightonai/ColBERT-Zero-unsupervised-noprompts) | 149M | 128 | 0.6430 | - |
 | [mixedbread-ai/mxbai-edge-colbert-v0-17m](https://huggingface.co/mixedbread-ai/mxbai-edge-colbert-v0-17m) | 17M | 48 | 0.6407 | - |
 | [lightonai/colbertv2.0](https://huggingface.co/lightonai/colbertv2.0) | 110M | 128 | 0.6201 | - |
 | [lightonai/LateOn-Code](https://huggingface.co/lightonai/LateOn-Code) | 149M | 128 | 0.6169 | - |
@@ -923,9 +924,14 @@ The NanoBEIR column reports the mean NDCG@10 (higher is better) across the 13 [N
 | [mixedbread-ai/mxbai-colbert-large-v1](https://huggingface.co/mixedbread-ai/mxbai-colbert-large-v1) | 335M | 128 | 0.5733 | - |
 | [lightonai/LateOn-Code-edge](https://huggingface.co/lightonai/LateOn-Code-edge) | 17M | 48 | 0.5274 | - |
 | [NeuML/biomedbert-base-colbert](https://huggingface.co/NeuML/biomedbert-base-colbert) | 110M | 128 | 0.4320 | - |
+| [NeuML/colbert-bert-tiny](https://huggingface.co/NeuML/colbert-bert-tiny) | 4M | 128 | 0.4035 | - |
 | [yjoonjang/colbert-ko-v1](https://huggingface.co/yjoonjang/colbert-ko-v1) | 149M | 128 | - | - |
 | [ytu-ce-cosmos/turkish-colbert](https://huggingface.co/ytu-ce-cosmos/turkish-colbert) | 111M | 256 | - | - |
 | [samheym/GerColBERT](https://huggingface.co/samheym/GerColBERT) | 110M | 128 | - | - |
+| [bclavie/JaColBERT](https://huggingface.co/bclavie/JaColBERT) | 111M | 128 | - | - |
+| [bclavie/JaColBERTv2](https://huggingface.co/bclavie/JaColBERTv2) | 111M | 128 | - | - |
+| [answerdotai/JaColBERTv2.4](https://huggingface.co/answerdotai/JaColBERTv2.4) | 111M | 128 | - | `revision="refs/pr/2"` |
+| [answerdotai/JaColBERTv2.5](https://huggingface.co/answerdotai/JaColBERTv2.5) | 111M | 128 | - | `revision="refs/pr/5"` |
 
 ### Visual Document Retrieval Models
 
@@ -937,12 +943,30 @@ The NanoViDoRe column reports the mean NDCG@10 (higher is better) across [NanoVi
 | --- | :---: | :---: | :---: | --- |
 | [webAI-Official/webAI-ColVec1.1-8b](https://huggingface.co/webAI-Official/webAI-ColVec1.1-8b) | 8.4B | 640 | 0.6580 | needs `trust_remote_code=True` |
 | [webAI-Official/webAI-ColVec1.1-4b](https://huggingface.co/webAI-Official/webAI-ColVec1.1-4b) | 4.5B | 640 | 0.6520 | needs `trust_remote_code=True` |
+| [vultr/VultronRetrieverPrime-Qwen3.5-8B](https://huggingface.co/vultr/VultronRetrieverPrime-Qwen3.5-8B) | 8.39B | 320 | 0.6423 | `revision="refs/pr/2"` |
+| [vultr/VultronRetrieverCore-Qwen3.5-4.5B](https://huggingface.co/vultr/VultronRetrieverCore-Qwen3.5-4.5B) | 4.54B | 320 | 0.6410 | `revision="refs/pr/1"` |
 | [tencent/EVIE-Preview-4.5B](https://huggingface.co/tencent/EVIE-Preview-4.5B) | 4.54B | 128 | 0.6405 | - |
+| [nvidia/nemotron-colembed-vl-8b-v2](https://huggingface.co/nvidia/nemotron-colembed-vl-8b-v2) | 8.77B | 4096 | 0.6374 | `revision="refs/pr/4"`, needs `trust_remote_code=True` |
+| [athrael-soju/colqwen3.5-4.5B-v3](https://huggingface.co/athrael-soju/colqwen3.5-4.5B-v3) | 4.54B | 320 | 0.6358 | - |
 | [TomoroAI/tomoro-colqwen3-embed-8b](https://huggingface.co/TomoroAI/tomoro-colqwen3-embed-8b) | 8.8B | 320 | 0.6206 | needs `trust_remote_code=True` |
+| [nvidia/nemotron-colembed-vl-4b-v2](https://huggingface.co/nvidia/nemotron-colembed-vl-4b-v2) | 4.83B | 2560 | 0.6200 | `revision="refs/pr/7"`, needs `trust_remote_code=True` |
+| [OpenSearch-AI/Ops-Colqwen3-4B](https://huggingface.co/OpenSearch-AI/Ops-Colqwen3-4B) | 4.44B | 2560 | 0.6150 | `revision="refs/pr/5"`, needs `trust_remote_code=True` |
+| [nvidia/llama-nemotron-colembed-vl-3b-v2](https://huggingface.co/nvidia/llama-nemotron-colembed-vl-3b-v2) | 4.41B | 3072 | 0.6112 | `revision="refs/pr/3"`, needs `trust_remote_code=True` |
+| [tsystems/colqwen2.5-3b-multilingual-v1.0](https://huggingface.co/tsystems/colqwen2.5-3b-multilingual-v1.0) | 3.75B | 128 | 0.6039 | `revision="refs/pr/3"` |
+| [tsystems/colqwen2.5-3b-multilingual-v1.0-merged](https://huggingface.co/tsystems/colqwen2.5-3b-multilingual-v1.0-merged) | 3.75B | 128 | 0.6027 | `revision="refs/pr/1"` |
 | [TomoroAI/tomoro-colqwen3-embed-4b](https://huggingface.co/TomoroAI/tomoro-colqwen3-embed-4b) | 4.4B | 320 | 0.6019 | needs `trust_remote_code=True` |
+| [nomic-ai/colnomic-embed-multimodal-7b](https://huggingface.co/nomic-ai/colnomic-embed-multimodal-7b) | 8.29B | 128 | 0.5942 | `revision="refs/pr/3"` |
+| [nomic-ai/colnomic-embed-multimodal-3b](https://huggingface.co/nomic-ai/colnomic-embed-multimodal-3b) | 3.75B | 128 | 0.5929 | `revision="refs/pr/6"` |
+| [VAGOsolutions/SauerkrautLM-ColQwen3-8b-v0.1](https://huggingface.co/VAGOsolutions/SauerkrautLM-ColQwen3-8b-v0.1) | 8.15B | 128 | 0.5819 | `revision="refs/pr/1"` |
+| [Metric-AI/ColQwen2.5-3b-multilingual-v1.0](https://huggingface.co/Metric-AI/ColQwen2.5-3b-multilingual-v1.0) | 3.75B | 128 | 0.5763 | `revision="refs/pr/2"` |
+| [vultr/VultronRetrieverFlash-Qwen3.5-0.8B](https://huggingface.co/vultr/VultronRetrieverFlash-Qwen3.5-0.8B) | 853M | 320 | 0.5693 | `revision="refs/pr/2"` |
+| [VAGOsolutions/SauerkrautLM-ColQwen3-4b-v0.1](https://huggingface.co/VAGOsolutions/SauerkrautLM-ColQwen3-4b-v0.1) | 4.44B | 128 | 0.5656 | `revision="refs/pr/1"` |
+| [VAGOsolutions/SauerkrautLM-ColQwen3-2b-v0.1](https://huggingface.co/VAGOsolutions/SauerkrautLM-ColQwen3-2b-v0.1) | 2.13B | 128 | 0.5530 | `revision="refs/pr/1"` |
+| [Verm1ion/ColTurk-VDR-Qwen3VL-4B-v1.0](https://huggingface.co/Verm1ion/ColTurk-VDR-Qwen3VL-4B-v1.0) | 4.44B | 320 | 0.5434 | `revision="refs/pr/1"` |
 | [vidore/colqwen2.5-v0.2](https://huggingface.co/vidore/colqwen2.5-v0.2) | 3.8B | 128 | 0.5402 | - |
 | [vidore/colqwen2.5-v0.1](https://huggingface.co/vidore/colqwen2.5-v0.1) | 3.8B | 128 | 0.5395 | - |
 | [vidore/colqwen-omni-v0.1](https://huggingface.co/vidore/colqwen-omni-v0.1) | 4.4B | 128 | 0.5309 | - |
+| [VAGOsolutions/SauerkrautLM-ColQwen3-1.7b-Turbo-v0.1](https://huggingface.co/VAGOsolutions/SauerkrautLM-ColQwen3-1.7b-Turbo-v0.1) | 1.76B | 128 | 0.5035 | `revision="refs/pr/1"` |
 | [vidore/colpali-v1.3](https://huggingface.co/vidore/colpali-v1.3) | 2.9B | 128 | 0.4802 | - |
 | [vidore/colpali-v1.3-hf](https://huggingface.co/vidore/colpali-v1.3-hf) | 2.9B | 128 | 0.4793 | - |
 | [vidore/colpali-v1.2](https://huggingface.co/vidore/colpali-v1.2) | 2.9B | 128 | 0.4691 | - |
@@ -950,7 +974,9 @@ The NanoViDoRe column reports the mean NDCG@10 (higher is better) across [NanoVi
 | [vidore/colqwen2-v0.1](https://huggingface.co/vidore/colqwen2-v0.1) | 2.2B | 128 | 0.4526 | - |
 | [vidore/colpali](https://huggingface.co/vidore/colpali) | 2.9B | 128 | 0.4516 | - |
 | [vidore/colpali-v1.1](https://huggingface.co/vidore/colpali-v1.1) | 2.9B | 128 | 0.4314 | - |
+| [VAGOsolutions/SauerkrautLM-ColLFM2-450M-v0.1](https://huggingface.co/VAGOsolutions/SauerkrautLM-ColLFM2-450M-v0.1) | 451M | 128 | 0.4249 | `revision="refs/pr/1"` |
 | [vidore/colsmolvlm-v0.1](https://huggingface.co/vidore/colsmolvlm-v0.1) | 2.1B | 128 | 0.4054 | - |
+| [VAGOsolutions/SauerkrautLM-ColMinistral3-3b-v0.1](https://huggingface.co/VAGOsolutions/SauerkrautLM-ColMinistral3-3b-v0.1) | 4.25B | 128 | 0.3978 | `revision="refs/pr/1"` |
 | [vidore/colpali-hard-v1.1](https://huggingface.co/vidore/colpali-hard-v1.1) | 2.9B | 128 | 0.3949 | - |
 | [vidore/colSmol-500M](https://huggingface.co/vidore/colSmol-500M) | 507M | 128 | 0.3459 | - |
 | [vidore/colSmol-256M](https://huggingface.co/vidore/colSmol-256M) | 256M | 128 | 0.2673 | - |
@@ -997,9 +1023,7 @@ And thanks to everyone who trained and released the checkpoints in [Supported Mo
 
 To learn how to train or finetune these models on your own data:
 
-<!--
 See the companion blogpost: [Training and Finetuning Multi-Vector Embedding Models with Sentence Transformers](https://huggingface.co/blog/train-multi-vector-encoder).
--->
 
 - [Multi-Vector Encoder > Training Overview](https://sbert.net/docs/multi_vector_encoder/training_overview.html)
 - [Multi-Vector Encoder > Loss Overview](https://sbert.net/docs/multi_vector_encoder/loss_overview.html)
@@ -1013,9 +1037,7 @@ See the companion blogpost: [Training and Finetuning Multi-Vector Embedding Mode
 
 ### Companion Blogposts
 
-<!--
 - [Training and Finetuning Multi-Vector Embedding Models with Sentence Transformers](https://huggingface.co/blog/train-multi-vector-encoder): the direct training companion to this post.
--->
 - [Training and Finetuning Embedding Models with Sentence Transformers](https://huggingface.co/blog/train-sentence-transformers): the general training guide for text-only dense embedding models.
 - [Training and Finetuning Reranker Models with Sentence Transformers](https://huggingface.co/blog/train-reranker): Cross Encoder training, the other way to add a precise second stage.
 - [Training and Finetuning Sparse Embedding Models with Sentence Transformers](https://huggingface.co/blog/train-sparse-encoder): SPLADE and other sparse encoders, which combine well with late interaction in hybrid search.
