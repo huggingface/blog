@@ -40,7 +40,8 @@ If you're interested in finetuning dense embedding models, sparse embedding mode
   * [Callbacks](#callbacks)
   * [Multi-Dataset Training](#multi-dataset-training)
 - [Evaluation](#evaluation)
-  * [Shrinking the index with token pooling](#shrinking-the-index-with-token-pooling)
+  * [Optimizing the index](#optimizing-the-index)
+- [Acknowledgements](#acknowledgements)
 - [Additional Resources](#additional-resources)
   * [Training Examples](#training-examples)
   * [Documentation](#documentation)
@@ -572,7 +573,7 @@ Note that this does not mean that [multi-vector-encoder/mLateOn-medical](https:/
 
 Don't underestimate the power of finetuning multi-vector models on your domain. Fourteen and a half hours on a single consumer GPU produced a model that no general-purpose retriever comes close to on this data, and the recipe is a single script with no teacher model and no mined negatives!
 
-### Shrinking the index with token pooling
+### Optimizing the index
 
 The fair objection to multi-vector retrieval is index size, and this domain is close to the worst case for it. Storing one vector per token, my model needs about 878 vectors per passage, so the 200,000-passage corpus takes roughly 45 GB at fp16, where a dense model needs well under 1 GB. Document length is what makes that gap so wide. The Natural Questions passages in the [companion post](https://huggingface.co/blog/multi-vector-encoder) average about 125 token vectors each, seven times fewer, so a corpus of short passages starts from a far smaller index than this one does. The [`HierarchicalTokenPooling`](https://sbert.net/docs/package_reference/multi_vector_encoder/modules.html#hierarchicaltokenpooling) module compresses exactly this by clustering each document's token embeddings and storing the cluster means, keeping roughly `1 / pool_factor` of the vectors:
 
@@ -585,11 +586,29 @@ document_embeddings = model.encode_document(passages, token_pooling=pooling)
 
 I measured it post-hoc on the finished model, with no pooling-aware training, and on long documents it is remarkably cheap.
 
-![Index size for the 200,000-passage corpus versus NDCG@10, with the token pooling trajectory sweeping the multi-vector index into dense-model territory](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/train-multi-vector-encoder/mve_medical_index_size_ndcg.png)
+![Embedding size for the 200,000-passage corpus versus NDCG@10, with the token pooling trajectory sweeping the multi-vector index into dense-model territory](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/train-multi-vector-encoder/mve_medical_index_size_ndcg.png)
 
-(Every size in that figure is measured rather than nominal. I encoded a sample of the corpus with each model at its evaluated configuration and counted the vectors it actually stores, at fp16, with the sparse and BM25 rows counting one id plus one weight per active dimension.)
+The solid points are uncompressed embeddings, so that every family is counted the same way and scored with exact search. You would not deploy any of them like that, though. Dense indexes routinely use int8 or binary quantization with rescoring, sparse indexes compress their postings, and multi-vector indexes use PLAID-style residual compression. Don't read those points as the disk you need to buy, but as relative storage cost.
 
-Halving the index costs 0.0033 NDCG@10 and leaves rank-1 accuracy untouched, a quarter of the index still scores 0.8991, and even at pool factor 10, with the index down to 4.5 GB and inside dense-model territory, the model scores 0.8765, still ahead of every other model in the benchmark. If index size has kept you away from late interaction, token pooling might be your solution.
+Token pooling is the solid line. Halving the vector count costs 0.0033 NDCG@10 and leaves rank-1 accuracy untouched, and keeping only a quarter of them, at 11.2 GB, still scores 0.8991. The curve keeps going (I measured out to a tenth of the vectors, still at 0.8765) but there is little reason to push pooling that far once quantization is on the table, which is what the dashed line below is about.
+
+The dashed line is what a real deployment might look like. I gave Omar Khattab early access to the model and the benchmark, and he measured these configurations with [fast-plaid](https://github.com/lightonai/fast-plaid) at 1-bit residual quantization, using compact 17-bit centroid ids and 18-bit document ids instead of its ordinary unpacked 64-bit integers, plus document-side pruning:
+
+| configuration | vectors kept | index | NDCG@10 |
+|---|---:|---:|---:|
+| 1-bit PLAID, all vectors | 100% | 3.37 GB | 0.8984 |
+| 1-bit PLAID + pruning | 65% | 2.23 GB | 0.8830 |
+| 1-bit PLAID + pruning | 42% | 1.45 GB | 0.8642 |
+
+That first row is 13x smaller than the raw embeddings, for 0.0155 NDCG@10. That is a far better trade than anywhere on the pooling curve. Quantization shrinks each vector while pooling and pruning cut how many you keep, so they compose, and quantization is the one to reach for first. Push further and the last row lands at 1.45 GB, *smaller* than the fp16 embeddings of [Qwen3-Embedding-8B](https://huggingface.co/Qwen/Qwen3-Embedding-8B) (1.64 GB), while scoring 0.0895 higher. The objection that multi-vector indexes are too big does not survive a properly configured index.
+
+The pruning here is naive, meant only to establish that token reduction works on top of quantization, so read the bottom two rows as a floor rather than the frontier. If you would rather not hand-tune quantization at all, the [Indexing](https://huggingface.co/blog/multi-vector-encoder#indexing) section of the companion post covers fast-plaid, Qdrant, Weaviate, and Vespa.
+
+Multi-vector retrieval is only as expensive as its index. The raw embeddings for this corpus are 45 GB, and a properly configured index is at least 7x smaller at nearly the same accuracy. The index deserves as much of your attention as the checkpoint.
+
+## Acknowledgements
+
+Thanks to [Omar Khattab](https://github.com/okhat) for measuring the quantized and pruned index configurations in [Optimizing the index](#optimizing-the-index), and for the discussions around late-interaction index costs.
 
 ## Additional Resources
 
