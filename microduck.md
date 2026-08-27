@@ -6,6 +6,18 @@ authors:
 - user: matthieu-lapeyre
   guest: true
   org: pollen-robotics
+- user: apirrone
+  guest: true
+  org: pollen-robotics
+- user: acrampette
+  guest: true
+  org: pollen-robotics
+- user: cdeplanne
+  guest: true
+  org: pollen-robotics
+- user: Anne-Charlotte
+  guest: true
+  org: pollen-robotics
 ---
 
 # Hugging Face Unveils Microduck, a Tiny $399 Biped Robot You Can Teach New Tricks
