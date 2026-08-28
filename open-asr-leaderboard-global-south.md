@@ -1,5 +1,5 @@
 ---
-title: "The Open ASR Leaderboard Adds Its First Global South Languages"
+title: "The Open ASR Leaderboard Adds Its First Global South Language"
 thumbnail: /blog/assets/open-asr-leaderboard-global-south/thumbnail.png
 authors:
 - user: bezzam
