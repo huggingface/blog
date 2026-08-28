@@ -32,7 +32,7 @@ authors:
   org: VoiceArena
 ---
 
-# The Open ASR Leaderboard Adds Its First Global South Languages
+# The Open ASR Leaderboard Adds Its First Global South Language
 
 *Voice Arena and Hugging Face partner to launch open ASR evaluation for Hindi and Indian English*
 
