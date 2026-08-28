@@ -133,7 +133,7 @@ Monsoon ships 18 columns per segment, of which 12 are metadata, where most publi
 
 The two languages have different geographic shapes, and the shape is informative. The Hindi sets concentrate in the Hindi belt, with Uttar Pradesh accounting for roughly 40% of speakers, which is what a Hindi corpus sampled by population should look like. The Indian English sets are much flatter: no state exceeds 13%, and a third of speakers come from outside the eight largest. Public and private halves match closely on both.
 
-Indian state boundaries were drawn along linguistic lines, so district and state carry real accent signal, which is why these fields are released rather than summarised away. Analysis of this kind has been reported at scale for Indian ASR [2]: district-level error rates spanning roughly 4% to 44%, with underrepresented regions well behind the Hindi belt and the metros, plus disaggregation by audio quality, speaking rate, utterance duration, gender, age and device. Those runs were on a closed benchmark. Monsoon makes the same class of analysis possible on a public leaderboard test set.
+Indian state boundaries were drawn along linguistic lines, so district and state carry real accent signal, which is why these fields are released rather than summarised away. Analysis of this kind has been reported at scale for Indian ASR: district-level error rates spanning roughly 4% to 44%, with underrepresented regions well behind the Hindi belt and the metros, plus disaggregation by audio quality, speaking rate, utterance duration, gender, age and device. Those runs were on a closed benchmark. Monsoon makes the same class of analysis possible on a public leaderboard test set.
 
 ## Collection and quality control
 
