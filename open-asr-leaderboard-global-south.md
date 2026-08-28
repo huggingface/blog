@@ -120,7 +120,7 @@ Three properties follow, and each is a claim about variance rather than volume.
 
 ### Metadata fields
 
-Monsoon ships 18 columns per segment, of which 16 are metadata, where most public ASR test sets ship an identifier, a transcript and a duration. Demographic fields are complete or near-complete; contributors consented to this use.
+Monsoon ships 18 columns per segment, of which 12 are metadata, where most public ASR test sets ship an identifier, a transcript and a duration. Demographic fields are complete or near-complete; contributors consented to this use.
 
 | Group | Fields |
 | :--- | :--- |
