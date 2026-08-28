@@ -67,7 +67,7 @@ Four splits, two languages, collected through one pipeline.
 | [Monsoon en-IN public](https://huggingface.co/datasets/VoiceArena/MonsoonASR-Open-ASR-leaderboard-en-IN) | Indian English | 5.62 h | 1,444 | 9.6s / 10.4s | 50/50 | 428 | 24/6 | 556 | Conversational, spontaneous | Normalised, disfluencies |
 | Monsoon en-IN private | Indian English | 5.58 h | 1,405 | 9.6s / 10.4s | 45/55 | 420 | 24/6 | 560 | Conversational, spontaneous | Normalised, disfluencies |
 | [Monsoon hi-IN public](https://huggingface.co/datasets/VoiceArena/MonsoonASR-Open-ASR-leaderboard-hi-IN) | Hindi | 1.33 h | 468 | 6.4s / 5.0s | 54/46 | 202 | 11/3 | 315 | Conversational, spontaneous | Lattice (accepted orthographic variants) |
-| Monsoon hi private | Hindi | 4.47 h | 1,571 | 6.6s / 5.3s | 55/45 | 295 | 12/3 | 582 | Conversational, spontaneous | Lattice (accepted orthographic variants) |
+| Monsoon hi-IN private | Hindi | 4.47 h | 1,571 | 6.6s / 5.3s | 55/45 | 295 | 12/3 | 582 | Conversational, spontaneous | Lattice (accepted orthographic variants) |
 
 The data is sourced from unscripted dual-channel spontaneous conversations, with clips segmented from a single channel so that each clip carries one speaker. Along with the fields reported in the table, each clip also records occupation, education, marital status, income band, handset brand, current city and years in the current district.
 
