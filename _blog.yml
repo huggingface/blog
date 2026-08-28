@@ -5702,3 +5702,13 @@
     - open-source
     - embeddings
     - sentence-transformers
+
+- local: open-asr-leaderboard-global-south
+  date: August 29, 2026
+  tags:
+    - audio
+    - speech
+    - leaderboard
+    - datasets
+    - evaluation
+    - research
