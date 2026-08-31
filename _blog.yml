@@ -5712,3 +5712,12 @@
     - datasets
     - evaluation
     - research
+
+- local: webgpu-kernels
+  date: August 31, 2026
+  tags:
+    - inference
+    - javascript
+    - webgpu
+    - open-source
+    - hub
