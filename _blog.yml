@@ -5712,3 +5712,13 @@
     - datasets
     - evaluation
     - research
+
+- local: grpo-with-trl-ifstruct
+  date: August 31, 2026
+  tags:
+    - nlp
+    - guide
+    - community
+    - open-source
+    - grpo
+    - trl
