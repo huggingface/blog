@@ -50,7 +50,7 @@ Behind the card, the repository contains the artifacts needed to understand and 
 - **`bench.json`** contains benchmark and tuning cases that represent the workloads used to evaluate the kernel.
 - **`*.wgsl.jinja`** files contain the parameterized WGSL implementations used to produce shaders for a particular request and device.
 
-This structure turns a shader into a reusable software artifact. The interface is inspectable without reading WGSL, correctness and performance cases travel with the implementation, and published versions can be loaded explicitly rather than depending on an unversioned file URL.
+This structure turns a shader into a reusable software artifact. The interface is inspectable without reading WGSL, correctness and performance cases travel with the implementation, and published versions can be loaded explicitly rather than depending on an unversioned file URL. Our kernels can also serve as reference implementations for developers building custom WebGPU kernels or integrating these operations into their own runtimes.
 
 ## Loading a kernel from the Hub
 
@@ -108,26 +108,13 @@ All workloads used `float32`, and both implementations produced matching outputs
 
 These are public-API latency measurements, not isolated shader timings. They include differences in each runtime's command submission and GPU-to-CPU output path, and results on other GPUs and browsers will vary. Individual operation results should not be treated as a proxy for whole-model performance. Fleet is how we intend to build a broader picture across operations and devices.
 
+We are also working with the ONNX Runtime team to upstream these improvements so they can benefit the broader ONNX Runtime Web ecosystem.
+
 ## From one device to a fleet
 
-Writing a correct kernel is only the beginning. The WebGPU ecosystem spans integrated and discrete GPUs, different vendors, different operating systems, and multiple browser GPU stacks. A kernel that performs well on one machine may compile slowly, select a poor variant, or expose a driver issue somewhere else. No fixed collection of development machines can represent that full range.
+WebGPU performance varies across GPUs, browsers, and drivers, so results from one machine only tell part of the story. [Fleet](https://webgpu-kernels-fleet.hf.space/) lets anyone run correctness and performance checks in the browser and see how the kernels behave on their hardware.
 
-[Fleet](https://webgpu-kernels-fleet.hf.space/) is how we crowdsource coverage for that long tail. It is a WebGPU campaign that runs entirely in the browser tab. After a device census, the Standard campaign sends a balanced set of correctness and benchmark packets to your GPU. Faster devices can continue into additional coverage, while slower devices stop at a safe boundary so the trial remains practical.
-
-The benchmark results you see are useful, but the aggregate evidence is the core of Fleet. Each consenting run expands our view of how kernels and their variants behave on a particular combination of GPU, browser, driver, features, and limits. More runs give us more opportunities to identify device-specific failures, discover weak variants, tune selection rules, and validate fixes. In other words, joining the Fleet directly helps improve the kernels for everyone.
-
-The campaign measures several complementary dimensions:
-
-| Area | What it measures |
-| --- | --- |
-| **Bandwidth** | Sustained memory throughput |
-| **Compute** | Floating-point throughput |
-| **Quantized** | 8-bit dot-product throughput |
-| **Latency** | Dispatch and compilation responsiveness |
-| **Efficiency** | Real operation performance compared with measured hardware ceilings |
-| **Stability** | Repeatability and thermal behavior |
-
-These measurements provide context that a kernel benchmark alone cannot. For example, comparing operation performance with the device's measured bandwidth and compute ceilings helps distinguish a kernel limitation from a hardware limit. Correctness packets also help identify combinations of shader, browser, and GPU that need further investigation. Across many contributed devices, this evidence becomes a feedback loop for improving implementations and choosing better variants.
+With consent, each run privately contributes evidence that helps us spot device-specific failures, compare variants, and improve selection rules. The goal is simple: use broad, real-world coverage to make the kernels faster and more reliable for everyone.
 
 ## Building a shared foundation for WebAI
 
