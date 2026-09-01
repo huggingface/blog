@@ -6,7 +6,7 @@ authors:
   - user: Xenova
 ---
 
-# Introducing `@huggingface/kernels`: 200+ WebGPU Kernels for Local AI
+# Introducing @huggingface/kernels: 200+ WebGPU Kernels for Local AI
 
 One of our biggest goals on the WebAI team at Hugging Face is to make browser inference as fast and as user-friendly as possible. Getting there is a multi-layer effort: models need browser-friendly representations, runtimes need to build efficient execution plans, and the individual GPU operations at the bottom of the stack need to make the most of many different devices and browser implementations.
 
