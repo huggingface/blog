@@ -1,33 +1,33 @@
 ---
-title: "Introducing @huggingface/kernels: 200+ WebGPU Kernels for Browser AI"
+title: "Introducing @huggingface/kernels: 200+ WebGPU Kernels for Local AI"
 thumbnail: /blog/assets/webgpu-kernels/thumbnail.png
 authors:
   - user: nico-martin
   - user: Xenova
 ---
 
-# Introducing `@huggingface/kernels`: 200+ WebGPU Kernels for Browser AI
+# Introducing `@huggingface/kernels`: 200+ WebGPU Kernels for Local AI
 
 One of our biggest goals on the WebAI team at Hugging Face is to make browser inference as fast and as user-friendly as possible. Getting there is a multi-layer effort: models need browser-friendly representations, runtimes need to build efficient execution plans, and the individual GPU operations at the bottom of the stack need to make the most of many different devices and browser implementations.
 
-Today, we are releasing the first layer of that effort: [`@huggingface/kernels`](https://www.npmjs.com/package/@huggingface/kernels), a library for loading and running optimized WebGPU kernels from the Hugging Face Hub, together with an initial collection of **207 kernels** at [huggingface.co/webgpu-kernels](https://huggingface.co/webgpu-kernels).
+Today, we are releasing the first layer of that effort: [`@huggingface/kernels`](https://www.npmjs.com/package/@huggingface/kernels), a minimal library for loading and running optimized WebGPU kernels from the Hugging Face Hub, together with an initial collection of **207 kernels** at [huggingface.co/webgpu-kernels](https://huggingface.co/webgpu-kernels).
 
-The collection covers operations used across a wide variety of machine learning architectures and workloads. More importantly, each kernel is published as a complete, versioned package: its interface, shader templates, correctness cases, benchmark cases, provenance, and usage instructions all live together on the Hub.
+The collection covers operations used across a wide variety of machine learning architectures and workloads. More importantly, each kernel is published as a complete, versioned package: its interface, shader templates, correctness cases, benchmark cases, and usage instructions all live together on the Hub.
 
-We are also launching [WebGPU Kernels Fleet](https://webgpu-kernels-fleet.hf.space/), an in-browser test suite that lets you benchmark the kernels on your own GPU. Beyond the numbers for your own machine, Fleet gives the community a way to contribute performance and correctness evidence from devices we could never cover in a conventional test lab. With your consent, every run adds private evidence that can help us find failures, improve kernel variants, and make better optimization decisions across real-world hardware.
+We are also launching [Fleet](https://webgpu-kernels-fleet.hf.space/), an in-browser GPU benchmarking and testing suite that runs and scores the kernels on your hardware. Beyond the results for your own machine, Fleet gives the community a way to contribute performance and correctness evidence from devices we could never cover in a conventional test lab. With your consent, every run adds private evidence that can help us find failures (incorrect results, pathologically slow cases, etc.), improve kernel variants, and make better optimization decisions across real-world hardware.
 
 ## TL;DR
 
-- **207 WebGPU kernels**, published as individual repositories in the [`webgpu-kernels`](https://huggingface.co/webgpu-kernels) organization.
+- **207 WebGPU kernels**, published as individual repositories in the [`webgpu-kernels`](https://huggingface.co/webgpu-kernels) organization. Apache-2.0 licensed.
 - **A JavaScript loader**, `@huggingface/kernels`, which downloads, prepares, and runs kernels directly from the Hub.
 - **Explicit contracts and reproducible evidence** for every kernel, including manifests, correctness tests, benchmark cases, and WGSL shader templates.
-- **WebGPU Kernels Fleet**, a browser-based campaign that crowdsources correctness and performance evidence across real-world GPUs to help us improve kernels and their variants.
+- **Fleet**, a browser-based benchmarking tool that crowdsources correctness and performance evidence across real-world GPUs to help us improve kernels and their variants.
 
 ## Why start with kernels?
 
 A model running in the browser eventually becomes a sequence of GPU operations: matrix multiplications, normalizations, convolutions, attention primitives, quantization operations, data-layout transformations, and many more. WebGPU makes these operations available across modern browsers through a portable API, while WGSL provides a common language for the shaders that execute them.
 
-Portability, however, does not automatically mean performance. Two shaders can implement the same operation and produce the same output while behaving very differently on a particular GPU. Workgroup sizes, memory access patterns, vectorization, data types, and fusion strategies can all affect performance. The best choice can also change with the input shape, device, browser, and available WebGPU features.
+Portability, however, does not automatically mean performance. Two shaders can implement the same operation and produce the same output while behaving completely differently across different accelerators. Workgroup sizes, memory access patterns, vectorization, data types, and fusion strategies can all affect performance. The best choice can also change with the input shape, device, browser, and available WebGPU features.
 
 This is why kernels form a foundational layer of fast browser inference. Higher-level runtimes can only be as efficient as the operations they dispatch. By making those operations individually discoverable, testable, benchmarkable, and versioned, we can improve the foundation independently while keeping a stable contract for the layers above it.
 
@@ -112,7 +112,7 @@ These are public-API latency measurements, not isolated shader timings. They inc
 
 Writing a correct kernel is only the beginning. The WebGPU ecosystem spans integrated and discrete GPUs, different vendors, different operating systems, and multiple browser GPU stacks. A kernel that performs well on one machine may compile slowly, select a poor variant, or expose a driver issue somewhere else. No fixed collection of development machines can represent that full range.
 
-[WebGPU Kernels Fleet](https://webgpu-kernels-fleet.hf.space/) is how we crowdsource coverage for that long tail. It is a WebGPU campaign that runs entirely in the browser tab. After a device census, the Standard campaign sends a balanced set of correctness and benchmark packets to your GPU. Faster devices can continue into additional coverage, while slower devices stop at a safe boundary so the trial remains practical.
+[Fleet](https://webgpu-kernels-fleet.hf.space/) is how we crowdsource coverage for that long tail. It is a WebGPU campaign that runs entirely in the browser tab. After a device census, the Standard campaign sends a balanced set of correctness and benchmark packets to your GPU. Faster devices can continue into additional coverage, while slower devices stop at a safe boundary so the trial remains practical.
 
 The benchmark results you see are useful, but the aggregate evidence is the core of Fleet. Each consenting run expands our view of how kernels and their variants behave on a particular combination of GPU, browser, driver, features, and limits. More runs give us more opportunities to identify device-specific failures, discover weak variants, tune selection rules, and validate fixes. In other words, joining the Fleet directly helps improve the kernels for everyone.
 
@@ -143,7 +143,7 @@ The collection is also part of the Hub's broader kernel ecosystem: on the [Kerne
 The pieces reinforce one another:
 
 1. Kernel repositories define transparent, versioned operation contracts.
-2. `@huggingface/kernels` makes those operations straightforward to load from JavaScript.
+2. `@huggingface/kernels` makes those operations straightforward to load and run from JavaScript.
 3. Fleet crowdsources real-world evidence across a much broader range of devices than a conventional benchmark lab can cover.
 4. Every contributed run can reveal failures, guide tuning, improve variant selection, and help validate future kernel versions.
 
