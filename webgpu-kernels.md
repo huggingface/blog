@@ -57,7 +57,7 @@ This structure turns a shader into a reusable software artifact. The interface i
 Install the package from npm:
 
 ```bash
-npm install @huggingface/kernels
+npm install @huggingface/kernels@preview
 ```
 
 > [!NOTE]
@@ -92,21 +92,22 @@ The `version: 1` option selects version 1 of the published **kernel contract**. 
 
 ## How fast are the kernels?
 
-As a focused first comparison, we benchmarked published Add, MatMul, Softmax, and LayerNormalization kernels against the WebGPU execution provider in ONNX Runtime Web 1.29.0. The kernel manifests and WGSL templates came directly from pinned commits on each Hub repository's `v1` branch, and their published SHA-256 file digests were verified before execution. Both implementations ran on the same `GPUDevice` with inputs already uploaded to GPU buffers. Each measurement includes one operation, runtime submission, synchronization, and copying the output back to JavaScript; downloading and compiling the kernels happens before measurement.
+So, how much of a difference do optimized kernels actually make? We put our collection head-to-head with ORT WebGPU on an Apple M4 GPU, using ONNX Runtime Web `1.30.0-dev.20260826-b1f76d586a`. We started with 1,756 test cases across all 207 operations and kept the 809 cases where both sides produced matching outputs and reliable timings.
 
-The table reports the median of five independent runs, each with 5 warmup iterations followed by 30 measured iterations, on a 40-core Apple M3 Max GPU using Chrome 151 on macOS 26.6.2. We reversed the Hub/ONNX Runtime execution-order pattern between runs to reduce systematic ordering bias:
+Across those comparisons, our kernels were **2.57x faster by geometric mean** and **1.90x faster at the median**, with 629 wins, 176 losses, and 4 ties. Here is a closer look at four familiar operations:
 
-| Operation and workload | Selected kernel variant | Hub kernel | ONNX Runtime Web | Speedup |
-| --- | --- | ---: | ---: | ---: |
-| Add: `[4096, 4096] + [4096, 4096]` | `same_shape_vec4` | 8.50 ms | 18.75 ms | **2.21x** |
-| Add: `[4096, 4096] + [4096]` | `broadcast_vec4` | 8.85 ms | 19.70 ms | **2.23x** |
-| MatMul: `[2048, 2048] @ [2048, 2048]` | `rank2_notrans_f32_vec4_tiled_reg` | 8.70 ms | 10.80 ms | **1.24x** |
-| Softmax: `[16384, 512]`, axis 1 | `online_wg_vec4` | 7.35 ms | 10.00 ms | **1.36x** |
-| LayerNormalization: `[4096, 4096]` | `last_axis_bias_row_vec4` | 8.50 ms | 19.60 ms | **2.31x** |
+| Operation | Compared cases | Our WebGPU Kernel | ORT WebGPU | Speedup |
+| --- | ---: | ---: | ---: | ---: |
+| Add | 5 | 0.064 ms | 0.227 ms | **3.52x** |
+| MatMul | 29 | 0.115 ms | 0.131 ms | **1.14x** |
+| Softmax | 12 | 0.114 ms | 0.240 ms | **2.11x** |
+| LayerNormalization | 6 | 0.061 ms | 0.135 ms | **2.22x** |
 
-All workloads used `float32`, and both implementations produced matching outputs within the expected numerical tolerances. For reproducibility, the pinned Hub revisions were `9663d5f` for Add, `de365a6` for MatMul, `a8e6c70` for Softmax, and `49b0523` for LayerNormalization.
+Some individual wins were much bigger. A particularly difficult bilinear Einsum case (`i,ij,j` with size 4096) ran in 0.136 ms with our kernel versus 1,396 ms with ORT WebGPU: more than **10,000x faster**. A row-wise CumSum over `[256, 4096]` was **301x faster**, at 0.016 ms versus 4.784 ms. These are unusual cases rather than the speedups you should expect everywhere, but they show how much a specialized kernel can help when a general implementation hits a slow path.
 
-These are public-API latency measurements, not isolated shader timings. They include differences in each runtime's command submission and GPU-to-CPU output path, and results on other GPUs and browsers will vary. Individual operation results should not be treated as a proxy for whole-model performance. Fleet is how we intend to build a broader picture across operations and devices.
+We timed the work done on the GPU itself, leaving out setup such as loading kernels, creating sessions, uploading inputs, compiling shaders, and reading outputs back. Very short workloads are naturally harder to measure, and small cases can benefit from the GPU cache, so these numbers are best read as a useful comparison rather than a promise for every application.
+
+They are also results for individual operations, not complete models. Exact performance will change across GPUs and browsers, which is why Fleet is so important for building a broader picture.
 
 We are also working with the ONNX Runtime team to upstream these improvements so they can benefit the broader ONNX Runtime Web ecosystem.
 
