@@ -5714,7 +5714,7 @@
     - research
 
 - local: webgpu-kernels
-  date: August 31, 2026
+  date: September 1, 2026
   tags:
     - inference
     - javascript
