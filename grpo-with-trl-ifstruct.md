@@ -2,11 +2,11 @@
 title: "Fine-tuning a 350M Model for Better Structured Outputs in 100 GRPO Steps"
 thumbnail: /blog/assets/grpo-with-trl-ifstruct/thumbnail.png
 authors:
-- user: burtenshaw
-- user: sergiopaniego
 - user: iamleonie
   guest: true
   org: LiquidAI
+- user: burtenshaw
+- user: sergiopaniego
 ---
 
 This guide is a fully public, inexpensive recipe for making a small model substantially better at structured-output compliance. We fine-tune [LFM2.5-350M](https://huggingface.co/LiquidAI/LFM2.5-350M) with Group Relative Policy Optimization (GRPO) using the [TRL library](https://huggingface.co/docs/trl/en/index) and evaluate it on the [IFStruct benchmark](https://huggingface.co/datasets/LiquidAI/ifstruct-v1.0). The full run takes around 500 samples and 100 training steps, small enough for a free-tier Colab or Kaggle GPU, and is available on [GitHub](https://github.com/Liquid4All/cookbook/blob/main/finetuning/notebooks/grpo_with_trl_ifstruct.ipynb). The results show that even a light fine-tuning procedure improves performance **from 22.6% to 29.7%** on the IFStruct benchmark.
