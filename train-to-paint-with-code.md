@@ -20,27 +20,25 @@ The video came with [a blog
 post](https://surya.website/rling-qwen-to-paint-with-code) explaining the training
 behind an earlier and narrower stage of the project, close-up flowers rather than the
 full compositions in the video, sadly without open artifacts yet. His site says a full
-technical report is coming, so follow him: the idea is his, and he comes at it from
+technical report is coming, so ensure you follow him. The idea is his, and he comes at it from
 the art and design side, where [his skills are way beyond
-mine](https://x.com/kickingkeys/status/2094901433149612118), as you can see in the
-results below :). My attempt comes from the engineering side: reproduce the recipe,
+mine](https://x.com/kickingkeys/status/2094901433149612118). My attempt comes from the engineering side: reproduce the recipe,
 see the code, publish every piece.
 
 > **Note:** for the context behind the project, told by Surya himself, watch [this
 > video of his thesis](https://vimeo.com/1190839818).
 
-In this article I do that with [TRL](https://huggingface.co/docs/trl) and
-[OpenEnv](https://github.com/huggingface/OpenEnv): the reference pool dataset, the RL
-environment, the training scripts and the trained models, all open. The whole pipeline runs on Hugging Face, end to end: training on
-[Jobs](https://huggingface.co/docs/huggingface_hub/guides/jobs), the environment and the
-scorer as [Spaces](https://huggingface.co/docs/hub/spaces), the pairwise judge through
-[Inference Providers](https://huggingface.co/docs/inference-providers), and every
-artifact on the Hub.
+In this article I try and reproduce his idea with [TRL](https://huggingface.co/docs/trl) and
+[OpenEnv](https://github.com/huggingface/OpenEnv). The reference pool dataset, the RL
+environment, the training scripts and the trained models, all open.
 
-One rule guided the project: follow the original blog step by step, and only change
-something when strictly needed. Every idea of my own went into a list instead of into
-the experiment, and that list became "What I would try next" at the end, next to the
-full list of published artifacts. The rest of the article documents the process, the
+The whole pipeline runs on Hugging Face, end to end:
+* training on [Jobs](https://huggingface.co/docs/huggingface_hub/guides/jobs)
+* the environment and the scorer as [Spaces](https://huggingface.co/docs/hub/spaces)
+* the pairwise judge through [Inference Providers](https://huggingface.co/docs/inference-providers)
+* and every artefact on the Hub
+
+I have followed the original blog step by step, and only changed something when strictly needed. Every idea of my own went into a list instead of into the experiment, and that list became "What I would try next" at the end, next to the full list of published artefacts. The rest of the article documents the process, the
 problems it hit and what fixed them.
 
 <video controls autoplay muted loop playsinline src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/train-to-paint-with-code/three-runs-evolution.mp4"
@@ -68,13 +66,13 @@ control over the image, and realised that training the model itself goes further
 other half of the idea is the medium. The model writes a program of about 150
 lines of JavaScript that paints the image. The output is code. You can read it, edit it and run it
 again, and the decision behind each brushstroke is visible. And the style comes from a
-restriction: the model is only allowed ten of the library's methods. More on that below.
+restriction where the model is only allowed *ten of the library's methods*. More on that below.
 
 In that same period, [Anna Ridler](https://annaridler.com/works/myriad-tulips)
 photographed thousands of tulips, hand-labelled every one, exhibited the dataset itself
 as the artwork, and later trained a model on it. I found her work through the references
 AI agents brought back while building this project, which felt fitting, because this
-project does something very similar: curate a set of images by hand, then train against
+project does something very similar, to curate a set of images by hand, then train against
 it. She described that labour as *"repetitive, time-consuming, often unauthored, but
 necessary"*, and that is also the most accurate description of the hardest part of what
 follows.
@@ -98,11 +96,11 @@ The reward, as his blog defines it and as my environment implements it:
 | pairwise judge | 0.60 | style, compared against references drawn from a pool |
 | [HPSv3](https://huggingface.co/MizzenAI/HPSv3) | 0.30 | aesthetic preference on the render |
 
-[HPSv3](https://huggingface.co/MizzenAI/HPSv3) is an open 7B preference model: give it an image and a text description, and it returns
+[HPSv3](https://huggingface.co/MizzenAI/HPSv3) is an open 7B preference model. Give it an image and a text description, and it returns
 a score for how much a person would prefer that image. It was trained on a large set of
 human choices between pairs of images, so its score is everyone's taste, averaged. The pairwise judge is
 [Qwen3-VL-30B-A3B-Instruct](https://huggingface.co/Qwen/Qwen3-VL-30B-A3B-Instruct), a
-general vision model called through HF Inference Providers: it sees the candidate
+general vision model called through HF Inference Providers. The pairwise judge sees the candidate
 painting
 next to four references drawn from the pool, with written criteria about the painting,
 each comparison in both presentation orders, and its score is the share of comparisons
@@ -126,10 +124,7 @@ the two model judges:
 | `hps-led` | 0.30 | 0.60 | the middle point, stopped at step 110 |
 | `hps-only` | 0.00 | 0.90 | the validation run, stopped at step 60 |
 
-I started with `hps-only` to simplify the problem: one dense, generic signal, to check
-that the pipeline could learn at all. Once it did, there was no reason to run it longer,
-and I launched the two longer runs instead. They ask one question: how much of HPSv3's
-power can you hand to the pairwise judge? The more weight the judge carries, the more
+I started with `hps-only` to check that the pipeline could learn at all. Once it did, there was no reason to run it longer, and I launched the two longer runs instead. The question that the longer runs ask is how much of HPSv3's power can you hand to the pairwise judge? The more weight the judge carries, the more
 the reward means *my* taste instead of everyone's, and the harder it should be to climb.
 Push it far enough and, if the style is too complex for the model, learning could stop
 entirely.
@@ -162,21 +157,13 @@ runs. The library knows watercolour, and the model learns to drive it.
 > quoted it](https://x.com/acamposuribe/status/2091668313449316651), sharing that diary
 > and saying this work is the third piece arriving on its own.
 
-The numbers make the restriction concrete: the library exposes 47 methods, the prompt
-allows 10, and the model uses exactly those 10 in every painting it made. The ten:
-`scaleBrushes`, `noStroke`, `fill`, `noFill`, `fillBleed`, `fillTexture`, `beginShape`,
-`vertex`, `endShape`, `circle`.
+The library exposes 47 methods while the prompt allows only 10. This is done in order to restrict the model. The thirty-seven methods left out would break the watercolour look. The ten methods used are `scaleBrushes`, `noStroke`, `fill`, `noFill`, `fillBleed`, `fillTexture`, `beginShape`, `vertex`, `endShape`, and `circle`.  These can only paint filled shapes, and the library adds the watercolour bleed to every one of them. The model paints watercolours because it cannot do anything else.
 
 ![A generated sketch and the painting it produces](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/train-to-paint-with-code/sketch-and-render.png)
 *Part of one rollout's `draw()` and what it renders to. The comments are the model's
 own. Reward 0.864, 129 lines, step 22. The full source of every painting is in the
 rollouts dataset.*
 
-The thirty-seven methods left out would break the watercolour look or the run: lines
-and hatching look like pen drawing, not paint, and a few methods take a brush name,
-which is a string the model can invent. The ten that remain can only paint filled
-shapes, and the library adds the watercolour bleed to every one of them. The model
-paints watercolours because it cannot do anything else.
 
 His blog post saved me the most time on the prompt. A long API reference makes the model
 invent methods that do not exist, and his 200 GEPA iterations converged on a strict
@@ -201,14 +188,12 @@ hand, one at a time, and 178 made the cut.
 
 | generator | paintings |
 | --- | --- |
-| GLM-5.2 | 64 |
-| Kimi-K3 | 57 |
-| Qwen3-Coder-Next | 35 |
-| Qwen3.5-122B-A10B | 22 |
+| [GLM-5.2](https://huggingface.co/zai-org/GLM-5.2) | 64 |
+| [Kimi-K3](https://huggingface.co/moonshotai/Kimi-K3) | 57 |
+| [Qwen3-Coder-Next](https://huggingface.co/Qwen/Qwen3-Coder-Next) | 35 |
+| [Qwen3.5-122B-A10B](https://huggingface.co/Qwen/Qwen3.5-122B-A10B) | 22 |
 
-Four different families on purpose: a pool from a single model is a pool in a single
-style. These four were the open models that produced a valid sketch every time in a
-quick reliability check, and two other candidates were dropped for failing it.
+Here we choose four different families of model to test of different styles. These four were the open models that produced a valid sketch every time in a quick reliability check, and two other candidates were dropped for failing it.
 
 ![A love reference beside an okay one](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/train-to-paint-with-code/love-and-okay.png)
 *The two tiers, as they actually look. Disagreeing with the rating is reasonable:
