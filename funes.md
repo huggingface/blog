@@ -43,12 +43,10 @@ Then add it to an agent:
 funes add claude    # or: codex, pi, hermes
 ```
 
-For Claude Code, Codex, and Hermes, that one `add` command builds the first index,
-gives the agent `recall` and `get` tools, and installs hooks that index each completed
-turn. Indexing is incremental, with new runs adding new turns rather than embedding the
-whole history again. The older and deeper content can backfill in bounded steps. With
-pi, which has no hook system, `add` installs the read-side tools and `funes index`
-refreshes the memory when you run it.
+That one `add` command builds the first index, gives the agent `recall` and `get`
+tools, and installs the automation that indexes each completed turn. Indexing is
+incremental, with new runs adding new turns rather than embedding the whole history
+ again. The older and deeper content can backfill in bounded steps.
 
 From there, you just work. When a task touches a past decision, rationale, or finding,
 the agent can reach for `recall` itself. You do not need to remember the old session or
@@ -92,10 +90,9 @@ To make a memory follow your work, bind one when you add funes to an agent:
 funes add codex acme/funes-memory
 ```
 
-The bind publishes your current memory there. For agents with hooks (Claude Code,
-Codex, and Hermes), funes keeps it current, indexing each turn locally and publishing
-at session boundaries. The agent recalls from it throughout. Run the same command on
-another machine and the memory follows you there.
+The bind publishes your current memory there. funes then keeps it current, indexing
+each turn locally and publishing at session boundaries. The agent recalls from it
+throughout. Run the same command on another machine and the memory follows you there.
 
 Underneath, the local memory is a Lance dataset, and the shared memory is a Hugging
 Face dataset (private by default) you own.
@@ -121,7 +118,7 @@ use `ask`. It reads your local memory by default:
 funes ask claude "what did we decide about the streaming parser"
 ```
 
-Or point it at a shared memory. We published a curated
+Or point it at a shared memory. We published a
 [memory](https://huggingface.co/datasets/huggingface/funes-memory) of funes development,
 so you can ask why funes works the way it does without creating a memory of your own:
 
@@ -159,10 +156,10 @@ This matters in a few different scopes:
   whichever host you are using.
 - **Across a team:** A new teammate's agent can retrieve months of decisions on day
   one, including dead ends and rationale that never made it into a pull request.
-- **Alongside an open-source project:** A maintainer can curate reviewed sessions into
-  a project memory. Think of it as a searchable `CLAUDE.md` that holds the history of
-  why the project is the way it is, instead of a page someone must keep rewriting.
-  Anyone can read a public project memory with `--memory`.
+- **Alongside an open-source project:** A maintainer can publish the sessions behind a
+  release, naming them on the push. Think of it as a searchable `CLAUDE.md` that holds
+  the history of why the project is the way it is, instead of a page someone must keep
+  rewriting. Anyone can read a public memory with `--memory`.
 
 Published memories carry a dataset card and the funes tag, making them recognizable
 and [discoverable on the Hub](https://huggingface.co/datasets?other=funes). The Hub
