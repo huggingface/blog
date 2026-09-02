@@ -62,11 +62,10 @@ the reward design will be familiar. The new material is the open implementation,
 hand-rated pool, and three reward mixes trained and compared, and it starts at [The RL
 environment you need to build](#the-rl-environment-you-need-to-build).
 
-<video controls autoplay muted loop playsinline src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/train-to-paint-with-code/three-runs-evolution.mp4"
-title="Three runs evolving in parallel"></video>
-
-*Three runs, one per reward mix, evolving in parallel. The median painting per step as
-training advances. Which run is which is what this article explains.*
+<figure class="image text-center">
+  <video controls autoplay muted loop playsinline src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/train-to-paint-with-code/three-runs-evolution.mp4" title="Three runs evolving in parallel"></video>
+  <figcaption>Three runs, one per reward mix, evolving in parallel. The median painting per step as training advances. Which run is which is what this article explains.</figcaption>
+</figure>
 
 ## Why people loved it
 
@@ -122,9 +121,10 @@ each comparison in both presentation orders, and its score is the share of compa
 the candidate wins. Its only standard is the pool, so its score is my taste, as encoded
 in those ratings.
 
-![The reward pipeline, piece by piece](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/train-to-paint-with-code/reward-diagram.png)
-
-*Two of the four terms in the reward function are models. Both are proxies for someone's taste.*
+<figure class="image text-center">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/train-to-paint-with-code/reward-diagram.png" alt="The reward pipeline, piece by piece">
+  <figcaption>Two of the four terms in the reward function are models. Both are proxies for someone's taste.</figcaption>
+</figure>
 
 Those are the weights Narreddi converged on after a first rubric with nine signals
 plateaued. The pool defines taste here. That moves the work from tuning hyperparameters
@@ -169,10 +169,10 @@ runs.
 
 p5.brush exposes 47 methods. The prompt allows 10: `scaleBrushes`, `noStroke`, `fill`, `noFill`, `fillBleed`, `fillTexture`, `beginShape`, `vertex`, `endShape` and `circle`. What the other thirty-seven add, lines, hatching, custom brushes, would break the watercolour look. With these ten the model can only paint filled shapes, and the library adds the bleed to every one of them.
 
-![A generated sketch and the painting it produces](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/train-to-paint-with-code/sketch-and-render.png)
-*Part of one rollout's `draw()` and what it renders to. The comments are the model's
-own. Reward 0.864, 129 lines, step 22. The full source of every painting is in the
-rollouts dataset.*
+<figure class="image text-center">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/train-to-paint-with-code/sketch-and-render.png" alt="A generated sketch and the painting it produces">
+  <figcaption>Part of one rollout's <code>draw()</code> and what it renders to. The comments are the model's own. Reward 0.864, 129 lines, step 22. The full source of every painting is in the rollouts dataset.</figcaption>
+</figure>
 
 
 His blog post saved me a lot of time I could have wasted iterating on the prompt. 
@@ -208,9 +208,10 @@ feedback on every sketch, over three refinement iterations. Every final render w
 
 Here I chose four different families of models to test their different styles. These four were the open models that produced a valid sketch every time in a quick reliability check, and two other candidates were dropped for failing it. If you want to produce your own pool, you might choose others.
 
-![A love reference beside an okay one](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/train-to-paint-with-code/love-and-okay.png)
-*The two tiers, as they actually look. Disagreeing with the rating is reasonable:
-somebody's judgement is now the reward function.*
+<figure class="image text-center">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/train-to-paint-with-code/love-and-okay.png" alt="A love reference beside an okay one">
+  <figcaption>The two tiers, as they actually look. Disagreeing with the rating is reasonable, somebody's judgement is now the reward function.</figcaption>
+</figure>
 
 The tiers do real work in the reward. When the pairwise judge draws four references,
 half come from `love` and half from `okay`, so the policy always faces some rivals it
@@ -233,11 +234,10 @@ Before anything worked, there was a long stretch of flat reward curves. If you'v
 tested what I thought was a reasonable theory about what was wrong. As always, starting from something easier that works and then building on top of that was the answer.
 A simple control task, with no browser and no judges, was the first attempt that learned, and the reason was that my learning rate was just too low.
 
-![Three reward experiments flat against the run that worked](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/train-to-paint-with-code/four-curves.png)
-*Three experiments on the reward, three flat lines. I swapped the pool, removed
-renderer noise and turned the pairwise judge off, and none of it moved the curve. The
-run that moves changed the trainer configuration, so the difference is the trainer, not
-the reward mix.*
+<figure class="image text-center">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/train-to-paint-with-code/four-curves.png" alt="Three reward experiments flat against the run that worked">
+  <figcaption>Three experiments on the reward, three flat lines. I swapped the pool, removed renderer noise and turned the pairwise judge off, and none of it moved the curve. The run that moves changed the trainer configuration, so the difference is the trainer, not the reward mix.</figcaption>
+</figure>
 
 Another change that cost me time to find was adjusting correctly LoRA. The usual `target_modules` list assumes a dense model, and [`Qwen/Qwen3.5-35B-A3B`](https://huggingface.co/Qwen/Qwen3.5-35B-A3B) is a mixture of experts that names most of its projections differently, so the adapter was training ten layers out of forty. I solved this by changing it to `all-linear`, which reaches every linear layer. The routed experts in this architecture are fused tensors that even `all-linear` leaves frozen, but everything else gets an adapter, and that was enough to learn.
 
@@ -330,16 +330,19 @@ Surya closes his blog with some of his favourites. Instead of picking mine, belo
 wall with the 178 paintings the reward scored highest across the two judge runs, the
 same number the reference pool holds, in no particular order. Open it and pick your own.
 
-![178 paintings from the two judge runs, unlabelled](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/train-to-paint-with-code/pick-your-favourites.png)
-*The reward's 178 favourites from the two judge runs, shuffled. Now pick yours.*
+<figure class="image text-center">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/train-to-paint-with-code/pick-your-favourites.png" alt="178 paintings from the two judge runs, unlabelled">
+  <figcaption>The reward's 178 favourites from the two judge runs, shuffled. Now pick yours.</figcaption>
+</figure>
 
 To choose, you looked at many and kept a few, and that is exactly the job that built the
 reward of this project. Every painting of every run, with its sketch and its reward, is
 in the rollouts datasets if you want them all.
 
-![The median painting of the last step of each run](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/train-to-paint-with-code/three-styles.png)
-*The last step's median painting of each run, in the same order as the opening video.
-Same base model, same pool, three reward mixes, three styles.*
+<figure class="image text-center">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/train-to-paint-with-code/three-styles.png" alt="The median painting of the last step of each run">
+  <figcaption>The last step's median painting of each run, in the same order as the opening video. Same base model, same pool, three reward mixes, three styles.</figcaption>
+</figure>
 
 ## Infra is hard
 
@@ -361,9 +364,10 @@ to find it. The fix is [submitted
 upstream](https://github.com/huggingface/OpenEnv/pull/1103), and the runs launched with
 it have been running clean since.
 
-![Steps 11 and 12 of the judge-led run, best four of each](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/train-to-paint-with-code/step-11-vs-step-12.png)
-*Two consecutive steps of the `judge-led` run, best four of each. Whether step 12's
-paintings look half a point worse is for you to decide.*
+<figure class="image text-center">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/train-to-paint-with-code/step-11-vs-step-12.png" alt="Steps 11 and 12 of the judge-led run, best four of each">
+  <figcaption>Two consecutive steps of the <code>judge-led</code> run, best four of each. Whether step 12's paintings look half a point worse is for you to decide.</figcaption>
+</figure>
 
 **The reward of a step depends on which references it drew.** The pairwise judge
 samples four references per step, so every step faces a different set of rivals, and
@@ -394,10 +398,10 @@ faster, and I have not found the full cause.
 A scorer can cost more than the training that uses it: HPSv3 has to be up for the whole
 run, so pause the Space, or set its sleep timer, when the run ends.
 
-![The infrastructure: what is billed during a run, and what outlives it](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/train-to-paint-with-code/infra-diagram.png)
-
-*Four paid services have to stay healthy at once. Only the Hub and trackio outlive the
-run.*
+<figure class="image text-center">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/train-to-paint-with-code/infra-diagram.png" alt="The infrastructure: what is billed during a run, and what outlives it">
+  <figcaption>Four paid services have to stay healthy at once. Only the Hub and trackio outlive the run.</figcaption>
+</figure>
 
 Everything runs on [HF
 Jobs](https://huggingface.co/docs/huggingface_hub/guides/jobs), with the environment as
