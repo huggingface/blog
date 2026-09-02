@@ -5721,3 +5721,13 @@
     - webgpu
     - open-source
     - hub
+
+- local: train-to-paint-with-code
+  date: September 2, 2026
+  tags:
+    - rl
+    - grpo
+    - trl
+    - openenv
+    - guide
+    - community
