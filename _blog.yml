@@ -5730,3 +5730,12 @@
     - trl
     - openenv
     - guide
+
+- local: funes
+  date: September 3, 2026
+  tags:
+    - agents
+    - open-source
+    - datasets
+    - guide
+    - announcement
