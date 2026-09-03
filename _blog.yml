@@ -5739,3 +5739,13 @@
     - datasets
     - guide
     - announcement
+
+- local: grpo-with-trl-ifstruct
+  date: September 3, 2026
+  tags:
+    - nlp
+    - guide
+    - community
+    - open-source
+    - grpo
+    - trl
