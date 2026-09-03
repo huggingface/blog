@@ -184,6 +184,12 @@ themselves, so a finding does not have to survive summarization.
 Recall was the cheapest of the three on both tasks, 8x cheaper than a written handoff on
 one and 4x on the other.
 
+![Weighted tokens per successful task for five channels across two tasks, with recall the shortest bar on both](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/funes/handoff-recall-cost.jpg)
+
+*The lighter segment of each bar is the one-time charge for preparing the channel, the
+handoff or the compaction, paid before the first question is asked and counted once. A
+cross marks a channel that never arrives, and so has no cost per success.*
+
 Every run's transcript, grade, and token count is published beside the numbers, along
 with two canaries: one carrying nothing, which never arrives and confirms the tasks
 cannot be answered without the prior session, and one keeping the whole session alive,
