@@ -5713,8 +5713,35 @@
     - evaluation
     - research
 
-- local: grpo-with-trl-ifstruct
+- local: webgpu-kernels
   date: September 1, 2026
+  tags:
+    - inference
+    - javascript
+    - webgpu
+    - open-source
+    - hub
+
+- local: train-to-paint-with-code
+  date: September 3, 2026
+  tags:
+    - rl
+    - grpo
+    - trl
+    - openenv
+    - guide
+
+- local: funes
+  date: September 3, 2026
+  tags:
+    - agents
+    - open-source
+    - datasets
+    - guide
+    - announcement
+
+- local: grpo-with-trl-ifstruct
+  date: September 3, 2026
   tags:
     - nlp
     - guide
