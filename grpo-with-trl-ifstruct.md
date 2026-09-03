@@ -31,7 +31,7 @@ llama-server --version
 
 ## IFStruct Evaluation on LFM2.5-350M (Base model)
 
-Before we begin, let's evaluate LFM2.5-350M on the [IFStruct benchmark](https://huggingface.co/datasets/LiquidAI/ifstruct-v1.0) and see whether we can **reproduce the reported score of 21.1**.
+Before we begin, let's evaluate LFM2.5-350M on the [IFStruct benchmark](https://huggingface.co/datasets/LiquidAI/ifstruct-v1.0) and see whether we can **reproduce the reported score of 21.1%**.
 
 **IFStruct** is a benchmark for testing the validity of LLM outputs and schema adherence. The benchmark is open-source in [Liquid4All/ifstruct](https://github.com/Liquid4All/ifstruct), with the public benchmark dataset available on Hugging Face at [LiquidAI/ifstruct-v1.0](https://huggingface.co/datasets/LiquidAI/ifstruct-v1.0).
 
@@ -166,7 +166,7 @@ This trains \~6M parameters, about 1.66% of the model.
 Then we define three reward functions, each on a `[0, 1]` scale, which score every completion on whether the extracted *structure* is correct:
 
 - `json_format_reward`: Is the output parseable, and in the requested form? Full credit (`1.0`) for the requested form (fenced vs. raw), `0.2` for the wrong-but-parseable form, `0.0` for unparseable output.  
-- `field_count_reward`: Does the object have the expected number of top-level fields? An exact match earns `1.0,` and the score decays linearly with the miss.  
+- `field_count_reward`: Does the object have the expected number of top-level fields? An exact match earns `1.0`, and the score decays linearly with the miss.  
 - `schema_validation_reward`: Does the output validate against the row's JSON Schema? It counts every constraint violation and gates partial credit on required-key coverage.
 
 We combine the three as a weighted sum with `reward_weights=[1.0, 0.5, 2.0]`.
@@ -197,7 +197,7 @@ training_args = GRPOConfig(
 )
 ```
 
-As you can see in the notebook, over the run, all three reward components climb, the KL from the reference model lifts off zero after warmup, and the truncated-completion fraction stays near zero .
+As you can see in the notebook, over the run, all three reward components climb, the KL from the reference model lifts off zero after warmup, and the truncated-completion fraction stays near zero.
 
 ### Merging and saving the model
 
@@ -323,4 +323,4 @@ The gains land exactly where the training aimed: the JSON pass rate rises by nea
 
 A short GRPO run with about 500 samples and 100 steps can lift a small 350M parameter model from 22.6% to 29.7% on IFStruct. The takeaway is that a cheap, task-specific reward signal can make a small model substantially more reliable about *form*, closing much of the gap to models several times its size.
 
-To reproduce or extend this work, see the original [IFStruct v1.0 blog post](https://www.liquid.ai/blog/ifstruct-v1.0), the [Liquid4All/ifstruct](https://github.com/Liquid4All/ifstruct) benchmark repo, and the [LiquidAI/ifstruct-v1.0](https://huggingface.co/datasets/LiquidAI/ifstruct-v1.0) dataset.  
+To reproduce or extend this work, see the original [IFStruct v1.0 blog post](https://www.liquid.ai/blog/ifstruct-v1.0), the [Liquid4All/ifstruct](https://github.com/Liquid4All/ifstruct) benchmark repo, and the [LiquidAI/ifstruct-v1.0](https://huggingface.co/datasets/LiquidAI/ifstruct-v1.0) dataset.
