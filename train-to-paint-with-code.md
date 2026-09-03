@@ -33,7 +33,7 @@ The whole pipeline runs on Hugging Face, end to end:
 * training on [Jobs](https://huggingface.co/docs/huggingface_hub/guides/jobs)
 * the RL environment and the scorer model as [Spaces](https://huggingface.co/docs/hub/spaces)
 * the pairwise judge through [Inference Providers](https://huggingface.co/docs/inference-providers)
-* and every artifact on the Hub
+* and every artifact on the Hub, gathered in [one collection](https://huggingface.co/collections/HuggingEnvs/paint-with-code-6a955b79d63f67f1631d9be6)
 
 Once the two Spaces are up, the recipe is one command. Duplicate the
 [environment](https://huggingface.co/spaces/HuggingEnvs/watercolour-env) and the
@@ -64,20 +64,11 @@ environment you need to build](#the-rl-environment-you-need-to-build).
 
 <figure class="image text-center">
   <video controls autoplay muted loop playsinline src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/train-to-paint-with-code/three-runs-evolution.mp4" title="Three runs evolving in parallel"></video>
-  <figcaption>Three runs, one per reward mix, evolving in parallel. The median painting per step as training advances. Which run is which is what this article explains.</figcaption>
+  <figcaption>Three runs, one per reward mix, evolving in parallel. Each frame shows the median painting of a step. No need to tell them apart yet, the article explains which run is which.</figcaption>
 </figure>
 
 ## Why people loved it
 
-The paintings look loose, imperfect, handmade, at a moment when image models produce
-perfect pictures. My guess is that this contrast is a big part of why the video went
-viral. It reminded me of the early days of generative AI art, when the point was
-to explore the medium:
-[DeepDream](https://research.google/blog/inceptionism-going-deeper-into-neural-networks/)
-(2015) was a debugging tool that people turned into art, works like [Edmond de
-Belamy](https://en.wikipedia.org/wiki/Edmond_de_Belamy) (2018) came from artists probing
-what a GAN could do, and artists like [Mario
-Klingemann](https://quasimondo.com) spent those years making [dreamy portraits with neural
 The paintings look loose, imperfect, handmade, at a moment when image models produce perfect (statistically average) pictures. My guess is that this contrast is a big part of why the video went
 viral. It reminded me of the early days of generative AI art, when the point was
 to explore the medium. [DeepDream](https://research.google/blog/inceptionism-going-deeper-into-neural-networks/) (2015) was a debugging tool that people turned into art, works like [Edmond de
@@ -85,8 +76,9 @@ Belamy](https://en.wikipedia.org/wiki/Edmond_de_Belamy) (2018) came from artists
 what a GAN could do, and artists like [Mario Klingemann](https://quasimondo.com) spent those years making [dreamy portraits with neural networks](https://artsandculture.google.com/asset/memories-of-passerby-i-mario-klingemann/aAHG7iV3aXme8g).
 
 This project feels closer to those early days. In his thesis, Surya describes the path
-that led here. He started with prompting, where more detail in the prompt buys more
-control over the image, and realised that training the model itself goes further. The
+that led here. He started by prompting text-to-image models, where the prompt is the
+only lever you can pull, and more detail buys more control only up to a point. Training
+the model itself goes further. The
 other half of the idea is the medium. The model writes a program of about 150
 lines of JavaScript that paints the image. That model output is code. You can read it, edit it and run it
 again, and the decision behind each brushstroke is visible. And the style comes from a
@@ -130,8 +122,7 @@ in those ratings.
   <figcaption>Two of the four terms in the reward function are models. Both are proxies for someone's taste.</figcaption>
 </figure>
 
-Those are the weights Narreddi converged on after a first rubric with nine signals
-plateaued. The pool defines taste here. That moves the work from tuning hyperparameters
+Those are the weights Narreddi converged on. The pool defines taste here. That moves the work from tuning hyperparameters
 to building the set that decides what is beautiful.
 
 I trained three runs with this reward. They differ only in how the weight splits between
@@ -235,7 +226,8 @@ the pairwise judge decides whether it is well painted in the style I chose.
 ## Just one more yolo run
 
 Before anything worked, there was a long stretch of flat reward curves. If you've tried to reproduce a research paper/blog without open artifacts, you probably can relate. Every run
-tested what I thought was a reasonable theory about what was wrong. As always, starting from something easier that works and then building on top of that was the answer.
+tested what I thought was a reasonable theory about what was wrong. A run takes a lot
+of time, so I queued the next one while still going through the last one's results. As always, starting from something easier that works and then building on top of that was the answer.
 A simple control task, with no browser and no judges, was the first attempt that learned, and the reason was that my learning rate was just too low.
 
 <figure class="image text-center">
@@ -243,7 +235,7 @@ A simple control task, with no browser and no judges, was the first attempt that
   <figcaption>Three experiments on the reward, three flat lines. I swapped the pool, removed renderer noise and turned the pairwise judge off, and none of it moved the curve. The run that moves changed the trainer configuration, so the difference is the trainer, not the reward mix.</figcaption>
 </figure>
 
-Another change that cost me time to find was adjusting correctly LoRA. The usual `target_modules` list assumes a dense model, and [`Qwen/Qwen3.5-35B-A3B`](https://huggingface.co/Qwen/Qwen3.5-35B-A3B) is a mixture of experts that names most of its projections differently, so the adapter was training ten layers out of forty. I solved this by changing it to `all-linear`, which reaches every linear layer. The routed experts in this architecture are fused tensors that even `all-linear` leaves frozen, but everything else gets an adapter, and that was enough to learn.
+Another change that cost me time to find was adjusting the LoRA parameters correctly. The usual `target_modules` list assumes a dense model, and [`Qwen/Qwen3.5-35B-A3B`](https://huggingface.co/Qwen/Qwen3.5-35B-A3B) is a mixture of experts that names most of its projections differently, so the adapter was training ten layers out of forty. I solved this by changing it to `all-linear`, which reaches every linear layer. The routed experts in this architecture are fused tensors that even `all-linear` leaves frozen, but everything else gets an adapter, and that was enough to learn.
 
 The fix was four changes in TRL's [`GRPOTrainer`](https://huggingface.co/docs/trl/grpo_trainer):
 
@@ -455,6 +447,21 @@ rendered to an image and scored.
 And underneath all of it sits the question this project cannot close. **178 paintings
 made by models define what this trained model considers beautiful.** The pool is the bottleneck,
 and it is the part of the pipeline with no principled answer.
+
+## What I changed from the original
+
+For anyone reproducing this, there are two deliberate divergences from Narreddi's
+recipe, both argued earlier in the article:
+
+- The pairwise judge draws its references half from `love` and half from `okay`, instead
+  of comparing against the top tier only, so a weak early policy still gets signal.
+- One small sentence of craft in the prompt, paint each petal two or three times, a big
+  pass first and a smaller, more opaque one inside it.
+
+Everything else that his blog does not specify, `all-linear` for the LoRA,
+infrastructure failures returning `None` instead of 0.0, stopping the judge runs at step
+110, are decisions I had to make along the way. His implementation is not published, so
+I cannot tell whether they match his choices or diverge from them.
 
 ## Everything is published
 
