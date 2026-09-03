@@ -337,12 +337,20 @@ same number the reference pool holds, in no particular order. Open it and pick y
 
 To choose, you looked at many and kept a few, and that is exactly the job that built the
 reward of this project. Every painting of every run, with its sketch and its reward, is
-in the rollouts datasets if you want them all.
+in the rollouts datasets, and browsable in [this gallery](https://huggingface.co/spaces/HuggingEnvs/watercolour-gallery).
 
 <figure class="image text-center">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/train-to-paint-with-code/three-styles.png" alt="The median painting of the last step of each run">
   <figcaption>The last step's median painting of each run, in the same order as the opening video. Same base model, same pool, three reward mixes, three styles.</figcaption>
 </figure>
+
+Since the reward was my partly based on my taste, it is fair to close with my verdict as a viewer. To my
+eye, `judge-led` is the run that ends up the most diverse and the most artistically
+interesting. `hps-led` paints convincing watercolours, but its best ones share a soft,
+wet-on-wet look that is almost a style of its own. `hps-only` converges the hardest, and
+most of its paintings settle on the same colours. You can judge for yourself in [the
+gallery](https://huggingface.co/spaces/HuggingEnvs/watercolour-gallery), which has every painting of
+every run, sortable by step and by reward.
 
 ## Infra is hard
 
@@ -455,6 +463,7 @@ and it is the part of the pipeline with no principled answer.
 | the hps-only adapter and rollouts | [`watercolour-grpo-hps-only`](https://huggingface.co/HuggingEnvs/watercolour-grpo-hps-only) · [`watercolour-rollouts-hps-only`](https://huggingface.co/datasets/HuggingEnvs/watercolour-rollouts-hps-only) |
 | the judge-led adapter and rollouts | [`watercolour-grpo-judge-led`](https://huggingface.co/HuggingEnvs/watercolour-grpo-judge-led) · [`watercolour-rollouts-judge-led`](https://huggingface.co/datasets/HuggingEnvs/watercolour-rollouts-judge-led) |
 | the hps-led adapter and rollouts | [`watercolour-grpo-hps-led`](https://huggingface.co/HuggingEnvs/watercolour-grpo-hps-led) · [`watercolour-rollouts-hps-led`](https://huggingface.co/datasets/HuggingEnvs/watercolour-rollouts-hps-led) |
+| the gallery, every painting browsable | [`watercolour-gallery`](https://huggingface.co/spaces/HuggingEnvs/watercolour-gallery) |
 | the training curves | live: [`judge-led`](https://huggingface.co/spaces/HuggingEnvs/watercolour-trackio-judge-led) · [`hps-led`](https://huggingface.co/spaces/HuggingEnvs/watercolour-trackio-hps-led) · [`hps-only`](https://huggingface.co/spaces/HuggingEnvs/watercolour-trackio-hps-only), and the CSV files in `results/` |
 | all of it | [Paint with Code](https://huggingface.co/collections/HuggingEnvs/paint-with-code-6a955b79d63f67f1631d9be6) |
 

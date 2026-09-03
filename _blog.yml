@@ -5723,7 +5723,7 @@
     - hub
 
 - local: train-to-paint-with-code
-  date: September 2, 2026
+  date: September 3, 2026
   tags:
     - rl
     - grpo
