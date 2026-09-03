@@ -190,11 +190,6 @@ one and 4x on the other.
 handoff or the compaction, paid before the first question is asked and counted once. A
 cross marks a channel that never arrives, and so has no cost per success.*
 
-Every run's transcript, grade, and token count is published beside the numbers, along
-with two canaries: one carrying nothing, which never arrives and confirms the tasks
-cannot be answered without the prior session, and one keeping the whole session alive,
-which always costs more than recall.
-
 ## Stop starting from zero
 
 > *“To think is to forget differences, generalize, make abstractions.”*
