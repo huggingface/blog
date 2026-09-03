@@ -78,7 +78,11 @@ to explore the medium:
 Belamy](https://en.wikipedia.org/wiki/Edmond_de_Belamy) (2018) came from artists probing
 what a GAN could do, and artists like [Mario
 Klingemann](https://quasimondo.com) spent those years making [dreamy portraits with neural
-networks](https://artsandculture.google.com/asset/memories-of-passerby-i-mario-klingemann/aAHG7iV3aXme8g).
+The paintings look loose, imperfect, handmade, at a moment when image models produce perfect (statistically average) pictures. My guess is that this contrast is a big part of why the video went
+viral. It reminded me of the early days of generative AI art, when the point was
+to explore the medium. [DeepDream](https://research.google/blog/inceptionism-going-deeper-into-neural-networks/) (2015) was a debugging tool that people turned into art, works like [Edmond de
+Belamy](https://en.wikipedia.org/wiki/Edmond_de_Belamy) (2018) came from artists probing
+what a GAN could do, and artists like [Mario Klingemann](https://quasimondo.com) spent those years making [dreamy portraits with neural networks](https://artsandculture.google.com/asset/memories-of-passerby-i-mario-klingemann/aAHG7iV3aXme8g).
 
 This project feels closer to those early days. In his thesis, Surya describes the path
 that led here. He started with prompting, where more detail in the prompt buys more
