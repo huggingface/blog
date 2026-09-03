@@ -48,7 +48,7 @@ hf jobs uv run train/watercolour_grpo.py --flavor h200 --timeout 48h --secrets H
   --top-p 0.95 --top-k 20 \
   --lr 5e-5 --lr-scheduler constant_with_warmup --warmup-steps 5 \
   --scale-rewards none \
-  --steps 200 --n-episodes 240 --num-generations 8 \
+  --steps 110 --n-episodes 240 --num-generations 8 \
   --per-device-batch-size 1 --gradient-accumulation-steps 8 \
   --max-completion-length 8192 \
   --run-tag my-run --out <you>/watercolour-grpo --push-to-hub
@@ -256,7 +256,9 @@ With that configuration, all three runs learn. Both judge runs were launched for
 | `judge-led` | 110 | 0.45 | 0.72 | +0.27 |
 | `hps-led` | 110 | 0.57 | 0.82 | +0.24 |
 
-![The three runs, one curve each](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/train-to-paint-with-code/three-mixes.png)
+<figure class="image text-center">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/train-to-paint-with-code/three-mixes.png" alt="The three runs, one curve each">
+</figure>
 
 The three curves line up with how much weight my taste carries. The more the judge
 weighs, the lower the start and the noisier the climb. `judge-led` spent its first thirty steps nearly flat
@@ -283,7 +285,9 @@ reward. In
 becoming rare. In the judge runs the collapse is even steeper: rollouts under 0.3 fall
 from 99 to 16 across `judge-led`'s thirds, and from 37 to 4 in `hps-led`.
 
-![Median against best, per step](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/train-to-paint-with-code/median-vs-best.png)
+<figure class="image text-center">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/train-to-paint-with-code/median-vs-best.png" alt="Median against best, per step">
+</figure>
 
 This is why the obvious visual, the best painting of each step, shows almost no difference in
 `hps-only`. It moves **+0.034** across the run while the median moves **+0.155**. The
@@ -340,7 +344,7 @@ in the rollouts datasets, and browsable in [this gallery](https://huggingface.co
   <figcaption>The last step's median painting of each run, in the same order as the opening video. Same base model, same pool, three reward mixes, three styles.</figcaption>
 </figure>
 
-Since the reward was my partly based on my taste, it is fair to close with my verdict as a viewer. To my
+Since the reward was partly based on my taste, it is fair to close with my verdict as a viewer. To my
 eye, `judge-led` is the run that ends up the most diverse and the most artistically
 interesting. `hps-led` paints convincing watercolours, but its best ones share a soft,
 wet-on-wet look that is almost a style of its own. `hps-only` converges the hardest, and
@@ -458,9 +462,9 @@ recipe, both argued earlier in the article:
 - One small sentence of craft in the prompt, paint each petal two or three times, a big
   pass first and a smaller, more opaque one inside it.
 
-Everything else that his blog does not specify, `all-linear` for the LoRA,
-infrastructure failures returning `None` instead of 0.0, stopping the judge runs at step
-110, are decisions I had to make along the way. His implementation is not published, so
+The rest, `all-linear` for the LoRA, infrastructure failures returning `None` instead
+of 0.0, stopping the judge runs at step 110, are decisions I had to make along the way
+because his blog does not specify them. His implementation is not published, so
 I cannot tell whether they match his choices or diverge from them.
 
 ## Everything is published
