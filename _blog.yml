@@ -5749,3 +5749,14 @@
     - open-source
     - grpo
     - trl
+
+- local: gradio-workflow-1111
+  date: September 4, 2026
+  tags:
+    - gradio
+    - workflows
+    - automatic1111
+    - spaces
+    - models
+    - inference-providers
+    - comfyui
