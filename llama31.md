@@ -656,7 +656,7 @@ Llama 3.1 Instruct supports custom function calls from a single user message. Th
 ```
 <|begin_of_text|><|start_header_id|>system<|end_header_id|>
 
-You are a helpful assistant with tool calling capabilities. When you receive a tool call response, use the output to format an answer to the orginal user question.<|eot_id|><|start_header_id|>user<|end_header_id|>
+You are a helpful assistant with tool calling capabilities. When you receive a tool call response, use the output to format an answer to the original user question.<|eot_id|><|start_header_id|>user<|end_header_id|>
 
 Given the following functions, please respond with a JSON for a function call with its proper arguments that best answers the given prompt.
 
