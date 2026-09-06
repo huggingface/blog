@@ -71,7 +71,8 @@ You don't usually have to write GPU kernels yourself; when you use a PyTorch ope
 With those two ideas in your back pocket, let's start asking questions.
 
 > [!NOTE]
-> Here is the entire script that we use for the post: [`01_matmul_add.py`](https://huggingface.co/datasets/ariG23498/profiling-pytorch/blob/main/01_matmul_add.py). We recommend opening this script in a separate tab and walk through the code step by step. We use the `NVIDIA A100-SXM4-80GB` GPU to run the scripts. It is really easy to setup a GPU on the Hugging Face infrastructure and experiment with the scripts using the [Dev Mode with Spaces](https://huggingface.co/docs/hub/spaces-dev-mode). One could also run the scripts with the [Hugging Face Jobs pipeline](https://huggingface.co/docs/huggingface_hub/en/guides/jobs).
+> Here is the entire script that we use for the post: [`01_matmul_add.py`](https://huggingface.co/datasets/ariG23498/profiling-pytorch/blob/main/01_matmul_add.py). We recommend opening this script in a separate tab and walk through the code step by step. We use the `NVIDIA A100-SXM4-80GB` GPU to run the scripts. It is really easy to setup a GPU on the Hugging Face infrastructure and experiment with the scripts using the [Dev Mode with Spaces](https://huggingface.co/docs/hub/spaces-dev-mode). One could also run the scripts with the [Hugging Face Jobs pipeline](https://huggingface.co/docs/huggingface_hub/en/guides/jobs).  
+(Note: The traces in this blog were generated using PyTorch 2.13. If you are using a different version, some trace details like CompiledFxGraph might differ or be absent.)
 
 ## The matrix multiplication and addition operation
 
