@@ -36,17 +36,15 @@ This is the core pipeline. It has the controls you'd expect from A1111's txt2img
 
 In Automatic1111, hi-resolution fix first upscales the txt2img output and then runs a second denoising pass. Here it's a two-node detour instead. The text-to-image result goes into a [FLUX.1-Kontext](https://huggingface.co/black-forest-labs/FLUX.1-Kontext-dev) `model` node with a refine instruction ("enhance fine detail and micro-texture, keep the composition identical") and comes back sharper and larger.
 
-<video controls autoplay loop muted playsinline src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/gradio-workflow1111/img2img.mp4"></video>
-
 ### Image-to-image
+
+<video controls autoplay loop muted playsinline src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/gradio-workflow1111/img2img.mp4"></video>
 
 That same Kontext node doubles as the image-to-image tab. Upload an image, describe the change you want, and it returns the edited image.
 
 ### Let an LLM write the prompt
 
 <video controls autoplay loop muted playsinline src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/gradio-workflow1111/prompt-magic.mp4"></video>
-
-### Let an LLM write the prompt
 
 Start with a rough prompt like "A lighthouse in a storm." This pipeline sends it to a [Qwen3-4B](https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507) `model` node, and a small `fn` node turns the reply into a clean list of tags, capped at forty: "stormy sea, wet rocks, dramatic composition, low angle shot, volumetric lighting, ominous tone." You can connect any diffusion model node to this output to render the image.
 
