@@ -9,7 +9,7 @@ authors:
 
 # Async GRPO with LoRA across Hugging Face Jobs: a bucket, a proxy, and no NCCL
 
-LoRA support recently landed in TRL's `AsyncGRPOTrainer` with [PR #7017](https://github.com/huggingface/trl/pull/7017). The asynchronous trainer can now train an adapter instead of the full model, and it syncs only the LoRA adapter to vLLM. This post is about a real-world project built on top of it, once training and inference no longer share a machine.
+LoRA support recently landed in TRL's `AsyncGRPOTrainer` with [PR #7017](https://github.com/huggingface/trl/pull/7017). The asynchronous trainer can now train an adapter instead of the full model, and it syncs only the LoRA adapter to vLLM. This post covers a real-world project built on top of it, where training and inference no longer share a machine.
 
 LoRA training is particularly suited for RL, as stated in the amazing Thinking Machines post [LoRA Without Regret](https://thinkingmachines.ai/blog/lora/). They show that LoRA can match full fine-tuning for policy-gradient RL, even with rank 1. This stems from the fact that the advantage function only gives `~O(1)` bits of information per episode, so there is not that much to learn from each step, from a total-bits-of-information point of view. A rank-1 adapter has enough capacity to absorb it.
 
@@ -28,7 +28,7 @@ The setup ended up being quite small:
 
 [TRL PR #7017](https://github.com/huggingface/trl/pull/7017) adds an adapter-only sync path to `AsyncGRPOTrainer`. The trainer does not send tensors to vLLM. Every few optimizer steps, it saves the adapter under `<output_dir>/.vllm_lora/trl-policy-v{N}`, publishes the directory with an atomic rename, then sends its path to vLLM's `/v1/load_lora_adapter` endpoint. vLLM loads the files from disk, so the rollout worker can then request `model="trl-policy-v{N}"`.
 
-This is how runtime adapter loading already works in vLLM. The endpoint takes a path, not tensors, so the trainer and the server are expected to share a filesystem. On a Slurm cluster, that is the network filesystem. On Jobs, we get the same thing by mounting a [Storage Bucket](https://huggingface.co/docs/hub/storage-buckets) as a volume at the same path in every Job, like we mentioned earlier. Under the hood, it uses [`hf-mount`](https://github.com/huggingface/hf-mount), which exposes the bucket as a POSIX filesystem inside the container:
+This is how runtime adapter loading already works in vLLM. The endpoint takes a path, not tensors, so the trainer and the server are expected to share a filesystem. On a Slurm cluster, that is the network filesystem. On Jobs, we get the same thing by mounting a [Storage Bucket](https://huggingface.co/docs/hub/storage-buckets) as a volume at the same path in every Job, as we mentioned earlier. Under the hood, it uses [`hf-mount`](https://github.com/huggingface/hf-mount), which exposes the bucket as a POSIX filesystem inside the container:
 
 ```sh
 # every Job gets the same bucket at the same absolute path
@@ -68,11 +68,11 @@ done
 
 There is another possible design where the trainer keeps only the latest adapter and always publishes it under the same name. We did not go that way, because vLLM keys its prefix cache by adapter name. With a single name, KV blocks computed under the previous weights would still match after the swap, so the prefill would not be redone and a rollout could get its prefix from one policy version and its decode from the next. The trainer would have no way to tell, and it would show up as `ratio` drifting away from 1. Versioned names make this impossible: a name always means one set of weights, and a cached prefix can never match a newer version.
 
-### The dataset choice: the sanity set
+### The dataset choice: the Sanity set
 
 We chose [`sail/Sanity-Test-R1D-1.5B`](https://huggingface.co/datasets/sail/Sanity-Test-R1D-1.5B), the dataset from [Defeating the Training-Inference Mismatch via FP16](https://arxiv.org/pdf/2510.26788) (Qi et al., 2025). The reproduction code is in [`sail-sg/Precision-RL`](https://github.com/sail-sg/Precision-RL).
 
-The authors generated 40 answers for each MATH problem with DeepSeek-R1-Distill-Qwen-1.5B. They kept the problems with a success rate between 20 % and 80 %, which gives 1,460 questions. This dataset is really good for RL validation as the questions are neither already solved nor completely hopeless for that model, which means a model can get a good signal early on to train on and improve.
+The authors generated 40 answers for each MATH problem with DeepSeek-R1-Distill-Qwen-1.5B. They kept problems with a success rate between 20% and 80%, yielding 1,460 questions. This dataset is really good for RL validation because the questions are neither already solved nor completely hopeless for that model, meaning the model can get a good early signal to train on and improve.
 
 This is awesome as a robust end-to-end test: if one vLLM replica silently serves the base model under an adapter name, we want to see that in the curve within a few dozen steps. Also, this dataset is small enough to cycle through in less than two hours.
 
@@ -122,7 +122,7 @@ A quick reminder of why this matters. Generating a completion has two phases wit
 
 Those keys and values are the KV cache. Because attention is causal, the KV of a token depends only on the tokens before it, not on what comes after. Two requests that share a prefix therefore share the KV of that prefix, and a replica that already has it in cache can **skip that part of the prefill entirely**. The whole game now is to find that replica, so a request can benefit from landing on the replica that has already seen its prefix.
 
-vLLM stores its [prefix KV cache](https://github.com/vllm-project/vllm/blob/main/vllm/v1/core/kv_cache_utils.py) in blocks of 16 tokens. Because of GRPO, the rollout worker sends `G` requests with the same prompt (in our case `G=8`). If they all reach the same replica, the first request computes the prefill and the next seven reuse it. With round-robin routing, half of them would go to a replica that does not have the prefix cached and those four requests would redo the prefill work and waste valuable GPU compute.
+vLLM stores its [prefix KV cache](https://github.com/vllm-project/vllm/blob/main/vllm/v1/core/kv_cache_utils.py) in blocks of 16 tokens. Because of GRPO, the rollout worker sends `G` requests with the same prompt (in our case `G=8`). If they all reach the same replica, the first request computes the prefill and the next seven reuse it. With round-robin routing, half would go to a replica that doesn't have the prefix cached, and those four requests would redo the prefill work and waste valuable GPU compute.
 
 The job of [our router](https://github.com/AmineDiro/hfjobs-lora-buckets/blob/main/src/lora_proxy.py) is to track which replica has seen which **block hash**. One important detail is that the hashes are chained, so the hash of block 3 represents blocks 1, 2 and 3, not just block 3. This mirrors causal attention: the KV of block 3 is only valid if blocks 1 and 2 are the same too. We also seed the chain with the adapter name because the KV cache also depends on the adapter that generated it: a prefix cached for policy v3 is useless for policy v4!
 
@@ -134,7 +134,7 @@ The job of [our router](https://github.com/AmineDiro/hfjobs-lora-buckets/blob/ma
   <figcaption style="font-size: 12px; color: #6b7280; margin-top: 4px;">The routing decision for two prompts and four requests on two replicas: 16-token blocks, chained hashes, the common prefix, one affinity hit and one spill.</figcaption>
 </figure>
 
-The video plays through the whole decision process of choosing a replica. The steps below go through a real 135-token completion request example (from the sanity dataset problems):
+The video walks through the entire decision process for choosing a replica. The steps below go through a real 135-token completion request example (from the Sanity dataset problems):
 
 **1. Split the prompt into blocks.** The router receives token ids and cuts them into 16-token blocks, just like vLLM. It only hashes complete blocks, so the last 7 tokens are ignored here.
 
@@ -144,7 +144,7 @@ The video plays through the whole decision process of choosing a replica. The st
 
 **4. Store the owners.** For every hash, the router remembers which replicas served it and which hashes came after it (we cap the successor set at two because we only need to know whether a block has one continuation or several). After a few prompts, the template block `h1` is owned by both replicas and already has several successors, `h2` to `h8` are owned by A only and each has a single successor, and `h2'` to `h6'` are owned by B only.
 
-In practice, every prompt in a run starts with the same tokens. Here it is the chat template and the system prompt, which amount to the first 23 tokens of all 1,460 problems. In an agent setting it would be the tool descriptions, and in a multi-turn environment it would be the shared conversation history. These blocks are in every replica's cache within seconds, so matching on them tells us nothing about where a particular prompt lives.
+In practice, every prompt in a run starts with the same tokens. Here, it is the chat template and the system prompt, which amount to the first 23 tokens of all 1,460 problems. In an agent setting, it would be the tool descriptions, and in a multi-turn environment it would be the shared conversation history. These blocks are in every replica's cache within seconds, so matching on them tells us nothing about where a particular prompt lives.
 
 A block is *common* if every replica has served it, or if it has more than one successor. Common blocks are ignored during routing because they do not identify a particular prompt. More on this below!
 
@@ -154,7 +154,7 @@ A block is *common* if every replica has served it, or if it has more than one s
 - If a replica has specific blocks but it is more than 8 requests ahead, we give up on the cache and send the request to the least-loaded replica. We call this a **spill**.
 - If no replica has specific blocks, this is a new prompt. It goes to the least-loaded replica, round-robin on ties. We call this **unmatched**.
 
-Here is the rule applied to four requests. Start from a state where replicas A and B both have 3 requests in flight, and only the template block `h1` is known, on both replicas.
+Here is the rule applied to four requests. Start from a state where replicas A and B both have 3 requests in flight, and only the template block `h1` is known on both replicas.
 
 - **Request 1, problem 0, rollout 1.** Both replicas match one block, the template, and that block is common. So nothing specific matches anywhere. The request is unmatched, both replicas are equally loaded, and round-robin sends it to A. The router records `h2` to `h8` as owned by A. A now has 4 requests in flight.
 - **Request 2, problem 0, rollout 2.** Same prompt. A matches all 8 blocks, B matches only the template. After removing the one common block, A has 7 specific blocks and B has none. A is only 1 request ahead of B, well within the limit of 8, so the request goes to A. This is an affinity hit: A already has the whole prompt in its KV cache.
@@ -223,13 +223,13 @@ All 252 adapter loads succeeded 🎉: 126 syncs times 2 replicas. Six succeeded 
 
 ### Routing
 
-At the end of the run, after 64 728 rollouts, the proxy's counters read:
+At the end of the run, after 64,728 rollouts, the proxy's counters read:
 
 ```
 routed [31928, 32800]  affinity 54712  spilled 820  unmatched 9196
 ```
 
-With 8 rollouts per prompt, at least one request out of eight must be cold. The theoretical minimum is therefore 12.5 %. The router gets 14.2 % unmatched requests, 84.5 % affinity hits and 1.3 % spills. There is not much left to gain here unless we start looking at each replica's load using deeper inference-side metrics based on real measured load.
+With 8 rollouts per prompt, at least one of the eight requests must be cold. The theoretical minimum is therefore 12.5 %. The router gets 14.2 % unmatched requests, 84.5 % affinity hits, and 1.3 % spills. There is not much left to gain here unless we start looking at each replica's load using deeper inference-side metrics based on real measured load.
 
 ### Where the time goes
 
@@ -243,7 +243,7 @@ The first configuration has a pretty obvious problem: the trainer is the bottlen
 | rollout queue occupancy | 476 of 512 |
 | trainer MFU | 3.9 % |
 
-The rollout queue stays full and the worker is mostly blocked by backpressure. The second replica is basically useless in this configuration. We'll see later in the post how we went through runs that move the bottleneck between training and generation to make the run 3.9× faster.
+The rollout queue stays full, and the worker is mostly blocked by backpressure. The second replica is basically useless in this configuration. We'll see later in the post how we went through runs that moved the bottleneck between training and generation to make the run 3.9× faster.
 
 ### Reward
 
@@ -304,7 +304,7 @@ The reason is that `AsyncGRPOConfig` defaults to `gradient_checkpointing=True`. 
 
 ![Figure 3](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/asyncgrpo-lora-hfjobs/fig3-tb16k-vs-nockpt-crossover.png)
 
-*Figure 3. trackio runs `r1-dp2-tb16k` and `r1-dp2-tb16k-nockpt` overlaid over their first 134 steps. Panels: `perf/fwd_s`, `perf/fwd_bwd_s`, `perf/weight_sync_s`, `sample/rollout_queue_size`, `perf/rollout_wait_s`, `perf/mfu_fwd_bwd`. Forward+backward drops by one forward; the queue falls from ~420 to ~60 and rollout wait rises from 0.02 s to 0.5 s: the bottleneck crosses to generation.*
+*Figure 3. trackio runs `r1-dp2-tb16k` and `r1-dp2-tb16k-nockpt` overlaid over their first 134 steps. Panels: `perf/fwd_s`, `perf/fwd_bwd_s`, `perf/weight_sync_s`, `sample/rollout_queue_size`, `perf/rollout_wait_s`, `perf/mfu_fwd_bwd`. Forward+backward drops by one forward; the queue falls from ~420 to ~60, and rollout wait rises from 0.02 s to 0.5 s: the bottleneck shifts to generation.*
 
 With `gradient_checkpointing=False`, forward and backward drop to 4.6 s, almost exactly one forward less, and MFU reaches 23 %. The queue now falls to 71 and rollout wait rises from 0.04 s to 0.6 s. The trainer consumes samples faster than two replicas generate them. We _successfully_ moved the bottleneck to generation.
 
@@ -375,7 +375,7 @@ TOKEN_BUDGET=16384 GRAD_ACCUM=6 GRADIENT_CHECKPOINTING=0 PROXY_LORA_RETRY_S=0.5 
 - Hugging Face [Jobs](https://huggingface.co/docs/huggingface_hub/guides/jobs) and [Storage Buckets](https://huggingface.co/docs/hub/storage-buckets); [`hf-mount`](https://github.com/huggingface/hf-mount).
 - [`hf-mount-repro`](https://github.com/AmineDiro/hf-mount-repro): the two-script reproduction of the 30-second negative-cache stall.
 - The [trackio dashboard](https://huggingface.co/spaces/aminediroHF/async-grpo-lora-buckets) for every run in this post.
-- Penghui Qi, Zichen Liu, Xiangxin Zhou, Tianyu Pang, Chao Du, Wee Sun Lee, Min Lin, [Defeating the Training-Inference Mismatch via FP16](https://arxiv.org/pdf/2510.26788), arXiv:2510.26788, 2025. Source of the sanity dataset [`sail/Sanity-Test-R1D-1.5B`](https://huggingface.co/datasets/sail/Sanity-Test-R1D-1.5B) and of the LoRA recipe, [`sail-sg/Precision-RL`](https://github.com/sail-sg/Precision-RL), `oat/scripts/lora/bf16_grpo_tis_lora.sh`.
+- Penghui Qi, Zichen Liu, Xiangxin Zhou, Tianyu Pang, Chao Du, Wee Sun Lee, Min Lin, [Defeating the Training-Inference Mismatch via FP16](https://arxiv.org/pdf/2510.26788), arXiv:2510.26788, 2025. Source of the Sanity dataset [`sail/Sanity-Test-R1D-1.5B`](https://huggingface.co/datasets/sail/Sanity-Test-R1D-1.5B) and of the LoRA recipe, [`sail-sg/Precision-RL`](https://github.com/sail-sg/Precision-RL), `oat/scripts/lora/bf16_grpo_tis_lora.sh`.
 
 ```bibtex
 @article{qi2025precisionrl,
