@@ -109,17 +109,21 @@ Now onto the fun stuff. We need a proxy between the trainer and the vLLM Jobs fo
 
 2. TRL refuses adapter-only sync when vLLM runs with `--data-parallel-size > 1`. This is a vLLM limitation rather than a TRL one. A call to `/v1/load_lora_adapter` only reaches the replica that answers it, so the other replicas would keep serving the base model under the new policy name.
 
-We therefore run a small proxy at `127.0.0.1:8000` on the trainer Job and point TRL to it as if it were a single vLLM server. Besides adding the header, the proxy does two things:
+We therefore run a small proxy at `127.0.0.1:8000` on the trainer Job and point TRL to it as if it were a single vLLM server. Besides adding the header, the proxy does two things functionally:
 - It sends each completion request to one replica, chosen so that the eight rollouts of a prompt land where their prefix is already cached (details on this below).
 - It broadcasts every _state-changing_ request, such as **adapter loads, pause and resume**, to all replicas, so that a policy name means the same thing everywhere.
 
 ### Routing rollouts by KV prefix
 
-A quick reminder of why this matters. Generating a completion has two phases. The prefill processes the whole prompt at once and computes the attention keys and values for every prompt token. The decode phase then produces one token at a time, and each new token attends to the keys and values of all the tokens before it. Those keys and values are the KV cache. Because attention is causal, the KV of a token depends only on the tokens before it, not on what comes after. Two requests that share a prefix therefore share the KV of that prefix, and a replica that already has it in cache can skip that part of the prefill entirely. The catch is that the cache lives on one replica. A request only benefits if it lands on the replica that has already seen its prefix.
+A quick reminder of why this matters. Generating a completion has two phases with very different workload profiles:
+- The prefill processes the **whole prompt at once** and computes the attention keys and values for every prompt token.
+- The decode phase then produces one token at a time, and each new token attends to the keys and values of all the tokens before it.
 
-vLLM stores its prefix KV cache in blocks of 16 tokens. For every problem, the rollout worker sends 8 requests with the same prompt. If they all reach the same replica, the first request computes the prefill and the next seven reuse it. With round-robin routing, half of them would go to a replica that does not have the prefix cached.
+Those keys and values are the KV cache. Because attention is causal, the KV of a token depends only on the tokens before it, not on what comes after. Two requests that share a prefix therefore share the KV of that prefix, and a replica that already has it in cache can **skip that part of the prefill entirely**. The whole game now is to find that replica, so a request can benefit from landing on the replica that has already seen its prefix.
 
-The router's job is to track which replica has seen each block hash. The hashes are chained, so the hash of block 3 represents blocks 1, 2 and 3, not just block 3. This mirrors causal attention: the KV of block 3 is only valid if blocks 1 and 2 are the same too. We also seed the chain with the adapter name. The KV cache depends also on the adapter that generated it, so a prefix cached for policy v3 is useless for policy v4.
+vLLM stores its [prefix KV cache](https://github.com/vllm-project/vllm/blob/main/vllm/v1/core/kv_cache_utils.py) in blocks of 16 tokens. Because of GRPO, the rollout worker sends `G` requests with the same prompt (in our case `G=8`). If they all reach the same replica, the first request computes the prefill and the next seven reuse it. With round-robin routing, half of them would go to a replica that does not have the prefix cached and those four requests would redo the prefill work and waste valuable GPU compute.
+
+The job of [our router](https://github.com/AmineDiro/hfjobs-lora-buckets/blob/main/src/lora_proxy.py) is to track which replica has seen which **block hash**. One important detail is that the hashes are chained, so the hash of block 3 represents blocks 1, 2 and 3, not just block 3. This mirrors causal attention: the KV of block 3 is only valid if blocks 1 and 2 are the same too. We also seed the chain with the adapter name because the KV cache also depends on the adapter that generated it: a prefix cached for policy v3 is useless for policy v4!
 
 <figure class="image text-center">
   <video controls autoplay loop muted playsinline style="max-width: 100%; margin: auto;">
@@ -129,21 +133,19 @@ The router's job is to track which replica has seen each block hash. The hashes 
   <figcaption style="font-size: 12px; color: #6b7280; margin-top: 4px;">The routing decision for two prompts and four requests on two replicas: 16-token blocks, chained hashes, the common prefix, one affinity hit and one spill.</figcaption>
 </figure>
 
-The video plays through the whole decision. The steps below go through the same example in prose, with a real 135-token prompt from the sanity set.
+The video plays through the whole decision process of choosing a replica. The steps below go through a real 135-token completion request example (from the sanity dataset problems):
 
 **1. Split the prompt into blocks.** The router receives token ids and cuts them into 16-token blocks, just like vLLM. It only hashes complete blocks, so the last 7 tokens are ignored here.
 
-**2. Hash the prefix.** Each block is hashed with the previous hash, starting from the adapter seed. `h3` therefore identifies blocks 1, 2 and 3 in order. Two prompts with the same first `k` blocks get the same hashes up to `hk`. Once one block changes, every hash after it changes too.
-
-For example, the same prompt under `trl-policy-v4` starts from another seed and cannot match entries from `v3`. This is what we want because the old KV blocks were computed with different weights.
+**2. Hash the prefix.** Each block is hashed with the previous hash, starting from the adapter seed. `h3` therefore identifies blocks 1, 2 and 3 in order. Two prompts with the same first `k` blocks get the same hashes up to `hk`. Once one block changes, every hash after it changes too. This is why we seed the hashes with the adapter name: the same prompt under `trl-policy-v4` starts from another seed and cannot match entries from `v3`. This is what we want because the old KV blocks were computed with different weights.
 
 **3. Compare two prompts.** Problem 1 has 103 tokens. Both prompts start with the same 23-token chat template. Their first block is identical, but block 2 already contains the problem text. The hashes differ from there.
 
-**4. Store the owners.** For every hash, the router remembers which replicas served it and which hashes came after it. We cap the successor set at two because we only need to know whether a block has one continuation or several. After a few prompts, the template block `h1` is owned by both replicas and already has several successors, `h2` to `h8` are owned by A only and each has a single successor, and `h2'` to `h6'` are owned by B only.
+**4. Store the owners.** For every hash, the router remembers which replicas served it and which hashes came after it (we cap the successor set at two because we only need to know whether a block has one continuation or several). After a few prompts, the template block `h1` is owned by both replicas and already has several successors, `h2` to `h8` are owned by A only and each has a single successor, and `h2'` to `h6'` are owned by B only.
 
-In practice, every prompt in a run starts with the same tokens. Here it is the chat template and the system prompt, which are the first 23 tokens of all 1,460 problems. In an agent setting it would be the tool descriptions, and in a multi-turn environment it would be the shared conversation history. These blocks are in every replica's cache within seconds, so matching on them tells us nothing about where a particular prompt lives.
+In practice, every prompt in a run starts with the same tokens. Here it is the chat template and the system prompt, which amount to the first 23 tokens of all 1,460 problems. In an agent setting it would be the tool descriptions, and in a multi-turn environment it would be the shared conversation history. These blocks are in every replica's cache within seconds, so matching on them tells us nothing about where a particular prompt lives.
 
-A block is *common* if every replica has served it, or if it has more than one successor. Common blocks are ignored during routing because they do not identify a particular prompt.
+A block is *common* if every replica has served it, or if it has more than one successor. Common blocks are ignored during routing because they do not identify a particular prompt. More on this below!
 
 **5. Pick a replica.** The router counts how many leading blocks match on each replica and removes the common prefix. What is left is the number of blocks specific to this prompt. Then:
 
@@ -179,11 +181,11 @@ def choose(self, upstreams, model, prompt):
     return upstreams[pick]
 ```
 
-The `common` prefix was the annoying part. Every request starts with the same system prompt and chat template. A simple longest-prefix match would give the first replica a match for almost every new prompt. We detect the shared prefix through fan-out instead: a block with several different successors is common, while a block that always leads to the same successor belongs to a particular prompt. Only the blocks after that common prefix count as affinity. [`LORA_PROXY.md`](https://github.com/AmineDiro/hfjobs-lora-buckets/blob/main/LORA_PROXY.md) has the same walkthrough with the real token ids.
+The `common` prefix is the annoying part. Every request starts with the same system prompt and chat template. A simple longest-prefix match would give the first replica a match for almost every new prompt. We detect the shared prefix through fan-out instead: a block with several different successors is common, while a block that always leads to the same successor belongs to a particular prompt. Only the blocks after that common prefix count as affinity.
 
 ### Broadcasting the adapter
 
-The proxy sends adapter loads to every replica. We treat the operation as all-or-nothing. Each replica has its own bucket mount, so they do not necessarily see a new adapter at exactly the same time. A `No adapter found for <path>` error usually means that one mount has not caught up yet, and we retry only that replica. For any other error, we unload the adapter from the replicas that accepted it. A policy name must never exist on only half of the replicas.
+The proxy also needs to broadcast the adapter loads to every replica. We treat the operation as **all-or-nothing**. Each replica has its own bucket mount, so they do not necessarily see a new adapter at exactly the same time. A `No adapter found for <path>` error usually means that one bucket mount has not caught up yet, and we retry only that replica. For any other error, we unload the adapter from the replicas that accepted it so that a policy name never exists on only part of the replicas.
 
 ```python
 async def load_one(u):
@@ -199,13 +201,13 @@ if any(st != 200 for _, st, _ in results):
     return web.Response(status=504 if timed_out else st, text="rolled back on the others")
 ```
 
-We broadcast `/pause`, `/resume` and `/v1/unload_lora_adapter` in the same way. `/health` returns 200 only if every replica is healthy. `/server_info` and `/v1/models` only need one answer. From TRL's point of view, the proxy is a single `data_parallel_size=1` server, so it selects adapter-only sync.
+We also broadcast `/pause`, `/resume` and `/v1/unload_lora_adapter` in the same way. `/health` returns 200 only if every replica is healthy. `/server_info` and `/v1/models` only need one answer. From TRL's point of view, the proxy is a single `data_parallel_size=1` server, so it selects adapter-only sync.
 
-We initially wondered whether a Python asyncio proxy would become a bottleneck. It does not. There are at most 128 non-streaming JSON requests in flight, and routing only computes a few hashes. One process handles this easily.
+We initially wondered whether a Python asyncio proxy would become a bottleneck. It does not (at least at this scale). There are at most 128 non-streaming JSON requests in flight, and routing only computes a few hashes. One thread handles this easily. A more refined router that needs to handle more traffic would probably need to be written in a faster language (I see you 🦀).
 
 ## Full run results
 
-The numbers below come from the trainer's [logged metrics](https://huggingface.co/docs/trl/en/async_grpo_trainer#logged-metrics) on trackio. The run uses `Qwen/Qwen2.5-Math-1.5B`, LoRA `r=1` on `all-linear`, 128 completions per step and 8 rollouts per prompt. It runs for 500 steps and saves a checkpoint every 50 steps. The trainer uses an `h200x2` Job and each of the two vLLM replicas uses one `h200` Job. Running all three costs around $20 per hour.
+The numbers below come from the trainer's [logged metrics](https://huggingface.co/docs/trl/en/async_grpo_trainer#logged-metrics) on trackio. The run uses `Qwen/Qwen2.5-Math-1.5B`, LoRA `r=1` on `all-linear`, 128 completions per step and 8 rollouts per prompt. It runs for 500 steps and saves a checkpoint every 50 steps. The trainer uses an `h200x2` Job and each of the two vLLM replicas uses one `h200` Job. Running all three costs ~$20 per hour.
 
 ### Weight sync
 
@@ -216,7 +218,7 @@ The numbers below come from the trainer's [logged metrics](https://huggingface.c
 | adapter all-gather and save to the bucket | 0.6 s | 1.1 s |
 | both replicas accept the adapter | ~29 s | ~7 s |
 
-All 252 adapter loads succeeded: 126 syncs times 2 replicas. Six succeeded on the second attempt and 246 on the third. The remaining 7 seconds come from the 2.5-second upload and the proxy's 2-second retry interval, not from the mount anymore. Setting `PROXY_LORA_RETRY_S=0.5` should bring the sync closer to 4 seconds.
+All 252 adapter loads succeeded 🎉: 126 syncs times 2 replicas. Six succeeded on the second attempt and 246 on the third.
 
 ### Routing
 
@@ -226,11 +228,11 @@ At the end of the run, after 64 728 rollouts, the proxy's counters read:
 routed [31928, 32800]  affinity 54712  spilled 820  unmatched 9196
 ```
 
-With 8 rollouts per prompt, at least one request out of eight must be cold. The theoretical minimum is therefore 12.5 %. The router gets 14.2 % unmatched requests, 84.5 % affinity hits and 1.3 % spills. The traffic difference between the replicas is below 3 %. There is not much left to gain here unless we start looking at each replica's load using deeper inference-side metrics.
+With 8 rollouts per prompt, at least one request out of eight must be cold. The theoretical minimum is therefore 12.5 %. The router gets 14.2 % unmatched requests, 84.5 % affinity hits and 1.3 % spills. There is not much left to gain here unless we start looking at each replica's load using deeper inference-side metrics based on real measured load.
 
 ### Where the time goes
 
-The first configuration has a pretty obvious problem: the trainer is the bottleneck, not generation. Over the 500 steps:
+The first configuration has a pretty obvious problem: the trainer is the bottleneck, not generation. Over the 500 steps, we have:
 
 | per optimizer step, p50 | |
 |---|---|
@@ -240,7 +242,7 @@ The first configuration has a pretty obvious problem: the trainer is the bottlen
 | rollout queue occupancy | 476 of 512 |
 | trainer MFU | 3.9 % |
 
-The rollout queue stays full and the worker is mostly blocked by backpressure. The second replica is useless in this configuration. Later in the post, we go through five runs that move the bottleneck between training and generation and make the full run 3.9× faster.
+The rollout queue stays full and the worker is mostly blocked by backpressure. The second replica is basically useless in this configuration. We'll see later in the post how we went through runs that move the bottleneck between training and generation to make the run 3.9× faster.
 
 ### Reward
 
@@ -248,16 +250,11 @@ The rollout queue stays full and the worker is mostly blocked by backpressure. T
 
 *Figure 0. trackio run `r1-dp2`. Panels: `reward` with its 20-step rolling mean and 50-step block means, and `ratio` on a 0.99 to 1.01 axis. Reward climbs from 0.15 to 0.44 over 500 steps; `ratio` stays between 0.9993 and 1.0004 throughout.*
 
-500 steps took 3 h 27 min. Mean reward per 50-step block:
+500 steps took 3 h 27 min. Mean reward goes from 0.145 over the first 20 steps to 0.438 over the last 20. More importantly for this test, `ratio` stays at 1.000 for every step! The policy served by vLLM always matches the one used by the trainer to score the rollout. This held across all 126 syncs. Mean staleness was 1.5 policy versions, against a maximum of 4. The [trackio dashboard](https://huggingface.co/spaces/aminediroHF/async-grpo-lora-buckets) has the full curves.
 
-```
-steps    1-50   51-100  101-150 151-200 201-250 251-300 301-350 351-400 401-450 451-500
-reward   0.151  0.208   0.290   0.350   0.375   0.404   0.402   0.427   0.425   0.445
-```
+We have our undeniable proof that LoRA AsyncGRPO works! Let's now see how we can improve our training runs by looking at the recent detailed AsyncGRPO metrics.
 
-Mean reward goes from 0.145 over the first 20 steps to 0.438 over the last 20. More importantly for this test, `ratio` stays at 1.000 for every step. The policy served by vLLM always matches the one used by the trainer to score the rollout. This held across all 126 syncs. Mean staleness was 1.5 policy versions, against a maximum of 4. The [trackio dashboard](https://huggingface.co/spaces/aminediroHF/async-grpo-lora-buckets) has the full curves.
-
-## Bonus: chasing the bottleneck across the wire
+## Chasing the bottleneck ping-pong
 
 Async RL is a pipeline between training and generation. Making one side faster does nothing if the other side cannot keep up. Fortunately, in `AsyncGRPOTrainer` we've added enough timings and metrics to see this directly.
 
@@ -269,12 +266,12 @@ We ran five experiments. Each one starts from a problem visible in the previous 
 
 We keep these four groups of metrics visible:
 
-- **`perf/step_s`** and **`perf/fwd_bwd_s`**: how long an optimizer step takes, and how much of it is forward+backward. If the second is nearly the first, the trainer is compute-bound.
-- **`perf/rollout_wait_s`**: how long the trainer sat waiting for samples before it could start a step. Near zero means generation is ahead of training.
+- **`perf/step_s`** and **`perf/fwd_bwd_s`**: how long an optimizer step takes, and how much of it is forward+backward. If a step takes nearly as long as the forward+backward, then the trainer is clearly compute-bound.
+- **`perf/rollout_wait_s`**: how long the trainer sat waiting for samples before it could start a step. Near zero means generation is ahead of training. Samples are available immediately to be trained on.
 - **`sample/rollout_queue_size`** against `queue_maxsize`: the buffer between the two sides. Full means generation is being throttled; empty means the trainer is starving.
-- **`rollout/backpressure_s`** and **`rollout/score_block_s`**: how long the rollout worker sat blocked because that buffer was full. Both are the same stall seen from the generation side, propagated backwards through the scoring stage.
+- **`rollout/backpressure_s`** and **`rollout/score_block_s`**: how long the rollout worker sat blocked because that buffer was full. The worker is a two-stage pipeline: generation hands finished groups to a scoring stage, and scoring pushes scored samples into the rollout buffer. When the buffer is full, scoring cannot enqueue and blocks, which is `rollout/backpressure_s`. Scoring then stops draining its own input queue, so generation cannot hand over the next group either, which is `rollout/score_block_s`. Both are the same stall, seen first at the scoring stage and then propagated back to generation.
 
-The diagnosis is simple. A full queue with zero rollout wait and high backpressure means the trainer is too slow. An empty queue with rising rollout wait and no backpressure means generation is too slow. Comparing `perf/mfu_wall_clock` with `perf/mfu_fwd_bwd` also shows how much time the trainer GPUs spend waiting instead of training.
+The diagnosis is simple: a full queue with zero rollout wait and high backpressure means the trainer is too slow. An empty queue with rising rollout wait and no backpressure means generation is too slow. Comparing `perf/mfu_wall_clock` with `perf/mfu_fwd_bwd` also shows how much time the trainer GPUs spend waiting instead of training.
 
 ### Run 1, `r1-dp2`: a trainer that cannot keep up
 
@@ -282,39 +279,39 @@ The diagnosis is simple. A full queue with zero rollout wait and high backpressu
 
 *Figure 1. trackio run `r1-dp2`. Panels: `perf/step_s`, `perf/fwd_bwd_s`, `sample/rollout_queue_size`, `rollout/backpressure_s`. Step time and forward+backward overlap almost completely; the queue sits pinned near 476 of 512 and backpressure never drops below 11 s per rollout group: trainer-bound.*
 
-`perf/step_s` is 22.9 s and `perf/fwd_bwd_s` is 21.9 s. Forward and backward take 96 % of the step. The queue stays around 476 out of 512, the trainer waits only 0.02 s for rollouts, and the rollout worker spends 15 seconds per group blocked by backpressure. The two vLLM replicas generate faster than the trainer consumes. The reported 4.6k tokens/s is not their actual limit; they simply have nowhere to put more output.
+`perf/step_s` is 22.9 s and `perf/fwd_bwd_s` is 21.9 s. Forward and backward take 96 % of the step time. The queue stays full and the trainer waits only 0.02 s for rollouts, and the rollout worker spends 15 seconds per group blocked by backpressure. The two vLLM replicas generate faster than the trainer consumes. The reported 4.6k tokens/s is not their actual limit; they simply have nowhere to put more output.
 
 The batch metrics explain the terrible 3.9 % MFU. `batch/microbatches_per_step` is 64 and `batch/samples_per_row` is 1.0. Each rank processes one sequence of around 1.2k tokens, 64 times per step. This comes from the reference recipe's `per_device_train_batch_size=1`. For a 1.5B model on an H200, this is completely latency-bound.
 
 ### Run 2, `r1-dp2-tb16k`: pack the microbatch
 
-The trainer also supports token-budget batching. With `token_budget > 0`, it packs several samples into one padding-free row per rank. An optimizer step processes `gradient_accumulation_steps` rows. We set `token_budget=16384` and `gradient_accumulation_steps=6`.
+The fix is not to change the batch size. We keep 128 completions per optimizer step and only change how they are laid out on the GPU: instead of one sequence per microbatch, we pack many sequences densely into each row. The trainer supports this through **token-budget batching**. With `token_budget > 0`, it packs several samples into one padding-free row per rank. An optimizer step processes `gradient_accumulation_steps` rows. We set `token_budget=16384` and `gradient_accumulation_steps=6`.
 
 ![Figure 2](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/asyncgrpo-lora-hfjobs/fig2-r1-dp2-vs-tb16k-packing.png)
 
 *Figure 2. trackio runs `r1-dp2` and `r1-dp2-tb16k` overlaid over their first 154 steps. Panels: `batch/samples_per_row`, `batch/microbatches_per_step`, `perf/step_s`, `perf/fwd_bwd_s`, `perf/mfu_fwd_bwd`, `rollout/generated_tok_s`. Packing takes samples per row from 1 to 13, microbatches from 64 to 6, step time from 23 s to 5.9 s, and generation from 4.2k to 27.5k tok/s with no change on the vLLM side.*
 
-`batch/samples_per_row` goes from 1.0 to 12.7 and the number of microbatches drops from 64 to 6. The rows are 95 % full. Forward and backward fall from 21.9 s to 5.6 s, while MFU rises from 3.9 % to 19 %. We now train on around 150 samples per step because the rows pack better than the mean-length estimate predicted. Setting `gradient_accumulation_steps=5` would bring this closer to 128.
+`batch/samples_per_row` goes from 1.0 to ~12.7 and the number of microbatches drops from 64 to 6. The rows are 95 % full! Forward and backward fall from 21.9 s to 5.6 s, while MFU rises from 3.9 % to 19 %. We now train on around 150 samples per step because the rows pack better than the mean-length estimate predicted.
 
-Generation also jumps from 4.6k to 25k tokens/s, even though we changed nothing on the vLLM side. The queue is no longer constantly full, so the replicas can finally run. This is why we do not like optimizing pipeline stages in isolation. The slowest stage hides the real performance of everything before it.
+Generation also jumps from 4.6k to 25k tokens/s, even though we changed nothing on the vLLM side. The queue is no longer constantly full, so the replicas can finally run. This is why we do not like optimizing pipeline stages in isolation. We need to be careful to evaluate the whole system, as a slow stage can hide the real performance of everything before it.
 
 ### Run 3, `r1-dp2-tb16k-nockpt`: stop recomputing the forward
 
 `perf/fwd_s` is 1.34 s while `perf/fwd_bwd_s` is 5.6 s. A normal backward costs roughly twice the forward, and with frozen base weights it should be closer to once. A ratio of 3.2 is suspicious.
 
-The reason is `gradient_checkpointing=True`, which is the default in `AsyncGRPOConfig` but not in `TrainingArguments`. Every microbatch recomputes its forward during the backward. This also explains why a 16k-token row only uses 25 GB on a 141 GB H200.
+The reason is that `AsyncGRPOConfig` defaults to `gradient_checkpointing=True`. Every microbatch recomputes its forward during the backward. This also explains why a 16k-token row only uses 25 GB on a 141 GB H200! It's a memory optimization for this trainer, but we don't need it in this specific case: the model is small enough to fit into VRAM with the activations kept for the backward.
 
 ![Figure 3](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/asyncgrpo-lora-hfjobs/fig3-tb16k-vs-nockpt-crossover.png)
 
 *Figure 3. trackio runs `r1-dp2-tb16k` and `r1-dp2-tb16k-nockpt` overlaid over their first 134 steps. Panels: `perf/fwd_s`, `perf/fwd_bwd_s`, `perf/weight_sync_s`, `sample/rollout_queue_size`, `perf/rollout_wait_s`, `perf/mfu_fwd_bwd`. Forward+backward drops by one forward; the queue falls from ~420 to ~60 and rollout wait rises from 0.02 s to 0.5 s: the bottleneck crosses to generation.*
 
-With `gradient_checkpointing=False`, forward and backward drop to 4.6 s, almost exactly one forward less, and MFU reaches 23 %. The queue now falls to 71 and rollout wait rises from 0.04 s to 0.6 s. The trainer consumes samples faster than two replicas generate them. We moved the bottleneck to generation.
+With `gradient_checkpointing=False`, forward and backward drop to 4.6 s, almost exactly one forward less, and MFU reaches 23 %. The queue now falls to 71 and rollout wait rises from 0.04 s to 0.6 s. The trainer consumes samples faster than two replicas generate them. We _successfully_ moved the bottleneck to generation.
 
 This exposes two more costs. A 7.6-second weight sync every four steps now takes 25 % of wall-clock time. It was only 8 % when each step took 23 seconds. Also, backward is still 2.5 times slower than forward. With frozen base weights, there are around 2 seconds per step that do not look like normal model math.
 
 ### Run 4, `r1-dp3-tb16k-nockpt`: three replicas, and a surprise
 
-Since generation was now too slow, we added a third replica. We also reduced the adapter retry interval from 2 s to 0.5 s and disabled `fsdp_reshard_after_forward` to check whether FSDP2 re-gathers caused the extra 2 seconds in backward.
+Since generation was now too slow, we added a third replica. We also reduced the adapter retry interval from 2 s to 0.5 s in the proxy and disabled `fsdp_reshard_after_forward` to check whether FSDP2 re-gathers caused the extra 2 seconds in backward.
 
 ![Figure 4](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/asyncgrpo-lora-hfjobs/fig4-dp2-vs-dp3-inflight-cap.png)
 
@@ -324,9 +321,9 @@ Weight sync falls from 7.6 s to 5.8 s, so the shorter retry helps. Forward and b
 
 The reason was sitting in `rollout/inflight`: 128 in every run. The proxy shows those requests split as 44 + 43 + 41 across the three replicas. `max_inflight_tasks` limits concurrency for the whole rollout worker, not per replica. A 1.5B model on an H200 processes 43 and 130 concurrent sequences at almost the same cost per token. Splitting 128 requests over three GPUs gives nearly the same throughput as splitting them over two.
 
-So vLLM was not the limit. Our own client-side constant was. We had set it conservatively because we did not know how hundreds of long HTTPS requests would behave through the public Jobs proxy. At this point, 130,000 rollouts had crossed it without a single transport error.
+So vLLM was not the limit. Our own client-side constant was. We had set it conservatively because we did not know how hundreds of long HTTPS requests would behave through the public Jobs proxy. At this point, 130,000 rollout completions had crossed it without a single transport error.
 
-### Run 5, `r1-dp3-inflight384`: lift the cap
+### Run 5, `r1-dp3-inflight384`: lift the cap on in-flight requests
 
 `max_inflight_tasks=384` and `queue_maxsize=768`, nothing else.
 
@@ -334,9 +331,9 @@ So vLLM was not the limit. Our own client-side constant was. We had set it conse
 
 *Figure 5. All five trackio runs (`r1-dp2`, `r1-dp2-tb16k`, `r1-dp2-tb16k-nockpt`, `r1-dp3-tb16k-nockpt`, `r1-dp3-inflight384`) overlaid, x-axis in steps. Panels: `perf/step_s`, `reward`, `sample/rollout_queue_size`, `sample/staleness_mean`. Step time falls from 22.9 s to 4.8 s across the series while the reward curves stay on top of each other; the last run's queue refills to ~690 of 768 and its staleness settles at 2. Runs 2 to 4 were stopped early once the dashboard had answered the question.*
 
-With 384 requests in flight, each replica gets 128. The queue quickly fills to around 690 out of 768 and stays there. Backpressure returns to 5 seconds and rollout wait falls to 0.03 seconds. Training is the bottleneck again. Forward and backward take 4.6 seconds, weight sync adds an amortized 1.5 seconds, and median step time is 4.8 seconds.
+With 384 requests in flight, each replica gets 128. The queue quickly fills to around 690 out of 768 and stays there. Backpressure returns to 5 seconds and rollout wait falls to 0.03 seconds. Training is the bottleneck again! Forward and backward take 4.6 seconds, weight sync adds an amortized 1.5 seconds, and median step time is 4.8 seconds.
 
-There is a cost. Mean staleness rises from 1.5 to 2.0 versions because samples wait longer in the larger queue. This is still below `max_staleness=4`, and `ratio` remains exactly 1.000.
+Mean staleness rises from 1.5 to 2.0 versions because samples wait longer in the larger queue. This is still below `max_staleness=4`, and `ratio` remains very close to 1.000.
 
 ### The scoreboard
 
@@ -356,28 +353,7 @@ There is a cost. Mean staleness rises from 1.5 to 2.0 versions because samples w
 
 *Figure 6. trackio runs `r1-dp2` and `r1-dp3-inflight384`, reward against wall-clock minutes since the first optimizer step. Same recipe, same 500 steps, same final reward; run 5 gets there in 52 minutes instead of 3 h 26 min.*
 
-The final run is 3.9× faster and trains on 31 % more samples, with basically the same reward curve. Packing, disabling checkpointing and raising the in-flight limit made the difference. The shorter retry interval helped a little. Disabling resharding and adding a third replica without raising concurrency did nothing. In each case, the dashboard made this clear within the first ten minutes.
-
-### What is still on the table
-
-The step now costs 4.6 s of compute plus 1.5 s of amortized sync. We still want to investigate two things:
-
-- **Weight sync is 25 % of wall clock.** The 6.2 s split into 0.2 s to pause the engines, 0.9 s to save the adapter and 5 s for the replicas to load it. The bucket upload has a floor of around 2.5 s. Syncing every eight steps instead of four would halve this cost but increase staleness. TRL also pauses the engines during the full sync. Since adapter names are versioned and the previous policy stays loaded, this pause may not be necessary on the adapter-only path.
-- **Backward is still 2.5× slower than forward.** With frozen base weights, we expected closer to 1×. FSDP2 resharding is not the cause. Our current suspects are the chunked LM-head loss recomputing its projection during backward and the memory-bound LoRA operations on every linear layer. A short `torch.profiler` trace should answer this.
-
-Also, this trainer does not need three replicas. Two replicas with 192 requests in flight each should run this recipe just as fast. A third one only becomes useful with a larger policy model, longer completions or multi-turn environments.
-
-## Things we learned
-
-- Mount the bucket at the same absolute path in every Job. The trainer sends a path and vLLM resolves it locally. Nothing checks that both paths point to the same place.
-- `close()` returns before the upload reaches the bucket. We verified this for files from 1 KB to 128 MiB. A completed local write does not mean another Job can already read it.
-- Be careful when polling a path before it exists. A negative lookup may be cached, which caused the entire 30-second delay here.
-- Empty directories on the mount do not persist. In one test, `os.makedirs` followed by a file write 24 seconds later failed with `ENOENT`. Write a file immediately after creating the directory.
-- Exposed Job ports require a bearer token. The Jobs proxy can keep a generation request open for at least four minutes, so 3,000-token completions work fine.
-- Check `rollout/inflight` before adding replicas. `max_inflight_tasks` limits the entire pipeline. More replicas only split the same requests if you do not raise it.
-- Check `gradient_checkpointing`. `AsyncGRPOConfig` enables it by default, unlike `TrainingArguments`. For a 1.5B model on a 141 GB GPU, it only wastes compute.
-- Reusing replicas across runs causes adapter-name collisions because TRL starts again at `trl-policy-v1`. Unload adapters from the previous run first. The launcher does this automatically.
-- Remember to stop the server Jobs. They do not terminate by themselves. `./run_all.sh --wait` cancels them when training finishes.
+The final run is 3.9× faster and trains on 31 % more samples, with basically the same reward curve. Packing, disabling checkpointing and raising the in-flight limit made the difference. In each case, the dashboard made this clear within the first ten minutes.
 
 ## Try it
 
@@ -389,8 +365,6 @@ MAX_STEPS=500 ./run_all.sh --wait                     # run 1: the reference bat
 TOKEN_BUDGET=16384 GRAD_ACCUM=6 GRADIENT_CHECKPOINTING=0 PROXY_LORA_RETRY_S=0.5 \
   MAX_INFLIGHT=384 QUEUE_MAXSIZE=768 MAX_STEPS=500 ./run_all.sh --wait   # run 5: same recipe, ~55 min
 ```
-
-`BUCKET_LATENCY_RESULTS.md` contains all the bucket measurements. `LORA_PROXY.md` walks through the routing decision with a real prompt. `tests/test_lora_proxy.py` runs the proxy against two fake vLLM servers, so you can modify the routing without paying for GPUs.
 
 ## References
 
