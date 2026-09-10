@@ -3,6 +3,7 @@ title: "Rebuilding AUTOMATIC1111 with Gradio Workflow"
 thumbnail: /blog/assets/gradio-workflow1111/thumbnail.png
 authors:
 - user: ysharma
+- user: abidlabs
 ---
 
 # Rebuilding AUTOMATIC1111 with Gradio Workflow

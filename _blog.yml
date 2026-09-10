@@ -5751,7 +5751,7 @@
     - trl
 
 - local: gradio-workflow-1111
-  date: September 4, 2026
+  date: September 10, 2026
   tags:
     - gradio
     - workflows
