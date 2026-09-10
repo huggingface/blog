@@ -4,6 +4,7 @@ thumbnail: /blog/assets/asyncgrpo-lora-hfjobs/thumbnail.png
 authors:
   - user: aminediroHF
   - user: qgallouedec
+  - user: kashif
 ---
 
 # Async GRPO with LoRA across Hugging Face Jobs: a bucket, a proxy, and no NCCL
