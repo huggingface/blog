@@ -9,7 +9,7 @@ authors:
 
 # Async GRPO with LoRA across Hugging Face Jobs: a bucket, a proxy, and no NCCL
 
-LoRA support recently landed in TRL's `AsyncGRPOTrainer` with [PR #7017](https://github.com/huggingface/trl/pull/7017). The asynchronous trainer can now train an adapter instead of the full model, and it syncs only the LoRA adapter to vLLM. This post covers a real-world project built on top of it, where training and inference no longer share a machine.
+LoRA support recently landed in TRL's `AsyncGRPOTrainer` with [PR #7017](https://github.com/huggingface/trl/pull/7017), and ships with TRL v1.14. The asynchronous trainer can now train an adapter instead of the full model, and it syncs only the LoRA adapter to vLLM. This post covers a real-world project built on top of it, where training and inference no longer share a machine.
 
 LoRA training is particularly suited for RL, as stated in the amazing Thinking Machines post [LoRA Without Regret](https://thinkingmachines.ai/blog/lora/). They show that LoRA can match full fine-tuning for policy-gradient RL, even with rank 1. This stems from the fact that the advantage function only gives `~O(1)` bits of information per episode, so there is not that much to learn from each step, from a total-bits-of-information point of view. A rank-1 adapter has enough capacity to absorb it.
 
@@ -66,13 +66,15 @@ hf jobs run --detach --flavor h200 --timeout 8h --secrets HF_TOKEN \
 done
 ```
 
+We pin vLLM to `v0.27.1`. vLLM moves fast, and the flags above and the runtime LoRA endpoints are the ones that version exposes, so treat the version as part of the recipe.
+
 There is another possible design where the trainer keeps only the latest adapter and always publishes it under the same name. We did not go that way, because vLLM keys its prefix cache by adapter name. With a single name, KV blocks computed under the previous weights would still match after the swap, so the prefill would not be redone and a rollout could get its prefix from one policy version and its decode from the next. The trainer would have no way to tell, and it would show up as `ratio` drifting away from 1. Versioned names make this impossible: a name always means one set of weights, and a cached prefix can never match a newer version.
 
 ### The dataset choice: the Sanity set
 
 We chose [`sail/Sanity-Test-R1D-1.5B`](https://huggingface.co/datasets/sail/Sanity-Test-R1D-1.5B), the dataset from [Defeating the Training-Inference Mismatch via FP16](https://arxiv.org/pdf/2510.26788) (Qi et al., 2025). The reproduction code is in [`sail-sg/Precision-RL`](https://github.com/sail-sg/Precision-RL).
 
-The authors generated 40 answers for each MATH problem with DeepSeek-R1-Distill-Qwen-1.5B. They kept problems with a success rate between 20% and 80%, yielding 1,460 questions. This dataset is really good for RL validation because the questions are neither already solved nor completely hopeless for that model, meaning the model can get a good early signal to train on and improve.
+The authors generated 40 answers for each MATH problem with [DeepSeek-R1-Distill-Qwen-1.5B](https://huggingface.co/deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B). They kept problems with a success rate between 20% and 80%, yielding 1,460 questions. This dataset is really good for RL validation because the questions are neither already solved nor completely hopeless for that model, meaning the model can get a good early signal to train on and improve.
 
 This is awesome as a robust end-to-end test: if one vLLM replica silently serves the base model under an adapter name, we want to see that in the curve within a few dozen steps. Also, this dataset is small enough to cycle through in less than two hours.
 
@@ -80,7 +82,7 @@ We also take the hyperparameters from the paper's LoRA scripts in [`oat/scripts/
 
 ### The trainer
 
-The trainer uses the same image with TRL installed from the PR branch (now from main). The training script is a normal `AsyncGRPOTrainer` script. The only Job-specific values are the output directory and the server URL.
+The trainer uses the same `vllm/vllm-openai:v0.27.1` image with TRL installed on top. We ran the PR branch at the time; the same code now ships in TRL v1.14. The training script is a normal `AsyncGRPOTrainer` script. The only Job-specific values are the output directory and the server URL.
 
 ```python
 config = AsyncGRPOConfig(
@@ -108,7 +110,7 @@ Now onto the fun stuff. We need a proxy between the trainer and the vLLM Jobs fo
 
 1. Exposed Job ports require an `Authorization: Bearer <HF token>` header on every request. The proxy is where that header gets added, so TRL does not need to know about it.
 
-2. TRL refuses adapter-only sync when vLLM runs with `--data-parallel-size > 1`. This is a vLLM limitation rather than a TRL one. A call to `/v1/load_lora_adapter` only reaches the replica that answers it, so the other replicas would keep serving the base model under the new policy name.
+2. We want more than one GPU generating. On a single vLLM server, the usual way to get that is `--data-parallel-size > 1`, but TRL refuses adapter-only sync in that mode, for a good reason: a call to `/v1/load_lora_adapter` only reaches the DP rank that answers it, so the other ranks would keep serving the base model under the new policy name. On Jobs the question does not even arise, since each replica is its own machine. So the data parallelism has to live one level up, in something that fans the adapter load out to every replica.
 
 We therefore run a small proxy at `127.0.0.1:8000` on the trainer Job and point TRL to it as if it were a single vLLM server. Besides adding the header, the proxy does two things functionally:
 - It sends each completion request to one replica, chosen so that the eight rollouts of a prompt land where their prefix is already cached (details on this below).
@@ -371,7 +373,7 @@ TOKEN_BUDGET=16384 GRAD_ACCUM=6 GRADIENT_CHECKPOINTING=0 PROXY_LORA_RETRY_S=0.5 
 
 - John Schulman et al., [LoRA Without Regret](https://thinkingmachines.ai/blog/lora/), Thinking Machines Lab, September 2025. The case that rank-1 LoRA matches full fine-tuning for policy-gradient RL, and why.
 - TRL, [`AsyncGRPOTrainer`](https://huggingface.co/docs/trl/en/async_grpo_trainer) and its [logged metrics](https://huggingface.co/docs/trl/en/async_grpo_trainer#logged-metrics).
-- TRL [PR #7017](https://github.com/huggingface/trl/pull/7017): PEFT/LoRA support for `AsyncGRPOTrainer` with adapter-only vLLM sync.
+- TRL [PR #7017](https://github.com/huggingface/trl/pull/7017): PEFT/LoRA support for `AsyncGRPOTrainer` with adapter-only vLLM sync, released in TRL v1.14.
 - Hugging Face [Jobs](https://huggingface.co/docs/huggingface_hub/guides/jobs) and [Storage Buckets](https://huggingface.co/docs/hub/storage-buckets); [`hf-mount`](https://github.com/huggingface/hf-mount).
 - [`hf-mount-repro`](https://github.com/AmineDiro/hf-mount-repro): the two-script reproduction of the 30-second negative-cache stall.
 - The [trackio dashboard](https://huggingface.co/spaces/aminediroHF/async-grpo-lora-buckets) for every run in this post.
