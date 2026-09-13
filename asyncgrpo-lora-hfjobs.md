@@ -72,7 +72,7 @@ There is another possible design where the trainer keeps only the latest adapter
 
 ### The dataset choice: the Sanity set
 
-We chose [`sail/Sanity-Test-R1D-1.5B`](https://huggingface.co/datasets/sail/Sanity-Test-R1D-1.5B), the dataset from [Defeating the Training-Inference Mismatch via FP16](https://arxiv.org/pdf/2510.26788) (Qi et al., 2025). The reproduction code is in [`sail-sg/Precision-RL`](https://github.com/sail-sg/Precision-RL).
+We chose [`sail/Sanity-Test-R1D-1.5B`](https://huggingface.co/datasets/sail/Sanity-Test-R1D-1.5B), the dataset from [Defeating the Training-Inference Mismatch via FP16](https://huggingface.co/papers/2510.26788) (Qi et al., 2025). The reproduction code is in [`sail-sg/Precision-RL`](https://github.com/sail-sg/Precision-RL).
 
 The authors generated 40 answers for each MATH problem with [DeepSeek-R1-Distill-Qwen-1.5B](https://huggingface.co/deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B). They kept problems with a success rate between 20% and 80%, yielding 1,460 questions. This dataset is really good for RL validation because the questions are neither already solved nor completely hopeless for that model, meaning the model can get a good early signal to train on and improve.
 
