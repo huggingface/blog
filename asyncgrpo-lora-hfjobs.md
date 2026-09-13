@@ -1,5 +1,5 @@
 ---
-title: "Async GRPO with LoRA across Hugging Face Jobs: a bucket, a proxy, and no NCCL"
+title: "Async GRPO with LoRA across HF Jobs: a bucket, a proxy, and no NCCL"
 thumbnail: /blog/assets/asyncgrpo-lora-hfjobs/thumbnail.png
 authors:
   - user: aminediroHF
@@ -7,15 +7,30 @@ authors:
   - user: kashif
 ---
 
-# Async GRPO with LoRA across Hugging Face Jobs: a bucket, a proxy, and no NCCL
+# Async GRPO with LoRA across HF Jobs: a bucket, a proxy, and no NCCL
 
-LoRA support recently landed in TRL's `AsyncGRPOTrainer` with [PR #7017](https://github.com/huggingface/trl/pull/7017), and ships with TRL v1.14. The asynchronous trainer can now train an adapter instead of the full model, and it syncs only the LoRA adapter to vLLM. This post covers a real-world project built on top of it, where training and inference no longer share a machine.
+<blockquote style="background-color: #f0f7ff; border-left: 4px solid #4a90d9; padding: 1em 1.5em; margin: 1.5em 0; border-radius: 4px;">
 
-LoRA training is particularly suited for RL, as stated in the amazing Thinking Machines post [LoRA Without Regret](https://thinkingmachines.ai/blog/lora/). They show that LoRA can match full fine-tuning for policy-gradient RL, even with rank 1. This stems from the fact that the advantage function only gives `~O(1)` bits of information per episode, so there is not that much to learn from each step, from a total-bits-of-information point of view. A rank-1 adapter has enough capacity to absorb it.
+**TL;DR**
 
-There is also a nice systems consequence of LoRA training. A rank-1 adapter for a 1.5B model is a few megabytes, while the full model is around 3 GB. Instead of sending the full policy to the inference workers after every update, we can just send the adapter. vLLM can also keep several adapters loaded at once. Old rollouts finish with the policy they started with, while new rollouts use the latest one.
+- `AsyncGRPOTrainer` can now train a LoRA adapter and sync only that adapter to vLLM (TRL v1.14).
+- A rank-1 adapter is a few megabytes, so it can travel through a Storage Bucket mounted in every Job instead of over NCCL. The trainer and the vLLM replicas run as separate Hugging Face Jobs on separate machines.
+- A small proxy in front of the replicas adds the auth header, routes each rollout to the replica that already holds its KV prefix, and broadcasts adapter loads to every replica.
+- The AsyncGRPO metrics show where the bottleneck sits. Five runs take the same recipe from 3 h 27 min to 53 min for 500 steps.
 
-TRL's `AsyncGRPOTrainer` already separates training and generation. The trainer and vLLM can run on different machines and at their own speed. This is easy in a single-node or cluster setting where both processes share a filesystem or can form an NCCL group. What we want is to run the same setup with [Hugging Face Jobs](https://huggingface.co/docs/huggingface_hub/guides/jobs). Essentially, an HF Job is one container running on one VM. This means that one Job cannot spawn multiple nodes (at least for now) to hold a trainer and a fleet of vLLM servers (we are limited to 8xH200 at most per node). The `AsyncGRPOTrainer` is built for exactly that kind of scale, so the question became: how far can we get if we drop the requirement that the trainer and the inference servers share a node? Well, with a full-weight sync, the answer would be "not far". Every update would have to move gigabytes between machines, which is what NCCL is for in a dense cluster, but Jobs can't communicate _across_ nodes. There is no shared local disk and obviously no shared `localhost`. With LoRA, a sync is only a few megabytes. For the filesystem part, HF Jobs provide volumes backed by [Storage Buckets](https://huggingface.co/docs/hub/storage-buckets)! These buckets can then be mounted as a FUSE filesystem in every Job and are enough to work as a shared FS between nodes. No network path between the Jobs is needed at all.
+</blockquote>
+
+LoRA support recently landed in TRL's [`AsyncGRPOTrainer`](https://huggingface.co/docs/trl/en/async_grpo_trainer) with [PR #7017](https://github.com/huggingface/trl/pull/7017), and ships with TRL v1.14. The asynchronous trainer can now train an adapter instead of the full model, and it syncs only the LoRA adapter to vLLM. This post covers a real-world project built on top of it, where training and inference no longer share a machine.
+
+LoRA training is particularly suited for RL, as shown in Thinking Machines's blog [LoRA Without Regret](https://thinkingmachines.ai/blog/lora/). They show that LoRA can match full fine-tuning for policy-gradient RL, even with rank 1. This stems from the fact that the advantage function only gives `~O(1)` bits of information per episode, so there is not that much to learn from each step, from a total-bits-of-information point of view. A rank-1 adapter has enough capacity to absorb it.
+
+There is also a systems consequence of LoRA training. A rank-1 adapter for a 1.5B model is a few megabytes, while the full model is around 3 GB. Instead of sending the full policy to the inference workers after every update, we can just send the adapter. vLLM can also keep several adapters loaded at once. Old rollouts finish with the policy they started with, while new rollouts use the latest one.
+
+TRL's `AsyncGRPOTrainer` already separates training and generation. The trainer and vLLM can run on different machines and at their own speed. This is easy in a single-node or cluster setting where both processes share a filesystem or can form an NCCL group.
+
+What we want is to run the same setup with [Hugging Face Jobs](https://huggingface.co/docs/huggingface_hub/guides/jobs). Essentially, an HF Job is one container running on one VM. This means that one Job cannot spawn multiple nodes (at least for now) to hold a trainer and a fleet of vLLM servers (we are limited to 8xH200 at most per node). The `AsyncGRPOTrainer` is built for exactly that kind of scale, so the question became: how far can we get if we drop the requirement that the trainer and the inference servers share a node?
+
+Well, with a full-weight sync, the answer would be "not far". Every update would have to move gigabytes between machines, which is what NCCL is for in a dense cluster, but Jobs can't communicate _across_ nodes. There is no shared local disk and obviously no shared `localhost`. With LoRA, a sync is only a few megabytes. For the filesystem part, HF Jobs provide volumes backed by [Storage Buckets](https://huggingface.co/docs/hub/storage-buckets)! These buckets can then be mounted as a FUSE filesystem in every Job and are enough to work as a shared FS between nodes. No network path between the Jobs is needed at all.
 
 The setup ended up being quite small:
 
@@ -26,7 +41,7 @@ The setup ended up being quite small:
 
 ## The architecture: leveraging Hugging Face Jobs and Storage Buckets 🪣
 
-[TRL PR #7017](https://github.com/huggingface/trl/pull/7017) adds an adapter-only sync path to `AsyncGRPOTrainer`. The trainer does not send tensors to vLLM. Every few optimizer steps, it saves the adapter under `<output_dir>/.vllm_lora/trl-policy-v{N}`, publishes the directory with an atomic rename, then sends its path to vLLM's `/v1/load_lora_adapter` endpoint. vLLM loads the files from disk, so the rollout worker can then request `model="trl-policy-v{N}"`.
+The new adapter-only sync path in `AsyncGRPOTrainer` works like this. The trainer does not send tensors to vLLM. Every few optimizer steps, it saves the adapter under `<output_dir>/.vllm_lora/trl-policy-v{N}`, publishes the directory with an atomic rename, then sends its path to vLLM's `/v1/load_lora_adapter` endpoint. vLLM loads the files from disk, so the rollout worker can then request `model="trl-policy-v{N}"`.
 
 This is how runtime adapter loading already works in vLLM. The endpoint takes a path, not tensors, so the trainer and the server are expected to share a filesystem. On a Slurm cluster, that is the network filesystem. On Jobs, we get the same thing by mounting a [Storage Bucket](https://huggingface.co/docs/hub/storage-buckets) as a volume at the same path in every Job, as we mentioned earlier. Under the hood, it uses [`hf-mount`](https://github.com/huggingface/hf-mount), which exposes the bucket as a POSIX filesystem inside the container:
 
@@ -53,16 +68,21 @@ Each replica uses one GPU and the stock `vllm/vllm-openai` image. We only need t
 The number of adapter slots follows from `max_staleness`. In `AsyncGRPOTrainer`, every weight sync bumps the policy version by one, and `max_staleness` is how many versions a rollout sample may lag behind the current policy before the trainer discards it. With `max_staleness=4`, a sample generated under `trl-policy-v3` is still used for training while the trainer is at `v7`. A rollout that started under `v3` must also be able to finish under `v3`. So at any moment, vLLM has to serve the current policy plus the four before it. That is why the trainer keeps `max_staleness + 1` adapter versions registered and unloads anything older. Each sync loads the new version before it unloads the oldest one, which needs one more slot during the swap. That gives `--max-loras 6`. With only five, vLLM would silently evict a policy that still has rollouts in flight at every sync.
 
 ```sh
+# --expose 8000                       reachable at https://<job_id>--8000.hf.jobs
+# -v ...:/lora:ro                     read-only: the server only reads adapters
+# VLLM_ALLOW_RUNTIME_LORA_UPDATING=1  enables /v1/load_lora_adapter
+# VLLM_SERVER_DEV_MODE=1              enables /pause, /resume, /server_info (TRL needs all three)
+# --max-loras 6                       max_staleness=4 -> 4+2 adapter slots
 for replica in 1 2; do
 hf jobs run --detach --flavor h200 --timeout 8h --secrets HF_TOKEN \
-    --expose 8000 \                                          # reachable at https://<job_id>--8000.hf.jobs
-    -v "hf://buckets/${BUCKET}:/lora:ro" \                   # read-only: the server only reads adapters
-    -e VLLM_ALLOW_RUNTIME_LORA_UPDATING=1 \                  # enables /v1/load_lora_adapter
-    -e VLLM_SERVER_DEV_MODE=1 \                              # enables /pause, /resume, /server_info (TRL needs all three)
+    --expose 8000 \
+    -v "hf://buckets/${BUCKET}:/lora:ro" \
+    -e VLLM_ALLOW_RUNTIME_LORA_UPDATING=1 \
+    -e VLLM_SERVER_DEV_MODE=1 \
     -- vllm/vllm-openai:v0.27.1 \
     vllm serve Qwen/Qwen2.5-Math-1.5B --host 0.0.0.0 --port 8000 \
         --max-model-len 4096 --logprobs-mode processed_logprobs --generation-config vllm \
-        --enable-lora --max-lora-rank 1 --max-loras 6      # max_staleness=4 -> 4+2 adapter slots
+        --enable-lora --max-lora-rank 1 --max-loras 6
 done
 ```
 
@@ -85,6 +105,9 @@ We also take the hyperparameters from the paper's LoRA scripts in [`oat/scripts/
 The trainer uses the same `vllm/vllm-openai:v0.27.1` image with TRL installed on top. We ran the PR branch at the time; the same code now ships in TRL v1.14. The training script is a normal `AsyncGRPOTrainer` script. The only Job-specific values are the output directory and the server URL.
 
 ```python
+from peft import LoraConfig
+from trl.experimental.async_grpo import AsyncGRPOConfig, AsyncGRPOTrainer
+
 config = AsyncGRPOConfig(
     output_dir="/lora/sanity-lora-r1",       # on the bucket: adapters, checkpoints and the final adapter all land here
     vllm_server_base_url="http://localhost:8000",   # the proxy, not a vLLM Job; TRL never sees the Jobs URLs
@@ -249,9 +272,9 @@ The rollout queue stays full, and the worker is mostly blocked by backpressure. 
 
 ### Reward
 
-![Figure 0](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/asyncgrpo-lora-hfjobs/fig0-r1-dp2-reward.png)
+![Figure 1](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/asyncgrpo-lora-hfjobs/fig0-r1-dp2-reward.png)
 
-*Figure 0. trackio run `r1-dp2`. Panels: `reward` with its 20-step rolling mean and 50-step block means, and `ratio` on a 0.99 to 1.01 axis. Reward climbs from 0.15 to 0.44 over 500 steps; `ratio` stays between 0.9993 and 1.0004 throughout.*
+*Figure 1. trackio run `r1-dp2`. Panels: `reward` with its 20-step rolling mean and 50-step block means, and `ratio` on a 0.99 to 1.01 axis. Reward climbs from 0.15 to 0.44 over 500 steps; `ratio` stays between 0.9993 and 1.0004 throughout.*
 
 500 steps took 3 h 27 min. Mean reward goes from 0.145 over the first 20 steps to 0.438 over the last 20. More importantly for this test, `ratio` stays at 1.000 for every step! The policy served by vLLM always matches the one used by the trainer to score the rollout. This held across all 126 syncs. Mean staleness was 1.5 policy versions, against a maximum of 4. The [trackio dashboard](https://huggingface.co/spaces/aminediroHF/async-grpo-lora-buckets) has the full curves.
 
@@ -278,9 +301,9 @@ The diagnosis is simple: a full queue with zero rollout wait and high backpressu
 
 ### Run 1, `r1-dp2`: a trainer that cannot keep up
 
-![Figure 1](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/asyncgrpo-lora-hfjobs/fig1-r1-dp2-trainer-bound.png)
+![Figure 2](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/asyncgrpo-lora-hfjobs/fig1-r1-dp2-trainer-bound.png)
 
-*Figure 1. trackio run `r1-dp2`. Panels: `perf/step_s`, `perf/fwd_bwd_s`, `sample/rollout_queue_size`, `rollout/backpressure_s`. Step time and forward+backward overlap almost completely; the queue sits pinned near 476 of 512 and backpressure never drops below 11 s per rollout group: trainer-bound.*
+*Figure 2. trackio run `r1-dp2`. Panels: `perf/step_s`, `perf/fwd_bwd_s`, `sample/rollout_queue_size`, `rollout/backpressure_s`. Step time and forward+backward overlap almost completely; the queue sits pinned near 476 of 512 and backpressure never drops below 11 s per rollout group: trainer-bound.*
 
 `perf/step_s` is 22.9 s and `perf/fwd_bwd_s` is 21.9 s. Forward and backward take 96 % of the step time. The queue stays full and the trainer waits only 0.02 s for rollouts, and the rollout worker spends 15 seconds per group blocked by backpressure. The two vLLM replicas generate faster than the trainer consumes. The reported 4.6k tokens/s is not their actual limit; they simply have nowhere to put more output.
 
@@ -290,9 +313,9 @@ The batch metrics explain the terrible 3.9 % MFU. `batch/microbatches_per_step` 
 
 The fix is not to change the batch size. We keep 128 completions per optimizer step and only change how they are laid out on the GPU: instead of one sequence per microbatch, we pack many sequences densely into each row. The trainer supports this through **token-budget batching**. With `token_budget > 0`, it packs several samples into one padding-free row per rank. An optimizer step processes `gradient_accumulation_steps` rows. We set `token_budget=16384` and `gradient_accumulation_steps=6`.
 
-![Figure 2](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/asyncgrpo-lora-hfjobs/fig2-r1-dp2-vs-tb16k-packing.png)
+![Figure 3](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/asyncgrpo-lora-hfjobs/fig2-r1-dp2-vs-tb16k-packing.png)
 
-*Figure 2. trackio runs `r1-dp2` and `r1-dp2-tb16k` overlaid over their first 154 steps. Panels: `batch/samples_per_row`, `batch/microbatches_per_step`, `perf/step_s`, `perf/fwd_bwd_s`, `perf/mfu_fwd_bwd`, `rollout/generated_tok_s`. Packing takes samples per row from 1 to 13, microbatches from 64 to 6, step time from 23 s to 5.9 s, and generation from 4.2k to 27.5k tok/s with no change on the vLLM side.*
+*Figure 3. trackio runs `r1-dp2` and `r1-dp2-tb16k` overlaid over their first 154 steps. Panels: `batch/samples_per_row`, `batch/microbatches_per_step`, `perf/step_s`, `perf/fwd_bwd_s`, `perf/mfu_fwd_bwd`, `rollout/generated_tok_s`. Packing takes samples per row from 1 to 13, microbatches from 64 to 6, step time from 23 s to 5.9 s, and generation from 4.2k to 27.5k tok/s with no change on the vLLM side.*
 
 `batch/samples_per_row` goes from 1.0 to ~12.7 and the number of microbatches drops from 64 to 6. The rows are 95 % full! Forward and backward fall from 21.9 s to 5.6 s, while MFU rises from 3.9 % to 19 %. We now train on around 150 samples per step because the rows pack better than the mean-length estimate predicted.
 
@@ -304,9 +327,9 @@ Generation also jumps from 4.6k to 25k tokens/s, even though we changed nothing 
 
 The reason is that `AsyncGRPOConfig` defaults to `gradient_checkpointing=True`. Every microbatch recomputes its forward during the backward. This also explains why a 16k-token row only uses 25 GB on a 141 GB H200! It's a memory optimization for this trainer, but we don't need it in this specific case: the model is small enough to fit into VRAM with the activations kept for the backward.
 
-![Figure 3](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/asyncgrpo-lora-hfjobs/fig3-tb16k-vs-nockpt-crossover.png)
+![Figure 4](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/asyncgrpo-lora-hfjobs/fig3-tb16k-vs-nockpt-crossover.png)
 
-*Figure 3. trackio runs `r1-dp2-tb16k` and `r1-dp2-tb16k-nockpt` overlaid over their first 134 steps. Panels: `perf/fwd_s`, `perf/fwd_bwd_s`, `perf/weight_sync_s`, `sample/rollout_queue_size`, `perf/rollout_wait_s`, `perf/mfu_fwd_bwd`. Forward+backward drops by one forward; the queue falls from ~420 to ~60, and rollout wait rises from 0.02 s to 0.5 s: the bottleneck shifts to generation.*
+*Figure 4. trackio runs `r1-dp2-tb16k` and `r1-dp2-tb16k-nockpt` overlaid over their first 134 steps. Panels: `perf/fwd_s`, `perf/fwd_bwd_s`, `perf/weight_sync_s`, `sample/rollout_queue_size`, `perf/rollout_wait_s`, `perf/mfu_fwd_bwd`. Forward+backward drops by one forward; the queue falls from ~420 to ~60, and rollout wait rises from 0.02 s to 0.5 s: the bottleneck shifts to generation.*
 
 With `gradient_checkpointing=False`, forward and backward drop to 4.6 s, almost exactly one forward less, and MFU reaches 23 %. The queue now falls to 71 and rollout wait rises from 0.04 s to 0.6 s. The trainer consumes samples faster than two replicas generate them. We _successfully_ moved the bottleneck to generation.
 
@@ -316,9 +339,9 @@ This exposes two more costs. A 7.6-second weight sync every four steps now takes
 
 Since generation was now too slow, we added a third replica. We also reduced the adapter retry interval from 2 s to 0.5 s in the proxy and disabled `fsdp_reshard_after_forward` to check whether FSDP2 re-gathers caused the extra 2 seconds in backward.
 
-![Figure 4](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/asyncgrpo-lora-hfjobs/fig4-dp2-vs-dp3-inflight-cap.png)
+![Figure 5](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/asyncgrpo-lora-hfjobs/fig4-dp2-vs-dp3-inflight-cap.png)
 
-*Figure 4. trackio runs `r1-dp2-tb16k-nockpt` and `r1-dp3-tb16k-nockpt` overlaid over their first 134 steps. Panels: `perf/weight_sync_s`, `rollout/generated_tok_s`, `rollout/inflight`, `perf/fwd_bwd_s`. Sync falls from 7.6 s to 5.8 s; generation and forward+backward do not move; `rollout/inflight` reads 128 in both runs, which is the cap the third replica ran into.*
+*Figure 5. trackio runs `r1-dp2-tb16k-nockpt` and `r1-dp3-tb16k-nockpt` overlaid over their first 134 steps. Panels: `perf/weight_sync_s`, `rollout/generated_tok_s`, `rollout/inflight`, `perf/fwd_bwd_s`. Sync falls from 7.6 s to 5.8 s; generation and forward+backward do not move; `rollout/inflight` reads 128 in both runs, which is the cap the third replica ran into.*
 
 Weight sync falls from 7.6 s to 5.8 s, so the shorter retry helps. Forward and backward stay at 4.6 s, which rules out resharding. Generation moves from 25k to only 26k tokens/s. The third replica does basically nothing.
 
@@ -330,9 +353,9 @@ So vLLM was not the limit. Our own client-side constant was. We had set it conse
 
 `max_inflight_tasks=384` and `queue_maxsize=768`, nothing else.
 
-![Figure 5](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/asyncgrpo-lora-hfjobs/fig5-all-runs-scoreboard.png)
+![Figure 6](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/asyncgrpo-lora-hfjobs/fig5-all-runs-scoreboard.png)
 
-*Figure 5. All five trackio runs (`r1-dp2`, `r1-dp2-tb16k`, `r1-dp2-tb16k-nockpt`, `r1-dp3-tb16k-nockpt`, `r1-dp3-inflight384`) overlaid, x-axis in steps. Panels: `perf/step_s`, `reward`, `sample/rollout_queue_size`, `sample/staleness_mean`. Step time falls from 22.9 s to 4.8 s across the series while the reward curves stay on top of each other; the last run's queue refills to ~690 of 768 and its staleness settles at 2. Runs 2 to 4 were stopped early once the dashboard had answered the question.*
+*Figure 6. All five trackio runs (`r1-dp2`, `r1-dp2-tb16k`, `r1-dp2-tb16k-nockpt`, `r1-dp3-tb16k-nockpt`, `r1-dp3-inflight384`) overlaid, x-axis in steps. Panels: `perf/step_s`, `reward`, `sample/rollout_queue_size`, `sample/staleness_mean`. Step time falls from 22.9 s to 4.8 s across the series while the reward curves stay on top of each other; the last run's queue refills to ~690 of 768 and its staleness settles at 2. Runs 2 to 4 were stopped early once the dashboard had answered the question.*
 
 With 384 requests in flight, each replica gets 128. The queue quickly fills to around 690 out of 768 and stays there. Backpressure returns to 5 seconds and rollout wait falls to 0.03 seconds. Training is the bottleneck again! Forward and backward take 4.6 seconds, weight sync adds an amortized 1.5 seconds, and median step time is 4.8 seconds.
 
@@ -352,9 +375,9 @@ Mean staleness rises from 1.5 to 2.0 versions because samples wait longer in the
 | `sample/staleness_mean` | 1.5 | 2.0 |
 | reward, first 20 → last 20 steps | 0.145 → 0.438 | 0.145 → 0.416 |
 
-![Figure 6](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/asyncgrpo-lora-hfjobs/fig6-reward-vs-wallclock.png)
+![Figure 7](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/asyncgrpo-lora-hfjobs/fig6-reward-vs-wallclock.png)
 
-*Figure 6. trackio runs `r1-dp2` and `r1-dp3-inflight384`, reward against wall-clock minutes since the first optimizer step. Same recipe, same 500 steps, same final reward; run 5 gets there in 52 minutes instead of 3 h 26 min.*
+*Figure 7. trackio runs `r1-dp2` and `r1-dp3-inflight384`, reward against wall-clock minutes since the first optimizer step. Same recipe, same 500 steps, same final reward; run 5 gets there in 52 minutes instead of 3 h 26 min.*
 
 The final run is 3.9× faster and trains on 31 % more samples, with basically the same reward curve. Packing, disabling checkpointing and raising the in-flight limit made the difference. In each case, the dashboard made this clear within the first ten minutes.
 
@@ -377,7 +400,7 @@ TOKEN_BUDGET=16384 GRAD_ACCUM=6 GRADIENT_CHECKPOINTING=0 PROXY_LORA_RETRY_S=0.5 
 - Hugging Face [Jobs](https://huggingface.co/docs/huggingface_hub/guides/jobs) and [Storage Buckets](https://huggingface.co/docs/hub/storage-buckets); [`hf-mount`](https://github.com/huggingface/hf-mount).
 - [`hf-mount-repro`](https://github.com/AmineDiro/hf-mount-repro): the two-script reproduction of the 30-second negative-cache stall.
 - The [trackio dashboard](https://huggingface.co/spaces/aminediroHF/async-grpo-lora-buckets) for every run in this post.
-- Penghui Qi, Zichen Liu, Xiangxin Zhou, Tianyu Pang, Chao Du, Wee Sun Lee, Min Lin, [Defeating the Training-Inference Mismatch via FP16](https://arxiv.org/pdf/2510.26788), arXiv:2510.26788, 2025. Source of the Sanity dataset [`sail/Sanity-Test-R1D-1.5B`](https://huggingface.co/datasets/sail/Sanity-Test-R1D-1.5B) and of the LoRA recipe, [`sail-sg/Precision-RL`](https://github.com/sail-sg/Precision-RL), `oat/scripts/lora/bf16_grpo_tis_lora.sh`.
+- Penghui Qi, Zichen Liu, Xiangxin Zhou, Tianyu Pang, Chao Du, Wee Sun Lee, Min Lin, [Defeating the Training-Inference Mismatch via FP16](https://huggingface.co/papers/2510.26788), arXiv:2510.26788, 2025. Source of the Sanity dataset [`sail/Sanity-Test-R1D-1.5B`](https://huggingface.co/datasets/sail/Sanity-Test-R1D-1.5B) and of the LoRA recipe, [`sail-sg/Precision-RL`](https://github.com/sail-sg/Precision-RL), `oat/scripts/lora/bf16_grpo_tis_lora.sh`.
 
 ```bibtex
 @article{qi2025precisionrl,
