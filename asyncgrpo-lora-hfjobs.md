@@ -206,7 +206,7 @@ if any(st != 200 for _, st, _ in results):
 
 We also broadcast `/pause`, `/resume` and `/v1/unload_lora_adapter` in the same way. `/health` returns 200 only if every replica is healthy. `/server_info` and `/v1/models` only need one answer. From TRL's point of view, the proxy is a single `data_parallel_size=1` server, so it selects adapter-only sync.
 
-We initially wondered whether a Python asyncio proxy would become a bottleneck. It does not (at least at this scale). There are at most 128 non-streaming JSON requests in flight, and routing only computes a few hashes. One thread handles this easily. A more refined router that needs to handle more traffic would probably need to be written in a faster language (I see you 🦀).
+We initially wondered whether a Python asyncio proxy would become a bottleneck. It does not (at least at this scale). There are at most 128 non-streaming JSON requests in flight, and routing only computes a few hashes. One thread handles this easily. A more refined router that needs to handle more traffic would probably need to be written in a faster language (We see you 🦀).
 
 ## Full run results
 
