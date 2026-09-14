@@ -10,16 +10,12 @@ authors:
 
 # Async GRPO with LoRA across HF Jobs: a bucket, a proxy, and no NCCL
 
-<blockquote style="background-color: #f0f7ff; border-left: 4px solid #4a90d9; padding: 1em 1.5em; margin: 1.5em 0; border-radius: 4px;">
-
-**TL;DR**
-
-- `AsyncGRPOTrainer` can now train a LoRA adapter and sync only that adapter to vLLM (TRL v1.14).
-- A rank-1 adapter is a few megabytes, so it can travel through a Storage Bucket mounted in every Job instead of over NCCL. The trainer and the vLLM replicas run as separate Hugging Face Jobs on separate machines.
-- A small proxy in front of the replicas adds the auth header, routes each rollout to the replica that already holds its KV prefix, and broadcasts adapter loads to every replica.
-- The AsyncGRPO metrics show where the bottleneck sits. Five runs take the same recipe from 3 h 27 min to 53 min for 500 steps.
-
-</blockquote>
+> **TL;DR**
+>
+> - `AsyncGRPOTrainer` can now train a LoRA adapter and sync only that adapter to vLLM (TRL v1.14).
+> - A rank-1 adapter is a few megabytes, so it can travel through a Storage Bucket mounted in every Job instead of over NCCL. The trainer and the vLLM replicas run as separate Hugging Face Jobs on separate machines.
+> - A small proxy in front of the replicas adds the auth header, routes each rollout to the replica that already holds its KV prefix, and broadcasts adapter loads to every replica.
+> - The AsyncGRPO metrics show where the bottleneck sits. Five runs take the same recipe from 3 h 27 min to 53 min for 500 steps.
 
 LoRA support recently landed in TRL's [`AsyncGRPOTrainer`](https://huggingface.co/docs/trl/en/async_grpo_trainer) with [PR #7017](https://github.com/huggingface/trl/pull/7017), and ships with TRL v1.14. The asynchronous trainer can now train an adapter instead of the full model, and it syncs only the LoRA adapter to vLLM. This post covers a real-world project built on top of it, where training and inference no longer share a machine.
 
@@ -55,7 +51,7 @@ Nothing in TRL or vLLM had to change for this. The trainer writes to `/lora/<run
 
 <figure class="image text-center">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/asyncgrpo-lora-hfjobs/architecture.png" alt="Async GRPO with LoRA across Hugging Face Jobs. The trainer Job runs AsyncGRPOTrainer and the proxy, two vLLM Jobs serve the base model plus the latest adapter, and a Storage Bucket is mounted at /lora in all three.">
-  <figcaption style="font-size: 12px; color: #6b7280; margin-top: 4px;">The three Jobs and the bucket. TRL talks to the proxy over localhost, the proxy talks to the replicas over HTTPS, and the adapter directory travels through the bucket mount.</figcaption>
+  <figcaption>The three Jobs and the bucket. TRL talks to the proxy over localhost, the proxy talks to the replicas over HTTPS, and the adapter directory travels through the bucket mount.</figcaption>
 </figure>
 
 Note that we also store the checkpoints and the final adapter in the bucket. The HF Jobs are ephemeral, but a preempted trainer can resume training, as the final adapter is always persisted to the bucket and is never lost when the Job stops.
@@ -157,7 +153,7 @@ The job of [our router](https://github.com/AmineDiro/hfjobs-lora-buckets/blob/ma
     <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/asyncgrpo-lora-hfjobs/kv-prefix-router.mp4" type="video/mp4">
     Your browser does not support the video tag.
   </video>
-  <figcaption style="font-size: 12px; color: #6b7280; margin-top: 4px;">The routing decision for two prompts and four requests on two replicas: 16-token blocks, chained hashes, the common prefix, one affinity hit and one spill.</figcaption>
+  <figcaption>The routing decision for two prompts and four requests on two replicas: 16-token blocks, chained hashes, the common prefix, one affinity hit and one spill.</figcaption>
 </figure>
 
 The video walks through the entire decision process for choosing a replica. The steps below go through a real 135-token completion request example (from the Sanity dataset problems):
