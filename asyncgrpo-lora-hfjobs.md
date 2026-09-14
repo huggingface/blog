@@ -5,6 +5,7 @@ authors:
   - user: aminediroHF
   - user: qgallouedec
   - user: kashif
+  - user: sergiopaniego
 ---
 
 # Async GRPO with LoRA across HF Jobs: a bucket, a proxy, and no NCCL
