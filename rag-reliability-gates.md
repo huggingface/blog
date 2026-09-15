@@ -13,7 +13,7 @@ authors:
 
 ## Abstract
 
-Most RAG systems are built retrieval-first and governed never: documents are chunked, embedded, written, and then trusted blindly. We took the opposite approach and rebuilt a production personal knowledge base (66,752 chunks, 6 isolated data layers) around **write-path governance**: a contract-driven ingest kernel, idempotent writes with three-way storage reconciliation, a dual-channel NP watermark calibration method for retrieval admission control, queue-backlog governance with automatic zeroing, and a mesh of 120 mechanical gates that turn every past incident into a permanent check. On a single Mac mini M4 (32 GB), the system sustains **295.1 chunks/s ingest throughput**, **18.7 ms retrieval latency**, **91.11% hit rate**, and **MRR 0.9398** — while detecting and repairing its own degradation without human intervention. The full frozen framework is open sourced (PolyForm Noncommercial).
+Most RAG systems are built retrieval-first and governed never: documents are chunked, embedded, written, and then trusted blindly. We took the opposite approach and rebuilt a production personal knowledge base (66,752 chunks, 6 isolated data layers) around **write-path governance**: a contract-driven ingest kernel, idempotent writes with three-way storage reconciliation, a dual-channel NP watermark calibration method for retrieval admission control, queue-backlog governance with automatic zeroing, and a mesh of 120 mechanical gates that turn every past incident into a permanent check. On a single Mac mini M4 (32 GB), the system sustains **295.1 chunks/s ingest throughput**, **18.7 ms retrieval latency**, **91.11% hit rate**, and **MRR 0.9398** — while detecting and repairing its own degradation without human intervention. This is an **engineering practice report** from production operation — no new algorithms are claimed; the contribution is a measured assembly of reliability patterns for RAG write-path governance. The full frozen framework is open sourced (PolyForm Noncommercial).
 
 ## 1. Introduction
 
@@ -66,7 +66,7 @@ Retrieval fuses BM25 and vector scores with adaptive weights, then applies **lay
 
 ### 4.5 NP Watermark Calibration
 
-Our retrieval admission control uses a dual-channel **NP watermark method**: for each query, BM25 and vector channels produce score distributions, and the system grades confidence into `confident` / `gray` bands; low-confidence queries are intercepted rather than answered with noise. Crucially, the watermarks are **self-calibrating**: when evaluation metrics degrade, the system re-runs calibration, writes the new thresholds (τ) back to the rule source, and re-verifies — a full self-healing loop we observed completing end-to-end with zero human steps. Measured dual-channel watermarks: BM25 0.9553/0.94, vector 0.9365/0.77 on the teaching-QA track.
+Our retrieval admission control uses a dual-channel **NP watermark method** ("NP watermark" is our internal name for the method): admission watermarks are calibrated by bisection over historical production queries, maximizing recall subject to a fixed false-trigger budget. For each query, BM25 and vector channels produce score distributions, and the system grades confidence into `confident` / `gray` bands; low-confidence queries are intercepted rather than answered with noise. Crucially, the watermarks are **self-calibrating**: when evaluation metrics degrade, the system re-runs calibration, writes the new thresholds (τ) back to the rule source, and re-verifies — a full self-healing loop we observed completing end-to-end with zero human steps. Measured dual-channel watermarks: BM25 0.9553/0.94, vector 0.9365/0.77 on the teaching-QA track.
 
 ### 4.6 Queue Backlog Governance ("Dujiangyan")
 
@@ -74,7 +74,7 @@ The ingest queue is governed like water level at a dam: a `backlog_gauge` monito
 
 ### 4.7 Gates as a Reliability Mesh
 
-The distinctive moat of the system is its **gate mesh**: 120 mechanical gates (danger-command pre-gates, declaration gates, plan gates, profit gates, dedup gates, freshness gates…) plus 28 distilled review dimensions learned from retrospectives. Every production incident is compiled into a permanent mechanical check with an audit trail, so the system literally cannot repeat a diagnosed mistake. This is reliability engineering applied to RAG operations: the system finds its own degradation and repairs its own thresholds.
+The distinctive moat of the system is its **gate mesh**: 120 mechanical gates (danger-command pre-gates, declaration gates, plan gates, profit gates, dedup gates, freshness gates…) plus 28 distilled review dimensions learned from retrospectives. A *mechanical gate*, as we use the term, is a **deterministic, script-enforced pre/post condition with a logged binary verdict — no LLM judgment inside the check itself** (e.g., "a bulk delete must report zero remaining target rows in a post-count, or it is not done"); the count 120 is the current registry size. Every production incident is compiled into a permanent mechanical check with an audit trail, so the system literally cannot repeat a diagnosed mistake. This is reliability engineering applied to RAG operations: the system finds its own degradation and repairs its own thresholds.
 
 ### 4.8 Answer-Side Flywheel
 
@@ -89,11 +89,15 @@ For scale-out, the system runs a **dual-write gray migration**: LanceDB remains 
 | Item | Value |
 |---|---|
 | Hardware | Mac mini M4, 32 GB RAM (single consumer machine, local deployment) |
+| OS / runtime | macOS (arm64), Python 3.12, bge-m3 served locally (MLX gateway), no cloud calls for embeddings |
 | Corpus | 66,752 chunks, 6 isolated layers, 29-column unified schema |
 | Embedding | bge-m3, 1024-dim, local inference |
 | Vector store | LanceDB (primary) + Milvus (dual-write gray) |
 | Sparse index | BM25 (per-layer partitions) |
-| Measurement window | 2026-09-07 → 2026-09-11 production sessions, n=28 probes |
+| Probe set | n=28 probes sampled from production sessions (2026-09-07 → 09-11), human-labeled ground truth |
+| Measurement | latency at the API assembly layer (fusion + rerank included); throughput over full production ingest runs (63,017-chunk batch) |
+
+**Scope note:** this is a **single-machine experiment on a 66k-chunk personal corpus — not a distributed, multi-million-chunk industrial cluster**. Numbers should be read as an engineering reference for what one consumer machine can govern, not as cluster benchmarks. Evaluation scripts live in `integration/` of the repository; raw dashboards and metric tables are the figures above.
 
 ## 6. Result & Analysis
 
@@ -137,5 +141,5 @@ RAG quality is usually attacked from the model side. We attacked it from the gov
 
 - **Repository (frozen pre-Milvus snapshot, desensitized):** [github.com/xu-jin-cs/xjframe-20260913](https://github.com/xu-jin-cs/xjframe-20260913)
 - One-click download & install: `git clone` + `./install.sh` (see README)
-- License: **PolyForm Noncommercial 1.0.0** — free for personal/research use with attribution; commercial use requires written permission
+- License: **PolyForm Noncommercial 1.0.0** — free for personal/research use with attribution; commercial use requires written permission. We chose a source-available noncommercial license deliberately: this is a personal research artifact published for study and self-hosting, and we would like commercial adoption to start a conversation rather than happen silently. Third-party components keep their own licenses (e.g., bge-m3 is MIT), and the license restricts the framework code only — not your data or your models.
 - All figures in this post are served from the repository; hardware baseline: Mac mini M4 32 GB
