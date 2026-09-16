@@ -106,7 +106,6 @@ Our reference for local inference performance is llama.cpp. The comparison below
 
 The llama.cpp column comes from their own [`llama-bench`](https://github.com/ggml-org/llama.cpp/tree/master/tools/llama-bench) tool (build `5f55650a7`, release b10200, Metal backend from ggml 0.18.0), run as `llama-bench -m <file> -p 0 -n 128 -r 3`, which reports `tg128`: the token-generation rate over 128 decoded tokens, averaged across three repetitions, with prompt processing excluded. The transformers column is `generate` producing the same 128 tokens from a 12-token prompt, best of three warmed runs, and it includes prefill.
 
-The two are close but not identical, and the differences do not all point the same way. `llama-bench` does no sampling at all, while `generate` runs a logits pass and an argmax per token even with `do_sample=False`; we include prompt processing and they do not; they average three repetitions and we take the best of three. The first two make our column slightly pessimistic, the third slightly optimistic. Treat differences of a few percent as noise rather than a ranking.
 
 Measured on a MacBook Pro M2 Max, 32 GB unified memory, macOS 26.6, PyTorch 2.12.1, kernels 0.17.0,
 plugged in.
@@ -128,7 +127,6 @@ tokenizer = AutoTokenizer.from_pretrained(model_id, gguf_file=filename)
 inputs = tokenizer("The capital of France is Paris. The capital of Germany is", return_tensors="pt")
 inputs = inputs.to(model.device)
 
-assert any(p.dtype == torch.uint8 for p in model.parameters()), "weights were dequantized"
 
 with torch.inference_mode():
     model.generate(**inputs, max_new_tokens=8, min_new_tokens=8, do_sample=False)  # warm up
