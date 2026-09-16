@@ -38,8 +38,6 @@ To get started, you need:
 - **A PyTorch version supported by the published [ggml-quantization kernel builds](https://huggingface.co/transformers-community/ggml-quantization)**, usually the two latest PyTorch releases.
 - **The latest version of transformers (main for now, until the next release) and a compatible version of `kernels`**.
 
-<!-- Before publication: list the PyTorch versions covered by the published Metal builds (expected to be the latest two releases), any macOS minimum imposed by those builds, and the minimum transformers release. Confirm the kernels version range and update the installation command below. -->
-
 ```bash
 pip install -U "git+https://github.com/huggingface/transformers.git" kernels
 ```
@@ -222,8 +220,6 @@ To show the contribution of the layer kernels, we will compare the same packed G
 | Qwen3.8-27B | `UD-Q4_K_M` | 10.5 | 15.9 | 1.51x |
 | Qwen3.5-35B-A3B | `Q4_K_M` | TBD | TBD | TBD |
 
-<!-- BENCHMARKS TO ADD: keep the generation fixes enabled in both configurations. The optimized configuration uses ggml-attn and all applicable norm, gated-delta-net, and top-k kernels; the baseline keeps ggml-quantization but disables those layer replacements. Record the baseline attention implementation. -->
-
 ### Keeping the CPU and GPU working together
 
 Faster kernels only help if the GPU has work to do. During generation, the CPU schedules GPU operations and controls the loop that produces the next token. Reading a result back from the GPU can force the CPU to wait until queued operations finish. Repeating even a small wait for every token can noticeably reduce throughput.
@@ -241,7 +237,6 @@ These changes improve the generation loop around the model, so their usefulness 
 | Qwen3.8-27B | `UD-Q4_K_M` | 13.7 | 15.9 | 1.16x |
 | Qwen3.5-35B-A3B | `Q4_K_M` | TBD | TBD | TBD |
 
-<!-- BENCHMARKS TO ADD: isolate the two generation changes while holding model files, kernels, prompt, output length, and generation settings constant. Record the exact revisions and which optimized paths apply to each model. -->
 
 ## Current limitations and next steps
 
