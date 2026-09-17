@@ -13,8 +13,8 @@ jobs:
   yaml-schema-validation:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
-      - uses: denoland/setup-deno@v1
+      - uses: actions/checkout@v7
+      - uses: denoland/setup-deno@v2
         with:
           deno-version: v1.x
       - run: deno run --allow-net --allow-read ./validate-yaml.ts
