@@ -151,7 +151,7 @@ llama-bench -hf unsloth/Qwen3.5-4B-GGUF:Q4_K_M -p 0 -n 128 -r 3
 |---|---|---:|---:|---:|
 | Qwen3.5-4B | `Q4_K_M` | [2.74 GB](https://huggingface.co/unsloth/Qwen3.5-4B-GGUF/blob/main/Qwen3.5-4B-Q4_K_M.gguf) | 71.8 ± 0.4 | 70.4 |
 | Qwen3.8-27B | `UD-Q4_K_M` | [16.5 GB](https://huggingface.co/unsloth/Qwen3.8-27B-GGUF/blob/main/Qwen3.8-27B-UD-Q4_K_M.gguf) | 13.4 ± 0.9 | 15.9 |
-| Qwen3.5-35B-A3B | `Q4_K_M` | [22 GB](https://huggingface.co/unsloth/Qwen3.5-35B-A3B-GGUF/blob/main/Qwen3.5-35B-A3B-Q4_K_M.gguf) | TBD | TBD |
+| Qwen3.5-35B-A3B | `UD-IQ4_XS` | [16.3 GB](https://huggingface.co/unsloth/Qwen3.5-35B-A3B-GGUF/blob/main/Qwen3.5-35B-A3B-UD-IQ4_XS.gguf) | 61.3 ± 0.5 | 60.2 |
 
 
 ## transformers and llama.cpp
@@ -216,7 +216,7 @@ To show the contribution of the layer kernels, we will compare the same packed G
 |---|---|---:|---:|---:|
 | Qwen3.5-4B | `Q4_K_M` | 44.2 | 70.4 | 1.59x |
 | Qwen3.8-27B | `UD-Q4_K_M` | 10.5 | 15.9 | 1.51x |
-| Qwen3.5-35B-A3B | `Q4_K_M` | TBD | TBD | TBD |
+| Qwen3.5-35B-A3B | `UD-IQ4_XS` | 28.8 | 60.2 | 1.80x |
 
 ### Keeping the CPU and GPU working together
 
@@ -233,7 +233,7 @@ These changes improve the generation loop around the model, so their usefulness 
 |---|---|---:|---:|---:|
 | Qwen3.5-4B | `Q4_K_M` | 49.6 | 70.4 | 1.42x |
 | Qwen3.8-27B | `UD-Q4_K_M` | 13.7 | 15.9 | 1.16x |
-| Qwen3.5-35B-A3B | `Q4_K_M` | TBD | TBD | TBD |
+| Qwen3.5-35B-A3B | `UD-IQ4_XS` | 33.7 | 60.2 | 1.79x |
 
 
 ## Current limitations and next steps
