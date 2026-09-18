@@ -9,7 +9,7 @@ authors:
 
 Running AI models on your laptop has become much easier, and [llama.cpp](https://github.com/ggml-org/llama.cpp) has been a big part of that. Its inference engine powers local AI tools such as Ollama, LM Studio, and Jan. Alongside projects like [MLX](https://github.com/ml-explore/mlx), it has helped make local inference a practical option for everyday use.
 
-**GGUF**, developed by the llama.cpp team, is the format people use for local inference. Organizations such as [Unsloth](https://huggingface.co/unsloth) publish ready-to-use GGUF checkpoints in a range of quantizations, so users can pick the version that fits their machine. These files are downloaded millions of times: at the time of writing, Unsloth's [Qwen3.8-27B-GGUF](https://huggingface.co/unsloth/Qwen3.8-27B-GGUF), one of the models we worked with for this integration, records nearly 9 million downloads over the last month.
+**GGUF**, developed by the llama.cpp team, is a widely used format for local inference. The team also shares quantized checkpoints under [ggml-org on the Hub](https://huggingface.co/ggml-org). Publishers such as [Unsloth](https://huggingface.co/unsloth), [LM Studio Community](https://huggingface.co/lmstudio-community), and [bartowski](https://huggingface.co/bartowski) also provide ready-to-use GGUF checkpoints in a range of quantizations, so users can pick the version that fits their machine. GGUF models have been downloaded millions of times.
 
 We want to make it easier to run these models locally with transformers, too. **We're adding support for running GGUF models efficiently in transformers**, so you can use checkpoints sized for your laptop's memory through the familiar transformers APIs. Pick a GGUF from the Hub, load it with `from_pretrained`, and start generating on your own machine.
 
@@ -42,7 +42,9 @@ To get started, you need:
 pip install -U "git+https://github.com/huggingface/transformers.git" kernels
 ```
 
-To load a GGUF model, pass its Hub `model_id` and filename as `gguf_file` to `from_pretrained`. We recommend `attn_implementation="transformers-community/ggml-attn"` for performance, but `"sdpa"` also works. transformers automatically applies other compatible ggml/Metal kernels when available. See the [GGUF documentation](https://huggingface.co/docs/transformers/main/en/quantization/gguf) for more loading options.
+To load a GGUF model, pass its Hub `model_id` and filename as `gguf_file` to `from_pretrained`.
+
+The attention kernel still needs to be selected explicitly: we recommend `attn_implementation="transformers-community/ggml-attn"` for performance, but `"sdpa"` also works. transformers automatically applies the other compatible ggml/Metal layer kernels when available. See the [GGUF documentation](https://huggingface.co/docs/transformers/main/en/quantization/gguf) for more loading options.
 
 ```python
 import torch
@@ -55,7 +57,6 @@ tokenizer = AutoTokenizer.from_pretrained(model_id, gguf_file=filename)
 model = AutoModelForCausalLM.from_pretrained(
     model_id,
     gguf_file=filename,
-    device_map="mps",
     attn_implementation="transformers-community/ggml-attn",
 )
 
@@ -102,7 +103,7 @@ transformers runs the model on your Mac, while the client provides the conversat
 
 ## Benchmarking against llama.cpp
 
-Our reference for local inference performance is llama.cpp. The comparison below will focus on three widely used GGUF checkpoints: a small dense model, a larger dense model, and a mixture-of-experts model.
+Our reference for local inference performance is llama.cpp. The comparison below focuses on three GGUF checkpoints: a small dense model, a larger dense model, and a mixture-of-experts model.
 
 The llama.cpp column comes from their own [`llama-bench`](https://github.com/ggml-org/llama.cpp/tree/master/tools/llama-bench) tool (build `5f55650a7`, release b10200, Metal backend from ggml 0.18.0), run as `llama-bench -m <file> -p 0 -n 128 -r 3`, which reports `tg128`: the token-generation rate over 128 decoded tokens, averaged across three repetitions, with prompt processing excluded. The transformers column is `generate` producing the same 128 tokens from a 12-token prompt, best of three warmed runs, and it includes prefill.
 
@@ -186,7 +187,7 @@ model = AutoModelForCausalLM.from_pretrained(
 
 transformers already provides the PyTorch implementations of these architectures. With ggml kernels and quantization schemes available in PyTorch, we can work toward accelerating their supported operations without first implementing the entire model in llama.cpp. This is especially useful for new architectures, research models, and custom variants that may never receive a dedicated llama.cpp implementation.
 
-That opportunity extends beyond the GGUF format itself. A kernel operates on tensors; it does not require the whole model to come from a GGUF file. The same building blocks can be integrated into other transformers models and loading workflows.
+That opportunity extends beyond the GGUF format itself. A kernel operates on tensors; it does not require the whole model to come from a GGUF file. The same building blocks can be integrated into other transformers models and loading workflows. This also opens a path to other modalities: computer vision models, audio models, and multimodal models could reuse compatible attention, normalization, and matrix multiplication kernels without first having a full implementation in llama.cpp. Each architecture still needs integration and validation; the initial GGUF examples here cover text generation.
 
 ## Fast local inference with Python and PyTorch
 
@@ -210,13 +211,13 @@ The `kernels` library lets us distribute compatible builds of ggml's Metal kerne
 
 The first four packages build on ggml's kernels; the top-k kernel addresses a separate bottleneck in MoE routing. Together they reduce the GPU work needed for each generated token.
 
-To show the contribution of the layer kernels, we will compare the same packed GGUF checkpoints with and without them. The quantization kernel stays enabled in both configurations: disabling it would also change how weights are represented and would measure a different tradeoff.
+To show the contribution of the layer kernels, we compare the same packed GGUF checkpoints with and without them. The quantization kernel stays enabled in both configurations: disabling it would also change how weights are represented and would measure a different tradeoff.
 
 | Model | Quantization | Packed weights, standard layers (tok/s) | Packed weights, optimized layer kernels (tok/s) | Speedup |
 |---|---|---:|---:|---:|
 | Qwen3.5-4B | `Q4_K_M` | 44.2 | 70.4 | 1.59x |
 | Qwen3.8-27B | `UD-Q4_K_M` | 10.5 | 15.9 | 1.51x |
-| Qwen3.5-35B-A3B | `UD-IQ4_XS` | 28.8 | 60.2 | 1.80x |
+| Qwen3.5-35B-A3B | `UD-IQ4_XS` | 28.8 | 60.2 | 2.09x |
 
 ### Keeping the CPU and GPU working together
 
