@@ -121,7 +121,7 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 model_id, filename = "unsloth/Qwen3.5-4B-GGUF", "Qwen3.5-4B-Q4_K_M.gguf"
 
 model = AutoModelForCausalLM.from_pretrained(
-    model_id, gguf_file=filename, device_map="mps",
+    model_id, gguf_file=filename,
     attn_implementation="transformers-community/ggml-attn",
 )
 tokenizer = AutoTokenizer.from_pretrained(model_id, gguf_file=filename)
