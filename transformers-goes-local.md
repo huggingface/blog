@@ -17,7 +17,7 @@ Compatibility is only useful if the model is pleasant to run. To bring performan
 
 ## What is the GGUF file format?
 
-[GGUF](https://github.com/ggml-org/ggml/blob/master/docs/gguf.md) packages model weights and metadata, including tokenizer information and an optional chat template, in one file. It supports different quantization levels, letting you trade some precision for a smaller memory footprint. Variants such as `Q4_K_M` mix tensor precisions, using mostly 4-bit weights while keeping selected tensors at higher precision.
+[GGUF](https://github.com/ggml-org/ggml/blob/master/docs/gguf.md) packages model weights and metadata, including tokenizer information and an optional chat template, in one file. It supports different quantization levels, letting you trade some precision for a smaller memory footprint. Variants such as `Q4_K_M` mix tensor precisions, using mostly 4-bit weights while keeping sensitive tensors at higher precision.
 
 Here's how quantization changes the file size of [Unsloth's Qwen3.5-4B](https://huggingface.co/unsloth/Qwen3.5-4B-GGUF/tree/main):
 
@@ -35,7 +35,7 @@ We suggest starting with `Q4_K_M`, then trying `Q5_K_M` or `Q6_K` if you have mo
 To get started, you need:
 
 - **An Apple Silicon Mac**.
-- **A PyTorch version supported by the published [ggml-quantization kernel builds](https://huggingface.co/transformers-community/ggml-quantization)**, usually the two latest PyTorch releases.
+- **A PyTorch version supported by the published [ggml-quantization kernel builds](https://huggingface.co/kernels/transformers-community/ggml-quantization)**, usually the two latest PyTorch releases.
 - **The latest version of transformers (main for now, until the next release) and a compatible version of `kernels`**.
 
 ```bash
@@ -44,7 +44,7 @@ pip install -U "git+https://github.com/huggingface/transformers.git" kernels
 
 To load a GGUF model, pass its Hub `model_id` and filename as `gguf_file` to `from_pretrained`.
 
-The attention kernel still needs to be selected explicitly: we recommend `attn_implementation="transformers-community/ggml-attn"` for performance, but `"sdpa"` also works. transformers automatically applies the other compatible ggml/Metal layer kernels when available. See the [GGUF documentation](https://huggingface.co/docs/transformers/main/en/quantization/gguf) for more loading options.
+The attention kernel still needs to be selected explicitly: we recommend `attn_implementation="transformers-community/ggml-attn"` for performance, but `"sdpa"` also works. transformers automatically applies other compatible ggml/Metal layer kernels when available. See the [GGUF documentation](https://huggingface.co/docs/transformers/main/en/quantization/gguf) for more loading options.
 
 ```python
 import torch
@@ -105,7 +105,7 @@ transformers runs the model on your Mac, while the client provides the conversat
 
 Our reference for local inference performance is llama.cpp. The comparison below focuses on three GGUF checkpoints: a small dense model, a larger dense model, and a mixture-of-experts model.
 
-The llama.cpp column comes from their own [`llama-bench`](https://github.com/ggml-org/llama.cpp/tree/master/tools/llama-bench) tool (build `5f55650a7`, release b10200, Metal backend from ggml 0.18.0), run as `llama-bench -m <file> -p 0 -n 128 -r 3`, which reports `tg128`: the token-generation rate over 128 decoded tokens, averaged across three repetitions, with prompt processing excluded. The transformers column is `generate` producing the same 128 tokens from a 12-token prompt, best of three warmed runs, and it includes prefill.
+The llama.cpp column comes from the [`llama-bench`](https://github.com/ggml-org/llama.cpp/tree/master/tools/llama-bench) tool (build `5f55650a7`, release b10200, Metal backend from ggml 0.18.0), run as `llama-bench -m <file> -p 0 -n 128 -r 3`, which reports `tg128`: the token-generation rate over 128 decoded tokens, averaged across three repetitions, with prompt processing excluded. The transformers column is `generate` producing the same 128 tokens from a 12-token prompt, best of three warmed runs, and it includes prefill.
 
 
 Measured on a MacBook Pro M2 Max, 32 GB unified memory, macOS 26.6, PyTorch 2.12.1, kernels 0.17.0,
@@ -223,7 +223,7 @@ To show the contribution of the layer kernels, we compare the same packed GGUF c
 
 Faster kernels only help if the GPU has work to do. During generation, the CPU schedules GPU operations and controls the loop that produces the next token. Reading a result back from the GPU can force the CPU to wait until queued operations finish. Repeating even a small wait for every token can noticeably reduce throughput.
 
-Two changes address this in `generate`:
+Two changes address this in `generate`, which results in improvements for all transformers models (not just when running GGUF files):
 
 - **[Drop an unnecessary attention mask early (#48814)](https://github.com/huggingface/transformers/pull/48814).** When a supported decoder-only input has no padding, its all-ones padding mask can be removed at the start of generation. Downstream attention code no longer needs to inspect that mask repeatedly to determine whether it can be skipped. Causal attention is still preserved.
 - **[Defer the stopping check (#47975)](https://github.com/huggingface/transformers/pull/47975).** On supported paths, `generate` copies the stopping decision asynchronously and consumes it on the following step. The CPU can keep scheduling work while the GPU runs. Streaming tokens use the same approach, and any extra step past the stopping condition is removed from the result.
