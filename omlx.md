@@ -17,7 +17,7 @@ MLX is Apple's framework for local AI, especially optimized for Apple Silicon. W
 
 ## What is the impact for oMLX?
 
-Stability, and hopefully faster development! Graduating from a side job to a fully maintained and funded project will allow Jun to better guide the contributors and reflect about long-term strategy. oMLX stays Apache 2.0, and Jun keeps leading it as before.
+Stability, and hopefully faster development! Graduating from a side job to a fully maintained and funded project will allow Jun to better guide the contributors and reflect about long-term strategy. [oMLX](https://github.com/jundot/omlx) stays Apache 2.0, and Jun keeps leading it as before.
 
 ## What is the impact for MLX at large?
 
