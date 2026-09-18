@@ -5770,3 +5770,12 @@
     - open-source
     - hub
     - storage
+
+- local: transformers-goes-local
+  date: September 16, 2026
+  tags:
+    - transformers
+    - gguf
+    - kernels
+    - inference
+    - local
