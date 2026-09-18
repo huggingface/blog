@@ -5770,3 +5770,10 @@
     - open-source
     - hub
     - storage
+- local: omlx
+  date: September 18, 2026
+  tags:
+    - mlx
+    - open-source
+    - community
+    - llm
