@@ -202,11 +202,11 @@ The `kernels` library lets us distribute compatible builds of ggml's Metal kerne
 
 | Kernel | What it does |
 |---|---|
-| [`ggml-quantization`](https://huggingface.co/transformers-community/ggml-quantization) | Reads packed quantized weights for matrix operations, including the selected experts in an MoE model. It avoids expanding the whole weight matrix before each decode operation. |
-| [`ggml-norm`](https://huggingface.co/transformers-community/ggml-norm) | Fuses normalization operations, including the zero-centered RMSNorm used by Qwen3.5. |
-| [`ggml-attn`](https://huggingface.co/transformers-community/ggml-attn) | Provides ggml's Metal flash attention for prompt processing and token decoding. |
-| [`ggml-gated-delta-net`](https://huggingface.co/transformers-community/ggml-gated-delta-net) | Accelerates the gated delta network used in the linear-attention layers of Qwen3.5's hybrid architecture. |
-| [`topk`](https://huggingface.co/transformers-community/topk) | Selects the experts for each token in an MoE model, combining softmax and top-k routing. This is our own Metal implementation. |
+| [`ggml-quantization`](https://huggingface.co/kernels/transformers-community/ggml-quantization) | Reads packed quantized weights for matrix operations, including the selected experts in an MoE model. It avoids expanding the whole weight matrix before each decode operation. |
+| [`ggml-norm`](https://huggingface.co/kernels/transformers-community/ggml-norm) | Fuses normalization operations, including the zero-centered RMSNorm used by Qwen3.5. |
+| [`ggml-attn`](https://huggingface.co/kernels/transformers-community/ggml-attn) | Provides ggml's Metal flash attention for prompt processing and token decoding. |
+| [`ggml-gated-delta-net`](https://huggingface.co/kernels/transformers-community/ggml-gated-delta-net) | Accelerates the gated delta network used in the linear-attention layers of Qwen3.5's hybrid architecture. |
+| [`topk`](https://huggingface.co/kernels/transformers-community/topk) | Selects the experts for each token in an MoE model, combining softmax and top-k routing. This is our own Metal implementation. |
 
 The first four packages build on ggml's kernels; the top-k kernel addresses a separate bottleneck in MoE routing. Together they reduce the GPU work needed for each generated token.
 
