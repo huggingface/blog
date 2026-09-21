@@ -5770,8 +5770,18 @@
     - open-source
     - hub
     - storage
+
+- local: tokenizers-v1
+  date: September 21, 2026
+  tags:
+    - tokenizers
+    - tokenization
+    - rust
+    - performance
+    - open-source
+
 - local: omlx
-  date: September 18, 2026
+  date: September 22, 2026
   tags:
     - mlx
     - open-source
