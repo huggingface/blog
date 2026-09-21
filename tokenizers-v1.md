@@ -2,6 +2,9 @@
 title: "tokenizers v1: encode, decode and scaling, measured"
 thumbnail: /blog/assets/tokenizers-v1/thumbnail.png
 authors:
+- user: ArthurZ
+- user: sbrandeis
+- user: mcpotato
 - user: lysandre
 ---
 
@@ -131,7 +134,7 @@ Across the ten model families v1's encode path covers, it encodes text **3 to 30
 
 The overall improvement comes from several changes working together: a hand-written splitter in place of a regex engine, a cache that answers a repeated word without merging it again, a merge loop that never touches the allocator, and one model call per batch of pre-tokens instead of one per pre-token. Each reduces the work done at a different point in the pipeline.
 
-The next priority is support for more model families. We will move additional models onto the new merge loop before `1.0.0`.
+The next priority is support for more model families. We will move additional models onto the new merge loop before `1.0.0`. Once the release candidates stabilize, the next step will be bringing about the improvements within the transformers library and the rest of the ecosystem which depend on the tokenizers library.
 
 This post is generated from [tokbench](https://github.com/huggingface/tokbench) results and will be updated as support expands.
 
