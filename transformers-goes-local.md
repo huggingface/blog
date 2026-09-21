@@ -35,7 +35,7 @@ We suggest starting with `Q4_K_M`, then trying `Q5_K_M` or `Q6_K` if you have mo
 To get started, you need:
 
 - **An Apple Silicon Mac**.
-- **A PyTorch version supported by the published [ggml-quantization kernel builds](https://huggingface.co/kernels/transformers-community/ggml-quantization)**, usually the two latest PyTorch releases.
+- **A PyTorch version supported by the published [ggml-quantization kernel builds](https://huggingface.co/kernels/ggml-org/ggml-quantization)**, usually the two latest PyTorch releases.
 - **The latest version of transformers (main for now, until the next release) and a compatible version of `kernels`**.
 
 ```bash
@@ -44,7 +44,7 @@ pip install -U "git+https://github.com/huggingface/transformers.git" kernels
 
 To load a GGUF model, pass its Hub `model_id` and filename as `gguf_file` to `from_pretrained`.
 
-No extra configuration is needed: when the weights stay packed on Metal, transformers automatically loads the compatible ggml/Metal layer kernels and uses `transformers-community/ggml-attn` as the attention implementation. If that kernel cannot be fetched, the model falls back to `"sdpa"` with a warning, and you can always force `"sdpa"` by passing `attn_implementation="sdpa"` explicitly. See the [GGUF documentation](https://huggingface.co/docs/transformers/main/en/quantization/gguf) for more loading options.
+No extra configuration is needed: when the weights stay packed on Metal, transformers automatically loads the compatible ggml/Metal layer kernels and uses `ggml-org/ggml-attn` as the attention implementation. If that kernel cannot be fetched, the model falls back to `"sdpa"` with a warning, and you can always force `"sdpa"` by passing `attn_implementation="sdpa"` explicitly. See the [GGUF documentation](https://huggingface.co/docs/transformers/main/en/quantization/gguf) for more loading options.
 
 ```python
 import torch
@@ -203,10 +203,10 @@ The `kernels` library lets us distribute compatible builds of ggml's Metal kerne
 
 | Kernel | What it does |
 |---|---|
-| [`ggml-quantization`](https://huggingface.co/kernels/transformers-community/ggml-quantization) | Reads packed quantized weights for matrix operations, including the selected experts in an MoE model. It avoids expanding the whole weight matrix before each decode operation. |
-| [`ggml-norm`](https://huggingface.co/kernels/transformers-community/ggml-norm) | Fuses normalization operations, including the zero-centered RMSNorm used by Qwen3.5 and Qwen3.8. |
-| [`ggml-attn`](https://huggingface.co/kernels/transformers-community/ggml-attn) | Provides ggml's Metal flash attention for prompt processing and token decoding. |
-| [`ggml-gated-delta-net`](https://huggingface.co/kernels/transformers-community/ggml-gated-delta-net) | Accelerates the gated delta network used in the linear-attention layers of the Qwen3.5 and Qwen3.8 hybrid architectures. |
+| [`ggml-quantization`](https://huggingface.co/kernels/ggml-org/ggml-quantization) | Reads packed quantized weights for matrix operations, including the selected experts in an MoE model. It avoids expanding the whole weight matrix before each decode operation. |
+| [`ggml-norm`](https://huggingface.co/kernels/ggml-org/ggml-norm) | Fuses normalization operations, including the zero-centered RMSNorm used by Qwen3.5 and Qwen3.8. |
+| [`ggml-attn`](https://huggingface.co/kernels/ggml-org/ggml-attn) | Provides ggml's Metal flash attention for prompt processing and token decoding. |
+| [`ggml-gated-delta-net`](https://huggingface.co/kernels/ggml-org/ggml-gated-delta-net) | Accelerates the gated delta network used in the linear-attention layers of the Qwen3.5 and Qwen3.8 hybrid architectures. |
 | [`topk`](https://huggingface.co/kernels/transformers-community/topk) | Selects the experts for each token in an MoE model, combining softmax and top-k routing. This is our own Metal implementation. |
 
 The first four packages build on ggml's kernels; the top-k kernel addresses a separate bottleneck in MoE routing. Together they reduce the GPU work needed for each generated token.
