@@ -217,8 +217,6 @@ To show the contribution of the layer kernels, we compare the same packed GGUF c
 
 ![Throughput improvement from the layer kernels](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/transformers-llama-cpp-quants/layer-kernel-benchmark.svg)
 
-The quantization kernel stays enabled in both configurations, so the comparison measures the contribution of the other layer kernels without changing how the weights are represented.
-
 ### Keeping the CPU and GPU working together
 
 Faster kernels only help if the GPU has work to do. During generation, the CPU schedules GPU operations and controls the loop that produces the next token. Reading a result back from the GPU can force the CPU to wait until queued operations finish. Repeating even a small wait for every token can noticeably reduce throughput.
