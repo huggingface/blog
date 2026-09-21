@@ -5771,8 +5771,8 @@
     - hub
     - storage
 
-- local: transformers-goes-local
-  date: September 16, 2026
+- local: transformers-llama-cpp-quants
+  date: September 22, 2026
   tags:
     - transformers
     - gguf

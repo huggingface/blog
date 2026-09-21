@@ -1,11 +1,11 @@
 ---
-title: "Transformers Goes Local with GGUF"
-thumbnail: /blog/assets/transformers_goes_local/thumbnail.png
+title: "Transformers now runs llama.cpp quants"
+thumbnail: /blog/assets/transformers_llama_cpp_quants/thumbnail.png
 authors:
 - user: marcsun13
 ---
 
-# Transformers Goes Local with GGUF
+# Transformers now runs llama.cpp quants
 
 **We're adding support for running GGUF models efficiently in transformers**, so you can use checkpoints sized for your laptop's memory through the familiar transformers APIs. Pick a GGUF from the Hub, load it with `from_pretrained`, and start generating on your own machine.
 
