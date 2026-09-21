@@ -5770,3 +5770,11 @@
     - open-source
     - hub
     - storage
+- local: tokenizers-v1
+  date: September 21, 2026
+  tags:
+    - tokenizers
+    - tokenization
+    - rust
+    - performance
+    - open-source
