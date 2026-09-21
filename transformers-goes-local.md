@@ -7,13 +7,13 @@ authors:
 
 # Transformers Goes Local with GGUF
 
+**We're adding support for running GGUF models efficiently in transformers**, so you can use checkpoints sized for your laptop's memory through the familiar transformers APIs. Pick a GGUF from the Hub, load it with `from_pretrained`, and start generating on your own machine.
+
 Running AI models on your laptop has become much easier, and [llama.cpp](https://github.com/ggml-org/llama.cpp) has been a big part of that. Its inference engine powers local AI tools such as Ollama, LM Studio, and Jan. Alongside projects like [MLX](https://github.com/ml-explore/mlx), it has helped make local inference a practical option for everyday use.
 
 **GGUF**, developed by the llama.cpp team, is a widely used format for local inference. The team also shares quantized checkpoints under [ggml-org on the Hub](https://huggingface.co/ggml-org). Publishers such as [Unsloth](https://huggingface.co/unsloth), [LM Studio Community](https://huggingface.co/lmstudio-community), and [bartowski](https://huggingface.co/bartowski) also provide ready-to-use GGUF checkpoints in a range of quantizations, so users can pick the version that fits their machine. GGUF models have been downloaded millions of times.
 
-We want to make it easier to run these models locally with transformers, too. **We're adding support for running GGUF models efficiently in transformers**, so you can use checkpoints sized for your laptop's memory through the familiar transformers APIs. Pick a GGUF from the Hub, load it with `from_pretrained`, and start generating on your own machine.
-
-Compatibility is only useful if the model is pleasant to run. To bring performance close to llama.cpp, we're reusing its underlying ggml kernels through the [`kernels`](https://huggingface.co/docs/kernels/index) library, and reducing overhead in `generate`. Our initial focus is local inference on Apple Silicon.
+We want to make it easier to run these models locally with transformers, too. Compatibility is only useful if the model is pleasant to run. To bring performance close to llama.cpp, we're reusing its underlying ggml kernels through the [`kernels`](https://huggingface.co/docs/kernels/index) library, and reducing overhead in `generate`. Our initial focus is local inference on Apple Silicon, starting with the Qwen3.5 architecture (which also covers Qwen3.8 checkpoints); coverage will grow from there.
 
 ## What is the GGUF file format?
 
@@ -44,7 +44,7 @@ pip install -U "git+https://github.com/huggingface/transformers.git" kernels
 
 To load a GGUF model, pass its Hub `model_id` and filename as `gguf_file` to `from_pretrained`.
 
-The attention kernel still needs to be selected explicitly: we recommend `attn_implementation="transformers-community/ggml-attn"` for performance, but `"sdpa"` also works. transformers automatically applies other compatible ggml/Metal layer kernels when available. See the [GGUF documentation](https://huggingface.co/docs/transformers/main/en/quantization/gguf) for more loading options.
+No extra configuration is needed: when the weights stay packed on Metal, transformers automatically loads the compatible ggml/Metal layer kernels and uses `transformers-community/ggml-attn` as the attention implementation. If that kernel cannot be fetched, the model falls back to `"sdpa"` with a warning, and you can always force `"sdpa"` by passing `attn_implementation="sdpa"` explicitly. See the [GGUF documentation](https://huggingface.co/docs/transformers/main/en/quantization/gguf) for more loading options.
 
 ```python
 import torch
@@ -56,10 +56,13 @@ filename = "Qwen3.5-4B-Q4_K_M.gguf"
 tokenizer = AutoTokenizer.from_pretrained(model_id, gguf_file=filename)
 model = AutoModelForCausalLM.from_pretrained(
     model_id,
-    gguf_file=filename,
-    attn_implementation="transformers-community/ggml-attn",
+    gguf_file=filename
 )
+```
 
+That is the only GGUF-specific step. Everything after it is the standard transformers API:
+
+```python
 messages = [{"role": "user", "content": "Explain why the sky is blue in a few sentences."}]
 inputs = tokenizer.apply_chat_template(
     messages,
@@ -120,10 +123,7 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 
 model_id, filename = "unsloth/Qwen3.5-4B-GGUF", "Qwen3.5-4B-Q4_K_M.gguf"
 
-model = AutoModelForCausalLM.from_pretrained(
-    model_id, gguf_file=filename,
-    attn_implementation="transformers-community/ggml-attn",
-)
+model = AutoModelForCausalLM.from_pretrained(model_id, gguf_file=filename)
 tokenizer = AutoTokenizer.from_pretrained(model_id, gguf_file=filename)
 inputs = tokenizer("The capital of France is Paris. The capital of Germany is", return_tensors="pt")
 inputs = inputs.to(model.device)
@@ -204,9 +204,9 @@ The `kernels` library lets us distribute compatible builds of ggml's Metal kerne
 | Kernel | What it does |
 |---|---|
 | [`ggml-quantization`](https://huggingface.co/kernels/transformers-community/ggml-quantization) | Reads packed quantized weights for matrix operations, including the selected experts in an MoE model. It avoids expanding the whole weight matrix before each decode operation. |
-| [`ggml-norm`](https://huggingface.co/kernels/transformers-community/ggml-norm) | Fuses normalization operations, including the zero-centered RMSNorm used by Qwen3.5. |
+| [`ggml-norm`](https://huggingface.co/kernels/transformers-community/ggml-norm) | Fuses normalization operations, including the zero-centered RMSNorm used by Qwen3.5 and Qwen3.8. |
 | [`ggml-attn`](https://huggingface.co/kernels/transformers-community/ggml-attn) | Provides ggml's Metal flash attention for prompt processing and token decoding. |
-| [`ggml-gated-delta-net`](https://huggingface.co/kernels/transformers-community/ggml-gated-delta-net) | Accelerates the gated delta network used in the linear-attention layers of Qwen3.5's hybrid architecture. |
+| [`ggml-gated-delta-net`](https://huggingface.co/kernels/transformers-community/ggml-gated-delta-net) | Accelerates the gated delta network used in the linear-attention layers of the Qwen3.5 and Qwen3.8 hybrid architectures. |
 | [`topk`](https://huggingface.co/kernels/transformers-community/topk) | Selects the experts for each token in an MoE model, combining softmax and top-k routing. This is our own Metal implementation. |
 
 The first four packages build on ggml's kernels; the top-k kernel addresses a separate bottleneck in MoE routing. Together they reduce the GPU work needed for each generated token.
