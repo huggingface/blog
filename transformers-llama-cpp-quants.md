@@ -148,11 +148,9 @@ llama-bench -hf unsloth/Qwen3.5-4B-GGUF:Q4_K_M -p 0 -n 128 -r 3
 
 </details>
 
-| Model | Quantization | GGUF file size | llama.cpp `tg128` (tok/s) | transformers `generate`, 128 new tokens (tok/s) |
-|---|---|---:|---:|---:|
-| Qwen3.5-4B | `Q4_K_M` | [2.74 GB](https://huggingface.co/unsloth/Qwen3.5-4B-GGUF/blob/main/Qwen3.5-4B-Q4_K_M.gguf) | 71.8 ± 0.4 | 70.4 |
-| Qwen3.8-27B | `UD-Q4_K_M` | [16.5 GB](https://huggingface.co/unsloth/Qwen3.8-27B-GGUF/blob/main/Qwen3.8-27B-UD-Q4_K_M.gguf) | 13.4 ± 0.9 | 15.9 |
-| Qwen3.5-35B-A3B | `UD-IQ4_XS` | [16.3 GB](https://huggingface.co/unsloth/Qwen3.5-35B-A3B-GGUF/blob/main/Qwen3.5-35B-A3B-UD-IQ4_XS.gguf) | 61.3 ± 0.5 | 60.2 |
+![GGUF generation throughput compared with llama.cpp](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/transformers-llama-cpp-quants/benchmark-comparison.svg)
+
+Transformers is close to llama.cpp across all three checkpoints. The chart uses the same measurements described above; it does not imply identical benchmark conditions, since the Transformers measurement includes prefill while `llama-bench` reports decode-only throughput.
 
 
 ## transformers and llama.cpp
@@ -213,11 +211,9 @@ The first four packages build on ggml's kernels; the top-k kernel addresses a se
 
 To show the contribution of the layer kernels, we compare the same packed GGUF checkpoints with and without them. The quantization kernel stays enabled in both configurations: disabling it would also change how weights are represented and would measure a different tradeoff.
 
-| Model | Quantization | Packed weights, standard layers (tok/s) | Packed weights, optimized layer kernels (tok/s) | Speedup |
-|---|---|---:|---:|---:|
-| Qwen3.5-4B | `Q4_K_M` | 44.2 | 70.4 | 1.59x |
-| Qwen3.8-27B | `UD-Q4_K_M` | 10.5 | 15.9 | 1.51x |
-| Qwen3.5-35B-A3B | `UD-IQ4_XS` | 28.8 | 60.2 | 2.09x |
+![Throughput improvement from the layer kernels](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/transformers-llama-cpp-quants/layer-kernel-benchmark.svg)
+
+The quantization kernel stays enabled in both configurations, so the comparison measures the contribution of the other layer kernels without changing how the weights are represented.
 
 ### Keeping the CPU and GPU working together
 
@@ -230,11 +226,9 @@ Two changes address this in `generate`, which results in improvements for all tr
 
 These changes improve the generation loop around the model, so their usefulness extends beyond GGUF. They complement the kernel work: kernels reduce the cost of an operation, while fewer synchronization points let CPU scheduling and GPU execution overlap.
 
-| Model, with kernels enabled | Quantization | Before generation changes (tok/s) | After generation changes (tok/s) | Speedup |
-|---|---|---:|---:|---:|
-| Qwen3.5-4B | `Q4_K_M` | 49.6 | 70.4 | 1.42x |
-| Qwen3.8-27B | `UD-Q4_K_M` | 13.7 | 15.9 | 1.16x |
-| Qwen3.5-35B-A3B | `UD-IQ4_XS` | 33.7 | 60.2 | 1.79x |
+![Throughput improvement from the generation loop changes](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/transformers-llama-cpp-quants/generation-loop-benchmark.svg)
+
+These measurements keep all layer kernels enabled; the bars isolate the changes to the generation loop.
 
 
 ## Current limitations and next steps
