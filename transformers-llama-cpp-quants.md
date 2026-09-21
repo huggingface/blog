@@ -1,6 +1,6 @@
 ---
 title: "Transformers now runs llama.cpp quants"
-thumbnail: /blog/assets/transformers_llama_cpp_quants/thumbnail.png
+thumbnail: /blog/assets/transformers_llama_cpp_quants/thumbnail.svg
 authors:
 - user: marcsun13
 ---
