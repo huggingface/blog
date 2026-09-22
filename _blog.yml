@@ -5787,3 +5787,12 @@
     - open-source
     - community
     - llm
+
+- local: transformers-llama-cpp-quants
+  date: September 22, 2026
+  tags:
+    - transformers
+    - gguf
+    - kernels
+    - inference
+    - local
