@@ -5780,6 +5780,14 @@
     - performance
     - open-source
 
+- local: omlx
+  date: September 22, 2026
+  tags:
+    - mlx
+    - open-source
+    - community
+    - llm
+
 - local: transformers-llama-cpp-quants
   date: September 22, 2026
   tags:
