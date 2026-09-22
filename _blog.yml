@@ -5796,3 +5796,11 @@
     - kernels
     - inference
     - local
+
+- local: evaleval-aisi
+  date: September 22, 2026
+  tags:
+    - evaluation
+    - research
+    - community
+    - open-source-collab
