@@ -11,6 +11,10 @@ authors:
 
 **We're adding support for running GGUF models efficiently in transformers**, so you can use checkpoints sized for your laptop's memory through the familiar transformers APIs. Pick a GGUF from the Hub, load it with `from_pretrained`, and start generating on your own machine.
 
+<video controls width="100%">
+  <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/transformers-llama-cpp-quants/transformers-gguf.mp4" type="video/mp4">
+</video>
+
 Running AI models on your laptop has become much easier, and [llama.cpp](https://github.com/ggml-org/llama.cpp) has been a big part of that. Its inference engine powers local AI tools such as Ollama, LM Studio, and Jan. Alongside projects like [MLX](https://github.com/ml-explore/mlx), it has helped make local inference a practical option for everyday use.
 
 <p><em>A recent example of what local AI can feel like:</em></p>
