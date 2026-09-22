@@ -1,8 +1,10 @@
 ---
 title: "Transformers now runs llama.cpp quants"
-thumbnail: /blog/assets/transformers_llama_cpp_quants/thumbnail.svg
+thumbnail: /blog/assets/transformers_llama_cpp_quants/thumbnail.png
 authors:
 - user: marcsun13
+- user: ArthurZ
+- user: lysandre
 ---
 
 # Transformers now runs llama.cpp quants
@@ -242,3 +244,7 @@ The initial target is a single interactive conversation on Apple Silicon. There 
 - **Architecture coverage is limited.** The packed loader currently covers the Qwen3.5 dense and MoE architectures, including compatible Qwen3.8 checkpoints. Adding support for other architectures is relatively straightforward, and we’ll expand coverage gradually.
 
 If you have a GGUF model you would like to use in transformers, [open an issue](https://github.com/huggingface/transformers/issues) with the checkpoint and your use case. That will help us prioritize support for the models people are running locally.
+
+## Acknowledgments
+
+We would like to thank [Arthur Zucker](https://huggingface.co/ArthurZ) for initiating this work and reviewing all of my PRs, and [Cyril Vallez](https://huggingface.co/cyrilvallez) for the `generate` PRs. We are grateful to [Sayak Paul](https://huggingface.co/sayakpaul), the [llama.cpp team](https://github.com/ggml-org/llama.cpp), and Bertrand Chevalier for their help integrating the kernels. We also thank [Aritra Roy Gosthipaty](https://huggingface.co/ariG23498) and [Pedro Cuenca](https://huggingface.co/pcuenq) for reviewing this blog post, and [Lysandre Debut](https://huggingface.co/lysandre) for overseeing the project.
