@@ -4,8 +4,12 @@ on:
   push:
     branches: [main]
 
+permissions: {}
+
 jobs:
   sync:
+    permissions:
+      contents: read
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
