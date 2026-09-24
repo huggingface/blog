@@ -34,7 +34,7 @@ By relying on objective metrics **evaluating a model drops from a couple weeks (
 
 Importantly, the Open TTS Leaderboard does not replace human preference ranking. ASR-based WER provides a proxy for intelligibility, while speaker similarity estimates voice identity preservation. Neither directly measures naturalness, expressiveness, or listener preference. Nevertheless, they can even inform voting-based leaderboards which models to include in their evaluations.
 
-The next few sections give an overview of main features of the Open TTS Leaderboard. Our intention with this leaderboard is for it to be **shaped by the community**; we want to hear your feedback so the evaluations stay relevant and insightful.
+Our intention with this leaderboard is for it to be **shaped by the community**; we want to hear your feedback so the evaluations stay relevant and insightful. The next few sections give an overview of main features of the Open TTS Leaderboard. 
 
 ## Multilingual + voice cloning evaluation
 
