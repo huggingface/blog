@@ -5804,3 +5804,12 @@
     - research
     - community
     - open-source-collab
+
+- local: open-tts-leaderboard
+  date: September 25, 2026
+  tags:
+    - audio
+    - speech
+    - leaderboard
+    - datasets
+    - evaluation
