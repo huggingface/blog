@@ -12,9 +12,13 @@ authors:
 
 # Open TTS Leaderboard: Scalable Evaluation for Multilingual Text-to-Speech and Voice Cloning
 
-The pace of open-source text-to-speech (TTS) model releases has been incredible. On the Hugging Face Hub (as of Sep 24, 2026) there are more than 7.9K TTS models available 🚀
+The pace of open-source text-to-speech (TTS) model releases has been incredible. On the Hugging Face Hub (as of Sep 24, 2026) there are more than [7.9K TTS models](https://huggingface.co/models?pipeline_tag=text-to-speech) available 🚀
 
-**Evaluation, however, hasn't kept pace: it remains fragmented and unstandardized.** The gold standard is human preference scores such as MOS or MUSHRA (more on metrics). To this end, several arena-based leaderboards have established themselves as useful reference points for the community:
+<figure class="image text-center">
+  <iframe src="https://eustlb-tts-models-on-the-hub.static.hf.space" width="100%" height="450" frameborder="0" scrolling="no"></iframe>
+</figure>
+
+**Evaluation, however, hasn't kept pace: it remains fragmented and unstandardized.** The gold standard is human preference scores such as MOS or MUSHRA (more on [metrics](https://picovoice.ai/blog/measuring-tts-quality/)). To this end, several arena-based leaderboards have established themselves as useful reference points for the community:
 
 1. [TTS Arena v2](https://huggingface.co/spaces/TTS-AGI/TTS-Arena-V2)
 2. [Artificial Analysis](https://artificialanalysis.ai/text-to-speech/leaderboard/provider-voice)
@@ -26,9 +30,9 @@ While human preference is the ultimate decider, **arenas cannot scale to keep up
 
 To this end, we've built the [Open TTS Leaderboard](https://huggingface.co/spaces/hf-audio/open_tts_leaderboard), which uses objective metrics to evaluate models on complementary aspects of performance:
 
-1. **Intelligibility**: word/character error rate (WER and CER) between the prompt and the generated audio's transcript, using Qwen3 ASR (top ranking open-source model on the Open ASR Leaderboard).
+1. **Intelligibility**: word/character error rate (WER and CER) between the prompt and the generated audio's transcript, using [Qwen3 ASR](https://huggingface.co/Qwen/Qwen3-ASR-1.7B-hf) (top ranking open-source model on the [Open ASR Leaderboard](https://huggingface.co/spaces/hf-audio/open_asr_leaderboard)).
 2. **Speed**: inverse real-time factor (RTFx) for batched offline inference on an H200 GPU, and time-to-first-audio (TTFA) for quantifying streaming batch size 1 latency on an H200 GPU and CPU.
-3. **Speaker similarity** by computing the cosine similarity (SIM) between WavLM speaker embeddings of the generated audio and the reference clip.
+3. **Speaker similarity** by computing the cosine similarity (SIM) between [WavLM speaker embeddings](https://huggingface.co/bezzam/wavlm_large_finetune_seed_tts_eval) of the generated audio and the reference clip.
 
 By relying on objective metrics **evaluating a model drops from a couple weeks (for collecting votes) to a couple hours** ⚡
 
