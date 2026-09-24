@@ -12,10 +12,6 @@ authors:
 
 # Open TTS Leaderboard: Scalable Evaluation for Multilingual Text-to-Speech and Voice Cloning
 
-<div align="center">
-  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/open-tts-leaderboard/thumbnail.png" width="1024px" alt="thumbnail" />
-</div>
-
 The pace of open-source text-to-speech (TTS) model releases has been incredible. On the Hugging Face Hub (as of Sep 24, 2026) there are more than 7.9K TTS models available 🚀
 
 **Evaluation, however, hasn't kept pace: it remains fragmented and unstandardized.** The gold standard is human preference scores such as MOS or MUSHRA (more on metrics). To this end, several arena-based leaderboards have established themselves as useful reference points for the community:
