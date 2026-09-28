@@ -128,7 +128,16 @@ We opened PRs to tag some of the environments people already train on. If you ma
 
 The first version generates one `default` snippet per framework. Per-config snippets are next, so a repo with several task sets can show the right command for each. After that we will look at structural detection for frameworks with strict layouts. It would also be really cool build custom task UIs, we’ve been experimenting with this here:
 
-\<harbor ui embedded space\>
+<figure class="image text-center">
+  <iframe
+    src="https://huggingfaceh4-harbor-visualiser.hf.space"
+    title="Harbor environment visualiser"
+    width="100%"
+    height="700"
+    frameborder="0"
+    loading="lazy"
+  ></iframe>
+</figure>
 
 The bigger goal is for framework tagging to be automatic everywhere. OpenEnv already does it on upload. If you maintain Harbor, Verifiers, Nemo Gym, or any other environment framework, add the tags in your push path. It is a few lines, and every environment your users publish becomes visible to everyone else.
 
