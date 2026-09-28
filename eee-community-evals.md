@@ -105,7 +105,7 @@ Hugging Face stores eval scores in the model repo as a YAML under `.eval_results
 
 Submit your full records to [the EEE datastore](https://huggingface.co/datasets/evaleval/EEE_datastore). 
 
-Utilizing EEE requires only one additional step, which the converter largely automates. The [community eval converter tool](https://github.com/evaleval/every_eval_ever/tree/main/tools/hf-community-evals) can be found in the GitHub repository. To process a collection, execute the following:
+Utilizing EEE requires only one additional step, which the converter largely automates. The [community eval converter tool](https://github.com/evaleval/every_eval_ever/blob/main/every_eval_ever/tools/hf_community_evals.py) can be found in the GitHub repository. To process a collection, execute the following:
 
 ```shell
 uv run tools/hf-community-evals/community_evals_converter.py MMLU-Pro \
