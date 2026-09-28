@@ -5804,3 +5804,10 @@
     - research
     - community
     - open-source-collab
+
+- local: rl-environments
+  date: September 28, 2026
+  tags:
+    - rl
+    - datasets
+    - hub
