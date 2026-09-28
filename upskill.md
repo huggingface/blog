@@ -322,4 +322,4 @@ The approach works for any specialized task where you'd otherwise write detailed
 
 - [Upskill repo](https://github.com/huggingface/upskill)  
 - [Agent Skills Specification](https://agentskills.io)   
-- [HuggingFace kernel-builder](https://github.com/huggingface/kernels/tree/main/builder) 
+- [HuggingFace kernel-builder](https://github.com/huggingface/kernels/tree/main/kernel-builder) 

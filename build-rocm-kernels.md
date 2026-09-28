@@ -12,7 +12,7 @@ authors:
 
 ## Intoduction
 
-Custom kernels are the backbone of high-performance deep learning, enabling GPU operations tailored precisely to your workload; whether that’s image processing, tensor transformations, or other compute-heavy tasks. But compiling these kernels for the right architectures, wiring all the build flags, and integrating them cleanly into PyTorch extensions can quickly become a mess of CMake/Nix, compiler errors, and ABI issues, which is not fun. Hugging Face’s [**kernels**](https://github.com/huggingface/kernels) library makes it easy to build (with [**kernel-builder**](https://github.com/huggingface/kernels/tree/main/builder)) and share these kernels with the [**kernels-community**](https://huggingface.co/kernels-community), with support for multiple GPU and accelerator backends, including CUDA, ROCm, Metal, and XPU. This ensures your kernels are fast, portable, and seamlessly integrated with PyTorch.
+Custom kernels are the backbone of high-performance deep learning, enabling GPU operations tailored precisely to your workload; whether that’s image processing, tensor transformations, or other compute-heavy tasks. But compiling these kernels for the right architectures, wiring all the build flags, and integrating them cleanly into PyTorch extensions can quickly become a mess of CMake/Nix, compiler errors, and ABI issues, which is not fun. Hugging Face’s [**kernels**](https://github.com/huggingface/kernels) library makes it easy to build (with [**kernel-builder**](https://github.com/huggingface/kernels/tree/main/kernel-builder)) and share these kernels with the [**kernels-community**](https://huggingface.co/kernels-community), with support for multiple GPU and accelerator backends, including CUDA, ROCm, Metal, and XPU. This ensures your kernels are fast, portable, and seamlessly integrated with PyTorch.
 
 In this guide, we focus exclusively on ROCm-compatible kernels and show how to build, test, and share them using [kernels](https://github.com/huggingface/kernels/tree/main). You’ll learn how to create kernels that run efficiently on AMD GPUs, along with best practices for reproducibility, packaging, and deployment.
 
@@ -110,7 +110,7 @@ If you look at the original files of the gemm kernel in the RadeonFlow Kernels, 
 - Use `.h` for header files containing kernel declarations, inline functions, or template code that will be included in other files
 - Use `.hip` for implementation files containing HIP/GPU code that needs to be compiled separately (e.g., kernel launchers, device functions with complex implementations)
 
-In our example, `gemm_kernel.h`, `gemm_kernel_legacy.h`, and `transpose_kernel.h` are header files, while `gemm_launcher.hip` is a HIP implementation file. This naming convention helps the kernel-builder ([`kernels/builder`](https://github.com/huggingface/kernels/tree/main/builder)) correctly identify and compile each file type.
+In our example, `gemm_kernel.h`, `gemm_kernel_legacy.h`, and `transpose_kernel.h` are header files, while `gemm_launcher.hip` is a HIP implementation file. This naming convention helps the kernel-builder ([`kernels/builder`](https://github.com/huggingface/kernels/tree/main/kernel-builder)) correctly identify and compile each file type.
 
 ### Step 2: Configuration Files Setup 
 
@@ -526,7 +526,7 @@ Building and sharing ROCm kernels with the Hugging Face is now easier than ever.
 
 ## Related Libraries & Hub
 
-- [kernels](https://github.com/huggingface/kernels) – Library to build, manage and load kernels from the Hub. It contains the [kernel-builder](https://github.com/huggingface/kernels/tree/main/builder) tooling.
+- [kernels](https://github.com/huggingface/kernels) – Library to build, manage and load kernels from the Hub. It contains the [kernel-builder](https://github.com/huggingface/kernels/tree/main/kernel-builder) tooling.
 - [Kernels Community Hub](https://huggingface.co/kernels-community) – Share and discover kernels from the community.
 
 
