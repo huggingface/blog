@@ -633,7 +633,7 @@ mlx_vlm.generate \
 --kv-quant-scheme turboquant
 ```
 
-For audio examples and more details, please check [the MLX collection](https://hf.co/mlx-community/gemma-4).
+For audio examples and more details, please check [the MLX collection](https://huggingface.co/collections/mlx-community/gemma-4).
 
 ### Mistral.rs
 
