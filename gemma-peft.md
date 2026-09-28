@@ -112,7 +112,6 @@ To begin with, let's select an English quotes dataset [Abirate/english_quotes](h
 from datasets import load_dataset
 
 data = load_dataset("Abirate/english_quotes")
-data = data.map(lambda samples: tokenizer(samples["quote"]), batched=True)
 ```
 
 Now let’s finetune this model using the LoRA config stated above:
@@ -122,8 +121,8 @@ import transformers
 from trl import SFTTrainer
 
 def formatting_func(example):
-    text = f"Quote: {example['quote'][0]}\nAuthor: {example['author'][0]}<eos>"
-    return [text]
+    text = f"Quote: {example['quote']}\nAuthor: {example['author']}<eos>"
+    return text
 
 trainer = SFTTrainer(
     model=model,
