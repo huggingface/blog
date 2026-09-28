@@ -11,7 +11,7 @@ Reinforcement Learning environments give new capabilities to agentic AI systems,
 
 \<screenshot\>
 
-An RL environment on the Hub is a dataset repo that shows up in the new [RL Environments filter](https://huggingface.co/datasets?other=rl-environment). The **Use this dataset** button gives you the command to run it in that framework. There is no new repo type, no registry, and no sign-up. There are already environments in Harbor, Verifiers, and Nemo Gym.
+An RL environment on the Hub is a dataset repo that shows up in the new [RL Environments filter](https://huggingface.co/datasets?other=rl-environment). The **Use this dataset** button gives you the command to run it in that framework. There is no new repo type, no registry, and no sign-up. There are already environments in Harbor, Verifiers, and NVIDIA NeMo Gym.
 
 ## Stop building environment registries
 
