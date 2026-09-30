@@ -12,7 +12,7 @@ authors:
 
 # Open TTS Leaderboard: Scalable Evaluation for Multilingual Text-to-Speech and Voice Cloning
 
-The pace of open-source text-to-speech (TTS) model releases has been incredible. On the Hugging Face Hub (as of Sep 24, 2026) there are more than [7.9K TTS models](https://huggingface.co/models?pipeline_tag=text-to-speech) available 🚀
+The pace of open-source text-to-speech (TTS) model releases has been incredible. On the Hugging Face Hub (as of Sep 30, 2026) there are more than [8K TTS models](https://huggingface.co/models?pipeline_tag=text-to-speech) available 🚀
 
 <figure class="image text-center">
   <iframe src="https://eustlb-tts-models-on-the-hub.static.hf.space" width="100%" height="450" frameborder="0" scrolling="no"></iframe>
@@ -26,7 +26,7 @@ The pace of open-source text-to-speech (TTS) model releases has been incredible.
 
 These arenas compare models by presenting users with TTS outputs from two models, and asking them to choose one over the other. After collecting a sufficient number of votes, an [Elo score](https://en.wikipedia.org/wiki/Elo_rating_system) is computed to rank models, typically with the Bradley–Terry model (see [Voice Arena methodology](https://voicearena.com/tts-methodology)).
 
-While human preference is the ultimate decider, **arenas cannot scale to keep up with the pace of TTS releases**. This may partly explain why open-source models are underrepresented on arena-style leaderboards: as of Sep 24, 2026, only 16 of the 92 models on [Artificial Analysis](https://artificialanalysis.ai/text-to-speech/leaderboard/provider-voice) are open-weights, with a similar skew on [Voice Arena](https://voicearena.com/tts-leaderboard). This likely reflects practical factors: adding an API model requires little more than an API key, whereas an open model must be hosted and served by the arena operator, and commercial providers have more reason to seek placement than open-source authors. Moreover, no arena can ensure that the same voters with the same criteria of “better” can consistently evaluate models over time. Even the preferences of a single person change over time (“A man cannot step into the same river twice” as famously said by Heraclitus).
+While human preference is the ultimate decider, **arenas cannot scale to keep up with the pace of TTS releases**. This may partly explain why open-source models are underrepresented on arena-style leaderboards: as of Sep 30, 2026, only 16 of the 92 models on [Artificial Analysis](https://artificialanalysis.ai/text-to-speech/leaderboard/provider-voice) are open-weights, with a similar skew on [Voice Arena](https://voicearena.com/tts-leaderboard). This likely reflects practical factors: adding an API model requires little more than an API key, whereas an open model must be hosted and served by the arena operator, and commercial providers have more reason to seek placement than open-source authors. Another limitation with arena-style evaluation is voter consistency: no arena can ensure that the same voters with the same criteria of “better” can consistently evaluate models over time. Even the preferences of a single person change over time (“A man cannot step into the same river twice” as famously said by Heraclitus).
 
 To this end, we've built the [Open TTS Leaderboard](https://huggingface.co/spaces/hf-audio/open_tts_leaderboard), which uses objective metrics to evaluate models on complementary aspects of performance:
 
@@ -57,7 +57,7 @@ From the default view of the leaderboard, models are ranked by macro-average WER
 </div>
 
 
-[microsoft/VibeVoice-Realtime-0.5B](https://huggingface.co/microsoft/VibeVoice-Realtime-0.5B), [hexgrad/Kokoro-82M](https://huggingface.co/hexgrad/Kokoro-82M), and [Supertone/supertonic-3](https://huggingface.co/Supertone/supertonic-3) lead the pack on English WER when averaged on these two splits, while the Pareto plots visualize which models strike a good balance between WER, batched inference (RTFx), and size.
+[hexgrad/Kokoro-82M](https://huggingface.co/hexgrad/Kokoro-82M), [Supertone/supertonic-3](https://huggingface.co/Supertone/supertonic-3), and [fishaudio/s2-pro](https://huggingface.co/fishaudio/s2-pro) lead the pack on English WER when averaged on these two splits, while the Pareto plots visualize which models strike a good balance between WER, batched inference (RTFx), and size.
 
 English performance doesn't necessarily translate to other languages. Multiple languages can be toggled to rank models on multilingual performance. Seed TTS Eval only has audio for English and Chinese, so the other languages are simply the score on CV3 Eval (zero shot). Note that Chinese, Japanese, and Korean are character-based languages and so character error rate (CER) is reported, and the “Average WER” across languages is a macro-average across languages.
 
@@ -79,6 +79,7 @@ Moreover, a SIM column for speaker similarity now appears in the table, as well 
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/open-tts-leaderboard/voice_clone_pareto.png" width="1024px" alt="thumbnail" />
 </div>
 
+The average WER of some models, such as [bosonai/higgs-tts-3-4b](https://huggingface.co/bosonai/higgs-tts-3-4b) and [openbmb/VoxCPM2](https://huggingface.co/openbmb/VoxCPM2), improve under voice cloning, namely when a reference audio is provided.
 
 
 ## Compare and vote on TTS outputs
@@ -99,7 +100,7 @@ You can even give feedback on the generated outputs. As we collect more votes fr
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/open-tts-leaderboard/listen_outputs.png" width="1024px" alt="thumbnail" />
 </div>
 
-## Evaluating streaming performance
+## Streaming performance
 
 The “Streaming” tab compares the streaming capabilities. Models are ranked by TTFA (time-to-first-audio), which quantifies how long a user waits after probing a model in order to obtain audio that can be played. This is important for voice agents and other interactive apps. 
 
