@@ -12,6 +12,8 @@ authors:
 
 # Open TTS Leaderboard: Scalable Evaluation for Multilingual Text-to-Speech and Voice Cloning
 
+### TLDR 👉 new [TTS leaderboard](https://huggingface.co/spaces/hf-audio/open_tts_leaderboard) focused on open-source and multilingual
+
 The pace of open-source text-to-speech (TTS) model releases has been incredible. On the Hugging Face Hub (as of Sep 30, 2026) there are more than [8K TTS models](https://huggingface.co/models?pipeline_tag=text-to-speech) available 🚀
 
 <figure class="image text-center">
