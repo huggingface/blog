@@ -77,7 +77,7 @@ Build an optimized attention kernel for H100 targeting the Qwen3-8B model in tra
 
 The agent can read the skill, select the right architecture parameters, generate the CUDA source, write the PyTorch bindings, set up `build.toml`, and create a benchmark script.
 
-If you're working on more complex kernels, or architecture-specific optimizations, that aren't covered in the skill, then the skill supplies the fundamental building blocks and patterns to get you started. We are also open to contributions on the [skill itself](https://github.com/huggingface/kernels/tree/main/.docs/skills).
+If you're working on more complex kernels, or architecture-specific optimizations, that aren't covered in the skill, then the skill supplies the fundamental building blocks and patterns to get you started. We are also open to contributions on the [skill itself](https://github.com/huggingface/kernels/tree/main/kernel-builder/skills).
 
 ## What is in the skill
 
@@ -249,7 +249,7 @@ cuda-capabilities = ["9.0"]  # H100
 
 ### 2. Build all variants with Nix
 
-Kernel Hub kernels must support all recent PyTorch and CUDA configurations. The kernel-builder Nix flake handles this automatically. Copy the [example `flake.nix`](https://github.com/huggingface/kernels/blob/main/builder/examples/relu/flake.nix) into your project and run:
+Kernel Hub kernels must support all recent PyTorch and CUDA configurations. The kernel-builder Nix flake handles this automatically. Copy the [example `flake.nix`](https://github.com/huggingface/kernels/blob/main/examples/kernels/relu/flake.nix) into your project and run:
 
 ```shell
 nix flake update
@@ -291,7 +291,7 @@ We built an agent skill that teaches coding agents how to write production CUDA 
 
 ## Resources
 
-- [CUDA Kernels Skill in `kernels`](https://github.com/huggingface/kernels/tree/main/skills/cuda-kernels)  
+- [CUDA Kernels Skill in `kernels`](https://github.com/huggingface/kernels/tree/main/kernel-builder/skills/cuda-kernels)  
 - [HuggingFace Kernel Hub Blog](https://huggingface.co/blog/hello-hf-kernels)  
 - [We Got Claude to Fine-Tune an Open Source LLM](https://huggingface.co/blog/hf-skills-training)  
 - [We Got Claude to Teach Open Models](https://huggingface.co/blog/upskill)  
