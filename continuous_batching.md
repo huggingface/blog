@@ -38,7 +38,7 @@ Input tensor \\( x \\) is then projected by three matrices: the query projection
 
 ![proj_and_mul.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/continuous_batching/proj_and_mul.png)
 
-Next, tensors \\( Q \\) and \\( K \\) are multiplied together to measure similarity between tokens, producing a tensor of shape \\( \left[ 1, n , n \right] \\). This is why we say that attention has quadratic complexity in sequence length. Computing \\( QK^T \\) requires \\( \mathcal{O} \left( n^2 d \right) \\) operations, so the cost is a square of \\( n \\) the sequence length. It is represented on the right in the figure above.
+Next, tensors \\( Q \\) and \\( K \\) are multiplied together to measure similarity between tokens, producing a tensor of shape \\( \left[ 1, n , n \right] \\). This is why we say that attention has quadratic complexity in sequence length. Computing \\( QK^T \\) requires \\( \mathcal{O} \left( n^2 A \right) \\) operations, so the cost is a square of \\( n \\) the sequence length. It is represented on the right in the figure above.
 
 We then apply a boolean **attention mask** to \\( QK^T \\) to control which tokens can interact, as represented in the figure below. In this figure, the attention mask is a **causal mask**, meaning each token only interacts with tokens that came before it. This follows the intuition that a cause must come before its consequence, hence the name causal mask. The attention mask is crucial because it dictates all token interactions in the network. **Set all attention mask values to False and no token will ever interact with another in the whole network.** We'll examine attention masks more closely in a few paragraphs.
 
