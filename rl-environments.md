@@ -7,7 +7,9 @@ authors:
 
 # Welcome RL Environments to the hub
 
-Reinforcement Learning environments give new capabilities to agentic AI systems, and they’re a great way to measure and improve performance in your agents. Therefore, the hugging face hub now has a special place for RL Environments.
+Reinforcement Learning environments give new capabilities to agentic AI systems, and they’re a great way to measure and improve performance in your agents. Therefore, Hugging Face Hub now has a special place for RL Environments.
+
+An environment gives an agent a task, responds to its actions with observations, and scores the outcome. The resulting rewards can measure an agent's performance during evaluation or provide a learning signal during training. For an introduction to this interaction loop, see [our blogpost on environments](https://huggingface.co/spaces/AdithyaSK/rl-environments-guide). Within the environment, the agent will perform a set of tasks that are represented as datasets. Therefore, environments can be split into broadly two parts: tasksets and runtimes. In this release, we are focusing on the tasksets.
 
 <screenshot\>
 
@@ -17,13 +19,45 @@ An RL environment on the Hub is a dataset repo that shows up in the new [RL Envi
 
 Every RL paper or framework uses its own way to find environments. Custom hubs, runtime registries, independent task datasets, or a GitHub list of tasks with a custom loader. This means that many of the published environments are siloed: if you publish an environment for one framework, users of the other three can’t load it. If you want to train on an environment from another framework or a new paper, you’ll need to port it by hand.
 
-We think this is the wrong shape. An environment is tasks, tests, containers, and a reward rule. That is just data with a runtime attached. The Hub already stores data, versions it, gates it, previews it, and serves it to millions of people. It does not need a second system to hold environments. It needs a way to say "this data is an environment, and here is how you run it."
+We think this is the wrong shape. An environment is tasks, tests, containers, and a reward rule, which are data with a runtime on top. The Hub already stores data, versions it, gates it, previews it, and serves it to millions of people. It does not need a second system to hold environments. It needs a way to say "this data is an environment, and here is how you run it."
+
+<figure class="image text-center">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" width="100%" role="img" aria-labelledby="environment-diagram-title environment-diagram-description">
+    <title id="environment-diagram-title">From a dataset repository to an agent run</title>
+    <desc id="environment-diagram-description">The Hub stores task data but the frameworks store runtime and verfier code. A framework loads the data and supplies runtime or verifier implementations when they are not included in the repository. At runtime an agent exchanges actions and observations with an environment. A verifier scores the outcome and produces rewards for evaluation or training.</desc>
+    <rect x="2" y="2" width="876" height="516" rx="16" fill="#ffffff" stroke="#e5e7eb"/>
+    <g font-family="Arial, sans-serif" fill="#111827" text-anchor="middle">
+      <rect x="80" y="24" width="720" height="104" rx="12" fill="#fff7d6" stroke="#d4a72c"/>
+      <text x="440" y="58" font-size="24" font-weight="bold">Dataset repository on the Hub</text>
+      <text x="440" y="92" font-size="19">Tasks and data · Runtime and verifier files, when included</text>
+      <path d="M440 132 V174 M433 164 L440 174 L447 164" fill="none" stroke="#6b7280" stroke-width="2"/>
+      <text x="612" y="161" font-size="17" fill="#4b5563">Framework loads the files</text>
+      <rect x="24" y="186" width="832" height="310" rx="12" fill="#f9fafb" stroke="#9ca3af" stroke-dasharray="6 5"/>
+      <text x="440" y="218" font-size="19" fill="#4b5563">Execution on your machine or a supported cloud backend</text>
+      <rect x="64" y="264" width="180" height="80" rx="10" fill="#dbeafe" stroke="#60a5fa"/>
+      <text x="154" y="310" font-size="23" font-weight="bold">Agent</text>
+      <rect x="480" y="264" width="324" height="80" rx="10" fill="#dcfce7" stroke="#4ade80"/>
+      <text x="642" y="298" font-size="23" font-weight="bold">Environment</text>
+      <text x="642" y="324" font-size="17">State, tools, and task execution</text>
+      <path d="M250 286 H470 M460 279 L470 286 L460 293 M474 326 H254 M264 319 L254 326 L264 333" fill="none" stroke="#4b5563" stroke-width="2"/>
+      <text x="360" y="273" font-size="18">Actions</text>
+      <text x="360" y="354" font-size="18">Observations</text>
+      <path d="M642 350 V389 M635 379 L642 389 L649 379" fill="none" stroke="#4b5563" stroke-width="2"/>
+      <text x="725" y="378" font-size="17">Outcome</text>
+      <rect x="538" y="398" width="208" height="60" rx="10" fill="#ede9fe" stroke="#a78bfa"/>
+      <text x="642" y="434" font-size="22" font-weight="bold">Verifier</text>
+      <path d="M528 427 H362 M372 420 L362 427 L372 434" fill="none" stroke="#4b5563" stroke-width="2"/>
+      <text x="444" y="415" font-size="17">Reward</text>
+      <text x="205" y="424" font-size="21" font-weight="bold">Evaluate or train</text>
+      <text x="205" y="451" font-size="17">Score runs or update the model</text>
+    </g>
+  </svg>
+  <figcaption>Task data lives on the Hub. Runtime configuration and verifier code can live in the repo or the framework.</figcaption>
+</figure>
 
 The frameworks keep doing what they are good at. The Hub does what it is good at, which is hosting, discovery, and versioning. Nobody has to own the catalogue. In fact, catalogues can run on other platforms too, powered by the hub.
 
-Rl Environments are not a new repository type. An environment is a dataset repo, so it gets everything a dataset repo gets: gating, versioning, the viewer, discussions, and PRs.
-
-The Hub does not have to run your environment, but you can as jobs, if you need. The tags just describe compatibility and generate loading commands. Execution stays in the framework, on your hardware or your sandbox provider.
+The dataset repository hosts your environment files. The framework runs them locally or on a supported cloud backend. [Hugging Face Jobs](https://huggingface.co/docs/hub/en/jobs) can run cloud workloads, and [Hugging Face Sandboxes](https://huggingface.co/docs/huggingface_hub/main/guides/sandbox), built on Jobs, provide interactive command execution. The tags describe compatibility and generate loading commands; adding a tag does not start a job or sandbox.
 
 ## What shipped
 
@@ -40,44 +74,83 @@ The Hub does not have to run your environment, but you can as jobs, if you need.
 
 Each framework tag puts the framework's icon on the dataset page and adds a generated snippet to **Use this dataset**.
 
-A dataset can carry more than one framework tag. That is the point. Tags describe compatibility, and compatibility is not exclusive.
+A dataset can carry more than one framework tag. That is the point. Tags describe compatibility, and compatibility is not exclusive. Each listed framework must support the files in the repository; adding a tag does not convert them.
 
-Take a dataset of Harbor task directories. Harbor runs it directly:
+## Run an environment and inspect its reward
+
+Choose the example for your framework and run it in a separate Python environment with the prerequisites listed below.
+
+### Harbor: run a reference solution
+
+[Harbor](https://www.harborframework.com/docs/datasets) can load task directories from a Hub repository. The oracle agent runs the task's reference solution, then the verifier scores the result. It does not call a model.
 
 ```sh
+uv tool install --python 3.13 'harbor==0.21.0'
 harbor run \
-    --dataset hf://datasets/harborframework/terminal-bench-2.1 \
-    --agent oracle
+    --repo https://huggingface.co/datasets/harborframework/terminal-bench-2.1 \
+    --dataset terminal-bench-2.1@2.1.0 \
+    --include-task-name '*regex-log' \
+    --agent oracle --env docker --jobs-dir results/harbor
+harbor view results/harbor
 ```
 
-Verifiers can read the same task directories, so the same repo also gets a Verifiers snippet:
+The viewer shows the task's reward, verifier output, and logs. This checks the task and its reference solution before you try a model agent.
+
+### Verifiers: run a model on the same task
+
+The [Verifiers v1 API](https://github.com/PrimeIntellect-ai/verifiers/blob/f2382d3c285ecb85578caf2948f24d0eeed84561/docs/v1/harbor.md) can read the same Harbor task directories. With Docker running and a tool-calling model served at `http://localhost:8000/v1`, replace `local-model` below with the served model ID. This example uses uv and Python 3.13, and pins the v1 source revision. The `bash` harness lets the model act in the task's container; the task verifier scores the completed run.
+
+```sh
+uv tool install --python 3.13 \
+    'verifiers[harbor] @ git+https://github.com/PrimeIntellect-ai/verifiers@f2382d3c285ecb85578caf2948f24d0eeed84561'
+
+vf-eval harbor \
+    --env.taskset.repo https://huggingface.co/datasets/harborframework/terminal-bench-2.1 \
+    --env.taskset.dataset terminal-bench-2.1@2.1.0 \
+    --env.taskset.tasks '["regex-log"]' \
+    --env.agent.runtime.type docker --env.agent.harness.id bash \
+    --model local-model --client.base-url http://localhost:8000/v1 \
+    --client.api-key-var LOCAL_MODEL_API_KEY \
+    --max-concurrent 1 --num-rollouts 1 --no-push --no-rich \
+    --output-dir results --run.dir verifiers
+```
+
+Here `repo` is the full Hugging Face Git URL, while `dataset` is the name and version in that repo's `registry.json`. This loader uses Harbor's registry conventions, so a bare Hub repo ID cannot replace both values. No `hf://datasets/` prefix is needed.
+
+### OpenEnv: run an agent and inspect its reward
+
+[OpenEnv's Harbor integration](https://huggingface.co/docs/openenv/main/environments/harbor) can run the same task directories with an agent such as OpenCode and return the verifier's reward alongside the agent's trace. 
+
+```sh
+pip install "openenv[harbor]==0.7.0"
+
+openenv harbor rollout \
+    --llm-url "$LLM_URL" \
+    --model "$MODEL" \
+    --dataset harborframework/terminal-bench-2.1 \
+    --task-index 0 \
+    --harness opencode \
+    --sandbox docker \
+    --out rollout.json
+```
+
+The command downloads the dataset's `tasks/` directories, runs one task in Docker, and writes the result. The default connection uses a temporary Gradio tunnel so the sandboxed agent can reach OpenEnv's model proxy. Read the verifier result and the number of model calls:
 
 ```py
-import verifiers as vf
+import json
+from pathlib import Path
 
-taskset = vf.HarborTaskset(
-    config=vf.HarborTasksetConfig(
-        dataset="hf://datasets/<org>/<dataset>",
-        split="train",
-    )py
-)
-
-env = vf.Env(taskset=taskset, harness=vf.OpenCode())
+result = json.loads(Path("rollout.json").read_text())[0]
+print("Reward:", result["reward"])
+print("Model calls:", result["n_turns"])
+print("Error:", result["error"])
 ```
 
-OpenEnv loads an environment straight from the repo:
+A reward of `None` means no verifier reward was produced; inspect `error` before interpreting the run as a model failure. This path expects Harbor task directories.
 
-```py
-from openenv import AutoEnv
+### NeMo Gym: generate responses and inspect rewards
 
-env = AutoEnv.from_env("<org>/<dataset>", trust_remote_code=False)
-```
-
-And NeMo Gym pulls the data down and evaluates against it:
-
-```
-[TODO]
-```
+[NeMo Gym](https://github.com/NVIDIA-NeMo/Gym) supports evaluation and RL training: its environments collect trajectories and compute rewards, while a training framework updates model weights. For example, the [Structured Outputs dataset](https://huggingface.co/datasets/nvidia/Nemotron-RL-instruction_following-structured_outputs) pairs prompts with JSON schemas. Its verifier rewards schema adherence; it does not check whether the generated content is factually correct.
 
 The best part is that this gives one repo and one discussion tab where people report broken tasks from all major frameworks. So when an author fixes a bad test, every framework gets the fix on the next pull.
 
@@ -141,4 +214,4 @@ The first version generates one `default` snippet per framework. Per-config snip
 
 The bigger goal is for framework tagging to be automatic everywhere. OpenEnv already does it on upload. If you maintain Harbor, Verifiers, Nemo Gym, or any other environment framework, add the tags in your push path. It is a few lines, and every environment your users publish becomes visible to everyone else.
 
-If you train agents, go browse the [filter](https://huggingface.co/datasets?other=rl-environment). If you build environments, tag them. If you think the tag list is missing a framework, open the PR.
+If you train agents, go browse the [filter](https://huggingface.co/datasets?other=rl-environment). If you build environments, publish and tag them, whether they cover coding, tool use, games, robotics, or another task. Include the files, a working run command, and the rule that produces the reward so others can use them. If your framework is missing, contribute it to the [list of supported libraries](https://github.com/huggingface/huggingface.js/blob/main/packages/tasks/src/dataset-libraries.ts).
