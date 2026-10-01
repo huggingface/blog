@@ -9,13 +9,13 @@ authors:
 
 Reinforcement Learning environments give new capabilities to agentic AI systems, and they’re a great way to measure and improve performance in your agents. Therefore, the hugging face hub now has a special place for RL Environments.
 
-\<screenshot\>
+<screenshot\>
 
 An RL environment on the Hub is a dataset repo that shows up in the new [RL Environments filter](https://huggingface.co/datasets?other=rl-environment). The **Use this dataset** button gives you the command to run it in that framework. There is no new repo type, no registry, and no sign-up. There are already environments in Harbor, Verifiers, and Nemo Gym.
 
 ## Stop building environment registries
 
-Every RL paper or framework ships its own way to find environments. A hub here, a registry there, a GitHub list of tasks with a custom loader. Each one is a small walled garden. If you publish an environment for one framework, users of the other three can’t load it. If you want to train on an environment from another framework or a new paper, you’ll need to port it by hand.
+Every RL paper or framework uses its own way to find environments. Custom hubs, runtime registries, independent task datasets, or a GitHub list of tasks with a custom loader. This means that many of the published environments are siloed: if you publish an environment for one framework, users of the other three can’t load it. If you want to train on an environment from another framework or a new paper, you’ll need to port it by hand.
 
 We think this is the wrong shape. An environment is tasks, tests, containers, and a reward rule. That is just data with a runtime attached. The Hub already stores data, versions it, gates it, previews it, and serves it to millions of people. It does not need a second system to hold environments. It needs a way to say "this data is an environment, and here is how you run it."
 
