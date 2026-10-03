@@ -5,7 +5,6 @@ authors:
 - user: philschmid
 - user: osanseviero
 - user: pcuenq
-- user: lewtun
 - user: lvwerra
 - user: loubnabnl
 - user: ArthurZ
