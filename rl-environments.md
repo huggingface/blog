@@ -3,6 +3,13 @@ title: "Welcome RL Environments to the hub"
 thumbnail: /blog/assets/datasets-filters/thumbnail.png
 authors:
   - user: burtenshaw
+  - user: xeophon
+    guest: true
+  - user: ryanmarten
+    guest: true
+  - user: merve
+  - user: lhoestq
+  - user: julien-c
 ---
 
 # Welcome RL Environments to the hub
@@ -104,24 +111,19 @@ The viewer shows the task's reward, verifier output, and logs. This checks the t
 
 ### Verifiers: run a model on the same task
 
-The [Verifiers v1 API](https://github.com/PrimeIntellect-ai/verifiers/blob/f2382d3c285ecb85578caf2948f24d0eeed84561/docs/v1/harbor.md) can read the same Harbor task directories. With Docker running and a tool-calling model served at `http://localhost:8000/v1`, replace `local-model` below with the served model ID. This example uses uv and Python 3.13, and pins the v1 source revision. The `bash` harness lets the model act in the task's container; the task verifier scores the completed run.
+The Harbor integration of [verifiers v1](https://www.primeintellect.ai/blog/verifiers-v1) can run the same task directories in different runtimes, such as Docker. It also supports different harnesses, including a minimal bash harness.
 
 ```sh
-uv tool install --python 3.13 \
-    'verifiers[harbor] @ git+https://github.com/PrimeIntellect-ai/verifiers@f2382d3c285ecb85578caf2948f24d0eeed84561'
-
-vf-eval harbor \
+uvx --python 3.13 --from 'verifiers[harbor]' eval harbor \
     --env.taskset.repo https://huggingface.co/datasets/harborframework/terminal-bench-2.1 \
     --env.taskset.dataset terminal-bench-2.1@2.1.0 \
     --env.taskset.tasks '["regex-log"]' \
-    --env.agent.runtime.type docker --env.agent.harness.id bash \
-    --model local-model --client.base-url http://localhost:8000/v1 \
-    --client.api-key-var LOCAL_MODEL_API_KEY \
-    --max-concurrent 1 --num-rollouts 1 --no-push --no-rich \
-    --output-dir results --run.dir verifiers
+    --env.agent.runtime.type docker \
+    --env.agent.harness.id bash \
+    --model "$MODEL" \
+    --client.base-url "$LLM_URL"
 ```
-
-Here `repo` is the full Hugging Face Git URL, while `dataset` is the name and version in that repo's `registry.json`. This loader uses Harbor's registry conventions, so a bare Hub repo ID cannot replace both values. No `hf://datasets/` prefix is needed.
+Here repo is the full Hugging Face Git URL, while dataset is the name and version in that repo's registry.json. This loader uses Harbor's registry conventions, so a bare Hub repo ID cannot replace both values.
 
 ### OpenEnv: run an agent and inspect its reward
 
