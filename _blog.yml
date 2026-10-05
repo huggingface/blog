@@ -5811,3 +5811,12 @@
     - rl
     - datasets
     - hub
+
+- local: open-tts-leaderboard
+  date: September 30, 2026
+  tags:
+    - audio
+    - speech
+    - leaderboard
+    - datasets
+    - evaluation
