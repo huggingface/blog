@@ -11,7 +11,13 @@ Reinforcement Learning environments give new capabilities to agentic AI systems,
 
 An environment gives an agent a task, responds to its actions with observations, and scores the outcome. The resulting rewards can measure an agent's performance during evaluation or provide a learning signal during training. For an introduction to this interaction loop, see [our blogpost on environments](https://huggingface.co/spaces/AdithyaSK/rl-environments-guide). Within the environment, the agent will perform a set of tasks that are represented as datasets. Therefore, environments can be split into broadly two parts: tasksets and runtimes. In this release, we are focusing on the tasksets.
 
-<screenshot\>
+<figure class="image text-center">
+  <img
+    src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/rl-environments/rl-environments-filter.gif"
+    alt="Browsing the RL Environments filter on the Hugging Face Hub"
+    width="100%"
+  >
+</figure>
 
 An RL environment on the Hub is a dataset repo that shows up in the new [RL Environments filter](https://huggingface.co/datasets?other=rl-environment). The **Use this dataset** button gives you the command to run it in that framework. There is no new repo type, no registry, and no sign-up. There are already environments in Harbor, Verifiers, and NVIDIA NeMo Gym.
 
@@ -203,8 +209,8 @@ The first version generates one `default` snippet per framework. Per-config snip
 
 <figure class="image text-center">
   <iframe
-    src="https://huggingfaceh4-harbor-visualiser.hf.space"
-    title="Harbor environment visualiser"
+    src="https://fineenvs-rl-explorer.hf.space/"
+    title="RL Environment Explorer"
     width="100%"
     height="700"
     frameborder="0"
