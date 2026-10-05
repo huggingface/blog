@@ -3,6 +3,7 @@ title: "Welcome RL Environments to the hub"
 thumbnail: /blog/assets/datasets-filters/thumbnail.png
 authors:
   - user: burtenshaw
+  - user: AdithyaSK
   - user: xeophon
     guest: true
   - user: ryanmarten
