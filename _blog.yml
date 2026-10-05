@@ -5805,6 +5805,13 @@
     - community
     - open-source-collab
 
+- local: rl-environments
+  date: September 28, 2026
+  tags:
+    - rl
+    - datasets
+    - hub
+
 - local: open-tts-leaderboard
   date: September 30, 2026
   tags:
