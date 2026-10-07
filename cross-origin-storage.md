@@ -131,14 +131,14 @@ const hash = {
 };
 
 try {
-  const handle = await navigator.crossOriginStorage.requestFileHandle(hash);
+  const handle = await navigator.crossOriginStorage.getFileHandle(hash);
   // Cache hit! Get the file as a Blob and use it directly.
   const fileBlob = await handle.getFile();
 } catch {
   // Cache miss. Download from network, then store for next time.
   const fileBlob = await fetch('https://cdn.jsdelivr.net/.../ort-wasm-simd-threaded.asyncify.wasm')
     .then(r => r.blob());
-  const handle = await navigator.crossOriginStorage.requestFileHandle(
+  const handle = await navigator.crossOriginStorage.getFileHandle(
     hash,
     { create: true, origins: '*' },
   );
@@ -160,7 +160,7 @@ Not every resource should be globally shared. COS gives developers precise contr
 * Passing a specific list of origins, like `origins: ['https://write.example.com', 'https://calculate.example.com']`, **restricts** access to those sites. This works well for proprietary resources shared across a company's own properties that shouldn't be discoverable by anyone else, like a proprietary proofreading AI model used in a commercial office suite.
 * Omitting `origins` entirely makes the file available only to **[same-site](https://web.dev/articles/same-site-same-origin#same-site-cross-site) origins**. This is a sensible default for resources shared across all of an organization's subdomains, but not intended to cross organizational boundaries.
 
-One important rule: visibility can be upgraded but never downgraded. If a file is already globally available, a later attempt to store it with a restricted `origins` list is silently ignored. This prevents a malicious actor from re-storing a public resource and narrowing its availability. The reverse is possible: a file initially stored with a restricted `origins` list can later be made more permissive. Any site, not just the original storer, can call `requestFileHandle()` for the same hash (hashes are not a secret) with `create: true` and a broader `origins` value, and given the browser verifies the hash matches, the resource becomes available to the wider audience from that point on. Note that the upgrading site **must** still write the full file through the returned handle. This requirement exists to prevent sites from exploiting the upgrade path as a side-channel to detect whether a particular file was already stored in COS.
+One important rule: visibility can be upgraded but never downgraded. If a file is already globally available, a later attempt to store it with a restricted `origins` list is silently ignored. This prevents a malicious actor from re-storing a public resource and narrowing its availability. The reverse is possible: a file initially stored with a restricted `origins` list can later be made more permissive. Any site, not just the original storer, can call `getFileHandle()` for the same hash (hashes are not a secret) with `create: true` and a broader `origins` value, and given the browser verifies the hash matches, the resource becomes available to the wider audience from that point on. Note that the upgrading site **must** still write the full file through the returned handle. This requirement exists to prevent sites from exploiting the upgrade path as a side-channel to detect whether a particular file was already stored in COS.
 
 ### Integrity by design
 
