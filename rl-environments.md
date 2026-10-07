@@ -4,6 +4,7 @@ thumbnail: /blog/assets/datasets-filters/thumbnail.png
 authors:
   - user: burtenshaw
   - user: AdithyaSK
+  - user: sergiopaniego
   - user: xeophon
     guest: true
   - user: ryanmarten
