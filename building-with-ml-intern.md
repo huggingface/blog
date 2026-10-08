@@ -16,7 +16,7 @@ Last week, I wanted a small version of the [prompt rewriter](https://huggingface
 
 Over the course of the next few days, I made five more models the same way. Each one started as a message in HuggingChat with ML-intern switched on, and each one ended as a public model on the Hub with its evaluation in the model card. ML-intern plans the work, asks me for a budget before it spends anything, runs a small test before the real job, then trains, evaluates and publishes on Hugging Face hardware.
 
-## How I write the first message
+## How I prompt ML Intern
 
 The first message is where I spend my effort. My first prompt, for the *citrus* model shared below, was about 450 words. By my 6th project it was closer to 2,000, because each project taught me something I wanted in the next one. All seven prompts are on GitHub at [yvrjsharma/ml-intern-prompts](https://github.com/yvrjsharma/ml-intern-prompts), exactly as I wrote them.
 
