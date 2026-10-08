@@ -18,6 +18,8 @@ Over the course of the next few days, I made five more models the same way. Each
 
 ## How I prompt ML Intern
 
+<video controls autoplay loop muted playsinline src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/building-with-ml-intern/prompt_example.mp4"></video>
+
 The first message is where I spend my effort. My first prompt, for the *citrus* model shared below, was about 450 words. By my 6th project it was closer to 2,000, because each project taught me something I wanted in the next one. All seven prompts are on GitHub at [yvrjsharma/ml-intern-prompts](https://github.com/yvrjsharma/ml-intern-prompts), exactly as I wrote them.
 
 A prompt starts with the idea in one line and why I want it. Then it names the exact pieces: the dataset, the base model, the training script. Anything I have already checked goes under a heading that literally says "Verified facts, do not re-derive", so the agent spends its budget on the work instead of rediscovering what I know. For the camera-angle LoRA that section listed which trainer had just added transparent-image support, and which open GitHub issues made the fallback trainer risky.
@@ -26,9 +28,9 @@ A prompt starts with the idea in one line and why I want it. Then it names the e
 
 At the end of the prompt, I lay out the expected deliverables and limit the cost. I define what belongs in the model card and include a instruction like: "Cap total spend at USD 12 and ask me before exceeding it." Because ML-intern begins every task with zero dollar budget and needs permission before executing paid jobs, this spending limit stays strictly enforced. When you leave out a budget, the agent suggests a couple of paths depending on project size and asks which one you prefer.
 
-You don't necessarily need all of that on your first attempt. For example, I didn't have the *verified-facts* section in my _citrus_ brief and ML Intern still produced a model that more than [tripled the accuracy](https://huggingface.co/ML-Intern-lab/citrus-disease-vlm#results) of the [Qwen3.5-2B](https://huggingface.co/Qwen/Qwen3.5-2B) model. Let me walk you through what I have achieved with Ml-Intern in a matter of a couple of weeks.
+You don't necessarily need all of that on your first attempt. For example, I didn't have the *verified-facts* section in my _citrus_ brief and ML Intern still produced a model that more than [tripled the accuracy](https://huggingface.co/ML-Intern-lab/citrus-disease-vlm#results) of the [Qwen3.5-2B](https://huggingface.co/Qwen/Qwen3.5-2B) model. Let me walk you through 6 things I built with Ml-Intern in just a couple of days.
 
-## A model that knows your field
+## 1. A model that knows your field
 
 A general vision model can describe a yellowing citrus leaf. However, telling you whether it is a mite problem or a magnesium deficiency, and the bio and non-bio remedies to treat the plant is very hard. Using Claude, I put together a training dataset merged from three sources hosted by the [Project-AgML](https://huggingface.co/Project-AgML) organization on the Hub. The resulting [citrus-disease-vlm-instruct](https://huggingface.co/datasets/ML-Intern-lab/citrus-disease-vlm-instruct) is a dataset containing 3,017 annotated images across 21 distinct pests, illnesses, nutritional gaps, and treatment approaches. ML-intern handled the fine-tuning of Qwen3.5-2B using these examples, making sure to benchmark the foundation model beforehand.
 
@@ -38,7 +40,7 @@ On the 335 test photos, the base model named the right problem 14.9% of the time
 
 Check out: [Model](https://huggingface.co/ML-Intern-lab/citrus-disease-vlm) · [Dataset](https://huggingface.co/datasets/ML-Intern-lab/citrus-disease-vlm-instruct) · [Citrus Doctor App](https://huggingface.co/spaces/ML-Intern-lab/citrus-doctor)
 
-## A model that draws your character
+## 2. A model that draws your character
 
 Image models know plenty of characters. Huggy, drawn in the flat style of the Hugging Face brand assets, was not one of them. I asked ML-Intern for a LoRA on [FLUX.2 klein base 4B](https://huggingface.co/black-forest-labs/FLUX.2-klein-base-4B), trained on 84 captioned drawings from [Chunte/huggy_for_training](https://huggingface.co/datasets/Chunte/huggy_for_training) dataset.
 
@@ -48,7 +50,7 @@ The agent saved a checkpoint every 100 steps and drew the same set of prompts wi
 
 Check out: [Model](https://huggingface.co/ML-Intern-lab/huggy-flux2-klein-lora) · [Dataset](https://huggingface.co/datasets/Chunte/huggy_for_training) · [Huggy Generator App](https://huggingface.co/spaces/ML-Intern-lab/huggy-generator)
 
-## A model that does a new trick
+## 3. A model that does a new trick
 
 1. **Camera-angle LoRAs** are among the most-liked community add-ons for earlier Qwen-Image models. You can give the model a picture of an object and ask to see it 45 degrees from the left. When I checked a few days after the Qwen-Image 2.1 model release, nobody had made one, so I tasked ML-intern to build it. 
 
@@ -75,9 +77,9 @@ Paired with the [Viggle turbo LoRA](https://huggingface.co/Viggle/Qwen-Image-2.1
 
 Check out: [Model](https://huggingface.co/ML-Intern-lab/Qwen-Image-2.1-doodle-in-LoRA) · [Dataset](https://huggingface.co/datasets/ML-Intern-lab/doodle-in-pairs) · [Doodle-in App](https://huggingface.co/spaces/ML-Intern-lab/Qwen-Image-2.1-doodle-in-LoRA)
 
-## A model that fits your device
+## 4. A model that fits your device
 
-1. The pocket rewriter from the top of this post is the first one. ML-intern started by generating 8,797 short image requests with a small instruct model through Inference Providers, following a mix set in my prompt: photos, posters, logos, infographics and more, about a third of them asking for exact text in quotes, and many in languages other than English. The 9B teacher then rewrote all of them on one A100 in 2 hours 37 minutes (~USD 6.50). After filtering for quality, 1,840 examples were selected for training dataset.
+1. The **Pocket Rewriter** from the top of this post is the first one. ML-intern started by generating 8,797 short image requests with a small instruct model through Inference Providers, following a mix set in my prompt: photos, posters, logos, infographics and more, about a third of them asking for exact text in quotes, and many in languages other than English. The 9B teacher then rewrote all of them on one A100 in 2 hours 37 minutes (~USD 6.50). After filtering for quality, 1,840 examples were selected for training dataset.
 
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/building-with-ml-intern/qwen-image-2.1-pocket-studio.png" alt="Qwen Image 2.1 Pocket Studio">
 
@@ -85,7 +87,7 @@ Training the 0.8B and 2B students took 12 and 18 minutes on an A10G (USD 0.75 fo
 
 Check out: [Pocket rewriter 0.8B Student](https://huggingface.co/ML-Intern-lab/Qwen-Image-2.1-PE-T2I-Pocket-0.8B) · [2B Student](https://huggingface.co/ML-Intern-lab/Qwen-Image-2.1-PE-T2I-Pocket-2B) · [Dataset](https://huggingface.co/datasets/ML-Intern-lab/Qwen-Image-2.1-rewriter-distill) · [Pocket Studio App](https://huggingface.co/spaces/ML-Intern-lab/Qwen-Image-2.1-pocket-studio) · [Compare the teacher-student in Rewriter Arena](https://huggingface.co/spaces/ML-Intern-lab/Qwen-Image-2.1-rewriter-arena)
 
-2. Agate-Preview-002-4step is the second. [Logolabs' Agate Preview 002](https://huggingface.co/Logolabs/agate-preview-002) is a 260M-parameter text-to-image model, small enough for a browser, but it needs 50 steps with guidance, which is 100 network passes per image. I asked ML-intern to distill it down to just 4 passes!
+2. **Agate-Preview-002-4step** is the second. [Logolabs' Agate Preview 002](https://huggingface.co/Logolabs/agate-preview-002) is a 260M-parameter text-to-image model, small enough for a browser, but it needs 50 steps with guidance, which is 100 network passes per image. I asked ML-intern to distill it down to just 4 passes!
 
 <video controls autoplay loop muted playsinline src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/building-with-ml-intern/agate-preview-002-4step.mp4"></video>
 
