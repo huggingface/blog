@@ -5820,3 +5820,12 @@
     - leaderboard
     - datasets
     - evaluation
+
+- local: hub-gcp-marketplace
+  date: October 6, 2026
+  tags:
+    - guide
+    - partnerships
+    - gcp
+    - hub
+    - marketplace
