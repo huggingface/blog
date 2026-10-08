@@ -5820,3 +5820,14 @@
     - leaderboard
     - datasets
     - evaluation
+
+- local: building-with-ml-intern
+  date: October 8, 2026
+  tags:
+    - ml-intern
+    - datasets
+    - spaces
+    - models
+    - inference-providers
+    - huggingchat
+    - gradio
