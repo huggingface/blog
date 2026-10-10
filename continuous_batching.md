@@ -98,7 +98,7 @@ In the figure above, only the tokens in white are computed: instead of computing
 You can check [this post](https://huggingface.co/blog/not-lain/kv-caching) for more visualizations of KV caching, or [this one](https://huggingface.co/blog/kv-cache) for a practical implementation example.
 
 Let's be a bit more specific about the cache size, because it's a good opportunity to examine the shapes present in our model. For a model with \\( \mathcal L \\) attention layers and \\( H \\) attention heads with head dimension \\( A \\), the total cache size needed to store one token will be \\( 2 *\mathcal L * AH \\) with a factor of \\( 2 \\) to account for both \\( K \\) and \\( V \\).  
-For instance, Llama-2-7B with \\( \mathcal{L}=32 \\) layers, \\( H=32 \\) heads, and \\( A=128 \\) requires \\( 2 \times 32 \times 128 = 8,192 \\) values per token per layer. With `float16` precision, this takes \\( 2AH \times 2 \\) bytes \\( = 16 \\) KB in memory.
+For instance, Llama-2-7B has \\( \mathcal{L}=32 \\) layers, \\( H=32 \\) heads, and \\( A=128 \\). **Per layer**, it requires \\( 2 \times H \times A = 2 \times 32 \times 128 = 8,192 \\) values for one token. With `float16` precision, this takes \\( 2AH \times 2 \\) bytes \\( = 16 \\) KB of memory per layer. **Across all layers**, the total cache size required to store a single token is \\( 16 \text{ KB} \times 32 \text{ layers} = 512 \text{ KB} \\).
 
 KV caching is useful when we want to generate the next token, which is a stage we call **decoding**. But it can also be useful in the **prefill** stage, when we process the initial prompt and have many input tokens. Especially when there are large initial prompts that don't fit in GPU memory all at once.
 
