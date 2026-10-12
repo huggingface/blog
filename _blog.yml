@@ -5831,3 +5831,13 @@
     - inference-providers
     - huggingchat
     - gradio
+
+- local: gradio-workflow-with-app-view
+  date: October 13, 2026
+  tags:
+    - spaces
+    - qwen-image-2.1
+    - text-to-image
+    - gradio-app
+    - gradio-workflow
+    - manga
