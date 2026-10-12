@@ -1,6 +1,6 @@
 ---
 title: "Gradio Workflow Now Has An App View"
-thumbnail: /blog/assets/gradio-workflow-with-app-view/thumbnail.png
+thumbnail: /blog/assets/gradio-workflow-with-app-view/thumbnail.gif
 authors:
 - user: ysharma
 ---
