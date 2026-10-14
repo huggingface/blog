@@ -421,7 +421,7 @@ dataset used to fine-tune the model.
 Wav2Vec2 was pretrained on the audio data of
 [LibriSpeech](https://huggingface.co/datasets/librispeech_asr) and
 LibriVox which both were sampling with 16kHz. Our fine-tuning dataset,
-[Timit](hhtps://huggingface.co/datasets/timit_asr), was luckily also
+[Timit](https://huggingface.co/datasets/timit_asr), was luckily also
 sampled with 16kHz. If the fine-tuning dataset would have been sampled
 with a rate lower or higher than 16kHz, we first would have had to up or
 downsample the speech signal to match the sampling rate of the data used
