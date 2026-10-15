@@ -199,46 +199,48 @@ Preserve the video's metadata when preparing inputs with `return_metadata=True` 
 import torch
 
 messages = [
-      {
-          "role": "user",
-          "content": [
-{
-                  "type": "text",
-                  "text": (
-                      "Describe what happens in this video. "
-                      "Use timestamps and include relevant speech or sounds."
-                  ),
-              }
-              {"type": "video", "url": "https://huggingface.co/datasets/merve/vlm_test_images/resolve/main/ramen.mp4"},
-              ,
-          ],
-      }
-  ]
+    {
+        "role": "user",
+        "content": [
+            {
+                "type": "text",
+                "text": (
+                    "Describe what happens in this video. "
+                    "Use timestamps and include relevant speech or sounds."
+                ),
+            },
+            {
+                "type": "video",
+                "url": "https://huggingface.co/datasets/merve/vlm_test_images/resolve/main/ramen.mp4"
+            },
+        ],
+    }
+]
 
-  inputs = processor.apply_chat_template(
-      messages,
-      add_generation_prompt=True,
-      tokenize=True,
-      return_dict=True,
-      return_tensors="pt",
-      load_audio_from_video=True,
-      return_metadata=True,
-  ).to(model.device).to(model.dtype)
+inputs = processor.apply_chat_template(
+    messages,
+    add_generation_prompt=True,
+    tokenize=True,
+    return_dict=True,
+    return_tensors="pt",
+    load_audio_from_video=True,
+    return_metadata=True,
+).to(model.device).to(model.dtype)
 
-  with torch.inference_mode():
-      output_ids = model.generate(
-          **inputs,
-          max_new_tokens=256,
-          do_sample=False,
-      )
+with torch.inference_mode():
+    output_ids = model.generate(
+        **inputs,
+        max_new_tokens=256,
+        do_sample=False,
+    )
 
-  generated_ids = output_ids[:, inputs["input_ids"].shape[1] :]
-  response = processor.batch_decode(
-      generated_ids,
-      skip_special_tokens=True,
-  )[0]
+generated_ids = output_ids[:, inputs["input_ids"].shape[1] :]
+response = processor.batch_decode(
+    generated_ids,
+    skip_special_tokens=True,
+)[0]
 
-  print(response)
+print(response)
 ```
 
 ### Audio Inference
