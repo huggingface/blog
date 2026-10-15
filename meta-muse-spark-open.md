@@ -554,14 +554,14 @@ curl http://localhost:8000/v1/chat/completions \
 
 Muse Spark Open is available in [oMLX](https://github.com/jundot/omlx) and [mlx-lm](https://github.com/ml-explore/mlx-lm) today. oQ quants optimized for oMLX are available in [3-bit](https://huggingface.co/mlx-community/Muse-Spark-Open-816B-A42B-oQ3e) and [4-bit](https://huggingface.co/mlx-community/Muse-Spark-Open-816B-A42B-oQ4e), ready to use right away.
 
-We tested the oQ3e quant on an M3 Ultra (512 GB). The model takes about 344 GB, leaving room for the KV cache, and runs at about [000] tok/s prefill and [00] tok/s generation with a 1024-token prompt and 128 generated tokens.
+We tested the oQ3e quant on an M3 Ultra (512 GB). The model takes about 344 GB, leaving room for the KV cache, and runs at about 225 tok/s prefill and 21 tok/s generation with a 1024-token prompt and 128 generated tokens.
 
 Once you download the model through the oMLX interface, you can chat with it in the built-in chat UI. From the chat UI you can add images and adjust the reasoning effort on the fly, from low to xhigh. The model’s reasoning shows up as a collapsible thinking block, separate from the final answer.
 
-Note that turning off reasoning is not possible with Muse Spark Open, and the default (Auto) uses xhigh. Set it to “low” if you want to use fewer tokens on easier tasks.  
+Note that it's not possible to turn reasoning off, and the default (Auto) uses xhigh. Set it to “low” if you want to use fewer tokens on easier tasks.
 ![omlx](https://huggingface.co/datasets/merve/meta-muse-spark-open-assets/resolve/main/omlx_muse_spark_open_reasoning_screenshot.png)
 
-The language model is also available in this PR of the official mlx-lm repository. You can run it on the same high-quality oQ3e quant like this:
+The language model is also available in [this PR](https://github.com/ml-explore/mlx-lm/pull/1975) of the official mlx-lm repository. You can run it on the same high-quality oQ3e quant like this:
 
 ```
 mlx_lm.generate --model mlx-community/Muse-Spark-Open-816B-A42B-oQ3e \
