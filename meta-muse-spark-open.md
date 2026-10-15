@@ -483,7 +483,6 @@ uv run sglang_meta serve \
   --moe-runner-backend flashinfer_trtllm \
   --tp-size 4 \
   --ep-size 4 \
-  --chat-template "$CKPT/muse_spark_1_2_oss.jinja" \
   --port 30000
 ```
 
@@ -710,5 +709,5 @@ Muse Spark Open takes the voice input and reasons over the type of product that 
 
 ## Wrapping Up
 
-Muse Spark Open is a full-size open-weight model from the Muse series. Start with the [BF16](https://huggingface.co/meta-models/Muse-Spark-1.2-816B-A42B) or [NVFP4](https://huggingface.co/meta-models/Muse-Spark-1.2-816B-A42B-NVFP4) checkpoint, or try one of the great `llama.cpp quants`. If you build something with Muse Spark Open, share it, and tell us in the [repository’s discussions.](https://huggingface.co/meta-models/Muse-Spark-1.2-816B-A42B/discussions)
+Muse Spark Open is a full-size open-weight model from the Muse series. Start with the [BF16](https://huggingface.co/meta-models/Muse-Spark-Open-816B-A42B) or [NVFP4](https://huggingface.co/meta-models/Muse-Spark-Open-816B-A42B-NVFP4) checkpoint, or try one of the great `llama.cpp quants`. If you build something with Muse Spark Open, share it, and tell us in the [repository’s discussions.](https://huggingface.co/meta-models/Muse-Spark-Open-816B-A42B/discussions)
 
