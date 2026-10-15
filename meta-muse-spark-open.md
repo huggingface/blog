@@ -199,47 +199,48 @@ Preserve the video's metadata when preparing inputs with `return_metadata=True` 
 import torch
 
 messages = [
-      {
-          "role": "user",
-          "content": [
-{
-                  "type": "text",
-                  "text": (
-                      "Describe what happens in this video. "
-                      "Use timestamps and include relevant speech or sounds."
-                  ),
-              }
-              {"type": "video", "url": "https://huggingface.co/datasets/merve/vlm_test_images/resolve/main/ramen.mp4"},
-              ,
-          ],
-      }
-  ]
+    {
+        "role": "user",
+        "content": [
+            {
+                "type": "text",
+                "text": (
+                    "Describe what happens in this video. "
+                    "Use timestamps and include relevant speech or sounds."
+                ),
+            },
+            {
+                "type": "video",
+                "url": "https://huggingface.co/datasets/merve/vlm_test_images/resolve/main/ramen.mp4"
+            },
+        ],
+    }
+]
 
-  inputs = processor.apply_chat_template(
-      messages,
-      add_generation_prompt=True,
-      tokenize=True,
-      return_dict=True,
-      return_tensors="pt",
-      load_audio_from_video=True,
-      return_metadata=True,
-  ).to(model.device).to(model.dtype)
+inputs = processor.apply_chat_template(
+    messages,
+    add_generation_prompt=True,
+    tokenize=True,
+    return_dict=True,
+    return_tensors="pt",
+    load_audio_from_video=True,
+    return_metadata=True,
+).to(model.device).to(model.dtype)
 
-  with torch.inference_mode():
-      output_ids = model.generate(
-          **inputs,
-          max_new_tokens=256,
-          do_sample=False,
-      )
+with torch.inference_mode():
+    output_ids = model.generate(
+        **inputs,
+        max_new_tokens=256,
+        do_sample=False,
+    )
 
-  generated_ids = output_ids[:, inputs["input_ids"].shape[1] :]
-  response = processor.batch_decode(
-      generated_ids,
-      skip_special_tokens=True,
-  )[0]
+generated_ids = output_ids[:, inputs["input_ids"].shape[1] :]
+response = processor.batch_decode(
+    generated_ids,
+    skip_special_tokens=True,
+)[0]
 
-  print(response)
-
+print(response)
 ```
 
 ### Audio Inference
@@ -250,59 +251,54 @@ If you want to simply use `apply_chat_template` with messages though, this is al
 
 ```py
 import torch
-  from transformers import AutoProcessor, AutoModelForMultimodalLM
+from transformers import AutoProcessor, AutoModelForMultimodalLM
 
+model_id = "meta-models/Muse-Spark-Open-816B-A42B"
+processor = AutoProcessor.from_pretrained(model_id)
 
-  model_id = "meta-models/Muse-Spark-Open-816B-A42B"
-"
+model = AutoModelForMultimodalLM.from_pretrained(model_id).eval()
 
-  processor = AutoProcessor.from_pretrained(model_id)
+messages = [
+    {
+        "role": "user",
+        "content": [
+            {
+                "type": "audio",
+                "url": "https://huggingface.co/buckets/huggingface/audio-samples/resolve/bbaudio_question_39.mp3",
+            },
+            {
+                "type": "text",
+                "text": "Answer the question.",
+            },
+        ],
+    }
+]
 
-  model = AutoModelForMultimodalLM.from_pretrained(
-      model_id,
-        ).eval()
+# Downloads the audio, decodes it as mono, resamples it to 24 kHz, pads it, creates input_values_mask, and expands the audio placeholders.
+inputs = processor.apply_chat_template(
+    messages,
+    add_generation_prompt=True,
+    tokenize=True,
+    return_dict=True,
+    return_tensors="pt",
+    load_audio_backend="auto",
+).to(model.device).to(model.dtype)
 
-  messages = [
-      {
-          "role": "user",
-          "content": [
-              {
-                  "type": "audio",
-                  "url": "https://huggingface.co/buckets/huggingface/audio-samples/resolve/bbaudio_question_39.mp3",
-              },
-              {
-                  "type": "text",
-                  "text": "Answer the question.",
-              },
-          ],
-      }
-  ]
+with torch.inference_mode():
+    output_ids = model.generate(
+        **inputs,
+        max_new_tokens=128,
+        do_sample=False,
+    )
 
-  # Downloads the audio, decodes it as mono, resamples it to 24 kHz, pads it, creates input_values_mask, and expands the audio placeholders.
-  inputs = processor.apply_chat_template(
-      messages,
-      add_generation_prompt=True,
-      tokenize=True,
-      return_dict=True,
-      return_tensors="pt",
-      load_audio_backend="auto",
-  ).to(model.device).to(model.dtype)
+# Decode only newly generated tokens
+prompt_length = inputs["input_ids"].shape[1]
+generated_text = processor.batch_decode(
+    output_ids[:, prompt_length:],
+    skip_special_tokens=True,
+)
 
-  with torch.inference_mode():
-      output_ids = model.generate(
-          **inputs,
-          max_new_tokens=128,
-          do_sample=False,
-      )
-
-  # Decode only newly generated tokens
-  prompt_length = inputs["input_ids"].shape[1]
-  generated_text = processor.batch_decode(
-      output_ids[:, prompt_length:],
-      skip_special_tokens=True,
-  )
-
-  print(generated_text[0])
+print(generated_text[0])
 ```
 
 The processor inserts the matching number of audio tokens between audio boundary markers. It also returns a mask identifying real samples, allowing the model to exclude padded audio embeddings.
@@ -435,8 +431,7 @@ We tested quants on Mac M3 Ultra (512GB). An imatrix-calibrated 2-bit quant runs
 You can also query the server as follows. Feel free to check out [the API reference](https://llama.app/docs/serve) for multimodality, tool calls and more. 
 
 ```
-
-## text-only inference
+## Text-only inference
 curl http://localhost:8080/v1/chat/completions \
     -H "Content-Type: application/json" \
     -d '{
@@ -446,7 +441,7 @@ curl http://localhost:8080/v1/chat/completions \
         ]
     }'
 
-## image-text inference
+## Image-text inference
 curl -s http://127.0.0.1:8080/v1/chat/completions \
   -H "Content-Type: application/json" -H "Authorization: Bearer <your-key>" \
   -d '{"model":"muse-spark-open","messages":[{"role":"user","content":[
@@ -454,7 +449,7 @@ curl -s http://127.0.0.1:8080/v1/chat/completions \
         {"type":"image_url","image_url":{"url":"data:image/png;base64,..."}}
       ]}],"temperature":0}'
 
-## audio-text inference
+## Audio-text inference
 curl -s http://127.0.0.1:8080/v1/chat/completions \
   -H "Content-Type: application/json" -H "Authorization: Bearer <your-key>" \
   -d '{"model":"muse-spark-open","messages":[{"role":"user","content":[
@@ -603,37 +598,34 @@ curl "https://<your-endpoint>.endpoints.huggingface.cloud/v1/chat/completions" \
 
 Any OpenAI-compatible client works with the same URL and your Hugging Face token as the API key.
 
-## Fine-tuning with TRL [Quentin Gallouédec](mailto:quentin.gallouedec@huggingface.co) [Ben Burtenshaw](mailto:benjamin.burtenshaw@huggingface.co)
+## Fine-tuning with TRL
 
-You can fine-tune the full 816B checkpoint with the TRL `SFTTrainer`. This section shows how we fine-tuned the full 816B checkpoint with TRL on 8 nodes of 8 H100 GPUs. The recipe trains LoRA adapters on the attention layers. The experts stay frozen. The full script is in the TRL examples
+You can fine-tune the 816B checkpoint with the TRL `SFTTrainer`. This section shows how we fine-tuned it with TRL on 8 nodes of 8 H100 GPUs. The recipe trains LoRA adapters on the attention layers. The experts stay frozen. The full script is in the [TRL examples](https://github.com/huggingface/trl/tree/main/examples/sft_muse_spark_open).
 
-First, we need to split the model across 64 GPU devices. Given the large size of the model, we need to parallelize it across multiple axes. We parallelize tensors, data, and experts using `DistributedConfig`, which tells `transformers` how to split the model when it loads:
+First, we need to split the model across 64 GPU devices. Given the large size of the model, we need to parallelize it across multiple axes. We shard the model with FSDP and split the experts across GPUs, using `DistributedConfig`, which tells `transformers` how to split the model when it loads:
 
 ```py
 from transformers.distributed import DistributedConfig
 
-
 distributed_config = DistributedConfig(fsdp_size=64, ep_size=8)
-
-
 ```
 
-In the snippet above, `fsdp_size=64` shards the model across all 64 GPUs with FSDP2, and `ep_size=8` splits the 256 experts of each layer into 8 groups. Transformers sends each token to the GPU that holds its expert, so each GPU trains on its own slice of the batch
+In the snippet above, `fsdp_size=64` shards the model across all 64 GPUs with FSDP2, and `ep_size=8` splits the 256 experts of each layer into 8 groups. Transformers sends each token to the GPU that holds its expert, so each GPU trains on its own slice of the batch.
 
 Now, we can configure the `SFTConfig` for our training run. We’ve performed a simple task here to adapt the model’s chat template on an open source dataset, but you could apply it to your own use case.
 
 ```py
-
 import torch
 from datasets import load_dataset
 from peft import LoraConfig
+from transformers.distributed import DistributedConfig
 from trl import SFTConfig, SFTTrainer
 
 train_dataset = load_dataset("allenai/tulu-3-sft-mixture", split="train[:500000]")
 
 training_args = SFTConfig(
     output_dir="muse-spark-lora-sft",
-    model_init_kwargs={"dtype": torch.bfloat16, "distributed_config": distributed_config},
+    model_init_kwargs={"dtype": torch.bfloat16, "distributed_config": DistributedConfig(fsdp_size=64, ep_size=8)},
     per_device_train_batch_size=1,
     max_steps=500,
     max_length=2048,
@@ -650,8 +642,6 @@ trainer = SFTTrainer(
     peft_config=LoraConfig(r=16, lora_alpha=32, target_modules=["q_proj", "k_proj", "v_proj", "o_proj"]),
 )
 trainer.train()
-
-
 ```
 
 The core parts here are `packing=True` which joins examples into 2048-token sequences without padding. A block-diagonal mask keeps the examples separate. `save_only_model=True` saves the adapter and no optimizer state, because the trainer cannot resume a model that was sharded at load time. `LoraConfig` targets the four attention projections and the 256 experts of each layer stay frozen.
@@ -659,7 +649,7 @@ The core parts here are `packing=True` which joins examples into 2048-token sequ
 Then we can run this command across each node:
 
 ```sh
-torchrun --nnodes 8 --nproc_per_node 8 --rdzv_backend c10d --rdzv_endpoint "$MASTER_IP:29700" sft_muse_spark.py
+torchrun --nnodes 8 --nproc_per_node 8 --rdzv_backend c10d --rdzv_endpoint "$MASTER_IP:29700" sft_muse_spark_open.py
 ```
 
 We trained for 500 steps, which took about 2 hours on 64 H100s, at about 8,000 tokens per second. Mean token accuracy rose from 72% to 84% and the loss fell from 1.26 to 0.57, which signals a good fine-tuning run.
