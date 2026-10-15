@@ -1,20 +1,17 @@
-# 
+---
+title: "Welcome Muse Spark Open: open-weight frontier multimodal mixture-of-experts model from Meta"
+thumbnail: /blog/assets/meta-muse-spark-open/thumbnail.png
+authors:
+  - user: pcuenq
+  - user: merve
+  - user: burtenshaw
+  - user: guarin
+  - user: qgallouedec
+  - user: alvarobartt
+  - user: Serveurperso
+  - user: Jundot
+---
 
-\---  
-title: "Welcome Muse Spark Open: open-weight frontier multimodal mixture-of-experts model from Meta"   
-thumbnail: /blog/assets/meta-muse-spark-open/thumbnail.png  
-authors:  
-\- user: pcuenq  
-\- user: merve  
-\- user: burtenshaw  
-\- user: guarin  
-\- user: qgallouedec  
-\- user: alvarobartt  
-\- user: Serveurperso  
-\- user: Jundot  
-\---
-
-# 
 
 # Welcome Muse Spark Open: open-weight frontier multimodal mixture-of-experts model from Meta
 
@@ -30,7 +27,7 @@ Meta describes Muse Spark Open as a coding-optimized model trained on real devel
 
 | Feature | Muse Spark Open |
 | :---- | :---- |
-| Model size | \~816B total parameters; \~42B active per token |
+| Model size | ~816B total parameters; ~42B active per token |
 | Expert routing | 256 experts per MoE layer; 8 selected per token |
 | Inputs | Text, images, audio, and video |
 | Output | Text |
@@ -39,15 +36,15 @@ Meta describes Muse Spark Open as a coding-optimized model trained on real devel
 
 The checkpoint repositories are Muse-Spark-Open-816B-A42B and Muse-Spark-Open-816B-A42B-NVFP4.
 
-\!\[model diagram\](https\://huggingface.co/buckets/huggingface/assets/resolve/model.png)
+![model diagram](https://huggingface.co/datasets/merve/meta-muse-spark-open-assets/resolve/main/model.png)
 
 Muse Spark Open is the full-size model of the Muse series of models. Muse Glimmer, which Meta released in August, is a small dense model from the same series, ideal for running locally. Both models use the same tokenizer and vocabulary. The chat template follows the Muse Glimmer template, with additions for the new modalities. In Muse Spark Open the input embedding and the output layer are separate matrices of about 1.66B parameters each.
 
 ### Mixture of Experts
 
-The language model has 62 layers and a hidden dimension of 8192\. Each layer has 128 query heads and 16 key-value heads (grouped-query attention). Each head has 64 dimensions. The attention block has an output gate and an output normalization layer. The model also applies normalization to the queries and the keys (QK-norm). Each block combines its input and its output through a learned residual gate, not through a plain sum.
+The language model has 62 layers and a hidden dimension of 8192. Each layer has 128 query heads and 16 key-value heads (grouped-query attention). Each head has 64 dimensions. The attention block has an output gate and an output normalization layer. The model also applies normalization to the queries and the keys (QK-norm). Each block combines its input and its output through a learned residual gate, not through a plain sum.
 
-Muse Glimmer uses one dense feed-forward network in each layer. Muse Spark Open replaces this dense network with a Mixture-of-Experts (MoE) block. Each MoE block has 256 experts, and a router selects 8 experts for each token. Each expert is a feed-forward network that projects from 8192 to 4096 dimensions and back to 8192, then applies its own normalization to its output. The experts hold \~97% of the total model parameters.
+Muse Glimmer uses one dense feed-forward network in each layer. Muse Spark Open replaces this dense network with a Mixture-of-Experts (MoE) block. Each MoE block has 256 experts, and a router selects 8 experts for each token. Each expert is a feed-forward network that projects from 8192 to 4096 dimensions and back to 8192, then applies its own normalization to its output. The experts hold ~97% of the total model parameters.
 
 Only 8 experts run per token, so the model computes each token with about 42B parameters. All 256 experts stay in memory, so deployment needs the memory of an 816B-parameter model, but runs at the much faster speed of a 42B model. The BF16 checkpoint is about 1.5 TB in safetensors format. The NVFP4 checkpoint stores the parameters in 4-bit precision with negligible loss in accuracy, specifically for NVIDIA Blackwell GPUs. In transformers, the BF16 checkpoint runs across 4 nodes of 8 H200 GPUs with tensor parallelism (TP=32) and the NVFP4 runs on a single B200 node. If you want to deploy Muse Spark Open, check out the `llama.cpp`, vLLM, and SGLang recipes below.
 
@@ -55,24 +52,23 @@ Only 8 experts run per token, so the model computes each token with about 42B pa
 
 A perception encoder converts images and video frames into tokens for the language model, just like Muse Glimmer. The encoder has 1.8B parameters, 50 layers, a hidden dimension of 1536, and 16 attention heads. It splits each image into 14×14 patches and produces features with 4096 dimensions. Position information comes from learned absolute embeddings and 2D RoPE. The feed-forward network in each layer uses LayerNorm and GELU. Every fourth layer and the last layer use full attention, and the other layers use sparse attention.
 
-\!\[image pipeline diagram\](https\://huggingface.co/buckets/huggingface/assets/resolve/image\_pipeline.png)
+![image pipeline diagram](https://huggingface.co/datasets/merve/meta-muse-spark-open-assets/resolve/main/image_pipeline.png)
 
 Muse Glimmer 30B uses an encoder with the same architecture. The design follows the  [Perception Encoder](https://huggingface.co/papers/2504.13181) work from Meta. Video input goes through the same encoder as images.
 
 ### Audio Encoder
 
-### 
 
-\![audio diagram](https://huggingface.co/buckets/huggingface/assets/resolve/audio_encoder.png)
+![audio diagram](https://huggingface.co/datasets/merve/meta-muse-spark-open-assets/resolve/main/audio_encoder.png)
 
-Muse Spark Open accepts audio as input through its audio encoder. An audio tokenizer converts the audio into tokens, and the chat template marks the audio position with `<|audio|>` tokens. The encoder emits one audio token every 80 ms, which yields 12.5 tokens per second. So let’s say, you have an audio of 10 seconds, the number of input audio tokens would be 125\.    
-The encoder itself is a convolutional pyramid where each stage consists of a patch embedder of different patch sizes and 2 convolutional blocks of 1d kernels of size 7 with stride of 1\. These stages are repeated for patch sizes of \[16, 6, 5, 4\]. At the end of the final stage, the temporal frames are fed to a final block of RMSNorm → linear projection → RMSNorm. 
+Muse Spark Open accepts audio as input through its audio encoder. An audio tokenizer converts the audio into tokens, and the chat template marks the audio position with `<|audio|>` tokens. The encoder emits one audio token every 80 ms, which yields 12.5 tokens per second. So let’s say, you have an audio of 10 seconds, the number of input audio tokens would be 125.
+The encoder itself is a convolutional pyramid where each stage consists of a patch embedder of different patch sizes and 2 convolutional blocks of 1d kernels of size 7 with stride of 1. These stages are repeated for patch sizes of [16, 6, 5, 4]. At the end of the final stage, the temporal frames are fed to a final block of RMSNorm → linear projection → RMSNorm.
 
 ### Long Context
 
 The context window is 1M tokens at inference. The configuration sets `max_position_embeddings` to 1,048,576. This includes image, video, and audio tokens in the same window as text. 
 
-Grouped-query attention keeps the KV cache small for a model of this size. Each token adds 2 × 16 heads × 64 dimensions × 62 layers \= 126,976 values to the cache. In BF16, this is about 250 KB per token and about 266 GB for a full 1M-token context. 
+Grouped-query attention keeps the KV cache small for a model of this size. Each token adds 2 × 16 heads × 64 dimensions × 62 layers = 126,976 values to the cache. In BF16, this is about 250 KB per token and about 266 GB for a full 1M-token context.
 
 ## Inference Support
 
@@ -80,7 +76,7 @@ Grouped-query attention keeps the KV cache small for a model of this size. Each 
 
 The Muse Spark Open implementation provides `MuseSparkForConditionalGeneration` for text generation from multimodal inputs and `MuseSparkProcessor` for preparing conversations. The processor combines the tokenizer, image and video processors, audio feature extractor, and chat template.
 
-Use a \`DistributedConfig\` to configure the parallelism settings. \`tp\_size\` is the number of devices across which the dense layers are sharded, and \`ep\_size\` is the number of devices across which the experts are distributed.
+Use a `DistributedConfig` to configure the parallelism settings. `tp_size` is the number of devices across which the dense layers are sharded, and `ep_size` is the number of devices across which the experts are distributed.
 
 You can initialize the model and processor as follows.
 
@@ -415,7 +411,7 @@ Tool-call routing is parsed as follows (assuming you have passed `tools` to `app
 
 ### Llama.cpp
 
-\<video controls width="720"\> \<source src="https\://huggingface.co/buckets/huggingface/assets/resolve/webui.mp4" type="video/mp4" /\> \</video\> \<p\>\<small\>Muse Spark 2-bit running on Llama Server\</small\>\</p\>
+<video controls width="720"> <source src="https://huggingface.co/datasets/merve/meta-muse-spark-open-assets/resolve/main/webui.mp4" type="video/mp4" /> </video> <p><small>Muse Spark 2-bit running on Llama Server</small></p>
 
 Muse Spark Open is integrated in llama.cpp and comes in the prebuilt binaries. You can install this with following command:
 
@@ -467,7 +463,7 @@ curl -s http://127.0.0.1:8080/v1/chat/completions \
       ]}],"temperature":0}'
 ```
 
-llama.cpp team ships different quantized versions. We have tested Q2\_K, Q4\_K\_S and Q\_8 on Apple Silicon chips. You can run each quant by adding the quant id as suffix, `llama serve -hf ggml-org/Muse-Spark-Open-816B-A42B:`Q2\_K`.`
+llama.cpp team ships different quantized versions. We have tested Q2_K, Q4_K_S and Q_8 on Apple Silicon chips. You can run each quant by adding the quant id as suffix, `llama serve -hf ggml-org/Muse-Spark-Open-816B-A42B:Q2_K`.
 
 ### SGLang
 
@@ -558,12 +554,12 @@ curl http://localhost:8000/v1/chat/completions \
 
 Muse Spark Open is available in [oMLX](https://github.com/jundot/omlx) and [mlx-lm](https://github.com/ml-explore/mlx-lm) today. oQ quants optimized for oMLX are available in [3-bit](https://huggingface.co/mlx-community/Muse-Spark-Open-816B-A42B-oQ3e) and [4-bit](https://huggingface.co/mlx-community/Muse-Spark-Open-816B-A42B-oQ4e), ready to use right away.
 
-We tested the oQ3e quant on an M3 Ultra (512 GB). The model takes about 344 GB, leaving room for the KV cache, and runs at about \[000\] tok/s prefill and \[00\] tok/s generation with a 1024-token prompt and 128 generated tokens.
+We tested the oQ3e quant on an M3 Ultra (512 GB). The model takes about 344 GB, leaving room for the KV cache, and runs at about [000] tok/s prefill and [00] tok/s generation with a 1024-token prompt and 128 generated tokens.
 
 Once you download the model through the oMLX interface, you can chat with it in the built-in chat UI. From the chat UI you can add images and adjust the reasoning effort on the fly, from low to xhigh. The model’s reasoning shows up as a collapsible thinking block, separate from the final answer.
 
 Note that turning off reasoning is not possible with Muse Spark Open, and the default (Auto) uses xhigh. Set it to “low” if you want to use fewer tokens on easier tasks.  
-\!\[omlx\](https\://huggingface.co/buckets/huggingface/assets/resolve/omlx\_muse\_spark\_open\_reasoning\_screenshot.png)
+![omlx](https://huggingface.co/datasets/merve/meta-muse-spark-open-assets/resolve/main/omlx_muse_spark_open_reasoning_screenshot.png)
 
 The language model is also available in this PR of the official mlx-lm repository. You can run it on the same high-quality oQ3e quant like this:
 
@@ -610,7 +606,7 @@ Any OpenAI-compatible client works with the same URL and your Hugging Face token
 
 ## Fine-tuning with TRL [Quentin Gallouédec](mailto:quentin.gallouedec@huggingface.co) [Ben Burtenshaw](mailto:benjamin.burtenshaw@huggingface.co)
 
-You can fine-tune the full 816B checkpoint with the TRL \`SFTTrainer\`. This section shows how we fine-tuned the full 816B checkpoint with TRL on 8 nodes of 8 H100 GPUs. The recipe trains LoRA adapters on the attention layers. The experts stay frozen. The full script is in the TRL examples
+You can fine-tune the full 816B checkpoint with the TRL `SFTTrainer`. This section shows how we fine-tuned the full 816B checkpoint with TRL on 8 nodes of 8 H100 GPUs. The recipe trains LoRA adapters on the attention layers. The experts stay frozen. The full script is in the TRL examples
 
 First, we need to split the model across 64 GPU devices. Given the large size of the model, we need to parallelize it across multiple axes. We parallelize tensors, data, and experts using `DistributedConfig`, which tells `transformers` how to split the model when it loads:
 
@@ -669,9 +665,9 @@ torchrun --nnodes 8 --nproc_per_node 8 --rdzv_backend c10d --rdzv_endpoint "$MAS
 
 We trained for 500 steps, which took about 2 hours on 64 H100s, at about 8,000 tokens per second. Mean token accuracy rose from 72% to 84% and the loss fell from 1.26 to 0.57, which signals a good fine-tuning run.
 
-\!\[Loss\](https\://huggingface.co/buckets/huggingface/assets/resolve/training\_loss.png)
+![Loss](https://huggingface.co/datasets/merve/meta-muse-spark-open-assets/resolve/main/training_loss.png)
 
-\!\[Acc\](https\://huggingface.co/buckets/huggingface/assets/resolve/token\_acc.png)
+![Acc](https://huggingface.co/datasets/merve/meta-muse-spark-open-assets/resolve/main/token_acc.png)
 
 ## Demos
 
@@ -679,9 +675,9 @@ Muse Spark Open is a coding and agentic model. We wanted to see that for ourselv
 
 ### 3D Asset Generator
 
-We combined 2-bit quantized Muse Spark open (served on llama.cpp) with the Pi coding agent to generate and iteratively improve 3D assets in [Three.js](http://Three.js). You can find the prompt [here](https://huggingface.co/buckets/huggingface/assets/tree/pi-3d-prompt.txt), as the model is quantized it requires a bit more steering. We get 18 TPS on llama.cpp on Mac Ultra.
+We combined 2-bit quantized Muse Spark open (served on llama.cpp) with the Pi coding agent to generate and iteratively improve 3D assets in [Three.js](http://Three.js). You can find the prompt [here](https://huggingface.co/datasets/merve/meta-muse-spark-open-assets/resolve/main/pi-3d-prompt.txt), as the model is quantized it requires a bit more steering. We get 18 TPS on llama.cpp on Mac Ultra.
 
-\!\[Pi demo\](https\://huggingface.co/buckets/huggingface/assets/resolve/pi-demo.png)
+![Pi demo](https://huggingface.co/datasets/merve/meta-muse-spark-open-assets/resolve/main/pi-demo.png)
 
 We initially describe the asset, and Pi uses the model to generate Three.js code for the asset, renders the result in a browser, and captures screenshots from multiple angles. It then sends those images back to the same model on llama server for visual feedback. Pi uses that feedback to edit the code and repeats the process.
 
@@ -689,7 +685,7 @@ We initially describe the asset, and Pi uses the model to generate Three.js code
 
 We tested Spark on computer use tasks and were amazed by the performance, so we have built a lean demo that also serves to teach you how a computer use agent works. You can also further customize this for your needs. This is both an educational example and something you can run in a few lines. You can find it [here](https://huggingface.co/docs/openenv/main/en/environments/helium_browser).
 
-\<video controls width="720"\> \<source src="https\://huggingface.co/buckets/huggingface/assets/resolve/browser\_agent.mp4" type="video/mp4" /\> \</video\> \<p\>\<small\>Muse Spark NVFP4 Browser Agent with OpenEnv and HF Sandboxes\</small\>\</p\>
+<video controls width="720"> <source src="https://huggingface.co/datasets/merve/meta-muse-spark-open-assets/resolve/main/browser_agent.mp4" type="video/mp4" /> </video> <p><small>Muse Spark NVFP4 Browser Agent with OpenEnv and HF Sandboxes</small></p>
 
 [Hugging Face Sandboxes](https://huggingface.co/docs/huggingface_hub/en/guides/sandbox) are sandboxes built on Hugging Face Jobs for easy code execution. The demo consists of three components:
 
@@ -699,16 +695,16 @@ We tested Spark on computer use tasks and were amazed by the performance, so we 
 
 where the remote sandbox contains the environment and the browser as illustrated below.
 
-\!\[Diagram\](https\://huggingface.co/buckets/huggingface/assets/resolve/browser\_server.png)
+![Diagram](https://huggingface.co/datasets/merve/meta-muse-spark-open-assets/resolve/main/browser_server.png)
 
-You can easily try this with a few steps, described in the example. Start Inference Endpoint with Muse Spark Open (NVFP4 works well too\!), add your endpoint URL as environmental variable, publish your OpenEnv server in Spaces and also provide that, then you can run the agent loop.  
+You can easily try this with a few steps, described in the example. Start Inference Endpoint with Muse Spark Open (NVFP4 works well too!), add your endpoint URL as environmental variable, publish your OpenEnv server in Spaces and also provide that, then you can run the agent loop.
 Muse Spark Open sees the previous actions, system prompt, url and the screenshot of the browser to take an action, and nothing else (no DOM, no HTML code, nothing) so it’s a truly multimodal browser demo. 
 
 ### Call your Browser 
 
 Finally, we wanted to push Spark’s agentic multimodality to the limits, so we set up [this space](https://huggingface.co/spaces/burtenshaw/muse-spark-call-your-browser) that combines the model’s audio, image, and agentic properties into a browser agent. We give the model a general description of a thing we need and it interacts with the integrated browser to find options on Amazon. 
 
-\<video controls width="720"\> \<source src="[https\://huggingface.co/buckets/huggingface/muse-spark-blog-assets/resolve/browser.mp4](https://huggingface.co/buckets/huggingface/muse-spark-blog-assets/resolve/browser.mp4)" type="video/mp4" /\> \</video\> 
+<video controls width="720"> <source src="https://huggingface.co/buckets/huggingface/muse-spark-blog-assets/resolve/browser.mp4" type="video/mp4" /> </video>
 
 Muse Spark Open takes the voice input and reasons over the type of product that meets the descriptions, searches for it on Amazon, and selects the most appropriate based on criteria. 
 
