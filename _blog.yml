@@ -5840,3 +5840,12 @@
     - quantization
     - black-forest-labs
     - lora
+
+- local: meta-muse-spark-open
+  date: October 15, 2026
+  tags:
+    - meta
+    - muse-spark
+    - open-source
+    - community
+    - llm
