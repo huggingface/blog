@@ -5831,3 +5831,12 @@
     - inference-providers
     - huggingchat
     - gradio
+  
+- local: flux-3
+  date: October 15, 2026
+  tags:
+    - diffusers
+    - flux
+    - quantization
+    - black-forest-labs
+    - lora
