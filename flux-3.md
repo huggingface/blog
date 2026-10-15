@@ -7,7 +7,7 @@ authors:
   - user: linoyts
 ---
 
-# Welcome FLUX.3 Image Klein in Diffusers: The latest open image generation model from Black Forect Labs
+# Welcome FLUX.3 Image Klein in Diffusers: The latest open image generation model from Black Forest Labs
 
 [Black Forest Labs](https://huggingface.co/black-forest-labs) FLUX.3 Image Klein is here, and it runs in Diffusers from day one. One model does text-to-image and multi-reference image-to-image, and it adds something new, the **layout control**. You write bounding boxes into the prompt to say where each part of the image should go, or which parts of a reference image to move.
 
