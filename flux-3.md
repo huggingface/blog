@@ -125,7 +125,7 @@ combined = pipe(
 combined.save("combined.png")
 ```
 
-| ![A red fox sitting on dry grass](flux-blog-assets/figs/i2i_fox.png) | ![A slatted wooden bench against a plain grey wall](flux-blog-assets/figs/i2i_bench.png) | ![The same fox sitting on the same bench, with snow on the ground](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/flux3/combined.png) |
+| ![A red fox sitting on dry grass](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/flux3/i2i_fox.png) | ![A slatted wooden bench against a plain grey wall](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/flux3/i2i_bench.png) | ![The same fox sitting on the same bench, with snow on the ground](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/flux3/combined.png) |
 | :--: | :--: | :--: |
 | `<ref_image_0>`: a red fox | `<ref_image_1>`: a wooden bench | The fox on the bench |
 
