@@ -239,7 +239,6 @@ messages = [
   )[0]
 
   print(response)
-
 ```
 
 ### Audio Inference
@@ -250,59 +249,54 @@ If you want to simply use `apply_chat_template` with messages though, this is al
 
 ```py
 import torch
-  from transformers import AutoProcessor, AutoModelForMultimodalLM
+from transformers import AutoProcessor, AutoModelForMultimodalLM
 
+model_id = "meta-models/Muse-Spark-Open-816B-A42B"
+processor = AutoProcessor.from_pretrained(model_id)
 
-  model_id = "meta-models/Muse-Spark-Open-816B-A42B"
-"
+model = AutoModelForMultimodalLM.from_pretrained(model_id).eval()
 
-  processor = AutoProcessor.from_pretrained(model_id)
+messages = [
+    {
+        "role": "user",
+        "content": [
+            {
+                "type": "audio",
+                "url": "https://huggingface.co/buckets/huggingface/audio-samples/resolve/bbaudio_question_39.mp3",
+            },
+            {
+                "type": "text",
+                "text": "Answer the question.",
+            },
+        ],
+    }
+]
 
-  model = AutoModelForMultimodalLM.from_pretrained(
-      model_id,
-        ).eval()
+# Downloads the audio, decodes it as mono, resamples it to 24 kHz, pads it, creates input_values_mask, and expands the audio placeholders.
+inputs = processor.apply_chat_template(
+    messages,
+    add_generation_prompt=True,
+    tokenize=True,
+    return_dict=True,
+    return_tensors="pt",
+    load_audio_backend="auto",
+).to(model.device).to(model.dtype)
 
-  messages = [
-      {
-          "role": "user",
-          "content": [
-              {
-                  "type": "audio",
-                  "url": "https://huggingface.co/buckets/huggingface/audio-samples/resolve/bbaudio_question_39.mp3",
-              },
-              {
-                  "type": "text",
-                  "text": "Answer the question.",
-              },
-          ],
-      }
-  ]
+with torch.inference_mode():
+    output_ids = model.generate(
+        **inputs,
+        max_new_tokens=128,
+        do_sample=False,
+    )
 
-  # Downloads the audio, decodes it as mono, resamples it to 24 kHz, pads it, creates input_values_mask, and expands the audio placeholders.
-  inputs = processor.apply_chat_template(
-      messages,
-      add_generation_prompt=True,
-      tokenize=True,
-      return_dict=True,
-      return_tensors="pt",
-      load_audio_backend="auto",
-  ).to(model.device).to(model.dtype)
+# Decode only newly generated tokens
+prompt_length = inputs["input_ids"].shape[1]
+generated_text = processor.batch_decode(
+    output_ids[:, prompt_length:],
+    skip_special_tokens=True,
+)
 
-  with torch.inference_mode():
-      output_ids = model.generate(
-          **inputs,
-          max_new_tokens=128,
-          do_sample=False,
-      )
-
-  # Decode only newly generated tokens
-  prompt_length = inputs["input_ids"].shape[1]
-  generated_text = processor.batch_decode(
-      output_ids[:, prompt_length:],
-      skip_special_tokens=True,
-  )
-
-  print(generated_text[0])
+print(generated_text[0])
 ```
 
 The processor inserts the matching number of audio tokens between audio boundary markers. It also returns a mask identifying real samples, allowing the model to exclude padded audio embeddings.
@@ -435,8 +429,7 @@ We tested quants on Mac M3 Ultra (512GB). An imatrix-calibrated 2-bit quant runs
 You can also query the server as follows. Feel free to check out [the API reference](https://llama.app/docs/serve) for multimodality, tool calls and more. 
 
 ```
-
-## text-only inference
+## Text-only inference
 curl http://localhost:8080/v1/chat/completions \
     -H "Content-Type: application/json" \
     -d '{
@@ -446,7 +439,7 @@ curl http://localhost:8080/v1/chat/completions \
         ]
     }'
 
-## image-text inference
+## Image-text inference
 curl -s http://127.0.0.1:8080/v1/chat/completions \
   -H "Content-Type: application/json" -H "Authorization: Bearer <your-key>" \
   -d '{"model":"muse-spark-open","messages":[{"role":"user","content":[
@@ -603,7 +596,7 @@ curl "https://<your-endpoint>.endpoints.huggingface.cloud/v1/chat/completions" \
 
 Any OpenAI-compatible client works with the same URL and your Hugging Face token as the API key.
 
-## Fine-tuning with TRL [Quentin Gallouédec](mailto:quentin.gallouedec@huggingface.co) [Ben Burtenshaw](mailto:benjamin.burtenshaw@huggingface.co)
+## Fine-tuning with TRL
 
 You can fine-tune the full 816B checkpoint with the TRL `SFTTrainer`. This section shows how we fine-tuned the full 816B checkpoint with TRL on 8 nodes of 8 H100 GPUs. The recipe trains LoRA adapters on the attention layers. The experts stay frozen. The full script is in the TRL examples
 
@@ -612,10 +605,7 @@ First, we need to split the model across 64 GPU devices. Given the large size of
 ```py
 from transformers.distributed import DistributedConfig
 
-
 distributed_config = DistributedConfig(fsdp_size=64, ep_size=8)
-
-
 ```
 
 In the snippet above, `fsdp_size=64` shards the model across all 64 GPUs with FSDP2, and `ep_size=8` splits the 256 experts of each layer into 8 groups. Transformers sends each token to the GPU that holds its expert, so each GPU trains on its own slice of the batch
@@ -627,6 +617,7 @@ Now, we can configure the `SFTConfig` for our training run. We’ve performed a 
 import torch
 from datasets import load_dataset
 from peft import LoraConfig
+from transformers.distributed import DistributedConfig
 from trl import SFTConfig, SFTTrainer
 
 train_dataset = load_dataset("allenai/tulu-3-sft-mixture", split="train[:500000]")
