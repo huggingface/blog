@@ -483,7 +483,6 @@ uv run sglang_meta serve \
   --moe-runner-backend flashinfer_trtllm \
   --tp-size 4 \
   --ep-size 4 \
-  --chat-template "$CKPT/muse_spark_1_2_oss.jinja" \
   --port 30000
 ```
 
