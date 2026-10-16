@@ -512,7 +512,7 @@ You can inspect the runs in the [Trackio dashboard](https://burtenshaw-beam-pi-p
 
 ### Hey Beam, finetune a decision model for my code base!
 
-Decision models are all the rage at the moment because they’re super fast and practical for many use cases. We started with Beam, then continued with GLM-5.3 in Pi after Beam’s quota ran out to train and evaluate a custom decision model for developer incident triage.
+Decision models are all the rage at the moment because they’re super fast and practical for many use cases. We started with Beam in Pi after Beam’s quota ran out to train and evaluate a custom decision model for developer incident triage.
 
 We wanted to see whether a coding agent could turn an incident-triage policy into a small, fast decision model. The task was to read a developer incident and choose the responsible team, its severity, and whether someone should be pinged immediately. Using Unsloth, we fine-tuned Qwen3.5-0.8B to score these choices directly.
 
