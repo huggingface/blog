@@ -98,7 +98,6 @@ These numbers are per sequence, in BF16, with the transformers dynamic cache.
 
 ## Benchmark Results
 
-<!-- TODO: Confirm the four TBC benchmark values before publication. -->
  Here are the benchmark results across different precision levels, as provided by the Reflection team.
 
 |  | *Beam (BF16)* | *Beam (FP8)* | *Beam (NVFP4)* |
@@ -123,8 +122,8 @@ These numbers are per sequence, in BF16, with the transformers dynamic cache.
 | AutomationBench \- public split only | 39.3 | 38.2 | 39.8% |
 | MCP Atlas | 80.8% | 81.5% | 80.5% |
 | Tau3 Banking | 36.1% | 36.8% | 35.4% |
-| BrowseComp w/ context management | 76.8% | **TBC** | **TBC** |
-| DeepSearchQA w/ context management | 80.5% | **TBC** | **TBC** |
+| BrowseComp w/ context management | 76.8% | 76.7% | 75.6% |
+| DeepSearchQA w/ context management | 80.5% | 79.6% | 81.1% |
 | **General Capabilities**  |  |  |  |
 | AA-LCR | 78.2% | 79.4% | 78.7% |
 | LongBench v2 | 67.5% | 67.6% | 67.2% |
