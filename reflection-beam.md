@@ -142,8 +142,6 @@ Beam comes with day-0 support in transformers, SGLang and vLLM.
 
 ### Transformers
 
-<!-- TODO: Confirm reflectionai/ model IDs against the reflection/ launch namespace used elsewhere. -->
-
 Install the latest version of transformers.
 
 ```sh
@@ -278,8 +276,6 @@ Launch the script with `torchrun` across 16 H200 GPUs. Each one then holds 78 GB
 
 ### vLLM
 
-<!-- TODO: Replace the proposed recipe link after vLLM recipes PR #1132 merges. Reconcile the serving image, GPU setup, and drafter model ID below with the final recipe. -->
-
 Beam has day-0 support in vLLM. The command below serves the BF16 checkpoint with tensor parallelism across 16 GPUs (two 8x H200 nodes) and exposes an OpenAI-compatible API:
 
 ```sh
@@ -360,8 +356,6 @@ print(completion.choices[0].message)
 ```
 
 ### Inference Endpoints
-
-<!-- TODO: Verify both catalog links with reflection-organization access in Inference Endpoints; current browser access stops at the organization authorization screen. -->
 
 We’ve set up a Beam recipe for you to one click deploy in Inference Endpoints from the catalog in [FP8](https://endpoints.huggingface.co/new/reflection/Beam-1.0-501B-A23B-FP8) or [NVFP4](https://endpoints.huggingface.co/new/reflection/Beam-1.0-501B-A23B-NVFP4), or install with the `hf` cli like so:
 
@@ -533,15 +527,3 @@ If you want to try out this experiment for yourself, check out the [artifact buc
 ## Wrapping Up
 
 Beam is a 501B open model that you can run on your own hardware and change. Start with the [**BF16**](https://huggingface.co/reflection/Beam-1.0-501B-A23B) checkpoint, or try one of the quants [**FP8**](https://huggingface.co/reflection/Beam-1.0-501B-A23B-FP8)**,** [**NVFP4**](https://huggingface.co/reflection/Beam-1.0-501B-A23B-NVFP4). If you build something with Beam, share it in the [discussions tab](https://huggingface.co/reflection/Beam-1.0-501B-A23B/discussions).
-
-## Acknowledgements
-
-TODO: Confirm names for the Reflection, Hugging Face, and RadixArk acknowledgements.
-
-**Reflection:**
-
-**Hugging Face:**
-
-**RadixArk:**
-
-**vLLM, Axolotl, NVIDIA and llama.cpp contributors**
