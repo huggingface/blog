@@ -5849,3 +5849,13 @@
     - open-source
     - community
     - llm
+
+- local: reflection-beam
+  date: October 16, 2026
+  tags:
+    - open-source-collab
+    - llm
+    - transformers
+    - inference
+    - trl
+    - rl
