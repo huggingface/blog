@@ -5849,3 +5849,14 @@
     - open-source
     - community
     - llm
+
+# TODO: Confirm the publication date against the partner launch schedule.
+- local: reflection-beam
+  date: October 16, 2026
+  tags:
+    - open-source-collab
+    - llm
+    - transformers
+    - inference
+    - trl
+    - rl
