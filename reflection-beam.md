@@ -154,7 +154,7 @@ The easiest way to run Beam is the text-generation pipeline:
 from transformers import pipeline
 
 pipe = pipeline(
-    "text-generation", model="reflectionai/Beam-1.0-501B-A23B", device_map="auto"
+    "text-generation", model="reflection/Beam-1.0-501B-A23B", device_map="auto"
 )
 
 messages = [
@@ -172,7 +172,7 @@ Going one level lower, use `AutoModelForCausalLM` and `AutoTokenizer`.
 ```py
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
-model_id = "reflectionai/Beam-1.0-501B-A23B"
+model_id = "reflection/Beam-1.0-501B-A23B"
 tokenizer = AutoTokenizer.from_pretrained(model_id)
 
 model = AutoModelForCausalLM.from_pretrained(
@@ -266,7 +266,7 @@ from transformers.distributed import DistributedConfig
 model = AutoModelForCausalLM.from_pretrained(
     "reflection/Beam-1.0-501B-A23B",
     distributed_config=DistributedConfig(
-        tp_size=int(os.environ["WORLD_SIZE"]), enable_expert_parallel=True
+        tp_size=int(os.environ["WORLD_SIZE"]), ep_size=int(os.environ["WORLD_SIZE"]), tp_plan={}
     ),
 )
 
