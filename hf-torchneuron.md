@@ -165,7 +165,7 @@ Parallelism is handled natively by Transformers. You put a `DistributedConfig` w
 
 Nothing in the script is tied to Trainium: the same code runs on any hardware. A few things are worth knowing when you run it on Trainium:
 
-* **Static shapes.** The Neuron compiler works best when every step sees the same input shape. The script turns off automatic dynamic shapes in `torch.compile`, and the command packs samples into fixed sequences of 2048 tokens (`--packing true` and `--max_length 2048`). Compiled graphs are reused for subsequent steps with the same shapes.
+* **Static shapes.** The script disables automatic dynamic shapes in `torch.compile` and uses wrapped packing to produce sequences of up to 2048 tokens. With TRL ≥ 1.16, batches on Neuron are padded to a multiple of 128 tokens, limiting the number of input shapes. Compiled graphs are reused for subsequent steps with the same shapes.
 * **`torch.compile` on.** Passing `--torch_compile true` is all it takes: on a Trainium instance, `torch.compile` detects the device and picks the Neuron backend automatically, with nothing else to configure.
 * **Async weight loading off.** The built-in asynchronous weight loading in Transformers is not supported on Neuron, so for now we disable it with `HF_DEACTIVATE_ASYNC_LOAD=1`.
 
