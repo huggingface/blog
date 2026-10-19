@@ -170,6 +170,7 @@ def main(script_args, training_args, model_args):
 
     trainer.train()
     trainer.save_model(training_args.output_dir)
+    trainer.end()
 
 
 if __name__ == "__main__":
