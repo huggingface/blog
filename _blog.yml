@@ -5866,3 +5866,15 @@
     - open-source
     - torch
     - neuron
+
+- local: hf-torchtpu
+  date: October 20, 2026
+  tags:
+    - tpu
+    - google
+    - gcp
+    - partnerships
+    - hardware
+    - transformers
+    - diffusers
+    - kernels
