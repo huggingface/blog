@@ -3,12 +3,11 @@ title: "AnyLanguageModel 1.0: One Year of Local Models on Apple Platforms"
 thumbnail: /blog/assets/anylanguagemodel-1-0/banner.png
 authors:
 - user: mattt
-  guest: true
 ---
 
 Last November, we introduced [AnyLanguageModel](https://huggingface.co/blog/anylanguagemodel) on this blog:
 a drop-in replacement for Apple's Foundation Models framework
-that lets you choose the model behind it.
+that lets you choose the model and provider your app uses.
 We heard from app developers who were curious about local models
 but weren't always sure how to get started.
 They also wanted to avoid the added complexity
@@ -28,7 +27,7 @@ Here's what changed, and what's next:
 
 ## A drop-in compatible API
 
-The core idea of AnyLanguageModel is the same as it was at the start:
+The core idea of AnyLanguageModel remains the same:
 use the Foundation Models API with the model that fits your app.
 To get started, change your `import` statement:
 
@@ -41,7 +40,7 @@ Over the past year, we've added several major features:
 
 - **Tool calling** works with every provider.
 - **Guided generation** works with every on-device model:
-  Foundation Models, Core ML, MLX, and llama.cpp.
+  Foundation Models, llama.cpp, MLX, and Core ML.
   Ollama and the cloud providers support it too,
   including nested `@Generable` types and arrays of them.
 - **Image support** lets you attach images to prompts
@@ -89,15 +88,17 @@ let model = OpenAILanguageModel(
 Hosted providers get the same features as local models:
 guided generation, tool calling with streaming,
 and token usage on responses.
-Reasoning is now part of the transcript.
+
+Reasoning is now part of the transcript too.
 When you switch providers,
-adapters omit another provider's reasoning from requests if they can't replay it.
+reasoning blocks are automatically omitted from requests if the new provider can't replay them.
 
 API keys come from a closure instead of a string,
 so your app can fetch short-lived tokens from your own server.
 The [README](https://github.com/huggingface/AnyLanguageModel#api-credentials-and-security)
 explains when to let people bring their own keys
 and when to route requests through a proxy.
+
 AnyLanguageModel also runs on Linux,
 so the same code can work on a server.
 
@@ -152,7 +153,7 @@ for building intelligence into products.
 They're also one of many kinds of models developers can put to work.
 We're excited to bring the same approach to more capabilities:
 familiar Swift APIs with a choice of models running on the device.
-Next time: models that decide, and models that listen.
+Coming soon: models that decide, and models that listen.
 
 ## Links
 
