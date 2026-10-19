@@ -110,18 +110,11 @@ Here is a supervised fine-tuning script built on TRL's `SFTTrainer`. If you have
 import os
 
 import torch
-from accelerate import ParallelismConfig
 from datasets import load_dataset
-from trl import (
-    ModelConfig,
-    ScriptArguments,
-    SFTConfig,
-    SFTTrainer,
-    TrlParser,
-)
-
-from transformers import AutoConfig, AutoModelForCausalLM, set_seed
 from transformers.distributed import DistributedConfig
+
+from trl import ModelConfig, ScriptArguments, SFTConfig, SFTTrainer, TrlParser
+
 
 def main(script_args, training_args, model_args):
     # The Neuron backend can't compile Dynamo's automatic dynamic shapes yet (https://github.com/huggingface/trl/issues/7660)
