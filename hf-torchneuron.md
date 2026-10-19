@@ -275,3 +275,7 @@ Neuron kernels can be written using the [Neuron Kernel Interface](https://awsdoc
 You can use for example [this kernel](https://huggingface.co/kernels/aws-neuron/vit-encoder-neuron-kernels) to speed up your vision transformers with up to a x2.4 speedup on Trainium!
 
 ![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/hf-torchneuron/kernel.png)
+
+## Acknowledgments
+
+Special thanks to the AWS team for their work on TorchNeuron and for their reactivity to our feedback to make the HF integration as good as possible.
