@@ -124,27 +124,21 @@ from transformers import AutoConfig, AutoModelForCausalLM, set_seed
 from transformers.distributed import DistributedConfig
 
 def main(script_args, training_args, model_args):
-    # Disable automatic dynamic shapes for torch.compile
+    # The Neuron backend can't compile Dynamo's automatic dynamic shapes yet (https://github.com/huggingface/trl/issues/7660)
     torch._dynamo.config.automatic_dynamic_shapes = False
 
-    # Distributed training setup
-    tp_size = int(os.environ.get("TP_SIZE", "1"))
-    fsdp_size = int(os.environ.get("FSDP_SIZE", "1"))
-    world_size = int(os.environ.get("WORLD_SIZE", "1"))
-
-    config = AutoConfig.from_pretrained(
-        model_args.model_name_or_path,
-        revision=model_args.model_revision,
-        trust_remote_code=training_args.trust_remote_code,
-    )
-
-    distributed_config = None
-    if world_size > 1:
-        distributed_config = DistributedConfig(
-            tp_size=tp_size,
-            fsdp_size=fsdp_size,
+    training_args.model_init_kwargs = {
+        "revision": model_args.model_revision,
+        "trust_remote_code": training_args.trust_remote_code,
+        "attn_implementation": model_args.attn_implementation,
+        "dtype": model_args.dtype,
+    }
+    if int(os.environ.get("WORLD_SIZE", "1")) > 1:
+        # The model is sharded on the TP x FSDP grid as its weights are loaded
+        training_args.model_init_kwargs["distributed_config"] = DistributedConfig(
+            tp_size=int(os.environ.get("TP_SIZE", "1")),
+            fsdp_size=int(os.environ.get("FSDP_SIZE", "1")),
         )
-        training_args.parallelism_config = ParallelismConfig(tp_size=tp_size, dp_shard_size=fsdp_size)
 
     # Prepare dataset
     train_dataset = load_dataset(
