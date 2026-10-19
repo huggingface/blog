@@ -269,10 +269,6 @@ You can run this piece of code with: \``NEURON_LOGICAL_NC_CONFIG=2 torchrun --np
 Make sure to check out the [kernels from the Neuron team](https://huggingface.co/aws-neuron/kernels)  as more and more Neuron kernels will become available on the Hub to speed up your models.
 Neuron kernels can be written using the [Neuron Kernel Interface](https://awsdocs-neuron.readthedocs-hosted.com/en/latest/nki/index.html) (NKI), which gives lower control to optimize operations. This way, users can run their own custom operations and share them on the hub.
 
-+ Add screenshot of a Neuron kernel on the hub
+You can use for example [this kernel](https://huggingface.co/kernels/aws-neuron/vit-encoder-neuron-kernels) to speed up your vision transformers with up to a x2.4 speedup on Trainium!
 
-## Pre-configured images for your Neuron workloads on AWS
-
-### Inference
-
-### Training
+![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/hf-torchneuron/kernel.png)
