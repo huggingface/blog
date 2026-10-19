@@ -5831,7 +5831,7 @@
     - inference-providers
     - huggingchat
     - gradio
-  
+
 - local: flux-3
   date: October 15, 2026
   tags:
@@ -5859,3 +5859,10 @@
     - inference
     - trl
     - rl
+
+- local: hf-torchneuron
+  date: October 19, 2026
+  tags:
+    - open-source
+    - torch
+    - neuron
