@@ -149,21 +149,9 @@ def main(script_args, training_args, model_args):
     # UltraChat also has a string `prompt` column, which makes TRL treat it as a prompt-completion dataset.
     train_dataset = train_dataset.select_columns(["messages"])
 
-    model = AutoModelForCausalLM.from_pretrained(
-        model_args.model_name_or_path,
-        config=config,
-        revision=model_args.model_revision,
-        trust_remote_code=training_args.trust_remote_code,
-        attn_implementation=model_args.attn_implementation,
-        dtype=model_args.dtype,
-        low_cpu_mem_usage=True,
-        distributed_config=distributed_config,
-    )
-
     # Training
-    set_seed(training_args.seed)
     trainer = SFTTrainer(
-        model=model,
+        model=model_args.model_name_or_path,
         args=training_args,
         train_dataset=train_dataset,
     )
