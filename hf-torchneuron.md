@@ -24,7 +24,7 @@ Starting Oct. 20, 2026, TorchNeuron will be available as a public beta. Research
 
 ## New backend, native interface in HF libraries
 
-To date, the Hugging Face experience on AWS Trainium and Inferentia—AI chips designed respectively for cost-effective training and inference at scale—has been delivered through [optimum-neuron](https://github.com/huggingface/optimum-neuron). This library relies on the torch-neuronx package, which is based on PyTorch XLA. It was the natural choice at the time, but it meant thinking like a compiler: lazy tensors instead of eager execution, static shapes only, recompilation at graph breaks. Optimum Neuron existed to hide that complexity, and maintained custom code (modeling classes, trainers, etc) to do so.
+To date, the Hugging Face experience on AWS Trainium and Inferentia — AI chips designed respectively for cost-effective training and inference at scale — has been delivered through [optimum-neuron](https://github.com/huggingface/optimum-neuron). This library relies on the torch-neuronx package, which is based on PyTorch XLA. It was the natural choice at the time, but it meant thinking like a compiler: lazy tensors instead of eager execution, static shapes only, a recompilation for every graph break. Optimum Neuron existed to hide that complexity, and maintained custom code (modeling classes, trainers, etc) to do so.
 
 TorchNeuron changes this. It integrates directly into PyTorch and exposes `neuron` as a native device, with eager execution, PyTorch's own distributed primitives (DTensor, FSDP2) and `torch.compile`.
 
@@ -32,8 +32,11 @@ For the Hugging Face libraries, Trainium becomes a device like any other: Transf
 
 ### Transformers
 
-Inference
-Text generation is now natively supported in Transformers for a wide range of models. With TorchNeuron, 89% of the top 100 most-used text-generation model architectures are supported out of the box, compared to 46% with Optimum Neuron 0.4.5. You can pass the \`device\_map=”auto”\` argument in your code and your model will be automatically moved to the Neuron devices. For example:
+#### Inference
+
+Text generation is now natively supported in Transformers for a wide range of models. With TorchNeuron, 89% of the top 100 most-used text-generation model architectures are supported out of the box, compared to 46% with Optimum Neuron v0.4.5. You just need to pass the `device_map=neuron` argument in your code and your model will be moved to the Neuron devices.
+
+The following is an example of text-generation with tensor parallelism, which will enable to fully benefit from your Neuron instance. Note that it uses a static cache for generation as this is strongly recommended with Neuron to prevent frequent recompilations.
 
 ```py
 import os
