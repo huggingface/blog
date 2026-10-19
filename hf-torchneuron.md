@@ -125,6 +125,7 @@ def main(script_args, training_args, model_args):
         "trust_remote_code": training_args.trust_remote_code,
         "attn_implementation": model_args.attn_implementation,
         "dtype": model_args.dtype,
+        "device_map": None,
     }
     if int(os.environ.get("WORLD_SIZE", "1")) > 1:
         # The model is sharded on the TP x FSDP grid as its weights are loaded
@@ -164,7 +165,7 @@ Parallelism is handled natively by Transformers. You put a `DistributedConfig` w
 
 Nothing in the script is tied to Trainium: the same code runs on any hardware. A few things are worth knowing when you run it on Trainium:
 
-* **Static shapes.** The Neuron compiler works best when every step sees the same input shape. The script turns off automatic dynamic shapes in `torch.compile`, and the command packs samples into fixed sequences of 2048 tokens (`--packing true` and `--max_length 2048`). The graph is compiled once and reused at every step.
+* **Static shapes.** The Neuron compiler works best when every step sees the same input shape. The script turns off automatic dynamic shapes in `torch.compile`, and the command packs samples into fixed sequences of 2048 tokens (`--packing true` and `--max_length 2048`). Compiled graphs are reused for subsequent steps with the same shapes.
 * **`torch.compile` on.** Passing `--torch_compile true` is all it takes: on a Trainium instance, `torch.compile` detects the device and picks the Neuron backend automatically, with nothing else to configure.
 * **Async weight loading off.** The built-in asynchronous weight loading in Transformers is not supported on Neuron, so for now we disable it with `HF_DEACTIVATE_ASYNC_LOAD=1`.
 
