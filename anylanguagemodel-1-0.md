@@ -36,16 +36,18 @@ To get started, change your `import` statement:
 + import AnyLanguageModel
 ```
 
+The same session code then works with the system model,
+with open-weight models through llama.cpp, MLX, and Core ML,
+and with the hosted providers below.
+
 Over the past year, we've added several major features:
 
 - **Tool calling** works with every provider.
-- **Guided generation** works with every on-device model:
-  Foundation Models, llama.cpp, MLX, and Core ML.
-  Ollama and the cloud providers support it too,
+- **Guided generation** works with every provider, too,
   including nested `@Generable` types and arrays of them.
 - **Image support** lets you attach images to prompts
   using Foundation Models 27's syntax,
-  including when you use the system model on OS 27.
+  including when you use the system model on iOS, macOS, and visionOS 27.
 
 On OS 27, AnyLanguageModel also works with
 any model that conforms to Foundation Models' `LanguageModel` protocol,
