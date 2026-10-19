@@ -17,7 +17,7 @@ TorchNeuron provides a new native backend for PyTorch on AWS Trainium. Transform
 
 ## TorchNeuron
 
-[TorchNeuron](https://awsdocs-neuron.readthedocs-hosted.com/en/latest/frameworks/torch/index.html) is a PyTorch plugin that brings a new backend for Trainium enabling support for eager mode, \`torch.compile\` and native distributed APIs like FSDP and TP.
+[TorchNeuron](https://awsdocs-neuron.readthedocs-hosted.com/en/latest/frameworks/torch/index.html) is a PyTorch plugin that brings a new backend for Trainium enabling support for eager mode, `torch.compile` and native distributed APIs like FSDP and TP.
 Read the Pytorch [blog](https://pytorch.org/blog/introducing-torchneuron-native-pytorch-backend-for-aws-trainium/) to learn more about TorchNeuron.
 
 Starting Oct. 20, 2026, TorchNeuron will be available as a public beta. Researchers and developers will be able to install it with `pip install torch-neuronx`.
@@ -192,7 +192,7 @@ Nothing in the script is tied to Trainium: the same code runs on any hardware. A
 * **`torch.compile` on.** Passing `--torch_compile true` is all it takes: on a Trainium instance, `torch.compile` detects the device and picks the Neuron backend automatically, with nothing else to configure.
 * **Async weight loading off.** The built-in asynchronous weight loading in Transformers is not supported on Neuron, so for now we disable it with `HF_DEACTIVATE_ASYNC_LOAD=1`.
 
-The command below launches training with `torchrun`, which starts one process per NeuronCore. `TP_SIZE` and `FSDP_SIZE` set the parallelism layout, and their product is the number of processes: here 4 x 8 \= 32, matching `--nproc_per_node`. The 32 processes form a 4 x 8 grid. Tensor parallelism splits each layer across the 4 cores of a TP group, and FSDP shards the parameters, gradients and optimizer state across the 8 TP groups.
+The command below launches training with `torchrun`, which starts one process per NeuronCore. `TP_SIZE` and `FSDP_SIZE` set the parallelism layout, and their product is the number of processes: here 4 x 8 = 32, matching `--nproc_per_node`. The 32 processes form a 4 x 8 grid. Tensor parallelism splits each layer across the 4 cores of a TP group, and FSDP shards the parameters, gradients and optimizer state across the 8 TP groups.
 
 ```sh
 TP_SIZE=4 FSDP_SIZE=8 HF_DEACTIVATE_ASYNC_LOAD=1 uv run torchrun --nproc_per_node=32 sft_neuron_example.py \
@@ -223,7 +223,7 @@ Training runs to completion, and `trainer.save_model` writes a standard Transfor
 
 #### Inference
 
-Many pipelines from the Diffusers library are compatible with TorchNeuron in eager mode. The most widely used ones are also compatible with \`torch.compile\` and tensor parallelism (TP) to make the most of your Neuron devices. The following is an example showing how you can use TP:
+Many pipelines from the Diffusers library are compatible with TorchNeuron in eager and compiled mode. FLUX.1-dev, FLUX.2, Qwen-Image, Qwen-Image-2.1 and H3 are also compatible with tensor parallelism to make the most of your Neuron devices. The following is an example showing how you can use TP:
 
 ```py
 import torch, torch.distributed as dist, torch_neuronx # TP
@@ -265,7 +265,9 @@ if dist.get_rank() == 0:
     image.save("out.png")
 ```
 
-You can run this piece of code with: \``NEURON_LOGICAL_NC_CONFIG=2 torchrun --nproc_per_node=8 run.py`\`.
+You can run this piece of code with: `NEURON_LOGICAL_NC_CONFIG=2 torchrun --nproc_per_node=8 run.py`.
+
+More and more pipleines will be compatible with TP. If a pipeline you like is not, you can also add support for it following [this guide](https://huggingface.co/docs/diffusers/main/en/training/distributed_inference#writing-a-tensor-parallelism-plan).
 
 ### Kernels
 
