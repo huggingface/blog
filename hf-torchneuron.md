@@ -167,7 +167,7 @@ if __name__ == "__main__":
     main(script_args, training_args, model_args)
 ```
 
-Parallelism is handled natively by Transformers. You pass a `DistributedConfig` to `from_pretrained` with the tensor-parallel (TP) and FSDP sizes, and the model is sharded as its weights are loaded. The Trainer sees that the model is already distributed and does not wrap it again. You don't need an `--fsdp` flag or an Accelerate FSDP config.
+Parallelism is handled natively by Transformers. You put a `DistributedConfig` with the tensor-parallel (TP) and FSDP sizes in `model_init_kwargs`, `SFTTrainer` passes it to `from_pretrained`, and the model is sharded as its weights are loaded. The Trainer sees that the model is already distributed and does not wrap it again. You don't need an `--fsdp` flag or an Accelerate FSDP config.
 
 Nothing in the script is tied to Trainium: the same code runs on any hardware. A few things are worth knowing when you run it on Trainium:
 
