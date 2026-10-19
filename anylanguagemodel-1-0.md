@@ -109,22 +109,26 @@ so the same code can work on a server.
 While we've made local models easier to use,
 the models themselves have become more capable,
 making the small ones a good place to start.
-Here are some of the most downloaded small models on the Hub right now:
+Here are some of the most downloaded models on the Hub right now:
 
-- [Qwen3.5 4B for MLX](https://huggingface.co/mlx-community/Qwen3.5-4B-MLX-4bit),
-  about 3 GB at 4 bits.
 - [Gemma 4 E2B](https://huggingface.co/google/gemma-4-E2B-it-qat-q4_0-gguf) from Google,
   in GGUF, about 3.4 GB at `Q4_0` with quantization-aware training.
 - [LFM2.5 2.6B](https://huggingface.co/LiquidAI/LFM2.5-2.6B-GGUF) from Liquid AI,
   in GGUF, about 1.7 GB at `Q4_K_M`.
+- [Qwen3.8 27B for MLX](https://huggingface.co/mlx-community/Qwen3.8-27B-4bit) from Alibaba,
+  about 16 GB at 4 bits.
 
-Each one runs on a Mac,
-and at these sizes they also fit on an iPhone.
-For example, selecting the MLX model takes one line:
+The first two fit on an iPhone,
+and Qwen3.8 27B runs on a Mac with 32 GB of memory or more.
+Selecting the MLX model takes one line:
 
 ```swift
-let model = MLXLanguageModel(modelId: "mlx-community/Qwen3.5-4B-MLX-4bit")
+let model = MLXLanguageModel(modelId: "mlx-community/Qwen3.8-27B-4bit")
 ```
+
+And if you have four maxed-out Mac Studios handy,
+[GLM-5.3](https://huggingface.co/zai-org/GLM-5.3) from Z.ai takes about 1.5 TB at full precision.
+For the rest of us, it's available through Inference Providers.
 
 ## Upgrading to 1.0
 
