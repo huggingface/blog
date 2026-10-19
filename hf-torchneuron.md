@@ -193,7 +193,6 @@ TP_SIZE=4 FSDP_SIZE=8 HF_DEACTIVATE_ASYNC_LOAD=1 uv run torchrun --nproc_per_nod
     --logging_steps 2 \
     --per_device_train_batch_size 4 \
     --gradient_accumulation_steps 4 \
-    --gradient_checkpointing true \
     --save_only_model true \
     --torch_compile true
 ```
