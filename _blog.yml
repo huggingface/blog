@@ -5859,3 +5859,12 @@
     - inference
     - trl
     - rl
+
+- local: anylanguagemodel-1-0
+  date: October 19, 2026
+  tags:
+    - swift
+    - llm
+    - mlx
+    - open-source
+    - community
