@@ -1,5 +1,5 @@
 ---
-title: "Hugging Face ❤️ TorchTPU: TPUs, the Native Way"
+title: "Hugging Face ❤️ TorchTPU: TPUs, Natively"
 thumbnail: /blog/assets/hf-torchtpu/thumbnail.png
 authors:
 - user: tengomucho
@@ -11,24 +11,39 @@ authors:
 
 # Hugging Face ❤️ TorchTPU: TPUs, Natively
 
-So far, TPUs meant leaving your tools: porting PyTorch code to *torch_xla* or rewriting it in JAX. `torch_tpu` is a native PyTorch backend: TPU is just another *device*. It is also natively supported by Transformers, Diffusers, Kernels and the whole Hugging Face ecosystem, enabling users to benefit from the speed of TPUs and to share their models on the HF Hub easily.
+If you ever tried to run PyTorch on a TPU, you probably remember the detour. You either ported your code to `torch_xla`, or you ended up learning JAX on a Friday night. Neither was the plan.
 
-## TorchTPU
+That detour is gone. [TorchTPU](https://github.com/google-pytorch/torch_tpu) is a native PyTorch backend, so a TPU is now just another device. It also works across the Hugging Face ecosystem. Transformers, Diffusers and Kernels all support it. Pick a model from the Hub, send it to `"tpu"`, and you're done.
 
-[TorchTPU](https://github.com/google-pytorch/torch_tpu) enables users to run models with PyTorch on TPU devices through a new TPU backend. It features PyTorch Pallas kernels tailored for TPUs, support for distributed training and an integration with *torch.compile*.
+## Wait, what's a TPU?
 
-<!-- TODO: Link to Google's blog post? -->
-<!-- TODO: Command to install TorchTPU? -->
+TPU stands for [Tensor Processing Unit](https://cloud.google.com/tpu). TPUs are Google's own AI accelerators. They are chips built for one job: the matrix math that neural networks spend most of their time on. Google has been designing them for about ten years, and uses them to train and serve its own models, including Gemini.
 
-## Native support in the HF ecosystem
+You don't need to work at Google to use one. TPUs are available on [Google Cloud](https://docs.cloud.google.com/tpu/docs/intro-to-tpu), from a single chip up to pods of thousands of chips. They shine when you need a lot of compute, for training or for serving at scale.
 
-### Where were we
+The catch has always been software. The TPU stack grew up around TensorFlow and JAX, and PyTorch users had to work harder to get in.
 
-Until now, running PyTorch on TPUs meant going through PyTorch/XLA (`torch_xla`). It worked, but it came with some friction: lazy tensor execution, graph recompilations, and debugging that could be hard to reason about. To smooth this out for our users, we built Optimum TPU, which provided inference and training support for Hugging Face models on TPUs. With native support now arriving through TorchTPU, Optimum TPU is deprecated.
+## The old way
+
+Until now, running PyTorch on TPUs meant going through PyTorch/XLA (`torch_xla`). It worked, but it had its quirks. Tensors were lazy (the tensors, not you), so your code didn't always run when you thought it did. Small changes could trigger graph recompilations, and debugging was hard to reason about.
+
+To make life easier, we built Optimum TPU. It gave Hugging Face models inference and training support on TPUs. Now that TorchTPU brings native support, Optimum TPU is deprecated. It did its job, and it has earned its retirement.
+
+## Enter TorchTPU
+
+[TorchTPU](https://github.com/google-pytorch/torch_tpu) adds TPU as a new backend to PyTorch. You write regular PyTorch code. It comes with Pallas kernels tuned for TPUs, support for distributed training, and a `torch.compile` integration for when you want more speed. Installing it on a TPU VM takes one command:
+
+```shell
+pip install torch-tpu --extra-index-url https://download.pytorch.org/whl/cpu
+```
+
+The extra index gives you the CPU build of `torch`. Without it, pip pulls the much bigger CUDA build, which you don't need on a TPU.
+
+## Your favourite libraries, now on TPU
 
 ### Transformers
 
-Transformers v5 has been designed around one core principle: being the source of truth for model definitions so that they can be run anywhere. Thus, deploying your favourite model on TPU to generate text is as easy as it gets: you only need to pass `device_map="tpu"` when instantiating your model. For instance:
+Transformers v5 was built around one idea: be the source of truth for model definitions, so they can run anywhere. "Anywhere" now includes TPUs. To load a model on a TPU, pass `device_map="tpu"`. That's it.
 
 ```py
 model_id = "Qwen/Qwen3.5-9B"
@@ -42,11 +57,11 @@ out = model.generate(**inputs, max_new_tokens=64)
 print(tokenizer.decode(out[0], skip_special_tokens=True))
 ```
 
-The model can work in eager mode by default, but you can also use `torch.compile` to get better performance and use it in a distributed setup.
+The model runs in eager mode by default. You can also use `torch.compile` for better performance, or run it in a distributed setup.
 
 ### Diffusers
 
-Diffusers now runs on Google Cloud TPUs through TorchTPU, with support for both eager and compiled modes. Once TorchTPU is installed, `pipe.to("tpu")` is the only change most pipelines need under compiled mode. We’ve also added TPU support for tensor parallelism in Diffusers, allowing models that are too large for a single chip to be distributed across multiple chips.
+Diffusers runs on TPUs too, in both eager and compiled modes. Once TorchTPU is installed, moving a pipeline to TPU takes one line: `pipe.to("tpu")`. Here is Stable Diffusion 3.5 in compiled mode:
 
 ```py
 import torch
@@ -60,10 +75,13 @@ pipe.to("tpu")
 pipe.transformer.compile(backend="tpu", fullgraph=True, dynamic=False)
 ```
 
+Model too big for one chip? We added TPU support for tensor parallelism in Diffusers, so you can split it across several chips.
+
 ### Kernels
 
-The HF Kernels hub contains ready-to-use and optimized TPU kernels that you can access [here](https://huggingface.co/kernels?sort=trending&search=tpu). You can use them with the Kernels library to speed your models up.
-TPU kernels can be written with [Pallas](https://docs.jax.dev/en/latest/pallas/tpu/), which gives low-level control over TPU instructions. They could even be used to boost your inference with the kernels available for [Tokamax](https://github.com/openxla/tokamax), like with this ragged-dot kernel example:
+The [Kernels Hub](https://huggingface.co/kernels?sort=trending&search=tpu) has ready-to-use TPU kernels. Load one with the Kernels library and give your model a speed boost.
+
+TPU kernels are written in [Pallas](https://docs.jax.dev/en/latest/pallas/tpu/), which gives you low-level control over the hardware. You can also bring in kernels from the [Tokamax](https://github.com/openxla/tokamax) library. Here is a ragged-dot kernel from Tokamax plugged into a Mixture-of-Experts model:
 
 ```py
 repo_id = "tengomucho/ragged-dot-tpu"
@@ -77,20 +95,24 @@ model = AutoModelForCausalLM.from_pretrained(
 
 <!-- TODO: add image (upload to huggingface/documentation-images under blog/hf-torchtpu/) -->
 
-## CI Dashboard
+## We test it so you don't have to
 
-The whole Transformers CI is run on TPUs to make sure we offer the best possible support. You can see more details in our CI dashboard: <!-- TODO: add link -->
+Adding TPU support is the easy part. Keeping it from breaking is harder. So we run the Transformers model test suite on TPU, and the results land in our CI dashboard, right next to the other accelerators we test on.
 
-The whole Hugging Face ecosystem now natively supports TPU through TorchTPU. Transformers v5 has been designed around one core principle: being the source of truth for model definitions so that they can be run anywhere. Thus, deploying your favourite model on TPU to generate text is as easy as it gets:
+<!-- TODO: upload ../tpu-test/pytorch-na-2026/assets/tpu-tcid.png to huggingface/documentation-images under blog/hf-torchtpu/ -->
+![Transformers CI dashboard with TPU test results next to other accelerators](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/hf-torchtpu/tpu-tcid.png)
+*The Transformers CI dashboard, with TPU results next to other accelerators. Work in progress!*
 
-```py
-from transformers import AutoModelForCausalLM
+It's not all green yet, and we're fine with that. Of the tests that run on TPU, 96.5% pass. Every failure we find becomes a small repro script and an issue on the TorchTPU repo. So far we have reported 34 issues, and 19 are already fixed. Running on TPU also caught a few bugs in Transformers itself, like in `StaticCache` and the Qwen3 tensor-parallel plans. We fixed those upstream.
 
-model = AutoModelForCausalLM.from_pretrained(
-    "Qwen/Qwen3.5-9B",
-    device_map="tpu", # will load model directly on the TPU
-)
-```
+If something breaks on TPU, we want to find out before you do.
 
-You only need to pass the TPU device to `device_map`.
-The Diffusers integration has the same objective: image and video generation on TPU is possible with just a few lines of code. This includes tensor parallelism, which will enable users to fully benefit from the power of TPUs.
+## Get started
+
+TPUs are no longer a side quest for PyTorch users. Install TorchTPU, grab a model from the Hub, and send it to `"tpu"`.
+
+- [TorchTPU on GitHub](https://github.com/google-pytorch/torch_tpu)
+- [TPU kernels on the Hub](https://huggingface.co/kernels?sort=trending&search=tpu)
+- [Cloud TPU documentation](https://docs.cloud.google.com/tpu/docs)
+
+We can't wait to see what you build. If you hit a problem, open an issue and tell us about it.
