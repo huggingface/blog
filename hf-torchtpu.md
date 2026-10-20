@@ -11,6 +11,8 @@ authors:
 
 # Hugging Face ❤️ TorchTPU: TPUs, Natively
 
+<img src="https://huggingface.co/buckets/huggingface/hf-torchtpu-blog-assets/resolve/images/banner.jpg" alt="The Hugging Face mascot and a smiling PyTorch logo cheering over a glowing chip, on a manga-style background." width="624" style="max-width: 100%; height: auto;">
+
 If you ever tried to run PyTorch on a TPU, you probably remember the detour. You either ported your code to `torch_xla`, or you ended up learning JAX on a Friday night. Neither was the plan.
 
 That detour is gone. [TorchTPU](https://github.com/google-pytorch/torch_tpu) is a native PyTorch backend, so a TPU is now just another device. It also works across the Hugging Face ecosystem. Transformers, Diffusers and Kernels all support it. Pick a model from the Hub, send it to `"tpu"`, and you're done.
