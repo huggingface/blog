@@ -94,12 +94,12 @@ Here are some examples run on a Cloud TPU v6e-4:
   </tr>
   <tr>
     <td><video controls src="https://huggingface.co/datasets/Jingya/video-clips-and-imgs/resolve/main/minimax_h3_tpu_v6e4_tp4_768x1344_ref2va_s50_pikachu_trireme.mp4"></video></td>
-    <td><img src="https://huggingface.co/datasets/Jingya/video-clips-and-imgs/resolve/main/qwen_image_21_tpu_v6e4_tp4_1024_capybara.png" alt="A capybara wearing a wizard hat, reading a book by candlelight, oil painting"></td>
-    <td><img src="https://huggingface.co/datasets/Jingya/video-clips-and-imgs/resolve/main/qwen_image_21_tpu_v6e4_tp4_2048_s40_compile_neon.png" alt="Neon shop sign reading QWEN IMAGE 2.1"></td>
+    <td><img src="https://huggingface.co/buckets/huggingface/hf-torchtpu-blog-assets/resolve/images/qwen-image-21-capybara-1024.jpg" alt="A capybara wearing a wizard hat, reading a book by candlelight, oil painting"></td>
+    <td><img src="https://huggingface.co/buckets/huggingface/hf-torchtpu-blog-assets/resolve/images/qwen-image-21-neon-2048.jpg" alt="Neon shop sign reading QWEN IMAGE 2.1"></td>
   </tr>
   <tr>
-    <td><sub><i>"The fluffy Pikachu from the picture stands at the prow of an ancient Greek trireme […] Sound of crashing waves, creaking timber, wind in the rigging, distant seagulls, and a low epic orchestral swell."</i> · 1344×768, 5.2 s, 50 steps</sub></td>
-    <td><sub><i>"A capybara wearing a wizard hat, reading a book by candlelight, oil painting"</i> · 1024×1024, 40 steps</sub></td>
+    <td><sub><i>"The fluffy Pikachu from the picture stands at the prow of an ancient Greek trireme […] Sound of crashing waves, creaking timber, wind in the rigging, distant seagulls, and a low epic orchestral swell."</i> · 1344×768, 5.2 s, 49 steps · 188 s compiled, 262 s eager</sub></td>
+    <td><sub><i>"A capybara wearing a wizard hat, reading a book by candlelight, oil painting"</i> · 1024×1024, 40 steps · 3.5 s compiled, 8.0 s eager</sub></td>
     <td><sub><i>"A neon shop sign that reads 'QWEN IMAGE 2.1', rainy night, reflections on wet pavement"</i> · 2048×2048, 40 steps</sub></td>
   </tr>
 </table>
