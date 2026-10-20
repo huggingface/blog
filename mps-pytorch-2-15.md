@@ -35,6 +35,7 @@ A quick word about who we are: we're the PyTorch team at Hugging Face. We contri
 - [More control with MPS streams](#more-control-with-mps-streams)
 - [More operations work on MPS](#more-operations-work-on-mps)
 - [A sneak peek at PyTorch 2.16](#a-sneak-peek-at-pytorch-216)
+- [Wrapping up](#wrapping-up)
 
 ## Getting started
 
@@ -221,3 +222,15 @@ The move away from MPSGraph continues. Batch norm [forward](https://github.com/p
 ### A smaller install
 
 Bundled shaders will [build for Metal 3.1 by default](https://github.com/pytorch/pytorch/pull/197529), with Metal 4 versions compiled only for the kernels that need them. That shrinks `libtorch_cpu.dylib` by about 25%, from 384 MiB to 287 MiB, and lays the groundwork for Metal 4.1 shaders with faster matmuls and native FP8 matrix multiplication.
+
+## Wrapping up
+
+PyTorch 2.15 brings FP8 to the Mac, faster LLM decoding for dense and MoE models, more linear algebra on the GPU and a long list of operations moved from MPSGraph to dedicated Metal kernels. Give the release candidate a try!
+
+### What's next for us
+
+- **More MPS:** 2.16 will run attention entirely on Metal, and we'll keep moving operations off MPSGraph.
+- **`torch.compile`:** we're working on getting rid of graph breaks, so more models compile end to end.
+- **Your ideas:** what else should we work on in PyTorch? If something is slow, missing or broken, on MPS or anywhere else, [open an issue on GitHub](https://github.com/pytorch/pytorch/issues) and let us know.
+
+A big thank you to [Nikita Shulga](https://github.com/malfet), [Kurt Mohler](https://github.com/kurtamohler) and [Aaron Gokaslan](https://github.com/Skylion007) for reviewing much of this work, and to everyone who contributed to MPS in this release.
