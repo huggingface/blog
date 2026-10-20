@@ -27,7 +27,7 @@ The catch has always been software. The TPU stack grew up around TensorFlow and 
 
 Until now, running PyTorch on TPUs meant going through PyTorch/XLA (`torch_xla`). It worked, but it had its quirks. Tensors were lazy (the tensors, not you), so your code didn't always run when you thought it did. Small changes could trigger graph recompilations, and debugging was hard to reason about.
 
-To make life easier, we built Optimum TPU. It gave Hugging Face models inference and training support on TPUs. Now that TorchTPU brings native support, Optimum TPU is deprecated. It did its job, and it has earned its retirement. 🫡
+To make life easier, we built Optimum TPU. It gave Hugging Face models inference and training support on TPUs. Now that TorchTPU brings native support, Optimum TPU is not required anymore to run Hugging Face models with Transformers and Diffusers.
 
 ## Enter TorchTPU 🚀
 
@@ -131,7 +131,7 @@ The bigger the batch, the bigger the win. At batch size 64, decoding is 21.5× f
 
 ## We test it so you don't have to 🧪
 
-Adding TPU support is the easy part. Keeping it from breaking is harder. So we run the Transformers model test suite on TPU, and the results land in our CI dashboard, right next to the other accelerators we test on.
+We're continuously improving TPU support in transformers by running the library test suite. We are working to add a nightly CI on TPU and make the results available in the (transformers dashboard)[https://huggingface.co/spaces/transformers-community/transformers-ci-dashboard].
 
 ![Transformers CI dashboard with TPU test results next to other accelerators](https://huggingface.co/buckets/huggingface/hf-torchtpu-blog-assets/resolve/images/tpu-ci-dashboard.png)
 *The Transformers CI dashboard, with TPU results next to other accelerators. Work in progress!*
