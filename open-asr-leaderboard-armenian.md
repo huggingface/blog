@@ -18,73 +18,76 @@ authors:
 
 *Metric AI and Hugging Face add Armenian 🇦🇲 to the Multilingual tab of the Open ASR Leaderboard*
 
-The [Open ASR Leaderboard](https://huggingface.co/spaces/hf-audio/open_asr_leaderboard) lets you compare speech recognition systems on the same data with the same scoring. Its Multilingual tab started with European languages, and [Hindi recently joined it](https://huggingface.co/blog/open-asr-leaderboard-global-south). Today we are adding **Armenian**.
+Armenian is spoken by millions of people in Armenia and across a large diaspora, yet there is not much public speech data for it, and few fair side-by-side comparisons of how well ASR models transcribe it. Today, Armenian joins the **🌍 Multilingual** tab of the [Open ASR Leaderboard](https://huggingface.co/spaces/hf-audio/open_asr_leaderboard), with:
 
-Armenian is spoken by millions of people in Armenia and across a large diaspora. It has its own alphabet, its own punctuation and rich morphology, and there is not much public speech data for it. Multilingual models usually list Armenian as supported, but it is hard to find a fair, side-by-side comparison of how well they actually transcribe it.
+- two public test sets, FLEURS (with corrected references) and Common Voice 26, in a [leaderboard-ready format](https://huggingface.co/datasets/Metric-AI/open-asr-leaderboard-multilingual-datasets);
+- a dedicated Armenian text normalizer in the [evaluation code](https://github.com/huggingface/open_asr_leaderboard);
+- results for 17 open and closed models, available on the [leaderboard](https://huggingface.co/spaces/hf-audio/open_asr_leaderboard).
 
-This release covers:
+This post explains what makes Armenian hard to evaluate and what we did about it.
 
-1. Two public Armenian test sets, [FLEURS](https://huggingface.co/datasets/google/fleurs) (with reviewed reference corrections) and Common Voice 26, hosted in a leaderboard-ready format at [Metric-AI/open-asr-leaderboard-multilingual-datasets](https://huggingface.co/datasets/Metric-AI/open-asr-leaderboard-multilingual-datasets).
-2. A dedicated Armenian text normalizer in the [Open ASR Leaderboard repository](https://github.com/huggingface/open_asr_leaderboard), so that formatting differences are not counted as recognition errors.
-3. Results for 17 open and closed models, available on the [leaderboard](https://huggingface.co/spaces/hf-audio/open_asr_leaderboard).
+## What makes Armenian different
 
-## Why Armenian needs its own normalizer
+Armenian has its own alphabet, its own punctuation and rich morphology: words, and even numbers, take grammatical endings. The language also has two standard forms, Eastern and Western, and everyday speech differs noticeably from the written language. Speakers also mix in English and Russian words all the time.
 
-WER is only as good as the text normalization applied before scoring. The leaderboard's basic multilingual normalizer works well for languages written in Latin script with European punctuation, but Armenian breaks several of its assumptions. If normalization is wrong, the leaderboard ends up comparing formatting habits, not recognition quality.
+None of this is a problem for a listener, but each of these points creates differences between a correct transcript and its reference text. A word-level metric like WER counts every one of those differences as an error.
 
-A few examples of what makes Armenian different:
+<p align="center">
+  <img src="/blog/assets/open-asr-leaderboard-armenian/armenian-features.png" alt="Five features of Armenian that affect ASR scoring, with examples" width="90%">
+</p>
 
-- **Its own punctuation.** Armenian has its own full stop, comma and quotation marks. Its question, exclamation and emphasis marks are written *inside* the word, on the stressed vowel, rather than at the end of the sentence. Models and annotators also often use similar-looking Latin characters instead of the Armenian ones.
-- **Numbers with endings.** Armenian is highly inflected, and numbers take grammatical endings just like words. The same year or percentage can be written with digits, with words, or as a mix of both. A model should not win or lose points depending on which of these forms it happens to choose.
-- **Mixed scripts.** Armenian speech often includes English and Russian names and terms, so Latin and Cyrillic words need to be kept rather than removed.
+## Armenian-specific normalization
 
-The Armenian normalizer maps all of these variants to a single canonical form before scoring. It is applied automatically to Armenian in the multilingual evaluation scripts, so every model on the leaderboard is scored the same way.
+Before scoring, the leaderboard normalizes both the reference and the prediction, so that only real recognition errors are counted. The generic multilingual normalizer was designed for Latin-script European languages and handles Armenian poorly, so we added a dedicated one. It:
 
-## The test sets
+- maps Armenian punctuation, and the Latin look-alikes that models often produce, to a single form before removing it, including the marks written inside words;
+- treats the two spellings of "and" (one ligature letter or two letters) as the same word;
+- converts numbers, years, percentages and clock times to one canonical form, whether they are written in digits or words, and with or without grammatical endings;
+- keeps Latin and Cyrillic words instead of deleting them.
 
-Both sets are Eastern Armenian read speech, from the test splits of established public datasets:
+The effect is large. In each example below, the prediction is a correct transcription, and only its formatting differs from the reference:
 
-| Dataset | Source | Clips | Duration | Clip length (mean / median) | Style | Transcriptions |
-| :--- | :--- | ---: | ---: | ---: | :--- | :--- |
-| [FLEURS](https://huggingface.co/datasets/Metric-AI/open-asr-leaderboard-multilingual-datasets/viewer/fleurs_hy) | `google/fleurs`, `hy_am`, test split | 932 | 3.0 h | 11.6 s / 10.8 s | Read, Wikipedia sentences | Punctuated, cased; reviewed corrections applied |
-| [MCV](https://huggingface.co/datasets/Metric-AI/open-asr-leaderboard-multilingual-datasets/viewer/mcv_hy) | Common Voice Scripted Speech 26.0, `hy-AM`, test split | 6,892 | 10.8 h | 5.6 s / 5.5 s | Read, crowd-sourced | Punctuated, cased |
+<p align="center">
+  <img src="/blog/assets/open-asr-leaderboard-armenian/normalization-effect.png" alt="Strict vs normalized WER on six correctly transcribed sentences" width="90%">
+</p>
 
-**FLEURS with corrected references.** A benchmark is only as good as its references. We manually reviewed the Armenian FLEURS test transcripts and found a significant number of errors, including typos, missing words and text that did not match the audio. All 314 reviewed corrections, out of 932 recordings, are published in [Metric-AI/fleurs-corrections](https://huggingface.co/datasets/Metric-AI/fleurs-corrections) and applied to the leaderboard version. This way models are not penalized for correctly transcribing what was actually said.
+Without normalization, a model that writes "five percent" in words instead of "5%" is penalized for reasons unrelated to what it heard. Across a whole test set, these formatting differences can easily outweigh the actual recognition differences between models.
 
-**Common Voice 26.** We use the version 26.0 Armenian test split of Mozilla Common Voice, converted to mono 16 kHz audio. The clips are short and recorded by volunteers on their own microphones, which gives more variety in speakers and recording conditions than FLEURS.
+## Dataset diversity
 
-## Results
+Both public test sets are Eastern Armenian read speech:
 
-The full Armenian results for all 17 models are on the [Open ASR Leaderboard](https://huggingface.co/spaces/hf-audio/open_asr_leaderboard), in the **🌍 Multilingual** tab (see [below](#getting-evaluated) for how to select Armenian).
+| Dataset | Clips | Duration | Style | Notes |
+| :--- | ---: | ---: | :--- | :--- |
+| [FLEURS](https://huggingface.co/datasets/Metric-AI/open-asr-leaderboard-multilingual-datasets/viewer/fleurs_hy) | 932 | 3.0 h | Read Wikipedia sentences | 314 references [manually corrected](https://huggingface.co/datasets/Metric-AI/fleurs-corrections) |
+| [Common Voice 26](https://huggingface.co/datasets/Metric-AI/open-asr-leaderboard-multilingual-datasets/viewer/mcv_hy) | 6,892 | 10.8 h | Crowd-sourced read speech | Short clips, many speakers and microphones |
 
-Some observations:
+Even these two similar sets rank models differently. NVIDIA's small Armenian [FastConformer](https://huggingface.co/nvidia/stt_hy_fastconformer_hybrid_large_pc) is 9th on FLEURS but 1st on Common Voice. Its model card lists Common Voice in its training data, so that set is in-domain for it. Most other models find Common Voice harder: its clips are half as long, which gives less context, and they are recorded on many different devices.
 
-- **A small dedicated model is still competitive.** NVIDIA's Armenian [FastConformer](https://huggingface.co/nvidia/stt_hy_fastconformer_hybrid_large_pc) has about 115M parameters, is by far the fastest model evaluated, and is among the most accurate. It is also the only model that scores better on MCV than on FLEURS. Its model card lists Common Voice among its training data, so MCV is in-domain for it, and its MCV score should be read with that in mind.
-- **Multilingual open models have improved a lot for Armenian.** The [Omnilingual ASR](https://huggingface.co/facebook/omniASR-LLM-7B-v2) LLM variants are close to the best systems overall, while `whisper-large-v3` is above 40% WER on both sets.
-- **An LLM decoder helps most at small sizes, but costs speed.** At 300M parameters, the LLM variant of Omnilingual ASR reduces FLEURS WER from 18.13 to 7.04 compared to the CTC variant. At 7B, the gap is much smaller (5.88 vs 3.61). CTC models are 7–23 times faster, so the right choice depends on whether accuracy or throughput matters more.
-- **MCV is harder than FLEURS for almost every model.** The clips are shorter (5.6 s vs 11.6 s on average), which gives the model less context, and they are recorded by many volunteers on many different microphones. Systems that are close on FLEURS spread out more on MCV.
-- **"Supported" does not mean "usable."** Several widely used systems produce WER close to 50% on Armenian. If you are building an Armenian product, measure first instead of relying on a supported-languages list.
+<p align="center">
+  <img src="/blog/assets/open-asr-leaderboard-armenian/fleurs-vs-mcv.png" alt="FLEURS vs Common Voice WER for the top 12 models, with rank on each set" width="90%">
+</p>
 
-## Limitations
+Real Armenian audio is much more varied than read speech. Our private Armenian test sets cover domains that public data does not: <!-- TODO: confirm with the team how much can be disclosed about the private sets --> expressive literary recitation with background music, film and TV dialogue with background noise, and news narration. On those sets, every model we tested has much higher error rates than on read speech, and a model that leads on one domain does not necessarily lead on another. The public sets are a useful, reproducible baseline, but a low WER on them does not guarantee a low WER on conversations, call-center audio or broadcast media.
 
-These two test sets are a first step, not a full picture of Armenian ASR.
+## Challenges with conventional WER
 
-- **Read speech only.** FLEURS and Common Voice are both read speech, and ASR results usually depend heavily on the domain: a model that does well on read speech may not do well on conversational or noisy audio. Low WER here does not mean low WER on call-center audio, interviews or spontaneous conversation.
-- **Eastern Armenian only.** Western Armenian, spoken mostly in the diaspora, and regional dialects are not covered. Many dialects do not have a single accepted written form, which makes it hard to create references and score against them.
-- **Normalization has its limits.** The normalizer removes formatting differences, but it cannot handle every valid spelling variant or every way of writing a name in another script.
+Normalization fixes formatting, but some differences are not formatting. Everyday speech uses colloquial forms that references usually write in the literary form. A foreign word can be correctly written in Latin or in Armenian letters. Some words have more than one accepted spelling. A rule-based normalizer cannot safely decide which of these are acceptable, because the same rule would also hide real errors.
+
+One option is **LLM-assisted scoring**: after normalization, an LLM reviews each remaining mismatch against the reference and decides whether it is an acceptable variant or a real error. Paraphrases and wrong words still count, and the final score is still computed from the edit counts, not by the LLM itself.
+
+<p align="center">
+  <img src="/blog/assets/open-asr-leaderboard-armenian/wer-layers.png" alt="One sentence scored with strict, normalized and LLM-assisted WER" width="90%">
+</p>
+
+The Open ASR Leaderboard reports normalized WER, which is fully deterministic and reproducible. LLM-assisted scores, along with more models and domains, are available in [ArmBench-ASR](https://huggingface.co/blog/Metric-AI/armbench-asr), our dedicated Armenian ASR leaderboard.
 
 ## Getting evaluated
 
-To add a model to the leaderboard, follow the usual process on the [Open ASR Leaderboard GitHub](https://github.com/huggingface/open_asr_leaderboard):
+On the [leaderboard](https://huggingface.co/spaces/hf-audio/open_asr_leaderboard), open the **🌍 Multilingual** tab. Armenian is not selected by default, so check "Armenian" under "Languages", or choose it from the **Language dataset breakdown** dropdown to see each test set separately.
 
-1. Open a pull request. A [model checklist](https://github.com/huggingface/open_asr_leaderboard/blob/main/.github/PULL_REQUEST_TEMPLATE.md#new-model-checklist) will appear. Include results on the Armenian sets if your model supports the language. The multilingual evaluation scripts already load the Armenian datasets and the normalizer when the language is set to `hy`.
-2. We will verify the results.
-3. Confirm the results we obtained.
-
-On the [leaderboard](https://huggingface.co/spaces/hf-audio/open_asr_leaderboard), Armenian is in the **🌍 Multilingual** tab. Like English, it is not selected by default under "Languages", so the default multilingual ranking does not change for existing models. Check "Armenian" to include it in the average, or choose it from the **Language dataset breakdown** dropdown to see the FLEURS and MCV columns separately.
+To add a model, open a pull request on the [Open ASR Leaderboard GitHub](https://github.com/huggingface/open_asr_leaderboard) and follow the [model checklist](https://github.com/huggingface/open_asr_leaderboard/blob/main/.github/PULL_REQUEST_TEMPLATE.md#new-model-checklist). The multilingual evaluation scripts load the Armenian test sets and normalizer automatically when the language is set to `hy`.
 
 ## What comes next
 
-Adding Armenian to the Open ASR Leaderboard makes it visible next to other languages, on a leaderboard model developers already track. We hope this encourages more models to be evaluated on Armenian and makes improvements easier to measure.
-
-Next, we want to add more realistic Armenian test data: spontaneous and conversational speech, code-switching between Armenian, English and Russian, and domain-specific audio. For a deeper look at Armenian ASR across more models and domains, see [ArmBench-ASR](https://huggingface.co/blog/Metric-AI/armbench-asr), a dedicated Armenian benchmark.
+We want to bring more realistic Armenian audio to the leaderboard: spontaneous conversation, code-switching between Armenian, English and Russian, domain-specific speech, and eventually Western Armenian. We hope having Armenian next to other languages on a leaderboard the community already follows encourages more models to support it well, and makes their progress easier to measure.
