@@ -46,6 +46,8 @@ The extra index gives you the CPU build of `torch`. Without it, pip pulls the mu
 Transformers v5 was built around one idea: be the source of truth for model definitions, so they can run anywhere. "Anywhere" now includes TPUs. To load a model on a TPU, pass `device_map="tpu"`. That's it.
 
 ```py
+from transformers import AutoModelForCausalLM, AutoTokenizer
+
 model_id = "Qwen/Qwen3.5-9B"
 model = AutoModelForCausalLM.from_pretrained(
     model_id,
@@ -59,23 +61,48 @@ print(tokenizer.decode(out[0], skip_special_tokens=True))
 
 The model runs in eager mode by default. You can also use `torch.compile` for better performance, or run it in a distributed setup.
 
-### Diffusers
+### Images? Videos? Diffusers paints them on TPUs
 
-Diffusers runs on TPUs too, in both eager and compiled modes. Once TorchTPU is installed, moving a pipeline to TPU takes one line: `pipe.to("tpu")`. Here is Stable Diffusion 3.5 in compiled mode:
+TPU is now a first-class device in Diffusers. For prototyping or debugging, eager mode only needs `pipe.to("tpu")`. For deployment, compiled mode adds one `compile` call. Your pipelines and code stay the same, and there's no TPU fork to maintain.
 
 ```py
 import torch
 from diffusers import StableDiffusion3Pipeline
 
 pipe = StableDiffusion3Pipeline.from_pretrained(
-    "stabilityai/stable-diffusion-3.5-medium",
-    dtype=torch.bfloat16,
+    "stabilityai/stable-diffusion-3.5-medium", dtype=torch.bfloat16
 )
-pipe.to("tpu")
+pipe.to("tpu")  # eager mode: that's the whole change
+# optional: compiled mode
 pipe.transformer.compile(backend="tpu", fullgraph=True, dynamic=False)
+
+image = pipe("a corgi astronaut planting a flag on a pizza moon").images[0]
 ```
 
-Model too big for one chip? We added TPU support for tensor parallelism in Diffusers, so you can split it across several chips.
+The first call compiles, and every call after that with the same image size reuses the graph.
+
+Models too big for one chip? Pass a `TensorParallelConfig` to `from_pretrained` and the transformer is sharded across chips as it loads, so the full model never has to fit in one place. Many popular pipelines support it out of the box, and the ones that don't are just a `tp_plan` away. The [Diffusers TPU guide](https://huggingface.co/docs/diffusers/main/optimization/tpu) has the full recipe.
+
+Here are some examples run on a Cloud TPU v6e-4:
+
+<sub><i>TP=4 (each model split across four chips) · bf16 · batch 1</i></sub>
+
+<table>
+  <tr>
+    <th><a href="https://huggingface.co/MiniMaxAI/MiniMax-H3">MiniMax-H3</a> (video + audio)</th>
+    <th colspan="2"><a href="https://huggingface.co/Qwen/Qwen-Image-2.1">Qwen-Image-2.1</a></th>
+  </tr>
+  <tr>
+    <td><video controls src="https://huggingface.co/datasets/Jingya/video-clips-and-imgs/resolve/main/minimax_h3_tpu_v6e4_tp4_768x1344_ref2va_s50_pikachu_trireme.mp4"></video></td>
+    <td><img src="https://huggingface.co/datasets/Jingya/video-clips-and-imgs/resolve/main/qwen_image_21_tpu_v6e4_tp4_1024_capybara.png" alt="A capybara wearing a wizard hat, reading a book by candlelight, oil painting"></td>
+    <td><img src="https://huggingface.co/datasets/Jingya/video-clips-and-imgs/resolve/main/qwen_image_21_tpu_v6e4_tp4_2048_s40_compile_neon.png" alt="Neon shop sign reading QWEN IMAGE 2.1"></td>
+  </tr>
+  <tr>
+    <td><sub><i>"The fluffy Pikachu from the picture stands at the prow of an ancient Greek trireme […] Sound of crashing waves, creaking timber, wind in the rigging, distant seagulls, and a low epic orchestral swell."</i> · 1344×768, 5.2 s, 50 steps</sub></td>
+    <td><sub><i>"A capybara wearing a wizard hat, reading a book by candlelight, oil painting"</i> · 1024×1024, 40 steps</sub></td>
+    <td><sub><i>"A neon shop sign that reads 'QWEN IMAGE 2.1', rainy night, reflections on wet pavement"</i> · 2048×2048, 40 steps</sub></td>
+  </tr>
+</table>
 
 ### Kernels
 
@@ -84,6 +111,10 @@ The [Kernels Hub](https://huggingface.co/kernels?sort=trending&search=tpu) has r
 TPU kernels are written in [Pallas](https://docs.jax.dev/en/latest/pallas/tpu/), which gives you low-level control over the hardware. You can also bring in kernels from the [Tokamax](https://github.com/openxla/tokamax) library. Here is a ragged-dot kernel from Tokamax plugged into a Mixture-of-Experts model:
 
 ```py
+from kernels import get_kernel
+from transformers import AutoModelForCausalLM
+from transformers.integrations.moe import ALL_EXPERTS_FUNCTIONS
+
 repo_id = "tengomucho/ragged-dot-tpu"
 kernel = get_kernel(repo_id, version=1, trust_remote_code=[repo_id])
 ALL_EXPERTS_FUNCTIONS.register("tokamax_ragged_dot", kernel.experts_forward)
