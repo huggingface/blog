@@ -5831,7 +5831,7 @@
     - inference-providers
     - huggingchat
     - gradio
-  
+
 - local: flux-3
   date: October 15, 2026
   tags:
@@ -5860,8 +5860,23 @@
     - trl
     - rl
 
-- local: anylanguagemodel-1-0
+- local: hf-torchneuron
   date: October 19, 2026
+  tags:
+    - open-source
+    - torch
+    - neuron
+
+- local: mps-pytorch-2-15
+  date: October 20, 2026
+  tags:
+    - pytorch
+    - mps
+    - apple
+    - performance
+
+- local: anylanguagemodel-1-0
+  date: October 20, 2026
   tags:
     - swift
     - llm

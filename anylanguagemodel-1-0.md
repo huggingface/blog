@@ -5,6 +5,8 @@ authors:
 - user: mattt
 ---
 
+# AnyLanguageModel 1.0: One Year of Local Models on Apple Platforms
+
 Last November, we introduced [AnyLanguageModel](https://huggingface.co/blog/anylanguagemodel) on this blog:
 a drop-in replacement for Apple's Foundation Models framework
 that lets you choose the model and provider your app uses.
