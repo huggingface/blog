@@ -5866,3 +5866,13 @@
     - open-source
     - torch
     - neuron
+
+- local: open-asr-leaderboard-armenian
+  date: October 20, 2026
+  tags:
+    - audio
+    - speech
+    - leaderboard
+    - datasets
+    - evaluation
+    - multilingual
