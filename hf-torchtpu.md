@@ -93,12 +93,12 @@ Here are some examples run on a Cloud TPU v6e-4:
     <th colspan="2"><a href="https://huggingface.co/Qwen/Qwen-Image-2.1">Qwen-Image-2.1</a></th>
   </tr>
   <tr>
-    <td><video controls src="https://huggingface.co/datasets/Jingya/video-clips-and-imgs/resolve/main/minimax_h3_tpu_v6e4_tp4_768x1344_ref2va_s50_pikachu_trireme.mp4"></video></td>
+    <td><video controls src="https://huggingface.co/buckets/huggingface/hf-torchtpu-blog-assets/resolve/videos/minimax-h3-hf-trireme.mp4"></video></td>
     <td><img src="https://huggingface.co/buckets/huggingface/hf-torchtpu-blog-assets/resolve/images/qwen-image-21-capybara-1024.jpg" alt="A capybara wearing a wizard hat, reading a book by candlelight, oil painting"></td>
     <td><img src="https://huggingface.co/buckets/huggingface/hf-torchtpu-blog-assets/resolve/images/qwen-image-21-neon-2048.jpg" alt="Neon shop sign reading QWEN IMAGE 2.1"></td>
   </tr>
   <tr>
-    <td><sub><i>"The fluffy Pikachu from the picture stands at the prow of an ancient Greek trireme […] Sound of crashing waves, creaking timber, wind in the rigging, distant seagulls, and a low epic orchestral swell."</i> · 1344×768, 5.2 s, 49 steps · 188 s compiled, 262 s eager</sub></td>
+    <td><sub><i>"The fluffy plush Hugging Face mascot from the picture, a round yellow smiling face with rosy cheeks and two little open hands, stands at the prow of an ancient Greek trireme […] Sound of crashing waves, creaking timber, wind in the rigging, distant seagulls, and a low epic orchestral swell."</i> · 1344×768, 5.2 s, 49 steps · 188 s compiled, 262 s eager</sub></td>
     <td><sub><i>"A capybara wearing a wizard hat, reading a book by candlelight, oil painting"</i> · 1024×1024, 40 steps · 3.5 s compiled, 8.0 s eager</sub></td>
     <td><sub><i>"A neon shop sign that reads 'QWEN IMAGE 2.1', rainy night, reflections on wet pavement"</i> · 2048×2048, 40 steps</sub></td>
   </tr>
