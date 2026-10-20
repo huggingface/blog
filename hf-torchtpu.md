@@ -17,7 +17,7 @@ If you ever tried to run PyTorch on a TPU, you probably remember the detour. You
 
 That detour is gone. [TorchTPU](https://github.com/google-pytorch/torch_tpu) is a native PyTorch backend, so a TPU is now just another device. It also works across the Hugging Face ecosystem. Transformers, Diffusers and Kernels all support it. Pick a model from the Hub, send it to `"tpu"`, and you're done.
 
-## Wait, what's a TPU?
+## Wait, what's a TPU? 🤔
 
 TPU stands for [Tensor Processing Unit](https://cloud.google.com/tpu). TPUs are Google's own AI accelerators. They are chips built for one job: the matrix math that neural networks spend most of their time on. Google has been designing them for about ten years, and uses them to train and serve its own models, including Gemini.
 
@@ -29,9 +29,9 @@ The catch has always been software. The TPU stack grew up around TensorFlow and 
 
 Until now, running PyTorch on TPUs meant going through PyTorch/XLA (`torch_xla`). It worked, but it had its quirks. Tensors were lazy (the tensors, not you), so your code didn't always run when you thought it did. Small changes could trigger graph recompilations, and debugging was hard to reason about.
 
-To make life easier, we built Optimum TPU. It gave Hugging Face models inference and training support on TPUs. Now that TorchTPU brings native support, Optimum TPU is deprecated. It did its job, and it has earned its retirement.
+To make life easier, we built Optimum TPU. It gave Hugging Face models inference and training support on TPUs. Now that TorchTPU brings native support, Optimum TPU is deprecated. It did its job, and it has earned its retirement. 🫡
 
-## Enter TorchTPU
+## Enter TorchTPU 🚀
 
 [TorchTPU](https://github.com/google-pytorch/torch_tpu) adds TPU as a new backend to PyTorch. You write regular PyTorch code. It comes with Pallas kernels tuned for TPUs, support for distributed training, and a `torch.compile` integration for when you want more speed. Installing it on a TPU VM takes one command:
 
@@ -63,7 +63,7 @@ print(tokenizer.decode(out[0], skip_special_tokens=True))
 
 The model runs in eager mode by default. You can also use `torch.compile` for better performance, or run it in a distributed setup.
 
-### Images? Videos? Diffusers paints them on TPUs
+### Images? Videos? Diffusers paints them on TPUs 🎨
 
 TPU is now a first-class device in Diffusers. For prototyping or debugging, eager mode only needs `pipe.to("tpu")`. For deployment, compiled mode adds one `compile` call. Your pipelines and code stay the same, and there's no TPU fork to maintain.
 
@@ -131,7 +131,7 @@ The bigger the batch, the bigger the win. At batch size 64, decoding is 21.5× f
 ![Decode throughput with the Hub ragged-dot kernel versus the default grouped_mm, for Qwen3-30B-A3B and Gemma 4 26B-A4B](https://huggingface.co/buckets/huggingface/hf-torchtpu-blog-assets/resolve/images/kernel-ragged-dot-speedup.png)
 *Decode throughput on a TPU v6e-8, Hub kernel vs. the default implementation.*
 
-## We test it so you don't have to
+## We test it so you don't have to 🧪
 
 Adding TPU support is the easy part. Keeping it from breaking is harder. So we run the Transformers model test suite on TPU, and the results land in our CI dashboard, right next to the other accelerators we test on.
 
@@ -150,4 +150,4 @@ TPUs are no longer a side quest for PyTorch users. Install TorchTPU, grab a mode
 - [TPU kernels on the Hub](https://huggingface.co/kernels?sort=trending&search=tpu)
 - [Cloud TPU documentation](https://docs.cloud.google.com/tpu/docs)
 
-We can't wait to see what you build. If you hit a problem, open an issue and tell us about it.
+We can't wait to see what you build 🤗. If you hit a problem, open an issue and tell us about it.
