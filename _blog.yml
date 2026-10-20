@@ -5874,3 +5874,12 @@
     - mps
     - apple
     - performance
+
+- local: anylanguagemodel-1-0
+  date: October 20, 2026
+  tags:
+    - swift
+    - llm
+    - mlx
+    - open-source
+    - community
