@@ -5866,6 +5866,23 @@
     - open-source
     - torch
     - neuron
+ 
+- local: mps-pytorch-2-15
+  date: October 20, 2026
+  tags:
+    - pytorch
+    - mps
+    - apple
+    - performance
+
+- local: anylanguagemodel-1-0
+  date: October 20, 2026
+  tags:
+    - swift
+    - llm
+    - mlx
+    - open-source
+    - community
 
 - local: hf-torchtpu
   date: October 20, 2026
