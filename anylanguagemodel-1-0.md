@@ -129,7 +129,7 @@ let model = MLXLanguageModel(modelId: "mlx-community/Qwen3.8-27B-4bit")
 ```
 
 And if you have four maxed-out Mac Studios handy,
-[GLM-5.3](https://huggingface.co/zai-org/GLM-5.3) from Z.ai takes about 1.5 TB at full precision.
+[GLM-5.3](https://huggingface.co/zai-org/GLM-5.3) from Z.ai takes about 1.5 TB in BF16.
 For the rest of us, it's available through Inference Providers.
 
 ## Upgrading to 1.0
