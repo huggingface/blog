@@ -1,12 +1,12 @@
 ---
-title: "What you can expect on MPS in PyTorch 2.15"
+title: "MPS in PyTorch 2.15"
 thumbnail: /blog/assets/mps-pytorch-2-15/thumbnail.png
 authors:
 - user: Isalia20
 - user: khushi-411
 ---
 
-# What you can expect on MPS in PyTorch 2.15
+# MPS in PyTorch 2.15
 
 If you run models on your Mac or use MPS as your primary acceleration tool for computing, there's plenty to look forward to in PyTorch 2.15! FP8 arrives on MPS, language-model decoding gets faster paths through linear layers and softmax and new Metal kernels tackle some surprisingly expensive parts of audio, video and training workloads.
 
@@ -108,7 +108,7 @@ print(out.shape)  # torch.Size([64, 128])
 
 The decoding kernel shows up directly in token throughput. On an **M3 Ultra with `torch.compile`**, MoE models generate about **1.3× more tokens per second**:
 
-![Bar chart of MoE decoding throughput on M3 Ultra with torch.compile. Qwen3.6-35B-A3B goes from 38.7 to 51.7 tokens/s at context 512 and 36.8 to 48.7 at context 2048; LFM2.5-8B-A1B goes from 77.1 to 103.2 and 74.9 to 98.7 tokens/s.](assets/mps-pytorch-2-15/moe-decode-throughput.png)
+![Bar chart of MoE decoding throughput on M3 Ultra with torch.compile. Qwen3.6-35B-A3B goes from 38.7 to 51.7 tokens/s at context 512 and 36.8 to 48.7 at context 2048; LFM2.5-8B-A1B goes from 77.1 to 103.2 and 74.9 to 98.7 tokens/s.](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/mps-pytorch-2-15/moe-decode-throughput.png)
 
 ## Linear algebra gets a boost
 
@@ -153,13 +153,13 @@ Audio models, video decoders and training loops have their own expensive operati
 
 Token sampling gets faster in 2.15 as well. [`softmax`](https://github.com/pytorch/pytorch/pull/196071) and [`log_softmax`](https://github.com/pytorch/pytorch/pull/195441) now run on dedicated Metal kernels, and large vocabularies benefit the most: an FP32 softmax over a `[1, 128256]` row of logits drops from **57 µs to 7 µs**, about **8× faster** than the MPSGraph version. The speedup holds across other common vocabulary sizes:
 
-![Bar chart of FP32 softmax time for a single row of logits at five vocabulary sizes from 128,256 to 201,088. MPSGraph takes 50 to 74 microseconds; the Metal kernel takes 7 to 10 microseconds, a 7.1x to 8.0x speedup.](assets/mps-pytorch-2-15/softmax-sampling.png)
+![Bar chart of FP32 softmax time for a single row of logits at five vocabulary sizes from 128,256 to 201,088. MPSGraph takes 50 to 74 microseconds; the Metal kernel takes 7 to 10 microseconds, a 7.1x to 8.0x speedup.](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/mps-pytorch-2-15/softmax-sampling.png)
 
 ## A much smaller memory footprint for video decoding
 
 One of the most striking results in this release comes from the constant-padding change. The VAE decode in `Wan-AI/Wan2.2-TI2V-5B-Diffusers` makes **8,764 padding calls** over a full 28-tile decode. With padding on Metal, peak driver memory drops from about **270 GiB to 8 GiB**:
 
-![Stacked bar chart of peak driver memory during the Wan2.2 tiled VAE decode. With MPSGraph padding, 8.07 GiB of allocator-reserved memory plus 262 GiB outside the allocator gives 270.1 GiB; with Metal padding the total is 8.1 GiB.](assets/mps-pytorch-2-15/wan-vae-memory.png)
+![Stacked bar chart of peak driver memory during the Wan2.2 tiled VAE decode. With MPSGraph padding, 8.07 GiB of allocator-reserved memory plus 262 GiB outside the allocator gives 270.1 GiB; with Metal padding the total is 8.1 GiB.](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/mps-pytorch-2-15/wan-vae-memory.png)
 
 | Memory metric | MPSGraph padding | Metal padding |
 |---|---:|---:|
