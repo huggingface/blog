@@ -124,14 +124,16 @@ model = AutoModelForCausalLM.from_pretrained(
 )
 ```
 
-<!-- TODO: add image (upload to huggingface/documentation-images under blog/hf-torchtpu/) -->
+The bigger the batch, the bigger the win. At batch size 64, decoding is 21.5× faster on Qwen3-30B-A3B and 12.8× faster on Gemma 4 26B-A4B.
+
+![Decode throughput with the Hub ragged-dot kernel versus the default grouped_mm, for Qwen3-30B-A3B and Gemma 4 26B-A4B](https://huggingface.co/buckets/huggingface/hf-torchtpu-blog-assets/resolve/images/kernel-ragged-dot-speedup.png)
+*Decode throughput on a TPU v6e-8, Hub kernel vs. the default implementation.*
 
 ## We test it so you don't have to
 
 Adding TPU support is the easy part. Keeping it from breaking is harder. So we run the Transformers model test suite on TPU, and the results land in our CI dashboard, right next to the other accelerators we test on.
 
-<!-- TODO: upload ../tpu-test/pytorch-na-2026/assets/tpu-tcid.png to huggingface/documentation-images under blog/hf-torchtpu/ -->
-![Transformers CI dashboard with TPU test results next to other accelerators](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/hf-torchtpu/tpu-tcid.png)
+![Transformers CI dashboard with TPU test results next to other accelerators](https://huggingface.co/buckets/huggingface/hf-torchtpu-blog-assets/resolve/images/tpu-ci-dashboard.png)
 *The Transformers CI dashboard, with TPU results next to other accelerators. Work in progress!*
 
 It's not all green yet, and we're fine with that. Of the tests that run on TPU, 96.5% pass. Every failure we find becomes a small repro script and an issue on the TorchTPU repo. So far we have reported 34 issues, and 19 are already fixed. Running on TPU also caught a few bugs in Transformers itself, like in `StaticCache` and the Qwen3 tensor-parallel plans. We fixed those upstream.
