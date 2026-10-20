@@ -15,13 +15,22 @@ A quick word about who we are: we're the PyTorch team at Hugging Face. We contri
 ## TL;DR
 
 - **FP8 comes to the Mac:** store `float8_e4m3fn` values in half the space of BF16 and use scaled matrix multiplication and all other ops which are supported on CUDA/CPU!
-- **Less time per token:** single-row linear layers use specialized matrix-vector kernels and softmax gets dedicated Metal kernels.
-- **Better MoE performance:** native grouped matmul keeps group offsets on the GPU, with extra attention to the small groups used during decoding.
+- **MoE models decode 5–6.5× faster than in 2.14:** Qwen3.6-35B-A3B goes from 9.4 to 61.3 tokens/s on an M3 Ultra, thanks to a native grouped matmul with a dedicated decoding path, fewer GPU-CPU syncs and faster top-k routing.
+- **Less time per token for every LLM:** single-row linear layers use specialized matrix-vector kernels, and softmax over the vocabulary is about 8× faster.
 - **More linear algebra on the GPU:** complex LU and triangular solves, faster small-matrix inverses, and faster QR decomposition.
-- **Audio, video, and training get attention too:** faster paths for convolutions, padding, dropout, interpolation backward and reductions.
+- **Audio, video, and training get attention too:** faster paths for convolutions, padding, dropout, interpolation backward and reductions. Wan2.2's video VAE decode now peaks at 8 GiB of memory instead of 270 GiB.
 - **More control from Python:** public MPS streams and more reliable event timing.
 - **Updated requirements:** MPS now requires **macOS 15 or later**; PyTorch 2.15 requires **Python 3.11 or later**.
 - **A peek at 2.16:** attention fully on Metal, more MPSGraph-to-Metal migrations and faster LLM decoding.
+
+## What this means for you
+
+If you run models on a Mac with transformers, diffusers or tools like ComfyUI, here's what 2.15 changes in practice:
+
+- **Much faster local LLMs.** Mixture-of-experts models decode 5–6.5× faster than in 2.14: on an M3 Ultra with `torch.compile`, Qwen3.6-35B-A3B goes from 9.4 to 61.3 tokens/s and LFM2.5-8B-A1B from 23.6 to 123.6 tokens/s. Dense models benefit too, from faster linear layers and an 8× faster softmax for sampling. ([More](#faster-language-model-decoding))
+- **Video generation that fits in memory.** Decoding a video with Wan2.2's tiled VAE used to push driver memory to 270 GiB; it now peaks at about 8 GiB. ([More](#a-much-smaller-memory-footprint-for-video-decoding))
+- **Correct image editing with Qwen-Image-2.1.** On 2.14, the Qwen-Image-2.1 VAE encoder silently corrupted images on MPS, breaking image-edit workflows ([reported in ComfyUI](https://github.com/Comfy-Org/ComfyUI/issues/16433)). The [same padding change](https://github.com/pytorch/pytorch/pull/195368) fixes it: an encode-decode round trip now matches CPU at 29.95 dB PSNR, up from 10.06 dB.
+- **FP8 weights on your Mac.** FP8 tensors take half the memory of BF16, and `F.scaled_mm` multiplies them directly on the GPU. ([More](#fp8-comes-to-mps))
 
 ## Contents
 
