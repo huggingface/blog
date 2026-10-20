@@ -5866,3 +5866,11 @@
     - open-source
     - torch
     - neuron
+
+- local: mps-pytorch-2-15
+  date: October 20, 2026
+  tags:
+    - pytorch
+    - mps
+    - apple
+    - performance
