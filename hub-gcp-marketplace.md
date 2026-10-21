@@ -20,7 +20,7 @@ If your company already runs on Google Cloud, adding a new vendor and a corporat
 
 - **One bill**: your Hugging Face usage appears on your existing Google Cloud invoice, next to the rest of your cloud spend.
 - **No new vendor to onboard**: purchases go through your existing Google Cloud billing account and procurement process.
-- **Everything is covered**: upgrading your org to  [Team or Enterprise](https://huggingface.co/enterprise) subscription, pay-as-you-go compute (Jobs, Inference Endpoints, Inference Providers, GPU Spaces, ZeroGPU quota extension) and additional storage at  the [public Hugging Face pricing](https://huggingface.co/pricing).
+- **Everything is covered**: upgrading your org to a [Team or Enterprise](https://huggingface.co/enterprise) subscription, pay-as-you-go compute (Jobs, Inference Endpoints, Inference Providers, GPU Spaces, ZeroGPU quota extension), and additional storage at [public Hugging Face pricing](https://huggingface.co/pricing).
 
 If you're an admin of your Hugging Face organization, here's how to set it up, step by step.
 
@@ -52,7 +52,7 @@ Every cloud marketplace subscription is reviewed by the Hugging Face team before
 
 ### 3. Subscription approved
 
-Once your subscription is approved, you will receive an email confirming that your Google Cloud account and Hugging Face organization are linked. Your usage will be billed to your GCP account starting the first day of the next month.
+Once your subscription is approved, you will receive an email confirming that your Google Cloud account and Hugging Face organization are linked. Organizations that already have a credit card on file switch to cloud marketplace billing at the start of their next billing period. Organizations on the free tier with no credit card on file usually switch immediately, so their paid usage is billed through the cloud marketplace right away.
 
 ![Email confirming the Marketplace account was approved as a payment method](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/hub-gcp-marketplace/approval-confirmation-email.png "Approval confirmation email")
 
