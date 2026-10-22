@@ -5895,3 +5895,11 @@
     - transformers
     - diffusers
     - kernels
+
+- local: torch-neuronx-model-support
+  date: October 22, 2026
+  tags:
+    - neuron
+    - torch
+    - transformers
+    - aws
