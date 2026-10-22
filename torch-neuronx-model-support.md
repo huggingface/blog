@@ -26,10 +26,11 @@ and `image-text-to-text` models on the Hub by downloads and by trending score. E
 tensor-parallel degree, the wall time of the run (compilation included) and the peak device memory. Only Transformers
 models are tested so far.
 
-The **Trending** and **Downloads** views follow the Hub's own rankings, whether a model was tested or not. When a model
-was left out on purpose, the Space tells you why: its weights do not fit on 4 Trainium2 devices, it is a quantized
-checkpoint, it needs `trust_remote_code`, and so on. In these two views, you can also pick the versions of the Neuron compiler
-(`neuronx-cc`) and of Transformers to look at.
+To look up a given model, switch to the **Trending** or **Downloads** view and type part of its name. These views follow
+the Hub's own rankings of Transformers models, one task at a time starting with `text-generation`, whether a model was
+tested or not. When a model was left out on purpose, the Space tells you why: its weights do not fit on 4 Trainium2
+devices, it is a quantized checkpoint, it needs `trust_remote_code`, and so on. You can also pick the versions of the
+Neuron compiler (`neuronx-cc`) and of Transformers to look at.
 
 ## Run it yourself
 
