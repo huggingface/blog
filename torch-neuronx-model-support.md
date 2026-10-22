@@ -1,6 +1,6 @@
 ---
 title: "Does Your Model Run on AWS Trainium? Look It Up"
-thumbnail: /blog/assets/torch-neuronx-model-support/thumbnail.png
+thumbnail: /blog/assets/torch-neuronx-model-support/thumbnail.jpg
 authors:
 - user: dacorvo
 ---
