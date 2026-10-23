@@ -5866,7 +5866,7 @@
     - open-source
     - torch
     - neuron
- 
+
 - local: mps-pytorch-2-15
   date: October 20, 2026
   tags:
@@ -5895,3 +5895,11 @@
     - transformers
     - diffusers
     - kernels
+
+- local: torch-neuronx-model-support
+  date: October 23, 2026
+  tags:
+    - neuron
+    - torch
+    - transformers
+    - aws
