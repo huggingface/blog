@@ -11,8 +11,6 @@ In a [previous post](https://huggingface.co/blog/hf-torchneuron), we introduced 
 
 The [torch-neuronx model support](https://huggingface.co/spaces/aws-neuron/torch-neuronx-model-support) Space answers that question for the most popular models on the Hub. It tells you whether a model runs unmodified on Trainium, and gives you the script to run it yourself.
 
-<iframe src="https://aws-neuron-torch-neuronx-model-support.static.hf.space" frameborder="0" width="100%" height="800"></iframe>
-
 ## Look up a model
 
 The Space opens on the **Selected** view: our own selection of models picked among the top models on the Hub by downloads and by trending score. Each row gives the result, the number of Trainium cores the model is sharded over, the wall time of the run (compilation included) and the peak device memory.
