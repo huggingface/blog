@@ -46,12 +46,6 @@ Each test loads the model on a `trn2` instance, sharded over the smallest number
 
 At the time of writing, only models that fit on 4 Trainium2 devices are tested, which means 16 cores at most. A `PASS` says nothing about throughput, or about longer generations.
 
-## Where things stand
-
-At the time of writing, with `neuronx-cc` 2.28 and Transformers 5.20.2, 91 of the 100 selected models pass. The main gap is the mixture-of-experts models that run with expert parallelism, which we are actively working on.
-
-Each sweep tests the Neuron SDK and the Transformers version of the day, and the results of previous sweeps stay available, so you can also compare how a model fares from one version to the next.
-
 ## The results are a dataset
 
 Everything the Space shows comes from the public [`aws-neuron/torch-neuronx-model-support`](https://huggingface.co/datasets/aws-neuron/torch-neuronx-model-support) dataset, with one Parquet file per pair of `neuronx-cc` and library versions.
