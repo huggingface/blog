@@ -11,6 +11,8 @@ In a [previous post](https://huggingface.co/blog/hf-torchneuron), we introduced 
 
 The [torch-neuronx model support](https://huggingface.co/spaces/aws-neuron/torch-neuronx-model-support) Space answers that question for the most popular models on the Hub. It tells you whether a model runs unmodified on Trainium, and gives you the script to run it yourself.
 
+[![torch-neuronx model support](https://huggingface.co/spaces/aws-neuron/torch-neuronx-model-support/resolve/main/thumbnail.jpg)](https://huggingface.co/spaces/aws-neuron/torch-neuronx-model-support)
+
 ## Look up a model
 
 The Space opens on the **Selected** view: our own selection of models picked among the top models on the Hub by downloads and by trending score. Each row gives the result, the number of Trainium cores the model is sharded over, the wall time of the run (compilation included) and the peak device memory.
@@ -18,13 +20,13 @@ The Space opens on the **Selected** view: our own selection of models picked amo
 To look up a given model, switch to the **Trending** or **Downloads** view and type part of its name. These views follow the Hub's own rankings, one task at a time, whether a model was tested or not. When a model was left out on purpose, the Space tells you why (most of the time it was not prioritized, sometimes it is truly incompatible). You can also pick the versions of the Neuron compiler (`neuronx-cc`) and of Transformers to look at.
 
 > [!NOTE]
-> At the time of writing, only Transformers models are tested, and our selection is limited to `text-generation` and `image-text-to-text` models.
+> At the time of writing, only Transformers models are tested, and our selection is limited to `text-generation` and `image-text-to-text` models. We plan to expand to diffusers, sentence transformers, and other transformers tasks.
 
 ## Run it yourself
 
 Select a model to see how to run it. The Space lists the Neuron stack the model was tested on, the packages to install on top of it, and the `run.py` script that ran. The script follows the recipe of the [TorchNeuron announcement](https://huggingface.co/blog/hf-torchneuron): it loads the model with `from_pretrained`, sharded when it needs to be, then generates with a static cache and `torch.compile(backend="neuron")`.
 
-On a Trainium2 (`trn2`) instance with that stack, for example in the [AWS Neuron Deep Learning Container](https://github.com/aws-neuron/deep-learning-containers), install the packages, then run:
+On a Trainium2 (`trn2`) instance with that stack, for example in the [AWS Neuron Deep Learning Container](https://github.com/aws-neuron/deep-learning-containers#torch-neuronx), install the packages, then run:
 
 ```bash
 python3 run.py
