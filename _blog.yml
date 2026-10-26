@@ -5903,3 +5903,9 @@
     - torch
     - transformers
     - aws
+
+- local: shadow-ai-agents-forrester
+  date: October 26, 2026
+  tags:
+  - community
+  guest: true
