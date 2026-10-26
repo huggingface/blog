@@ -3,20 +3,20 @@ title: "Armenian Joins the Open ASR Leaderboard"
 thumbnail: /blog/assets/open-asr-leaderboard-armenian/thumbnail.png
 authors:
 - user: bezzam
-- user: mariam-av
-  guest: true
-  org: Metric-AI
 - user: alexshah
   guest: true
-  org: Metric-AI
+  org: Metric-AI-Lab
+- user: mariam-av
+  guest: true
+  org: Metric-AI-Lab
 - user: Hrant
   guest: true
-  org: Metric-AI
+  org: Metric-AI-Lab
 ---
 
 # Armenian Joins the Open ASR Leaderboard
 
-*Metric AI and Hugging Face add Armenian 🇦🇲 to the Multilingual tab of the Open ASR Leaderboard*
+*Metric AI Lab and Hugging Face add Armenian 🇦🇲 to the Multilingual tab of the Open ASR Leaderboard*
 
 We have added Armenian to the [Open ASR Leaderboard](https://huggingface.co/spaces/hf-audio/open_asr_leaderboard). This release brings:
 
@@ -24,65 +24,50 @@ We have added Armenian to the [Open ASR Leaderboard](https://huggingface.co/spac
 2. **Two public test sets**, FLEURS (with corrected references) and Common Voice 26, in the leaderboard's [evaluation format](https://huggingface.co/datasets/Metric-AI/open-asr-leaderboard-multilingual-datasets).
 3. **Armenian-specific normalization**, so that the reported WER reflects differences in what models transcribed, rather than differences in how they format text.
 
-This does not fully solve Armenian ASR evaluation. However, it gives it an important, public, reproducible baseline.
 
-## What makes Armenian different
+Adding a language to a leaderboard sounds like uploading a test set and running the models. For Armenian, most of the work went into a narrower question: when a transcript doesn't match the reference, is the model actually wrong? Often it isn't. This post covers how we handled that, what the first results show, and what the scores still can't tell you.
 
-Several properties of Armenian create differences between a transcript and its reference that have nothing to do with recognition:
+## When a correct transcript counts as an error
 
-<p align="center">
-  <img src="assets/open-asr-leaderboard-armenian/armenian-features.png" alt="Five features of Armenian that affect ASR scoring, with examples" width="90%">
-</p>
+Armenian doesn't put its question mark at the end of the sentence. It goes on the stressed vowel, inside the word. A model that hears a question correctly but writes an ASCII `?` at the end produces a different word from the reference, and plain WER counts it as an error.
 
-- **Punctuation and orthography.** Armenian has its own punctuation marks, and its question, exclamation, and emphasis marks are written inside the word. In digital text, the word "and" can be represented either as a single ligature character or as two separate characters. Models also often use ASCII punctuation marks instead of their Armenian equivalents.
-- **Numbers.** Armenian is a highly inflected language, and numbers take grammatical endings like other words. The same number can be written in digits or in words, with the ending attached either way.
-- **Code-switching.** Speakers often use English and Russian words, which can appear in Latin, Cyrillic or Armenian letters.
-- **Eastern and Western Armenian.** The language has two standard forms. Both public test sets are mainly in Eastern Armenian, so Western Armenian is not yet covered.
+Armenian has several cases like this:
 
-## Armenian-specific normalization
+<p align="center"> <img src="FIGURE_1" alt="Five features of Armenian that make a correct transcript differ from its reference, with examples, and whether the normalizer handles each one" width="90%"> </p>
 
-Before scoring, the leaderboard normalizes both the reference and the prediction to reduce differences caused by formatting and orthographic conventions rather than speech recognition errors. Because generic multilingual normalization handles Armenian poorly, we implemented a dedicated Armenian normalizer. It:
+Generic multilingual normalization handles almost none of these, so we wrote one for Armenian. It runs on both the reference and the prediction before scoring. It removes punctuation and capitalization, treats the two spellings of "and" as the same word, and rewrites numbers, years, percentages and clock times into one form, whether they were written as digits or as words. Latin and Cyrillic words are kept as they are rather than deleted.
 
-- removes punctuation;
-- removes capitalization;
-- treats the two spellings of "and" as the same word;
-- converts numbers, years, percentages and clock times to one canonical form, whether they are written in digits or words;
-- keeps Latin and Cyrillic words instead of deleting them, without trying to match them to Armenian spellings;
-- does not merge colloquial and literary auxiliary verb forms.
+Two cases are deliberately left alone. Colloquial verb forms are not mapped to their literary equivalents, and a name written in Latin letters is not matched to its Armenian spelling. A rule can't reliably tell these apart from real mistakes, so they still count as errors, in the same way for every model.
 
-## Results on two independent test sets
+## Two test sets, two rankings
 
-Both test sets are mostly Eastern Armenian read speech, but they come from different sources and were recorded in different ways:
+Both sets are mostly Eastern Armenian read speech, but they were collected in different ways:
 
 | Dataset | Clips | Duration | Style | Notes |
-| :--- | ---: | ---: | :--- | :--- |
+|:--|--:|--:|:--|:--|
 | [FLEURS](https://huggingface.co/datasets/Metric-AI/open-asr-leaderboard-multilingual-datasets/viewer/fleurs_hy) | 932 | 3.0 h | Read Wikipedia sentences | All references [manually checked and corrected](https://huggingface.co/datasets/Metric-AI/fleurs-corrections) |
 | [Common Voice 26](https://huggingface.co/datasets/Metric-AI/open-asr-leaderboard-multilingual-datasets/viewer/mcv_hy) | 6,892 | 10.8 h | Crowd-sourced read speech | Short clips, many volunteer speakers and microphones |
 
-Every model is run with the same settings on both sets, and both are scored with the same Armenian normalizer and WER implementation. Any difference between the two columns therefore comes from the data, not from the evaluation setup.
+Every model runs with the same settings on both sets and is scored with the same normalizer, so differences between the two columns come from the data, not the evaluation setup.
 
 <p align="center">
-  <img src="assets/open-asr-leaderboard-armenian/fleurs-vs-mcv.png" alt="FLEURS vs Common Voice WER for the top 10 models, ranked by average WER" width="90%">
+  <img src="FIGURE_2" alt="FLEURS vs Common Voice 26 WER for the top 10 of 17 models, ranked by average WER" width="90%">
 </p>
 
-- **Rankings depend on the test set.** NVIDIA's small Armenian [FastConformer](https://huggingface.co/nvidia/stt_hy_fastconformer_hybrid_large_pc) is 9th on FLEURS but 1st on Common Voice. Omnilingual ASR 7B is 2nd on FLEURS, but 5th on MCV. Model performance and rankings can vary across individual test sets, highlighting the importance of using diverse test sets for a more reliable evaluation.
-- **Common Voice has higher WER for almost every model.** The two sets differ in content, speakers, recording conditions and clip length, so this gap cannot be attributed to any single factor.
+The ranking depends on which set you look at. NVIDIA's [Armenian FastConformer](https://huggingface.co/nvidia/stt_hy_fastconformer_hybrid_large_pc), a small model trained only for Armenian, is 9th of these ten on FLEURS and 1st on Common Voice. It is also the only one of them that does better on Common Voice. Meta's omniASR-LLM-7B goes the other way: 2nd on FLEURS, 5th on Common Voice.
 
-This is why the leaderboard reports both sets, rather than just one.
 
-Both sets are read speech, though, and performance on read speech does not necessarily predict performance on conversational or broadcast audio. To close this gap, we plan to add private Armenian test sets to the leaderboard with speech from three domains:
+The sets differ in speakers, microphones, content and clip length, so we can't attribute the gap to one cause. What it does show is that a ranking built on either set alone would be misleading, which is why the leaderboard reports both.
 
-- **Movies:** conversational dialogue, often with background noise and music.
-- **News:** broadcast-style narration.
-- **Poems:** expressive literary recitation, often with background music.
+## What read speech doesn't show
 
-The goal is to evaluate how models transcribe realistic, noisy speech with background sound, which read-speech test sets do not capture. Like the leaderboard's other private sets, they will be held out to limit benchmark-specific optimization, and the Hugging Face team will run the evaluation on them. The public FLEURS and Common Voice sets remain the baseline anyone can reproduce.
+Both public sets are read speech, and read speech is the easy case. In [ArmBench-ASR](https://metric-ai-armbench-asr.static.hf.space/index.html), the median model's WER on dialogue from Armenian films was about 62%, against about 17% on Common Voice (strict WER, so not directly comparable to the numbers above).
 
-## Limits of normalized WER
+So we plan to add three private test sets to the leaderboard: dialogue from **movies**, often over music and background noise; **news** narration; and recited **poems**, often with background music. Like the leaderboard's other private sets, they will be held out to limit overfitting to the benchmark, and the Hugging Face team will run the evaluation. FLEURS and Common Voice stay as the baseline anyone can reproduce.
 
-Some differences between the predictions and the references are not related to formatting. Everyday speech uses colloquial forms that the models usually write in the literary form, a foreign name can be correctly written in Latin or in Armenian letters, and some words have more than one accepted spelling. A rule-based normalizer cannot reliably separate these from real errors, so the leaderboard still counts them, in the same way for every model.
+## What the score still misses
 
-Normalized WER provides a deterministic and reproducible basis for comparing models, but it cannot account for every legitimate spelling or colloquial variation. Metric AI explores complementary evaluation approaches, including LLM-assisted scoring, in [🇦🇲 ArmBench-ASR](https://metric-ai-armbench-asr.static.hf.space/index.html), a dedicated Armenian ASR benchmark.
+The normalizer makes WER fair across formatting, but not across every legitimate way of writing the same speech. A colloquial verb form transcribed as literary, a foreign name in Armenian letters instead of Latin, a word with two accepted spellings: all of these still count as errors. That keeps the metric deterministic and reproducible, at the cost of some noise. In ArmBench-ASR, Metric AI Lab is testing complementary approaches, including LLM-assisted scoring, that can tell these cases apart.
 
 ## How to use it
 
