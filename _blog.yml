@@ -5903,3 +5903,14 @@
     - torch
     - transformers
     - aws
+
+- local: anydecisionmodel
+  date: October 29, 2026
+  tags:
+    - swift
+    - mlx
+    - coreml
+    - audio
+    - speech
+    - community
+    - open-source
