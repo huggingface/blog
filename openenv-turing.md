@@ -17,7 +17,7 @@ authors:
 
 AI agents often perform impressively in controlled research settings, yet struggle when deployed in real-world systems where they must reason across multiple steps, interact with real tools and APIs, operate under partial information, and recover from errors in stateful, permissioned environments—highlighting a persistent gap between research success and production reliability.
 
-[OpenEnv](https://github.com/meta-pytorch/OpenEnv) is an open-source framework from Meta and Hugging Face designed to address this challenge by standardizing how agents interact with real environments. As part of this collaboration, Turing contributed a production-grade calendar management [environment](https://huggingface.co/spaces/TuringEnterprises/calendar-gym/blob/main/README.md) to study tool-using agents under realistic constraints such as access control, temporal reasoning, and multi-agent coordination.
+[OpenEnv](https://github.com/openenv/OpenEnv) is an open-source framework from Meta and Hugging Face designed to address this challenge by standardizing how agents interact with real environments. As part of this collaboration, Turing contributed a production-grade calendar management [environment](https://huggingface.co/spaces/TuringEnterprises/calendar-gym/blob/main/README.md) to study tool-using agents under realistic constraints such as access control, temporal reasoning, and multi-agent coordination.
 
 In this post, we explore how OpenEnv works in practice, why calendars serve as a powerful benchmark for real-world agent evaluation, and what our findings reveal about the current limitations of tool-using agents.
 
