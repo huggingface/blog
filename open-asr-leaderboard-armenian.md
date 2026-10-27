@@ -33,7 +33,9 @@ Armenian doesn't put its question mark at the end of the sentence. It goes on th
 
 Armenian has several cases like this:
 
-<p align="center"> <img src="FIGURE_1" alt="Five features of Armenian that make a correct transcript differ from its reference, with examples, and whether the normalizer handles each one" width="90%"> </p>
+<p align="center">
+  <img src="assets/open-asr-leaderboard-armenian/armenian-features.png" alt="Five features of Armenian that affect ASR scoring, with examples" width="90%">
+</p>
 
 Generic multilingual normalization handles almost none of these, so we wrote one for Armenian. It runs on both the reference and the prediction before scoring. It removes punctuation and capitalization, treats the two spellings of "and" as the same word, and rewrites numbers, years, percentages and clock times into one form, whether they were written as digits or as words. Latin and Cyrillic words are kept as they are rather than deleted.
 
@@ -51,19 +53,19 @@ Both sets are mostly Eastern Armenian read speech, but they were collected in di
 Every model runs with the same settings on both sets and is scored with the same normalizer, so differences between the two columns come from the data, not the evaluation setup.
 
 <p align="center">
-  <img src="FIGURE_2" alt="FLEURS vs Common Voice 26 WER for the top 10 of 17 models, ranked by average WER" width="90%">
+  <img src="assets/open-asr-leaderboard-armenian/fleurs-vs-mcv.png" alt="FLEURS vs Common Voice WER for the top 10 models, ranked by average WER" width="90%">
 </p>
 
-The ranking depends on which set you look at. NVIDIA's [Armenian FastConformer](https://huggingface.co/nvidia/stt_hy_fastconformer_hybrid_large_pc), a small model trained only for Armenian, is 9th of these ten on FLEURS and 1st on Common Voice. It is also the only one of them that does better on Common Voice. Meta's omniASR-LLM-7B goes the other way: 2nd on FLEURS, 5th on Common Voice.
+The ranking depends on which set you look at. NVIDIA's [Armenian FastConformer](https://huggingface.co/nvidia/stt_hy_fastconformer_hybrid_large_pc), a small model trained only for Armenian, is 9th on FLEURS and 1st on Common Voice. It is also the only one that does better on Common Voice. Meta's omniASR-LLM-7B goes the other way: 2nd on FLEURS, 5th on Common Voice.
 
 
 The sets differ in speakers, microphones, content and clip length, so we can't attribute the gap to one cause. What it does show is that a ranking built on either set alone would be misleading, which is why the leaderboard reports both.
 
 ## What read speech doesn't show
 
-Both public sets are read speech, and read speech is the easy case. In [ArmBench-ASR](https://metric-ai-armbench-asr.static.hf.space/index.html), the median model's WER on dialogue from Armenian films was about 62%, against about 17% on Common Voice (strict WER, so not directly comparable to the numbers above).
+Both public sets are read speech, and read speech is the easy case. In [ArmBench-ASR](https://metric-ai-armbench-asr.static.hf.space/index.html), the median model's normalized WER on dialogue from Armenian films was about 38.8%, against about 11.3% on Common Voice.
 
-So we plan to add three private test sets to the leaderboard: dialogue from **movies**, often over music and background noise; **news** narration; and recited **poems**, often with background music. Like the leaderboard's other private sets, they will be held out to limit overfitting to the benchmark, and the Hugging Face team will run the evaluation. FLEURS and Common Voice stay as the baseline anyone can reproduce.
+So, we plan to add three private test sets to the leaderboard: dialogue from **movies**, often over music and background noise; **news** narration; and recited **poems**, often with background music. Like the leaderboard's other private sets, they will be held out to limit overfitting to the benchmark, and the Hugging Face team will run the evaluation. FLEURS and Common Voice stay as the baseline anyone can reproduce.
 
 ## What the score still misses
 
