@@ -5,13 +5,13 @@ authors:
 - user: bezzam
 - user: alexshah
   guest: true
-  org: Metric-AI-Lab
+  org: Metric-AI
 - user: mariam-av
   guest: true
-  org: Metric-AI-Lab
+  org: Metric-AI
 - user: Hrant
   guest: true
-  org: Metric-AI-Lab
+  org: Metric-AI
 ---
 
 # Armenian Joins the Open ASR Leaderboard
@@ -34,7 +34,7 @@ Armenian doesn't put its question mark at the end of the sentence. It goes on th
 Armenian has several cases like this:
 
 <p align="center">
-  <img src="assets/open-asr-leaderboard-armenian/armenian-features.png" alt="Five features of Armenian that affect ASR scoring, with examples" width="90%">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/blob/cb41a7edb31650e3c1746387fe872c1ba69e07f2/blog/open-asr-leaderboard-armenian/armenian-features.png" alt="Five features of Armenian that affect ASR scoring, with examples" width="90%">
 </p>
 
 Generic multilingual normalization handles almost none of these, so we wrote one for Armenian. It runs on both the reference and the prediction before scoring. It removes punctuation and capitalization, treats the two spellings of "and" as the same word, and rewrites numbers, years, percentages and clock times into one form, whether they were written as digits or as words. Latin and Cyrillic words are kept as they are rather than deleted.
@@ -53,7 +53,7 @@ Both sets are mostly Eastern Armenian read speech, but they were collected in di
 Every model runs with the same settings on both sets and is scored with the same normalizer, so differences between the two columns come from the data, not the evaluation setup.
 
 <p align="center">
-  <img src="assets/open-asr-leaderboard-armenian/fleurs-vs-mcv.png" alt="FLEURS vs Common Voice WER for the top 10 models, ranked by average WER" width="90%">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/open-asr-leaderboard-armenian/fleurs-vs-mcv.png" alt="FLEURS vs Common Voice WER for the top 10 models, ranked by average WER" width="90%">
 </p>
 
 The ranking depends on which set you look at. NVIDIA's [Armenian FastConformer](https://huggingface.co/nvidia/stt_hy_fastconformer_hybrid_large_pc), a small model trained only for Armenian, is 9th on FLEURS and 1st on Common Voice. It is also the only one that does better on Common Voice. Meta's omniASR-LLM-7B goes the other way: 2nd on FLEURS, 5th on Common Voice.
