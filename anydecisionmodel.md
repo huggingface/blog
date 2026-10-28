@@ -107,7 +107,6 @@ so a full pass over all 343 emoji takes about 10 seconds.
 Each group's results appear as soon as they arrive.
 
 Emoji Magnet is in the [AnyDecisionModel-Examples](https://github.com/mattt/AnyDecisionModel-Examples) repository.
-<!-- TODO: Merge the AnyDecisionModel-Examples PR that moves the examples to 0.6.0. -->
 
 ### Decision heads and Clef
 
@@ -198,7 +197,6 @@ For now, an app can't enable the `MLX` traits
 of both AnyDecisionModel 0.6.0 and
 [AnyLanguageModel 1.1.1](https://github.com/huggingface/AnyLanguageModel/releases/tag/1.1.1):
 they require mlx-swift-lm 3.31.x and 3.32.x respectively.
-<!-- TODO: Recheck these constraints at publication. -->
 
 ## AnySpeechRecognizer
 
@@ -459,9 +457,6 @@ Next, we'd like to add more engines, including Core AI on macOS 27 and iOS 27.
 
 ## Get started
 
-<!-- TODO: Resolve and build this snippet against the published 0.1.0 tag
-before publication; the tag does not yet exist as of 2026-10-26. -->
-
 Both packages require Swift 6.2 or later and macOS 26 or iOS 26 or later.
 The MLX backend and the Parakeet and Sortformer runtimes require Apple silicon.
 AnyDecisionModel's MLX build tasks use Xcode's Swift 6.4 or later
@@ -483,7 +478,6 @@ dependencies: [
 For now, AnyDecisionModel's `CoreAI` trait can't be combined with AnySpeechRecognizer,
 because coreai-kit 0.7.3 requires swift-huggingface below 1.0
 and AnySpeechRecognizer requires 1.x.
-<!-- TODO: Recheck the Core AI dependency constraint at publication. -->
 
 Each README covers the requirements and backends, with more examples.
 AnySpeechRecognizer also includes a command-line tool, `hear`,
