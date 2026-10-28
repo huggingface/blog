@@ -5909,3 +5909,8 @@
   tags:
   - community
   guest: true
+- local: salt-rogue-agent-actions
+  date: October 28, 2026
+  tags:
+  - community
+  guest: true
