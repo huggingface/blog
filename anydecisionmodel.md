@@ -30,7 +30,7 @@ Today we're announcing two packages:
   instead of generating text.
 - [AnySpeechRecognizer](https://github.com/mattt/AnySpeechRecognizer)
   implements Apple's new speech-to-text API with a choice of recognition engine,
-  including NVIDIA's Parakeet running locally on Core ML,
+  including NVIDIA's Parakeet and Alibaba's Qwen3-ASR running locally on Core ML,
   and adds speaker diarization to track who speaks when.
 
 Both packages can download open models from the Hugging Face Hub
@@ -259,6 +259,28 @@ The package runs all three on Core ML with its own Parakeet runtime,
 which supports file and live input, volatile results, word timing,
 and word confidence.
 
+`QwenSpeechModel` runs Alibaba's Qwen3-ASR,
+in [0.6B](https://huggingface.co/Qwen/Qwen3-ASR-0.6B-hf)
+and [1.7B](https://huggingface.co/Qwen/Qwen3-ASR-1.7B-hf) sizes.
+It recognizes 30 languages and 22 Chinese dialects,
+including Mandarin, Cantonese, Japanese, and Korean, which Parakeet doesn't cover.
+It detects the language automatically, or you can set one:
+
+```swift
+let transcriber = SpeechTranscriber(
+    model: QwenSpeechModel(variant: .large, language: Locale.Language(identifier: "yue")),
+    transcriptionOptions: [],
+    reportingOptions: [],
+    attributeOptions: []
+)
+```
+
+Qwen3-ASR transcribes audio in segments of up to 40 seconds
+and gives one final result for each segment,
+without volatile results, word timing, or confidence.
+It runs on the GPU and is slower than Parakeet,
+so it suits transcribing files better than live input.
+
 To add another engine, implement `SpeechRecognitionModel` for its configuration
 and `SpeechRecognitionExecutor` for one module's session.
 The README has a [small provider](https://github.com/mattt/AnySpeechRecognizer#custom-providers)
@@ -266,13 +288,15 @@ that reports placeholder text to help you get started.
 
 ### Models from the Hub
 
-AnySpeechRecognizer runs five Core ML models that we converted and published on the Hub:
+AnySpeechRecognizer runs seven Core ML models that we converted and published on the Hub:
 
 | Model | Core ML conversion | Original checkpoint | License |
 | --- | --- | --- | --- |
 | Parakeet TDT 0.6B v3 | [mattt/parakeet-tdt-0.6b-v3-coreml](https://huggingface.co/mattt/parakeet-tdt-0.6b-v3-coreml) | [nvidia/parakeet-tdt-0.6b-v3](https://huggingface.co/nvidia/parakeet-tdt-0.6b-v3) | CC BY 4.0 |
 | Parakeet Ultra | [mattt/parakeet-ultra-coreml](https://huggingface.co/mattt/parakeet-ultra-coreml) | [moondream/parakeet-ultra](https://huggingface.co/moondream/parakeet-ultra) | CC BY 4.0 |
 | Parakeet Unified EN 0.6B | [mattt/parakeet-unified-en-0.6b-coreml](https://huggingface.co/mattt/parakeet-unified-en-0.6b-coreml) | [nvidia/parakeet-unified-en-0.6b](https://huggingface.co/nvidia/parakeet-unified-en-0.6b) | [NVIDIA Open Model License](https://www.nvidia.com/en-us/agreements/enterprise-software/nvidia-open-model-license/) |
+| Qwen3-ASR 0.6B | [mattt/qwen3-asr-0.6b-coreml](https://huggingface.co/mattt/qwen3-asr-0.6b-coreml) | [Qwen/Qwen3-ASR-0.6B-hf](https://huggingface.co/Qwen/Qwen3-ASR-0.6B-hf) | Apache 2.0 |
+| Qwen3-ASR 1.7B | [mattt/qwen3-asr-1.7b-coreml](https://huggingface.co/mattt/qwen3-asr-1.7b-coreml) | [Qwen/Qwen3-ASR-1.7B-hf](https://huggingface.co/Qwen/Qwen3-ASR-1.7B-hf) | Apache 2.0 |
 | Streaming Sortformer 4spk v2 | [mattt/diar-streaming-sortformer-4spk-v2-coreml](https://huggingface.co/mattt/diar-streaming-sortformer-4spk-v2-coreml) | [nvidia/diar_streaming_sortformer_4spk-v2](https://huggingface.co/nvidia/diar_streaming_sortformer_4spk-v2) | CC BY 4.0 |
 | Streaming Sortformer 4spk v2.1 | [mattt/diar-streaming-sortformer-4spk-v2.1-coreml](https://huggingface.co/mattt/diar-streaming-sortformer-4spk-v2.1-coreml) | [nvidia/diar_streaming_sortformer_4spk-v2.1](https://huggingface.co/nvidia/diar_streaming_sortformer_4spk-v2.1) | [NVIDIA Open Model License](https://www.nvidia.com/en-us/agreements/enterprise-software/nvidia-open-model-license/) |
 
@@ -296,14 +320,16 @@ Our model repositories provide the following:
 - The Parakeet Unified and Sortformer v2.1 repositories include the license agreement
   and the notice file that NVIDIA's license requires for redistribution.
 
-The repository also compares each conversion with NVIDIA's NeMo toolkit
-on the same input.
+The repository also compares each Parakeet and Sortformer conversion
+with NVIDIA's NeMo toolkit on the same input,
+and each Qwen3-ASR conversion with Hugging Face Transformers.
 
 An installation request downloads the pinned files
 and checks each file's size and SHA-256 digest.
 The base Parakeet files are about 632 MB each for v3 and Ultra,
 and about 614 MB for Unified.
 Live transcription can also use the 8-second encoder, which adds about 591 MB.
+Qwen3-ASR is about 0.94 GB for 0.6B and 2.36 GB for 1.7B.
 Each Sortformer version is about 246 MB
 and installs only when you add a diarizer.
 Analysis never triggers a download:
@@ -363,10 +389,7 @@ but used about 530 MB of memory instead of about 135 MB.
 
 ### Status
 
-<!-- TODO: Publish this version statement only after 0.1.0 is released,
-and recheck the measurements if 0.1.0 differs from `87ba852`. -->
-
-AnySpeechRecognizer is at 0.1.0.
+AnySpeechRecognizer is at [0.1.0](https://github.com/mattt/AnySpeechRecognizer/releases/tag/0.1.0).
 
 We measured it with its `hear` command-line tool on an M4 Max Mac Studio with macOS 27.0.1,
 on natural speech from LibriSpeech and the AMI meeting corpus.
@@ -405,6 +428,9 @@ and 124 to 136 seconds with Unified.
 Peak memory in those transcription runs is about 100 MB,
 except while Core ML compiles a model, which can take about 680 MB.
 
+Qwen3-ASR is much slower than Parakeet and needs a few gigabytes of memory,
+so it suits transcribing files, especially in languages that Parakeet doesn't cover.
+
 Parakeet sometimes decodes a window of speech as silence,
 mostly in live mode and in meetings with overlapping speech.
 
@@ -423,6 +449,7 @@ and [reproduces these measurements](https://github.com/mattt/AnySpeechRecognizer
 
 So far, we've tested only on macOS 27.
 We haven't yet tested Parakeet on a physical iPhone,
+Qwen3-ASR on any iOS device,
 the OS 26 runtime, or the minimum Swift 6.2 toolchain.
 The package doesn't implement the older `SFSpeechRecognizer` API,
 Apple's custom language models,
@@ -461,7 +488,7 @@ and AnySpeechRecognizer requires 1.x.
 Each README covers the requirements and backends, with more examples.
 AnySpeechRecognizer also includes a command-line tool, `hear`,
 that transcribes local files, labels their speakers, and evaluates the results.
-Every `hear` command requires `--backend apple` or `--backend parakeet`;
+Every `hear` command requires `--backend apple`, `--backend parakeet`, or `--backend qwen`;
 run `hear prepare` with the same backend and model options before analysis
 to install the needed assets.
 
