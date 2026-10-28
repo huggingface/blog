@@ -25,7 +25,7 @@ authors:
 
 *An initiative bringing together universities, research organizations, industry, and the open science community to make publicly funded research easier to discover, reuse, and build upon.*
 
-![Project ProtoStar: Public research, put to work](/blog/assets/announcing-project-protostar/thumbnail.jpg)
+![Project ProtoStar: Public research, put to work](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/announcing-project-protostar/header.jpg)
 
 Today, we're announcing **[Project ProtoStar](https://huggingface.co/project-protostar)**, an initiative to unlock the potential of publicly funded scientific research by making datasets, models, and code more accessible and reusable, particularly for AI-driven research. ProtoStar brings together research institutions, industry, and the open science community to support the release of scientific artifacts in AI-ready, machine-actionable formats, and to demonstrate their value through a series of open challenges. The first challenge, hosted by [Carnegie Mellon University](https://www.cmu.edu/), opens on November 2. See [How to Participate](#the-first-challenge-climate-risk-intelligence) below.
 
