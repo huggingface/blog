@@ -3,7 +3,7 @@ title: "Announcing Project ProtoStar: Making Publicly Funded Science AI-Ready"
 thumbnail: /blog/assets/project-protostar/thumbnail.png
 authors:
 - user: evijit
-  org: project-protostar
+  org: hfpolicy
 - user: sayeedmd
   guest: true
   org: CMU-OSPO
@@ -11,13 +11,14 @@ authors:
   guest: true
   org: ORCA-Open
 - user: EmmaScharfmann
-  org: project-protostar
+  org: hugging-science
 - user: cgeorgiaw
-  org: project-protostar
+  org: hugging-science
 - user: EuniceML
   guest: true
   org: ORCA-Open
 - user: irenesolaiman
+  org: hfpolicy
 ---
 
 # Announcing Project ProtoStar: Making Publicly Funded Science AI-Ready
