@@ -38,7 +38,7 @@ We’ll be using the following:
 1. A reasoning model: demo uses [NVIDIA Nemotron 3 Nano](https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B-BF16)  
 2. A vision model: demo uses [NVIDIA Nemotron Nano 2 VL](https://huggingface.co/nvidia/NVIDIA-Nemotron-Nano-12B-v2-VL-BF16)  
 3. A text-to-speech model: demo uses [ElevenLabs](https://elevenlabs.io)  
-4. [Reachy Mini](https://www.pollen-robotics.com/reachy-mini/) (or [Reachy Mini Simulation](https://github.com/pollen-robotics/reachy_mini/blob/develop/docs/platforms/simulation/get_started.md))  
+4. [Reachy Mini](https://www.pollen-robotics.com/reachy-mini/) (or [Reachy Mini Simulation](https://github.com/pollen-robotics/reachy_mini/blob/main/docs/source/platforms/simulation/get_started.md))  
 5. Python v3.10+ environment, with [uv](https://docs.astral.sh/uv/)
 
 Feel free to adapt the recipe and make it your own \- you have many ways to integrate the models into your application:

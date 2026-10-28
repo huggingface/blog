@@ -96,14 +96,14 @@ Codex discovers skills through [`AGENTS.md`](https://developers.openai.com/codex
 Install individual skills with `$skill-installer`:
 
 ```text
-$skill-installer install https://github.com/huggingface/skills/tree/main/skills/hugging-face-model-trainer
+$skill-installer install https://github.com/huggingface/skills/tree/main/skills/huggingface-llm-trainer
 ```
 
 For more details, see the [Codex Skills docs](https://developers.openai.com/codex/skills) and the [AGENTS.md guide](https://developers.openai.com/codex/guides/agents-md).
 
 ### Anything else
 
-A generic install method is simply to clone the [skills repository](https://github.com/huggingface/skills) and copy the [skill](https://github.com/huggingface/skills/tree/main/skills/hugging-face-model-trainer) to your agent's skills directory.
+A generic install method is simply to clone the [skills repository](https://github.com/huggingface/skills) and copy the [skill](https://github.com/huggingface/skills/tree/main/skills/huggingface-llm-trainer) to your agent's skills directory.
 
 ```text
 git clone https://github.com/huggingface/skills.git
@@ -118,7 +118,7 @@ Once the skill is installed, ask your coding agent to train a model:
 Train LiquidAI/LFM2.5-1.2B-Instruct on mlabonne/FineTome-100k using Unsloth on HF Jobs
 ```
 
-The agent will generate a training script based on an [example in the skill](https://github.com/huggingface/skills/blob/main/skills/hugging-face-model-trainer/scripts/unsloth_sft_example.py), submit the training to HF Jobs, and provide a monitoring link via Trackio.
+The agent will generate a training script based on an [example in the skill](https://github.com/huggingface/skills/blob/main/skills/huggingface-llm-trainer/scripts/unsloth_sft_example.py), submit the training to HF Jobs, and provide a monitoring link via Trackio.
 
 ## How It Works
 
@@ -131,7 +131,7 @@ Training jobs run on [Hugging Face Jobs](https://huggingface.co/docs/huggingface
 
 ### Example Training Script
 
-The skill generates scripts like this based on the example in the [skill](https://github.com/huggingface/skills/blob/main/skills/hugging-face-model-trainer/scripts/unsloth_sft_example.py).
+The skill generates scripts like this based on the example in the [skill](https://github.com/huggingface/skills/blob/main/skills/huggingface-llm-trainer/scripts/unsloth_sft_example.py).
 
 ```python
 # /// script

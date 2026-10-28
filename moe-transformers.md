@@ -130,7 +130,7 @@ to:
 
 ### Dynamic Weight Loading with `WeightConverter`
 
-The central abstraction introduced by this refactor is **dynamic weight loading** via a [`WeightConverter`](https://huggingface.co/docs/transformers/main/en/internal/weight_converter).
+The central abstraction introduced by this refactor is **dynamic weight loading** via a [`WeightConverter`](https://huggingface.co/docs/transformers/main/en/weightconverter).
 
 `WeightConverter` lets us define:
 

@@ -5805,6 +5805,105 @@
     - community
     - open-source-collab
 
+- local: rl-environments
+  date: September 28, 2026
+  tags:
+    - rl
+    - datasets
+    - hub
+
+- local: open-tts-leaderboard
+  date: September 30, 2026
+  tags:
+    - audio
+    - speech
+    - leaderboard
+    - datasets
+    - evaluation
+
+- local: building-with-ml-intern
+  date: October 8, 2026
+  tags:
+    - ml-intern
+    - datasets
+    - spaces
+    - models
+    - inference-providers
+    - huggingchat
+    - gradio
+
+- local: flux-3
+  date: October 15, 2026
+  tags:
+    - diffusers
+    - flux
+    - quantization
+    - black-forest-labs
+    - lora
+
+- local: meta-muse-spark-open
+  date: October 15, 2026
+  tags:
+    - meta
+    - muse-spark
+    - open-source
+    - community
+    - llm
+
+- local: reflection-beam
+  date: October 16, 2026
+  tags:
+    - open-source-collab
+    - llm
+    - transformers
+    - inference
+    - trl
+    - rl
+
+- local: hf-torchneuron
+  date: October 19, 2026
+  tags:
+    - open-source
+    - torch
+    - neuron
+
+- local: mps-pytorch-2-15
+  date: October 20, 2026
+  tags:
+    - pytorch
+    - mps
+    - apple
+    - performance
+
+- local: anylanguagemodel-1-0
+  date: October 20, 2026
+  tags:
+    - swift
+    - llm
+    - mlx
+    - open-source
+    - community
+
+- local: hf-torchtpu
+  date: October 20, 2026
+  tags:
+    - tpu
+    - google
+    - gcp
+    - partnerships
+    - hardware
+    - transformers
+    - diffusers
+    - kernels
+
+- local: torch-neuronx-model-support
+  date: October 23, 2026
+  tags:
+    - neuron
+    - torch
+    - transformers
+    - aws
+
 - local: announcing-project-protostar
   date: October 29, 2026
   tags:
