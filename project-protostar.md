@@ -27,7 +27,7 @@ authors:
 
 ![Project ProtoStar: Public research, put to work](/blog/assets/project-protostar/thumbnail.png)
 
-Today, we're announcing **[Project ProtoStar](https://huggingface.co/project-protostar)**, an initiative to unlock the potential of publicly funded scientific research by making datasets, models, and code more accessible and reusable, particularly for AI-driven research. ProtoStar brings together research institutions, industry, and the open science community to support the release of scientific artifacts in AI-ready, machine-actionable formats, and to demonstrate their value through a series of open challenges. The first challenge, hosted by [Carnegie Mellon University](https://www.cmu.edu/), opens on November 2. See [How to Participate](#how-to-participate) below.
+Today, we're announcing **[Project ProtoStar](https://huggingface.co/project-protostar)**, an initiative to unlock the potential of publicly funded scientific research by making datasets, models, and code more accessible and reusable, particularly for AI-driven research. ProtoStar brings together research institutions, industry, and the open science community to support the release of scientific artifacts in AI-ready, machine-actionable formats, and to demonstrate their value through a series of open challenges. The first challenge, hosted by [Carnegie Mellon University](https://www.cmu.edu/), opens on November 2. See [How to Participate](#the-first-challenge-climate-risk-intelligence) below.
 
 The initiative's founding partners include [Carnegie Mellon University](https://www.cmu.edu/), [Purdue University](https://www.purdue.edu/), [Georgia Institute of Technology](https://www.gatech.edu/), [Arizona State University](https://www.asu.edu/), and [The George Washington University](https://www.gwu.edu/), all working through the [Open Forum for AI (OFAI)](https://www.openforumai.org/) as the university coalition partner; the [Astera Institute](https://astera.org/); [Hugging Face](https://huggingface.co/) as the infrastructure partner; and the [Open Research Community Accelerator (ORCA)](https://orcaopen.org/), through its [Fostering Innovation Network](https://orcaopen.org/work/fostering-innovation-through-open-science-fin), as the community partner.
 
@@ -86,7 +86,7 @@ Teams will submit a Hugging Face dataset with these outputs. Forecasting perform
 
 The CMU challenge is the first in this series. Other participating institutions will host their own challenges sequentially, each highlighting different publicly funded scientific resources and opportunities for reuse. Future challenges will be announced through the [Project ProtoStar page on Hugging Face](https://huggingface.co/project-protostar).
 
-## How to Participate
+## How to Join Project ProtoStar
 
 Whether you're an academic researcher, student, independent developer, or company building on open scientific infrastructure, ProtoStar offers opportunities to put publicly funded research to work and help us learn what is needed to make AI-ready open science more widely useful.
 
