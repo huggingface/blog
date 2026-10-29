@@ -5903,7 +5903,6 @@
     - torch
     - transformers
     - aws
-
 - local: anydecisionmodel
   date: October 29, 2026
   tags:
@@ -5924,3 +5923,11 @@
     - llamacpp
     - inference
     - open-source
+- local: announcing-project-protostar
+  date: October 29, 2026
+  tags:
+    - open-source
+    - science
+    - datasets
+    - research
+    - community
