@@ -15,7 +15,7 @@ authors:
 - user: ariG23498
 ---
 
-# "Welcome Le Chonk: Mistral Large 4 on Hugging Face"
+# Welcome Le Chonk: Mistral Large 4 on Hugging Face
 
 Mistral Large 4 (aka Le Chonk) is a multimodal, multilingual, Mixture-of-Experts (MoE) model from Mistral. It takes text and images as input and generates text. It has about **1T total, 49B active parameter**, and a context window of **1M tokens**.
 
