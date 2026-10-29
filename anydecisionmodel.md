@@ -3,7 +3,6 @@ title: "Introducing AnySpeechRecognizer and AnyDecisionModel: Open Models for Sp
 thumbnail: /blog/assets/anydecisionmodel/banner.png
 authors:
 - user: mattt
-  guest: true
 ---
 
 Language models can do a lot.
