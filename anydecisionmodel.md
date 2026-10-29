@@ -32,7 +32,9 @@ Today we're announcing two packages:
   answers yes-or-no, multiple-choice, and rating-scale questions
   with typed results and probabilities.
   It derives each answer from the model's probabilities
-  instead of generating text.
+  instead of generating text,
+  using a model on your device with MLX, Core AI, or llama.cpp,
+  or a decision model from Jev or Ollama.
 
 Both packages can download open models from the Hugging Face Hub
 and run them on device.
@@ -240,9 +242,9 @@ We think that's where things are going,
 so we wanted a Swift API that's ready for them.
 
 Apps often ask language models to make decisions.
-Is this message urgent?
-Which team should handle this ticket?
-How frustrated is this customer?
+_Is this message urgent?_
+_Which team should handle this ticket?_
+_How frustrated is this customer?_
 The usual approach is to prompt a language model
 and parse the text that it generates.
 That gives you one answer,
@@ -301,11 +303,13 @@ and the emoji that match rise out of the pile.
 Refine it to "things you wear in winter",
 and the emoji that no longer match fall back.
 
-The app has no keyword rules.
-When you pause typing, it asks the model one yes-or-no question for each emoji:
+The app has no built-in keyword rules;
+the model decides everything at inference time.
+When you pause typing, it asks the model one yes-or-no question for each emoji,
+for example:
 
 ```
-Statement: a dog fits the description "pet". Is this statement true?
+Statement: a heavy winter coat fits the description "things you wear". Is this statement true?
 ```
 
 The session's state holds the phrase.
