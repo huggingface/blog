@@ -7,7 +7,7 @@ authors:
 ---
 
 Language models write text,
-but a lot of what apps ask them to do is decide.
+but apps often ask them to make decisions.
 Is this message urgent?
 Which team should handle this ticket?
 How frustrated is this customer?
@@ -18,7 +18,7 @@ but doesn't show the probabilities it assigned to the alternatives.
 
 In our [AnyLanguageModel 1.0 recap](https://huggingface.co/blog/anylanguagemodel-1-0),
 we looked at a year of local and hosted models in Swift.
-Now, with AnyLanguageModel and swift-huggingface on their 1.x releases,
+With AnyLanguageModel and swift-huggingface now on their 1.x releases,
 we're extending the same approach to decisions and speech:
 familiar Swift APIs with a choice of model.
 Today we're announcing two packages:
@@ -76,7 +76,8 @@ A `DecisionSession` holds a single state, which can be text or JSON,
 and every question is about that state.
 Questions are independent:
 an answer never becomes input to a later question.
-To ask several questions at once, pass them to `decide(_:)` as a batch.
+To ask several questions at once,
+pass them to `decide(_:)` as a batch.
 
 For each question, the MLX backend builds a prompt
 with a one-token label for each allowed answer,
@@ -102,12 +103,12 @@ Statement: a dog fits the description "pet". Is this statement true?
 The session's state holds the phrase.
 The demo above uses the hosted Jev backend,
 which answers all 343 questions in one request,
-so each phrase settles in about half a second.
+so the emoji settle in about half a second for each phrase.
 Without a `TYPESAFE_AI_API_KEY`, the app runs Qwen3 4B on your Mac with the MLX backend.
 That backend uses prefix caching to evaluate the state once,
-then answers 16 questions at a time, in one forward pass per group.
-On an M4 Max, a group of 16 takes about 0.45 seconds after the model loads,
-so a full pass over all 343 emoji takes about 10 seconds,
+then answers 16 questions per forward pass.
+On an M4 Max, a group of 16 takes about 0.45 seconds after the model loads.
+A full pass over all 343 emoji takes about 10 seconds,
 and each group's results appear as soon as they arrive.
 
 Emoji Magnet is in the [AnyDecisionModel-Examples](https://github.com/mattt/AnyDecisionModel-Examples) repository.
@@ -131,7 +132,7 @@ let model = MLXHeadDecisionModel(
 )
 ```
 
-Sessions and questions work the same way,
+You use the same sessions and questions,
 but `MLXHeadDecisionModel` reads each decision from Clef's trained decision head
 instead of from next-token probabilities.
 The [4-bit model](https://huggingface.co/mlx-community/clef-flash-4bit) is a 6.2 GB download,
@@ -144,7 +145,7 @@ but this backend accepts only text and JSON states.
 Raw probabilities from language models are often overconfident.
 The local backends accept a `Calibration`,
 which applies a temperature to every answer and a bias to yes-or-no answers.
-Fit the calibration on data that's separate from your evaluation data.
+Use separate datasets to fit the calibration and evaluate the results.
 
 Language models can also favor an option because of its position in a list.
 On the MLX, Core AI, and llama.cpp next-token backends,
@@ -152,7 +153,7 @@ turn on `rotationDebiasing` to ask a choice question
 once for each rotation of the options and average the probabilities.
 That costs one prompt evaluation per rotation.
 
-Each local choice and score also reports a confidence value
+Each local choice and score also includes a confidence value
 based on the entropy of its probabilities.
 It measures how concentrated the probabilities are,
 not whether the answer is right,
@@ -184,17 +185,18 @@ so a choice can have at most 26 options, and a score at most 10 levels.
 Decision heads have no such limit.
 
 Like AnyLanguageModel, the package uses Swift package traits.
-Without traits, it has no third-party dependencies
-and provides the core types and the Jev and Ollama backends,
+Without traits, it has no third-party dependencies.
+You get the core types and the Jev and Ollama backends,
 which also build on Linux.
 Enable the `MLX`, `CoreAI`, or `Llama` trait for the local backends.
 
 ### Status
 
 AnyDecisionModel is at [0.6.0](https://github.com/mattt/AnyDecisionModel/releases/tag/0.6.0),
-which adds Ollama and llama.cpp and accepts swift-huggingface 1.x.
+which adds Ollama and llama.cpp support
+and works with swift-huggingface 1.x.
 The example calibration values in the README come from a fit on two tasks,
-so don't assume that they transfer to yours.
+so don't assume they'll work for yours.
 Typed output alone doesn't protect against prompt injection.
 
 For now, an app can't enable the `MLX` traits
@@ -204,7 +206,7 @@ they require mlx-swift-lm 3.31.x and 3.32.x respectively.
 
 ## AnySpeechRecognizer
 
-The idea behind AnyLanguageModel works for speech, too.
+The same approach works for speech, too.
 
 macOS 26 and iOS 26 introduced `SpeechAnalyzer`,
 Apple's new speech-to-text API.
@@ -226,7 +228,7 @@ AnySpeechRecognizer keeps the API and lets you choose the engine:
 The package mirrors `SpeechAnalyzer`, `SpeechTranscriber`, `DictationTranscriber`,
 `SpeechDetector`, and `AssetInventory`,
 with Apple's Speech framework as the default engine.
-For code using that shared API, changing the import is enough;
+If your code uses that shared API, changing the import is enough;
 the differences and unsupported features are listed below.
 To use Parakeet instead,
 change only how you create the transcriber:
@@ -244,10 +246,10 @@ The steps for installing assets, running the analyzer,
 and reading results stay the same.
 The [README](https://github.com/mattt/AnySpeechRecognizer#transcribe-a-file)
 has a complete example.
-The package has its own analyzer and module types that match Apple's,
-so files that import both `Speech` and `AnySpeechRecognizer`
-must qualify the names they share;
-the README [lists the differences](https://github.com/mattt/AnySpeechRecognizer#differences-from-apples-speech-framework).
+The package defines its own analyzer and module types to match Apple's.
+If a file imports both `Speech` and `AnySpeechRecognizer`,
+you must qualify the names they share.
+The README [lists the differences](https://github.com/mattt/AnySpeechRecognizer#differences-from-apples-speech-framework).
 
 `.v3` is NVIDIA's [Parakeet TDT 0.6B v3](https://huggingface.co/nvidia/parakeet-tdt-0.6b-v3),
 which recognizes 25 European languages and detects the language automatically,
@@ -281,11 +283,11 @@ Qwen3-ASR transcribes audio in segments of up to 40 seconds
 and gives one final result for each segment,
 without volatile results, word timing, or confidence.
 It runs on the GPU and is slower than Parakeet,
-so it suits transcribing files better than live input.
+so it's better suited to transcribing files than live input.
 
 To add another engine, implement `SpeechRecognitionModel` for its configuration
 and `SpeechRecognitionExecutor` for one module's session.
-The README has a [small provider](https://github.com/mattt/AnySpeechRecognizer#custom-providers)
+The README includes a [small provider](https://github.com/mattt/AnySpeechRecognizer#custom-providers)
 that reports placeholder text to help you get started.
 
 ### Models from the Hub
@@ -308,7 +310,7 @@ The conversion workflows are in the repository;
 those for Parakeet and Sortformer v2 follow FluidInference's
 [mobius](https://github.com/FluidInference/mobius) scripts.
 The tools document weight comparisons with FluidInference's v3 and Ultra conversions.
-Our model repositories provide the following:
+Here's what our model repositories include:
 
 - Each one records its source checkpoint and revision,
   the tools that converted it,
@@ -326,12 +328,12 @@ The repository also compares each Parakeet and Sortformer conversion
 with NVIDIA's NeMo toolkit on the same input,
 and each Qwen3-ASR conversion with Hugging Face Transformers.
 
-An installation request downloads the pinned files
+When you request an installation, the package downloads the pinned files
 and checks each file's size and SHA-256 digest.
 The base Parakeet files are about 632 MB each for v3 and Ultra,
 and about 614 MB for Unified.
 Live transcription can also use the 8-second encoder, which adds about 591 MB.
-Qwen3-ASR is about 0.94 GB for 0.6B and 2.36 GB for 1.7B.
+The Qwen3-ASR downloads are about 0.94 GB for 0.6B and 2.36 GB for 1.7B.
 Each Sortformer version is about 246 MB
 and installs only when you add a diarizer.
 Analysis never triggers a download:
@@ -351,8 +353,8 @@ so AnySpeechRecognizer adds one.
 `SpeakerDiarizer` identifies who speaks when.
 It runs NVIDIA's
 [Streaming Sortformer](https://huggingface.co/nvidia/diar_streaming_sortformer_4spk-v2)
-on Core ML alongside an Apple or Parakeet transcriber,
-with both using the same timeline:
+on Core ML alongside an Apple or Parakeet transcriber.
+Both use the same timeline:
 
 ```swift
 let diarizer = SpeakerDiarizer(model: SortformerDiarizationModel())
@@ -393,14 +395,16 @@ but used about 530 MB of memory instead of about 135 MB.
 
 AnySpeechRecognizer is at [0.1.0](https://github.com/mattt/AnySpeechRecognizer/releases/tag/0.1.0).
 
-We measured it with its `hear` command-line tool on an M4 Max Mac Studio with macOS 27.0.1,
-on natural speech from LibriSpeech and the AMI meeting corpus.
+We used the package's `hear` command-line tool to measure its performance
+on an M4 Max Mac Studio with macOS 27.0.1,
+using natural speech from LibriSpeech and the AMI meeting corpus.
 Testing on natural speech exposed a recurring problem:
 after the end of a sentence, a window of audio sometimes decoded as silence.
 The runtime now starts each file-mode window at the quietest nearby moment,
 and when a window goes blank, it decodes the gap again in a window that starts there.
 
-On LibriSpeech files of 3 to 8 minutes, we measured these word error rates,
+On LibriSpeech files of 3 to 8 minutes,
+we measured the following word error rates
 after lowercasing and removing punctuation:
 
 | Transcriber | test-clean | test-other |
@@ -431,7 +435,8 @@ Peak memory in those transcription runs is about 100 MB,
 except while Core ML compiles a model, which can take about 680 MB.
 
 Qwen3-ASR is much slower than Parakeet and needs a few gigabytes of memory,
-so it suits transcribing files, especially in languages that Parakeet doesn't cover.
+so it's better suited to transcribing files,
+especially in languages that Parakeet doesn't cover.
 
 Parakeet sometimes decodes a window of speech as silence,
 mostly in live mode and in meetings with overlapping speech.
@@ -483,7 +488,7 @@ For now, AnyDecisionModel's `CoreAI` trait can't be combined with AnySpeechRecog
 because coreai-kit 0.7.3 requires swift-huggingface below 1.0
 and AnySpeechRecognizer requires 1.x.
 
-Each README covers the requirements and backends, with more examples.
+Each README has more examples and details about requirements and backends.
 AnySpeechRecognizer also includes a command-line tool, `hear`,
 that transcribes local files, labels their speakers, and evaluates the results.
 Every `hear` command requires `--backend apple`, `--backend parakeet`, or `--backend qwen`;
