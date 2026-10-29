@@ -1,5 +1,5 @@
 ---
-title: "Introducing AnyDecisionModel and AnySpeechRecognizer: Open Models for Decisions and Speech on Apple Platforms"
+title: "Introducing AnySpeechRecognizer and AnyDecisionModel: Open Models for Speech and Decisions on Apple Platforms"
 thumbnail: /blog/assets/anydecisionmodel/banner.png
 authors:
 - user: mattt
@@ -11,17 +11,18 @@ They write, summarize, translate, and call tools.
 But they're only a small part of what machine learning can do.
 
 Say a customer calls your support line.
-First, you want to know what they said.
-Then, you want to decide where to send them.
-The first job is speech recognition; the second is a decision.
-You could hand both to a language model,
-but there are models built for each.
+First, you want to know what they said (speech recognition).
+Then, you want to decide where to send them (decision).
+You _could_ hand both to a language model,
+but there are models built for each that are
+better, faster, and less expensive.
 
 In our [AnyLanguageModel 1.0 recap](https://huggingface.co/blog/anylanguagemodel-1-0),
 we looked at a year of local and hosted models in Swift.
 With AnyLanguageModel and swift-huggingface now on their 1.x releases,
 we're extending the same approach to speech and decisions:
 familiar Swift APIs with a choice of model.
+
 Today we're announcing two packages:
 
 - [AnySpeechRecognizer](https://github.com/mattt/AnySpeechRecognizer)
@@ -82,7 +83,7 @@ has a complete example
 and [lists the differences](https://github.com/mattt/AnySpeechRecognizer#differences-from-apples-speech-framework)
 from Apple's framework.
 
-### Get to know the models
+### Meet the models
 
 **Parakeet v3** is NVIDIA's [Parakeet TDT 0.6B v3](https://huggingface.co/nvidia/parakeet-tdt-0.6b-v3).
 It's a polyglot:
@@ -230,8 +231,10 @@ Next, we'd like to add more engines, including Core AI on macOS 27 and iOS 27.
 AnyDecisionModel is a different story.
 There's no Apple framework to map onto,
 and decision models aren't new, exactly.
-It's only a decision model if it comes from the Décision region of France;
-otherwise, it's sparkling zero-shot classification.
+
+> It's only a decision model if it comes from the Décision region of France;
+> otherwise, it's sparkling zero-shot classification.
+
 What's new is the name, a lot of hype,
 and a crop of models trained to make decisions.
 We think that's where things are going,
