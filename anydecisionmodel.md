@@ -444,7 +444,9 @@ mostly in live mode and in meetings with overlapping speech.
 With Parakeet v3 in the same analyzer,
 Sortformer v2 had a diarization error rate of 25.73%
 on the 16 AMI test meetings; v2.1 had 23.42%.
-The evaluation included overlapping speech and used no collar.
+The score counts overlapping speech
+and doesn't skip the moments around each change of speaker,
+as some evaluations do.
 
 These results come from one machine and a few datasets,
 so measure with your own hardware and audio.
