@@ -284,7 +284,7 @@ pip install --upgrade transformers trl peft
 
 In the following example we train the model to perform multilingual thinking. The fine tuned model would be able to reason in the language the system prompt asks for\!
 
-The script runs on the FP8 variant on a node of 8xB300s.
+The script runs on the FP8 variant on a node of 8xB300s. The full example, with a Slurm launcher, is in [TRL's examples](https://github.com/huggingface/trl/tree/main/examples/sft_mistral_large_4).
 
 ```py
 # torchrun --nproc-per-node 8 sft.py
