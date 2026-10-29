@@ -100,11 +100,15 @@ Statement: a dog fits the description "pet". Is this statement true?
 ```
 
 The session's state holds the phrase.
-The MLX backend uses prefix caching to evaluate that state once,
+The demo above uses the hosted Jev backend,
+which answers all 343 questions in one request,
+so each phrase settles in about half a second.
+Without a `TYPESAFE_AI_API_KEY`, the app runs Qwen3 4B on your Mac with the MLX backend.
+That backend uses prefix caching to evaluate the state once,
 then answers 16 questions at a time, in one forward pass per group.
 On an M4 Max, a group of 16 takes about 0.45 seconds after the model loads,
-so a full pass over all 343 emoji takes about 10 seconds.
-Each group's results appear as soon as they arrive.
+so a full pass over all 343 emoji takes about 10 seconds,
+and each group's results appear as soon as they arrive.
 
 Emoji Magnet is in the [AnyDecisionModel-Examples](https://github.com/mattt/AnyDecisionModel-Examples) repository.
 
