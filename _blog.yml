@@ -5914,3 +5914,13 @@
     - speech
     - community
     - open-source
+
+- local: mistral-large4
+  date: October 29, 2026
+  tags:
+    - transformers
+    - mistral
+    - vllm
+    - llamacpp
+    - inference
+    - open-source
