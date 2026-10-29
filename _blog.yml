@@ -5903,12 +5903,31 @@
     - torch
     - transformers
     - aws
+- local: anydecisionmodel
+  date: October 29, 2026
+  tags:
+    - swift
+    - mlx
+    - coreml
+    - audio
+    - speech
+    - community
+    - open-source
 
+- local: mistral-large4
+  date: October 29, 2026
+  tags:
+    - transformers
+    - mistral
+    - vllm
+    - llamacpp
+    - inference
+    - open-source
 - local: announcing-project-protostar
   date: October 29, 2026
   tags:
-    - open-source-collab
-    - partnerships
+    - open-source
+    - science
     - datasets
     - research
     - community
