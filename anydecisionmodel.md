@@ -85,7 +85,7 @@ then reads the probability of each label from one forward pass.
 
 ### Try it out: Emoji Magnet
 
-<!-- TODO: GIF or video of Emoji Magnet, hosted in huggingface/documentation-images. -->
+<video controls autoplay loop muted playsinline src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/anydecisionmodel/emoji-magnet.mp4" title="Emoji Magnet sorting emoji for seven phrases, from &quot;things you wear&quot; to &quot;junk food&quot;"></video>
 
 Emoji Magnet is a macOS app with a text field above a pile of 343 emoji.
 Type a phrase, such as "things you wear",
