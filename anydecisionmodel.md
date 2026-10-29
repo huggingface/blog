@@ -6,8 +6,238 @@ authors:
   guest: true
 ---
 
-Language models write text,
-but apps often ask them to make decisions.
+Language models can do a lot.
+They write, summarize, translate, and call tools.
+But they're only a small part of what machine learning can do.
+
+Say a customer calls your support line.
+First, you want to know what they said.
+Then, you want to decide where to send them.
+The first job is speech recognition; the second is a decision.
+You could hand both to a language model,
+but there are models built for each.
+
+In our [AnyLanguageModel 1.0 recap](https://huggingface.co/blog/anylanguagemodel-1-0),
+we looked at a year of local and hosted models in Swift.
+With AnyLanguageModel and swift-huggingface now on their 1.x releases,
+we're extending the same approach to speech and decisions:
+familiar Swift APIs with a choice of model.
+Today we're announcing two packages:
+
+- [AnySpeechRecognizer](https://github.com/mattt/AnySpeechRecognizer)
+  implements Apple's new speech-to-text API with a choice of recognition engine,
+  including NVIDIA's Parakeet and Alibaba's Qwen3-ASR running locally on Core ML,
+  and adds speaker diarization to track who speaks when.
+- [AnyDecisionModel](https://github.com/mattt/AnyDecisionModel)
+  answers yes-or-no, multiple-choice, and rating-scale questions
+  with typed results and probabilities.
+  It derives each answer from the model's probabilities
+  instead of generating text.
+
+Both packages can download open models from the Hugging Face Hub
+and run them on device.
+
+## AnySpeechRecognizer
+
+Computers have been transcribing speech for decades,
+and in the past few years, they've gotten very good at it.
+Apple platforms already have an API for it.
+macOS 26 and iOS 26 introduced `SpeechAnalyzer`,
+Apple's new speech-to-text API.
+You add modules such as `SpeechTranscriber` and `SpeechDetector` to an analyzer,
+give it a file or a stream of audio buffers,
+and read results from async sequences as they arrive.
+`AssetInventory` installs the models,
+so your app decides when downloads happen.
+
+It's a well-designed API,
+but the only engine behind it is Apple's.
+AnySpeechRecognizer keeps the API and lets you choose the engine:
+
+```diff
+- import Speech
++ import AnySpeechRecognizer
+```
+
+The package mirrors `SpeechAnalyzer`, `SpeechTranscriber`, `DictationTranscriber`,
+`SpeechDetector`, and `AssetInventory`,
+with Apple's Speech framework as the default engine.
+If your code uses that shared API, changing the import is enough.
+To use Parakeet instead,
+change only how you create the transcriber:
+
+```swift
+let transcriber = SpeechTranscriber(
+    model: ParakeetSpeechModel(variant: .v3),
+    transcriptionOptions: [],
+    reportingOptions: [.volatileResults],
+    attributeOptions: [.audioTimeRange]
+)
+```
+
+The steps for installing assets, running the analyzer,
+and reading results stay the same.
+The [README](https://github.com/mattt/AnySpeechRecognizer#transcribe-a-file)
+has a complete example
+and [lists the differences](https://github.com/mattt/AnySpeechRecognizer#differences-from-apples-speech-framework)
+from Apple's framework.
+
+### Get to know the models
+
+**Parakeet v3** is NVIDIA's [Parakeet TDT 0.6B v3](https://huggingface.co/nvidia/parakeet-tdt-0.6b-v3).
+It's a polyglot:
+it recognizes 25 European languages and works out which one it's hearing,
+so you don't pass a locale.
+
+**Parakeet Ultra** is Moondream's [post-trained take on v3](https://huggingface.co/moondream/parakeet-ultra).
+It was more accurate in most of our measurements.
+
+**Parakeet Unified** is NVIDIA's
+[English-only Parakeet](https://huggingface.co/nvidia/parakeet-unified-en-0.6b).
+
+All three Parakeets run on the package's own Core ML runtime,
+which supports file and live input, volatile results, word timing,
+and word confidence.
+
+**Qwen3-ASR** is Alibaba's speech model,
+in [0.6B](https://huggingface.co/Qwen/Qwen3-ASR-0.6B-hf)
+and [1.7B](https://huggingface.co/Qwen/Qwen3-ASR-1.7B-hf) sizes.
+It recognizes 30 languages and 22 Chinese dialects,
+including Mandarin, Cantonese, Japanese, and Korean, which Parakeet doesn't cover.
+It detects the language automatically, or you can set one:
+
+```swift
+let transcriber = SpeechTranscriber(
+    model: QwenSpeechModel(variant: .large, language: Locale.Language(identifier: "yue")),
+    transcriptionOptions: [],
+    reportingOptions: [],
+    attributeOptions: []
+)
+```
+
+Qwen3-ASR gives one final result for each segment of up to 40 seconds,
+without volatile results, word timing, or confidence.
+It runs on the GPU and is slower than Parakeet,
+so it's better suited to transcribing files than live input.
+
+To add another engine, implement `SpeechRecognitionModel` for its configuration
+and `SpeechRecognitionExecutor` for one module's session.
+The README includes a [small provider](https://github.com/mattt/AnySpeechRecognizer#custom-providers)
+that reports placeholder text to help you get started.
+
+### Core ML models on the Hub
+
+To run these models in apps,
+we converted them to Core ML and published them on the Hub:
+
+| Model | Core ML conversion | Original checkpoint | License |
+| --- | --- | --- | --- |
+| Parakeet TDT 0.6B v3 | [mattt/parakeet-tdt-0.6b-v3-coreml](https://huggingface.co/mattt/parakeet-tdt-0.6b-v3-coreml) | [nvidia/parakeet-tdt-0.6b-v3](https://huggingface.co/nvidia/parakeet-tdt-0.6b-v3) | CC BY 4.0 |
+| Parakeet Ultra | [mattt/parakeet-ultra-coreml](https://huggingface.co/mattt/parakeet-ultra-coreml) | [moondream/parakeet-ultra](https://huggingface.co/moondream/parakeet-ultra) | CC BY 4.0 |
+| Parakeet Unified EN 0.6B | [mattt/parakeet-unified-en-0.6b-coreml](https://huggingface.co/mattt/parakeet-unified-en-0.6b-coreml) | [nvidia/parakeet-unified-en-0.6b](https://huggingface.co/nvidia/parakeet-unified-en-0.6b) | [NVIDIA Open Model License](https://www.nvidia.com/en-us/agreements/enterprise-software/nvidia-open-model-license/) |
+| Qwen3-ASR 0.6B | [mattt/qwen3-asr-0.6b-coreml](https://huggingface.co/mattt/qwen3-asr-0.6b-coreml) | [Qwen/Qwen3-ASR-0.6B-hf](https://huggingface.co/Qwen/Qwen3-ASR-0.6B-hf) | Apache 2.0 |
+| Qwen3-ASR 1.7B | [mattt/qwen3-asr-1.7b-coreml](https://huggingface.co/mattt/qwen3-asr-1.7b-coreml) | [Qwen/Qwen3-ASR-1.7B-hf](https://huggingface.co/Qwen/Qwen3-ASR-1.7B-hf) | Apache 2.0 |
+| Streaming Sortformer 4spk v2 | [mattt/diar-streaming-sortformer-4spk-v2-coreml](https://huggingface.co/mattt/diar-streaming-sortformer-4spk-v2-coreml) | [nvidia/diar_streaming_sortformer_4spk-v2](https://huggingface.co/nvidia/diar_streaming_sortformer_4spk-v2) | CC BY 4.0 |
+| Streaming Sortformer 4spk v2.1 | [mattt/diar-streaming-sortformer-4spk-v2.1-coreml](https://huggingface.co/mattt/diar-streaming-sortformer-4spk-v2.1-coreml) | [nvidia/diar_streaming_sortformer_4spk-v2.1](https://huggingface.co/nvidia/diar_streaming_sortformer_4spk-v2.1) | [NVIDIA Open Model License](https://www.nvidia.com/en-us/agreements/enterprise-software/nvidia-open-model-license/) |
+
+Each repository records its source checkpoint
+and a checksum for every file,
+and the package pins it to a fixed revision.
+The Parakeet repositories add an 8-second encoder for live input,
+which cuts live analysis time by about a third
+at the cost of a somewhat higher word error rate.
+The repository also has the conversion workflows,
+most of which follow FluidInference's [mobius](https://github.com/FluidInference/mobius) scripts,
+and checks each conversion against the original model.
+
+Downloads happen only when your app asks for them:
+about 600 MB for each Parakeet, 0.9 to 2.4 GB for Qwen3-ASR,
+and about 250 MB for Sortformer.
+Files go in the standard Hugging Face cache,
+so a Mac app outside the sandbox shares them with Python and other Hugging Face tools.
+
+### Speaker diarization
+
+When you transcribe a conversation,
+you often want to know who said what.
+That's speaker diarization,
+and Apple's Speech framework doesn't have a module for it,
+so AnySpeechRecognizer adds one.
+`SpeakerDiarizer` runs NVIDIA's
+[Streaming Sortformer](https://huggingface.co/nvidia/diar_streaming_sortformer_4spk-v2)
+on Core ML alongside an Apple or Parakeet transcriber,
+on the same timeline:
+
+```swift
+let diarizer = SpeakerDiarizer(model: SortformerDiarizationModel())
+if let request = try await AssetInventory.assetInstallationRequest(
+    supporting: [transcriber, diarizer]
+) {
+    try await request.downloadAndInstall()
+}
+let analyzer = SpeechAnalyzer(modules: [transcriber, diarizer])
+```
+
+The diarizer tracks up to four speakers,
+even when they talk over each other.
+A `SpeakerTimeline` collects its results
+and attributes each timed word to a speaker,
+so you can print a transcript by speaker turn.
+Like image support in AnyLanguageModel,
+this goes beyond what Apple's API offers today.
+
+The diarizer uses Sortformer v2 by default.
+You can also choose [v2.1](https://huggingface.co/nvidia/diar_streaming_sortformer_4spk-v2.1),
+which NVIDIA trained with more meeting data
+and which was more accurate on meetings in our measurements, too.
+
+### How well does it work?
+
+We measured the package with its `hear` command-line tool
+on an M4 Max Mac Studio with macOS 27.0.1.
+Here are the word error rates on LibriSpeech files of 3 to 8 minutes:
+
+| Transcriber | test-clean | test-other |
+| --- | --- | --- |
+| Parakeet v3, file | 1.55% | 2.78% |
+| Parakeet v3, live | 4.73% | 4.29% |
+| Parakeet Ultra, file | 1.66% | 2.55% |
+| Parakeet Ultra, live | 2.65% | 3.28% |
+| Parakeet Unified, file | 1.43% | 2.19% |
+| Parakeet Unified, live | 1.45% | 2.42% |
+| Apple's transcriber, file | 2.12% | 3.97% |
+
+Parakeet transcribes an hour of audio
+in about 20 to 40 seconds from a file,
+or about 1.5 to 2.5 minutes live,
+with about 100 MB of memory once Core ML has compiled the model.
+Qwen3-ASR is much slower and needs a few gigabytes of memory.
+Meetings are hard for everyone:
+on AMI recordings, where people talk over each other,
+every engine we tested had a word error rate above 23%.
+
+These numbers come from one machine and a few datasets,
+so measure with your own hardware and audio.
+`hear evaluate` works on your own files,
+and the repository's `natural-speech-eval.py` tool
+[reproduces these measurements](https://github.com/mattt/AnySpeechRecognizer#accuracy-and-performance).
+So far, we've tested only on macOS 27, not on an iPhone.
+
+Next, we'd like to add more engines, including Core AI on macOS 27 and iOS 27.
+
+## AnyDecisionModel
+
+AnyDecisionModel is a different story.
+There's no Apple framework to map onto,
+and decision models aren't new, exactly.
+It's only a decision model if it comes from the Décision region of France;
+otherwise, it's sparkling zero-shot classification.
+What's new is the name, a lot of hype,
+and a crop of models trained to make decisions.
+We think that's where things are going,
+so we wanted a Swift API that's ready for them.
+
+Apps often ask language models to make decisions.
 Is this message urgent?
 Which team should handle this ticket?
 How frustrated is this customer?
@@ -15,30 +245,6 @@ The usual approach is to prompt a language model
 and parse the text that it generates.
 That gives you one answer,
 but doesn't show the probabilities it assigned to the alternatives.
-
-In our [AnyLanguageModel 1.0 recap](https://huggingface.co/blog/anylanguagemodel-1-0),
-we looked at a year of local and hosted models in Swift.
-With AnyLanguageModel and swift-huggingface now on their 1.x releases,
-we're extending the same approach to decisions and speech:
-familiar Swift APIs with a choice of model.
-Today we're announcing two packages:
-
-- [AnyDecisionModel](https://github.com/mattt/AnyDecisionModel)
-  answers yes-or-no, multiple-choice, and rating-scale questions
-  with typed results and probabilities.
-  It derives each answer from the model's probabilities
-  instead of generating text.
-- [AnySpeechRecognizer](https://github.com/mattt/AnySpeechRecognizer)
-  implements Apple's new speech-to-text API with a choice of recognition engine,
-  including NVIDIA's Parakeet and Alibaba's Qwen3-ASR running locally on Core ML,
-  and adds speaker diarization to track who speaks when.
-
-Both packages can download open models from the Hugging Face Hub
-and run them on device.
-For AnySpeechRecognizer, we converted the models to Core ML
-and published them on the Hub.
-
-## AnyDecisionModel
 
 Here's what a decision looks like in Swift:
 
@@ -117,8 +323,10 @@ Emoji Magnet is in the [AnyDecisionModel-Examples](https://github.com/mattt/AnyD
 
 Reading next-token probabilities works with general-purpose language models,
 but those models weren't trained to make decisions.
-Cloudflare's [Clef](https://huggingface.co/Cloudflare/clef) models were.
-Clef turns a state and a schema of typed questions into decisions,
+Cloudflare's [Clef](https://huggingface.co/Cloudflare/clef) models
+are an example of a newer approach:
+a model with a trained decision head
+that turns a state and a schema of typed questions into decisions,
 returning probabilities for all allowed options across the questions
 in one forward pass.
 [Clef-Flash](https://huggingface.co/Cloudflare/clef-flash) is the 9B variant.
@@ -190,286 +398,10 @@ You get the core types and the Jev and Ollama backends,
 which also build on Linux.
 Enable the `MLX`, `CoreAI`, or `Llama` trait for the local backends.
 
-### Status
-
-AnyDecisionModel is at [0.6.0](https://github.com/mattt/AnyDecisionModel/releases/tag/0.6.0),
-which adds Ollama and llama.cpp support
-and works with swift-huggingface 1.x.
-The example calibration values in the README come from a fit on two tasks,
-so don't assume they'll work for yours.
-Typed output alone doesn't protect against prompt injection.
-
-For now, an app can't enable the `MLX` traits
-of both AnyDecisionModel 0.6.0 and
-[AnyLanguageModel 1.1.1](https://github.com/huggingface/AnyLanguageModel/releases/tag/1.1.1):
-they require mlx-swift-lm 3.31.x and 3.32.x respectively.
-
-## AnySpeechRecognizer
-
-The same approach works for speech, too.
-
-macOS 26 and iOS 26 introduced `SpeechAnalyzer`,
-Apple's new speech-to-text API.
-You add modules such as `SpeechTranscriber` and `SpeechDetector` to an analyzer,
-give it a file or a stream of audio buffers,
-and read results from async sequences as they arrive.
-`AssetInventory` installs the models,
-so your app decides when downloads happen.
-
-It's a well-designed API,
-but the only engine behind it is Apple's.
-AnySpeechRecognizer keeps the API and lets you choose the engine:
-
-```diff
-- import Speech
-+ import AnySpeechRecognizer
-```
-
-The package mirrors `SpeechAnalyzer`, `SpeechTranscriber`, `DictationTranscriber`,
-`SpeechDetector`, and `AssetInventory`,
-with Apple's Speech framework as the default engine.
-If your code uses that shared API, changing the import is enough;
-the differences and unsupported features are listed below.
-To use Parakeet instead,
-change only how you create the transcriber:
-
-```swift
-let transcriber = SpeechTranscriber(
-    model: ParakeetSpeechModel(variant: .v3),
-    transcriptionOptions: [],
-    reportingOptions: [.volatileResults],
-    attributeOptions: [.audioTimeRange]
-)
-```
-
-The steps for installing assets, running the analyzer,
-and reading results stay the same.
-The [README](https://github.com/mattt/AnySpeechRecognizer#transcribe-a-file)
-has a complete example.
-The package defines its own analyzer and module types to match Apple's.
-If a file imports both `Speech` and `AnySpeechRecognizer`,
-you must qualify the names they share.
-The README [lists the differences](https://github.com/mattt/AnySpeechRecognizer#differences-from-apples-speech-framework).
-
-`.v3` is NVIDIA's [Parakeet TDT 0.6B v3](https://huggingface.co/nvidia/parakeet-tdt-0.6b-v3),
-which recognizes 25 European languages and detects the language automatically,
-so it takes no locale.
-`.ultra` is Moondream's [Parakeet Ultra](https://huggingface.co/moondream/parakeet-ultra),
-a post-trained version of v3 that was more accurate in most of our measurements.
-`.unified` is NVIDIA's
-[Parakeet Unified EN 0.6B](https://huggingface.co/nvidia/parakeet-unified-en-0.6b),
-an English-only model under the NVIDIA Open Model License.
-The package runs all three on Core ML with its own Parakeet runtime,
-which supports file and live input, volatile results, word timing,
-and word confidence.
-
-`QwenSpeechModel` runs Alibaba's Qwen3-ASR,
-in [0.6B](https://huggingface.co/Qwen/Qwen3-ASR-0.6B-hf)
-and [1.7B](https://huggingface.co/Qwen/Qwen3-ASR-1.7B-hf) sizes.
-It recognizes 30 languages and 22 Chinese dialects,
-including Mandarin, Cantonese, Japanese, and Korean, which Parakeet doesn't cover.
-It detects the language automatically, or you can set one:
-
-```swift
-let transcriber = SpeechTranscriber(
-    model: QwenSpeechModel(variant: .large, language: Locale.Language(identifier: "yue")),
-    transcriptionOptions: [],
-    reportingOptions: [],
-    attributeOptions: []
-)
-```
-
-Qwen3-ASR transcribes audio in segments of up to 40 seconds
-and gives one final result for each segment,
-without volatile results, word timing, or confidence.
-It runs on the GPU and is slower than Parakeet,
-so it's better suited to transcribing files than live input.
-
-To add another engine, implement `SpeechRecognitionModel` for its configuration
-and `SpeechRecognitionExecutor` for one module's session.
-The README includes a [small provider](https://github.com/mattt/AnySpeechRecognizer#custom-providers)
-that reports placeholder text to help you get started.
-
-### Models from the Hub
-
-AnySpeechRecognizer runs seven Core ML models that we converted and published on the Hub:
-
-| Model | Core ML conversion | Original checkpoint | License |
-| --- | --- | --- | --- |
-| Parakeet TDT 0.6B v3 | [mattt/parakeet-tdt-0.6b-v3-coreml](https://huggingface.co/mattt/parakeet-tdt-0.6b-v3-coreml) | [nvidia/parakeet-tdt-0.6b-v3](https://huggingface.co/nvidia/parakeet-tdt-0.6b-v3) | CC BY 4.0 |
-| Parakeet Ultra | [mattt/parakeet-ultra-coreml](https://huggingface.co/mattt/parakeet-ultra-coreml) | [moondream/parakeet-ultra](https://huggingface.co/moondream/parakeet-ultra) | CC BY 4.0 |
-| Parakeet Unified EN 0.6B | [mattt/parakeet-unified-en-0.6b-coreml](https://huggingface.co/mattt/parakeet-unified-en-0.6b-coreml) | [nvidia/parakeet-unified-en-0.6b](https://huggingface.co/nvidia/parakeet-unified-en-0.6b) | [NVIDIA Open Model License](https://www.nvidia.com/en-us/agreements/enterprise-software/nvidia-open-model-license/) |
-| Qwen3-ASR 0.6B | [mattt/qwen3-asr-0.6b-coreml](https://huggingface.co/mattt/qwen3-asr-0.6b-coreml) | [Qwen/Qwen3-ASR-0.6B-hf](https://huggingface.co/Qwen/Qwen3-ASR-0.6B-hf) | Apache 2.0 |
-| Qwen3-ASR 1.7B | [mattt/qwen3-asr-1.7b-coreml](https://huggingface.co/mattt/qwen3-asr-1.7b-coreml) | [Qwen/Qwen3-ASR-1.7B-hf](https://huggingface.co/Qwen/Qwen3-ASR-1.7B-hf) | Apache 2.0 |
-| Streaming Sortformer 4spk v2 | [mattt/diar-streaming-sortformer-4spk-v2-coreml](https://huggingface.co/mattt/diar-streaming-sortformer-4spk-v2-coreml) | [nvidia/diar_streaming_sortformer_4spk-v2](https://huggingface.co/nvidia/diar_streaming_sortformer_4spk-v2) | CC BY 4.0 |
-| Streaming Sortformer 4spk v2.1 | [mattt/diar-streaming-sortformer-4spk-v2.1-coreml](https://huggingface.co/mattt/diar-streaming-sortformer-4spk-v2.1-coreml) | [nvidia/diar_streaming_sortformer_4spk-v2.1](https://huggingface.co/nvidia/diar_streaming_sortformer_4spk-v2.1) | [NVIDIA Open Model License](https://www.nvidia.com/en-us/agreements/enterprise-software/nvidia-open-model-license/) |
-
-FluidInference published earlier Core ML conversions of Parakeet v3, Ultra,
-and both Sortformer versions.
-The conversion workflows are in the repository;
-those for Parakeet and Sortformer v2 follow FluidInference's
-[mobius](https://github.com/FluidInference/mobius) scripts.
-The tools document weight comparisons with FluidInference's v3 and Ultra conversions.
-Here's what our model repositories include:
-
-- Each one records its source checkpoint and revision,
-  the tools that converted it,
-  and the size and SHA-256 digest of every file.
-  The package pins each repository at a fixed revision.
-- Each one carries its base model's license and attribution,
-  in both the model card and the Core ML metadata.
-- The Parakeet repositories add an 8-second encoder for live input,
-  which cuts live analysis time by about a third
-  at the cost of a somewhat higher word error rate.
-- The Parakeet Unified and Sortformer v2.1 repositories include the license agreement
-  and the notice file that NVIDIA's license requires for redistribution.
-
-The repository also compares each Parakeet and Sortformer conversion
-with NVIDIA's NeMo toolkit on the same input,
-and each Qwen3-ASR conversion with Hugging Face Transformers.
-
-When you request an installation, the package downloads the pinned files
-and checks each file's size and SHA-256 digest.
-The base Parakeet files are about 632 MB each for v3 and Ultra,
-and about 614 MB for Unified.
-Live transcription can also use the 8-second encoder, which adds about 591 MB.
-The Qwen3-ASR downloads are about 0.94 GB for 0.6B and 2.36 GB for 1.7B.
-Each Sortformer version is about 246 MB
-and installs only when you add a diarizer.
-Analysis never triggers a download:
-if the assets are missing, you get an error that tells you what to install.
-
-The runtime loads models directly from a cache
-with the standard Hugging Face layout,
-so each file is stored once.
-The package respects `HF_HUB_CACHE` and `HF_HOME`,
-and a Mac app outside the sandbox shares `~/.cache/huggingface/hub`
-with Python and other Hugging Face tools.
-
-### Speaker diarization
-
-Apple's Speech framework has no diarization module,
-so AnySpeechRecognizer adds one.
-`SpeakerDiarizer` identifies who speaks when.
-It runs NVIDIA's
-[Streaming Sortformer](https://huggingface.co/nvidia/diar_streaming_sortformer_4spk-v2)
-on Core ML alongside an Apple or Parakeet transcriber.
-Both use the same timeline:
-
-```swift
-let diarizer = SpeakerDiarizer(model: SortformerDiarizationModel())
-if let request = try await AssetInventory.assetInstallationRequest(
-    supporting: [transcriber, diarizer]
-) {
-    try await request.downloadAndInstall()
-}
-let analyzer = SpeechAnalyzer(modules: [transcriber, diarizer])
-```
-
-The diarizer tracks up to four speakers,
-including overlapping speech.
-A `SpeakerTimeline` collects its results
-and attributes each timed word to a speaker,
-so you can print a transcript by speaker turn.
-Like image support in AnyLanguageModel,
-this goes beyond what Apple's API offers today.
-
-`SortformerDiarizationModel` uses Sortformer v2 by default.
-`SortformerDiarizationModel(version: .v2_1)` uses
-[v2.1](https://huggingface.co/nvidia/diar_streaming_sortformer_4spk-v2.1),
-which NVIDIA trained with additional meeting data
-and reports as more accurate on most of its meeting and telephone benchmarks.
-Like Parakeet Unified, v2.1 is under the NVIDIA Open Model License
-instead of CC BY 4.0.
-Use of either model must be consistent with NVIDIA's Trustworthy AI terms,
-and if you distribute its files, for example in an app bundle,
-you must include the agreement and the notice file from its repository.
-The post-processing presets include NeMo's CALLHOME parameters (the default)
-and its DIHARD III parameters.
-You can also choose the compute units.
-On an M4 Max, `cpuAndGPU` processed audio about three times faster
-than the default, `cpuAndNeuralEngine`,
-but used about 530 MB of memory instead of about 135 MB.
-
-### Status
-
-AnySpeechRecognizer is at [0.1.0](https://github.com/mattt/AnySpeechRecognizer/releases/tag/0.1.0).
-
-We used the package's `hear` command-line tool to measure its performance
-on an M4 Max Mac Studio with macOS 27.0.1,
-using natural speech from LibriSpeech and the AMI meeting corpus.
-Testing on natural speech exposed a recurring problem:
-after the end of a sentence, a window of audio sometimes decoded as silence.
-The runtime now starts each file-mode window at the quietest nearby moment,
-and when a window goes blank, it decodes the gap again in a window that starts there.
-
-On LibriSpeech files of 3 to 8 minutes,
-we measured the following word error rates
-after lowercasing and removing punctuation:
-
-| Transcriber | test-clean | test-other |
-| --- | --- | --- |
-| Parakeet v3, file mode | 1.55% | 2.78% |
-| Parakeet Ultra, file mode | 1.66% | 2.55% |
-| Parakeet Unified, file mode | 1.43% | 2.19% |
-| Apple's transcriber | 2.12% | 3.97% |
-
-In live mode, v3 and Ultra's error rates on those files were 2.65% to 4.73%;
-Unified's were 1.45% on test-clean and 2.42% on test-other.
-Live mode uses the 8-second encoder when it's installed;
-with the 15-second encoder, live analysis takes longer,
-and v3 and Ultra's error rates were 2.03% to 3.17%.
-On four AMI test meetings using headset-mix audio,
-where people often talk over each other,
-every tested engine had a word error rate above 23%.
-Parakeet v3 and Ultra's word start times had a median error of 60 ms
-when compared with forced alignments of LibriSpeech.
-Unified's word start times are currently about 300 ms late.
-
-For Parakeet transcription without a diarizer,
-file mode processes an hour of audio in 18 to 31 seconds with v3 and Ultra
-and in 33 to 42 seconds with Unified.
-Live mode takes 93 to 112 seconds with v3 and Ultra
-and 124 to 136 seconds with Unified.
-Peak memory in those transcription runs is about 100 MB,
-except while Core ML compiles a model, which can take about 680 MB.
-
-Qwen3-ASR is much slower than Parakeet and needs a few gigabytes of memory,
-so it's better suited to transcribing files,
-especially in languages that Parakeet doesn't cover.
-
-Parakeet sometimes decodes a window of speech as silence,
-mostly in live mode and in meetings with overlapping speech.
-
-With Parakeet v3 in the same analyzer,
-Sortformer v2 had a diarization error rate of 25.73%
-on the 16 AMI test meetings; v2.1 had 23.42%.
-The score counts overlapping speech
-and doesn't skip the moments around each change of speaker,
-as some evaluations do.
-
-These results come from one machine and a few datasets,
-so measure with your own hardware and audio.
-`hear evaluate` reports elapsed time and peak memory;
-with `--reference` it also reports word error rate,
-and with `--diarize --rttm` it reports diarization error rate.
-The repository's `natural-speech-eval.py` tool downloads the test sets
-and [reproduces these measurements](https://github.com/mattt/AnySpeechRecognizer#accuracy-and-performance).
-
-So far, we've tested only on macOS 27.
-We haven't yet tested Parakeet on a physical iPhone,
-Qwen3-ASR on any iOS device,
-the OS 26 runtime, or the minimum Swift 6.2 toolchain.
-The package doesn't implement the older `SFSpeechRecognizer` API,
-Apple's custom language models,
-or the capture and asset input providers in OS 27.
-
-Next, we'd like to add more engines, including Core AI on macOS 27 and iOS 27.
-
 ## Get started
 
 Both packages require Swift 6.2 or later and macOS 26 or iOS 26 or later.
-The MLX backend and the Parakeet and Sortformer runtimes require Apple silicon.
+The Parakeet and Sortformer runtimes and the MLX backend require Apple silicon.
 AnyDecisionModel's MLX build tasks use Xcode's Swift 6.4 or later
 and the Metal toolchain; Core AI requires Xcode 27 and an OS 27 runtime.
 
@@ -477,12 +409,12 @@ Add the packages to your `Package.swift`:
 
 ```swift
 dependencies: [
+    .package(url: "https://github.com/mattt/AnySpeechRecognizer", from: "0.1.0"),
     .package(
         url: "https://github.com/mattt/AnyDecisionModel",
         from: "0.6.0",
         traits: ["MLX"]
     ),
-    .package(url: "https://github.com/mattt/AnySpeechRecognizer", from: "0.1.0"),
 ]
 ```
 
@@ -502,15 +434,15 @@ Issues and pull requests are welcome on both repositories.
 
 ## Links
 
+- [AnySpeechRecognizer on GitHub](https://github.com/mattt/AnySpeechRecognizer)
 - [AnyDecisionModel on GitHub](https://github.com/mattt/AnyDecisionModel)
 - [AnyDecisionModel-Examples on GitHub](https://github.com/mattt/AnyDecisionModel-Examples)
-- [AnySpeechRecognizer on GitHub](https://github.com/mattt/AnySpeechRecognizer)
 - [AnyLanguageModel on GitHub](https://github.com/huggingface/AnyLanguageModel)
 - [swift-huggingface on GitHub](https://github.com/huggingface/swift-huggingface)
 
-_Thanks to Cloudflare for Clef,
-to NVIDIA for Parakeet, Sortformer, and NeMo, to Moondream for Parakeet Ultra,
+_Thanks to NVIDIA for Parakeet, Sortformer, and NeMo, to Moondream for Parakeet Ultra,
 to FluidInference, whose FluidAudio and mobius projects
 documented the conventions that the Parakeet runtime and the Core ML conversions follow,
+to Cloudflare for Clef,
 and to everyone who contributed to AnyLanguageModel,
 whose patterns both packages borrow._
