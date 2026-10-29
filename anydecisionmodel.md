@@ -5,6 +5,8 @@ authors:
 - user: mattt
 ---
 
+# Introducing AnySpeechRecognizer and AnyDecisionModel: Open Models for Speech and Decisions on Apple Platforms
+
 Language models can do a lot.
 They write, summarize, translate, and call tools.
 But they're only a small part of what machine learning can do.
@@ -153,8 +155,8 @@ most of which follow FluidInference's [mobius](https://github.com/FluidInference
 and checks each conversion against the original model.
 
 Downloads happen only when your app asks for them:
-about 600 MB for each Parakeet, 0.9 to 2.4 GB for Qwen3-ASR,
-and about 250 MB for Sortformer.
+about 600 MB for each Parakeet, plus about 590 MB for the live encoder,
+0.9 to 2.4 GB for Qwen3-ASR, and about 250 MB for Sortformer.
 Files go in the standard Hugging Face cache,
 so a Mac app outside the sandbox shares them with Python and other Hugging Face tools.
 
