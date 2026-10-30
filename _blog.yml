@@ -5931,3 +5931,12 @@
     - datasets
     - research
     - community
+
+- local: hub-gcp-marketplace
+  date: October 30, 2026
+  tags:
+    - guide
+    - partnerships
+    - gcp
+    - hub
+    - marketplace
