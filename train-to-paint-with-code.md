@@ -26,7 +26,7 @@ technical report is coming, so ensure you follow him. The original idea is his, 
 > video of his thesis](https://vimeo.com/1190839818).
 
 In this article I try and reproduce his idea with [TRL](https://huggingface.co/docs/trl) and
-[OpenEnv](https://github.com/huggingface/OpenEnv). The reference pool dataset, the RL
+[OpenEnv](https://github.com/openenv/OpenEnv). The reference pool dataset, the RL
 environment, the training scripts and the trained models, all open.
 
 The whole pipeline runs on Hugging Face, end to end:
@@ -369,7 +369,7 @@ return `None` and the rollout is excluded from the group.
 persistent websocket, and a socket closed by the far end stayed cached, so every later
 call failed even though the environment was healthy. It cost me two half-finished runs
 to find it. The fix is [submitted
-upstream](https://github.com/huggingface/OpenEnv/pull/1103), and the runs launched with
+upstream](https://github.com/openenv/OpenEnv/pull/1103), and the runs launched with
 it have been running clean since.
 
 <figure class="image text-center">

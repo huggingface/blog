@@ -4,6 +4,7 @@ thumbnail: /blog/assets/datasets-filters/thumbnail.png
 authors:
   - user: burtenshaw
   - user: AdithyaSK
+  - user: sergiopaniego
   - user: xeophon
     guest: true
   - user: ryanmarten
@@ -83,7 +84,7 @@ The dataset repository hosts your environment files. The framework runs them loc
 | :---- | :---- |
 | `harbor` | [Harbor](https://github.com/harbor-framework/harbor) |
 | `verifiers` | [Verifiers](https://github.com/PrimeIntellect-ai/verifiers) |
-| `openenv` | [OpenEnv](https://github.com/huggingface/OpenEnv) |
+| `openenv` | [OpenEnv](https://github.com/openenv/OpenEnv) |
 | `nemo-gym` | [NeMo Gym](https://github.com/NVIDIA-NeMo/Gym) |
 
 Each framework tag puts the framework's icon on the dataset page and adds a generated snippet to **Use this dataset**.
