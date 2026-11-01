@@ -14,11 +14,9 @@ Transformers has extensive CPU and GPU test suites. Our integration tests check
 that supported models still work as expected by exercising the model's API
 against real checkpoints on real hardware.
 
-But running full-checkpoint integration tests on every PR would take too long
-and require a lot of resources, so we run them selectively.
-
-Nightly runs give us broader coverage once a day, leaving a window in which
-regressions can reach main.
+We can't afford to run all of them on every PR. We run selected tests before
+merging and a broader suite once a day. By the time the nightly finds a
+regression, it may already be in main.
 
 One way to reduce the gap is to build a smaller model from the real
 checkpoint's configuration, preserving its different layer types and
@@ -30,12 +28,10 @@ source checkpoint.
 
 Using tiny versions of checkpoints also allows us to exercise the architectures
 of very large models. Some don't even fit on our standard GPU runners, while
-their small fixtures can run on CPU. How much we save depends on the model and
-what the test does.
+their small fixtures can run on CPU.
 
-Building tiny models is something model integrators already do. MIC gives us
-a common way to build them and test their outputs as part of model integration.
-A model that loads and runs can still return the wrong answer.
+Model integrators already build tiny models. We wanted a common recipe, and
+checks that go beyond loading the model and running a forward pass.
 
 Tiny models won't replace full integration tests against real checkpoints.
 But running them on PRs gives us a chance to catch bugs before they reach main.
@@ -78,10 +74,12 @@ which lists the MICs at frozen revisions along with the Transformers commit
 used to record their baselines. Each CI run records the fleet revision it uses,
 so we can reproduce it later.
 
-That gives us the ability to run a selection of MICs on PRs, depending on which
-files are changed in the patch.
+On a PR, we select MICs based on the files changed in the patch.
 
-## A concrete example: catching a UMT5 regression
+## The UMT5 regression
+
+A UMT5 regression stayed in main for almost two months. Our small CPU fixture
+caught it when we replayed those commits.
 
 When Transformers enabled PyTorch's scaled dot-product attention (SDPA) for T5,
 UMT5's decoder could attend to future tokens. During training, this lets it
@@ -99,14 +97,17 @@ We then reverted the fix on a proof branch in Transformers' CI. The check
 failed with the same differences, and the selected T5 contract's runner step
 took 13.4 seconds on CPU, excluding setup.
 
-This was a historical replay, not a bug we stopped before it merged. You can
-read the [replay results](https://github.com/huggingface/transformers-mic/blob/main/docs/evidence.md#shadow-backfill)
-and the [CI demo](https://github.com/huggingface/transformers-mic/blob/main/docs/evidence.md#transformers-ci-proof).
+The [replay results](https://github.com/huggingface/transformers-mic/blob/main/docs/evidence.md#shadow-backfill)
+and the [CI demo](https://github.com/huggingface/transformers-mic/blob/main/docs/evidence.md#transformers-ci-proof)
+include the measurements and reproduction details.
 
 ## How models are shrunk
 
-We started with a simple recipe and added rules as we encountered different
-architectures. There are four main steps:
+The first recipe was simple: make the dimensions smaller and keep fewer
+layers. Mixed architectures needed more care. Keeping two layers is no use if
+both use sliding attention and the full-attention layers disappear.
+
+The recipe now has four steps:
 
 1. **Shrink the configuration.** Start from a real checkpoint and reduce
    hidden sizes, attention heads and depth. Keep the different layer kinds,
@@ -124,9 +125,8 @@ architectures. There are four main steps:
    supported platform and precision, then publish a pinned snapshot. CI reuses
    it; it does not rebuild the fixture for every PR.
 
-The process also keeps the original weights file format. Transformers supports
-several formats, and we want to exercise the same conversion steps when the
-model is loaded.
+We also keep the original weights file format. Otherwise, we could skip the
+conversion code that runs when a user loads the real checkpoint.
 
 See [the full recipe](https://github.com/huggingface/transformers-mic/blob/main/docs/fixtures.md#recipe)
 for more detail.
@@ -150,57 +150,55 @@ The CLI walks through creation, review, measurement and publication. The
 [CLI docs](https://github.com/huggingface/transformers-mic/blob/main/docs/cli.md#automated-mode)
 cover setup and the individual steps.
 
-We used agents to build MICs across a growing set of model families. The recipe
-evolved as we hit edge cases and incorporated feedback from model experts.
-You can check the published models and remaining gaps in the
+We used agents to build MICs across model families, fixing the recipe as we
+hit edge cases and getting help from model experts. The published models and
+remaining gaps are in the
 [coverage space](https://huggingface.co/spaces/huggingface-mic/mic-coverage).
 
 ## Random vs Overfit
 
-One interesting aspect of building assertions for MICs is how we initialize
-the model weights.
+With random weights, our tiny Whisper model barely responded to changes in
+the audio. It ran, but that made it a poor test of the audio path.
 
-There are two strategies:
+We trained it on a few tones paired with words such as "red" and "green".
+In our [weight-initialization study](https://github.com/huggingface/transformers-mic/blob/main/docs/fixtures.md#choosing-the-weights),
+the random Whisper fixtures caught 18 of 24 injected faults. The overfit
+fixtures caught all 24. Teaching it those few answers made audio changes
+visible in its outputs; we weren't trying to teach it speech recognition.
 
-- Random weights: initialize with a fixed seed, check input sensitivity, then record outputs.
-- Overfit weights: train on a few examples, check input sensitivity, then record outputs.
+That gives us two ways to build the weights:
 
-In both cases, we freeze the weights before CI uses them.
+- Start with random weights and a fixed seed.
+- Overfit on a few examples, like "The capital of France is" => "Paris".
 
-Overfitting gives us readable examples, like "The capital of France is" =>
-"Paris". It can also make the fixture more sensitive to changes in its inputs.
-For example, the tiny Whisper model can largely ignore audio with random
-weights. In our [weight-initialization study](https://github.com/huggingface/transformers-mic/blob/main/docs/fixtures.md#choosing-the-weights),
-random Whisper fixtures caught 18 of 24 injected faults, while overfit fixtures
-caught all 24. We trained it on tones paired with words such as "red" and
-"green". These are test cases we taught it, not speech transcription.
+Either way, we check input sensitivity, record the outputs and freeze the
+weights before CI uses them.
 
-Those results are for synthetic faults. We haven't found a real regression
-caught only by the overfit version, and both versions missed a Whisper
-assisted-decoding bug that the real checkpoint exposed.
+The Whisper result doesn't settle which is better. Those were synthetic
+faults, and we haven't found a real regression caught only by the overfit
+version. Both versions missed an assisted-decoding bug that the real Whisper
+checkpoint exposed.
 
-We keep random weights when they pass the checks, and use overfitting when we
-need better input sensitivity or readable answers. Overfitting also adds
-training time and another thing to maintain. The
-[comparison](https://github.com/huggingface/transformers-mic/blob/main/docs/fixtures.md#overfit-versus-random-what-can-we-conclude)
-goes into the tradeoffs.
+So we keep random weights when they pass the checks. We overfit when we need
+better sensitivity or readable answers, at the cost of training time and
+another thing to maintain. The [comparison](https://github.com/huggingface/transformers-mic/blob/main/docs/fixtures.md#overfit-versus-random-what-can-we-conclude)
+has the results for both.
 
 ## What's next
 
 As of November 1, 2026, the [MIC job in Transformers CI](https://github.com/huggingface/transformers-ci/blob/main/docs/model-integration-contracts.md#observational-behavior-and-telemetry)
-reports failures without blocking PRs. We want to measure the bugs it catches,
-false alarms, runtime and the work needed to review baseline changes before
-making checks required.
+reports failures without blocking PRs. Before making it required, we need to
+see how often it catches bugs, how often it sends us chasing false alarms, and
+how much work baseline reviews take.
 
 We also want to cover more model families and more of the APIs people use.
 When a regression slips through, we can add the missing usage path and replay
-it on the broken and fixed versions. Full-checkpoint tests stay: we should
-only remove an existing test once its coverage is preserved.
+it on the broken and fixed versions. We'll keep existing tests until their
+coverage is accounted for.
 
-Another idea is to link original Hub model pages to their MICs. Developers and
-agents could find a runnable example, the environment where it passed and
-outputs to compare against. For that to be useful, the original checkpoint
-needs its own passing result; a passing tiny model isn't enough.
+We'd also like to link original Hub model pages to their MICs. When a developer
+or an agent wants to use a checkpoint, they could start with an example tested
+on that checkpoint, its environment and its expected outputs.
 
 Want to help? Pick an uncovered model from the
 [coverage space](https://huggingface.co/spaces/huggingface-mic/mic-coverage), try
