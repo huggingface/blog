@@ -5931,3 +5931,9 @@
     - datasets
     - research
     - community
+
+- local: transformers-mic
+  date: November 1, 2026
+  tags:
+    - transformers
+    - guide
