@@ -1,6 +1,6 @@
 ---
 title: "Transformers Model Integration Contracts"
-thumbnail: /blog/assets/transformers-mic/thumbnail.png
+thumbnail: /blog/assets/transformers-mic/mic-logo.png
 authors:
 - user: tarekziade
 ---
@@ -10,13 +10,29 @@ authors:
 The [Transformers](https://github.com/huggingface/transformers) framework centralizes model definitions and
 supports over 750 different model types.
 
-Transformers has extensive CPU and GPU test suites. Our integration tests check
-that supported models still work as expected by exercising the model's API
-against real checkpoints on real hardware.
+**88,000+ CPU tests on main, plus 200,000+ GPU tests in a daily run.**
+That's the scale of testing behind Transformers. Model tests are only part of it:
+we also test pipelines, training, distributed execution, quantization and attention
+kernels.
 
-We can't afford to run all of them on every PR. We run selected tests before
-merging and a broader suite once a day. By the time the nightly finds a
-regression, it may already be in main.
+![Transformers testing: 88,000+ CPU tests on main and 200,000+ GPU tests daily. Hardware includes CPUs, NVIDIA GPUs, AMD GPUs, Intel XPUs and Gaudi 3. PRs run selected tests.](/blog/assets/transformers-mic/ci-test-suite.svg)
+
+The [main run](https://github.com/huggingface/transformers/actions/runs/41041354679)
+reported 88,608 CPU test cases in its pytest summaries. The GPU model suite in the
+[daily run](https://github.com/huggingface/transformers/actions/runs/41377540897)
+reported 201,439 across single-GPU and multi-GPU configurations. The same test can run in more than one configuration.
+
+Scheduled workflows: [NVIDIA](https://github.com/huggingface/transformers/blob/main/.github/workflows/self-scheduled-caller.yml),
+[AMD](https://github.com/huggingface/transformers/blob/main/.github/workflows/self-scheduled-amd-mi300-caller.yml),
+[Intel XPU](https://github.com/huggingface/transformers/blob/main/.github/workflows/self-scheduled-intel-xpu-caller.yml)
+and [Gaudi 3](https://github.com/huggingface/transformers/blob/main/.github/workflows/self-scheduled-intel-gaudi3-caller.yml).
+
+Each backend runs its supported tests. The integration tests load real
+checkpoints and exercise the model's API on real hardware, which makes them
+particularly expensive.
+
+We can't afford to run all of that on every PR. By the time a scheduled run
+finds a regression, it may already be in main.
 
 One way to reduce the gap is to build a smaller model from the real
 checkpoint's configuration, preserving its different layer types and
