@@ -27,9 +27,9 @@ kernels.
 ![Transformers testing: 88,000+ CPU tests on main and 200,000+ GPU tests daily. Hardware includes CPUs, NVIDIA GPUs, AMD GPUs, Intel XPUs and Gaudi 3. PRs run selected tests.](/blog/assets/transformers-mic/ci-test-suite.svg)
 
 The integration tests load real checkpoints and exercise the model's API on
-real hardware, which makes them slow and expensive. We can't afford to run all
-of that on every PR. By the time a scheduled run
-finds a regression, it may already be in main.
+real hardware. Running all of that on every PR would mean keeping a lot of GPUs
+busy all day long, which isn't practical. By the time a scheduled run finds a
+regression, it may already be in main.
 
 Our approach is to shrink the model instead. We build a small model from the
 real checkpoint's configuration, keep its layer types and preprocessing, and
@@ -193,8 +193,8 @@ version. Both versions missed an assisted-decoding bug that the real Whisper
 checkpoint exposed.
 
 So we keep random weights when they pass the checks, and overfit when we need
-better sensitivity or readable answers, at the cost of training time and
-another thing to maintain. The [comparison](https://github.com/huggingface/transformers-mic/blob/main/docs/fixtures.md#overfit-versus-random-what-can-we-conclude)
+better sensitivity or readable answers. Training takes seconds, but it is one
+more step that can fail to converge, and one more thing to maintain. The [comparison](https://github.com/huggingface/transformers-mic/blob/main/docs/fixtures.md#overfit-versus-random-what-can-we-conclude)
 has the results for both.
 
 ## Open questions
@@ -208,7 +208,7 @@ things we haven't measured yet:
 - How much work do baseline reviews take?
 
 We also don't know how many bugs, like the Whisper assisted-decoding one, only
-show up with real weights, or whether overfitting earns its cost.
+show up with real weights, or whether overfitting catches real bugs that random weights miss.
 
 Coverage is still partial, across model families and the APIs people use.
 When a regression slips through, we can add the missing usage path and replay
