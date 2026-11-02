@@ -124,6 +124,9 @@ The recipe now has four steps:
    hidden sizes, attention heads and depth. Keep the different layer kinds,
    including mixtures of sliding and full attention or dense and MoE layers.
    Some architectures need extra rules to keep their components compatible.
+   We also look at the model's own Transformers tests: the `ModelTester` in
+   `test_modeling_<model>.py` already picks a small config by hand, so we
+   take its sizes for any width our generic rule doesn't know by name.
 2. **Keep preprocessing unchanged.** Preserve vocabulary, special tokens and
    input dimensions, and copy tokenizer and processor files byte for byte.
    Loading and preprocessing are part of what we want to test.
