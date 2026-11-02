@@ -46,7 +46,7 @@ Of the 11 models evaluated, Gemini 4 Argon leads with 67.8% pass@1 and 81.0% pas
 
 ![CWE-bench v2: pass@1 against average cost per rollout, with the Pareto frontier](/blog/assets/cwe-bench/pareto.png)
 
-On cost, DeepSeek V4.1 Flash (1017), Claude Opus 5.5 and Gemini 4 Argon form the Pareto frontier: DeepSeek reaches 57.0% pass@1 at about six cents per rollout, Opus adds ten points at $1.83, and Gemini edges ahead at $3.92.
+On cost, DeepSeek V4.1 Flash (1017), Claude Opus 5.5 and Gemini 4 Argon form the Pareto frontier: DeepSeek reaches 57.0% pass@1 at $0.06 per rollout, Opus adds ten points at $1.83, and Gemini edges ahead at $3.92.
 
 ## Run it from the Hub
 
