@@ -41,10 +41,10 @@ Of the 11 models evaluated, Gemini 4 Argon leads with 67.8% pass@1 and 81.0% pas
 
 On cost, DeepSeek V4.1 Flash (1017), Claude Opus 5.5 and Gemini 4 Argon form the Pareto frontier: DeepSeek reaches 57.0% pass@1 at about six cents per rollout, Opus adds ten points at $1.83, and Gemini edges ahead at $3.92.
 
-The [CWE-bench leaderboard on the Hub](https://huggingface.co/datasets/collinear-ai/cwe-bench) updates as new results are submitted:
+The [CWE-bench leaderboard](https://huggingface.co/spaces/collinear-ai/cwe-bench-leaderboard) on the Hub is updated as new models are evaluated:
 
 <iframe
-  src="https://huggingface.co/datasets/collinear-ai/cwe-bench/embed/leaderboard?leaderboard_is_expanded=true"
+  src="https://collinear-ai-cwe-bench-leaderboard.static.hf.space"
   frameborder="0"
   width="100%"
   height="560px"
