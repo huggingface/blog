@@ -192,7 +192,7 @@ has the results for both.
 
 ## What's next
 
-As of November 1, 2026, the [MIC job in Transformers CI](https://github.com/huggingface/transformers-ci/blob/main/docs/model-integration-contracts.md#observational-behavior-and-telemetry)
+As of November 1, 2026, the [MIC job in Transformers CI](https://transformers-ci.huggingface.cool/d/mic-failures/mic-failures?from=now-4w&to=now&timezone=browser)
 reports failures without blocking PRs. Before making it required, we need to
 see how often it catches bugs, how often it sends us chasing false alarms, and
 how much work baseline reviews take.
