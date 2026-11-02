@@ -68,9 +68,9 @@ A contract covers an architecture and a usage path, not a single checkpoint:
 compatible checkpoints can share a fixture, while each keeps its own expected
 results. We publish them in [huggingface-mic](https://huggingface.co/huggingface-mic).
 
-For example, the SmolLM contract generates from "The capital of France is" and
-compares its token IDs with a recorded answer. After loading the model and
-tokenizer, the generation code is:
+For example, the SmolLM contract generates from prompts such as "The capital
+of France is" and compares its token IDs with a recorded answer. After loading
+the model and tokenizer, the generation code is, simplified to one prompt:
 
 ```python
 inputs = tokenizer("The capital of France is", return_tensors="pt")
@@ -84,8 +84,8 @@ that an optimizer step changes the weights. See the full
 [usage.md](https://huggingface.co/huggingface-mic/smollm-mic/blob/main/integrations/transformers/usage.md).
 
 A [fleet dataset](https://huggingface.co/datasets/huggingface-mic/transformers-fleet)
-on the Hub pins each MIC to a frozen revision, along with the Transformers
-commit used to record its baselines. Each CI run records the fleet revision it
+on the Hub pins each MIC to a frozen revision, along with the package versions
+used to record its baselines. Each CI run records the fleet revision it
 used, so we can reproduce it later.
 
 On a PR, we pick MICs based on the files the patch changes.
@@ -151,15 +151,20 @@ model, an LLM drafts the usage code and manifest, and CPU and GPU runs measure
 the candidate baselines. The LLM drafts; it doesn't approve. Changed
 expectations require human review.
 
-To start, run this with your source checkpoint in place of `org/model`:
+To try it on your machine, use your source checkpoint in place of `org/model`:
 
 ```sh
-tmic run org/model
+pip install "transformers-mic[runtime]" "hf-doc-builder @ git+https://github.com/huggingface/doc-builder.git"
+hf auth login
+tmic run org/model --local-only --fixtures-only --no-history --bill-to ''
 ```
 
-It walks through creation, review, measurement and publication; the
+It drafts the contract, builds the fixture and records its baselines on your
+machine, asking you to review each step, and stops before uploading anything.
+For a new model, the draft comes from an LLM through Inference Providers, billed
+to your own account (`--bill-to ''`). The
 [CLI docs](https://github.com/huggingface/transformers-mic/blob/main/docs/cli.md#automated-mode)
-cover setup and the individual steps.
+cover the individual steps.
 
 We used agents to build MICs across model families. When they hit an edge
 case, we fixed the recipe itself rather than the one fixture, with help from
