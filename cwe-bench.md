@@ -16,7 +16,7 @@ authors:
 
 # CWE-bench v2: More coverage, quality, and transparency
 
-[CWE-bench](https://cwe-bench.com/) is designed to test the limits of frontier cyber capabilities. In our continued pursuit to push the horizon at [Collinear AI](https://collinear.ai/), CWE-bench v2 opens up a [public set of 100 tasks](https://huggingface.co/datasets/collinear-ai/cwe-bench) that anyone can run and evaluate their models on. The setup is the same as before. An agent gets a checkout of a real open-source repository and a short instruction, with the goal of finding and fixing a security weakness without breaking existing functionality. Scoring is fully programmatic, so results are deterministic and anyone can reproduce them without extra cost. All our programmatic checks have been curated with the help of LLM judge panels that shape them towards the direction of hardness and fairness. A private set is coming soon, so we can keep tracking progress on tasks no model has seen.
+[CWE-bench](https://cwe-bench.com/) is designed to test the limits of frontier cyber capabilities. In our continued pursuit to push the horizon at [Collinear AI](https://collinear.ai/), CWE-bench v2 opens up a [public set of 100 tasks](https://huggingface.co/datasets/collinear-ai/cwe-bench) that anyone can run and evaluate their models on. The setup is the same as before. An agent gets a checkout of a real open-source repository and a short instruction, with the goal of finding and fixing a security weakness without breaking existing functionality. Scoring is fully programmatic, so results are deterministic and anyone can reproduce them without extra cost. All our programmatic checks have been curated with the help of LLM judge panels that shape them towards the direction of hardness and fairness. We also maintain a [held-out set](https://www.cwebench.com), so that we can keep tracking progress on tasks no model has seen. To evaluate your model on the held-out set, contact [cyber@collinear.ai](mailto:cyber@collinear.ai).
 
 Our goal is to be exhaustive. A defender has to anticipate the ways an attacker could get in, and get it right every single time. These 100 tasks cover 91 different CWEs, spanning a wide range of vulnerability classes. A model that does well here has to understand the multiple weakness surfaces that a potential attacker can exploit. Recognising a familiar pattern is not enough.
 
@@ -33,9 +33,9 @@ Every task was also reviewed by hand. Open-sourcing the set is part of the same 
 
 ## Results
 
-![CWE-bench v2 results: pass@1 and pass@4 for 10 models, with cost per rollout](/blog/assets/cwe-bench/results.png)
+![CWE-bench v2 results: pass@1 and pass@4 for 11 models, with cost per rollout](/blog/assets/cwe-bench/results.png)
 
-Of the 10 models evaluated, Claude Opus 5.5 leads with 67.2% pass@1 and 78.0% pass@4. 95 tasks are solved by at least one model, an indication that the tasks are indeed solvable. However, even the leader fails 22% of the set on every attempt, so the long tail is far from solved. The public set, the grader and the harness are open. Run your model, and tell us where it stands.
+Of the 11 models evaluated, Claude Opus 5.5 leads with 67.2% pass@1 and 78.0% pass@4. 95 tasks are solved by at least one model, an indication that the tasks are indeed solvable. However, even the leader fails 22% of the set on every attempt, so the long tail is far from solved. The public set, the grader and the harness are open. Run your model, and tell us where it stands.
 
 The [CWE-bench leaderboard on the Hub](https://huggingface.co/datasets/collinear-ai/cwe-bench) updates as new results are submitted:
 
