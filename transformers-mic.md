@@ -12,9 +12,9 @@ On July 30, 2026, Transformers enabled PyTorch's scaled dot-product attention
 During training, it could peek at the answer it was supposed to predict.
 Nothing crashed, and the bug stayed in main for almost two months.
 
-When we later replayed those commits, a tiny UMT5 model running on CPU flagged
-it on every one of them. This post is about that tiny model and the tests
-built around it.
+When we later replayed those commits, a small UMT5 model running on CPU flagged
+it on every one of them. This post is about that model and the tests built
+around it.
 
 ## Why bugs reach main
 
@@ -31,21 +31,24 @@ real hardware. Running all of that on every PR would mean keeping a lot of GPUs
 busy all day long, which isn't practical. By the time a scheduled run finds a
 regression, it may already be in main.
 
-Our approach is to shrink the model instead. We build a small model from the
-real checkpoint's configuration, keep its layer types and preprocessing, and
-run "fast integration tests" against it on a cheap CPU runner. In our
+Our approach is to shrink the model instead. We build a **fixture**: a small
+model made from the real checkpoint's configuration, with fewer and narrower
+layers but every kind of layer it has, and its tokenizer and processor files
+unchanged. It is published once, then reused. We run "fast integration tests"
+against it on a cheap CPU runner. In our
 [CPU study](https://github.com/huggingface/transformers-mic/blob/main/docs/evidence.md#on-cpu),
 the experimental UMT5 fixture used 66 MB of weights; the source checkpoint
 is 1,227 MB.
 
 This also covers very large models: some don't fit on our standard GPU
-runners, but their small fixtures run on CPU.
+runners, but their fixtures run on CPU.
 
-Model integrators already build tiny models. We wanted a common recipe, and
+Model integrators already build tiny test models (Transformers' `tiny-random-*`
+checkpoints). We wanted a common recipe, and
 checks that go beyond loading the model and running a forward pass. The UMT5
 bug would have passed a forward pass just fine.
 
-Tiny models won't replace full integration tests, but on PRs they give us a
+Fixtures won't replace full integration tests, but on PRs they give us a
 chance to catch bugs before they reach main.
 
 ## Introducing Model Integration Contracts
@@ -54,8 +57,7 @@ chance to catch bugs before they reach main.
 standard for packaging these tests. A Model Integration Contract (MIC) has
 three parts:
 
-- a **fixture**: the shrunk model, with the real checkpoint's tokenizer and
-  processor files
+- a **fixture**: the shrunk model described above, published once and pinned
 - a **usage path**: a runnable Markdown example of something people do with the
   model, such as generating text or running a training step
 - **baselines**: the outputs recorded when running that example, reviewed by a
@@ -99,8 +101,8 @@ Label log-probabilities differed from the reviewed baseline by 1.22 and training
 loss by about 0.20.
 
 One detail mattered: the contract used SDPA, the default attention path.
-Running only the eager attention variant missed the bug. A tiny model only
-helps if it goes through the same code as the real one.
+Running only the eager attention variant missed the bug. A fixture only
+helps if it goes through the same code as the real checkpoint.
 
 We then reverted the fix on a proof branch in Transformers' CI. The check
 failed with the same differences, and the selected T5 contract's runner step
@@ -146,7 +148,7 @@ million. The vision stack goes from 34 layers to 2 and the language stack from
 
 ### Building MICs with agents
 
-Our CLI, `tmic`, creates the contract and builds the small model. For a new
+Our CLI, `tmic`, creates the contract and builds the fixture. For a new
 model, an LLM drafts the usage code and manifest, and CPU and GPU runs measure
 the candidate baselines. The LLM drafts; it doesn't approve. Changed
 expectations require human review.
@@ -173,7 +175,7 @@ model experts. The published models and remaining gaps are in the
 
 ## Random vs Overfit
 
-With random weights, our tiny Whisper model barely responded to changes in
+With random weights, our Whisper fixture barely responded to changes in
 the audio. It ran, but that made it a poor test of the audio path.
 
 So we trained it on a few tones paired with words such as "red" and "green".
