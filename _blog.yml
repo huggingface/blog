@@ -5931,3 +5931,13 @@
     - datasets
     - research
     - community
+
+- local: cwe-bench
+  date: November 3, 2026
+  tags:
+    - security
+    - evaluation
+    - benchmark
+    - agents
+    - rl
+    - partnerships
