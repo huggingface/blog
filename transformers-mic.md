@@ -19,7 +19,7 @@ kernels.
 
 Each backend runs its supported tests. The integration tests load real
 checkpoints and exercise the model's API on real hardware, which makes them
-particularly expensive.
+particularly slow and resource-intensive to run.
 
 We can't afford to run all of that on every PR. By the time a scheduled run
 finds a regression, it may already be in main.
