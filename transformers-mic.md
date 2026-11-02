@@ -7,60 +7,70 @@ authors:
 
 # Transformers Model Integration Contracts
 
-The [Transformers](https://github.com/huggingface/transformers) framework centralizes model definitions and
-supports over 750 different model types.
+On July 30, 2026, Transformers enabled PyTorch's scaled dot-product attention
+(SDPA) for T5. As a side effect, UMT5's decoder could attend to future tokens.
+During training, it could peek at the answer it was supposed to predict.
+Nothing crashed, and the bug stayed in main for almost two months.
 
-**88,000+ CPU tests on main, plus 200,000+ GPU tests in a daily run.**
-That's the scale of testing behind Transformers. Model tests are only part of it:
-we also test pipelines, training, distributed execution, quantization and attention
+When we later replayed those commits, a tiny UMT5 model running on CPU flagged
+it on every one of them. This post is about that tiny model and the tests
+built around it.
+
+## Why bugs reach main
+
+[Transformers](https://github.com/huggingface/transformers) supports over 750
+model types, and its test suite is big: **88,000+ CPU tests on main, plus
+200,000+ GPU tests in a daily run.** Model tests are only part of it: we also
+test pipelines, training, distributed execution, quantization and attention
 kernels.
 
 ![Transformers testing: 88,000+ CPU tests on main and 200,000+ GPU tests daily. Hardware includes CPUs, NVIDIA GPUs, AMD GPUs, Intel XPUs and Gaudi 3. PRs run selected tests.](/blog/assets/transformers-mic/ci-test-suite.svg)
 
-Each backend runs its supported tests. The integration tests load real
-checkpoints and exercise the model's API on real hardware, which makes them
-particularly slow and resource-intensive to run.
-
-We can't afford to run all of that on every PR. By the time a scheduled run
+The integration tests load real checkpoints and exercise the model's API on
+real hardware, which makes them slow and expensive. We can't afford to run all
+of that on every PR. By the time a scheduled run
 finds a regression, it may already be in main.
 
-One way to reduce the gap is to build a smaller model from the real
-checkpoint's configuration, preserving its different layer types and
-preprocessing, and run "fast integration tests" against it on a cheap CPU runner.
+Our approach is to shrink the model instead. We build a small model from the
+real checkpoint's configuration, keep its layer types and preprocessing, and
+run "fast integration tests" against it on a cheap CPU runner. In our
+[CPU study](https://github.com/huggingface/transformers-mic/blob/main/docs/evidence.md#on-cpu),
+the experimental UMT5 fixture used 66 MB of weights; the source checkpoint
+is 1,227 MB.
 
-For example, in our [CPU study](https://github.com/huggingface/transformers-mic/blob/main/docs/evidence.md#on-cpu),
-the experimental UMT5 fixture used 66 MB of weights versus 1,227 MB for the
-source checkpoint.
-
-Using tiny versions of checkpoints also allows us to exercise the architectures
-of very large models. Some don't even fit on our standard GPU runners, while
-their small fixtures can run on CPU.
+This also covers very large models: some don't fit on our standard GPU
+runners, but their small fixtures run on CPU.
 
 Model integrators already build tiny models. We wanted a common recipe, and
-checks that go beyond loading the model and running a forward pass.
+checks that go beyond loading the model and running a forward pass. The UMT5
+bug would have passed a forward pass just fine.
 
-Tiny models won't replace full integration tests against real checkpoints.
-But running them on PRs gives us a chance to catch bugs before they reach main.
+Tiny models won't replace full integration tests, but on PRs they give us a
+chance to catch bugs before they reach main.
 
 ## Introducing Model Integration Contracts
 
 [transformers-mic](https://github.com/huggingface/transformers-mic) is a proposed
-standard that packages a small model with runnable usage examples and reviewed
-expected outputs. A MIC describes an architecture and a usage path. Compatible
-checkpoints can share a fixture, while each checkpoint keeps its own expected
-results.
+standard for packaging these tests. A Model Integration Contract (MIC) has
+three parts:
 
-We publish these artifacts in [huggingface-mic](https://huggingface.co/huggingface-mic).
+- a **fixture**: the shrunk model, with the real checkpoint's tokenizer and
+  processor files
+- a **usage path**: a runnable Markdown example of something people do with the
+  model, such as generating text or running a training step
+- **baselines**: the outputs recorded when running that example, reviewed by a
+  human
 
-Each model published there contains:
+The contract holds if running the usage path on the fixture still produces the
+baselines.
 
-- the shrunk model
-- a runnable Markdown usage example
-- reviewed output baselines
+A contract covers an architecture and a usage path, not a single checkpoint:
+compatible checkpoints can share a fixture, while each keeps its own expected
+results. We publish them in [huggingface-mic](https://huggingface.co/huggingface-mic).
 
 For example, the SmolLM contract generates from "The capital of France is" and
-compares its token IDs with a recorded answer. The generation code looks like
-this, after loading the model and tokenizer:
+compares its token IDs with a recorded answer. After loading the model and
+tokenizer, the generation code is:
 
 ```python
 inputs = tokenizer("The capital of France is", return_tensors="pt")
@@ -69,35 +79,28 @@ new_tokens = outputs[:, inputs["input_ids"].shape[1]:]
 print(tokenizer.batch_decode(new_tokens, skip_special_tokens=True))
 ```
 
-The contract also compares training loss, checks that gradients are finite and
-verifies that an optimizer step changes the weights. The expected outputs come
-from actual runs, and changed values need review.
+It also compares training loss, checks that gradients are finite and verifies
+that an optimizer step changes the weights. See the full
+[usage.md](https://huggingface.co/huggingface-mic/smollm-mic/blob/main/integrations/transformers/usage.md).
 
-See the full [usage.md](https://huggingface.co/huggingface-mic/smollm-mic/blob/main/integrations/transformers/usage.md).
+A [fleet dataset](https://huggingface.co/datasets/huggingface-mic/transformers-fleet)
+on the Hub pins each MIC to a frozen revision, along with the Transformers
+commit used to record its baselines. Each CI run records the fleet revision it
+used, so we can reproduce it later.
 
-The Hub also has a [fleet dataset](https://huggingface.co/datasets/huggingface-mic/transformers-fleet),
-which lists the MICs at frozen revisions along with the Transformers commit
-used to record their baselines. Each CI run records the fleet revision it uses,
-so we can reproduce it later.
-
-On a PR, we select MICs based on the files changed in the patch.
+On a PR, we pick MICs based on the files the patch changes.
 
 ## The UMT5 regression
-
-A UMT5 regression stayed in main for almost two months. Our small CPU fixture
-caught it when we replayed those commits.
-
-When Transformers enabled PyTorch's scaled dot-product attention (SDPA) for T5,
-UMT5's decoder could attend to future tokens. During training, this lets it
-peek at the answer it is supposed to predict. The model still ran, so a test
-that only checked for a successful forward pass would miss the problem.
 
 We replayed frozen MICs over five months of Transformers commits. The small
 UMT5 fixture flagged the regression from its introduction on [July 30, 2026](https://github.com/huggingface/transformers/commit/560f36cc561fa154d224b7a6dfcba1d57a621d7b)
 until its fix on [September 28](https://github.com/huggingface/transformers/commit/d7ba937671edb174fd80d33f9ecbd38f6559dfca).
 Label log-probabilities differed from the reviewed baseline by 1.22 and training
-loss by about 0.20. The contract used SDPA, the default attention path. Running
-only the eager attention variant missed the bug.
+loss by about 0.20.
+
+One detail mattered: the contract used SDPA, the default attention path.
+Running only the eager attention variant missed the bug. A tiny model only
+helps if it goes through the same code as the real one.
 
 We then reverted the fix on a proof branch in Transformers' CI. The check
 failed with the same differences, and the selected T5 contract's runner step
@@ -105,13 +108,13 @@ took 13.4 seconds on CPU, excluding setup.
 
 The [replay results](https://github.com/huggingface/transformers-mic/blob/main/docs/evidence.md#shadow-backfill)
 and the [CI demo](https://github.com/huggingface/transformers-mic/blob/main/docs/evidence.md#transformers-ci-proof)
-include the measurements and reproduction details.
+have the measurements and reproduction details.
 
 ## How models are shrunk
 
 The first recipe was simple: make the dimensions smaller and keep fewer
-layers. Mixed architectures needed more care. Keeping two layers is no use if
-both use sliding attention and the full-attention layers disappear.
+layers. That wasn't enough for mixed architectures. Keeping two layers is no
+use if both use sliding attention and the full-attention layers disappear.
 
 The recipe now has four steps:
 
@@ -131,20 +134,22 @@ The recipe now has four steps:
    supported platform and precision, then publish a pinned snapshot. CI reuses
    it; it does not rebuild the fixture for every PR.
 
-We also keep the original weights file format. Otherwise, we could skip the
+We also keep the original weights file format. Otherwise we would skip the
 conversion code that runs when a user loads the real checkpoint.
+[The full recipe](https://github.com/huggingface/transformers-mic/blob/main/docs/fixtures.md#recipe)
+has more detail.
 
-See [the full recipe](https://github.com/huggingface/transformers-mic/blob/main/docs/fixtures.md#recipe)
-for more detail.
+The [Llama 4 Scout shrink report](https://huggingface-mic-mic-coverage.static.hf.space/shrink/Llama-4-Scout-17B-16E-Instruct-mic.html)
+shows what this looks like on a big model. 108.6 billion parameters become 44.7
+million. The vision stack goes from 34 layers to 2 and the language stack from
+48 to 4, keeping the checked layer kinds and MoE routing style.
 
-For a visual example, see the [Llama 4 Scout shrink report](https://huggingface-mic-mic-coverage.static.hf.space/shrink/Llama-4-Scout-17B-16E-Instruct-mic.html).
-108.6 billion parameters become 44.7 million. The vision stack goes from 34
-layers to 2 and the language stack from 48 to 4, keeping the checked layer
-kinds and MoE routing style.
+### Building MICs with agents
 
 Our CLI, `tmic`, creates the contract and builds the small model. For a new
-model, an LLM drafts the usage code and manifest. CPU and GPU runs measure the
-candidate baselines. Changed expectations require human review.
+model, an LLM drafts the usage code and manifest, and CPU and GPU runs measure
+the candidate baselines. The LLM drafts; it doesn't approve. Changed
+expectations require human review.
 
 To start, run this with your source checkpoint in place of `org/model`:
 
@@ -152,13 +157,13 @@ To start, run this with your source checkpoint in place of `org/model`:
 tmic run org/model
 ```
 
-The CLI walks through creation, review, measurement and publication. The
+It walks through creation, review, measurement and publication; the
 [CLI docs](https://github.com/huggingface/transformers-mic/blob/main/docs/cli.md#automated-mode)
 cover setup and the individual steps.
 
-We used agents to build MICs across model families, fixing the recipe as we
-hit edge cases and getting help from model experts. The published models and
-remaining gaps are in the
+We used agents to build MICs across model families. When they hit an edge
+case, we fixed the recipe itself rather than the one fixture, with help from
+model experts. The published models and remaining gaps are in the
 [coverage space](https://huggingface.co/spaces/huggingface-mic/mic-coverage).
 
 ## Random vs Overfit
@@ -166,45 +171,48 @@ remaining gaps are in the
 With random weights, our tiny Whisper model barely responded to changes in
 the audio. It ran, but that made it a poor test of the audio path.
 
-We trained it on a few tones paired with words such as "red" and "green".
-In our [weight-initialization study](https://github.com/huggingface/transformers-mic/blob/main/docs/fixtures.md#choosing-the-weights),
+So we trained it on a few tones paired with words such as "red" and "green".
+We weren't teaching it speech recognition, just making audio changes visible
+in its outputs. In our [weight-initialization study](https://github.com/huggingface/transformers-mic/blob/main/docs/fixtures.md#choosing-the-weights),
 the random Whisper fixtures caught 18 of 24 injected faults. The overfit
-fixtures caught all 24. Teaching it those few answers made audio changes
-visible in its outputs; we weren't trying to teach it speech recognition.
+fixtures caught all 24.
 
 That gives us two ways to build the weights:
 
 - Start with random weights and a fixed seed.
 - Overfit on a few examples, like "The capital of France is" => "Paris".
 
-Either way, we check input sensitivity, record the outputs and freeze the
-weights before CI uses them.
-
 The Whisper result doesn't settle which is better. Those were synthetic
 faults, and we haven't found a real regression caught only by the overfit
 version. Both versions missed an assisted-decoding bug that the real Whisper
 checkpoint exposed.
 
-So we keep random weights when they pass the checks. We overfit when we need
+So we keep random weights when they pass the checks, and overfit when we need
 better sensitivity or readable answers, at the cost of training time and
 another thing to maintain. The [comparison](https://github.com/huggingface/transformers-mic/blob/main/docs/fixtures.md#overfit-versus-random-what-can-we-conclude)
 has the results for both.
 
-## What's next
+## Open questions
 
 As of November 1, 2026, the [MIC job in Transformers CI](https://transformers-ci.huggingface.cool/d/mic-failures/mic-failures?from=now-4w&to=now&timezone=browser)
-reports failures without blocking PRs. Before making it required, we need to
-see how often it catches bugs, how often it sends us chasing false alarms, and
-how much work baseline reviews take.
+reports failures without blocking PRs. Whether it should block depends on
+things we haven't measured yet:
 
-We also want to cover more model families and more of the APIs people use.
+- How many real bugs does it catch on PRs, not just in replays?
+- How often does it send us chasing false alarms?
+- How much work do baseline reviews take?
+
+We also don't know how many bugs, like the Whisper assisted-decoding one, only
+show up with real weights, or whether overfitting earns its cost.
+
+Coverage is still partial, across model families and the APIs people use.
 When a regression slips through, we can add the missing usage path and replay
 it on the broken and fixed versions. We'll keep existing tests until their
 coverage is accounted for.
 
-We'd also like to link original Hub model pages to their MICs. When a developer
-or an agent wants to use a checkpoint, they could start with an example tested
-on that checkpoint, its environment and its expected outputs.
+Finally, we'd like to link original Hub model pages to their MICs, so a
+developer or an agent using a checkpoint could start from an example tested on
+that checkpoint, its environment and its expected outputs.
 
 Want to help? Pick an uncovered model from the
 [coverage space](https://huggingface.co/spaces/huggingface-mic/mic-coverage), try
