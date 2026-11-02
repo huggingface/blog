@@ -5,6 +5,9 @@ authors:
 - user: chalo2000
   guest: true
   org: collinear-ai
+- user: ajayjagan2511
+  guest: true
+  org: collinear-ai
 - user: nazneen
   guest: true
   org: collinear-ai
@@ -33,6 +36,15 @@ Every task was also reviewed by hand. Open-sourcing the set is part of the same 
 ![CWE-bench v2 results: pass@1 and pass@4 for 10 models, with cost per rollout](/blog/assets/cwe-bench/results.png)
 
 Of the 10 models evaluated, Claude Opus 5.5 leads with 67.2% pass@1 and 78.0% pass@4. 95 tasks are solved by at least one model, an indication that the tasks are indeed solvable. However, even the leader fails 22% of the set on every attempt, so the long tail is far from solved. The public set, the grader and the harness are open. Run your model, and tell us where it stands.
+
+The [CWE-bench leaderboard on the Hub](https://huggingface.co/datasets/collinear-ai/cwe-bench) updates as new results are submitted:
+
+<iframe
+  src="https://huggingface.co/datasets/collinear-ai/cwe-bench/embed/leaderboard?leaderboard_is_expanded=true"
+  frameborder="0"
+  width="100%"
+  height="560px"
+></iframe>
 
 ## Run it from the Hub
 
