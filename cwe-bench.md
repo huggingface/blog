@@ -48,6 +48,3 @@ harbor run --repo "https://huggingface.co/datasets/collinear-ai/cwe-bench" -d cw
 
 The tasks are also tagged `rl-environment`: the same environments and verifiers can provide rewards for training defensive agents, not just for evaluating them.
 
-## A leaderboard on the Hub
-
-CWE-bench is an [official benchmark on the Hub](https://huggingface.co/datasets?benchmark=benchmark:official). Its dataset page shows a leaderboard built from scores published in model repos, and the same scores appear on each model's page. To add your model, open a PR on its repo with a results file, as described in the [eval results docs](https://huggingface.co/docs/hub/eval-results#adding-evaluation-results). The Collinear team curates the leaderboard and can hide results they can't verify.
