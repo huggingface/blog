@@ -17,7 +17,7 @@ Today, we launch a [model card creation tool](https://huggingface.co/spaces/hugg
 
 In sum, today we announce the release of:
 
-1) A [Model Card Creator Tool](https://huggingface.co/spaces/huggingface/Model_Cards_Writing_Tool), to ease card creation without needing to program, and to help teams share the work of different sections.
+1) A Model Card Creator Tool, to ease card creation without needing to program, and to help teams share the work of different sections.
 
 2) An updated model card template, released in [the `huggingface_hub` library](https://github.com/huggingface/huggingface_hub/blob/main/src/huggingface_hub/templates/modelcard_template.md), drawing together model card work in academia and throughout the industry.
 
