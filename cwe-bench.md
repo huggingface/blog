@@ -41,7 +41,7 @@ Open-weight models, from the dataset page:
   src="https://huggingface.co/datasets/collinear-ai/cwe-bench/embed/leaderboard?leaderboard_is_expanded=true"
   frameborder="0"
   width="100%"
-  height="560px"
+  height="340px"
 ></iframe>
 
 All evaluated models, including API-only ones:
