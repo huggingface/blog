@@ -33,10 +33,19 @@ Every task was also reviewed by hand. Open-sourcing the set is part of the same 
 
 ## Results
 
-The [CWE-bench leaderboard](https://huggingface.co/spaces/collinear-ai/cwe-bench-leaderboard) on the Hub is updated as new models are evaluated:
+Results are tracked in two places on the Hub. The [leaderboard on the CWE-bench dataset page](https://huggingface.co/datasets/collinear-ai/cwe-bench) covers open-weight models and updates on its own: labs and the community add a result by opening a PR on the model's repo with a results file ([how](https://huggingface.co/docs/hub/eval-results#adding-evaluation-results)). For the full comparison, including API-only models such as Gemini, Claude and GPT, see the [CWE-bench leaderboard Space](https://huggingface.co/spaces/collinear-ai/cwe-bench-leaderboard), where new models are added through a PR on the Space:
 
 <iframe
   src="https://collinear-ai-cwe-bench-leaderboard.static.hf.space"
+  frameborder="0"
+  width="100%"
+  height="560px"
+></iframe>
+
+The open-weight leaderboard on the dataset page:
+
+<iframe
+  src="https://huggingface.co/datasets/collinear-ai/cwe-bench/embed/leaderboard?leaderboard_is_expanded=true"
   frameborder="0"
   width="100%"
   height="560px"
