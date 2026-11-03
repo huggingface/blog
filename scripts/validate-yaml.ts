@@ -3,6 +3,7 @@
 import { join } from "jsr:@std/path@1.0.4";
 import { parse } from "https://deno.land/std@0.194.0/yaml/mod.ts";
 import { z } from "https://deno.land/x/zod@v3.16.1/mod.ts";
+import { validateYamlCodeBlocks } from "./validate-markdown-yaml.ts";
 
 for (const lang of ["", "zh/"]) {
   {
@@ -86,6 +87,10 @@ for (const lang of ["", "zh/"]) {
       }
 
       const content = Deno.readTextFileSync("../" + lang + mdFile);
+      const codeBlockErrors = validateYamlCodeBlocks(content, lang + mdFile);
+      if (codeBlockErrors.length > 0) {
+        throw new Error(codeBlockErrors.join("\n"));
+      }
       const frontmatterMatch = content.match(/^---\r?\n([\s\S]*?)\r?\n---/);
 
       if (!frontmatterMatch) {
