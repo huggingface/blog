@@ -55,13 +55,13 @@ All evaluated models, including API-only ones:
 
 Of the 11 models evaluated, Gemini 4 Argon leads with 67.8% pass@1 and 81.0% pass@4, just ahead of Claude Opus 5.5 (67.3% pass@1, 78.0% pass@4). 95 tasks are solved by at least one model, an indication that the tasks are indeed solvable. However, even the leader fails 19% of the set on every attempt, so the long tail is far from solved. The public set, the grader and the harness are open. Run your model, and tell us where it stands.
 
-![CWE-bench v2: pass@1 against average cost per rollout, with the Pareto frontier](/blog/assets/cwe-bench/pareto.png)
+![CWE-bench v2: pass@1 against average cost per rollout, with the Pareto frontier](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/cwe-bench/pareto.png)
 
 On cost, DeepSeek V4.1 Flash (1017), Claude Opus 5.5 and Gemini 4 Argon form the Pareto frontier: DeepSeek reaches 57.0% pass@1 at $0.04 per rollout, Opus adds ten points at $1.83, and Gemini edges ahead at $3.92.
 
 ## Run it from the Hub
 
-Every task is a self-contained [Harbor](https://harborframework.com/) task (a Dockerized environment, an instruction, and a deterministic verifier), and the dataset ships a `registry.json`. Harbor can therefore run the whole benchmark straight from the Hugging Face repo, with nothing to clone:
+Every task is a self-contained [Harbor](https://harborframework.com/) task (a Dockerized environment, an instruction, and a deterministic verifier), and the dataset ships a `registry.json`. Harbor can therefore run the whole benchmark straight from the Hugging Face repo, without cloning anything yourself:
 
 ```bash
 harbor run --repo "https://huggingface.co/datasets/collinear-ai/cwe-bench" -d cwe-bench@2.0 -k 4 \
@@ -69,7 +69,11 @@ harbor run --repo "https://huggingface.co/datasets/collinear-ai/cwe-bench" -d cw
   --allow-agent-host <model API host>
 ```
 
-`-k 4` runs 4 attempts per task, and the reported score is the mean reward over all 400 trials. The dataset is gated, so accept its access conditions first and make sure git can authenticate to huggingface.co with your HF token.
+`-k 4` runs 4 attempts per task, and the reported score is the mean reward over all 400 trials. The dataset is gated: accept its access conditions on the [dataset page](https://huggingface.co/datasets/collinear-ai/cwe-bench) first. Harbor fetches the tasks with git, so also save your HF token to git's credential helper once:
+
+```bash
+hf auth login --token $HF_TOKEN --add-to-git-credential
+```
 
 The tasks are also tagged `rl-environment`: the same environments and verifiers can provide rewards for training defensive agents, not just for evaluating them.
 
