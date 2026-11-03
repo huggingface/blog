@@ -196,9 +196,9 @@ We've now arrived at Sinusoidal embeddings; originally defined in the [Attention
 Let's look at the equations:
 
 $$
-PE_{(pos,2i)} = \color{#58C4DD}\sin\left(\color{black}\frac{pos}{10000^{2i/d}}\color{#58C4DD}\right)\color{black} \\ 
+PE_{(pos,2i)} = \textcolor{#58C4DD}{\sin}\left(\frac{pos}{10000^{2i/d}}\right) \\ 
 \quad \\
-PE_{(pos,2i+1)} = \color{#FC6255}\cos\left(\color{black}\frac{pos}{10000^{2i/d}}\color{#FC6255}\right)\color{black} \\ 
+PE_{(pos,2i+1)} = \textcolor{#FC6255}{\cos}\left(\frac{pos}{10000^{2i/d}}\right) \\ 
 $$
 
 where \\(pos\\) is the tokens position index, \\(i\\) is the component index
@@ -276,7 +276,7 @@ $$
 &\text{The dog chased another dog} \\
 \\
 &\hspace{0.3em}\text{-2} \hspace{1.4em} \text{-1} \hspace{1.7em} 0 \hspace{2.6em} 1 \hspace{2.4em} 2\\
-&\text{The dog \color{#699C52}chased \color{black}another dog}
+&\text{The dog }{\color{#699C52}\text{chased}}\text{ another dog}
 \end{align*}
 $$
 
