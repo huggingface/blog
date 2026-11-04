@@ -53,19 +53,19 @@ Be clear about the limit here. The proxy gate, the intent binding, and the colle
 
 VOLTA does not change the basic hygiene for infostealers. Change passwords, revoke sessions, rotate credentials, check for new sessions and new devices, and treat a stealer infection as a credential compromise, not just a malware removal.
 
-What it does change is the urgency, and the order of work. A victim with high-value assets should not wait in a queue behind a victim with low-value assets, because the attacker will not wait. The ranking step means the highest-value victim is the first victim to be monetized, so the highest-value victim should be the first victim to be contained.
+What it does change is the urgency of that hygiene, and the value of independent screening.
 
-If an attacker can rank victims by value in minutes, then the time between infection and monetization is not a grace period, it is a race. That means the screen has to be in the traffic path, before the ranking call, not after the sale, and it has to be able to block, not just log, when the pattern matches.
+If an attacker can rank victims by value in minutes, with a model, and with fallback models when one refuses, then the window between infection and monetization shrinks, and the cost of manual triage, for the attacker, drops. Defense cannot rely on the attacker being slow, or on a single model refusing, to buy time.
 
-It also changes what to screen for. A screen that only looks for a stealer binary, or for a known command-and-control domain, will miss a ranking call to a legitimate AI API, because that call, on its own, looks like a model call. A screen that looks for a sequence, a bundle out, a ranking back, a monetization step next, will see the payoff, even when each call, alone, looks clean.
+It also changes what to screen for. Not just known stealer binaries, not just known command-and-control domains, but the outbound bundle, the ranking response, and the next monetization step, in sequence, with identity, intent, and content checked together.
 
 ## What to take from this
 
-AI is not only changing how attackers break in, it is changing how they decide who to hit first, and how fast they move from a dump to a payout. That is a shift in the attacker's workflow, and a shift in workflow needs a shift in defense, from the break-in, to the ranking, to the payoff.
+AI is not only changing how attackers break in. It is changing how they decide who is worth hitting, and how they prioritize victims for monetization. That is a shift in the attacker's workflow, and a shift in workflow needs a shift in defense, from the break-in, to the ranking, to the payoff.
 
-If you run agents, or if you defend users who do, ask where your gate sits. Does it see the tool list, the tool call, and the tool result, in both directions, or does it only see the prompt, or only see the file? Does it bind the call to the identity and the intent that started it, or does it judge each call alone? Does it record its verdict, with a reason, in a system record other than the agent's report, or does it only log, and hope someone reads the log?
+If you run agents, or if you defend users who do, start with the cheapest independent check. Does your gate see the outbound call, and the inbound ranking, or does it only see the prompt, or only see the file? Does it bind that call to identity and intent, or does it judge each call alone? If your gate cannot answer those three, in the traffic path, before the payoff call, then it is not a gate, it is a log.
 
-And the next time you see a stealer report, do not only ask, how did it break in. Ask, what did it rank, how did it rank it, and what did it do next, because the ranking step is where the victim is chosen, and the payoff step is where the damage is done.
+And the next time you see a stealer report, ask not just how it broke in, but how it ranked its victims, and what outbound call carried that ranking. That outbound call is the payoff, and that is where a gate, not just a log, belongs.
 
 Source: Talos Intelligence, "Appraisal by AI: Model-Driven Victim Prioritization in the VOLTA Infostealer" https://blog.talosintelligence.com/appraisal-by-ai-model-driven-victim-prioritization-in-the-volta-infostealer/
 
