@@ -5934,16 +5934,21 @@
 
 - local: transformers-mic
   date: November 3, 2026
+    tags:
+        - transformers
+            - guide
+            
+            - local: cwe-bench
+              date: November 3, 2026
+                tags:
+                    - security
+                        - evaluation
+                            - benchmark
+                                - agents
+                                    - rl
+                                        - partnerships
+                                        
+                                        - local: volta-ai-victim-ranking
+  date: November 4, 2026
   tags:
-    - transformers
-    - guide
-
-- local: cwe-bench
-  date: November 3, 2026
-  tags:
-    - security
-    - evaluation
-    - benchmark
-    - agents
-    - rl
-    - partnerships
+    - community
