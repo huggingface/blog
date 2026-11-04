@@ -196,7 +196,7 @@ The combination of Optimum-Intel and OpenVINO™ GenAI offers a powerful, flexib
 ## Additional Resources
 1. You can find more details in this [tutorial](https://docs.openvino.ai/2024/learn-openvino/llm_inference_guide/genai-guide.html).
 2. To build the C++ examples above refer to this [document](https://github.com/openvinotoolkit/openvino.genai/blob/releases/2024/3/src/docs/BUILD.md).
-3. [OpenVINO Documentation](docs.openvino.ai)
+3. [OpenVINO Documentation](https://docs.openvino.ai)
 4. [Jupyter Notebooks](https://docs.openvino.ai/2024/learn-openvino/interactive-tutorials-python.html)
 5. [Optimum Documentation](https://huggingface.co/docs/optimum/main/en/intel/index)
 
