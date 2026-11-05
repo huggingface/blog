@@ -60,7 +60,7 @@ Speed is where we see Phonon truly shine, as the models top the [CPU streaming b
 
 We built a new inference framework, [ptts](https://github.com/gradium-ai/xn-ptts), specifically for Phonon. The goal of ptts is to get the best performance on a wide variety of devices and as such supports more than 10 backends: CPU (Intel, Arm, WebAssembly), GPU (CUDA, Vulkan, Metal, WebGPU), and NPU (Apple Core ML, Snapdragon®).
 
-Phonon is also available in 🤗 Transformers, from v5.21, as its reference PyTorch implementation. Where ptts runs a single stream on device, Transformers targets GPU throughput: batched generation, full-graph `torch.compile`, eg for synthesizing speech datasets at scale. Being native PyTorch, it is a base to build upon, whether to integrate Phonon into your own stack or to study the model itself.
+Phonon is also available in 🤗 Transformers, from v5.21, as its reference PyTorch implementation. Where `ptts` runs a single stream on device, Transformers targets GPU throughput: batched generation, full-graph `torch.compile`, e.g., for synthesizing speech datasets at scale. Being native PyTorch, it is a base to build upon, whether to integrate Phonon into your own stack or to study the model itself.
 
 It belongs to the Pocket TTS lineage, so we first added Pocket TTS to Transformers. Phonon sits on top as a [modular](https://huggingface.co/docs/transformers/modular_transformers) model: about [200 lines](https://github.com/huggingface/transformers/blob/main/src/transformers/models/gradium_phonon_tts/modular_gradium_phonon_tts.py) describing only what differs.
 
