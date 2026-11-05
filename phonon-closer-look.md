@@ -1,5 +1,5 @@
 ---
-title: "A Closer Look at Phonon. Launching High-Quality On-Device Speech That Tops the Benchmarks."
+title: "A Closer Look at Phonon TTS. Launching High-Quality On-Device Speech That Tops the Benchmarks."
 thumbnail: /blog/assets/phonon-tts/thumbnail.png
 authors:
 - user: olesiagradium
