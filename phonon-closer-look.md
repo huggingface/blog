@@ -12,7 +12,7 @@ authors:
 - user: eustlb
 ---
 
-# A Closer Look at Phonon. Launching High-Quality On-Device Speech That Tops the Benchmarks.
+# A Closer Look at Phonon TTS. Launching High-Quality On-Device Speech That Tops the Benchmarks.
 
 <video src="https://huggingface.co/datasets/olesiagradium/video/resolve/main/Benchmark%20First%20Place%20Highlight%202026-11-02%2010.46.mp4" controls autoplay muted loop playsinline width="100%"></video>
 
