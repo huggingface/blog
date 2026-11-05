@@ -1,6 +1,6 @@
 ---
 title: "A Closer Look at Phonon. Launching High-Quality On-Device Speech That Tops the Benchmarks."
-thumbnail: /blog/assets/phonon-closer-look/thumbnail.png
+thumbnail: /blog/assets/phonon-tts/thumbnail.png
 authors:
 - user: olesiagradium
   guest: true
