@@ -5947,3 +5947,10 @@
     - agents
     - rl
     - partnerships
+
+- local: phonon-closer-look
+  date: November 5, 2026
+  tags:
+  - audio
+  - speech
+  - leaderboard
