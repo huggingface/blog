@@ -5948,7 +5948,7 @@
     - rl
     - partnerships
 
-- local: phonon-closer-look
+- local: phonon-tts
   date: November 5, 2026
   tags:
   - audio
