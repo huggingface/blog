@@ -1,5 +1,5 @@
 ---
-title: "The Devil Wears LoRA: Fine-Tuning TRELLIS.2 for 3D Footwear" 
+title: "The Definitive Fine-Tuning Guide for TRELLIS.2" 
 thumbnail: /blog/assets/3d-lora-finetuning/thumbnail.gif
 authors:
   - user: suvadityamuk
@@ -7,7 +7,7 @@ authors:
   - user: pcuencq
 ---
 
-# The Devil Wears LoRA: Fine-Tuning TRELLIS.2 for 3D Footwear
+# The Definitive Fine-Tuning Guide for TRELLIS.2
 
 ## ![Hero GIF](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/3d-lora-finetuning/sole_orbit_base_vs_lora.gif)Introduction
 
