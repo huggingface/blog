@@ -5954,3 +5954,12 @@
   - audio
   - speech
   - leaderboard
+
+- local: 3d-lora-finetuning
+  date: November 5, 2026
+  tags:
+    - guide
+    - 3d
+    - lora
+    - finetuning
+    - open-source
