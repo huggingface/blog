@@ -1,5 +1,5 @@
 ---
-title: "Egyptian and Nigerian English join the Open ASR Leaderboard."
+title: "Egyptian and Nigerian English join the Open ASR Leaderboard"
 thumbnail: /blog/assets/open-asr-leaderboard-liva/thumbnail.png
 authors:
 - user: bezzam
