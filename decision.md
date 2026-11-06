@@ -7,7 +7,7 @@ authors:
 
 # Decision Models in the Hugging Face Ecosystem
 
-Large Language Models (LLMs) are exceptionally good at generating text. We use them to answer questions, write code, reason about problems, and so much more. But not every problem requires generating text.
+Large Language Models (LLMs) are exceptionally good at generating text. We use them to answer questions, write code, reason about problems, and so much more. *But not every problem requires generating text.*
 
 Consider a customer support system receiving the following message:
 
@@ -15,7 +15,25 @@ Consider a customer support system receiving the following message:
 
 The system needs to determine which team should handle the request, how urgent it is, and whether the customer is requesting a refund.
 
-We could ask an LLM to return a JSON object containing these answers. But what if the model could directly evaluate the available options and return a probability distribution over them, *without generating any text*?
+We could ask an LLM to return a JSON object containing these answers.
+
+```bash
+llama cli -hf ggml-org/gemma-4-e4b-it-GGUF:Q4_0
+
+> We have the following customer support ticket, "I was charged twice for my subscription. I need a refund today.", which team should handle the request, how urgent it is, and whether the customer is requesting a refund. Give the answers in JSON.
+
+[Start thinking]
+...
+[end thinking]
+```json
+{
+  "team_to_handle": "Billing",
+  "urgency": "High",
+  "request_refund": true
+}
+```
+
+But what if the model could directly evaluate the available options and return a probability distribution over them, *without generating any text*?
 
 This is the key idea behind **decision models**.
 
@@ -23,7 +41,7 @@ This is the key idea behind **decision models**.
 
 A decision model takes some input context (state), evaluates a question with a set of predefined possible answers (primitives), and returns a structured decision along with probabilities. Instead of asking a model to generate an answer token by token, we ask it to assign probabilities to the answers that our application already understands.
 
-![image.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/decision/decision-models.png)
+![state and primitives for the decision models](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/decision/decision-models.png)
 
 [TypeSafe AI introduced Jev](https://typesafe.ai/blog/introducing-system-one-models-and-jev), describing it as a [*System One model*](https://en.wikipedia.org/wiki/Thinking,_Fast_and_Slow). The name draws inspiration from the distinction between fast, intuitive thinking (System 1) and slower, deliberative thinking (System 2).
 
@@ -39,27 +57,25 @@ State + Questions + Allowed Answers → Decisions + Probabilities
 
 We could simply prompt an LLM to return a JSON object containing our decisions. In fact, this is how many applications already use language models for classification, routing, and other structured tasks.
 
-However, there are three problems with this approach.
+However, there are a few problems with this approach.
 
-1. **LLMs are not guaranteed to follow the requested schema:** Even with explicit instructions, a model might produce invalid JSON, introduce unexpected keys, or return an answer outside the allowed choices.
-2. **Constrained decoding helps, but does not eliminate the computational overhead:** Libraries such as [Outlines](https://github.com/dottxt-ai/outlines) and [XGrammar](https://github.com/mlc-ai/xgrammar) can enforce grammars or JSON schemas by restricting which tokens the model is allowed to generate at each step. This ensures the output follows the supported structural constraints, but introduces additional work for grammar compilation.
-3. **Why generate an entire response:** LLMs are designed for open-ended generation, but when our application only needs to choose between predefined answers, autoregressive decoding can be unnecessary work.
+* LLMs are not guaranteed to follow the requested schema: Even with explicit instructions, a model might produce invalid JSON, introduce unexpected keys, or return an answer outside the allowed choices.
+* Constrained decoding helps, but does not eliminate the computational overhead: Libraries such as [Outlines](https://github.com/dottxt-ai/outlines) and [XGrammar](https://github.com/mlc-ai/xgrammar) can enforce grammars or JSON schemas by restricting which tokens the model is allowed to generate at each step. This ensures the output follows the supported structural constraints, but introduces additional work for grammar compilation.
+* Why generate an entire response: LLMs are designed for open-ended generation, but when our application only needs to choose between predefined answers, autoregressive decoding can be unnecessary work.
 
 ## How are decision models different from classification models?
 
-Before understanding their interface, it is useful to revisit two closely related approaches. Traditional classification and Zero-shot classification.
+Before understanding the interface of a decision model, it is useful to revisit two closely related approaches namely traditional classification and zero-shot classification.
 
 ### Traditional classification
 
 Suppose we train a classifier that routes customer-support requests to three departments:
 
-- Billing
-- Technical support
-- Sales
+* Billing
+* Technical support
+* Sales
 
-A conventional classification model learns a mapping from an input to a predefined set of labels.
-
-During training, the model learns to predict these labels from examples. A classification head typically produces one logit per class, and softmax turns those logits into a probability distribution.
+A conventional classification model learns a mapping from an input to a predefined set of labels. During training, the model learns to predict these labels from examples. A classification head typically produces one logit per class, and softmax turns those logits into a probability distribution.
 
 The limitation here is that ***the output classes are baked into the model's classification head***.
 
@@ -67,9 +83,7 @@ If we introduce a fourth department, such as Legal, the existing classifier does
 
 ### Zero-shot classification
 
-[Zero-shot classification](https://huggingface.co/tasks/zero-shot-classification) addresses an important part of this limitation.
-
-Instead of requiring the classifier to be trained specifically on every output category, we supply the candidate labels at inference time.
+[Zero-shot classification](https://huggingface.co/tasks/zero-shot-classification) addresses an important part of this limitation. Instead of requiring the classifier to be trained specifically on every output category, we supply the candidate labels at inference time.
 
 For example:
 
@@ -120,9 +134,7 @@ This already sounds quite similar to a decision model. And in many ways, it is.
 
 ### Where decision models differ
 
-Decision models extend this idea beyond simply assigning an input to a category.
-
-A decision model can accept several named questions about the same state, with different answer types. The types can be choosing between alternatives (choice), scoring an ordered scale (score), or assessing whether a statement is true (noul).
+Decision models extend this idea beyond simply assigning an input to a category. A decision model can accept several named questions about the same state, with different answer types. The types can be choosing between alternatives (choice), scoring an ordered scale (score), or assessing whether a statement is true (noul).
 
 More importantly, its interface is designed around the **probability distribution over possible decisions**.
 
@@ -220,14 +232,14 @@ Consider the question:
 
 We define three levels:
 
-- 0: Low urgency
-- 1: Medium urgency
-- 2: High urgency
+* 0: Low urgency
+* 1: Medium urgency
+* 2: High urgency
 
 The model again produces a probability distribution:
 
 | Level | Probability |
-| --- | --- |
+| :--: | :--: |
 | 0 — Low | 0.10 |
 | 1 — Medium | 0.30 |
 | 2 — High | 0.60 |
@@ -298,9 +310,9 @@ where ($p_{\max}$) is the largest predicted probability.
 
 The intuition is straightforward:
 
-- A uniform distribution has confidence 0. ($p_{\max} = \frac{1}{K}$)
-- A distribution concentrated entirely on one option has confidence 1. ($p_{\max} = 1$)
-- The larger the winning probability relative to a uniform distribution, the higher the confidence.
+* A uniform distribution has confidence 0. ($p_{\max} = \frac{1}{K}$)
+* A distribution concentrated entirely on one option has confidence 1. ($p_{\max} = 1$)
+* The larger the winning probability relative to a uniform distribution, the higher the confidence.
 
 In our previous three-choice example, Billing had probability 0.80:
 
