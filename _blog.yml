@@ -1,11 +1,5 @@
 # "thumbnail" are defined in each post metadata
 # make sure to optimize your "thumbnail" img with tinypng.com
-- local: open-asr-leaderboard-liva
-  date: November 5, 2026
-  tags:
-    - audio
-    - research
-
 - local: how-to-train
   date: February 14, 2020
   tags:
@@ -5960,3 +5954,12 @@
   - audio
   - speech
   - leaderboard
+
+- local: open-asr-leaderboard-liva
+  date: November 6, 2026
+  tags:
+    - audio
+    - speech
+    - leaderboard
+    - datasets
+    - evaluation
