@@ -65,7 +65,7 @@ However, there are a few problems with this approach.
 
 ## How are decision models different from classification models?
 
-Before understanding the interface of a decision model, it is useful to revisit two closely related approaches namely traditional classification and zero-shot classification.
+Before understanding the interface of a decision model, it is useful to revisit two closely related approaches: traditional classification and zero-shot classification.
 
 ### Traditional classification
 
@@ -147,11 +147,11 @@ Consider these three approaches:
 | Multiple typed questions | No | No | Yes |
 | Ordered scoring and yes/no decisions | Task-specific | Possible with adaptation | Native primitives |
 
-The advantage of decision models is therefore not that they invented runtime-defined labels or probabilistic classification. It is that they organize these capabilities into a consistent, typed interface, potentially backed by architectures and training procedures optimized specifically for decisions.
+The advantage of decision models is not that they invented runtime-defined labels or probabilistic classification. It is that they organize these capabilities into a consistent interface, potentially backed by architectures and training procedures optimized specifically for decisions.
 
 ## The decision-model interface
 
-A decision-model request has two important components, **state** and **questions**.
+A decision-model request has two important components: **state** and **questions**.
 
 ### State
 
@@ -191,7 +191,7 @@ Suppose we ask:
 
 The available options are Billing, Technical support, and Sales.
 
-The model assigns a logit, to each option. For logits ($z_1,\ldots,z_K$), (with K classes) we can obtain the probabilities using softmax:
+The model assigns a logit to each option. For logits ($z_1,\ldots,z_K$), (with K classes) we can obtain the probabilities using softmax:
 
 $$
 p_i=\frac{\exp(z_i/T)}{\sum_{j=1}^{K}\exp(z_j/T)}
@@ -310,7 +310,7 @@ where ($p_{\max}$) is the largest predicted probability.
 
 The intuition is straightforward:
 
-* A uniform distribution has confidence 0. ($p_{\max} = \frac{1}{K}$)
+* A uniform distribution has confidence 0. ($p_{\max} = \frac{1}{K}$). This means the model estimates that all choices are equally likely.
 * A distribution concentrated entirely on one option has confidence 1. ($p_{\max} = 1$)
 * The larger the winning probability relative to a uniform distribution, the higher the confidence.
 
@@ -497,14 +497,14 @@ For example, we can launch a GGUF decision model from the Hub:
 llama serve -hf ggml-org/Kev-4B-GGUF
 ```
 
-The default server runs on port 8080.
+The default server runs on port 9931.
 
-We can then send a request containing the same state and questions, using `http://localhost:8080/v1/systemone`. With the model selected by the server, we can omit the `model` field from the request.
+We can then send a request containing the same state and questions, using `http://localhost:9931/v1/systemone`. With the model selected by the server, we can omit the `model` field from the request.
 
 The useful property is interface compatibility.
 
 ```python
-curl http://localhost:8080/v1/systemone \
+curl http://localhost:9931/v1/systemone \
   -H "Content-Type: application/json" \
   -d '{
     "model": "ggml-org/Kev-4B-GGUF",
