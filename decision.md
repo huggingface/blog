@@ -1,11 +1,14 @@
 ---
-title: "Decision Models in the Hugging Face Ecosystem"
+title: "Decision Models in Hugging Face"
 thumbnail: /blog/assets/decision/thumbnail.png
 authors:
   - user: ariG23498
+  - user: lysandre
+  - user: pcuenq
+  - user: tomaarsen
 ---
 
-# Decision Models in the Hugging Face Ecosystem
+# Decision Models in Hugging Face
 
 Large Language Models (LLMs) are exceptionally good at generating text. We use them to answer questions, write code, reason about problems, and so much more. *But not every problem requires generating text.*
 
@@ -35,6 +38,42 @@ llama cli -hf ggml-org/gemma-4-e4b-it-GGUF:Q4_0
 
 But what if the model could directly evaluate the available options and return a probability distribution over them, *without generating any text*?
 
+```python
+from transformers import pipeline
+
+decide = pipeline("decision", model="autotrust/GEV-26B-Decide")
+decision = decide(
+    {
+        "state": "I was charged twice for my order and want a refund.",
+        "questions": {
+            "department": {
+                "type": "choice",
+                "instructions": "Which team should handle this?",
+                "criteria": {
+                    "billing": "Payments and refunds",
+                    "technical": "Bugs and technical issues",
+                    "sales": "Pricing and subscriptions"
+                }
+            },
+        }
+    }
+)
+
+# {
+#   'department': {
+#       'type': 'choice',
+#       'choice': 'billing',
+#       'confidence': 0.9974000453948975,
+#       'probabilities': {
+#         'billing': 0.9982666969299316,
+#         'technical': 0.0010246571619063616,
+#         'sales': 0.0007087149424478412
+#       }
+#     }
+# }
+
+```
+
 This is the key idea behind **decision models**.
 
 ## What are decision models?
@@ -45,7 +84,7 @@ A decision model takes some input context (state), evaluates a question with a s
 
 [TypeSafe AI introduced Jev](https://typesafe.ai/blog/introducing-system-one-models-and-jev), describing it as a [*System One model*](https://en.wikipedia.org/wiki/Thinking,_Fast_and_Slow). The name draws inspiration from the distinction between fast, intuitive thinking (System 1) and slower, deliberative thinking (System 2).
 
-> We prefer the term **decision model**, because it describes the model's computational role rather than invoking a particular theory of cognition. ([A poll on twitter deciding what we should be calling such models](https://x.com/ariG23498/status/2113220513158009022))
+> The community has converged to the term **decision model**, because it describes the model's computational role rather than invoking a particular theory of cognition. In the rest of the post we will refer to the models as "decision models" instead of "system one models". ([A poll on twitter deciding what we should be calling such models](https://x.com/ariG23498/status/2113220513158009022))
 
 For a decision model, the fundamental interface is:
 
@@ -60,12 +99,12 @@ We could simply prompt an LLM to return a JSON object containing our decisions. 
 However, there are a few problems with this approach.
 
 * LLMs are not guaranteed to follow the requested schema: Even with explicit instructions, a model might produce invalid JSON, introduce unexpected keys, or return an answer outside the allowed choices.
-* Constrained decoding helps, but does not eliminate the computational overhead: Libraries such as [Outlines](https://github.com/dottxt-ai/outlines) and [XGrammar](https://github.com/mlc-ai/xgrammar) can enforce grammars or JSON schemas by restricting which tokens the model is allowed to generate at each step. This ensures the output follows the supported structural constraints, but introduces additional work for grammar compilation.
+* Constrained decoding helps, but does not eliminate the computational overhead: Libraries such as [Outlines](https://github.com/dottxt-ai/outlines) and [XGrammar](https://github.com/mlc-ai/xgrammar) can enforce grammars or JSON schemas by restricting which tokens the model is allowed to generate at each step. This ensures the output follows the supported structural constraints, but introduces additional work.
 * Why generate an entire response: LLMs are designed for open-ended generation, but when our application only needs to choose between predefined answers, autoregressive decoding can be unnecessary work.
 
 ## How are decision models different from classification models?
 
-Before understanding the interface of a decision model, it is useful to revisit two closely related approaches: traditional classification and zero-shot classification.
+Before understanding the interface of a decision model, it is useful to revisit two closely related approaches namely traditional classification and zero-shot classification.
 
 ### Traditional classification
 
@@ -134,7 +173,7 @@ This already sounds quite similar to a decision model. And in many ways, it is.
 
 ### Where decision models differ
 
-Decision models extend this idea beyond simply assigning an input to a category. A decision model can accept several named questions about the same state, with different answer types. The types can be choosing between alternatives (choice), scoring an ordered scale (score), or assessing whether a statement is true (noul).
+Decision models extend this idea beyond simply assigning an input to a category. A decision model can accept several named questions about the same state, with different answer types. The types can be choosing between alternatives (choice), scoring an ordered scale (score), or estimating the probability that a statement is true (noul).
 
 More importantly, its interface is designed around the **probability distribution over possible decisions**.
 
@@ -149,9 +188,12 @@ Consider these three approaches:
 
 The advantage of decision models is not that they invented runtime-defined labels or probabilistic classification. It is that they organize these capabilities into a consistent interface, potentially backed by architectures and training procedures optimized specifically for decisions.
 
-## The decision-model interface
+## The decision model interface
 
-A decision-model request has two important components: **state** and **questions**.
+A decision model request has the following two components:
+
+1. state
+2. questions
 
 ### State
 
@@ -167,10 +209,6 @@ For example:
 }
 ```
 
-A useful analogy is to think of state as the shared context supplied to the model, somewhat like system message (shared context) in an LLM conversation.
-
-However, state is not literally equivalent to a system message. It is primarily the task data being evaluated. The questions and their instructions define what the model should do with that data.
-
 ### Questions and their primitives
 
 Questions describe what we want to know about the state. In the decision models interface, three fundamental primitives represent different forms of decisions:
@@ -179,9 +217,9 @@ Questions describe what we want to know about the state. In the decision models 
 2. **Score:** Evaluate something on an ordered scale.
 3. **Noul:** Answer a yes/no question probabilistically.
 
-Let's understand them using probability theory.
+Let's understand them one by one.
 
-## Choice: A probability distribution over options
+#### Choice: A probability distribution over options
 
 Choice is the most intuitive primitive and the closest to traditional classification.
 
@@ -191,22 +229,56 @@ Suppose we ask:
 
 The available options are Billing, Technical support, and Sales.
 
+```python
+from transformers import pipeline
+
+decide = pipeline("decision", model="autotrust/GEV-26B-Decide")
+decision = decide(
+    {
+        "state": "I was charged twice for my order and want a refund.",
+        "questions": {
+            "department": {
+                "type": "choice",
+                "instructions": "Which team should handle this?",
+                "criteria": {
+                    "billing": "Payments and refunds",
+                    "technical": "Bugs and technical issues",
+                    "sales": "Pricing and subscriptions"
+                }
+            },
+        }
+    }
+)
+
+# {
+#   'department': {
+#     'type': 'choice',
+#     'choice': 'billing',
+#     'confidence': 0.9974000453948975,
+#     'probabilities': {
+#       'billing': 0.9982666969299316,
+#       'technical': 0.0010246571619063616,
+#       'sales': 0.0007087149424478412
+#     }
+#   }
+# }
+```
+
 The model assigns a logit to each option. For logits ($z_1,\ldots,z_K$), (with K classes) we can obtain the probabilities using softmax:
 
 $$
-p_i=\frac{\exp(z_i/T)}{\sum_{j=1}^{K}\exp(z_j/T)}
-
+p_i=\frac{\exp(z_i/T)}{\sum_{j=1}^{K}\exp(z_j)}
 $$
 
-Here, (K) is the number of choices and (T) is a temperature parameter. For (T=1), this reduces to the usual softmax.
+Here, (K) is the number of choices.
 
 Consider this illustrative distribution:
 
 | Choice | Probability |
 | --- | --- |
-| Billing | 0.80 |
-| Technical support | 0.15 |
-| Sales | 0.05 |
+| Billing | 0.99 |
+| Technical support | 0.00 |
+| Sales | 0.00 |
 
 The probabilities sum to one:
 
@@ -220,9 +292,9 @@ $$
 \hat y=\arg\max_i p_i
 $$
 
-In this case, the answer is Billing. But the remaining probabilities are useful too. They tell us how the model distributes its belief among the alternatives. 
+In this case, the choice is Billing, with the probability of 0.99. But the remaining probabilities are useful too. They tell us how the model distributes its belief among the alternatives.
 
-## Score: The expectation of an ordered distribution
+#### Score: The expectation of an ordered distribution
 
 Choice works when there are several distinct alternatives. But what if we want to measure something on an ordered scale?
 
@@ -236,13 +308,49 @@ We define three levels:
 * 1: Medium urgency
 * 2: High urgency
 
+```python
+from transformers import pipeline
+
+decide = pipeline("decision", model="autotrust/GEV-26B-Decide")
+decision = decide(
+    {
+        "state": "I was charged twice for my order and want a refund.",
+        "questions": {
+            "urgency": {
+                "type": "score",
+                "instructions": "How urgent is the request?",
+                "criteria": ["low", "medium", "high"]
+            },
+        }
+    }
+)
+
+# {
+#   'urgency': {
+#     'type': 'score',
+#     'score': 1.7053890228271484,
+#     'legend': {
+#       '0': 'low',
+#       '1': 'medium',
+#       '2': 'high'
+#     },
+#     'confidence': 0.5580834252759814,
+#     'probabilities': {
+#       '0': 0.014908230863511562,
+#       '1': 0.26479458808898926,
+#       '2': 0.7202972173690796
+#     }
+#   }
+# }
+```
+
 The model again produces a probability distribution:
 
 | Level | Probability |
 | :--: | :--: |
 | 0 — Low | 0.10 |
-| 1 — Medium | 0.30 |
-| 2 — High | 0.60 |
+| 1 — Medium | 0.26 |
+| 2 — High | 0.72 |
 
 Rather than returning only the most likely level, the Score primitive computes the **expected value of the level index**.
 
@@ -255,20 +363,44 @@ $$
 For our example:
 
 $$
-\mathbb{E}[X] = 0(0.10)+1(0.30)+2(0.60)=1.50
+\mathbb{E}[X] = 0(0.10)+1(0.26)+2(0.72)=1.7
 $$
 
-The reported score is therefore `1.5`.
+The reported score is therefore `1.7`.
 
-This does not mean that the model selected a fictional level halfway between medium and high. It means that the expectation of its probability distribution is 1.5.
+This does not mean that the model selected a fictional level halfway between medium and high. It means that the expectation of its probability distribution is 1.7.
 
-## Noul: A Bernoulli decision
+#### Noul: A Bernoulli decision
 
 The third primitive is Noul, which represents a binary question.
 
 For example:
 
 > Is the customer requesting a refund?
+
+```python
+from transformers import pipeline
+
+decide = pipeline("decision", model="autotrust/GEV-26B-Decide")
+decision = decide(
+    {
+        "state": "I was charged twice for my order and want a refund.",
+        "questions": {
+            "refund": {
+                "type": "noul",
+                "instructions": "Is the customer requesting a refund?"
+            }
+        }
+    }
+)
+
+# {
+#   'refund': {
+#     'type': 'noul',
+#     'noul': 0.9947046637535095
+#   }
+# }
+```
 
 Rather than defining a list of choices, we ask the model to return the probability that the answer is true. We can understand this using the Bernoulli distribution (noul comes from Bernoulli).
 
@@ -294,7 +426,7 @@ it assigns a probability of `0.92` to Yes and `0.08` to No.
 
 The model is not randomly sampling a binary answer here. It returns the probability parameter itself, leaving the application to decide how to act on it.
 
-## Confidence: How certain is the model?
+#### Confidence: How certain is the model?
 
 So far, we have obtained probability distributions from the model. But the decision model interface also returns a field called `confidence` for Choice and Score.
 
@@ -308,7 +440,7 @@ $$
 
 where ($p_{\max}$) is the largest predicted probability.
 
-The intuition is straightforward:
+The intuition here is:
 
 * A uniform distribution has confidence 0. ($p_{\max} = \frac{1}{K}$). This means the model estimates that all choices are equally likely.
 * A distribution concentrated entirely on one option has confidence 1. ($p_{\max} = 1$)
@@ -317,18 +449,39 @@ The intuition is straightforward:
 In our previous three-choice example, Billing had probability 0.80:
 
 $$
-C=\frac{3(0.80)-1}{2}=0.70
+C=\frac{3(0.99)-1}{2}=0.98
 $$
 
-Notice that the winning probability is 0.80, but the reported confidence is 0.70. The confidence normalizes the largest probability relative to the number of available options.
+Notice that the winning probability is 0.99, but the reported confidence is 0.98. The confidence normalizes the largest probability relative to the number of available options.
 
 ## Decision models in the Hugging Face ecosystem
 
-The interesting development is that decision models are becoming accessible through the same ecosystem used to distribute, serve, and train language models.
+To support this new kind of model development, we at Hugging Face have introduced multiple solutions. Our goal here is to make decision models accessible through the same ecosystem used to distribute, serve, and train language models.
 
 ### 1. Serving with Transformers
 
-[Transformers supports the `/v1/systemone` endpoint](https://huggingface.co/docs/transformers/main/en/serve-cli/serving#v1systemone).
+Transformers now supports the `DecisionPipeline`, `AutoModelForDecision`, and the `DecisionConfig` classes. These follow the same overall structure of the pipeline and model classes in `transformers` but are tailor made for decision models.
+
+```python
+from transformers import pipeline
+
+decide = pipeline("decision", model="autotrust/GEV-26B-Decide")
+print(decide)
+
+# DecisionPipeline: {'model': 'JevForDecision', 'dtype': 'bfloat16', 'device': 'cuda', 'input_modalities': 'text'}
+```
+
+One can also inspect the configuration and the model like so:
+
+```python
+from transformers import AutoModelForDecision, DecisionConfig
+
+model_id = "autotrust/GEV-26B-Decide"
+config = DecisionConfig.from_pretrained(model_id)
+model = AutoModelForDecision.from_pretrained(model_id)
+```
+
+[Transformers also supports the `/v1/systemone` endpoint](https://huggingface.co/docs/transformers/main/en/serve-cli/serving#v1systemone).
 
 We can start a local server using the serving dependencies:
 
@@ -343,7 +496,7 @@ Using a compatible version of Transformers, we can then send a decision request:
 curl http://localhost:8000/v1/systemone \
   -H "Content-Type: application/json" \
   -d '{
-    "model": "Qwen/Qwen2.5-1.5B-Instruct",
+    "model": "autotrust/GEV-26B-Decide",
     "state": "I was charged twice. Please refund me today.",
     "questions": {
       "department": {
@@ -372,120 +525,40 @@ The response contains three named answers with the corresponding typed results a
 
 ```bash
 {
-  "model": "Qwen/Qwen2.5-1.5B-Instruct",
-  "answers": {
-    "department": {
-      "type": "choice",
-      "choice": "billing",
-      "probabilities": {
-        "billing": 0.9999295473098755,
-        "technical": 0.00005144123861100525,
-        "sales": 0.000018924172763945535
-      },
-      "confidence": 0.9998943209648132
-    },
-    "urgency": {
-      "type": "score",
-      "score": 1.8186043351888657,
-      "legend": {
-        "0": "low",
-        "1": "medium",
-        "2": "high"
-      },
-      "probabilities": {
-        "0": 0.009196032769978046,
-        "1": 0.16300354897975922,
-        "2": 0.8278003931045532
-      },
-      "confidence": 0.727906578220427
-    },
-    "refund": {
-      "type": "noul",
-      "noul": 0.9241418242454529
-    }
-  },
-  "usage": {
-    "input_tokens": 213,
-    "output_tokens": 0
-  }
-}
-```
-
-One particularly interesting detail is that this works with compatible autoregressive language models. Transformers constructs the decision prompts, evaluates the answer-label logits in a batched forward pass, and applies softmax without generating response text.
-
-This means we can experiment with the decision interface **without** necessarily training a new model.
-
-There is an important difference, however, between exposing an LLM through a decision-scoring interface and loading a specialized decision model with its own architecture and scoring head. Transformers' generic next-token-scoring implementation is not automatically equivalent to the native inference path of every specialized model.
-
-```python
-curl http://localhost:8000/v1/systemone \
-  -H "Content-Type: application/json" \
-  -d '{
-    "model": "Cloudflare/clef",
-    "state": "I was charged twice. Please refund me today.",
-    "questions": {
-      "department": {
-        "type": "choice",
-        "instructions": "Which team should handle this?",
-        "criteria": {
-          "billing": "Payments and refunds",
-          "technical": "Bugs and technical issues",
-          "sales": "Pricing and subscriptions"
+  "model":"autotrust/GEV-26B-Decide",
+  "answers":{
+    "department":{
+      "type":"choice",
+      "choice":"billing",
+      "confidence":0.9974000453948975,
+      "probabilities":{
+        "billing":0.9982666969299316,
+        "technical":0.0010246571619063616,
+        "sales":0.0007087149424478412
         }
-      },
-      "urgency": {
-        "type": "score",
-        "instructions": "How urgent is the request?",
-        "criteria": ["low", "medium", "high"]
-      },
-      "refund": {
-        "type": "noul",
-        "instructions": "Is the customer requesting a refund?"
+    },
+    "urgency":{
+      "type":"score",
+      "score":1.7525686174631119,
+      "legend":{"0":"low","1":"medium","2":"high"},
+      "confidence":0.6288529792800546,
+      "probabilities":{
+        "0":0.014000383205711842,
+        "1":0.2194305807352066,
+        "2":0.7665690183639526
       }
-    }
-  }'
-```
-
-```bash
-{
-  "model": "Cloudflare/clef",
-  "answers": {
-    "department": {
-      "type": "choice",
-      "choice": "billing",
-      "probabilities": {
-        "billing": 1,
-        "technical": 2.689087431021033e-20,
-        "sales": 4.974311602001936e-21
-      },
-      "confidence": 1
     },
-    "urgency": {
-      "type": "score",
-      "score": 2.0000000000000044,
-      "legend": {
-        "0": "low",
-        "1": "medium",
-        "2": "high"
-      },
-      "probabilities": {
-        "0": 2.497478712930836e-18,
-        "1": 4.3766183914300226e-15,
-        "2": 1
-      },
-      "confidence": 0.9999999999999934
-    },
-    "refund": {
-      "type": "noul",
-      "noul": 1
+    "refund":{
+      "type":"noul",
+      "noul":0.9953224062919617
     }
   },
-  "usage": {
-    "input_tokens": 168,
-    "output_tokens": 0
-  }
+  "usage":{"input_tokens":148,"output_tokens":0}
 }
 ```
+
+> [!NOTE]
+> An interesting detail is that the above APIs works with compatible autoregressive language models too. Transformers constructs the decision prompts, evaluates the answer-label logits in a batched forward pass, and applies softmax without generating response text. This means we can experiment with the decision interface **without** necessarily training a new model. There is an important difference, however, between exposing an LLM through a decision-scoring interface and loading a specialized decision model with its own architecture and scoring head. Transformers' generic next token scoring implementation is not automatically equivalent to the native inference path of every specialized model.
 
 ### 2. Serving with llama.cpp
 
@@ -532,10 +605,6 @@ curl http://localhost:9931/v1/systemone \
   }'
 ```
 
-We can experiment with different models or backends while retaining the same decision schema.
-
-Of course, interface compatibility does not imply identical answers, calibration, or performance. These depend on the model and its inference implementation.
-
 ### 3. Discovering models on the Hugging Face Hub
 
 Hugging Face introduced a dedicated [`decision-model` tag](https://huggingface.co/models?other=decision-model&sort=trending) for discovering compatible models. This is useful because decision models do not have to share a single backbone or architecture.
@@ -550,9 +619,9 @@ Once we understand inference, the next question is whether we can train a model 
 
 A decision-model training dataset can contain three fields:
 
-- `state`: The input context.
-- `questions`: The questions and allowed answers.
-- `gold`: The correct answers for the training example.
+* `state`: The input context.
+* `questions`: The questions and allowed answers.
+* `gold`: The correct answers for the training example.
 
 A minimal example might look like this:
 
@@ -592,11 +661,11 @@ dataset = load_dataset(
 )
 ```
 
-This gives us a starting point for working with examples in the decision-model format.
+This gives us a starting point for working with examples in the decision model format.
 
 Unsloth's recipe uses parameter-efficient training with LoRA and a decision-scoring head. It handles the training procedure and provides a way to evaluate predictions on held-out examples.
 
-We also provide a training [example](https://github.com/huggingface/trl/pull/7784) inside our TRL repository. At the time of writing, it is still open and being worked on.
+We also provide a training [example](https://github.com/huggingface/trl/pull/8040/) inside our TRL repository. At the time of writing, it is still open and being worked on.
 
 ## Final thoughts
 

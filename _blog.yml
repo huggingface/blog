@@ -5947,3 +5947,11 @@
     - agents
     - rl
     - partnerships
+
+- local: decision
+  date: November 10, 2026
+  tags:
+    - decision
+    - jev
+    - system one
+    - open source
