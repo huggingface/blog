@@ -155,7 +155,7 @@ For Hugging Face Jobs, we pass the following arguments:
 | `-d` | Detach: print the job ID and URL, then return. To follow the job, run `hf jobs logs -f <id>` |
 | `--flavor a100-large` | The hardware. We use a100-large (80 GB). To see all options, run hf jobs hardware |
 | `--timeout 6h` | The job stops after this time. Both commands resume. Preprocessing skips finished objects. Training continues from the newest checkpoint in --push-to |
-| `--secrets HF\_TOKEN` | Send your token (from HF\_TOKEN or hf auth login) to the job as an encrypted environment variable. The token is not written into the image |
+| `--secrets HF_TOKEN` | Send your token (from HF_TOKEN or hf auth login) to the job as an encrypted environment variable. The token is not written into the image |
 | `cr.hf.co/...:latest` | The image to run. All text after it is the command that runs in the container |
 
 This container accepts a few more arguments (regardless of being run on Hugging Face Jobs or with Docker), that you can [find documented over here](https://github.com/suvadityamuk/trellis2-finetuning#1-preprocess-trellis2-prep). The steps taken in the preprocessing pipeline are documented in [this section](#preprocessing-into-latents) later.
@@ -294,7 +294,7 @@ Our trained LoRA adapters are in this repository: [suvadityamuk/trellis-2-finetu
 ![Preprocessing](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/3d-lora-finetuning/preprocessing.png)
 We use TRELLIS.2’s frozen encoders to convert the input meshes into training latents. We save these latents, so later runs do not have to encode the meshes again. 
 
-We also render 16 views of each object in Blender. During training, we select one random view for each sample as the conditioning image. We keep 9 of the 188 objects for evaluation and train on the other 179\. These held-out objects show whether the adapters work on objects unseen by the model during training.
+We also render 16 views of each object in Blender. During training, we select one random view for each sample as the conditioning image. We keep 9 of the 188 objects for evaluation and train on the other 179. These held-out objects show whether the adapters work on objects unseen by the model during training.
 
 ![Conditioning](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/3d-lora-finetuning/conditioning_views.png)
 > *Some of the views that Blender rendered for one object*
