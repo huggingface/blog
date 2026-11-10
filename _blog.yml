@@ -5971,3 +5971,12 @@
     - jev
     - system one
     - open source
+
+- local: hub-gcp-marketplace
+  date: November 10, 2026
+  tags:
+    - guide
+    - partnerships
+    - gcp
+    - hub
+    - marketplace
