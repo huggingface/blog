@@ -161,10 +161,7 @@ classifier(
 
 # {'sequence': 'My payment was deducted twice.',
 #  'labels': ['billing', 'sales', 'technical support', 'legal'],
-#  'scores': [0.8185835480690002,
-#   0.09302053600549698,
-#   0.05521026626229286,
-#   0.03318570926785469]}
+#  'scores': [0.8185835480690002, 0.09302053600549698, 0.05521026626229286, 0.03318570926785469]}
 ```
 
 One common implementation uses a model trained for natural language inference (NLI). Each candidate label is converted into a hypothesis, and the model measures how strongly the input entails that hypothesis.
@@ -217,7 +214,7 @@ Questions describe what we want to know about the state. In the decision models 
 2. **Score:** Evaluate something on an ordered scale.
 3. **Noul:** Answer a yes/no question probabilistically.
 
-Let's understand them one by one.
+Let's go over them one by one.
 
 #### Choice: A probability distribution over options
 
@@ -276,9 +273,9 @@ Consider this illustrative distribution:
 
 | Choice | Probability |
 | --- | --- |
-| Billing | 0.99 |
-| Technical support | 0.00 |
-| Sales | 0.00 |
+| Billing | 0.998 |
+| Technical support | 0.001 |
+| Sales | 0.001 |
 
 The probabilities sum to one:
 
@@ -292,7 +289,7 @@ $$
 \hat y=\arg\max_i p_i
 $$
 
-In this case, the choice is Billing, with the probability of 0.99. But the remaining probabilities are useful too. They tell us how the model distributes its belief among the alternatives.
+In this case, the choice is Billing, with the probability of 0.998, but the remaining probabilities are useful too. They tell us how the model distributes its belief among the alternatives.
 
 #### Score: The expectation of an ordered distribution
 
@@ -452,7 +449,7 @@ $$
 C=\frac{3(0.99)-1}{2}=0.98
 $$
 
-Notice that the winning probability is 0.99, but the reported confidence is 0.98. The confidence normalizes the largest probability relative to the number of available options.
+Notice that the winning probability is 0.99, but the reported confidence is 0.98. The confidence normalizes the largest probability relative to the number of available options. In contrast, the ordered Score example only had a confidence of 0.558.
 
 ## Decision models in the Hugging Face ecosystem
 
