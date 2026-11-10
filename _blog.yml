@@ -5932,8 +5932,48 @@
     - research
     - community
 
+- local: transformers-mic
+  date: November 3, 2026
+  tags:
+    - transformers
+    - guide
+
+- local: cwe-bench
+  date: November 3, 2026
+  tags:
+    - security
+    - evaluation
+    - benchmark
+    - agents
+    - rl
+    - partnerships
+
+- local: phonon-tts
+  date: November 5, 2026
+  tags:
+  - audio
+  - speech
+  - leaderboard
+
+- local: open-asr-leaderboard-liva
+  date: November 6, 2026
+  tags:
+    - audio
+    - speech
+    - leaderboard
+    - datasets
+    - evaluation
+
+- local: decision
+  date: November 10, 2026
+  tags:
+    - decision
+    - jev
+    - system one
+    - open source
+
 - local: hub-gcp-marketplace
-  date: October 30, 2026
+  date: November 10, 2026
   tags:
     - guide
     - partnerships

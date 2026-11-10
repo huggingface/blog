@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="850" viewBox="0 0 1200 850" role="img" aria-labelledby="title desc">
+<title id="title">The scale of Transformers testing</title>
+<desc id="desc">The main run reported 88,608 CPU test cases in pytest summaries. The daily GPU model suite reported 201,439 cases across single-GPU and multi-GPU configurations. Hardware includes CPUs, NVIDIA GPUs, AMD GPUs, Intel XPUs and Intel Gaudi 3. Pull requests run selected tests. Daily scheduled runs provide broader coverage. A regression can reach main before a scheduled run finds it.</desc>
+<defs>
+ <pattern id="dots" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="2" fill="#dde3ed"/></pattern>
+ <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0L8 4L0 8" fill="none" stroke="#94a3b8" stroke-width="1.5"/></marker>
+ <g id="chip" fill="none" stroke="currentColor" stroke-width="2"><rect x="0" y="0" width="30" height="30" rx="5"/><rect x="8" y="8" width="14" height="14" rx="2"/><path d="M7-5V0M15-5V0M23-5V0M7 30V35M15 30V35M23 30V35M-5 7H0M-5 15H0M-5 23H0M30 7H35M30 15H35M30 23H35"/></g>
+</defs>
+<rect width="1200" height="850" rx="24" fill="#f6f8fc"/>
+<g font-family="Arial, Helvetica, sans-serif" fill="#17233b">
+ <text x="48" y="54" font-size="19" font-weight="700" letter-spacing="2">TRANSFORMERS / TESTING AT SCALE</text>
+ <rect x="48" y="81" width="540" height="218" rx="18" fill="white" stroke="#e0e6ef"/>
+ <rect x="48" y="81" width="8" height="218" rx="4" fill="#ffcc4d"/>
+ <text x="78" y="163" font-size="68" font-weight="700" letter-spacing="-3">88,000+</text>
+ <text x="80" y="207" font-size="27" font-weight="700">CPU test cases on main</text>
+ <text x="80" y="253" font-size="18" fill="#52627a">Main push run</text>
+ <rect x="612" y="81" width="540" height="218" rx="18" fill="white" stroke="#e0e6ef"/>
+ <rect x="612" y="81" width="8" height="218" rx="4" fill="#88a9e2"/>
+ <text x="642" y="163" font-size="68" font-weight="700" letter-spacing="-3">200,000+</text>
+ <text x="644" y="207" font-size="27" font-weight="700">GPU model tests daily</text>
+ <text x="644" y="253" font-size="18" fill="#52627a">Single-GPU + multi-GPU configurations</text>
+ <text x="48" y="344" font-size="17" font-weight="700" letter-spacing="1.5">ACROSS HARDWARE FAMILIES</text>
+<rect x="48" y="367" width="208" height="129" rx="14" fill="white" stroke="#dce3ed"/>
+ <use href="#chip" x="68" y="384" color="#536b94"/>
+ <text x="68" y="449" font-size="23" font-weight="700">CPUs</text>
+ <text x="68" y="478" font-size="17" fill="#52627a">PRs + main</text>
+<rect x="272" y="367" width="208" height="129" rx="14" fill="white" stroke="#dce3ed"/>
+ <use href="#chip" x="292" y="384" color="#536b94"/>
+ <text x="292" y="449" font-size="23" font-weight="700">NVIDIA GPUs</text>
+ <text x="292" y="478" font-size="17" fill="#52627a">CUDA</text>
+<rect x="496" y="367" width="208" height="129" rx="14" fill="white" stroke="#dce3ed"/>
+ <use href="#chip" x="516" y="384" color="#536b94"/>
+ <text x="516" y="449" font-size="23" font-weight="700">AMD GPUs</text>
+ <text x="516" y="478" font-size="17" fill="#52627a">ROCm · incl. MI300</text>
+<rect x="720" y="367" width="208" height="129" rx="14" fill="white" stroke="#dce3ed"/>
+ <use href="#chip" x="740" y="384" color="#536b94"/>
+ <text x="740" y="449" font-size="23" font-weight="700">Intel XPUs</text>
+ <text x="740" y="478" font-size="17" fill="#52627a">Intel GPUs</text>
+<rect x="944" y="367" width="208" height="129" rx="14" fill="white" stroke="#dce3ed"/>
+ <use href="#chip" x="964" y="384" color="#536b94"/>
+ <text x="964" y="449" font-size="23" font-weight="700">Intel Gaudi 3</text>
+ <text x="964" y="478" font-size="17" fill="#52627a">HPUs</text>
+ <path d="M600 550V572M322 572H878M322 572V593M878 572V593" fill="none" stroke="#94a3b8" stroke-width="2"/>
+ <rect x="48" y="593" width="540" height="150" rx="16" fill="#e8efff" stroke="#c5d5f3"/>
+ <text x="74" y="632" font-size="17" font-weight="700" fill="#365c9b" letter-spacing="1">ON PULL REQUESTS</text>
+ <text x="74" y="673" font-size="29" font-weight="700">Selected tests</text>
+ <text x="74" y="710" font-size="21">Slow tests requested separately</text>
+ <rect x="612" y="593" width="540" height="150" rx="16" fill="#eef0f6" stroke="#d6dbe7"/>
+ <text x="638" y="632" font-size="17" font-weight="700" fill="#56617d" letter-spacing="1">DAILY SCHEDULED RUNS</text>
+ <text x="638" y="673" font-size="29" font-weight="700">Broader coverage</text>
+ <text x="638" y="710" font-size="21">Across supported accelerator backends</text>
+ <rect x="48" y="767" width="1104" height="51" rx="10" fill="#fff0c4"/>
+ <text x="70" y="799" font-size="21" fill="#6e4b10">The gap: a regression can reach main before a scheduled run finds it.</text>
+</g>
+</svg>
