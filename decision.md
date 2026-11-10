@@ -456,7 +456,15 @@ Notice that the winning probability is 0.99, but the reported confidence is 0.98
 
 ## Decision models in the Hugging Face ecosystem
 
-To support this new kind of model development, we at Hugging Face have introduced multiple solutions. Our goal here is to make decision models accessible through the same ecosystem used to distribute, serve, and train language models.
+Decision models are a young and fast-moving space. Each one makes decisions differently under the hood (heads that score the whole schema jointly, separate readouts on top of LLM backbones, edge-sized and multimodal variants, etc). This variety is healthy, but it comes at a cost. If every model exposes its own interface, every tool around it needs model-specific adaptations.
+
+Our goal at Hugging Face is to agree on a common **interface** without forcing a common **implementation**. A decision model should be free to work however it likes internally, as long as it accepts the same state and questions and returns the same typed decisions. Once that contract exists, the rest of the ecosystem can build on it once:
+
+* inference engines like llama.cpp can serve any decision model through the same API
+* the Hub can package and surface them consistently
+* and training tools can target shared primitives instead of individual architectures
+
+The rest of this section walks through each of these pieces.
 
 ### 1. Serving with Transformers
 
@@ -613,59 +621,97 @@ For example, the ecosystem includes models based on encoder architectures such a
 
 ### 4. Training decision models using Hugging Face tooling
 
-Once we understand inference, the next question is whether we can train a model to make decisions on a particular domain.
+Once we understand inference, the next question is whether we can adapt a decision model. Since decision models are integrated in transformers, we can fine-tune them with the `Trainer` API.
 
-[Unsloth provides a training recipe](https://unsloth.ai/docs/basics/train-your-own-decision-model-with-unsloth) that fine-tunes language models such as Qwen into decision models. This training pipeline also demonstrates how reusable components from the Hugging Face ecosystem fit together.
+Below is a toy example that fine-tunes `JEV-9B` to route support requests. It is intentionally small, but it shows the parts that matter:
 
-A decision-model training dataset can contain three fields:
-
-* `state`: The input context.
-* `questions`: The questions and allowed answers.
-* `gold`: The correct answers for the training example.
-
-A minimal example might look like this:
-
-```json
-example = {
-    "state": "I was charged twice. Please refund me.",
-    "questions": {
-        "department": {
-            "type": "choice",
-            "instructions": "Which team should handle this?",
-            "criteria": {
-                "billing": "Payments and refunds",
-                "technical": "Bugs and errors",
-            },
-        },
-        "refund": {
-            "type": "noul",
-            "instructions": "Is a refund being requested?",
-        },
-    },
-    "gold": {
-        "department": "billing",
-        "refund": True,
-    },
-}
-```
-
-We can obtain existing datasets from the Hugging Face Hub using `datasets`:
+* each example is a decision request (a `state` plus `questions`) paired with the gold answer.
+* `model.decision_config.prepare_inputs` turns the request into model inputs, the same way it does at inference time.
+* the model returns one logit per option, so a `choice` question is trained with a plain cross-entropy loss over the options.
 
 ```python
-from datasets import load_dataset
+import torch
+import torch.nn.functional as F
+from transformers import AutoTokenizer, JevForDecision, Trainer, TrainingArguments
 
-dataset = load_dataset(
-    "LocalLLaMA/typed-decisions",
-    "all",
-    split="train",
+checkpoint = "autotrust/JEV-9B"
+tokenizer = AutoTokenizer.from_pretrained(checkpoint)
+model = JevForDecision.from_pretrained(checkpoint, dtype="auto")
+
+examples = [
+    ("I was charged twice. Please refund me.", "refund"),
+    ("My package has not arrived.", "shipping"),
+    ("The application crashes when I open it.", "technical"),
+    ("I want my money back.", "refund"),
+    ("Where is my delivery?", "shipping"),
+    ("I cannot log into my account.", "technical"),
+]
+
+options = {
+    "refund": "Billing issues and refunds",
+    "shipping": "Orders and deliveries",
+    "technical": "Software and account issues",
+}
+
+def preprocess(text, label):
+    request = {
+        "state": text,
+        "questions": {
+            "category": {
+                "type": "choice",
+                "instructions": "Classify the support request.",
+                "criteria": options,
+            }
+        },
+    }
+    (inputs, questions), = model.decision_config.prepare_inputs(
+        request, tokenizer
+    )
+    inputs["marks"] = inputs["marks"].unsqueeze(0)
+    inputs["num_options"] = torch.tensor([[len(questions[0].options)]])
+    inputs["question_type_ids"] = torch.tensor([[1]])  # choice
+    inputs["labels"] = torch.tensor(
+        [questions[0].options.index(label)]
+    )
+    return inputs
+
+dataset = [preprocess(text, label) for text, label in examples]
+
+
+class DecisionTrainer(Trainer):
+    def compute_loss(self, model, inputs, return_outputs=False, **kwargs):
+        inputs = inputs.copy()
+        labels = inputs.pop("labels")
+        logits = model(**inputs)
+
+        logits = logits.unsqueeze(0)  # [3] -> [1, 3]
+        loss = F.cross_entropy(logits.float(), labels)
+
+        return (loss, logits) if return_outputs else loss
+
+
+trainer = DecisionTrainer(
+    model=model,
+    args=TrainingArguments(
+        output_dir="./decision-toy",
+        max_steps=30,
+        per_device_train_batch_size=1,
+        learning_rate=1e-3,
+        logging_steps=5,
+        save_strategy="no",
+        report_to="none",
+        remove_unused_columns=False,
+    ),
+    train_dataset=dataset,
+    data_collator=lambda batch: batch[0],
 )
+
+trainer.train()
 ```
 
-This gives us a starting point for working with examples in the decision model format.
+First-class support for training decision models is also coming to TRL ([huggingface/trl#8040](https://github.com/huggingface/trl/pull/8040)), so we won't have to write this plumbing by hand. At the time of writing, the PR is still open.
 
-Unsloth's recipe uses parameter-efficient training with LoRA and a decision-scoring head. It handles the training procedure and provides a way to evaluate predictions on held-out examples.
-
-We also provide a training [example](https://github.com/huggingface/trl/pull/8040/) inside our TRL repository. At the time of writing, it is still open and being worked on.
+If we want to go further and turn a generative LLM into a decision model, [Unsloth provides a recipe](https://unsloth.ai/docs/basics/train-your-own-decision-model-with-unsloth) that fine-tunes models such as Qwen with LoRA and a decision-scoring head.
 
 ## Final thoughts
 
