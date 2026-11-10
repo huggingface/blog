@@ -133,8 +133,8 @@ Original (5×5):         Extended (6×6):
 
 ```
 
-- **■** = Already computed and reused
-- **□** = Recomputed unnecessarily
+- **■** = Recomputed unnecessarily
+- **□** = Computed for the current turn
 
 Most of the attention computation is repeated needlessly. This gets more expensive as sequences grow.
 
@@ -269,3 +269,5 @@ for i in range(max_new_tokens):
 | **Efficiency** | Reduces per-token inference to O(`seq len`) instead of quadratic |
 
 KV caching eliminates unnecessary computation during autoregressive generation, enabling faster and more efficient inference, especially in long sequences and real-time applications. This is a trade-off between speed and memory, and its drawbacks can be more complex code and restricting fancier inference schemes, like beam-search, etc. KV caching is a popular method for speeding up LLM inference, making it possible to run them on consumer hardware, and now you know how it works too!
+
+Special thanks to [Tushar Dhar](https://huggingface.co/tushardhar2000) for their [comment](https://huggingface.co/blog/kv-cache#6af1dbd7dbc20dff9e9f328f) and helping us make the blog better.
