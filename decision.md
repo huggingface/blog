@@ -194,7 +194,7 @@ A decision model request has the following two components:
 
 ### State
 
-The state is the information the model should evaluate. It may be a string, a structured JSON object, or, for supported multimodal models, text and images.
+The state is the information the model should evaluate. It may be a string, a structured JSON object, or, other modalities for supported omni-modal models.
 
 For example:
 
@@ -563,7 +563,7 @@ The response contains three named answers with the corresponding typed results a
 ```
 
 > [!NOTE]
-> An interesting detail is that the above APIs works with compatible autoregressive language models too. Transformers constructs the decision prompts, evaluates the answer-label logits in a batched forward pass, and applies softmax without generating response text. This means we can experiment with the decision interface **without** necessarily training a new model. There is an important difference, however, between exposing an LLM through a decision-scoring interface and loading a specialized decision model with its own architecture and scoring head. Transformers' generic next token scoring implementation is not automatically equivalent to the native inference path of every specialized model.
+> An interesting detail is that the above APIs works with compatible autoregressive language models too. Transformers constructs the decision prompts, evaluates the answer label logits in a batched forward pass, and applies softmax without generating response text. This means we can experiment with the decision interface **without** necessarily training a new model.
 
 ### 2. Serving with llama.cpp
 
@@ -627,13 +627,14 @@ Below is a toy example that fine-tunes `JEV-9B` to route support requests. It is
 * the model returns one logit per option, so a `choice` question is trained with a plain cross-entropy loss over the options.
 
 ```python
+import os; os.environ["CUDA_VISIBLE_DEVICES"]="2"
 import torch
 import torch.nn.functional as F
-from transformers import AutoTokenizer, JevForDecision, Trainer, TrainingArguments
+from transformers import AutoTokenizer, AutoModelForDecision, Trainer, TrainingArguments
 
 checkpoint = "autotrust/JEV-9B"
 tokenizer = AutoTokenizer.from_pretrained(checkpoint)
-model = JevForDecision.from_pretrained(checkpoint, dtype="auto")
+model = AutoModelForDecision.from_pretrained(checkpoint)
 
 examples = [
     ("I was charged twice. Please refund me.", "refund"),
