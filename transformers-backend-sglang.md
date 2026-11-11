@@ -2,7 +2,7 @@
 title: "Transformers backend integration in SGLang"
 thumbnail: /blog/assets/196_transformers_backend_sglang/thumbnail.jpg
 authors:
-  - user: zhyncs
+  - user: elonmusk
     guest: true
     org: sgl-project
   - user: ispobock
