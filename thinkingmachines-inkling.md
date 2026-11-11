@@ -11,12 +11,11 @@ authors:
 
 # Welcome Inkling by Thinking Machines
 
-> [!TIP] Inkling now comes in smaller size 🤗 Inkling-Small is out by Thinking Machines Lab. We have updated this post with [performance](#benchmarks), and [deployment configurations](#deploying-inkling-and-inkling-small) for the Inkling-Small and the Inkling-Small-NVFP4 variants. Here’s [the collection](https://huggingface.co/collections/thinkingmachines/inkling) with all the Inkling models. We made it easier for you to deploy Inkling-Small with one-click on Inference Endpoints (getting up to 160 TPS). We also ship [a real-time voice and image demo](https://huggingface.co/spaces/HuggingFaceM4/hf-realtime-voice) where you can interact with the model.
+> [!TIP] **Update: Inkling 2 is here!** 🤗 Thinking Machines released Inkling 2 Small, the next generation of the Inkling family. We have updated this post with [a new section on Inkling 2 Small](#whats-new-in-inkling-2-small), covering what changed in the architecture and how to run it with transformers. Here's [Inkling 2 Small](https://huggingface.co/thinkingmachines/Inkling-2-Small).
 
 [Inkling](https://huggingface.co/thinkingmachines/Inkling) is a large (1T params!) open model to natively accept image, text, and audio inputs.
 
-TLDR; Inkling by Thinking Machines is out on Hugging Face. Inkling is a huge multimodal LLM that understands all modalities (image, audio, text), has agentic capabilities, and supports 1M context. It comes in full BF16 and a well-calibrated NVFP4 variant, and includes speculative MTP layers for faster inference. There’s day-0 support in transformers, SGLang, vLLM, and llama.cpp. Thinking Machine Labs also released Inkling-Small with 276B total and 12B active parameters, as well as support for MXFP8 and NVFP4 weights, with the same architecture as Inkling.
-
+TLDR; Inkling by Thinking Machines is out on Hugging Face. Inkling is a huge multimodal LLM that understands all modalities (image, audio, text), has agentic capabilities, and supports 1M context. It comes in full BF16 and a well-calibrated NVFP4 variant, and includes speculative MTP layers for faster inference. There’s day-0 support in transformers, SGLang, vLLM, and llama.cpp. Thinking Machines also released Inkling-Small with 276B total and 12B active parameters, as well as support for MXFP8 and NVFP4 weights, with the same architecture as Inkling.
 
 ## What makes Inkling special?
 
@@ -49,6 +48,105 @@ Here’s a quick glance of the architecture.
 **Audio understanding:** The architecture employs a discretized mel spectrogram, where each of the audio chunks (of 100 ms) are converted to the mel scale and then classified into the exact mel spectrogram bin.
 
 The multimodal towers are relatively simple modules, unlike other models that employ separate encoders for each modality. Each image patch passes through the image embedding tower and the audio chunk is passed through the audio embedding tower to get both media embeddings. Image inputs also include an additional temporal dimension for video processing. We expect this capability to be useful for downstream fine-tuning, but we haven’t evaluated out-of-the-box video performance. The tower folds the patch grid, a small local block of neighboring tokens is stacked into the channel dimension and goes through hMLP. The audio waveform is converted to mel scale, which is then classified into a discrete mel bin. These mel bin values are embedded in the audio embedding tower and the embeddings are then summed to construct the final audio input.
+
+## What's new in Inkling 2 Small
+
+[Inkling 2](https://huggingface.co/thinkingmachines/Inkling-2-Small) is the next generation of the family. It takes text and image inputs (but no audio), and generates text. It keeps the core ideas of Inkling's decoder:
+
+1. no RoPE, position comes from learned relative attention
+2. short convolutions around attention and the MLP
+3. a 5:1 hybrid of sliding-window and global attention layers
+4. Mixture-of-Experts feed-forward layers
+
+Almost everything around that core was redesigned, though. The layers read from the residual stream differently, attention is bounded and gated, the MoE is simpler and wider, and the vision tower is now a real vision transformer.
+
+Here's how the two generations compare:
+
+| | Inkling Small | Inkling 2 Small |
+| :--: | :--: | :--: |
+| Parameters (total / active) | 276B / 12B | 594B / 17B |
+| Decoder layers × hidden size | 42 × 4096 | 48 × 4608 |
+| Input modalities | Text, image, audio | Text, image |
+| Residual stream | Standard residual connections | Block attention residuals |
+| Query / key treatment | RMS normalization | L2 clipping, plus normalized values |
+| Attention extras | – | Per-token learned sink, sigmoid output gate |
+| Sliding window | 512 | 1024 |
+| Experts | 256 routed (top-6) + 2 shared | 384 routed (top-8), no shared experts |
+| Expert activation | SwiGLU | Softcapped SwiGLU |
+| Output logits | muP width scaling | Tanh softcap at 30 |
+| Vision tower | Hierarchical MLP patchifier | Vision transformer based on the Perception Encoder |
+
+Let's go over the most notable changes together:
+
+**Block attention residuals:** In a standard transformer, every layer adds its output to a single running sum (the residual stream), and the next layer reads that sum. Inkling 2 has no single residual stream. Instead, it groups its 48 layers into 8 blocks of 6 and keeps one sum per block:
+
+- Inside a block, attention and MLP outputs are added to a running sum, as usual. This is the *partial block*.
+- At a block boundary, the partial block is stored as a finished block summary and never added to again. The next block's sum starts again from zero. The token embeddings are stored as the very first summary.
+
+A sublayer (attention or MLP) doesn't read one of these sums directly. It *attends over depth*: at each token position, it treats the finished block summaries plus the current partial block as a short sequence, and takes a softmax-weighted mix of them. The query is a single learned vector per sublayer. The keys and values are the RMS-normalized block summaries at that position. So the weights differ from token to token, depending on what each block wrote there.
+
+In other words, each sublayer learns how much to draw from each earlier stage of the network, rather than always reading the sum of everything. By the last layer, there are up to 9 sources to choose from (the embeddings, 7 finished blocks and the current partial block), and the final norm reads its input the same way. Global attention layers go one step further: they learn three queries, so their query, key and value projections can each draw on a different mix of blocks.
+
+**Attention:**
+
+- **L2 clipping instead of normalization.** Inkling normalized queries and keys per head. Inkling 2 Small instead *clips* them. Any head vector larger than a threshold (about 22.6) is scaled down to it, while smaller vectors pass through unchanged. This bounds attention logits without forcing every vector to the same magnitude.
+- **Learned, per-token attention sinks.** Each token predicts one extra "sink" logit per head. The sink joins the softmax but contributes nothing to the output, so a head can choose to attend to nothing.
+- **Gated output.** The attention output is multiplied by a sigmoid gate computed from the layer input, before the output projection.
+
+**Dynamic short convolutions:** The short convolutions on keys and values in the global attention layers are now *dynamic*. The 4 taps of each convolution are a fixed learned weight plus a per-token weight predicted from the input, shared within each key/value head. So the model can change, token by token, how much local context goes into each key and value. All short convolutions also rescale their residual sum to keep its variance stable through depth.
+
+**A leaner, wider MoE:** Each layer has 384 routed experts with 8 active per token, and the shared experts are gone.
+
+**A new vision encoder:** Inkling encoded images with a lightweight hierarchical MLP. Inkling 2 uses a 23-layer vision transformer based on the Perception Encoder. It has the following properties:
+
+- It splits images into `20×20` patches and merges each `2×2` group, so the language model still receives **one embedding per 40×40 px region**, the same as Inkling.
+- Positions are encoded twice by a learned position grid, interpolated to each image's size, and by 2D rotary embeddings.
+- Each image gets its own class token, and LayerScale stabilizes the residual branches.
+- A 2-layer MLP projects the merged patch features into the language model.
+
+Several images are packed into one sequence, and each image only attends to itself.
+
+### Running Inkling 2 with transformers
+
+Inkling 2 uses the same Auto classes as Inkling. Make sure to have updated transformers to run the model.
+
+
+```python
+from transformers import AutoModelForMultimodalLM, AutoProcessor
+
+model_id = "thinkingmachines/Inkling-2-Small"
+processor = AutoProcessor.from_pretrained(model_id)
+model = AutoModelForMultimodalLM.from_pretrained(
+    model_id,
+    dtype="auto",
+    device_map="auto",
+)
+
+messages = [
+    {
+        "role": "user",
+        "content": [
+            {
+                "type": "image",
+                "image": "https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/pipeline-cat-chonk.jpeg",
+            },
+            {"type": "text", "text": "What animal is in this image, and where is it?"},
+        ],
+    },
+]
+
+inputs = processor.apply_chat_template(
+    messages,
+    tokenize=True,
+    add_generation_prompt=True,
+    return_dict=True,
+    return_tensors="pt",
+).to(model.device)
+input_len = inputs["input_ids"].shape[-1]
+
+outputs = model.generate(**inputs, max_new_tokens=256)
+print(processor.decode(outputs[0][input_len:], skip_special_tokens=True))
+```
 
 ## Inference Support
 
@@ -462,7 +560,7 @@ uv run --env-file .env \
 
 If you’re working with Transformers Reinforcement Learning we suggest using Inkling as a teacher model in a knowledge distillation setup. For example, take advantage of Inkling’s document understanding abilities to improve the performance of a smaller (on-device) model. In [this example](https://github.com/huggingface/trl/blob/main/examples/gold_chatbot_arena/gold_chatbot_arena.py), we use the transformer reinforcement learning library and the GOLD algorithm to distill knowledge. GOLD is handy here because it matches token logits between different tokenizers, so you can distill to any model on the hub.
 
-## Deploying Inkling and Inkling-Small 
+## Deploying Inkling
 
 Below you can find each Inkling checkpoint as well as their VRAM requirements.
 
@@ -551,4 +649,3 @@ curl "YOUR_ENDPOINT_HERE" \
 |     | FORTRESS (Adversarial) | 71.6% | 78.0%   | 77.6%            | 54.1%     | 65.6%     | 71.3%   | 36.0%           | 65.2%                 | 96.0%                | 82.4%            stationary |
 |     | FORTRESS (Benign) | 96.9% | 95.9%   | 90.5%            | 98.3%     | 97.2%     | 90.0%   | 98.5%           | 98.0%                 | 55.1%                | 98.1%               |
 |     | StrongREJECT | 98.4% | 98.6%   | 98.7%            | 99.5%     | 99.8%     | 98.5%   | 98.6%           | 98.0%                 | 98.7%                | 98.5%               |
-
