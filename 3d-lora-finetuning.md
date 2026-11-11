@@ -1,5 +1,5 @@
 ---
-title: "The Definitive Fine-Tuning Guide for TRELLIS.2" 
+title: "The Definitive Fine-Tuning Guide for 3D Generation Models" 
 thumbnail: /blog/assets/3d-lora-finetuning/thumbnail.gif
 authors:
   - user: suvadityamuk
@@ -7,7 +7,7 @@ authors:
   - user: pcuencq
 ---
 
-# The Definitive Fine-Tuning Guide for TRELLIS.2
+# The Definitive Fine-Tuning Guide for 3D Generation Models
 
 ![Hero GIF](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/3d-lora-finetuning/sole_orbit_base_vs_lora.gif)
 
