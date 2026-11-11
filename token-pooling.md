@@ -16,6 +16,10 @@ In this post, I'll explain how pooling works, train a model for compressed retri
 > [!NOTE]
 > This post builds on pooling-aware training studied in Stefan Josef's [Learn to Pool](https://stefan-jo.github.io/learn-to-pool/downloads/paper.pdf) and [LightOn's pooling regularization study](https://huggingface.co/blog/lightonai/lateon-hpool-regularization), which also explores targeted training and adaptive budgets. Here, I'll focus on understanding the method and putting it to work with a short, reproducible Sentence Transformers example.
 
+![Mean NanoBEIR nDCG@10 versus stored document vectors for pool factors 2, 3, 4, and 6 and unpooled retrieval, comparing ordinary and pooling-aware training.](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/token-pooling/mve_token_pooling_results.png)
+
+<p align="center"><em><small>Pooling-aware training improves retrieval quality at the same vector budget. Details below.</small></em></p>
+
 ## Table of Contents
 
 - [Why Multi-Vector Retrieval Needs So Many Vectors](#why-multi-vector-retrieval-needs-so-many-vectors)
