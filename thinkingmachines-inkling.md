@@ -11,7 +11,9 @@ authors:
 
 # Welcome Inkling by Thinking Machines
 
-> [!TIP] **Update: Inkling 2 is here!** 🤗 Thinking Machines released Inkling 2 Small, the next generation of the Inkling family. We have updated this post with [a new section on Inkling 2 Small](#whats-new-in-inkling-2-small), covering what changed in the architecture and how to run it with transformers. Here's [Inkling 2 Small](https://huggingface.co/thinkingmachines/Inkling-2-Small).
+> [!TIP]
+> **Update: [Inkling 2 Small](https://huggingface.co/thinkingmachines/Inkling-2-Small) is here!** 🤗
+> Thinking Machines released Inkling 2 Small, the next generation of the Inkling family. We have updated this post with [a new section on Inkling 2 Small](#whats-new-in-inkling-2-small), covering what changed in the architecture and how to run it with transformers.
 
 [Inkling](https://huggingface.co/thinkingmachines/Inkling) is a large (1T params!) open model to natively accept image, text, and audio inputs.
 
@@ -19,15 +21,15 @@ TLDR; Inkling by Thinking Machines is out on Hugging Face. Inkling is a huge mul
 
 ## What makes Inkling special?
 
-Inkling is the first large open model with **~1T parameters** and **1M context window** to natively receive **image, text, and audio inputs**, trained on **45 trillion tokens of text, images, audio and video.** It’s focused on reasoning across modalities such as audio, images, and text; and is intended for domain adaptation via fine-tuning. We’ve tinkered with this model to build some demos and explore the architecture, and we think it’s great for building a new wave of multimodal reasoning apps.
+Inkling is the first large open model with **~1T parameters** and **1M context window** to natively receive **image, text, and audio inputs**, trained on **45 trillion tokens of text, images, audio and video**. It’s focused on reasoning across modalities such as audio, images, and text. It is intended for domain adaptation via fine-tuning. We’ve tinkered (pun intended) with this model to build some demos and explore the architecture, and we think it’s great for building a new wave of multimodal reasoning apps.
 
 ## Overall Capabilities and Architecture
 
-Inkling is a decoder-only multimodal Mixture-of-Experts model with 975B total and 41B active parameters. There are a lot of things going on, so let’s break each part down:
+Inkling is a decoder-only multimodal Mixture-of-Experts (MoEs) model with 975B total and 41B active parameters. There are a lot of things going on, so let’s break each part down:
 
-- Decoder-only: This means that the architecture supports causal autoregressive generation, like in most state-of-the-art LLMs.
+- Decoder-only: The model supports causal autoregressive generation.
 - Multimodal: The model can ingest text, audio, and images.
-- Mixture of Experts (MoE): The feed forward networks inside each layer are sparse, achieving faster inference because only 41B parameters are active at any given time. The model has 256 experts, as we’ll see later.
+- Mixture of Experts: The feed forward networks inside each layer are sparse, achieving faster inference because only 41B parameters are active at any given time. The model has 256 experts, as we’ll see later.
 
 Here’s a quick glance of the architecture.
 
@@ -78,20 +80,22 @@ Here's how the two generations compare:
 
 Let's go over the most notable changes together:
 
-**Block attention residuals:** In a standard transformer, every layer adds its output to a single running sum (the residual stream), and the next layer reads that sum. Inkling 2 has no single residual stream. Instead, it groups its 48 layers into 8 blocks of 6 and keeps one sum per block:
+**Block attention residuals:** In a standard transformer, every layer adds its output to the residual stream, and the next layer reads it. Inkling 2 has no single residual stream. Instead, it groups its 48 layers into 8 blocks of 6 and keeps one sum per block:
 
 - Inside a block, attention and MLP outputs are added to a running sum, as usual. This is the *partial block*.
 - At a block boundary, the partial block is stored as a finished block summary and never added to again. The next block's sum starts again from zero. The token embeddings are stored as the very first summary.
 
-A sublayer (attention or MLP) doesn't read one of these sums directly. It *attends over depth*: at each token position, it treats the finished block summaries plus the current partial block as a short sequence, and takes a softmax-weighted mix of them. The query is a single learned vector per sublayer. The keys and values are the RMS-normalized block summaries at that position. So the weights differ from token to token, depending on what each block wrote there.
+A sublayer (attention or MLP) doesn't read one of these sums directly. It *attends over depth*, which means at each token position, it treats the finished block summaries plus the current partial block as a short sequence, and takes a softmax-weighted mix of them.
 
-In other words, each sublayer learns how much to draw from each earlier stage of the network, rather than always reading the sum of everything. By the last layer, there are up to 9 sources to choose from (the embeddings, 7 finished blocks and the current partial block), and the final norm reads its input the same way. Global attention layers go one step further: they learn three queries, so their query, key and value projections can each draw on a different mix of blocks.
+The query is a single learned vector per sublayer. The keys and values are the RMS-normalized block summaries at that position. So the weights differ from token to token, depending on what each block wrote there.
+
+In other words, each sublayer learns how much to draw from each earlier stage of the network, rather than always reading the sum of everything. By the last layer, there are up to 9 sources to choose from (the embeddings, 7 finished blocks and the current partial block), and the final norm reads its input the same way. Global attention layers learn three queries, so their query, key and value projections can each draw on a different mix of blocks.
 
 **Attention:**
 
-- **L2 clipping instead of normalization.** Inkling normalized queries and keys per head. Inkling 2 Small instead *clips* them. Any head vector larger than a threshold (about 22.6) is scaled down to it, while smaller vectors pass through unchanged. This bounds attention logits without forcing every vector to the same magnitude.
-- **Learned, per-token attention sinks.** Each token predicts one extra "sink" logit per head. The sink joins the softmax but contributes nothing to the output, so a head can choose to attend to nothing.
-- **Gated output.** The attention output is multiplied by a sigmoid gate computed from the layer input, before the output projection.
+- **L2 clipping instead of normalization** - Inkling (and Inkling Small) normalized queries and keys per head. Inkling 2 Small instead *clips* them. Any head vector larger than a threshold (about 22.6) is scaled down to it, while smaller vectors pass through unchanged.
+- **Learned, per-token attention sinks** - Each token predicts one extra "sink" logit per head. The sink joins the softmax but contributes nothing to the output, so a head can choose to attend to nothing.
+- **Gated output** - The attention output is multiplied by a sigmoid gate computed from the layer input, before the output projection.
 
 **Dynamic short convolutions:** The short convolutions on keys and values in the global attention layers are now *dynamic*. The 4 taps of each convolution are a fixed learned weight plus a per-token weight predicted from the input, shared within each key/value head. So the model can change, token by token, how much local context goes into each key and value. All short convolutions also rescale their residual sum to keep its variance stable through depth.
 
@@ -110,8 +114,8 @@ Several images are packed into one sequence, and each image only attends to itse
 
 Inkling 2 uses the same Auto classes as Inkling. Make sure to have updated transformers to run the model.
 
-
 ```python
+# torchrun --nproc-per-node=8 inference.py
 from transformers import AutoModelForMultimodalLM, AutoProcessor
 
 model_id = "thinkingmachines/Inkling-2-Small"
@@ -356,7 +360,7 @@ Match `--tp-size` to your GPU count. Add `--mem-fraction-static` (e.g. `0.85`) i
 
 ### vLLM
 
-vLLM is strong for production serving. A single `vllm serve` command downloads the weights from the Hub, shards the model across your GPUs with tensor parallelism, and starts an OpenAI-compatible server on port 8000. You can view the vLLM Recipe for the model [here](https://recipes.vllm.ai/thinkingmachines/Inkling) to customize to your hardware.
+vLLM is strong for production serving. A single `vllm serve` command downloads the weights from the Hub, shards the model across your GPUs with tensor parallelism, and starts an OpenAI-compatible server on port 8000. You can view the [vLLM Recipe for the model here](https://recipes.vllm.ai/thinkingmachines/Inkling) to customize to your hardware.
 
 ```shell
 # Requires nightly or vllm>=0.26 (once released)
@@ -388,7 +392,7 @@ curl http://localhost:8000/v1/chat/completions \
 
 ### Remote Inference with Hugging Face Inference Providers
 
-You can infer with this model using several inference providers through Hugging Face. You can see all the code snippets to consume [here](https://huggingface.co/thinkingmachines/inkling?inference_provider=fastest&language=python&client=openai&inference_api=true). Below you can see how to use with the OpenAI client.
+You can infer with this model using several inference providers through Hugging Face. You can see all the [code snippets to consume here](https://huggingface.co/thinkingmachines/inkling?inference_provider=fastest&language=python&client=openai&inference_api=true). Below you can see how to use with the OpenAI client.
 
 ```python
 import os
@@ -495,7 +499,7 @@ print(processor.decode(generated[0], skip_special_tokens=True))
 
 ### Multimodal Vision
 
-We have prepared a small suite of reasoning questions from expert-level sources and university entrance exams. We have taken photos of the screen with watermarks in the screenshot to challenge the model. The model has solved all of them on high one, failed one in highest and medium reasoning efforts, so we provide a link to the model answers for you to check out how the model sounds and provide the number of tokens the model has taken to solve each of them. Note that we provide no system prompts in these vibe evals, and these reasoning questions should often be run with a good system prompt. The vibe eval images and results live [here](https://huggingface.co/buckets/merve/inkling).
+We have prepared a small suite of reasoning questions from expert-level sources and university entrance exams. We have taken photos of the screen with watermarks in the screenshot to challenge the model. The model has solved all of them on high one, failed one in highest and medium reasoning efforts, so we provide a link to the model answers for you to check out how the model sounds and provide the number of tokens the model has taken to solve each of them. Note that we provide no system prompts in these vibe evals, and these reasoning questions should often be run with a good system prompt. The [vibe eval images and results live here](https://huggingface.co/buckets/merve/inkling).
 
 | Category | Question | Number of Tokens (Reasoning Effort Medium) | Number of Tokens (Reasoning Effort High) | Number of Tokens (Reasoning Effort Max) |
 | :---- | :---- | :---- | :---- | :---- |
@@ -514,7 +518,7 @@ We have prepared a small suite of reasoning questions from expert-level sources 
 
 ### Multimodal Audio
 
-We have vibe-evaluated the model on some audio reasoning examples from BigBenchAudio and a few multilingual audio examples of [GlobeAudio](https://huggingface.co/datasets/iNLP-Lab/GlobeAudio) (Russian and Chinese multi-choice questions asking the last word in transcription). The [BigBenchAudio](https://huggingface.co/datasets/ArtificialAnalysis/big_bench_audio) examples we tested consist of logical statements and questions that either ask for formal fallacies (whether an argument can be logically deduced from the context given in audio) or object counting (stating multiple distinctive objects in the audio, asking for the total count of a certain one). Although this benchmark is initially made for speech-to-speech reasoning, we just want to see audio reasoning capabilities of this model. For GlobeAudio, the questions are relatively straightforward, so we ran with reasoning efforts of 0.1. We ran the first example of each language within GlobeAudio. All tests pass on all questions and efforts, except for second formal fallacy example on lowest effort, so we only provide the number of tokens spent in each question against reasoning effort. Vibe eval results and audio files live [here](https://huggingface.co/buckets/merve/inkling).
+We have vibe-evaluated the model on some audio reasoning examples from BigBenchAudio and a few multilingual audio examples of [GlobeAudio](https://huggingface.co/datasets/iNLP-Lab/GlobeAudio) (Russian and Chinese multi-choice questions asking the last word in transcription). The [BigBenchAudio](https://huggingface.co/datasets/ArtificialAnalysis/big_bench_audio) examples we tested consist of logical statements and questions that either ask for formal fallacies (whether an argument can be logically deduced from the context given in audio) or object counting (stating multiple distinctive objects in the audio, asking for the total count of a certain one). Although this benchmark is initially made for speech-to-speech reasoning, we just want to see audio reasoning capabilities of this model. For GlobeAudio, the questions are relatively straightforward, so we ran with reasoning efforts of 0.1. We ran the first example of each language within GlobeAudio. All tests pass on all questions and efforts, except for second formal fallacy example on lowest effort, so we only provide the number of tokens spent in each question against reasoning effort. [Vibe eval results and audio files live here](https://huggingface.co/buckets/merve/inkling).
 
 | GlobeAudio | Question | Number of completion tokens (Reasoning effort lowest) | Number of completion tokens (Reasoning effort medium) |
 | :---- | :---- | :---- | :---- |
@@ -546,14 +550,13 @@ We post trained Inkling with tinker and OpenEnv, an agentic RL environment tool.
 <details>
 <summary>RL Example with Tinker and OpenEnv</summary>
 
-```
+```bash
 git clone https://github.com/openenv/OpenEnv.git
 cd OpenEnv
 
 # Add TINKER_API_KEY=... to .env, then run:
 uv run --env-file .env \
   examples/echo_world_model/backends/tinker_echo_demo.py
-
 ```
 
 </details>
@@ -580,9 +583,9 @@ To deploy Inkling on a cluster, we provide SLURM scripts serving with transforme
 
 ## Deploying Inkling-Small on Inference Endpoints
 
-You can deploy an Inkling-Small NVFP4 checkpoint using Inference Endpoints. We provide a pre-tested configuration to deploy it on 8 RTX PRO 6000s with an aggregated VRAM of·768 GB, giving large space for KV cache, costs $ 22 per hourly uptime (scales to zero when unused). To deploy, run hf endpoints catalog deploy --repo thinkingmachines/Inkling-Small-NVFP4 using the Hugging Face CLI or alternatively, head to https://endpoints.huggingface.co/new/thinkingmachines/Inkling-Small-NVFP4. With this setup, you can get 140 TPS (single user inference, prepared for multi-user support with continuous batching)
+You can deploy an Inkling-Small NVFP4 checkpoint using Inference Endpoints. We provide a pre-tested configuration to deploy it on 8 RTX PRO 6000s with an aggregated VRAM of·768 GB, giving large space for KV cache, costs $ 22 per hourly uptime (scales to zero when unused). To deploy, run hf endpoints catalog deploy --repo thinkingmachines/Inkling-Small-NVFP4 using the Hugging Face CLI or alternatively, head to `https://endpoints.huggingface.co/new/thinkingmachines/Inkling-Small-NVFP4`. With this setup, you can get 140 TPS (single user inference, prepared for multi-user support with continuous batching)
 
-Once the endpoint is up, you can query as follows. 
+Once the endpoint is up, you can query as follows.
 
 ```sh
 curl "YOUR_ENDPOINT_HERE" \
@@ -615,37 +618,37 @@ curl "YOUR_ENDPOINT_HERE" \
 
 ## Benchmark Results
 
-|     |     | Inkling Small | Inkling | Nemotron 3 Ultra | Kimi K2.5 | Kimi K2.6 | GLM 5.2 | DeepSeek V4 Pro | Gemini 3.1 Pro (high) | Claude Fable 5 (max) | GPT 5.6 Sol (xhigh) |
-|-----|-----|---------------|---------|------------------|-----------|-----------|---------|-----------------|-----------------------|----------------------|---------------------|
-| **Reasoning** |     |         |         |                  |           |           |         |                 |                       |                      |                     |
-|     | HLE (text only) | 31.6% | 29.7%   | 26.6%            | 29.4%     | 35.9%     | 40.1%   | 35.9%           | 44.7%                 | 53.3%                | 47.2%               |
-|     | HLE (with tools) | 47.8% | 46.0%   | 37.4%            | 50.2%     | 54.0%     | 54.7%   | 48.2%           | 51.4%                 | 64.5%                | 55.0%               |
-|     | AIME 2026 | 95.5% | 97.1%   | 94.2%            | 95.8%     | 96.4%     | 99.2%   | 96.7%           | 98.3%                 | –                    | 99.9%               |
-|     | GPQA Diamond | 89.5% | 87.2%   | 86.7%    0       | 87.9%     | 91.1%     | 89.5%   | 88.8%           | 94.1%                 | 92.6%                | 94.1%               |
-| **Agentic (coding)** |     |         |         |                  |           |       0   |         |                 |                       |                      |                     |
-|     | SWEBench Verified | 80.2% | 77.6%   | 70.7%            | 76.8%     | 80.2%     | –       | 80.6%           | 80.6%                 | 95.0%                | –                   |
-|     | SWEBench Pro (Public) | 55.9% | 54.3%   | 46.4%            | 50.7%     | 58.6%     | 62.1%   | 55.4%           | 54.2%                 | 80.0%                | 64.6%               |
-|     | Terminal Bench 2.1 (Best Harness) | 64.69 | 63.8    | 56.4             | 51.3         | 71.3      | 82.7    | 64              | 73.8                  | 84.6                 | 89.5                |
-|     | GDPVal-AA v2 | 1269 | 1233    | 1164             | 1009         | 1190      | 1514    | 1307            | 962                   | 1760                 | 1748                |
-| **Agentic (general)** |     |         |         |                  |           |           |         |                 |                       |                      |                     |
-|     | MCP Atlas | 79.2% | 74.1%   | 44.7%                | 64.0%     | 68.1%     | 77.8%   | 73.2%           | 78.2%                 | 83.3%                | 81.8%               |
-|     | Tau 3 Banking | 15.5% | 23.7%   | 13.8%            | 13.2%     | 20.6%     | 26.8%   | 25.8%           | 16.5%                 | 26.8%                | 33.0%               |
-| **Factuality** |     |         |   0     |                  |           |           |         |                 |                       |                      |                     |
-|     | BrowseComp (w/ Ctx) | 77.4% | 77.1%   | –                | 74.9%     | 83.2%     | –       | 83.4%           | 85.9%                 | 88.0%                | 89.4%               |
-|     | SimpleQA Verified | 20.6% | 43.9%   | 32.4%            | 36.9%     | 38.7%     | 38.1%   | 57.0%           | 77.3%                 | 68.3%                | 71.6%               |
-|     | AA Omniscience | -9 | 1.0%    | -1.0%            | -8.0%     | 6.0%      | 4.0%    | -10.0%          | 33.0%                 | 40.0%                | 22.0%               |
-| **Chat** |     |         |         |                  |       0   |           |         |                 |                       |                      |                     |
-|     | IFBench | 82.2% | 79.8%   | 81.4%            | 70.2%     | 76.0%     | 73.3%   | 76.5%           | 77.1%                 | 63.5%                | 72.7%               |
-|     | Global-MMLU-Lite | 86.7% | 88.7%   | 85.6%            | 84.0%     | 88.4%     | 89.2%   | 89.3%           | 92.7%                 | 93.3%                | 91.8%               |
-| **Vision** |     |         |         |                  |           |           |         |       0         |       0               |                      |       0             |
-|     | MMMU Pro (Standard 10) | 74.0% | 73.3%   | –                | 75.0%     | 79.0%     | –       | –               | 82.0%                 | 84.2%                | 83.0%               |
-|     | Charxiv RQ | 77.4% | 78.1%   | –                | 77.5%     | 80.4%     | –       | –               | 80.2%                 | 86.5%                | 84.7%               |
-|     | Charxiv RQ (with python) | 82.3% | 82.0%   | –                | 78.7%     | 86.7%     | –       | –               | 89.9%                 | 89.4%                | 87.8%               |
-| **Audio** |     |         |         |                  |           |       0   |         |                 |                       |                      |                     |
-|     | Audio MC | 54.9% | 56.6%   | –                | –         | –         | –       | –               | 66.8%                 | –                    | –                   |
-|     | MMAU | 77.0% | 77.2%   | –                | –         | –         | –       | –               | 82.5%                 | –                    | –                   |
-|     | VoiceBench | 90.1% | 91.4%   | –                | –         | –         | –       | –               | 94.3%     0           | –                    | –                   |
-| **Safety** |     |         |         |                  |           |           |       0 |                 |                       |                      |                     |
-|     | FORTRESS (Adversarial) | 71.6% | 78.0%   | 77.6%            | 54.1%     | 65.6%     | 71.3%   | 36.0%           | 65.2%                 | 96.0%                | 82.4%            stationary |
-|     | FORTRESS (Benign) | 96.9% | 95.9%   | 90.5%            | 98.3%     | 97.2%     | 90.0%   | 98.5%           | 98.0%                 | 55.1%                | 98.1%               |
-|     | StrongREJECT | 98.4% | 98.6%   | 98.7%            | 99.5%     | 99.8%     | 98.5%   | 98.6%           | 98.0%                 | 98.7%                | 98.5%               |
+| | | Inkling Small | Inkling | Nemotron 3 Ultra | Kimi K2.5 | Kimi K2.6 | GLM 5.2 | DeepSeek V4 Pro | Gemini 3.1 Pro (high) | Claude Fable 5 (max) | GPT 5.6 Sol (xhigh) |
+| :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: |
+| **Reasoning** | | | | | | | | | | | |
+| | HLE (text only) | 31.6% | 29.7% | 26.6% | 29.4% | 35.9% | 40.1% | 35.9% | 44.7% | 53.3% | 47.2% |
+| | HLE (with tools) | 47.8% | 46.0% | 37.4% | 50.2% | 54.0% | 54.7% | 48.2% | 51.4% | 64.5% | 55.0% |
+| | AIME 2026 | 95.5% | 97.1% | 94.2% | 95.8% | 96.4% | 99.2% | 96.7% | 98.3% | – | 99.9% |
+| | GPQA Diamond | 89.5% | 87.2% | 86.7% | 87.9% | 91.1% | 89.5% | 88.8% | 94.1% | 92.6% | 94.1% |
+| **Agentic (coding)** | | | | | | | | | | | |
+| | SWEBench Verified | 80.2% | 77.6% | 70.7% | 76.8% | 80.2% | – | 80.6% | 80.6%| 95.0% | – |
+| | SWEBench Pro (Public) | 55.9% | 54.3% | 46.4% | 50.7% | 58.6% | 62.1% | 55.4% | 54.2% | 80.0% | 64.6% |
+| | Terminal Bench 2.1 (Best Harness) | 64.69 | 63.8 | 56.4 | 51.3 | 71.3 | 82.7 | 64 | 73.8 | 84.6 | 89.5 |
+| | GDPVal-AA v2 | 1269 | 1233 | 1164 | 1009 | 1190 | 1514 | 1307 | 962 | 1760 | 1748 |
+| **Agentic (general)** | | | | | | | | | | | |
+| | MCP Atlas | 79.2% | 74.1% | 44.7% | 64.0% | 68.1% | 77.8% | 73.2% | 78.2% | 83.3% | 81.8% |
+| | Tau 3 Banking | 15.5% | 23.7% | 13.8% | 13.2% | 20.6% | 26.8% | 25.8% | 16.5% | 26.8% | 33.0% |
+| **Factuality** | | | | | | | | | | | |
+| | BrowseComp (w/ Ctx) | 77.4% | 77.1% | – | 74.9% | 83.2% | – | 83.4% | 85.9% | 88.0% | 89.4% |
+| | SimpleQA Verified | 20.6% | 43.9% | 32.4% | 36.9% | 38.7% | 38.1% | 57.0% | 77.3% | 68.3% | 71.6% |
+| | AA Omniscience | -9 | 1.0% | -1.0% | -8.0% | 6.0% | 4.0% | -10.0% | 33.0% | 40.0% | 22.0% |
+| **Chat** | | | | | | | | | | | |
+| | IFBench | 82.2% | 79.8%   | 81.4% | 70.2% | 76.0% | 73.3% | 76.5% | 77.1% | 63.5% | 72.7% |
+| | Global-MMLU-Lite | 86.7% | 88.7% | 85.6% | 84.0% | 88.4% | 89.2% | 89.3% | 92.7% | 93.3% | 91.8% |
+| **Vision** | | | | | | | | | | | |
+| | MMMU Pro (Standard 10) | 74.0% | 73.3% | – | 75.0% | 79.0% | – | – | 82.0% | 84.2% | 83.0% |
+| | Charxiv RQ | 77.4% | 78.1% | – | 77.5% | 80.4% | – | – | 80.2% | 86.5% | 84.7% |
+| | Charxiv RQ (with python) | 82.3% | 82.0% | – | 78.7% | 86.7% | – | – | 89.9% | 89.4% | 87.8% |
+| **Audio** | | | | | | | | | | | |
+| | Audio MC | 54.9% | 56.6% | – | – | – | – | – | 66.8% | – | – |
+| | MMAU | 77.0% | 77.2% | – | – | – | – | – | 82.5% | – | – |
+| | VoiceBench | 90.1% | 91.4% | – | – | – | – | – | 94.3% | – | – |
+| **Safety** | | | | | | | | | | | |
+| | FORTRESS (Adversarial) | 71.6% | 78.0% | 77.6% | 54.1% | 65.6% | 71.3% | 36.0% | 65.2% | 96.0% | 82.4% |
+| | FORTRESS (Benign) | 96.9% | 95.9% | 90.5% | 98.3% | 97.2% | 90.0% | 98.5% | 98.0% | 55.1% | 98.1% |
+| | StrongREJECT | 98.4% | 98.6%   | 98.7% | 99.5% | 99.8% | 98.5% | 98.6% | 98.0% | 98.7% | 98.5% |
