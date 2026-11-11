@@ -11,9 +11,10 @@ Multi-vector embedding models give each query token its own opportunity to find 
 
 Token pooling makes these representations smaller by merging similar token vectors. The more aggressively I compress them, however, the easier it becomes to lose something useful. Pooling-aware training teaches the encoder to preserve the information that matters when its vectors are merged, helping you retrieve better from the same storage budget.
 
-In this post, I'll explain how pooling works, train a model for compressed retrieval with Sentence Transformers, and explore the resulting quality and storage tradeoff. With `pool_factor=4`, my normally trained model retains 94.6% of its unpooled NanoBEIR nDCG@10, with a 4× reduction in document vectors. Token pooling-aware training raises that retention to 97.8% at the same storage budget! Let's see how.
+In this post, I'll explain how pooling works, train a model for compressed retrieval with Sentence Transformers, and explore the resulting quality and storage tradeoff. With `pool_factor=4`, my normally trained model retains 94.6% of its unpooled NanoBEIR nDCG@10, with a **4x** reduction in document vectors. Token pooling-aware training raises that retention to 97.8% at the same storage budget! Let's see how.
 
-This post builds on pooling-aware training studied in Stefan Josef's [Learn to Pool](https://stefan-jo.github.io/learn-to-pool/downloads/paper.pdf) and [LightOn's pooling regularization study](https://huggingface.co/blog/lightonai/lateon-hpool-regularization), which also explores targeted training and adaptive budgets. Here, I'll focus on understanding the method and putting it to work with a short, reproducible Sentence Transformers example.
+> [!NOTE]
+> This post builds on pooling-aware training studied in Stefan Josef's [Learn to Pool](https://stefan-jo.github.io/learn-to-pool/downloads/paper.pdf) and [LightOn's pooling regularization study](https://huggingface.co/blog/lightonai/lateon-hpool-regularization), which also explores targeted training and adaptive budgets. Here, I'll focus on understanding the method and putting it to work with a short, reproducible Sentence Transformers example.
 
 ## Table of Contents
 
@@ -27,7 +28,6 @@ This post builds on pooling-aware training studied in Stefan Josef's [Learn to P
 - [Using the Trained Model](#using-the-trained-model)
 - [Evaluation Results](#evaluation-results)
 - [Combining Compression Techniques](#combining-compression-techniques)
-- [Note](#note)
 - [References](#references)
 - [Code and Models](#code-and-models)
 
@@ -47,7 +47,9 @@ The useful observation is that many document vectors can be similar. Several tok
 
 ## Token Pooling
 
-[HierarchicalTokenPooling](https://sbert.net/docs/package_reference/multi_vector_encoder/modules.html#hierarchicaltokenpooling) groups similar token embeddings using Ward hierarchical clustering, then represents each group by its mean. The resulting vectors are normalized again, ready for MaxSim scoring.
+[HierarchicalTokenPooling](https://sbert.net/docs/package_reference/multi_vector_encoder/modules.html#hierarchicaltokenpooling) groups similar token embeddings using [Ward hierarchical clustering](https://scikit-learn.org/stable/modules/clustering.html#hierarchical-clustering). Starting with one group per token vector, it repeatedly merges the two groups that cause the smallest increase in how spread out the vectors are within their groups. This spread is measured by the sum of squared distances from each vector to its group's mean, so Ward's method favors compact groups of similar vectors.
+
+These merges build a hierarchy of progressively larger groups, letting us choose a level of compression that fits our budget. We then represent each group by its mean and normalize the resulting vectors again, ready for MaxSim scoring.
 
 You can make compression proportional to document length:
 
@@ -73,7 +75,7 @@ This distinction matters when document lengths vary. With `pool_factor=4`, a lon
 
 ### Calibrating Adaptive Pooling
 
-Adaptive pooling uses a shared distance threshold to merge similar embeddings more aggressively while preserving more vectors for documents with distinct content. It can be used with any multi-vector model, including one trained without a pooling-aware objective.
+Adaptive pooling uses a shared distance threshold to merge similar embeddings more aggressively while preserving more vectors for documents with distinct content. It can be used with any multi-vector model, _including one trained without a pooling-aware objective_.
 
 Rather than choosing a threshold manually, you can calibrate it for a target average vector count. Given a representative sample of your corpus in `calibration_documents`:
 
@@ -147,12 +149,29 @@ The poolers can also be custom `BaseTokenPooling` implementations that preserve 
 
 Replace the factor-4 pooler with your chosen deployment configuration, or include several poolers and choose weights for their losses.
 
-The complete [training script](https://github.com/huggingface/sentence-transformers/blob/main/examples/multi_vector_encoder/training/token_pooling/training_cached_contrastive.py) includes the dataset, trainer, validation loss, and small retrieval evaluations during training. From a checkout of the repository, run it twice to compare the losses:
+The complete [training script](https://github.com/huggingface/sentence-transformers/blob/main/examples/multi_vector_encoder/training/token_pooling/training_cached_contrastive.py) includes the dataset, trainer, validation loss, and small retrieval evaluations during training. From a checkout of the repository, run both variants locally with [uv](https://docs.astral.sh/uv/getting-started/installation/):
 
 ```bash
-python -m examples.multi_vector_encoder.training.token_pooling.training_cached_contrastive --baseline
-python -m examples.multi_vector_encoder.training.token_pooling.training_cached_contrastive
+uv run examples/multi_vector_encoder/training/token_pooling/training_cached_contrastive.py --baseline
+uv run examples/multi_vector_encoder/training/token_pooling/training_cached_contrastive.py
 ```
+
+The script declares its training and kernel dependencies, so uv installs them for you. Compatible kernels are enabled automatically.
+
+You can also train on a cloud GPU with [Hugging Face Jobs](https://huggingface.co/docs/hub/jobs-quickstart). Install the CLI and log in with a token that can run Jobs and upload models:
+
+```bash
+pip install -U huggingface_hub
+hf auth login
+
+hf jobs uv run \
+    --flavor a10g-small \
+    --timeout 4h \
+    --secrets HF_TOKEN \
+    -- https://raw.githubusercontent.com/huggingface/sentence-transformers/main/examples/multi_vector_encoder/training/token_pooling/training_cached_contrastive.py
+```
+
+This runs the pooling-aware variant on an A10G GPU with a four-hour time limit. Passing `HF_TOKEN` as a secret lets the script upload the trained model to your Hub account when training finishes. To run the ordinary-loss baseline as well, repeat the command with `--baseline` after the script URL.
 
 ### Optional Kernel Acceleration
 
@@ -222,7 +241,7 @@ To investigate, I trained two models from `answerdotai/ModernBERT-base`, each wi
 - [tomaarsen/mve-ModernBERT-base-token-pooling-baseline](https://huggingface.co/tomaarsen/mve-ModernBERT-base-token-pooling-baseline), using only the cached contrastive loss.
 - [tomaarsen/mve-ModernBERT-base-token-pooling](https://huggingface.co/tomaarsen/mve-ModernBERT-base-token-pooling), using the cached contrastive loss wrapped with the unpooled and factor-4 objectives above.
 
-Both runs use one epoch over the same 120,000 MS MARCO triplets, seed 42, and matching initialization and optimization settings. The training token cap is 300, and short queries are expanded to at least 32 token positions to provide additional contextual query vectors. Only the loss differs between the two experiments.
+Both runs use one epoch over the same 120,000 MS MARCO triplets, seed 42, and matching initialization and optimization settings. The training token cap is 300, and short queries are expanded to at least 32 token positions to provide additional contextual query vectors. Only the loss differs between the two experiments, and I didn't run a hyperparameter search.
 
 I evaluated both models on NanoBEIR@13, reporting mean nDCG@10 (%). The figure compares ordinary and pooling-aware training with pool factors of 2, 3, 4, and 6, alongside unpooled retrieval. The table also includes fixed caps and adaptive thresholds, showing how the training benefits transfer to other pooling settings.
 
@@ -267,10 +286,6 @@ Try the [complete training example](https://sbert.net/examples/multi_vector_enco
 
 With a few extra lines in the training objective, a smaller document representation becomes something the model actively learns to use. That opens up an exciting amount of room to make multi-vector retrieval more practical!
 
-## Note
-
-I kept these experiments simple and reproducible, using `CachedMultiVectorMultipleNegativesRankingLoss` without a hyperparameter search. The resulting models leave plenty of room for improvement, and stronger multi-vector training recipes are available. My goal here is to show how `MultiVectorTokenPoolingLoss` fits around an existing retrieval objective, so you can bring pooling-aware training into your own recipe as well!
-
 ## References
 
 - Stefan Josef. [Learn to Pool: Lightweight Fine-Tuning for Flexible Multi-Vector Compression](https://stefan-jo.github.io/learn-to-pool).
@@ -287,5 +302,6 @@ I kept these experiments simple and reproducible, using `CachedMultiVectorMultip
 - Example checkpoints:
     - [tomaarsen/mve-ModernBERT-base-token-pooling](https://huggingface.co/tomaarsen/mve-ModernBERT-base-token-pooling)
     - [tomaarsen/mve-ModernBERT-base-token-pooling-baseline](https://huggingface.co/tomaarsen/mve-ModernBERT-base-token-pooling-baseline)
+- [Pretrained multi-vector models compatible with Sentence Transformers](https://huggingface.co/collections/sentence-transformers/multivectorencoder-integrations)
 - [Matryoshka-aware training for multi-vector models](https://sbert.net/examples/multi_vector_encoder/training/matryoshka/README.html)
 - [Fast-PLAID](https://github.com/lightonai/fast-plaid)
