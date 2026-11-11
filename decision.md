@@ -345,7 +345,7 @@ The model again produces a probability distribution:
 
 | Level | Probability |
 | :--: | :--: |
-| 0 — Low | 0.10 |
+| 0 — Low | 0.01 |
 | 1 — Medium | 0.26 |
 | 2 — High | 0.72 |
 
@@ -360,7 +360,7 @@ $$
 For our example:
 
 $$
-\mathbb{E}[X] = 0(0.10)+1(0.26)+2(0.72)=1.7
+\mathbb{E}[X] = 0(0.01)+1(0.26)+2(0.72)=1.7
 $$
 
 The reported score is therefore `1.7`.
