@@ -5964,6 +5964,23 @@
     - datasets
     - evaluation
 
+- local: decision
+  date: November 10, 2026
+  tags:
+    - decision
+    - jev
+    - system one
+    - open source
+
+- local: hub-gcp-marketplace
+  date: November 10, 2026
+  tags:
+    - guide
+    - partnerships
+    - gcp
+    - hub
+    - marketplace
+
 - local: token-pooling
   date: November 11, 2026
   tags:
