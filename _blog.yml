@@ -5964,11 +5964,19 @@
     - datasets
     - evaluation
 
-- local: 3d-lora-finetuning
+- local: decision
+  date: November 10, 2026
+  tags:
+    - decision
+    - jev
+    - system one
+    - open source
+
+- local: hub-gcp-marketplace
   date: November 10, 2026
   tags:
     - guide
-    - 3d
-    - lora
-    - finetuning
-    - open-source
+    - partnerships
+    - gcp
+    - hub
+    - marketplace
