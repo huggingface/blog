@@ -118,7 +118,7 @@ Inkling 2 uses the same Auto classes as Inkling. Make sure to have updated trans
 # torchrun --nproc-per-node=8 inference.py
 from transformers import AutoModelForMultimodalLM, AutoProcessor
 
-model_id = "thinkingmachines/Inkling-2-Small-MXFP8"
+model_id = "thinkingmachines/Inkling-2-Small"
 processor = AutoProcessor.from_pretrained(model_id)
 model = AutoModelForMultimodalLM.from_pretrained(
     model_id,
