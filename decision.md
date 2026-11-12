@@ -261,13 +261,13 @@ decision = decide(
 # }
 ```
 
-The model assigns a logit to each option. For logits \\(z_1,\ldots,z_K\\), we can obtain the probabilities using softmax:
+The model assigns a logit to each option. For logits \\(z_1,\ldots,z_K\\), (with \\(K\\) classes) we can obtain the probabilities using softmax:
 
 $$
-p_i=\frac{\exp(z_i/T)}{\sum_{j=1}^{K}\exp(z_j/T)}
+p_i=\frac{\exp(z_i)}{\sum_{j=1}^{K}\exp(z_j)}
 $$
 
-Here, \\(K\\) is the number of choices, \\(p_i\\) is the probability of choice \\(i\\), and \\(T>0\\) is the temperature. Setting \\(T=1\\) gives the standard softmax.
+Here, \\(K\\) is the number of choices.
 
 Consider this illustrative distribution:
 
@@ -341,7 +341,7 @@ decision = decide(
 # }
 ```
 
-The model again produces a probability distribution. The values below are rounded to two decimal places, so they may not sum to exactly one:
+The model again produces a probability distribution:
 
 | Level | Probability |
 | :--: | :--: |
@@ -351,21 +351,21 @@ The model again produces a probability distribution. The values below are rounde
 
 Rather than returning only the most likely level, the Score primitive computes the **expected value of the level index**.
 
-For a random variable \\(X\\) representing the level, with \\(p_i=P(X=i)\\), the expectation is:
+For a random variable \\(X\\) representing the level, the expectation is:
 
 $$
 \mathbb{E}[X]=\sum_{i=0}^{K-1}ip_i
 $$
 
-Using the probabilities from the model output:
+For our example:
 
 $$
-\mathbb{E}[X] \approx 0(0.014908)+1(0.264795)+2(0.720297) \approx 1.7054
+\mathbb{E}[X] = 0(0.01)+1(0.26)+2(0.72)=1.7
 $$
 
-The reported score is therefore approximately `1.7054`, or `1.7` when rounded to one decimal place.
+The reported score is therefore `1.7`.
 
-This does not mean that the model selected a fictional level halfway between medium and high. It means that the expectation of its probability distribution is approximately 1.7.
+This does not mean that the model selected a fictional level halfway between medium and high. It means that the expectation of its probability distribution is 1.7.
 
 #### Noul: A Bernoulli decision
 
@@ -429,27 +429,27 @@ So far, we have obtained probability distributions from the model. But the decis
 
 The full distribution might contain several possible answers, and it is useful to summarize how concentrated the model's belief is. With `confidence` we achieve just that.
 
-For a Choice with \\(K>1\\) options, the confidence is:
+For a Choice with \\(K\\) options, the confidence is:
 
 $$
-C=\frac{p_{\max}-\frac{1}{K}}{1-\frac{1}{K}}
+\frac{p_{\max}-\frac{1}{K}}{1-\frac{1}{K}}
 $$
 
-where \\(p_{\max}=\max_i p_i\\) is the largest predicted probability.
+where \\(p_{\max}\\) is the largest predicted probability.
 
 The intuition here is:
 
-* A uniform distribution has confidence 0 (\\(p_{\max} = \frac{1}{K}\\)). This means the model estimates that all choices are equally likely.
-* A distribution concentrated entirely on one option has confidence 1 (\\(p_{\max} = 1\\)).
+* A uniform distribution has confidence 0. \\(p_{\max} = \frac{1}{K}\\). This means the model estimates that all choices are equally likely.
+* A distribution concentrated entirely on one option has confidence 1. \\(p_{\max} = 1\\)
 * The larger the winning probability relative to a uniform distribution, the higher the confidence.
 
-In our previous three-choice example, Billing had probability approximately 0.9982667:
+In our previous three-choice example, Billing had probability 0.998:
 
 $$
-C\approx\frac{3(0.9982667)-1}{2}\approx 0.9974
+C=\frac{3(0.998)-1}{2}=0.997
 $$
 
-The confidence is therefore approximately 0.9974, consistent with the pipeline output. The confidence normalizes the largest probability relative to the number of available options. In contrast, the ordered Score example only had a confidence of 0.558.
+Notice that the winning probability is 0.998, but the reported confidence is 0.997. The confidence normalizes the largest probability relative to the number of available options. In contrast, the ordered Score example only had a confidence of 0.558.
 
 ## Decision models in the Hugging Face ecosystem
 
