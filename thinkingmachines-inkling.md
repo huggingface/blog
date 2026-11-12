@@ -15,9 +15,13 @@ authors:
 > **Update: [Inkling 2 Small](https://huggingface.co/thinkingmachines/Inkling-2-Small) is here!** 🤗
 > Thinking Machines released Inkling 2 Small, the next generation of the Inkling family. We have updated this post with [a new section on Inkling 2 Small](#whats-new-in-inkling-2-small), covering what changed in the architecture and how to run it with transformers.
 
-[Inkling](https://huggingface.co/thinkingmachines/Inkling) is a large (1T params!) open model to natively accept image, text, and audio inputs.
+Inkling is Thinking Machines' family of open multimodal models, and it now spans two generations on the Hub:
 
-TLDR; Inkling by Thinking Machines is out on Hugging Face. Inkling is a huge multimodal LLM that understands all modalities (image, audio, text), has agentic capabilities, and supports 1M context. It comes in full BF16 and a well-calibrated NVFP4 variant, and includes speculative MTP layers for faster inference. There’s day-0 support in transformers, SGLang, vLLM, and llama.cpp. Thinking Machines also released Inkling-Small with 276B total and 12B active parameters, as well as support for MXFP8 and NVFP4 weights, with the same architecture as Inkling.
+- **[Inkling 2 Small](https://huggingface.co/thinkingmachines/Inkling-2-Small)** (new!): the latest member and the first of the second generation. It has 594B total and 17B active parameters, takes text and image inputs, and keeps Inkling's core decoder ideas while redesigning almost everything around them.
+- **[Inkling](https://huggingface.co/thinkingmachines/Inkling)**: the first-generation flagship, a ~1T parameter model that natively accepts image, text, and audio inputs with a 1M context window.
+- **[Inkling Small](https://huggingface.co/thinkingmachines/Inkling-Small)**: a lighter first-generation model with 276B total and 12B active parameters, sharing Inkling's architecture.
+
+In this post, we start with the first-generation architecture, then walk through [what changed in Inkling 2 Small](#whats-new-in-inkling-2-small) and how to run it. The rest of the post covers inference, use cases, post-training, and deployment, with examples built on the first-generation checkpoints.
 
 ## What makes Inkling special?
 
