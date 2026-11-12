@@ -122,7 +122,7 @@ model_id = "thinkingmachines/Inkling-2-Small"
 processor = AutoProcessor.from_pretrained(model_id)
 model = AutoModelForMultimodalLM.from_pretrained(
     model_id,
-    dtype="auto",
+    dtype=torch.bfloat16,
     device_map="auto",
 )
 
