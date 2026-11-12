@@ -148,7 +148,7 @@ inputs = processor.apply_chat_template(
 ).to(model.device)
 input_len = inputs["input_ids"].shape[-1]
 
-outputs = model.generate(**inputs, max_new_tokens=256)
+outputs = model.generate(**inputs, max_new_tokens=1024)
 print(processor.decode(outputs[0][input_len:], skip_special_tokens=True))
 ```
 
