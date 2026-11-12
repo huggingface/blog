@@ -5981,6 +5981,16 @@
     - hub
     - marketplace
 
+- local: token-pooling
+  date: November 11, 2026
+  tags:
+    - nlp
+    - guide
+    - community
+    - open-source
+    - embeddings
+    - sentence-transformers
+    
 - local: 3d-lora-finetuning
   date: November 12, 2026
   tags:

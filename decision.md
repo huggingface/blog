@@ -261,13 +261,13 @@ decision = decide(
 # }
 ```
 
-The model assigns a logit to each option. For logits ($z_1,\ldots,z_K$), (with K classes) we can obtain the probabilities using softmax:
+The model assigns a logit to each option. For logits \\(z_1,\ldots,z_K\\), (with \\(K\\) classes) we can obtain the probabilities using softmax:
 
 $$
-p_i=\frac{\exp(z_i/T)}{\sum_{j=1}^{K}\exp(z_j)}
+p_i=\frac{\exp(z_i)}{\sum_{j=1}^{K}\exp(z_j)}
 $$
 
-Here, (K) is the number of choices.
+Here, \\(K\\) is the number of choices.
 
 Consider this illustrative distribution:
 
@@ -345,13 +345,13 @@ The model again produces a probability distribution:
 
 | Level | Probability |
 | :--: | :--: |
-| 0 — Low | 0.10 |
+| 0 — Low | 0.01 |
 | 1 — Medium | 0.26 |
 | 2 — High | 0.72 |
 
 Rather than returning only the most likely level, the Score primitive computes the **expected value of the level index**.
 
-For a random variable (X) representing the level, the expectation is:
+For a random variable \\(X\\) representing the level, the expectation is:
 
 $$
 \mathbb{E}[X]=\sum_{i=0}^{K-1}ip_i
@@ -360,7 +360,7 @@ $$
 For our example:
 
 $$
-\mathbb{E}[X] = 0(0.10)+1(0.26)+2(0.72)=1.7
+\mathbb{E}[X] = 0(0.01)+1(0.26)+2(0.72)=1.7
 $$
 
 The reported score is therefore `1.7`.
@@ -401,7 +401,7 @@ decision = decide(
 
 Rather than defining a list of choices, we ask the model to return the probability that the answer is true. We can understand this using the Bernoulli distribution (noul comes from Bernoulli).
 
-Let (Y) represent a binary outcome:
+Let \\(Y\\) represent a binary outcome:
 
 $$
 Y\sim\operatorname{Bernoulli}(p)
@@ -429,27 +429,27 @@ So far, we have obtained probability distributions from the model. But the decis
 
 The full distribution might contain several possible answers, and it is useful to summarize how concentrated the model's belief is. With `confidence` we achieve just that.
 
-For a Choice with (K) options, the confidence is:
+For a Choice with \\(K\\) options, the confidence is:
 
 $$
 \frac{p_{\max}-\frac{1}{K}}{1-\frac{1}{K}}
 $$
 
-where ($p_{\max}$) is the largest predicted probability.
+where \\(p_{\max}\\) is the largest predicted probability.
 
 The intuition here is:
 
-* A uniform distribution has confidence 0. ($p_{\max} = \frac{1}{K}$). This means the model estimates that all choices are equally likely.
-* A distribution concentrated entirely on one option has confidence 1. ($p_{\max} = 1$)
+* A uniform distribution has confidence 0. \\(p_{\max} = \frac{1}{K}\\). This means the model estimates that all choices are equally likely.
+* A distribution concentrated entirely on one option has confidence 1. \\(p_{\max} = 1\\)
 * The larger the winning probability relative to a uniform distribution, the higher the confidence.
 
-In our previous three-choice example, Billing had probability 0.80:
+In our previous three-choice example, Billing had probability 0.998:
 
 $$
-C=\frac{3(0.99)-1}{2}=0.98
+C=\frac{3(0.998)-1}{2}=0.997
 $$
 
-Notice that the winning probability is 0.99, but the reported confidence is 0.98. The confidence normalizes the largest probability relative to the number of available options. In contrast, the ordered Score example only had a confidence of 0.558.
+Notice that the winning probability is 0.998, but the reported confidence is 0.997. The confidence normalizes the largest probability relative to the number of available options. In contrast, the ordered Score example only had a confidence of 0.558.
 
 ## Decision models in the Hugging Face ecosystem
 
