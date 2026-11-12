@@ -4,7 +4,7 @@ thumbnail: /blog/assets/3d-lora-finetuning/thumbnail.gif
 authors:
   - user: suvadityamuk
   - user: merve
-  - user: pcuencq
+  - user: pcuenq
 ---
 
 # The Definitive Fine-Tuning Guide for 3D Generation Models
