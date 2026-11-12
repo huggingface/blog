@@ -5990,3 +5990,12 @@
     - open-source
     - embeddings
     - sentence-transformers
+    
+- local: 3d-lora-finetuning
+  date: November 12, 2026
+  tags:
+    - guide
+    - 3d
+    - lora
+    - finetuning
+    - open-source
