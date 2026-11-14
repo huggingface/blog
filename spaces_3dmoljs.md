@@ -51,7 +51,7 @@ Since AlphaFold2 made its debut many more such models have come out such as Omeg
 
 ## Seeing is believing
 
-The structure of a protein is an integral part to our understanding of what a protein does. Nowadays, there are a few tools available to visualize proteins directly in the browser such as [mol*](molstar.org) or [3dmol.js](https://3dmol.csb.pitt.edu/). In this post, you will learn how to integrate structure visualization into your Hugging Face Space using 3Dmol.js and the HTML block. 
+The structure of a protein is an integral part to our understanding of what a protein does. Nowadays, there are a few tools available to visualize proteins directly in the browser such as [mol*](https://molstar.org) or [3dmol.js](https://3dmol.csb.pitt.edu/). In this post, you will learn how to integrate structure visualization into your Hugging Face Space using 3Dmol.js and the HTML block. 
 
 ## Prerequisites
 

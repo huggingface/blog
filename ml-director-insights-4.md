@@ -136,7 +136,7 @@ I’m excited about the opportunity to mentor the next generation of ML leaders.
 
 <img class="mx-auto" style="float: left;" padding="5px" width="200" src="/blog/assets/78_ml_director_insights/evan.png"></a>  
 
-### [Evan Castle](https://www.linkedin.com/in/evan-castle-ai/) - Director of ML, Product Marketing, Elastic Stack at [Elastic](www.elastic.co)
+### [Evan Castle](https://www.linkedin.com/in/evan-castle-ai/) - Director of ML, Product Marketing, Elastic Stack at [Elastic](https://www.elastic.co)
 
 **Background:** Over a decade of leadership experience in the intersection of data science, product, and strategy. Evan worked in various industries, from building risk models at Fortune 100s like Capital One to launching ML products at Sisense and Elastic.     
 
