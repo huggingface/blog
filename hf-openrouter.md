@@ -13,9 +13,9 @@ authors:
 
 # Hugging Face and OpenRouter join forces to make open-weight models easy to run
 
-Hugging Face and OpenRouter are partnering to make open-weight models easy to run. Every major open-weight release is published on the Hugging Face Hub, and [OpenRouter](https://openrouter.ai) serves those models at scale, routing each request across 80+ providers based on live measurements of each one. Together, every open-weight model on the Hub that a provider serves can be called with your Hugging Face token, through the same API, with the best provider picked for each request.
+Hugging Face and OpenRouter are teaming up to make open-weight models easy to run. Every major open-weight release is already being published on the Hugging Face Hub, and [OpenRouter](https://openrouter.ai) serves those models at scale, routing each request across 80+ providers based on live measurements of each one. Together, every open-weight model on the Hub that a provider serves can be called with your Hugging Face token, through the same API, with the best provider picked for each request.
 
-[Inference Providers](https://huggingface.co/docs/inference-providers) already let you call models from many providers with one Hugging Face token. What changes is how requests to language models are routed: they now go through OpenRouter, which picks the provider for each call based on live price, speed and reliability, and retries on another provider if the first one fails. Your code stays the same.
+Today, we are switching [Inference Providers](https://huggingface.co/docs/inference-providers) from our own custom router to OpenRouter's. Requests made to language models now go through OpenRouter, which picks the best provider for each call based on live price, speed and reliability, and retries on another provider if the first one fails. Your code stays the same.
 
 ## Run them with the tools you already use
 
