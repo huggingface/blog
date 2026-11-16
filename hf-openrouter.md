@@ -83,8 +83,8 @@ Image, video and audio generation keep working as they do today, with the same t
 On model pages, the widget has a new Providers tab: it lists every provider OpenRouter can route the model to, with its input and output price, speed and uptime over the last 24 hours:
 
 <div>
-<img class="block dark:hidden" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/inference-providers-openrouter/widget-providers@2x.png" alt="The Providers tab of the model page widget, with each provider's price, speed and uptime"/>
-<img class="hidden dark:block" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/inference-providers-openrouter/widget-providers-dark@2x.png" alt="The Providers tab of the model page widget, with each provider's price, speed and uptime"/>
+<img class="block dark:hidden" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/inference-providers-openrouter/widget-playground@2x.gif" alt="Chatting with DeepSeek-V4.1-Flash-1017 in the model page widget, then opening its Providers and Metrics tabs"/>
+<img class="hidden dark:block" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/inference-providers-openrouter/widget-playground-dark@2x.gif" alt="Chatting with DeepSeek-V4.1-Flash-1017 in the model page widget, then opening its Providers and Metrics tabs"/>
 </div>
 
 Your [usage overview](https://huggingface.co/settings/inference-providers/overview) breaks your spend down by the provider each request went to:
