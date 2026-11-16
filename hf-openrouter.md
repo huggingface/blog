@@ -36,7 +36,7 @@ On OpenRouter, open-weight models went from 26.8% of the tokens served in Octobe
 <img class="hidden dark:block" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/inference-providers-openrouter/open-weight-share-dark@2x.png" alt="Open-weight models' share of tokens on OpenRouter, from 26.8% in October 2025 to 71.7% in September 2026"/>
 </div>
 
-A big reason for this growth is price: open-weight models cost about four times less on average: $0.28 per million input tokens and $1.62 per million output tokens, against $1.27 and $6.36 for closed models.
+A big reason for this growth is price. Open-weight models cost about four times less on average: $0.28 per million input tokens and $1.62 per million output tokens, against $1.27 and $6.36 for closed models.
 
 
 The best open-weight models still trail the best proprietary ones on the hardest benchmarks. On the [Artificial Analysis Intelligence Index](https://artificialanalysis.ai/leaderboards/models), Kimi K3.1 Pro, the best open-weight model, scores 46 against 65 for Claude Fable 5.2, at about a seventh of the cost per task ($3.68 against $26.54). For a lot of workloads, that trade-off is worth it.
