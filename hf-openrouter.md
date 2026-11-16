@@ -112,4 +112,4 @@ This is the first step of our partnership with OpenRouter. Next:
 - Connect your OpenRouter account to Hugging Face.
 - More tasks routed through OpenRouter.
 
-Try a model in the [Playground](https://huggingface.co/playground), or read the [Inference Providers docs](https://huggingface.co/docs/inference-providers) to get started.
+Try a [model](https://huggingface.co/models?inference_provider=all&sort=trending), or read the [Inference Providers docs](https://huggingface.co/docs/inference-providers) to get started.
