@@ -28,8 +28,8 @@ OpenRouter just [rebuilt its provider routing](https://openrouter.ai/blog/announ
 It reacts in real time: when a provider slows down or starts failing, traffic moves away from it until it recovers, and a failed try is retried on the next best provider inside the same call. In OpenRouter's measurements, the new routing cut capacity errors by 46% and improved time to first token by 16.9% and throughput by 16.3%.
 
 <div>
-<img class="block dark:hidden" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/inference-providers-openrouter/routing.gif" alt="Default routing retries on another provider when the first one is rate limited, :cheapest picks the lowest price and :fastest the highest throughput"/>
-<img class="hidden dark:block" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/inference-providers-openrouter/routing-dark.gif" alt="Default routing retries on another provider when the first one is rate limited, :cheapest picks the lowest price and :fastest the highest throughput"/>
+<img class="block dark:hidden" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/inference-providers-openrouter/routing@2x.gif" alt="Default routing retries on another provider when the first one is rate limited, :cheapest picks the lowest price and :fastest the highest throughput"/>
+<img class="hidden dark:block" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/inference-providers-openrouter/routing-dark@2x.gif" alt="Default routing retries on another provider when the first one is rate limited, :cheapest picks the lowest price and :fastest the highest throughput"/>
 </div>
 
 Before, Inference Providers picked one provider for your request and returned its error if it failed. Now, the request is retried on another provider. You can still choose a policy or a provider with a suffix on the model id:
@@ -56,22 +56,22 @@ Image, video and audio generation keep working as they do today, with the same t
 On model pages, the widget has a new Providers tab: it lists every provider OpenRouter can route the model to, with its input and output price, speed and uptime over the last 24 hours:
 
 <div>
-<img class="block dark:hidden" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/inference-providers-openrouter/widget-providers.png" alt="The Providers tab of the model page widget, with each provider's price, speed and uptime"/>
-<img class="hidden dark:block" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/inference-providers-openrouter/widget-providers-dark.png" alt="The Providers tab of the model page widget, with each provider's price, speed and uptime"/>
+<img class="block dark:hidden" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/inference-providers-openrouter/widget-providers@2x.png" alt="The Providers tab of the model page widget, with each provider's price, speed and uptime"/>
+<img class="hidden dark:block" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/inference-providers-openrouter/widget-providers-dark@2x.png" alt="The Providers tab of the model page widget, with each provider's price, speed and uptime"/>
 </div>
 
 Your [usage overview](https://huggingface.co/settings/inference-providers/overview) breaks your spend down by the provider each request went to:
 
 <div>
-<img class="block dark:hidden" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/inference-providers-openrouter/usage-by-provider.png" alt="Daily Inference Providers spend, broken down by provider"/>
-<img class="hidden dark:block" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/inference-providers-openrouter/usage-by-provider-dark.png" alt="Daily Inference Providers spend, broken down by provider"/>
+<img class="block dark:hidden" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/inference-providers-openrouter/usage-by-provider@2x.png" alt="Daily Inference Providers spend, broken down by provider"/>
+<img class="hidden dark:block" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/inference-providers-openrouter/usage-by-provider-dark@2x.png" alt="Daily Inference Providers spend, broken down by provider"/>
 </div>
 
 In your [settings](https://huggingface.co/settings/inference-providers), you can turn off any provider you don't want: the router never sends your requests there. Organizations have the same settings, and they apply to every request billed to the organization.
 
 <div>
-<img class="block dark:hidden" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/inference-providers-openrouter/settings-providers.png" alt="Inference Providers settings, with a toggle for each provider"/>
-<img class="hidden dark:block" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/inference-providers-openrouter/settings-providers-dark.png" alt="Inference Providers settings, with a toggle for each provider"/>
+<img class="block dark:hidden" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/inference-providers-openrouter/settings-providers@2x.png" alt="Inference Providers settings, with a toggle for each provider"/>
+<img class="hidden dark:block" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/inference-providers-openrouter/settings-providers-dark@2x.png" alt="Inference Providers settings, with a toggle for each provider"/>
 </div>
 
 ## Breaking change: custom provider keys
