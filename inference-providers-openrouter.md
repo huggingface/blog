@@ -3,6 +3,12 @@ title: "Hugging Face and OpenRouter join forces to make open models easy to run"
 thumbnail: /blog/assets/inference-providers-openrouter/thumbnail.jpg
 authors:
   - user: celinah
+  - user: victor
+  - user: kramp
+  - user: Wauplin
+  - user: pierric
+  - user: coyotte508
+  - user: julien-c
 ---
 
 # Hugging Face and OpenRouter join forces to make open models easy to run
