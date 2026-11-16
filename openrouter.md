@@ -83,8 +83,8 @@ Image, video, and audio generation continue to work exactly as before, directly 
 On model pages, you can chat with the model right away in the widget. Two new tabs show what's behind it: Providers lists every provider OpenRouter can route the model to, with its input and output price, speed and uptime over the last 24 hours, and Metrics shows the best price, throughput, time to first token, context length and uptime among them:
 
 <div>
-<img class="block dark:hidden" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/inference-providers-openrouter/widget-playground@2x.gif" alt="Chatting with DeepSeek-V4.1-Flash-1017 in the model page widget, then opening its Providers and Metrics tabs"/>
-<img class="hidden dark:block" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/inference-providers-openrouter/widget-playground-dark@2x.gif" alt="Chatting with DeepSeek-V4.1-Flash-1017 in the model page widget, then opening its Providers and Metrics tabs"/>
+<img class="block dark:hidden" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/inference-providers-openrouter/widget-playground-2@2x.gif" alt="Chatting with Inkling-2-Small in the model page widget, opening its code snippets, then its Metrics tab"/>
+<img class="hidden dark:block" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/inference-providers-openrouter/widget-playground-2-dark@2x.gif" alt="Chatting with Inkling-2-Small in the model page widget, opening its code snippets, then its Metrics tab"/>
 </div>
 
 Your [usage overview](https://huggingface.co/settings/inference-providers/overview) breaks your spend down by the provider each request went to:
