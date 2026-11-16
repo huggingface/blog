@@ -5999,3 +5999,12 @@
     - lora
     - finetuning
     - open-source
+
+- local: openrouter
+  date: November 16, 2026
+  tags:
+    - announcement
+    - partnerships
+    - hub
+    - inference-providers
+    - openrouter
