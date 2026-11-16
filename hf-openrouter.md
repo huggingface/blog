@@ -76,7 +76,7 @@ Pricing doesn't change: you pay the provider's price on your Hugging Face bill, 
 
 ## Image, video and audio generation
 
-Image, video and audio generation keep working as they do today, with the same token and the same API. You can also run tens of thousands of [LoRAs](https://huggingface.co/models?inference_provider=all&pipeline_tag=text-to-image&other=lora).
+Image, video, and audio generation continue to work exactly as before, directly through Hugging Face Inference Providers without going through OpenRouter. You can keep using the same token and API, and access tens of thousands of [LoRAs](https://huggingface.co/models?inference_provider=all&pipeline_tag=text-to-image&other=lora).
 
 ## See where your requests go
 
@@ -112,4 +112,4 @@ This is the first step of our partnership with OpenRouter. Next:
 - Connect your OpenRouter account to Hugging Face.
 - More tasks routed through OpenRouter.
 
-Try a [model](https://huggingface.co/models?inference_provider=all&sort=trending), or read the [Inference Providers docs](https://huggingface.co/docs/inference-providers) to get started.
+Try a [model](https://huggingface.co/models?inference_provider=all&sort=trending&other=conversational), or read the [Inference Providers docs](https://huggingface.co/docs/inference-providers) to get started.
