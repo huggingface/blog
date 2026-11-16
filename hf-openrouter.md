@@ -29,7 +29,7 @@ The same Hugging Face token also gives you storage with [Storage Buckets](https:
 
 ## How open-weight models are used
 
-On OpenRouter, open-weight models went from 26.8% of the tokens served in October 2025 to 71.7% at the end of September 2026, after peaking at 77.5% in July ([OpenRouter, October 2026](https://openrouter.ai/blog/insights/open-weight-vs-closed-weight-models/)). Over the same period, weekly open-weight volume grew more than 60-fold, against almost tenfold for closed models. This week, the most used model on OpenRouter is an open one, DeepSeek V4.1 Flash 1017, with 59.2 trillion tokens ([rankings](https://openrouter.ai/rankings)).
+On OpenRouter, open-weight models went from 26.8% of the tokens served in October 2025 to 71.7% at the end of September 2026, after peaking at 77.5% in July ([OpenRouter, October 2026](https://openrouter.ai/blog/insights/open-weight-vs-closed-weight-models/)). Over the same period, weekly open-weight volume grew more than 60-fold, against almost tenfold for closed models. This week, the most used model on OpenRouter is an open-weight one, DeepSeek V4.1 Flash 1017, with 59.2 trillion tokens ([rankings](https://openrouter.ai/rankings)).
 
 <div>
 <img class="block dark:hidden" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/inference-providers-openrouter/open-weight-share@2x.png" alt="Open-weight models' share of tokens on OpenRouter, from 26.8% in October 2025 to 71.7% in September 2026"/>
