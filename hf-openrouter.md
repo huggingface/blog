@@ -80,7 +80,7 @@ Image, video and audio generation keep working as they do today, with the same t
 
 ## See where your requests go
 
-On model pages, the widget has a new Providers tab: it lists every provider OpenRouter can route the model to, with its input and output price, speed and uptime over the last 24 hours:
+On model pages, you can chat with the model right away in the widget. Two new tabs show what's behind it: Providers lists every provider OpenRouter can route the model to, with its input and output price, speed and uptime over the last 24 hours, and Metrics shows the best price, throughput, time to first token, context length and uptime among them:
 
 <div>
 <img class="block dark:hidden" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/inference-providers-openrouter/widget-playground@2x.gif" alt="Chatting with DeepSeek-V4.1-Flash-1017 in the model page widget, then opening its Providers and Metrics tabs"/>
