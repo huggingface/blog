@@ -1,6 +1,6 @@
 ---
 title: "Hugging Face and OpenRouter join forces to make open-weight models easy to run"
-thumbnail: /blog/assets/inference-providers-openrouter/thumbnail.jpg
+thumbnail: /blog/assets/hf-openrouter/thumbnail.jpg
 authors:
   - user: celinah
   - user: victor

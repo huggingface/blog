@@ -6000,7 +6000,7 @@
     - finetuning
     - open-source
 
-- local: inference-providers-openrouter
+- local: hf-openrouter
   date: November 16, 2026
   tags:
     - announcement
