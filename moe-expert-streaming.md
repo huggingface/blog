@@ -63,7 +63,7 @@ reads them over PCIe on every step, whether the router picked them or not. No
 cache, no disk. That makes sense for vLLM, where big batches end up using almost
 every expert anyway, less so for one user on one GPU.
 
-**Transformers** offloads through Accelerate (`device_map="auto"`,
+**Transformers** offloads through [Accelerate](https://github.com/huggingface/accelerate) (`device_map="auto"`,
 `offload_folder`). Accelerate puts each *module* on the GPU, the CPU or disk,
 and hooks copy its weights to the GPU before `forward`. For a MoE, the module is
 a layer's whole expert bank, so every token copies every expert of every
