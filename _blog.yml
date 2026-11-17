@@ -6008,3 +6008,11 @@
     - hub
     - inference-providers
     - openrouter
+
+- local: moe-expert-streaming
+  date: November 17, 2026
+  tags:
+    - transformers
+    - moe
+    - inference
+    - apple-silicon
