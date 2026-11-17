@@ -193,6 +193,10 @@ Most of the time wasn't spent on experts. Here's what helped:
   beat LRU by much. What helped was reading just one guessed expert per layer,
   while the SSD would otherwise be idle.
 
+Here's one MoE layer for one token, as it runs now:
+
+![For one layer and one token, the router picks 10 of 512 experts. Eight are already in the expert cache and two are read from the SSD into free cache slots. The experts then run on the GPU from the cache slots, while the SSD reads one guessed expert for the next layer, which enters the cache only if it's used.](/blog/assets/moe-expert-streaming/expert-streaming.svg)
+
 Same M5, same prompts:
 
 |                               | Transformers | Strata | Gap   |
