@@ -19,13 +19,13 @@ I am also a huge fan of RMD (rooms moving development): one hour in the kitchen
 sipping my coffee, two hours at my office desk, then the sofa. A fixed desktop
 tower is not for me.
 
-My first experiment was to run Qwen 3.8 27B with `llama.app` on Orthrus and use
-it from my laptop through `pi`. That model does the coding tasks, an online
+My first experiment was to run [Qwen 3.8 27B](https://huggingface.co/Qwen/Qwen3.8-27B) with [`llama.app`](https://llama.app/) on Orthrus and use
+it from my laptop through [`pi`](https://pi.dev/). That model does the coding tasks, an online
 model like Opus does the orchestration, and the second RTX runs a FIM model for
 auto-completion in Neovim.
 
 When I talked about this on social networks, I got very strong feedback: use
-Strata with Qwen3.8-Flash-Next.
+[Strata](https://github.com/niko1221/strata) with [Qwen3.8-Flash-Next](https://huggingface.co/Qwen/Qwen3.8-Flash-Next).
 
 ## What is Strata?
 
@@ -36,7 +36,7 @@ memory. Like my RTX 4090!
 
 It works on a laptop too, and I stumbled on
 [this blog post](https://modelfit.io/blog/strata-qwen38-flash-next-mac/) doing
-exactly that: Qwen3.8-Flash-Next on a 32 GB Mac M4, faster than llama.cpp, at
+exactly that: Qwen3.8-Flash-Next on a 32 GB Mac M4, faster than [llama.cpp](https://github.com/ggml-org/llama.cpp), at
 13.5 tok/s.
 
 That's too slow for how I use coding agents, but it's an interesting itch to
@@ -45,7 +45,7 @@ could run at a decent speed.
 
 ## How do other engines offload?
 
-Before committing to Strata, I looked at what llama.cpp, vLLM and Transformers
+Before committing to Strata, I looked at what llama.cpp, [vLLM](https://github.com/vllm-project/vllm) and [Transformers](https://github.com/huggingface/transformers)
 do when a MoE model doesn't fit. Three questions matter: where do the experts
 live, where does the expert matmul run, and what moves on each token?
 
@@ -70,7 +70,7 @@ a layer's whole expert bank, so every token copies every expert of every
 offloaded layer to use 8 or 10 of them. No cache, no notion of routing. And on a
 Mac, CPU and GPU share the same memory, so "offload to CPU" frees nothing.
 
-I ran all of them on Qwen3.6-35B-A3B on one A10G (24 GB), with plenty of RAM:
+I ran all of them on [Qwen3.6-35B-A3B](https://huggingface.co/Qwen/Qwen3.6-35B-A3B) on one A10G (24 GB), with plenty of RAM:
 
 | Engine                                     | Decode (tok/s) |
 |--------------------------------------------|----------------|
@@ -99,7 +99,7 @@ profiles, and deciding what to keep. Everything is in a Space:
 
 ### Start small
 
-I started with OLMoE-1B-7B, which fits in memory, so I could compare every token
+I started with [OLMoE-1B-7B](https://huggingface.co/allenai/OLMoE-1B-7B-0924), which fits in memory, so I could compare every token
 with vanilla Transformers.
 
 First version: experts on disk, an LRU cache on the device, and a Python loop
@@ -177,12 +177,12 @@ results are on the Space's
 
 Most of the time wasn't spent on experts. Here's what helped:
 
-- **Committing GPU work early.** PyTorch on MPS holds small kernels until the
+- **Committing GPU work early.** [PyTorch](https://github.com/pytorch/pytorch) on MPS holds small kernels until the
   next sync, so the GPU idled while Python worked. Forcing a commit after each
   block gave +10%. This should really be fixed in PyTorch.
 - **Metal kernels** for the parts without a fast path on macOS: Gated DeltaNet
   and the hyper-connections.
-- **Strata's own weights.** I switched to Strata's GGUF weights: smaller dense
+- **Strata's own weights.** I switched to [Strata's GGUF weights](https://huggingface.co/ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-GGUF): smaller dense
   layers (3.9 GB instead of 5.4 GB read per token) and smaller experts (1.75 MB
   instead of 2.15 MB), with a separate cache pool for each expert size.
 - **Prefill**, from 68 to ~228 tok/s: bigger chunks, and the next layer's
@@ -223,7 +223,7 @@ Beating Strata would take deeper changes in the stack, starting with control
 over that per-layer sync, which PyTorch doesn't give you today. Still, I find it
 pretty amazing to get this close while staying in Python. There's no C++
 extension in the project: just Python, Metal kernels compiled at runtime with
-`torch.mps.compile_shader`, and prebuilt kernels from the Hub.
+`torch.mps.compile_shader`, and prebuilt [kernels from the Hub](https://huggingface.co/kernels-community).
 
 The expert streaming is generic and lives in
 [huggingface/transformers#50717](https://github.com/huggingface/transformers/pull/50717),
