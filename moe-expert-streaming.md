@@ -129,16 +129,20 @@ Then:
 
 ```python
 model = AutoModelForCausalLM.from_pretrained(
-    "qwen38-flash-next/dense",
+    "/path/to/qwen38/dense",
     dtype=torch.bfloat16,
     device_map={"": "mps", "experts.*": "disk"},
     quantization_config=MetalConfig(bits=8),
     experts_offload={
         "cache_bytes": 12 << 30,
-        "quantized_experts": "qwen38-flash-next/experts-q3",
+        "quantized_experts": "/path/to/qwen38/experts-q3",
     },
 )
 ```
+
+Both paths are local folders written by the project's
+[conversion script](https://github.com/tarekziade/moe-expert-streaming#readme):
+the dense weights, and the experts quantized to 3 bits.
 
 Experts mapped to `"disk"` go through the streaming path instead of Accelerate's
 offload: the loader skips their tensors and MoE layers switch to an offloaded
