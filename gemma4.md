@@ -34,6 +34,9 @@ We collaborated with Google and the community to make them available everywhere:
   - [transformers.js](#transformersjs)
   - [MLX](#mlx)
   - [Mistral.rs](#mistralrs)
+  - [AWS SageMaker AI](#aws-sagemaker-ai)
+  - [Gemini Enterprise Agent Platform](#gemini-enterprise-agent-platform)
+  - [Microsoft Foundry](#microsoft-foundry)
 - [Multi-Token Prediction Drafters](#multi-token-prediction-drafters)
 - [DiffusionGemma: Text Generation via Diffusion](#diffusiongemma-text-generation-via-diffusion)
 - [Fine-tuning & Demos](#fine-tuning--demos)
@@ -635,7 +638,7 @@ mlx_vlm.generate \
 
 For audio examples and more details, please check [the MLX collection](https://huggingface.co/collections/mlx-community/gemma-4).
 
-### Mistral.rs
+## Mistral.rs
 
 [mistral.rs](https://github.com/EricLBuehler/mistral.rs) is a Rust-native inference engine with day-0 Gemma 4 support across all modalities (text, image, video, audio) and builtin tool-calling and agentic functionality. Install mistral.rs:
 
@@ -661,7 +664,262 @@ mistralrs run -m google/gemma-4-E4B-it --isq 8 --audio audio.mp3 -i "Transcribe 
 
 Find all models [here](https://huggingface.co/mistralrs-community/models). Please, follow [the instructions](https://huggingface.co/mistralrs-community/gemma-4-E2B-it-UQFF#install) in the model cards for installation and inference guidelines.
 
-## Multi-Token Prediction Drafters
+## AWS SageMaker AI
+
+You can also deploy Gemma 4 on Amazon SageMaker AI with the [vLLM Deep Learning Container for SageMaker](https://github.com/aws/deep-learning-containers), using the AWS SDK for Python (`boto3`). The container reads the vLLM arguments from `SM_VLLM_*` environment variables, so any `vllm serve` flag can be set as an environment variable, e.g. `--max-model-len` as `SM_VLLM_MAX_MODEL_LEN`.
+
+The recipe below serves `google/gemma-4-31B-it` on a single `ml.g7e.2xlarge` instance (1 x NVIDIA RTX PRO 6000 96GB), with an FP8 KV cache and [DFlash speculative decoding](https://huggingface.co/RedHatAI/gemma-4-31B-it-speculator.dflash2). In our benchmarks with this setup, a single request generates ~70 tokens per second (~260 ms to first token), and the endpoint sustains ~600 output tokens per second across 64 concurrent requests, at an on-demand price of ~$4.20 per hour in `us-east-1`.
+
+```shell
+pip install boto3 --upgrade
+```
+
+```python
+import json
+import os
+
+import boto3
+
+region = "us-east-1"
+name = "gemma-4-31b-it"
+
+sagemaker = boto3.client("sagemaker", region_name=region)
+
+sagemaker.create_model(
+    ModelName=name,
+    ExecutionRoleArn=os.getenv("SAGEMAKER_ROLE_ARN"),
+    PrimaryContainer={
+        "Image": f"763104351884.dkr.ecr.{region}.amazonaws.com/vllm:0.29.0-gpu-py312-cu130-ubuntu24.04-sagemaker",
+        "Environment": {
+            "SM_VLLM_MODEL": "google/gemma-4-31B-it",
+            "SM_VLLM_SERVED_MODEL_NAME": "google/gemma-4-31B-it",
+            "SM_VLLM_MAX_MODEL_LEN": "131072",
+            "SM_VLLM_GPU_MEMORY_UTILIZATION": "0.95",
+            "SM_VLLM_KV_CACHE_DTYPE": "fp8",
+            "SM_VLLM_ENABLE_AUTO_TOOL_CHOICE": "true",
+            "SM_VLLM_TOOL_CALL_PARSER": "gemma4",
+            "SM_VLLM_REASONING_PARSER": "gemma4",
+            "SM_VLLM_SPECULATIVE_CONFIG": json.dumps(
+                {
+                    "method": "dflash",
+                    "model": "RedHatAI/gemma-4-31B-it-speculator.dflash2",
+                    "num_speculative_tokens": 7,
+                }
+            ),
+        },
+    },
+)
+
+sagemaker.create_endpoint_config(
+    EndpointConfigName=name,
+    ProductionVariants=[
+        {
+            "VariantName": "AllTraffic",
+            "ModelName": name,
+            "InstanceType": "ml.g7e.2xlarge",
+            "InitialInstanceCount": 1,
+            "ContainerStartupHealthCheckTimeoutInSeconds": 1800,
+        }
+    ],
+)
+
+sagemaker.create_endpoint(EndpointName=name, EndpointConfigName=name)
+sagemaker.get_waiter("endpoint_in_service").wait(EndpointName=name)
+```
+
+Once the endpoint is in service, you can send OpenAI-compatible Chat Completions requests to it:
+
+```python
+runtime = boto3.client("sagemaker-runtime", region_name=region)
+
+response = runtime.invoke_endpoint(
+    EndpointName=name,
+    ContentType="application/json",
+    Body=json.dumps(
+        {
+            "model": "google/gemma-4-31B-it",
+            "messages": [
+                {
+                    "role": "user",
+                    "content": [
+                        {"type": "text", "text": "What do you see in this image?"},
+                        {"type": "image_url", "image_url": {"url": "https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/transformers/rabbit.png"}},
+                    ],
+                }
+            ],
+            "max_tokens": 256,
+        }
+    ),
+)
+print(json.loads(response["Body"].read())["choices"][0]["message"]["content"])
+```
+
+When you're done, remember to delete the endpoint, endpoint configuration and model with `delete_endpoint`, `delete_endpoint_config` and `delete_model`, respectively, to stop paying for the instance.
+
+## Gemini Enterprise Agent Platform
+
+You can deploy Gemma 4 on [Gemini Enterprise Agent Platform](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/open-models/vllm/use-vllm) (formerly Vertex AI) on Google Cloud, using the [vLLM container from Model Garden](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/open-models/vllm/use-vllm) and the Python SDK (`google-cloud-aiplatform`).
+
+The recipe below serves `google/gemma-4-31B-it` on an `a3-highgpu-2g` instance (2 x NVIDIA H100 80GB) with tensor parallelism, the full 256K context, and tool calling and reasoning enabled. In our benchmarks of this same recipe on 2 x NVIDIA H100 80GB with vLLM, it sustains ~1,570 output tokens per second across 64 concurrent requests.
+
+```shell
+pip install google-cloud-aiplatform --upgrade
+```
+
+```python
+import os
+
+from google.cloud import aiplatform
+
+aiplatform.init(project=os.getenv("PROJECT_ID"), location="us-central1")
+
+model = aiplatform.Model.upload(
+    display_name="gemma-4-31b-it",
+    serving_container_image_uri="us-docker.pkg.dev/vertex-ai/vertex-vision-model-garden-dockers/pytorch-vllm-serve:20260713_0916_RC01",
+    serving_container_args=[
+        "python",
+        "-m",
+        "vllm.entrypoints.openai.api_server",
+        "--host=0.0.0.0",
+        "--port=8080",
+        "--model=google/gemma-4-31B-it",
+        "--served-model-name=google/gemma-4-31B-it",
+        "--tensor-parallel-size=2",
+        "--max-model-len=262144",
+        "--gpu-memory-utilization=0.87",
+        "--enable-auto-tool-choice",
+        "--tool-call-parser=gemma4",
+        "--reasoning-parser=gemma4",
+    ],
+    serving_container_ports=[8080],
+    serving_container_predict_route="/v1/chat/completions",
+    serving_container_health_route="/health",
+    serving_container_shared_memory_size_mb=16 * 1024,
+    serving_container_deployment_timeout=7200,
+)
+
+endpoint = model.deploy(
+    machine_type="a3-highgpu-2g",
+    accelerator_type="NVIDIA_H100_80GB",
+    accelerator_count=2,
+    deploy_request_timeout=1800,
+)
+```
+
+Once deployed, you can send OpenAI-compatible Chat Completions requests to the endpoint:
+
+```python
+import json
+
+response = endpoint.raw_predict(
+    body=json.dumps(
+        {
+            "model": "google/gemma-4-31B-it",
+            "messages": [
+                {
+                    "role": "user",
+                    "content": [
+                        {"type": "text", "text": "What do you see in this image?"},
+                        {"type": "image_url", "image_url": {"url": "https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/transformers/rabbit.png"}},
+                    ],
+                }
+            ],
+            "max_tokens": 256,
+        }
+    ).encode("utf-8"),
+    headers={"Content-Type": "application/json"},
+)
+print(response.json()["choices"][0]["message"]["content"])
+```
+
+When you're done, remember to undeploy and delete the resources with `endpoint.delete(force=True)` and `model.delete()`, to stop paying for the instance.
+
+## Microsoft Foundry
+
+Gemma 4 is available in the Hugging Face collection on [Microsoft Foundry](https://ai.azure.com), so you can deploy it within your own Azure subscription on managed compute, powered by vLLM with an OpenAI-compatible API. The following checkpoints are available:
+
+| Hugging Face Hub | Microsoft Foundry |
+|---|---|
+| [`google/gemma-4-E2B-it`](https://huggingface.co/google/gemma-4-E2B-it) | `google--gemma-4-e2b-it` |
+| [`google/gemma-4-E4B-it`](https://huggingface.co/google/gemma-4-E4B-it) | `google--gemma-4-e4b-it` |
+| [`google/gemma-4-26B-A4B-it`](https://huggingface.co/google/gemma-4-26B-A4B-it) | `google--gemma-4-26b-a4b-it` |
+| [`google/gemma-4-31B-it`](https://huggingface.co/google/gemma-4-31B-it) | `google--gemma-4-31b-it` |
+
+You can deploy them from the Foundry portal (Discover > Models, filtering by Hugging Face), or with the Azure SDK for Python, given an existing Microsoft Foundry resource. Each model comes with ready-to-use deployment templates for different instances and context lengths.
+
+The recipe below serves `google/gemma-4-31B-it` with the template for 2 x NVIDIA H100 80GB at the full 256K context, with tool calling and reasoning enabled. In our benchmarks of this same recipe on 2 x NVIDIA H100 80GB with vLLM, a single request generates ~70 tokens per second (~90 ms to first token), and it sustains ~1,560 output tokens per second across 64 concurrent requests.
+
+```shell
+uv pip install azure-identity azure-ai-ml "azure-mgmt-cognitiveservices>=15.0.0b2" openai
+```
+
+```python
+import os
+
+from azure.identity import DefaultAzureCredential
+from azure.mgmt.cognitiveservices import CognitiveServicesManagementClient
+
+client = CognitiveServicesManagementClient(
+    credential=DefaultAzureCredential(),
+    subscription_id=os.getenv("SUBSCRIPTION_ID"),
+)
+
+deployment = client.managed_compute_deployments.begin_create_or_update(
+    resource_group_name=os.getenv("RESOURCE_GROUP"),
+    account_name=os.getenv("ACCOUNT_NAME"),  # your Microsoft Foundry resource name
+    deployment_name="google--gemma-4-31b-it",
+    resource={
+        "sku": {"name": "GlobalManagedCompute", "capacity": 1},
+        "properties": {
+            "model": "azureml://registries/azure-huggingface/models/google--gemma-4-31b-it/versions/9",
+            "deploymentTemplate": "azureml://registries/azure-huggingface/deploymenttemplates/google--gemma-4-31b-it--256k-nvidia-2xh100/labels/latest",
+            "acceleratorType": "H100_80GB",
+            "versionUpgradeOption": "OnceNewDefaultVersionAvailable",
+        },
+    },
+).result()
+```
+
+Once deployed, you can send requests with the OpenAI Python SDK, using the deployment name as the model. Note that the deployment can't reach the internet by default, so images need to be sent base64-encoded rather than as URLs:
+
+```python
+import base64
+from urllib.request import urlopen
+
+from openai import OpenAI
+
+image_url = "https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/transformers/rabbit.png"
+image = base64.b64encode(urlopen(image_url).read()).decode("utf-8")
+
+api_key = client.accounts.list_keys(
+    resource_group_name=os.getenv("RESOURCE_GROUP"),
+    account_name=os.getenv("ACCOUNT_NAME"),
+).key1
+
+openai_client = OpenAI(
+    base_url=f"https://{os.getenv('ACCOUNT_NAME')}.services.ai.azure.com/openai/v1",
+    api_key=api_key,
+)
+
+completion = openai_client.chat.completions.create(
+    model="google--gemma-4-31b-it",
+    messages=[
+        {
+            "role": "user",
+            "content": [
+                {"type": "text", "text": "What do you see in this image?"},
+                {"type": "image_url", "image_url": {"url": f"data:image/png;base64,{image}"}},
+            ],
+        }
+    ],
+    max_completion_tokens=256,
+)
+print(completion.choices[0].message.content)
+```
+
+When you're done, remember to delete the deployment with `client.managed_compute_deployments.begin_delete(resource_group_name=..., account_name=..., deployment_name="google--gemma-4-31b-it").result()` to stop paying for the instances. For more details, check the [Hugging Face on Microsoft Azure documentation](https://huggingface.co/docs/microsoft-azure).
+
+# Multi-Token Prediction Drafters
 
 Google has released Multi-Token Prediction (MTP) drafters for the Gemma 4 family: small _assistant_ models that accelerate inference via speculative decoding. The drafter proposes several future tokens at once, and the target model verifies them in a single forward pass. You get the same outputs as the target model, just faster — no quality loss, no changes to reasoning behaviour. Reported end-to-end speedups go up to ~3x depending on hardware, batch size, and workload.
 
@@ -669,7 +927,7 @@ Assistants are available for all four Gemma 4 sizes (E2B, E4B, 26B A4B, 31B). Th
 
 Find the checkpoints in the [Gemma 4 collection](https://huggingface.co/collections/google/gemma-4) and the [mlx-community collection](https://huggingface.co/collections/mlx-community/gemma-4-assistant-mtp).
 
-## DiffusionGemma: Text Generation via Diffusion
+# DiffusionGemma: Text Generation via Diffusion
 
 Alongside the autoregressive Gemma 4 family, Google DeepMind is releasing [**DiffusionGemma**](https://huggingface.co/google/diffusiongemma-26B-A4B-it), a multimodal model that generates text using **discrete diffusion** instead of token-by-token autoregression. It's built on the same 26B A4B Mixture-of-Experts foundation (25.2B total / 3.8B active parameters, 8 active experts out of 128 plus 1 shared), takes text and image inputs, generates text, and supports up to 256K context — all under the same Apache 2.0 license.
 
@@ -707,7 +965,7 @@ text = processor.decode(output[0], skip_special_tokens=False)
 
 For best results, Google recommends the **Entropy-Bounded (EB) sampler** with adaptive stopping (up to 48 denoising steps, a temperature schedule decaying from 0.8 → 0.4, and an entropy bound of 0.1 for token selection). As with Gemma 4, place image content **before** text in your prompt, and toggle reasoning with the `<|think|>` control token.
 
-## Fine-tuning for all
+# Fine-tuning for all
 
 Gemma 4 models are ideal for fine-tuning in your favorite tools and platforms and at any budget.
 
@@ -786,14 +1044,14 @@ Then select any of the Gemma 4 models from the hub.
 
 ![Unsloth Studio](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/gemma4/unsloth.png)
 
-## Try Gemma 4
+# Try Gemma 4
 
 We have shipped demos for you to try different Gemma 4 models. We include demos based on the transformers implementation for [E4B](https://huggingface.co/spaces/huggingface-projects/gemma-4-e4b-it), [12B Unified](https://huggingface.co/spaces/huggingface-projects/gemma-4-12b-it), [26B/A4B MoE](https://huggingface.co/spaces/huggingface-projects/gemma-4-26b-a4b-it), and [31B dense](https://huggingface.co/spaces/huggingface-projects/gemma-4-31b-it) models. There's also a [WebGPU](https://huggingface.co/spaces/webml-community/Gemma-4-WebGPU) demo with transformers.js 🚀
 
 
 <iframe width="560" height="315" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/g4-blog/webgpu_demo.mp4" title="WebGPU Demo" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen> </iframe>
 
-## Benchmark Results
+# Benchmark Results
 
 Gemma 4 models demonstrate exceptional performance across diverse benchmarks, from reasoning and coding to vision and long-context tasks. The graph below shows model performance vs size, with Gemma 4 models forming an impressive Pareto frontier:
 
@@ -838,7 +1096,7 @@ Here are detailed benchmark results for the instruction-tuned models:
 <sup>*</sup>Excluding Chinese language.
 
 
-## Acknowledgements
+# Acknowledgements
 
 This work wouldn't have been possible without Google's extensive contribution with the model artefact, but also the significant effort contributing the model to transformers in an effort to standardize it. The open-source ecosystem is now more complete, with a very capable, freely-licensed, open-source model.
 The Gemma 4 transformers integration was handled by Cyril, Raushan, Eustache, Arthur, Lysandre. We thank Joshua for the transformers.js integration and demo, Eric for mistral.rs integration, Son for Llama.cpp, Prince for MLX, Quentin, Albert and Kashif for TRL, Adarsh for SGLang transformers backend, and Toshihiro for building several demos.
