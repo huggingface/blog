@@ -6009,6 +6009,13 @@
     - inference-providers
     - openrouter
 
+- local: rumble-2-flash
+  date: November 18, 2026
+  tags:
+    - audio
+    - speech
+    - asr
+    - open-source
 - local: moe-expert-streaming
   date: November 18, 2026
   tags:
