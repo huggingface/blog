@@ -10,9 +10,8 @@ authors:
 *The unlock: streaming MoE experts directly from SSD, getting within 6% of Strata on token generation.*
 
 I've been trying to rely less on online models and run bigger ones locally.
-But my work laptop has only 32 GB of memory. At home I
-have a PC with two RTX 4090s (let's call it **Orthrus** - the two-headed hound
-of Greek mythology), and for work I have a MacBook M5.
+At home I have a PC with two RTX 4090s (let's call it **Orthrus** - the two-headed hound
+of Greek mythology), and for work I have a MacBook M5 with 32G of unified memory.
 
 Orthrus runs on Windows 11, because my kids play games all the time. I had a
 dual boot with Ubuntu, but their games ended up taking most of the two
