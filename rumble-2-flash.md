@@ -70,7 +70,7 @@ On-policy distillation normally requires teacher and student to share a tokenize
 
 ### Accuracy for its size
 
-On the [Open ASR Leaderboard](https://huggingface.co/spaces/hf-audio/open_asr_leaderboard) multilingual track, Rumble-2-Flash averages a **6.96% error rate** across Chinese, German, French, Italian, Spanish, Portuguese, Hindi, Dutch and English. That's better than Meta's omniASR-LLM 7B, a model 15x larger, and ahead of Whisper large-v3. On the English track it averages **6.6% WER**.
+On the Open ASR Leaderboard [multilingual](https://huggingface.co/spaces/hf-audio/open_asr_leaderboard?languages=Reson8%2FRumble-2-Flash&proprietary=false) track, Rumble-2-Flash averages a **6.96% error rate** across Chinese, German, French, Italian, Spanish, Portuguese, Hindi, Dutch and English. That's better than Meta's omniASR-LLM 7B, a model 15x larger, and ahead of Whisper large-v3. On the [English](https://huggingface.co/spaces/hf-audio/open_asr_leaderboard) track it averages **6.6% WER**.
 
 <figure class="image text-center">
   <img class="block dark:hidden" src="https://huggingface.co/datasets/Reson8/public-media/resolve/main/blog/rumble-2-flash/size-vs-wer-en.png" alt="Average error rate against model size for open-weight models on the Open ASR Leaderboard multilingual track, including English">
