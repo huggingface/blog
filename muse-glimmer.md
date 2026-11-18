@@ -461,7 +461,7 @@ llama cli -hf meta-models/Muse-Glimmer-30B-GGUF --spec-type draft-dflash
 
 ```
 
-### Inference Endpoints
+## Inference Endpoints
 
 For a managed, autoscaling deployment, open the [Muse Glimmer 30B Inference Endpoints preset](https://endpoints.huggingface.co/huggingface/new/meta-models/Muse-Glimmer-30B). The model is already selected: choose the organization, cloud provider, region, compatible GPU instance, authentication, and autoscaling settings, then review the hourly price and click **Create Endpoint**. Once its status is **Running**, you can test it in the Playground and copy the endpoint URL and model name from the Overview.
 
@@ -798,7 +798,7 @@ We also experimented with running the model on [OpenCode with AsyncGRPO example]
 
 Here are some fun ways to try out Muse Glimmer. In our opinion, the coolest thing about this model is that it is a local scale personal assistant that can code. That means you can make it do things like, quantize itself, find quantized weights on the Hub, deploy itself to inference endpoints, and even optimize itself for specific hardware! Let’s go team local 🚀
 
-## Connect OpenClaw to Muse Glimmer
+### Connect OpenClaw to Muse Glimmer
 
 Assume the Inference Endpoint exposes an OpenAI-compatible `/v1` API.
 
