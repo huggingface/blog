@@ -51,30 +51,27 @@ Before committing to Strata, I looked at what llama.cpp, [vLLM](https://github.c
 do when a MoE model doesn't fit. Three questions matter: where do the experts
 live, where does the expert matmul run, and what moves on each token?
 
-**llama.cpp** maps the GGUF file with `mmap`, and lets you keep the experts on
-the CPU with `--cpu-moe`, `--n-cpu-moe N`, or a regex with `-ot "exps=CPU"`
-(`--fit on` picks the placement for you). Those experts are also *computed* on
-the CPU, so only the activations cross PCIe, never the weights. When the experts
-fit in RAM, that's a great deal. When they don't, you rely on the page cache,
-with no budget, and it thrashes. A GPU expert cache (`--moe-cache-mib`) just
-landed, but it fragments the graph: 2 splits per token become 50, and you lose
+**llama.cpp** maps the GGUF file with `mmap` and can keep the experts on the
+CPU (`--cpu-moe`, `--n-cpu-moe N`, `-ot "exps=CPU"`, or `--fit on` to pick for
+you). Those experts are also *computed* on the CPU, so only the activations
+cross PCIe, never the weights. Great when the experts fit in RAM. When they
+don't, the page cache thrashes. A GPU expert cache (`--moe-cache-mib`) just
+landed, but it fragments the graph (2 splits per token become 50) and loses
 ~10% even when everything fits.
 
-**vLLM** has `--cpu-offload-gb N`: N GB of weights go to pinned RAM, and the GPU
-reads them in place over PCIe whenever a kernel touches them. For a MoE layer,
-that's only the experts the router picked, but nothing is cached: a hot expert
-crosses PCIe again on every token. No disk either. By default, the N GB are the
-first weights of the model, dense layers included, and those are read on every
-token; `--cpu-offload-params experts` offloads only the experts. That design
-makes sense for vLLM, where big batches end up using almost every expert anyway,
-less so for one user on one GPU.
+**vLLM**'s `--cpu-offload-gb N` puts N GB of weights in pinned RAM, and kernels
+read them in place over PCIe. For a MoE layer, that's only the routed experts,
+but nothing is cached: a hot expert crosses PCIe again on every token, and
+there's no disk tier. By default the offloaded weights include dense layers,
+read on every token; `--cpu-offload-params experts` keeps it to the experts. That fits vLLM's big
+batches, which touch almost every expert anyway, less so one user on one GPU.
 
 **Transformers** offloads through [Accelerate](https://github.com/huggingface/accelerate) (`device_map="auto"`,
-`offload_folder`). Accelerate puts each *module* on the GPU, the CPU or disk,
-and hooks copy its weights to the GPU before `forward`. For a MoE, the module is
-a layer's whole expert bank, so every token copies every expert of every
-offloaded layer to use 8 or 10 of them. No cache, no notion of routing. And on a
-Mac, CPU and GPU share the same memory, so "offload to CPU" frees nothing.
+`offload_folder`), one *module* at a time: hooks copy its weights to the GPU
+before `forward`. For a MoE, that module is a layer's whole expert bank, so
+every token copies every expert of every offloaded layer to use 8 or 10 of them.
+No cache, no notion of routing. And on a Mac, CPU and GPU share the same memory,
+so "offload to CPU" frees nothing.
 
 I ran all of them on [Qwen3.6-35B-A3B](https://huggingface.co/Qwen/Qwen3.6-35B-A3B) on one A10G (24 GB), with plenty of RAM,
 and Harry Mellor reran vLLM with better flags:
@@ -91,15 +88,15 @@ and Harry Mellor reran vLLM with better flags:
 | vLLM, BF16, `--cpu-offload-gb 50`                               | 3.3            |
 | Transformers + Accelerate                                       | 0.16           |
 
-Offloading only the experts doubles vLLM's speed, and FP8 helps on top of that:
-half the bytes per expert, and more of the model stays on the GPU. vLLM's other
-offload backend, which copies groups of layers to the GPU ahead of time, ran
-under 1 tok/s.
+Offloading only the experts doubles vLLM's speed, and FP8 helps on top (half
+the bytes per expert, more of the model on the GPU). vLLM's other offload
+backend, which copies groups of layers ahead of time, ran under 1 tok/s.
 
 If the experts fit in RAM, llama.cpp is hard to beat. If they don't, you have to
 stream only what the router picks, through a bounded cache, fast enough that the
-SSD is the bottleneck and not Python. That's Qwen3.8-Flash-Next on a 32 GB Mac,
-and Transformers couldn't do it out of the box.
+SSD is the bottleneck and not Python, ideally reusing the model's fast expert
+kernels. That's Qwen3.8-Flash-Next on a 32 GB Mac, and Transformers couldn't do
+it out of the box.
 
 ## Making Qwen3.8-Flash-Next work on my 32 GB Mac with Transformers
 
@@ -123,11 +120,12 @@ running one expert at a time. With every expert already cached, it did 10.1
 tok/s. Vanilla did ~32. The I/O was fine, my loop was not: vanilla uses
 `grouped_mm`, which runs all the experts of a layer in one kernel.
 
-So I turned the cache into a slot pool: one preallocated device tensor shared by
-all layers, plus a per-layer table from expert id to slot. Remap the routing to
-slots and the pool looks like a regular expert bank, so `grouped_mm` works on it
-as is. No custom expert matmul needed. That got it to 34.6 tok/s, against 38.1
-for vanilla.
+The fix, and the key idea of this project, was to turn the cache into a **slot
+pool**: one preallocated device tensor shared by all layers, plus a per-layer
+table from expert id to slot. Remap the router's expert ids to slots and the
+pool looks like a regular expert bank, so `grouped_mm` runs on it as is. No
+custom expert matmul needed. That got it to 34.6 tok/s, against 38.1 for
+vanilla.
 
 ### `experts_offload`
 
@@ -173,8 +171,9 @@ their own option.
 
 ### Running 121 GB of experts on a 32 GB Mac
 
-Qwen3.8-Flash-Next has 48 layers of 512 experts (10 active), and a 51 GB n-gram
-embedding table. The experts alone are 121 GB in FP8. So:
+Qwen3.8-Flash-Next has 48 layers of 512 experts (10 active), 121 GB in FP8.
+Streaming them isn't enough: there's also a 51 GB n-gram embedding
+table that needs its own disk path. So:
 
 - experts quantized to 3 bits: 49 GB on disk, 12 GiB cached on the device
 - dense layers in 8 bits (~5.4 GB, +0.2% perplexity vs BF16)
@@ -204,9 +203,9 @@ results are on the Space's
 I also tried [vllm-metal](https://github.com/vllm-project/vllm-metal), vLLM on
 Apple GPUs through MLX, which recently got expert offloading. It streams the
 routed experts from an MLX checkpoint through a bounded cache, like this
-project. But it can't run Qwen3.8-Flash-Next on 32 GB: only the experts are
-streamed, and the n-gram tables stay in memory. That's 32 GB in the MLX
-checkpoints on the Hub, before the ~5 GB of dense layers and any expert cache.
+project. But it can't run Qwen3.8-Flash-Next on 32 GB, for the n-gram reason
+above: only the experts are streamed, and the n-gram tables stay in memory.
+That's 32 GB in the MLX checkpoints on the Hub, before the ~5 GB of dense layers and any expert cache.
 
 ## Closing the gap
 
@@ -257,21 +256,22 @@ I haven't built it.
 It runs at ~14 tok/s, close to Strata, and it's still too slow for how I use
 coding agents. Orthrus keeps doing the real work.
 
-Closing the remaining gap would take deeper changes in the stack, starting with control
-over that per-layer sync, which PyTorch doesn't give you today.
+Transformers didn't beat Strata, and closing the last ~6% would take deeper
+changes in the stack, starting with control over that per-layer sync, which
+PyTorch doesn't give you today. The interesting part is how it got that
+close: streaming only the routed experts, a bounded cache that `grouped_mm` runs
+on as is, and a few targeted Metal kernels. There's no C++ extension in the
+project: just Python, Metal kernels compiled at runtime with
+`torch.mps.compile_shader`, and prebuilt [kernels from the Hub](https://huggingface.co/kernels-community).
+All the Metal kernels written for this experiment are now
+[published on the Hub](https://tarekziade-moe-expert-streaming.static.hf.space/details.html#published-kernels),
+and the project loads them from there.
 
 Beating Strata was never the only goal, though. Building this was a great way
 to learn how MoEs and LLMs work from a systems perspective: how sparse the
 routing really is, how much an expert cache buys you, where memory bandwidth
 goes per token, and how much time the host and the GPU spend waiting on each
 other. Transformers makes all of that easy to poke at, one module at a time.
-
-I also find it pretty amazing to get this close while staying in Python. There's no C++
-extension in the project: just Python, Metal kernels compiled at runtime with
-`torch.mps.compile_shader`, and prebuilt [kernels from the Hub](https://huggingface.co/kernels-community).
-All the Metal kernels written for this experiment are now
-[published on the Hub](https://tarekziade-moe-expert-streaming.static.hf.space/details.html#published-kernels),
-and the project loads them from there.
 
 The generic expert streaming implementation is in
 [huggingface/transformers#50717](https://github.com/huggingface/transformers/pull/50717),
