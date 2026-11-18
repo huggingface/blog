@@ -137,24 +137,27 @@ To try it, install Transformers from that PR:
 pip install "git+https://github.com/huggingface/transformers.git@refs/pull/50717/head"
 ```
 
-Then:
+Then, moving from OLMoE to the real target, Qwen3.8-Flash-Next:
 
 ```python
+path = snapshot_download("tarekziade/Qwen3.8-Flash-Next-expert-streaming")
+
 model = AutoModelForCausalLM.from_pretrained(
-    "/path/to/qwen38/dense",
+    f"{path}/dense",
     dtype=torch.bfloat16,
     device_map={"": "mps", "experts.*": "disk"},
     quantization_config=MetalConfig(bits=8),
     experts_offload={
         "cache_bytes": 12 << 30,
-        "quantized_experts": "/path/to/qwen38/experts-q3",
+        "quantized_experts": f"{path}/experts-q3",
     },
 )
 ```
 
-Both paths are local folders written by the project's
+[That repo](https://huggingface.co/tarekziade/Qwen3.8-Flash-Next-expert-streaming)
+holds the output of the project's
 [conversion script](https://github.com/tarekziade/moe-expert-streaming#readme):
-the dense weights, and the experts quantized to 3 bits.
+the dense weights, the experts quantized to 3 bits, and the n-gram table.
 
 Experts mapped to `"disk"` go through the streaming path instead of Accelerate's
 offload: the loader skips their tensors and MoE layers switch to an offloaded
