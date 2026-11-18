@@ -638,7 +638,7 @@ mlx_vlm.generate \
 
 For audio examples and more details, please check [the MLX collection](https://huggingface.co/collections/mlx-community/gemma-4).
 
-### Mistral.rs
+## Mistral.rs
 
 [mistral.rs](https://github.com/EricLBuehler/mistral.rs) is a Rust-native inference engine with day-0 Gemma 4 support across all modalities (text, image, video, audio) and builtin tool-calling and agentic functionality. Install mistral.rs:
 
@@ -919,7 +919,7 @@ print(completion.choices[0].message.content)
 
 When you're done, remember to delete the deployment with `client.managed_compute_deployments.begin_delete(resource_group_name=..., account_name=..., deployment_name="google--gemma-4-31b-it").result()` to stop paying for the instances. For more details, check the [Hugging Face on Microsoft Azure documentation](https://huggingface.co/docs/microsoft-azure).
 
-## Multi-Token Prediction Drafters
+# Multi-Token Prediction Drafters
 
 Google has released Multi-Token Prediction (MTP) drafters for the Gemma 4 family: small _assistant_ models that accelerate inference via speculative decoding. The drafter proposes several future tokens at once, and the target model verifies them in a single forward pass. You get the same outputs as the target model, just faster — no quality loss, no changes to reasoning behaviour. Reported end-to-end speedups go up to ~3x depending on hardware, batch size, and workload.
 
@@ -927,7 +927,7 @@ Assistants are available for all four Gemma 4 sizes (E2B, E4B, 26B A4B, 31B). Th
 
 Find the checkpoints in the [Gemma 4 collection](https://huggingface.co/collections/google/gemma-4) and the [mlx-community collection](https://huggingface.co/collections/mlx-community/gemma-4-assistant-mtp).
 
-## DiffusionGemma: Text Generation via Diffusion
+# DiffusionGemma: Text Generation via Diffusion
 
 Alongside the autoregressive Gemma 4 family, Google DeepMind is releasing [**DiffusionGemma**](https://huggingface.co/google/diffusiongemma-26B-A4B-it), a multimodal model that generates text using **discrete diffusion** instead of token-by-token autoregression. It's built on the same 26B A4B Mixture-of-Experts foundation (25.2B total / 3.8B active parameters, 8 active experts out of 128 plus 1 shared), takes text and image inputs, generates text, and supports up to 256K context — all under the same Apache 2.0 license.
 
@@ -965,7 +965,7 @@ text = processor.decode(output[0], skip_special_tokens=False)
 
 For best results, Google recommends the **Entropy-Bounded (EB) sampler** with adaptive stopping (up to 48 denoising steps, a temperature schedule decaying from 0.8 → 0.4, and an entropy bound of 0.1 for token selection). As with Gemma 4, place image content **before** text in your prompt, and toggle reasoning with the `<|think|>` control token.
 
-## Fine-tuning for all
+# Fine-tuning for all
 
 Gemma 4 models are ideal for fine-tuning in your favorite tools and platforms and at any budget.
 
@@ -1044,14 +1044,14 @@ Then select any of the Gemma 4 models from the hub.
 
 ![Unsloth Studio](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/gemma4/unsloth.png)
 
-## Try Gemma 4
+# Try Gemma 4
 
 We have shipped demos for you to try different Gemma 4 models. We include demos based on the transformers implementation for [E4B](https://huggingface.co/spaces/huggingface-projects/gemma-4-e4b-it), [12B Unified](https://huggingface.co/spaces/huggingface-projects/gemma-4-12b-it), [26B/A4B MoE](https://huggingface.co/spaces/huggingface-projects/gemma-4-26b-a4b-it), and [31B dense](https://huggingface.co/spaces/huggingface-projects/gemma-4-31b-it) models. There's also a [WebGPU](https://huggingface.co/spaces/webml-community/Gemma-4-WebGPU) demo with transformers.js 🚀
 
 
 <iframe width="560" height="315" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/g4-blog/webgpu_demo.mp4" title="WebGPU Demo" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen> </iframe>
 
-## Benchmark Results
+# Benchmark Results
 
 Gemma 4 models demonstrate exceptional performance across diverse benchmarks, from reasoning and coding to vision and long-context tasks. The graph below shows model performance vs size, with Gemma 4 models forming an impressive Pareto frontier:
 
@@ -1096,7 +1096,7 @@ Here are detailed benchmark results for the instruction-tuned models:
 <sup>*</sup>Excluding Chinese language.
 
 
-## Acknowledgements
+# Acknowledgements
 
 This work wouldn't have been possible without Google's extensive contribution with the model artefact, but also the significant effort contributing the model to transformers in an effort to standardize it. The open-source ecosystem is now more complete, with a very capable, freely-licensed, open-source model.
 The Gemma 4 transformers integration was handled by Cyril, Raushan, Eustache, Arthur, Lysandre. We thank Joshua for the transformers.js integration and demo, Eric for mistral.rs integration, Son for Llama.cpp, Prince for MLX, Quentin, Albert and Kashif for TRL, Adarsh for SGLang transformers backend, and Toshihiro for building several demos.
