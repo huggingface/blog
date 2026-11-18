@@ -521,6 +521,262 @@ curl -s http://127.0.0.1:8000/v1/chat/completions \
 
 ```
 
+## AWS SageMaker AI
+
+You can also deploy Muse Glimmer on Amazon SageMaker AI with the [vLLM Deep Learning Container for SageMaker](https://github.com/aws/deep-learning-containers), using the AWS SDK for Python (`boto3`). The container reads the vLLM arguments from `SM_VLLM_*` environment variables, so any `vllm serve` flag can be set as an environment variable, e.g. `--max-model-len` as `SM_VLLM_MAX_MODEL_LEN`.
+
+The recipe below serves `meta-models/Muse-Glimmer-30B` on a single `ml.g7e.2xlarge` instance (1 x NVIDIA RTX PRO 6000 96GB), with an FP8 KV cache and [DFlash speculative decoding](https://huggingface.co/meta-models/Muse-Glimmer-30B-assistant). In our benchmarks with this setup, a single request generates ~56 tokens per second (~220 ms to first token), and the endpoint sustains ~590 output tokens per second across 64 concurrent requests, at an on-demand price of ~$4.20 per hour in `us-east-1`.
+
+```shell
+pip install boto3 --upgrade
+```
+
+```python
+import json
+import os
+
+import boto3
+
+region = "us-east-1"
+name = "muse-glimmer-30b"
+
+sagemaker = boto3.client("sagemaker", region_name=region)
+
+sagemaker.create_model(
+    ModelName=name,
+    ExecutionRoleArn=os.getenv("SAGEMAKER_ROLE_ARN"),
+    PrimaryContainer={
+        "Image": f"763104351884.dkr.ecr.{region}.amazonaws.com/vllm:0.33.0-gpu-py312-cu130-ubuntu24.04-sagemaker",
+        "Environment": {
+            "SM_VLLM_MODEL": "meta-models/Muse-Glimmer-30B",
+            "SM_VLLM_SERVED_MODEL_NAME": "meta-models/Muse-Glimmer-30B",
+            "SM_VLLM_MAX_MODEL_LEN": "65536",
+            "SM_VLLM_MAX_NUM_SEQS": "64",
+            "SM_VLLM_KV_CACHE_DTYPE": "fp8",
+            "SM_VLLM_ENABLE_PREFIX_CACHING": "true",
+            "SM_VLLM_ENABLE_CHUNKED_PREFILL": "true",
+            "SM_VLLM_ENABLE_AUTO_TOOL_CHOICE": "true",
+            "SM_VLLM_TOOL_CALL_PARSER": "muse_glimmer",
+            "SM_VLLM_REASONING_PARSER": "muse_glimmer",
+            "SM_VLLM_GENERATION_CONFIG": "auto",
+            "SM_VLLM_SPECULATIVE_CONFIG": json.dumps(
+                {
+                    "method": "dflash",
+                    "model": "meta-models/Muse-Glimmer-30B-assistant",
+                    "num_speculative_tokens": 15,
+                }
+            ),
+        },
+    },
+)
+
+sagemaker.create_endpoint_config(
+    EndpointConfigName=name,
+    ProductionVariants=[
+        {
+            "VariantName": "AllTraffic",
+            "ModelName": name,
+            "InstanceType": "ml.g7e.2xlarge",
+            "InitialInstanceCount": 1,
+            "ContainerStartupHealthCheckTimeoutInSeconds": 1800,
+        }
+    ],
+)
+
+sagemaker.create_endpoint(EndpointName=name, EndpointConfigName=name)
+sagemaker.get_waiter("endpoint_in_service").wait(EndpointName=name)
+```
+
+Once the endpoint is in service, you can send OpenAI-compatible Chat Completions requests to it. Muse Glimmer always reasons before answering, so leave enough room in `max_tokens` for the reasoning, and optionally lower the reasoning strength (`high` by default) via `chat_template_kwargs`:
+
+```python
+runtime = boto3.client("sagemaker-runtime", region_name=region)
+
+response = runtime.invoke_endpoint(
+    EndpointName=name,
+    ContentType="application/json",
+    Body=json.dumps(
+        {
+            "model": "meta-models/Muse-Glimmer-30B",
+            "messages": [
+                {
+                    "role": "user",
+                    "content": [
+                        {"type": "text", "text": "What do you see in this image?"},
+                        {"type": "image_url", "image_url": {"url": "https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/transformers/rabbit.png"}},
+                    ],
+                }
+            ],
+            "max_tokens": 1024,
+            "chat_template_kwargs": {"reasoning_strength": "low"},
+        }
+    ),
+)
+print(json.loads(response["Body"].read())["choices"][0]["message"]["content"])
+```
+
+When you're done, remember to delete the endpoint, endpoint configuration and model with `delete_endpoint`, `delete_endpoint_config` and `delete_model`, respectively, to stop paying for the instance.
+
+## Gemini Enterprise Agent Platform
+
+You can deploy Muse Glimmer on [Gemini Enterprise Agent Platform](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/open-models/vllm/use-vllm) (formerly Vertex AI) on Google Cloud, using the [vLLM container from Model Garden](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/open-models/vllm/use-vllm) and the Python SDK (`google-cloud-aiplatform`).
+
+The recipe below serves `meta-models/Muse-Glimmer-30B` on an `a3-highgpu-1g` instance (1 x NVIDIA H100 80GB) at 64K context, with an FP8 KV cache, and tool calling and reasoning enabled. In our benchmarks of this same recipe on 1 x NVIDIA H100 80GB with vLLM, a single request generates ~45 tokens per second (~95 ms to first token), and it sustains ~1,420 output tokens per second across 64 concurrent requests.
+
+```shell
+pip install google-cloud-aiplatform --upgrade
+```
+
+```python
+import os
+
+from google.cloud import aiplatform
+
+aiplatform.init(project=os.getenv("PROJECT_ID"), location="us-central1")
+
+model = aiplatform.Model.upload(
+    display_name="muse-glimmer-30b",
+    serving_container_image_uri="us-docker.pkg.dev/agent-platform-mg-public/containers/pytorch-vllm-serve:model-garden.pytorch-vllm-serve-release_20261111.00_p0",
+    serving_container_args=[
+        "python",
+        "-m",
+        "vllm.entrypoints.openai.api_server",
+        "--host=0.0.0.0",
+        "--port=8080",
+        "--model=meta-models/Muse-Glimmer-30B",
+        "--served-model-name=meta-models/Muse-Glimmer-30B",
+        "--max-model-len=65536",
+        "--gpu-memory-utilization=0.95",
+        "--kv-cache-dtype=fp8",
+        "--max-num-seqs=256",
+        "--enable-auto-tool-choice",
+        "--tool-call-parser=muse_glimmer",
+        "--reasoning-parser=muse_glimmer",
+        "--generation-config=auto",
+    ],
+    serving_container_ports=[8080],
+    serving_container_predict_route="/v1/chat/completions",
+    serving_container_health_route="/health",
+    serving_container_shared_memory_size_mb=16 * 1024,
+    serving_container_deployment_timeout=7200,
+)
+
+endpoint = model.deploy(
+    machine_type="a3-highgpu-1g",
+    accelerator_type="NVIDIA_H100_80GB",
+    accelerator_count=1,
+    deploy_request_timeout=1800,
+)
+```
+
+Once deployed, you can send OpenAI-compatible Chat Completions requests to the endpoint. Muse Glimmer always reasons before answering, so leave enough room in `max_tokens` for the reasoning, and optionally lower the reasoning strength (`high` by default) via `chat_template_kwargs`:
+
+```python
+import json
+
+response = endpoint.raw_predict(
+    body=json.dumps(
+        {
+            "model": "meta-models/Muse-Glimmer-30B",
+            "messages": [
+                {
+                    "role": "user",
+                    "content": [
+                        {"type": "text", "text": "What do you see in this image?"},
+                        {"type": "image_url", "image_url": {"url": "https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/transformers/rabbit.png"}},
+                    ],
+                }
+            ],
+            "max_tokens": 1024,
+            "chat_template_kwargs": {"reasoning_strength": "low"},
+        }
+    ).encode("utf-8"),
+    headers={"Content-Type": "application/json"},
+)
+print(response.json()["choices"][0]["message"]["content"])
+```
+
+When you're done, remember to undeploy and delete the resources with `endpoint.delete(force=True)` and `model.delete()`, to stop paying for the instance.
+
+## Microsoft Foundry
+
+Muse Glimmer is available in the Hugging Face collection on [Microsoft Foundry](https://ai.azure.com) as `meta-models--muse-glimmer-30b`, so you can deploy it within your own Azure subscription on managed compute, powered by vLLM with an OpenAI-compatible API.
+
+You can deploy it from the Foundry portal (Discover > Models, filtering by Hugging Face), or with the Azure SDK for Python, given an existing Microsoft Foundry resource. The model comes with ready-to-use deployment templates for different instances and context lengths.
+
+The recipe below serves `meta-models/Muse-Glimmer-30B` with the template for 1 x NVIDIA H100 80GB at 64K context, with an FP8 KV cache, and tool calling and reasoning enabled. In our benchmarks of this same recipe on 1 x NVIDIA H100 80GB with vLLM, a single request generates ~45 tokens per second (~95 ms to first token), and it sustains ~1,420 output tokens per second across 64 concurrent requests.
+
+```shell
+uv pip install azure-identity azure-ai-ml "azure-mgmt-cognitiveservices>=15.0.0b2" openai
+```
+
+```python
+import os
+
+from azure.identity import DefaultAzureCredential
+from azure.mgmt.cognitiveservices import CognitiveServicesManagementClient
+
+client = CognitiveServicesManagementClient(
+    credential=DefaultAzureCredential(),
+    subscription_id=os.getenv("SUBSCRIPTION_ID"),
+)
+
+deployment = client.managed_compute_deployments.begin_create_or_update(
+    resource_group_name=os.getenv("RESOURCE_GROUP"),
+    account_name=os.getenv("ACCOUNT_NAME"),  # your Microsoft Foundry resource name
+    deployment_name="meta-models--muse-glimmer-30b",
+    resource={
+        "sku": {"name": "GlobalManagedCompute", "capacity": 1},
+        "properties": {
+            "model": "azureml://registries/azure-huggingface/models/meta-models--muse-glimmer-30b/versions/3",
+            "deploymentTemplate": "azureml://registries/azure-huggingface/deploymenttemplates/meta-models--muse-glimmer-30b--64k-nvidia-h100/labels/latest",
+            "acceleratorType": "H100_80GB",
+            "versionUpgradeOption": "OnceNewDefaultVersionAvailable",
+        },
+    },
+).result()
+```
+
+Once deployed, you can send requests with the OpenAI Python SDK, using the deployment name as the model. Note that the deployment can't reach the internet by default, so images need to be sent base64-encoded rather than as URLs. Muse Glimmer always reasons before answering, so leave enough room in `max_completion_tokens` for the reasoning, and optionally lower the reasoning strength (`high` by default) via the system prompt:
+
+```python
+import base64
+from urllib.request import urlopen
+
+from openai import OpenAI
+
+image_url = "https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/transformers/rabbit.png"
+image = base64.b64encode(urlopen(image_url).read()).decode("utf-8")
+
+api_key = client.accounts.list_keys(
+    resource_group_name=os.getenv("RESOURCE_GROUP"),
+    account_name=os.getenv("ACCOUNT_NAME"),
+).key1
+
+openai_client = OpenAI(
+    base_url=f"https://{os.getenv('ACCOUNT_NAME')}.services.ai.azure.com/openai/v1",
+    api_key=api_key,
+)
+
+completion = openai_client.chat.completions.create(
+    model="meta-models--muse-glimmer-30b",
+    messages=[
+        {"role": "system", "content": "Reasoning strength: low."},
+        {
+            "role": "user",
+            "content": [
+                {"type": "text", "text": "What do you see in this image?"},
+                {"type": "image_url", "image_url": {"url": f"data:image/png;base64,{image}"}},
+            ],
+        }
+    ],
+    max_completion_tokens=1024,
+)
+print(completion.choices[0].message.content)
+```
+
+When you're done, remember to delete the deployment with `client.managed_compute_deployments.begin_delete(resource_group_name=..., account_name=..., deployment_name="meta-models--muse-glimmer-30b").result()` to stop paying for the instance. For more details, check the [Hugging Face on Microsoft Azure documentation](https://huggingface.co/docs/microsoft-azure).
+
 ## Fine-tuning with TRL
 
 You can use TRL to fine-tune Muse Glimmer using various methods from SFT to Async GRPO. We have run two experiments on bf16 with Hopper-class GPUs with 80GB VRAM each.
