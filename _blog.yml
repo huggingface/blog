@@ -6016,3 +6016,10 @@
     - speech
     - asr
     - open-source
+- local: moe-expert-streaming
+  date: November 18, 2026
+  tags:
+    - transformers
+    - moe
+    - inference
+    - apple-silicon
