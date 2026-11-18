@@ -61,9 +61,13 @@ landed, but it fragments the graph: 2 splits per token become 50, and you lose
 ~10% even when everything fits.
 
 **vLLM** has `--cpu-offload-gb N`: N GB of weights go to pinned RAM, and the GPU
-reads them over PCIe on every step, whether the router picked them or not. No
-cache, no disk. That makes sense for vLLM, where big batches end up using almost
-every expert anyway, less so for one user on one GPU.
+reads them in place over PCIe whenever a kernel touches them. For a MoE layer,
+that's only the experts the router picked, but nothing is cached: a hot expert
+crosses PCIe again on every token. No disk either. By default, the N GB are the
+first weights of the model, dense layers included, and those are read on every
+token; `--cpu-offload-params experts` offloads only the experts. That design
+makes sense for vLLM, where big batches end up using almost every expert anyway,
+less so for one user on one GPU.
 
 **Transformers** offloads through [Accelerate](https://github.com/huggingface/accelerate) (`device_map="auto"`,
 `offload_folder`). Accelerate puts each *module* on the GPU, the CPU or disk,
@@ -72,15 +76,25 @@ a layer's whole expert bank, so every token copies every expert of every
 offloaded layer to use 8 or 10 of them. No cache, no notion of routing. And on a
 Mac, CPU and GPU share the same memory, so "offload to CPU" frees nothing.
 
-I ran all of them on [Qwen3.6-35B-A3B](https://huggingface.co/Qwen/Qwen3.6-35B-A3B) on one A10G (24 GB), with plenty of RAM:
+I ran all of them on [Qwen3.6-35B-A3B](https://huggingface.co/Qwen/Qwen3.6-35B-A3B) on one A10G (24 GB), with plenty of RAM,
+and Harry Mellor reran vLLM with better flags:
 
-| Engine                                     | Decode (tok/s) |
-|--------------------------------------------|----------------|
-| Strata, Q8_0                               | 82 - 88        |
-| llama.cpp, Q8_0, `--fit on`                | 63 - 64        |
-| llama.cpp, BF16, `--fit on`                | 35 - 36        |
-| vLLM, BF16, `--cpu-offload-gb 50`          | 3.3            |
-| Transformers + Accelerate                  | 0.16           |
+| Engine                                                          | Decode (tok/s) |
+|-----------------------------------------------------------------|----------------|
+| Strata, Q8_0                                                    | 82 - 88        |
+| llama.cpp, Q8_0, `--fit on`                                     | 63 - 64        |
+| llama.cpp, BF16, `--fit on`                                     | 35 - 36        |
+| vLLM, FP8, `--cpu-offload-gb 16 --cpu-offload-params experts`   | 20.1           |
+| vLLM, FP8, same flags, `--enforce-eager`                        | 14.7           |
+| vLLM, FP8, `--cpu-offload-gb 16`                                | 9.7            |
+| vLLM, BF16, `--cpu-offload-gb 50 --cpu-offload-params experts`  | 7.3            |
+| vLLM, BF16, `--cpu-offload-gb 50`                               | 3.3            |
+| Transformers + Accelerate                                       | 0.16           |
+
+Offloading only the experts doubles vLLM's speed, and FP8 helps on top of that:
+half the bytes per expert, and more of the model stays on the GPU. vLLM's other
+offload backend, which copies groups of layers to the GPU ahead of time, ran
+under 1 tok/s.
 
 If the experts fit in RAM, llama.cpp is hard to beat. If they don't, you have to
 stream only what the router picks, through a bounded cache, fast enough that the
@@ -186,6 +200,13 @@ Strata 0.1.60 used IQ3_XXS experts. Both ran greedy, with thinking, MTP and
 speculative drafts off, and 1,024-token prefill chunks. The full setup and raw
 results are on the Space's
 [details page](https://tarekziade-moe-expert-streaming.static.hf.space/details.html).
+
+I also tried [vllm-metal](https://github.com/vllm-project/vllm-metal), vLLM on
+Apple GPUs through MLX, which recently got expert offloading. It streams the
+routed experts from an MLX checkpoint through a bounded cache, like this
+project. But it can't run Qwen3.8-Flash-Next on 32 GB: only the experts are
+streamed, and the n-gram tables stay in memory. That's 32 GB in the MLX
+checkpoints on the Hub, before the ~5 GB of dense layers and any expert cache.
 
 ## Closing the gap
 
