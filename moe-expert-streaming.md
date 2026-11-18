@@ -7,7 +7,7 @@ authors:
 
 # 180B Parameters, 32GB of RAM: Pushing MoE Inference to the Limit with Transformers
 
-*The unlock: streaming MoE experts directly from SSD, getting within 6% of Strata on token generation.*
+*Streaming MoE experts directly from SSD gets within 6% of Strata on token generation.*
 
 I've been trying to rely less on online models and run bigger ones locally.
 At home I have a PC with two RTX 4090s (let's call it **Orthrus** - the two-headed hound
@@ -118,7 +118,14 @@ for vanilla.
 ### `experts_offload`
 
 I then turned the standalone loader into an option of `from_pretrained`, in
-[huggingface/transformers#50717](https://github.com/huggingface/transformers/pull/50717):
+[huggingface/transformers#50717](https://github.com/huggingface/transformers/pull/50717).
+To try it, install Transformers from that PR:
+
+```bash
+pip install "git+https://github.com/huggingface/transformers.git@refs/pull/50717/head"
+```
+
+Then:
 
 ```python
 model = AutoModelForCausalLM.from_pretrained(
@@ -188,8 +195,8 @@ Most of the time wasn't spent on experts. Here's what helped:
 - **Strata's own weights.** I switched to [Strata's GGUF weights](https://huggingface.co/ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-GGUF), reducing dense
   weight traffic from 5.4 GB to 3.9 GB per token and individual expert size from
   2.15 MB to 1.75 MB, with a separate cache pool for each expert size.
-- **Prefill**, from 68 to ~228 tok/s: bigger chunks, and the next layer's
-  experts read while the current one computes.
+- **Prefill**, we went from 68 to ~228 tok/s using bigger chunks, and reading the next layer's
+  experts while the current layer is being computed.
 - **Long documents**: attention over the indexer's selected blocks only, and a
   KV cache that grows in place instead of being copied at every token.
 - **Misses**: Strata doesn't hide them, it waits like I do, and no cache policy
@@ -198,9 +205,9 @@ Most of the time wasn't spent on experts. Here's what helped:
 
 Here's one MoE layer for one token, as it runs now:
 
-![For one layer and one token, the router picks 10 of 512 experts. Eight are already in the expert cache and two are read from the SSD into free cache slots. The experts then run on the GPU from the cache slots, while the SSD reads one guessed expert for the next layer, which enters the cache only if it's used.](/blog/assets/moe-expert-streaming/expert-streaming.svg)
+![For one layer and one token, the router picks 10 of 512 experts. Eight are already in the expert cache and two are read from the SSD into free cache slots. The experts then run on the GPU from the cache slots, while the SSD reads one guessed expert for the next layer, which enters the cache only if it's used.](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/moe-expert-streaming/expert-streaming.svg)
 
-Same M5, same prompts:
+These are the final results after these optimizations on the same M5 with the same prompts:
 
 |                               | Transformers | Strata | Gap   |
 |-------------------------------|--------------|--------|-------|
@@ -226,13 +233,14 @@ It runs at ~14 tok/s, close to Strata, and it's still too slow for how I use
 coding agents. Orthrus keeps doing the real work.
 
 Closing the remaining gap would take deeper changes in the stack, starting with control
-over that per-layer sync, which PyTorch doesn't give you today. Still, I find it
+over that per-layer sync, which PyTorch doesn't give you today. Beating Strata was never the only goal, though: building this was also a great way
+to learn how these engines work. And I find it
 pretty amazing to get this close while staying in Python. There's no C++
 extension in the project: just Python, Metal kernels compiled at runtime with
 `torch.mps.compile_shader`, and prebuilt [kernels from the Hub](https://huggingface.co/kernels-community).
 All the Metal kernels written for this experiment are now
 [published on the Hub](https://tarekziade-moe-expert-streaming.static.hf.space/details.html#published-kernels),
-one repository each, and the project loads them from there.
+and the project loads them from there.
 
 The generic expert streaming implementation is in
 [huggingface/transformers#50717](https://github.com/huggingface/transformers/pull/50717),
