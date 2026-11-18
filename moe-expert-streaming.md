@@ -7,11 +7,12 @@ authors:
 
 # 180B Parameters, 32GB of RAM: Pushing MoE Inference to the Limit with Transformers
 
-*The unlock: streaming MoE experts directly from SSD, reaching within 6% of a specialized inference engine.*
+*The unlock: streaming MoE experts directly from SSD, reaching within about 6% of a specialized inference engine on short decode.*
 
-I've been trying to rely less on online models and use more local AI. At home I
+I've been trying to rely less on online models and run bigger models locally,
+but my work laptop has only 32 GB of memory. At home I
 have a PC with two RTX 4090s (let's call it **Orthrus** - the two-headed hound
-of Greek mythology), and I have a 32 GB MacBook M5 for work.
+of Greek mythology), and for work I have a MacBook M5.
 
 Orthrus runs on Windows 11, because my kids play games all the time. I had a
 dual boot with Ubuntu, but their games ended up taking most of the two
@@ -112,7 +113,8 @@ tok/s. Vanilla did ~32. The I/O was fine, my loop was not: vanilla uses
 So I turned the cache into a slot pool: one preallocated device tensor shared by
 all layers, plus a per-layer table from expert id to slot. Remap the routing to
 slots and the pool looks like a regular expert bank, so `grouped_mm` works on it
-as is. That got it to 34.6 tok/s, against 38.1 for vanilla.
+as is. No custom expert matmul needed. That got it to 34.6 tok/s, against 38.1
+for vanilla.
 
 ### `experts_offload`
 
@@ -145,7 +147,7 @@ through the per-layer quantization plan of
 [#50245](https://github.com/huggingface/transformers/pull/50245) rather than
 their own option.
 
-### Fitting a 121 GB model in 32 GB
+### Running 121 GB of experts on a 32 GB Mac
 
 Qwen3.8-Flash-Next has 48 layers of 512 experts (10 active), and a 51 GB n-gram
 embedding table. The experts alone are 121 GB in FP8. So:
@@ -184,9 +186,9 @@ Most of the time wasn't spent on experts. Here's what helped:
   block gave +10%. This should really be fixed in PyTorch.
 - **Metal kernels** for the parts without a fast path on macOS: Gated DeltaNet
   and the hyper-connections.
-- **Strata's own weights.** I switched to [Strata's GGUF weights](https://huggingface.co/ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-GGUF): smaller dense
-  layers (3.9 GB instead of 5.4 GB read per token) and smaller experts (1.75 MB
-  instead of 2.15 MB), with a separate cache pool for each expert size.
+- **Strata's own weights.** I switched to [Strata's GGUF weights](https://huggingface.co/ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-GGUF), reducing dense
+  weight traffic from 5.4 GB to 3.9 GB per token and individual expert size from
+  2.15 MB to 1.75 MB, with a separate cache pool for each expert size.
 - **Prefill**, from 68 to ~228 tok/s: bigger chunks, and the next layer's
   experts read while the current one computes.
 - **Long documents**: attention over the indexer's selected blocks only, and a
@@ -207,6 +209,9 @@ Same M5, same prompts:
 | Prefill, 4K prompt            | 228 tok/s    | 220    | 1.0x  |
 | Decode after a 6K document    | 12.4 tok/s   | 13.7   | 1.1x  |
 
+That's about 6% behind Strata on short decode, with slightly faster prefill,
+all through Transformers.
+
 Most of what's left is host round trips, ~10 ms per token. Waking up after a
 sync is only ~1 ms of that. The rest is the GPU running dry while Python queues
 the next layer. Strata queues the whole token's work up front, and the GPU waits
@@ -221,7 +226,7 @@ I haven't built it.
 It runs at ~14 tok/s, close to Strata, and it's still too slow for how I use
 coding agents. Orthrus keeps doing the real work.
 
-Beating Strata would take deeper changes in the stack, starting with control
+Closing the remaining gap would take deeper changes in the stack, starting with control
 over that per-layer sync, which PyTorch doesn't give you today. Still, I find it
 pretty amazing to get this close while staying in Python. There's no C++
 extension in the project: just Python, Metal kernels compiled at runtime with
