@@ -1,11 +1,13 @@
 ---
-title: "Running Qwen3.8-Flash-Next on a 32 GB Mac with Transformers"
+title: "180B Parameters, 32GB of RAM: Pushing MoE Inference to the Limit with Transformers" 
 thumbnail: /blog/assets/moe-expert-streaming/thumbnail.png
 authors:
 - user: tarekziade
 ---
 
-# Running Qwen3.8-Flash-Next on a 32 GB Mac with Transformers
+# 180B Parameters, 32GB of RAM: Pushing MoE Inference to the Limit with Transformers
+
+*The unlock: streaming MoE experts directly from SSD, reaching within 6% of a specialized inference engine.*
 
 I've been trying to rely less on online models and use more local AI. At home I
 have a PC with two RTX 4090s (let's call it **Orthrus** - the two-headed hound
@@ -31,7 +33,7 @@ When I talked about this on social networks, I got very strong feedback: use
 
 Strata is an inference engine for MoE models like Qwen. Only the hot experts
 stay in VRAM, the rest goes to RAM, or even to disk. Experts are 90%+ of a MoE
-model's weights, so a 135B model like this one can run on a GPU with much less
+model's weights, so a 180B model like this one can run on a GPU with much less
 memory. Like my RTX 4090!
 
 It works on a laptop too, and I stumbled on
@@ -229,3 +231,8 @@ The expert streaming is generic and lives in
 [huggingface/transformers#50717](https://github.com/huggingface/transformers/pull/50717),
 and the numbers are in the [Space](https://huggingface.co/spaces/tarekziade/moe-expert-streaming).
 Feedback on the approach and the API is welcome.
+
+Finally, thanks to Niko Veit for [Strata](https://github.com/niko1221/strata).
+Strata set the bar for what's possible with expert streaming on consumer
+hardware, and having those numbers to chase is what pushed this work as far as
+it went.
