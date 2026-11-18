@@ -8,6 +8,8 @@ authors:
 - user: MarktHart
   guest: true
   org: Reson8
+- user: eustlb
+- user: bezzam
 ---
 
 # Rumble-2-Flash: an open 0.5B speech model for 40+ languages
