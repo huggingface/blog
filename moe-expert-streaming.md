@@ -226,6 +226,9 @@ over that per-layer sync, which PyTorch doesn't give you today. Still, I find it
 pretty amazing to get this close while staying in Python. There's no C++
 extension in the project: just Python, Metal kernels compiled at runtime with
 `torch.mps.compile_shader`, and prebuilt [kernels from the Hub](https://huggingface.co/kernels-community).
+All the Metal kernels written for this experiment are now
+[published on the Hub](https://tarekziade-moe-expert-streaming.static.hf.space/details.html#published-kernels),
+one repository each, and the project loads them from there.
 
 The expert streaming is generic and lives in
 [huggingface/transformers#50717](https://github.com/huggingface/transformers/pull/50717),
