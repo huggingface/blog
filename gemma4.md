@@ -666,7 +666,7 @@ Find all models [here](https://huggingface.co/mistralrs-community/models). Pleas
 
 ## AWS SageMaker AI
 
-You can also deploy Gemma 4 on Amazon SageMaker AI with the [vLLM Deep Learning Container for SageMaker](https://github.com/aws/deep-learning-containers), using the AWS SDK for Python (`boto3`). The container reads the vLLM arguments from `SM_VLLM_*` environment variables, so any `vllm serve` flag can be set as e.g. `--max-model-len` → `SM_VLLM_MAX_MODEL_LEN`.
+You can also deploy Gemma 4 on Amazon SageMaker AI with the [vLLM Deep Learning Container for SageMaker](https://github.com/aws/deep-learning-containers), using the AWS SDK for Python (`boto3`). The container reads the vLLM arguments from `SM_VLLM_*` environment variables, so any `vllm serve` flag can be set as an environment variable, e.g. `--max-model-len` as `SM_VLLM_MAX_MODEL_LEN`.
 
 The recipe below serves `google/gemma-4-31B-it` on a single `ml.g7e.2xlarge` instance (1 x NVIDIA RTX PRO 6000 96GB), with an FP8 KV cache and [DFlash speculative decoding](https://huggingface.co/RedHatAI/gemma-4-31B-it-speculator.dflash2). In our benchmarks with this setup, a single request generates ~70 tokens per second (~260 ms to first token), and the endpoint sustains ~600 output tokens per second across 64 concurrent requests, at an on-demand price of ~$4.20 per hour in `us-east-1`.
 
