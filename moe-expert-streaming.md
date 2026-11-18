@@ -258,9 +258,15 @@ It runs at ~14 tok/s, close to Strata, and it's still too slow for how I use
 coding agents. Orthrus keeps doing the real work.
 
 Closing the remaining gap would take deeper changes in the stack, starting with control
-over that per-layer sync, which PyTorch doesn't give you today. Beating Strata was never the only goal, though: building this was also a great way
-to learn how these engines work. And I find it
-pretty amazing to get this close while staying in Python. There's no C++
+over that per-layer sync, which PyTorch doesn't give you today.
+
+Beating Strata was never the only goal, though. Building this was a great way
+to learn how MoEs and LLMs work from a systems perspective: how sparse the
+routing really is, how much an expert cache buys you, where memory bandwidth
+goes per token, and how much time the host and the GPU spend waiting on each
+other. Transformers makes all of that easy to poke at, one module at a time.
+
+I also find it pretty amazing to get this close while staying in Python. There's no C++
 extension in the project: just Python, Metal kernels compiled at runtime with
 `torch.mps.compile_shader`, and prebuilt [kernels from the Hub](https://huggingface.co/kernels-community).
 All the Metal kernels written for this experiment are now
@@ -271,6 +277,9 @@ The generic expert streaming implementation is in
 [huggingface/transformers#50717](https://github.com/huggingface/transformers/pull/50717),
 and the benchmarks are in the [Space](https://huggingface.co/spaces/tarekziade/moe-expert-streaming).
 Feedback on the approach and the API is welcome.
+
+Thanks to Pedro, Lysandre and Arthur for their excellent feedback, and to Harry
+for helping test vLLM.
 
 Finally, thanks to Niko Veit for [Strata](https://github.com/niko1221/strata).
 Strata set the bar for what's possible with expert streaming on consumer
