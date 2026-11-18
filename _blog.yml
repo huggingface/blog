@@ -6008,3 +6008,11 @@
     - hub
     - inference-providers
     - openrouter
+
+- local: rumble-2-flash
+  date: November 18, 2026
+  tags:
+    - audio
+    - speech
+    - asr
+    - open-source
