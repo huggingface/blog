@@ -7,10 +7,10 @@ authors:
 
 # 180B Parameters, 32GB of RAM: Pushing MoE Inference to the Limit with Transformers
 
-*The unlock: streaming MoE experts directly from SSD, reaching within about 6% of a specialized inference engine on short decode.*
+*The unlock: streaming MoE experts directly from SSD, getting within 6% of Strata on token generation.*
 
-I've been trying to rely less on online models and run bigger models locally,
-but my work laptop has only 32 GB of memory. At home I
+I've been trying to rely less on online models and run bigger ones locally.
+But my work laptop has only 32 GB of memory. At home I
 have a PC with two RTX 4090s (let's call it **Orthrus** - the two-headed hound
 of Greek mythology), and for work I have a MacBook M5.
 
@@ -86,7 +86,7 @@ I ran all of them on [Qwen3.6-35B-A3B](https://huggingface.co/Qwen/Qwen3.6-35B-A
 If the experts fit in RAM, llama.cpp is hard to beat. If they don't, you have to
 stream only what the router picks, through a bounded cache, fast enough that the
 SSD is the bottleneck and not Python. That's Qwen3.8-Flash-Next on a 32 GB Mac,
-and Transformers can't do it today.
+and Transformers couldn't do it out of the box.
 
 ## Making Qwen3.8-Flash-Next work on my 32 GB Mac with Transformers
 
@@ -235,9 +235,9 @@ All the Metal kernels written for this experiment are now
 [published on the Hub](https://tarekziade-moe-expert-streaming.static.hf.space/details.html#published-kernels),
 one repository each, and the project loads them from there.
 
-The expert streaming is generic and lives in
+The generic expert streaming implementation is in
 [huggingface/transformers#50717](https://github.com/huggingface/transformers/pull/50717),
-and the numbers are in the [Space](https://huggingface.co/spaces/tarekziade/moe-expert-streaming).
+and the benchmarks are in the [Space](https://huggingface.co/spaces/tarekziade/moe-expert-streaming).
 Feedback on the approach and the API is welcome.
 
 Finally, thanks to Niko Veit for [Strata](https://github.com/niko1221/strata).
