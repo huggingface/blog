@@ -523,7 +523,7 @@ curl -s http://127.0.0.1:8000/v1/chat/completions \
 
 ## AWS SageMaker AI
 
-You can also deploy Muse Glimmer on Amazon SageMaker AI with the [vLLM Deep Learning Container for SageMaker](https://github.com/aws/deep-learning-containers), using the AWS SDK for Python (`boto3`). The container reads the vLLM arguments from `SM_VLLM_*` environment variables, so any `vllm serve` flag can be set as an environment variable, e.g. `--max-model-len` as `SM_VLLM_MAX_MODEL_LEN`.
+You can also deploy Muse Glimmer on Amazon SageMaker AI with the [Hugging Face vLLM Deep Learning Container for SageMaker](https://aws.github.io/deep-learning-containers/reference/available_images/#huggingface-vllm-inference), using the AWS SDK for Python (`boto3`). The container reads the vLLM arguments from `SM_VLLM_*` environment variables, so any `vllm serve` flag can be set as an environment variable, e.g. `--max-model-len` as `SM_VLLM_MAX_MODEL_LEN`.
 
 The recipe below serves `meta-models/Muse-Glimmer-30B` on a single `ml.g7e.2xlarge` instance (1 x NVIDIA RTX PRO 6000 96GB), with an FP8 KV cache and [DFlash speculative decoding](https://huggingface.co/meta-models/Muse-Glimmer-30B-assistant). In our benchmarks with this setup, a single request generates \~56 tokens per second (\~220 ms to first token), and the endpoint sustains \~590 output tokens per second across 64 concurrent requests, at an on-demand price of \~$4.20 per hour in `us-east-1`.
 
@@ -546,7 +546,7 @@ sagemaker.create_model(
     ModelName=name,
     ExecutionRoleArn=os.getenv("SAGEMAKER_ROLE_ARN"),
     PrimaryContainer={
-        "Image": f"763104351884.dkr.ecr.{region}.amazonaws.com/vllm:0.33.0-gpu-py312-cu130-ubuntu24.04-sagemaker",
+        "Image": f"763104351884.dkr.ecr.{region}.amazonaws.com/huggingface-vllm:0.33.0-transformers5.19.0-gpu-py312-cu130-ubuntu24.04",
         "Environment": {
             "SM_VLLM_MODEL": "meta-models/Muse-Glimmer-30B",
             "SM_VLLM_SERVED_MODEL_NAME": "meta-models/Muse-Glimmer-30B",
