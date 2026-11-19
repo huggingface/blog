@@ -525,7 +525,7 @@ curl -s http://127.0.0.1:8000/v1/chat/completions \
 
 You can also deploy Muse Glimmer on Amazon SageMaker AI with the [vLLM Deep Learning Container for SageMaker](https://github.com/aws/deep-learning-containers), using the AWS SDK for Python (`boto3`). The container reads the vLLM arguments from `SM_VLLM_*` environment variables, so any `vllm serve` flag can be set as an environment variable, e.g. `--max-model-len` as `SM_VLLM_MAX_MODEL_LEN`.
 
-The recipe below serves `meta-models/Muse-Glimmer-30B` on a single `ml.g7e.2xlarge` instance (1 x NVIDIA RTX PRO 6000 96GB), with an FP8 KV cache and [DFlash speculative decoding](https://huggingface.co/meta-models/Muse-Glimmer-30B-assistant). In our benchmarks with this setup, a single request generates ~56 tokens per second (~220 ms to first token), and the endpoint sustains ~590 output tokens per second across 64 concurrent requests, at an on-demand price of ~$4.20 per hour in `us-east-1`.
+The recipe below serves `meta-models/Muse-Glimmer-30B` on a single `ml.g7e.2xlarge` instance (1 x NVIDIA RTX PRO 6000 96GB), with an FP8 KV cache and [DFlash speculative decoding](https://huggingface.co/meta-models/Muse-Glimmer-30B-assistant). In our benchmarks with this setup, a single request generates \~56 tokens per second (\~220 ms to first token), and the endpoint sustains \~590 output tokens per second across 64 concurrent requests, at an on-demand price of \~$4.20 per hour in `us-east-1`.
 
 ```shell
 pip install boto3 --upgrade
@@ -621,7 +621,7 @@ When you're done, remember to delete the endpoint, endpoint configuration and mo
 
 You can deploy Muse Glimmer on [Gemini Enterprise Agent Platform](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/open-models/vllm/use-vllm) (formerly Vertex AI) on Google Cloud, using the [vLLM container from Model Garden](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/open-models/vllm/use-vllm) and the Python SDK (`google-cloud-aiplatform`).
 
-The recipe below serves `meta-models/Muse-Glimmer-30B` on an `a3-highgpu-1g` instance (1 x NVIDIA H100 80GB) at 64K context, with an FP8 KV cache, and tool calling and reasoning enabled. In our benchmarks of this same recipe on 1 x NVIDIA H100 80GB with vLLM, a single request generates ~45 tokens per second (~95 ms to first token), and it sustains ~1,420 output tokens per second across 64 concurrent requests.
+The recipe below serves `meta-models/Muse-Glimmer-30B` on an `a3-highgpu-1g` instance (1 x NVIDIA H100 80GB) at 64K context, with an FP8 KV cache, and tool calling and reasoning enabled. In our benchmarks of this same recipe on 1 x NVIDIA H100 80GB with vLLM, a single request generates \~45 tokens per second (\~95 ms to first token), and it sustains \~1,420 output tokens per second across 64 concurrent requests.
 
 ```shell
 pip install google-cloud-aiplatform --upgrade
@@ -704,7 +704,7 @@ Muse Glimmer is available in the Hugging Face collection on [Microsoft Foundry](
 
 You can deploy it from the Foundry portal (Discover > Models, filtering by Hugging Face), or with the Azure SDK for Python, given an existing Microsoft Foundry resource. The model comes with ready-to-use deployment templates for different instances and context lengths.
 
-The recipe below serves `meta-models/Muse-Glimmer-30B` with the template for 1 x NVIDIA H100 80GB at 64K context, with an FP8 KV cache, and tool calling and reasoning enabled. In our benchmarks of this same recipe on 1 x NVIDIA H100 80GB with vLLM, a single request generates ~45 tokens per second (~95 ms to first token), and it sustains ~1,420 output tokens per second across 64 concurrent requests.
+The recipe below serves `meta-models/Muse-Glimmer-30B` with the template for 1 x NVIDIA H100 80GB at 64K context, with an FP8 KV cache, and tool calling and reasoning enabled. In our benchmarks of this same recipe on 1 x NVIDIA H100 80GB with vLLM, a single request generates \~45 tokens per second (\~95 ms to first token), and it sustains \~1,420 output tokens per second across 64 concurrent requests.
 
 ```shell
 uv pip install azure-identity azure-ai-ml "azure-mgmt-cognitiveservices>=15.0.0b2" openai
