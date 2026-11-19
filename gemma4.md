@@ -689,7 +689,7 @@ sagemaker.create_model(
     ModelName=name,
     ExecutionRoleArn=os.getenv("SAGEMAKER_ROLE_ARN"),
     PrimaryContainer={
-        "Image": f"763104351884.dkr.ecr.{region}.amazonaws.com/vllm:0.33.0-gpu-py312-cu130-ubuntu24.04-sagemaker",
+        "Image": f"763104351884.dkr.ecr.{region}.amazonaws.com/vllm:0.29.0-gpu-py312-cu130-ubuntu24.04-sagemaker",
         "Environment": {
             "SM_VLLM_MODEL": "google/gemma-4-31B-it",
             "SM_VLLM_SERVED_MODEL_NAME": "google/gemma-4-31B-it",
