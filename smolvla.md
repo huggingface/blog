@@ -238,9 +238,9 @@ Similar to the provided examples, what is the main action done by the robot arm?
    
 Another challenge was inconsistent camera naming. Some datasets used clear names like top or `wrist.right`, while others used ambiguous labels like `images.laptop`, which varied in meaning.
 To fix this, we manually went through the datasets and mapped each camera view to a standardized scheme:
-`OBS_IMAGE_1`: Top-down view
-`OBS_IMAGE_2`: Wrist-mounted view
-`OBS_IMAGE_3+`: Additional viewpoints
+* `OBS_IMAGE_1`: Top-down view
+* `OBS_IMAGE_2`: Wrist-mounted view
+* `OBS_IMAGE_3+`: Additional viewpoints
 
 We further isolate the contributions of community dataset pretraining and multitask finetuning. Without pretraining on the LeRobot community datasets, SmolVLA initially achieves **51.7%** success on SO100. After pretraining on community-collected data, performance jumps to **78.3%**, a **+26.6% absolute improvement**. Multitask finetuning further boosts performance, showing strong task transfer capabilities even in low-data regimes.
 
