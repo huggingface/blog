@@ -707,7 +707,7 @@ You can deploy it from the Foundry portal (Discover > Models, filtering by Huggi
 The recipe below serves `meta-models/Muse-Glimmer-30B` with the template for 1 x NVIDIA H100 80GB at 64K context, with an FP8 KV cache, and tool calling and reasoning enabled. In our benchmarks of this same recipe on 1 x NVIDIA H100 80GB with vLLM, a single request generates \~45 tokens per second (\~95 ms to first token), and it sustains \~1,420 output tokens per second across 64 concurrent requests.
 
 ```shell
-uv pip install azure-identity azure-ai-ml "azure-mgmt-cognitiveservices>=15.0.0b2" openai
+uv pip install azure-identity azure-ai-ml azure-mgmt-cognitiveservices==15.0.0b6 openai
 ```
 
 ```python
@@ -737,7 +737,7 @@ deployment = client.managed_compute_deployments.begin_create_or_update(
 ).result()
 ```
 
-Once deployed, you can send requests with the OpenAI Python SDK, using the deployment name as the model. Note that the deployment can't reach the internet by default, so images need to be sent base64-encoded rather than as URLs. Muse Glimmer always reasons before answering, so leave enough room in `max_completion_tokens` for the reasoning, and optionally lower the reasoning strength (`high` by default) via the system prompt:
+Once deployed, you can send requests with the OpenAI Python SDK, using the deployment name as the model. Note that the deployment can't reach the internet by default, so images need to be sent base64-encoded rather than as URLs. Muse Glimmer always reasons before answering, so leave enough room in `max_completion_tokens` for the reasoning, and optionally lower the reasoning strength (`high` by default) via the system prompt, as Foundry doesn't forward `chat_template_kwargs` to vLLM. Note that a custom system prompt replaces the default one, so keep its first lines as below:
 
 ```python
 import base64
@@ -761,7 +761,10 @@ openai_client = OpenAI(
 completion = openai_client.chat.completions.create(
     model="meta-models--muse-glimmer-30b",
     messages=[
-        {"role": "system", "content": "Reasoning strength: low."},
+        {
+            "role": "system",
+            "content": "You are a helpful AI assistant.\nKnowledge cutoff: 2026-01-04.\n\nReasoning strength: low.",
+        },
         {
             "role": "user",
             "content": [
