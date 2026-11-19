@@ -689,7 +689,7 @@ sagemaker.create_model(
     ModelName=name,
     ExecutionRoleArn=os.getenv("SAGEMAKER_ROLE_ARN"),
     PrimaryContainer={
-        "Image": f"763104351884.dkr.ecr.{region}.amazonaws.com/vllm:0.29.0-gpu-py312-cu130-ubuntu24.04-sagemaker",
+        "Image": f"763104351884.dkr.ecr.{region}.amazonaws.com/vllm:0.33.0-gpu-py312-cu130-ubuntu24.04-sagemaker",
         "Environment": {
             "SM_VLLM_MODEL": "google/gemma-4-31B-it",
             "SM_VLLM_SERVED_MODEL_NAME": "google/gemma-4-31B-it",
@@ -775,7 +775,7 @@ aiplatform.init(project=os.getenv("PROJECT_ID"), location="us-central1")
 
 model = aiplatform.Model.upload(
     display_name="gemma-4-31b-it",
-    serving_container_image_uri="us-docker.pkg.dev/vertex-ai/vertex-vision-model-garden-dockers/pytorch-vllm-serve:20260713_0916_RC01",
+    serving_container_image_uri="us-docker.pkg.dev/agent-platform-mg-public/containers/pytorch-vllm-serve:model-garden.pytorch-vllm-serve-release_20261111.00_p0",
     serving_container_args=[
         "python",
         "-m",
@@ -850,7 +850,7 @@ You can deploy them from the Foundry portal (Discover > Models, filtering by Hug
 The recipe below serves `google/gemma-4-31B-it` with the template for 2 x NVIDIA H100 80GB at the full 256K context, with tool calling and reasoning enabled. In our benchmarks of this same recipe on 2 x NVIDIA H100 80GB with vLLM, a single request generates \~70 tokens per second (\~90 ms to first token), and it sustains \~1,560 output tokens per second across 64 concurrent requests.
 
 ```shell
-uv pip install azure-identity azure-ai-ml "azure-mgmt-cognitiveservices>=15.0.0b2" openai
+uv pip install azure-identity azure-ai-ml azure-mgmt-cognitiveservices==15.0.0b6 openai
 ```
 
 ```python
