@@ -1,6 +1,6 @@
 ---
 title: "Welcome Inkling 2 Mini, Cutting-edge Performance for your Local Setup"
-thumbnail: /blog/assets/inkling-2-mini/thumbnail.png
+thumbnail: /blog/assets/inkling2mini/thumbnail.png
 authors:
 - user: merve
 - user: pcuenq

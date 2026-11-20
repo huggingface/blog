@@ -6033,7 +6033,7 @@
     - lora
     - openenv
 
-- local: inkling-2-mini
+- local: inkling2mini
   date: November 20, 2026
   tags:
     - announcement
