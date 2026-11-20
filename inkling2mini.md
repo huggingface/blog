@@ -8,7 +8,7 @@ authors:
 - user: guarin
 ---
 
-# **Welcome Inkling 2 Mini, Cutting-edge Performance for your Local Setup**
+# Welcome Inkling 2 Mini, Cutting-edge Performance for your Local Setup
 
 TLDR; Inkling 2 Mini is a new looped transformer model. It’s a multimodal Mixture-of-Experts with \~26B *physical* total and 3B active parameters per token. It uses a neat trick to increase capacity: some layers are visited in a loop that repeats three times, which makes it work like it had more parameters. It supports a 1M-token context size, accepts images and text inputs. Thinking Machines Lab ships the model in a mixed-precision format, with NVFP4 and MXFP8 expert weights. A DSpark drafter is also included for additional speed-up at a small memory cost.
 
