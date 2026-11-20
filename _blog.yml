@@ -6023,3 +6023,12 @@
     - moe
     - inference
     - apple-silicon
+
+- local: harness-adapters-at-scale
+  date: November 20, 2026
+  tags:
+    - rl
+    - trl
+    - agents
+    - lora
+    - openenv
