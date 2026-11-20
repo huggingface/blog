@@ -6032,3 +6032,12 @@
     - agents
     - lora
     - openenv
+
+- local: inkling2mini
+  date: November 20, 2026
+  tags:
+    - announcement
+    - multimodal
+    - transformers
+    - inference
+    - open-source
