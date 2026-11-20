@@ -668,7 +668,7 @@ Find all models [here](https://huggingface.co/mistralrs-community/models). Pleas
 
 You can also deploy Gemma 4 on Amazon SageMaker AI with the [Hugging Face vLLM Deep Learning Container for SageMaker](https://aws.github.io/deep-learning-containers/reference/available_images/#huggingface-vllm-inference), using the AWS SDK for Python (`boto3`). The container reads the vLLM arguments from `SM_VLLM_*` environment variables, so any `vllm serve` flag can be set as an environment variable, e.g. `--max-model-len` as `SM_VLLM_MAX_MODEL_LEN`.
 
-The recipe below serves `google/gemma-4-31B-it` on a single `ml.g7e.2xlarge` instance (1 x NVIDIA RTX PRO 6000 96GB), with an FP8 KV cache and [DFlash speculative decoding](https://huggingface.co/RedHatAI/gemma-4-31B-it-speculator.dflash2). In our benchmarks with this setup, a single request generates \~70 tokens per second (\~260 ms to first token), and the endpoint sustains \~600 output tokens per second across 64 concurrent requests, at an on-demand price of \~$4.20 per hour in `us-east-1`.
+The recipe below serves `google/gemma-4-31B-it` on a single `ml.g7e.2xlarge` instance (1 x NVIDIA RTX PRO 6000 96GB), with an FP8 KV cache and [DFlash speculative decoding](https://huggingface.co/RedHatAI/gemma-4-31B-it-speculator.dflash2). In our benchmarks with this setup, a single request generates \~70 tokens per second (\~260 ms to first token), and the endpoint sustains \~600 output tokens per second across 64 concurrent requests, at an on-demand price of \~$4.20 per hour in `us-east-1`. Note that the container enables LMCache CPU offloading by default, which turns off the vLLM hybrid KV cache manager that Gemma 4 needs for its sliding window attention layers, so the recipe disables it with `HF_ENABLE_LMCACHE`.
 
 ```shell
 pip install boto3 --upgrade
@@ -691,6 +691,7 @@ sagemaker.create_model(
     PrimaryContainer={
         "Image": f"763104351884.dkr.ecr.{region}.amazonaws.com/huggingface-vllm:0.29.0-transformers5.15.0-gpu-py312-cu130-ubuntu24.04",
         "Environment": {
+            "HF_ENABLE_LMCACHE": "0",
             "SM_VLLM_MODEL": "google/gemma-4-31B-it",
             "SM_VLLM_SERVED_MODEL_NAME": "google/gemma-4-31B-it",
             "SM_VLLM_MAX_MODEL_LEN": "131072",
