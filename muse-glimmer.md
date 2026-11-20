@@ -959,7 +959,7 @@ Protocol:
 
 Create a minimal scientific animation of the results:
 - white background;
-- raw tokens/second—never normalize;
+- raw tokens/second, never normalize;
 - one point revealed per experiment;
 - connect every point chronologically;
 - begin with the lowest valid result;
