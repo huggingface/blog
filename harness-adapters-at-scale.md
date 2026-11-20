@@ -61,7 +61,7 @@ RL training needs tasks the agent can attempt, a verifier that scores each attem
 This section describes how we built the task set from three sources: two on the Hugging Face Hub and a third generated with Tasksmith, a pipeline in Repo2RLEnv. Every task passes an eligibility screen with `openenv validate`, and the same difficulty check against the base model, Qwen3.8-27B.
 
 <p align="center">
-    <img src="/blog/assets/harness-adapters-at-scale/task-pipeline.png" alt="Task pipeline: Tasksmith, SWE-smith and SWE-Gym sources pass through an eligibility screen, Harbor packaging, openenv validate on Hugging Face Jobs, and a difficulty check with Qwen3.8-27B" width="80%">
+    <img src="https://huggingface.co/buckets/huggingface/harness-adapters-blog-assets/resolve/images/task-pipeline.png" alt="Task pipeline: Tasksmith, SWE-smith and SWE-Gym sources pass through an eligibility screen, Harbor packaging, openenv validate on Hugging Face Jobs, and a difficulty check with Qwen3.8-27B" width="80%">
 </p>
 
 ### Three sources
@@ -98,7 +98,7 @@ A valid task can still teach nothing. GRPO (group relative policy optimization) 
 Of 442 scored tasks, Qwen3.8-27B solved 151 every time and 120 never. The 171 tasks it solved only sometimes form the qualified set. The figure below shows how the scores pile up at both ends and how they differ by source. The model solves most Go tasks every time, fails every attempt on more than a third of the SWE-smith Python tasks, and lands in the middle on 73% of the SWE-Gym tasks.
 
 <p align="center">
-    <img src="/blog/assets/harness-adapters-at-scale/difficulty-check.png" alt="Qwen3.8-27B results on 442 scored tasks, split by attempts solved and by source" width="90%">
+    <img src="https://huggingface.co/buckets/huggingface/harness-adapters-blog-assets/resolve/images/difficulty-check.png" alt="Qwen3.8-27B results on 442 scored tasks, split by attempts solved and by source" width="90%">
 </p>
 
 *Qwen3.8-27B results on 442 scored tasks. Green marks the qualified tasks, which the model solves on some attempts but not all.*
@@ -172,7 +172,7 @@ We also plug the [safeagents](https://github.com/huggingface/safeagents) tool, i
 The number of blocked tools from safeagents decreases consistently during training, which indicates that the model gets ‘safer and safer’ after each optimization step. Below is a diagram of the safeagents blocked calls per 1000 tool calls, by training step, for each harness adapter.
 
 <p align="center">
-    <img src="/blog/assets/harness-adapters-at-scale/safeagents-blocked.png" alt="safeagents blocked calls per 1,000 tool calls by training step for the pi, hermes and opencode adapters" width="100%">
+    <img src="https://huggingface.co/buckets/huggingface/harness-adapters-blog-assets/resolve/images/safeagents-blocked.png" alt="safeagents blocked calls per 1,000 tool calls by training step for the pi, hermes and opencode adapters" width="100%">
 </p>
 
 ## Super-adapter: merging all adapters into one
