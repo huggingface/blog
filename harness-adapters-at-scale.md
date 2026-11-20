@@ -3,6 +3,15 @@ title: "Introducing harness adapters: adapt your favorite model to your harness 
 thumbnail: /blog/assets/harness-adapters-at-scale/thumbnail.png
 authors:
 - user: ybelkada
+- user: burtenshaw
+- user: SaylorTwift
+- user: lysandre
+- user: aminediroHF
+- user: AdithyaSK
+- user: evalstate
+- user: sergiopaniego
+- user: joelniklaus
+- user: lewtun
 ---
 
 # Introducing harness adapters: adapt your favorite model to your harness to improve performance and cost
