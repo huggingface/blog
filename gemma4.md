@@ -626,7 +626,7 @@ mlx_vlm.generate \
 --prompt "Describe this image in detail"
 ```
 
-mlx-vlm supports TurboQuant, which delivers the same accuracy as the uncompressed baseline while using ~4x less active memory and running a lot faster end-to-end. This makes long-context inference practical on Apple Silicon without sacrificing quality. Use it like this:
+mlx-vlm supports TurboQuant, which delivers the same accuracy as the uncompressed baseline while using \~4x less active memory and running a lot faster end-to-end. This makes long-context inference practical on Apple Silicon without sacrificing quality. Use it like this:
 
 ```shell
 mlx_vlm.generate \
@@ -666,9 +666,9 @@ Find all models [here](https://huggingface.co/mistralrs-community/models). Pleas
 
 ## AWS SageMaker AI
 
-You can also deploy Gemma 4 on Amazon SageMaker AI with the [vLLM Deep Learning Container for SageMaker](https://github.com/aws/deep-learning-containers), using the AWS SDK for Python (`boto3`). The container reads the vLLM arguments from `SM_VLLM_*` environment variables, so any `vllm serve` flag can be set as an environment variable, e.g. `--max-model-len` as `SM_VLLM_MAX_MODEL_LEN`.
+You can also deploy Gemma 4 on Amazon SageMaker AI with the [Hugging Face vLLM Deep Learning Container for SageMaker](https://aws.github.io/deep-learning-containers/reference/available_images/#huggingface-vllm-inference), using the AWS SDK for Python (`boto3`). The container reads the vLLM arguments from `SM_VLLM_*` environment variables, so any `vllm serve` flag can be set as an environment variable, e.g. `--max-model-len` as `SM_VLLM_MAX_MODEL_LEN`.
 
-The recipe below serves `google/gemma-4-31B-it` on a single `ml.g7e.2xlarge` instance (1 x NVIDIA RTX PRO 6000 96GB), with an FP8 KV cache and [DFlash speculative decoding](https://huggingface.co/RedHatAI/gemma-4-31B-it-speculator.dflash2). In our benchmarks with this setup, a single request generates ~70 tokens per second (~260 ms to first token), and the endpoint sustains ~600 output tokens per second across 64 concurrent requests, at an on-demand price of ~$4.20 per hour in `us-east-1`.
+The recipe below serves `google/gemma-4-31B-it` on a single `ml.g7e.2xlarge` instance (1 x NVIDIA RTX PRO 6000 96GB), with an FP8 KV cache and [DFlash speculative decoding](https://huggingface.co/RedHatAI/gemma-4-31B-it-speculator.dflash2). In our benchmarks with this setup, a single request generates \~70 tokens per second (\~260 ms to first token), and the endpoint sustains \~600 output tokens per second across 64 concurrent requests, at an on-demand price of \~$4.20 per hour in `us-east-1`. Note that the container enables LMCache CPU offloading by default, which turns off the vLLM hybrid KV cache manager that Gemma 4 needs for its sliding window attention layers, so the recipe disables it with `HF_ENABLE_LMCACHE`.
 
 ```shell
 pip install boto3 --upgrade
@@ -689,8 +689,9 @@ sagemaker.create_model(
     ModelName=name,
     ExecutionRoleArn=os.getenv("SAGEMAKER_ROLE_ARN"),
     PrimaryContainer={
-        "Image": f"763104351884.dkr.ecr.{region}.amazonaws.com/vllm:0.29.0-gpu-py312-cu130-ubuntu24.04-sagemaker",
+        "Image": f"763104351884.dkr.ecr.{region}.amazonaws.com/huggingface-vllm:0.29.0-transformers5.15.0-gpu-py312-cu130-ubuntu24.04",
         "Environment": {
+            "HF_ENABLE_LMCACHE": "0",
             "SM_VLLM_MODEL": "google/gemma-4-31B-it",
             "SM_VLLM_SERVED_MODEL_NAME": "google/gemma-4-31B-it",
             "SM_VLLM_MAX_MODEL_LEN": "131072",
@@ -760,7 +761,7 @@ When you're done, remember to delete the endpoint, endpoint configuration and mo
 
 You can deploy Gemma 4 on [Gemini Enterprise Agent Platform](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/open-models/vllm/use-vllm) (formerly Vertex AI) on Google Cloud, using the [vLLM container from Model Garden](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/open-models/vllm/use-vllm) and the Python SDK (`google-cloud-aiplatform`).
 
-The recipe below serves `google/gemma-4-31B-it` on an `a3-highgpu-2g` instance (2 x NVIDIA H100 80GB) with tensor parallelism, the full 256K context, and tool calling and reasoning enabled. In our benchmarks of this same recipe on 2 x NVIDIA H100 80GB with vLLM, it sustains ~1,570 output tokens per second across 64 concurrent requests.
+The recipe below serves `google/gemma-4-31B-it` on an `a3-highgpu-2g` instance (2 x NVIDIA H100 80GB) with tensor parallelism, the full 256K context, and tool calling and reasoning enabled. In our benchmarks of this same recipe on 2 x NVIDIA H100 80GB with vLLM, it sustains \~1,570 output tokens per second across 64 concurrent requests.
 
 ```shell
 pip install google-cloud-aiplatform --upgrade
@@ -775,7 +776,7 @@ aiplatform.init(project=os.getenv("PROJECT_ID"), location="us-central1")
 
 model = aiplatform.Model.upload(
     display_name="gemma-4-31b-it",
-    serving_container_image_uri="us-docker.pkg.dev/vertex-ai/vertex-vision-model-garden-dockers/pytorch-vllm-serve:20260713_0916_RC01",
+    serving_container_image_uri="us-docker.pkg.dev/agent-platform-mg-public/containers/pytorch-vllm-serve:model-garden.pytorch-vllm-serve-release_20261111.00_p0",
     serving_container_args=[
         "python",
         "-m",
@@ -847,10 +848,10 @@ Gemma 4 is available in the Hugging Face collection on [Microsoft Foundry](https
 
 You can deploy them from the Foundry portal (Discover > Models, filtering by Hugging Face), or with the Azure SDK for Python, given an existing Microsoft Foundry resource. Each model comes with ready-to-use deployment templates for different instances and context lengths.
 
-The recipe below serves `google/gemma-4-31B-it` with the template for 2 x NVIDIA H100 80GB at the full 256K context, with tool calling and reasoning enabled. In our benchmarks of this same recipe on 2 x NVIDIA H100 80GB with vLLM, a single request generates ~70 tokens per second (~90 ms to first token), and it sustains ~1,560 output tokens per second across 64 concurrent requests.
+The recipe below serves `google/gemma-4-31B-it` with the template for 2 x NVIDIA H100 80GB at the full 256K context, with tool calling and reasoning enabled. In our benchmarks of this same recipe on 2 x NVIDIA H100 80GB with vLLM, a single request generates \~70 tokens per second (\~90 ms to first token), and it sustains \~1,560 output tokens per second across 64 concurrent requests.
 
 ```shell
-uv pip install azure-identity azure-ai-ml "azure-mgmt-cognitiveservices>=15.0.0b2" openai
+uv pip install azure-identity azure-ai-ml azure-mgmt-cognitiveservices==15.0.0b6 openai
 ```
 
 ```python
@@ -921,7 +922,7 @@ When you're done, remember to delete the deployment with `client.managed_compute
 
 # Multi-Token Prediction Drafters
 
-Google has released Multi-Token Prediction (MTP) drafters for the Gemma 4 family: small _assistant_ models that accelerate inference via speculative decoding. The drafter proposes several future tokens at once, and the target model verifies them in a single forward pass. You get the same outputs as the target model, just faster — no quality loss, no changes to reasoning behaviour. Reported end-to-end speedups go up to ~3x depending on hardware, batch size, and workload.
+Google has released Multi-Token Prediction (MTP) drafters for the Gemma 4 family: small _assistant_ models that accelerate inference via speculative decoding. The drafter proposes several future tokens at once, and the target model verifies them in a single forward pass. You get the same outputs as the target model, just faster — no quality loss, no changes to reasoning behaviour. Reported end-to-end speedups go up to \~3x depending on hardware, batch size, and workload.
 
 Assistants are available for all four Gemma 4 sizes (E2B, E4B, 26B A4B, 31B). They share the KV cache with the target model to avoid recomputing context, and the smaller edge variants additionally use an embedder clustering trick to keep memory and compute low on-device.
 
