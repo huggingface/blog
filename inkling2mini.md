@@ -18,7 +18,7 @@ We ship transformers, Llama App (llama.cpp), and MLX support. SGLang also provid
 
 This post goes through what makes Inkling Mini different, some of our vibe tests, and how you can use it with your setup.
 
-## **What is new with Inkling 2 Mini?**
+## What is new with Inkling 2 Mini?
 
 Inkling 2 Mini is a mixture-of-experts model with 24 decoder layers, but the 12 middle layers run three times in a loop. Therefore, the model acts as if it had 48 (6+ 3\*12 \+ 6\) *logical* layers with just 24 *physical* ones.
 
