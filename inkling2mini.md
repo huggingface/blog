@@ -366,7 +366,7 @@ We ask the 4-bit GGUF quantized Inkling 2 Mini (IQ4\_NL) to make a website to a 
 
 Model is quite autonomous, it has made its own SVGs for the visuals on the website, and even built the matching logic, all from a short prompt: "Can you make a website for my saas called plant therapy where I match house plants with licensed therapists so plants don’t die, return single HTML”. 
 
-<video controls muted loop playsinline preload="metadata" aria-label="Plant Therapy (Inkling 2 Mini)" src="https://huggingface.co/buckets/huggingface-projects/inkling-2-mini-release-assets/tree/plant-therapy-website.mp4"></video>
+<video controls muted loop playsinline preload="metadata" aria-label="Plant Therapy (Inkling 2 Mini)" src="https://huggingface.co/buckets/huggingface-projects/inkling-2-mini-release-assets/resolve/plant-therapy-website.mp4"></video>
 
 #### “Make yourself into a browser agent"
 
