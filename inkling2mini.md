@@ -210,7 +210,7 @@ To load the 8-bit weights, change the suffix to `:Q8_0`.
 
 Here we ask the 4-bit model to make a website to a SaaS called plant therapy where plants get matched to licensed therapists. Model is quite autonomous, it has made its own SVGs for the visuals on the website, and even built the matching logic.
 
-<video controls muted loop playsinline preload="metadata" aria-label="Plant Therapy (Inkling 2 Mini)" src="https://huggingface.co/buckets/huggingface-projects/inkling-2-mini-release-assets/tree/plant-therapy.mp4"></video>
+<video controls muted loop playsinline preload="metadata" aria-label="Plant Therapy (Inkling 2 Mini)" src="https://huggingface.co/buckets/huggingface-projects/inkling-2-mini-release-assets/resolve/plant-therapy.mp4"></video>
 
 ### SGLang
 
@@ -366,11 +366,11 @@ We ask the 4-bit GGUF quantized Inkling 2 Mini (IQ4\_NL) to make a website to a 
 
 Model is quite autonomous, it has made its own SVGs for the visuals on the website, and even built the matching logic, all from a short prompt: "Can you make a website for my saas called plant therapy where I match house plants with licensed therapists so plants don’t die, return single HTML”. 
 
-<video controls muted loop playsinline preload="metadata" aria-label="Plant Therapy (Inkling 2 Mini)" src="https://huggingface.co/buckets/huggingface-projects/inkling-2-mini-release-assets/tree/plant-therapy-website.mp4"></video>
+<video controls muted loop playsinline preload="metadata" aria-label="Plant Therapy (Inkling 2 Mini)" src="https://huggingface.co/buckets/huggingface-projects/inkling-2-mini-release-assets/resolve/plant-therapy-website.mp4"></video>
 
 #### “Make yourself into a browser agent"
 
-We have paired Inkling 2 Mini with Pi coding agent to build itself into a browser agent using Helium, Chromium and Hugging Face Sandboxes. We provide the traces and the final file (that can be used as a browser agent) [in this bucket](https://huggingface.co/buckets/huggingface-projects/inkling-2-mini-release-assets/tree/browser-agent-demo). 
+We have paired Inkling 2 Mini with Pi coding agent to build itself into a browser agent using Helium, Chromium and Hugging Face Sandboxes. We provide the traces and the final file (that can be used as a browser agent) [in this bucket](https://huggingface.co/buckets/huggingface-projects/inkling-2-mini-release-assets/resolve/browser-agent-demo). 
 
 #### Wrapping Up
 
