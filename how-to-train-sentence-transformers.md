@@ -145,7 +145,7 @@ Output:
 ```
 You can see that `query` (the anchor) has a single sentence, `pos` (positive) is a list of sentences (the one we print has only one sentence), and `neg` (negative) has a list of multiple sentences.
 
-Convert the examples into `InputExample`'s. For simplicity, (1) only one of the positives and one of the negatives in the [embedding-data/QQP_triplets]((https://huggingface.co/datasets/embedding-data/QQP_triplets)) dataset will be used. (2) We will only employ 1/2 of the available examples. You can obtain much better results by increasing the number of examples.
+Convert the examples into `InputExample`'s. For simplicity, (1) only one of the positives and one of the negatives in the [embedding-data/QQP_triplets](https://huggingface.co/datasets/embedding-data/QQP_triplets) dataset will be used. (2) We will only employ 1/2 of the available examples. You can obtain much better results by increasing the number of examples.
 
 ```py
 from sentence_transformers import InputExample

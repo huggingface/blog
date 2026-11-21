@@ -45,7 +45,7 @@ In the loss equation, `sim` indicates a similarity function between \\( (a, p) \
 | With normalised vectors it is equal to the dot product. The max vector length is equals 1.  | It might be slower with certain approximate nearest neighbour methods since the max vector not known. |
 | With normalised vectors, it is proportional to euclidian distance. It works with k-means clustering.  | It does not work with k-means clustering.  |
 
-In practice, we used a scaled similarity because score differences tends to be too small and apply a scaling factor \\( C \\) such that \\( sim_{scaled}(a, b) = C * sim(a, b) \\) with typically \\( C = 20 \\) ([Henderson and al., 2020]([https://doi.org/10.18653/v1/2020.findings-emnlp.196), [Radford and al., 2021](http://proceedings.mlr.press/v139/radford21a.html)).
+In practice, we used a scaled similarity because score differences tends to be too small and apply a scaling factor \\( C \\) such that \\( sim_{scaled}(a, b) = C * sim(a, b) \\) with typically \\( C = 20 \\) ([Henderson and al., 2020](https://doi.org/10.18653/v1/2020.findings-emnlp.196), [Radford and al., 2021](http://proceedings.mlr.press/v139/radford21a.html)).
 
 ### Improving Quality with Better Batches
 

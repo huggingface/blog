@@ -67,7 +67,7 @@ In order to regularize our dataset and prevent overfitting due to the size of th
 
 Image augmentation was done inline using built-in transforms from Pytorch's [Torchvision](https://pytorch.org/vision/stable/index.html) package. The transformations used were Random Cropping, Random Resizing and Cropping, Color Jitter, and Random Horizontal and Vertical flipping.
 
-We augmented the text with backtranslation to generate captions for images with less than 5 unique captions per image. The [Marian MT]((https://huggingface.co/transformers/model_doc/marian.html)) family of models from Hugging Face was used to translate the existing captions into French, Spanish, Italian, and Portuguese and back to English to fill out the captions for these images.
+We augmented the text with backtranslation to generate captions for images with less than 5 unique captions per image. The [Marian MT](https://huggingface.co/transformers/model_doc/marian.html) family of models from Hugging Face was used to translate the existing captions into French, Spanish, Italian, and Portuguese and back to English to fill out the captions for these images.
 
 As shown in these loss plots below, image augmentation reduced overfitting significantly, and text and image augmentation reduced overfitting even further.
 
