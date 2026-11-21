@@ -370,7 +370,7 @@ Model is quite autonomous, it has made its own SVGs for the visuals on the websi
 
 #### “Make yourself into a browser agent"
 
-We have paired Inkling 2 Mini with Pi coding agent to build itself into a browser agent using Helium, Chromium and Hugging Face Sandboxes. We provide the traces and the final file (that can be used as a browser agent) [in this bucket](https://huggingface.co/buckets/huggingface-projects/inkling-2-mini-release-assets/resolve/browser-agent-demo). 
+We have paired Inkling 2 Mini with Pi coding agent to build itself into a browser agent using Helium, Chromium and Hugging Face Sandboxes. We provide the traces and the final file (that can be used as a browser agent) [in this bucket](https://huggingface.co/buckets/huggingface-projects/inkling-2-mini-release-assets/tree/browser-agent-demo). 
 
 #### Wrapping Up
 
