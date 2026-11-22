@@ -759,9 +759,9 @@ When you're done, remember to delete the endpoint, endpoint configuration and mo
 
 ## Gemini Enterprise Agent Platform
 
-You can deploy Gemma 4 on [Gemini Enterprise Agent Platform](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/open-models/vllm/use-vllm) (formerly Vertex AI) on Google Cloud, using the [vLLM container from Model Garden](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/open-models/vllm/use-vllm) and the Python SDK (`google-cloud-aiplatform`).
+You can deploy Gemma 4 on [Gemini Enterprise Agent Platform](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/open-models/vllm/use-vllm) (formerly Vertex AI) on Google Cloud, using the [Hugging Face vLLM container](https://console.cloud.google.com/artifacts/docker/huggingface-public/us/containers/vllm) and the Python SDK (`google-cloud-aiplatform`).
 
-The recipe below serves `google/gemma-4-31B-it` on an `a3-highgpu-2g` instance (2 x NVIDIA H100 80GB) with tensor parallelism, the full 256K context, and tool calling and reasoning enabled. In our benchmarks of this same recipe on 2 x NVIDIA H100 80GB with vLLM, it sustains \~1,570 output tokens per second across 64 concurrent requests.
+The recipe below serves `google/gemma-4-31B-it` on an `a3-highgpu-2g` instance (2 x NVIDIA H100 80GB) with tensor parallelism, the full 256K context, and tool calling and reasoning enabled. In our benchmarks of this same recipe on 2 x NVIDIA H100 80GB with vLLM, it sustains \~1,570 output tokens per second across 64 concurrent requests. Note that Agent Platform allocates a fixed 100 GB boot disk, so the recipe sets `serving_container_shared_memory_size_mb` to cache the checkpoint in `/dev/shm`.
 
 ```shell
 pip install google-cloud-aiplatform --upgrade
@@ -776,13 +776,8 @@ aiplatform.init(project=os.getenv("PROJECT_ID"), location="us-central1")
 
 model = aiplatform.Model.upload(
     display_name="gemma-4-31b-it",
-    serving_container_image_uri="us-docker.pkg.dev/agent-platform-mg-public/containers/pytorch-vllm-serve:model-garden.pytorch-vllm-serve-release_20261111.00_p0",
+    serving_container_image_uri="us-docker.pkg.dev/huggingface-public/containers/vllm:v0.34.0",
     serving_container_args=[
-        "python",
-        "-m",
-        "vllm.entrypoints.openai.api_server",
-        "--host=0.0.0.0",
-        "--port=8080",
         "--model=google/gemma-4-31B-it",
         "--served-model-name=google/gemma-4-31B-it",
         "--tensor-parallel-size=2",
@@ -795,7 +790,7 @@ model = aiplatform.Model.upload(
     serving_container_ports=[8080],
     serving_container_predict_route="/v1/chat/completions",
     serving_container_health_route="/health",
-    serving_container_shared_memory_size_mb=16 * 1024,
+    serving_container_shared_memory_size_mb=128 * 1024,
     serving_container_deployment_timeout=7200,
 )
 
