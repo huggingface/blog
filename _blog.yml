@@ -6050,3 +6050,11 @@
     - benchmark
     - open-source
     - research
+
+- local: training-swarms-part-1
+  date: November 24, 2026
+  tags:
+    - rl
+    - trl
+    - agents
+    - open-source
