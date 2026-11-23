@@ -118,7 +118,7 @@ Each run trains Qwen3.8-27B with LoRA and GRPO, using TRL's `AsyncGRPOTrainer`, 
 
 The figure below shows how the tasks impacted model learning. The table lists each run's steps and the checkpoint we evaluate. The chart tracks training reward across subsets of tasks with differing validation status.
 
-<iframe src="https://harness-hub-tb21-lift-status.static.hf.space" title="TB2.1 lift experiment status" width="100%" height="760" style="border:0;max-width:880px" loading="lazy"></iframe>
+<iframe src="https://harness-hub-tb21-lift-status.static.hf.space/index.html" title="TB2.1 lift experiment status" width="100%" height="760" frameborder="0" sandbox="allow-scripts" referrerpolicy="same-origin" loading="lazy"></iframe>
 
 ### The dataset
 
