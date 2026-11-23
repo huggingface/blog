@@ -6041,3 +6041,12 @@
     - transformers
     - inference
     - open-source
+
+- local: agent-evals-on-the-hub
+  date: November 24, 2026
+  tags:
+    - agents
+    - evaluation
+    - benchmark
+    - inference
+    - open-source
