@@ -192,7 +192,7 @@ print(ask(messages)["content"])
 
 The easiest way to run Inkling 2 locally is with the [Llama App](https://llama.app/), available for macOS and Windows. After you have installed it on your computer, [select your preferred GGUF quant on the Hub](https://huggingface.co/ggml-org/Inkling-2-Mini-GGUF/tree/main?show_file_info=Inkling-2-Mini-IQ4_NL.gguf), click the "Use this model" button and select "Llama".
 
-# todo: screenshot
+![Use this model deeplink](https://huggingface.co/buckets/huggingface-projects/inkling-2-mini-release-assets/resolve/deeplink.png)
 
 There are two quants you can use, the following links will trigger downloads from your Llama app if you have it installed:
 
