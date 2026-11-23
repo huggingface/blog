@@ -626,7 +626,7 @@ mlx_vlm.generate \
 --prompt "Describe this image in detail"
 ```
 
-mlx-vlm supports TurboQuant, which delivers the same accuracy as the uncompressed baseline while using \~4x less active memory and running a lot faster end-to-end. This makes long-context inference practical on Apple Silicon without sacrificing quality. Use it like this:
+mlx-vlm supports TurboQuant, which delivers the same accuracy as the uncompressed baseline while using ~4x less active memory and running a lot faster end-to-end. This makes long-context inference practical on Apple Silicon without sacrificing quality. Use it like this:
 
 ```shell
 mlx_vlm.generate \
@@ -917,7 +917,7 @@ When you're done, remember to delete the deployment with `client.managed_compute
 
 # Multi-Token Prediction Drafters
 
-Google has released Multi-Token Prediction (MTP) drafters for the Gemma 4 family: small _assistant_ models that accelerate inference via speculative decoding. The drafter proposes several future tokens at once, and the target model verifies them in a single forward pass. You get the same outputs as the target model, just faster — no quality loss, no changes to reasoning behaviour. Reported end-to-end speedups go up to \~3x depending on hardware, batch size, and workload.
+Google has released Multi-Token Prediction (MTP) drafters for the Gemma 4 family: small _assistant_ models that accelerate inference via speculative decoding. The drafter proposes several future tokens at once, and the target model verifies them in a single forward pass. You get the same outputs as the target model, just faster — no quality loss, no changes to reasoning behaviour. Reported end-to-end speedups go up to ~3x depending on hardware, batch size, and workload.
 
 Assistants are available for all four Gemma 4 sizes (E2B, E4B, 26B A4B, 31B). They share the KV cache with the target model to avoid recomputing context, and the smaller edge variants additionally use an embedder clustering trick to keep memory and compute low on-device.
 
