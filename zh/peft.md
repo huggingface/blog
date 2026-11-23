@@ -36,7 +36,7 @@ PEFT 方法还有助于提高轻便性，其中用户可以使用 PEFT 方法调
 
 2. 通过使用 🤗 PEFT LoRA 和 [bitsandbytes](https://github.com/TimDettmers/bitsandbytes) 在 Google Colab 中启用 OPT-6.7b 模型 (67 亿个参数) 的 INT8 调整，将前面的示例提升一个档次: [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1jCkpikz0J2o20FBQmYmAGdiKmJGOMo-o?usp=sharing)。
 
-3. 在具有 11GB RAM 的消费级硬件上使用 🤗 PEFT 进行稳定的 Diffusion Dreambooth 训练，例如 Nvidia GeForce RTX 2080 Ti、Nvidia GeForce RTX 3080 等。试用 Space 演示，它应该可以在 T4 实例 (16GB GPU) 上无缝运行: [smangrul/peft-lora-sd-dreambooth](https://huggingface.co/spaces/smangrul/peft-lora-sd-dreambooth)。
+3. 在具有 11GB RAM 的消费级硬件上使用 🤗 PEFT 进行稳定的 Diffusion Dreambooth 训练，例如 Nvidia GeForce RTX 2080 Ti、Nvidia GeForce RTX 3080 等。请参阅此示例的 [DreamBooth LoRA 训练脚本](https://github.com/huggingface/peft/blob/main/examples/lora_dreambooth/train_dreambooth.py)。
 
 <p align="center">
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/peft/peft_lora_dreambooth_gradio_space.png" alt="peft lora dreambooth gradio space"><br>
