@@ -14,7 +14,7 @@ TLDR; Inkling 2 Mini is a new looped transformer model. It’s a multimodal Mixt
 
 Inkling 2 Mini is much, much smaller than Inkling 2 Small, and is designed for local AI setups. We think this is a refreshingly new great local model. In our vibe tests, it's at least comparable with Qwen 3.8 27B. More validation is needed, but we are super excited about this release\!
 
-We ship transformers, Llama App (llama.cpp), and MLX support. SGLang also provides day-zero inference support for production deployments on datacenter hardware.
+We ship transformers, llama.cpp, and MLX support. SGLang also provides day-zero inference support for production deployments on datacenter hardware.
 
 This post goes through what makes Inkling Mini different, some of our vibe tests, and how you can use it with your setup.
 
@@ -188,29 +188,44 @@ print(ask(messages)["content"])
 # Right now in Paris it’s about **22°C** (roughly **71.6°F**).
 ```
 
-### Llama App and Llama.cpp
+### llama.cpp
 
-[Llama App](https://llama.app/) lets you easily run and manage local language models on macOS (from the menu bar) or Windows (system tray). It’s built on llama.cpp, and by the same team. The app also provides a local OpenAI-compatible API for easy integration with coding agents, editors, and scripts.
+The easiest way to run Inkling 2 locally is with the [Llama App](https://llama.app/), available for macOS and Windows. After you have installed it on your computer, [select your preferred GGUF quant on the Hub](https://huggingface.co/ggml-org/Inkling-2-Mini-GGUF/tree/main?show_file_info=Inkling-2-Mini-IQ4_NL.gguf), click the "Use this model" button and select "Llama".
 
-For the Inkling 2 Mini release we provide GGUF 4-bit (`IQ4_NL)` and 8-bit (`Q8_0`) quants  for both models.
+![Use this model deeplink](https://huggingface.co/buckets/huggingface-projects/inkling-2-mini-release-assets/resolve/deeplink.png)
 
-If you’re on Linux or you want to serve the model from the CLI, you can run the following command for the fixed-loop model:
+There are two quants you can use, the following links will trigger downloads from your Llama app if you have it installed:
 
-```sh
+* [IQ4_NL](llama://install?repo=ggml-org/Inkling-2-Mini-GGUF&quant=IQ4_NL). Recommended for most users. The original nvfp4 weights are converted to a different 4-bit format, the mxfp8 ones are kept in `fp8` precision. It fits in 32 GB of GPU RAM or unified memory.
+* [Q8_0](llama://install?repo=ggml-org/Inkling-2-Mini-GGUF&quant=Q8_0). Near lossless, but it requires more RAM and is slightly slower.
+
+**Example**
+
+Here we ask the 4-bit model to make a website to a SaaS called plant therapy where plants get matched to licensed therapists. The model is quite autonomous, it has made its own SVGs for the visuals on the website, and even built the matching logic.
+
+<video controls muted loop playsinline preload="metadata" aria-label="Plant Therapy (Inkling 2 Mini)" src="https://huggingface.co/buckets/huggingface-projects/inkling-2-mini-release-assets/resolve/plant-therapy.mp4"></video>
+
+**Command-line**
+
+If you are on Linux, or if you only want the command line, you can use the [one-line installer](https://llama.app/docs/installation#one-line-install):
+
+curl -LsSf https://llama.app/install.sh | sh
+```
+
+For integration with other tools, you can launch a server compatible with the OpenAI API:
+
 llama serve -hf ggml-org/Inkling-2-Mini-GGUF:IQ4_NL
 ```
 
-To run the variable-loop model, you can run
+Change the suffix to `:Q8_0` to load the 8-bit weights, or use the research model to experiment with a variable number of passes through the loop:
 
-```sh
+```bash
 llama serve -hf ggml-org/TML-d24-varloop-research-GGUF:IQ4_NL
 ```
 
-To load the 8-bit weights, change the suffix to `:Q8_0`.
+**Integrations**
 
-Here we ask the 4-bit model to make a website to a SaaS called plant therapy where plants get matched to licensed therapists. Model is quite autonomous, it has made its own SVGs for the visuals on the website, and even built the matching logic.
-
-<video controls muted loop playsinline preload="metadata" aria-label="Plant Therapy (Inkling 2 Mini)" src="https://huggingface.co/buckets/huggingface-projects/inkling-2-mini-release-assets/resolve/plant-therapy.mp4"></video>
+[Follow the docs](https://llama.app/docs/agents) to integrate your llama server with agents such as Pi, ChatGPT Desktop, and others.
 
 ### SGLang
 
