@@ -29,9 +29,9 @@ This guide covers four things:
 
 ## 1. Introduction: how evaluation design has changed
 
-AI evaluation design has evolved in three forms as language models have become more capable and able to perform more complex work: question answer, agentic, and teams or swarms. Question-answer benchmarks such as [MMLU](https://arxiv.org/abs/2009.03300) (2020) and [GPQA](https://arxiv.org/abs/2311.12022) (2023) measure knowledge and reasoning through the answers models produce. As models became capable of planning and using tools, agentic benchmarks such as [SWE-bench](https://arxiv.org/abs/2310.06770) and [WebArena](https://arxiv.org/abs/2307.13854) expanded the scope to resolving software issues and completing tasks on websites. These tasks require evaluation setups that account for the environment in which the system operates and the changes it makes.
+AI evaluation design has evolved in three forms as language models have become more capable and able to perform more complex work: question answer, agentic, and teams or swarms. Question-answer benchmarks such as [MMLU](https://huggingface.co/papers/2009.03300) (2020) and [GPQA](https://huggingface.co/papers/2311.12022) (2023) measure knowledge and reasoning through the answers models produce. As models became capable of planning and using tools, agentic benchmarks such as [SWE-bench](https://huggingface.co/papers/2310.06770) and [WebArena](https://huggingface.co/papers/2307.13854) expanded the scope to resolving software issues and completing tasks on websites. These tasks require evaluation setups that account for the environment in which the system operates and the changes it makes.
 
-Lately, research on multi-agent systems has started to add another dimension: how agents coordinate and what they accomplish together. This includes [decentralized swarms](https://arxiv.org/abs/2505.04364), [teams managed by an orchestrator](https://aclanthology.org/2026.findings-emnlp.662/), and [specialized agents collaborating on scientific work](https://arxiv.org/abs/2610.07763). Figure 1 shows a rough timeline of these three eras of evaluations.
+Lately, research on multi-agent systems has started to add another dimension: how agents coordinate and what they accomplish together. This includes [decentralized swarms](https://huggingface.co/papers/2505.04364), [teams managed by an orchestrator](https://aclanthology.org/2026.findings-emnlp.662/), and [specialized agents collaborating on scientific work](https://arxiv.org/abs/2610.07763). Figure 1 shows a rough timeline of these three eras of evaluations.
 
 <img src="https://huggingface.co/buckets/huggingface/agentic-evals-blog-assets/resolve/images/eval-eras.png" alt="Timeline of three types of language model evaluations: question-and-answer, agentic tasks, and teams and swarms." width="624" style="max-width: 100%; height: auto; background-color: white;">
 
@@ -49,7 +49,7 @@ There are various parts to an agentic evaluation. A task gives the agent its ins
 
 ### Why benchmark release decisions matter
 
-Demand for independent evaluation is growing. Policymakers, enterprises, and researchers want evaluations they can verify, and today they mostly cannot: [98.2% of model-benchmark scores are reported by only one party](https://arxiv.org/pdf/2606.09809), and researchers have argued that [in-house evaluation is not enough](https://arxiv.org/abs/2503.16861).
+Demand for independent evaluation is growing. Policymakers, enterprises, and researchers want evaluations they can verify, and today they mostly cannot: [98.2% of model-benchmark scores are reported by only one party](https://huggingface.co/papers/2606.09809), and researchers have argued that [in-house evaluation is not enough](https://huggingface.co/papers/2503.16861).
 
 At the same time, more benchmarks are holding back test items to reduce contamination: questions or solutions entering training data, so scores may reflect prior exposure. Artificial Analysis [says 60% of its Intelligence Index v5](https://x.com/ArtificialAnlys/status/2115265133467635877), announced in October 2026, rests on evaluations with private test sets or held-out answers. Google DeepMind recently piloted [double-blind evaluations](https://deepmind.google/blog/piloting-the-worlds-first-double-blind-ai-evaluations/), where a secure enclave hides an outside evaluator's test prompts from the model provider and the model's weights from the evaluator. While that can reduce contamination, privacy by itself does not guarantee quality, and withholding supporting materials can make expert review harder. We argue that builders can and should still share infrastructure, grading methods, and evidence about task design. Scrutiny depends on giving others a way to question the measurement and correct mistakes, including controlled review where public release is unsuitable.
 
@@ -93,7 +93,7 @@ Our shortcut returned the expected defect ratio without fitting a spectrum. A ve
 
 The shortcut got the right answer for the wrong reason, like a student who copies the final number without the working. The lesson for us was to test what the output demonstrates. A faster valid method should pass; a method that skips a required skill should not. Domain experts can help set tolerances so the verifier accepts alternative correct fits without accepting work that misses the point of the task.
 
-Such errors are common, and they move scores considerably. A [review of agentic benchmarks](https://arxiv.org/abs/2507.02825) found that flaws in task setup or reward design can shift measured performance by up to 100% in relative terms.
+Such errors are common, and they move scores considerably. A [review of agentic benchmarks](https://huggingface.co/papers/2507.02825) found that flaws in task setup or reward design can shift measured performance by up to 100% in relative terms.
 
 ### Public review is essential for correcting benchmarks
 
@@ -105,7 +105,7 @@ Similar flaws emerged in SWE-bench Pro. In July 2026 OpenAI [estimated that abou
 
 ### Check the claim as well as the code
 
-A consistent score can still measure the wrong thing. [Measuring what Matters](https://arxiv.org/abs/2511.04703), a review of 445 LLM benchmarks by 29 expert reviewers, found recurring patterns in tasks and metrics that undermine construct validity: whether the tasks and metrics support claims about the intended capability.
+A consistent score can still measure the wrong thing. [Measuring what Matters](https://huggingface.co/papers/2511.04703), a review of 445 LLM benchmarks by 29 expert reviewers, found recurring patterns in tasks and metrics that undermine construct validity: whether the tasks and metrics support claims about the intended capability.
 
 For example, fitting synthetic spectra does not establish that an agent can review lab reports. That may also require recognizing a poor measurement or asking for help. If every task supplies a usable spectrum, the test cannot show whether the agent knows when a fit would be inappropriate.
 
@@ -117,7 +117,7 @@ Each error is worth a short record: the failed assumption, how it was found, and
 
 The SWE-bench Verified audit described above also found contamination: every frontier model tested could reproduce the reference patch or verbatim problem details for some tasks. SWE-bench's public repositories and wide use exposed tasks to training. The openness that enabled scrutiny of bad tests also made items easier to encounter before evaluation.
 
-However, if contamination is carefully controlled for during training, hiding the test set by itself does not prevent saturation. A [study of 60 language model benchmarks](https://arxiv.org/abs/2602.16763) found similar saturation in public and private ones, and concluded that hiding test data does not prevent saturation once a benchmark is widely adopted, meaning a good benchmark falls out of use due to saturation without developers being able to learn from and build on it. What did correspond to lower saturation was expert curation and a larger test set.
+However, if contamination is carefully controlled for during training, hiding the test set by itself does not prevent saturation. A [study of 60 language model benchmarks](https://huggingface.co/papers/2602.16763) found similar saturation in public and private ones, and concluded that hiding test data does not prevent saturation once a benchmark is widely adopted, meaning a good benchmark falls out of use due to saturation without developers being able to learn from and build on it. What did correspond to lower saturation was expert curation and a larger test set.
 
 This leaves a practical release question: what can we expose for review while protecting active test items?
 
@@ -150,7 +150,7 @@ In a more sensitive domain, a clinical evaluation could open its environment def
 
 ### Strategic open sourcing checklist
 
-We recommend a short checklist, drawn in part from the more comprehensive [Agentic Benchmark Checklist](https://arxiv.org/abs/2507.02825). Before releasing or retiring an evaluation, check that another builder can:
+We recommend a short checklist, drawn in part from the more comprehensive [Agentic Benchmark Checklist](https://huggingface.co/papers/2507.02825). Before releasing or retiring an evaluation, check that another builder can:
 
 - Identify what it measures, its intended use, and the conditions it leaves out.
 - Find the reusable artifacts, their licenses and versions, and a way to report problems.
@@ -163,7 +163,7 @@ These release decisions also determine what remains useful when the benchmark no
 
 ## 5. Conclusion: giving the evaluation a useful afterlife
 
-Benchmarks have a lifecycle. They are built, adopted, optimized against, and in time stop separating the systems they were made to compare. The [saturation study](https://arxiv.org/abs/2602.16763) from section 3 rated 29 of its 60 language model benchmarks as highly saturated, with rates rising with age. Saturation is not a failure in itself, since it can mean the capability has arrived.
+Benchmarks have a lifecycle. They are built, adopted, optimized against, and in time stop separating the systems they were made to compare. The [saturation study](https://huggingface.co/papers/2602.16763) from section 3 rated 29 of its 60 language model benchmarks as highly saturated, with rates rising with age. Saturation is not a failure in itself, since it can mean the capability has arrived.
 
 What a benchmark leaves behind depends on how open it was. Publishing only scores leaves future builders little they can run or adapt. When the tasks, environments, verifiers, and traces are open, each keeps working after the leaderboard stops. A solved task becomes a regression check for a new harness. Its environment and verifier can seed a harder successor. Open benchmarks also get repaired and reissued: MMLU's questions became [MMLU-Redux](https://huggingface.co/datasets/edinburgh-dawg/mmlu-redux-2.0), and Terminal-Bench 2.0 became [2.1](https://www.tbench.ai/news/terminal-bench-2-1) through community contributions. Our own walkthrough is an afterlife of this kind: raman-lab began as one task in a benchmark built for general terminal work.
 
@@ -239,7 +239,7 @@ The original [instruction.md](https://huggingface.co/datasets/harborframework/te
 
 The verifier is guided by three rules:
 
-- Grade what the agent produced: inspect the saved output, not its claim to have finished. [τ-bench](https://arxiv.org/abs/2406.12045) does this by comparing the final database state with an annotated goal state.
+- Grade what the agent produced: inspect the saved output, not its claim to have finished. [τ-bench](https://huggingface.co/papers/2406.12045) does this by comparing the final database state with an annotated goal state.
 - State every checked fact in the instruction, including units, parameter conventions, tolerances, and required fields.
 - Generate synthetic data from known parameters so the reference answer is available, then review whether the examples represent the intended problem.
 
@@ -259,7 +259,7 @@ harbor run -p datasets/my-evals -a nop -e hf-sandbox
 ```
 
 - The oracle should pass every task, i.e., the known solution must work in the supplied environment.
-- The no-op agent does nothing, so it should fail every task. A blank exam paper should not pass. A [review of agentic benchmarks](https://arxiv.org/abs/2507.02825) found one that counted empty responses as successes.
+- The no-op agent does nothing, so it should fail every task. A blank exam paper should not pass. A [review of agentic benchmarks](https://huggingface.co/papers/2507.02825) found one that counted empty responses as successes.
 - A shortcut that skips required work should fail. One way to test this is with a deliberately lazy solution, such as one that outputs a plausible answer without doing the work, to see whether the verifier accepts it. Also try plausible wrong answers and alternative correct methods, to catch both false passes and false failures.
 
 Our shortcut returned the expected defect ratio on all eight tasks without fitting the spectra, so we added checks on the fit itself. Section 3 explains what that means for verifier design.
@@ -284,12 +284,12 @@ Finally, we adapt the setup, repeat the checks in step 5, and rerun. Harbor's [t
 
 The right metric depends on the decision you need to make:
 
-- [pass@k](https://arxiv.org/abs/2107.03374) asks whether at least one of k rollouts succeeds. Our pass@3 was 7/8: seven tasks succeeded at least once.
-- [pass^k](https://arxiv.org/abs/2406.12045) asks whether all k rollouts succeed. Our pass^3 was 1/8: one task succeeded every time.
+- [pass@k](https://huggingface.co/papers/2107.03374) asks whether at least one of k rollouts succeeds. Our pass@3 was 7/8: seven tasks succeeded at least once.
+- [pass^k](https://huggingface.co/papers/2406.12045) asks whether all k rollouts succeed. Our pass^3 was 1/8: one task succeeded every time.
 
 Retries may be acceptable when a person reviews the output. Unattended processing needs consistency, so the second measure matters more.
 
-A mean is more useful with its uncertainty beside it. Rollouts of the same spectrum share its difficulty, so they are not independent, and the standard error should be [clustered by task](https://arxiv.org/abs/2411.00640). Clustering gave a mean success rate of 0.46 with a standard error of about 0.11. A repeat run passed 10 of 24 rollouts, compared with 11 of 24 in the first run. With only eight development tasks, we would be cautious about generalizing either result to new spectra.
+A mean is more useful with its uncertainty beside it. Rollouts of the same spectrum share its difficulty, so they are not independent, and the standard error should be [clustered by task](https://huggingface.co/papers/2411.00640). Clustering gave a mean success rate of 0.46 with a standard error of about 0.11. A repeat run passed 10 of 24 rollouts, compared with 11 of 24 in the first run. With only eight development tasks, we would be cautious about generalizing either result to new spectra.
 
 Harbor writes a `result.json` per rollout, which it calls a trial. We group these by task, check that each task has three rollouts, and record errors or exclusions. Reporting tokens, elapsed time, and tool calls beside the score lets readers compare setups that reach similar results at different costs.
 
@@ -336,24 +336,24 @@ Reusing the runner and task format let us concentrate on the physics, grading, a
 - **Verifier:** We reused the `tests/test.sh` entry point and its way of writing the score to a file. The new work was fit and ratio checks, plus tests for shortcuts and incorrect outputs.
 
 ## References
-- Akhtar, M., Reuel, A., Soni, P., et al. (2026). When AI Benchmarks Plateau: A Systematic Study of Benchmark Saturation. arXiv:2602.16763. <https://arxiv.org/abs/2602.16763>
+- Akhtar, M., Reuel, A., Soni, P., et al. (2026). When AI Benchmarks Plateau: A Systematic Study of Benchmark Saturation. arXiv:2602.16763. <https://huggingface.co/papers/2602.16763>
 - Ansari, A., Sun, H., Liu, A. Z., et al. (2026). How Good Are Frontier Models at Physics? Expert Re-Grading Reveals Broken Evaluations and Near-Saturation of Leading Benchmarks. arXiv:2609.13009. <https://arxiv.org/abs/2609.13009>
 - Anthropic. (2026). Demystifying evals for AI agents. Anthropic Engineering, January 2026. <https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents>
 - ARC Prize Foundation. (n.d.). ARC-AGI-2. <https://arcprize.org/arc-agi/2>
 - Artificial Analysis. (2026). Announcing Artificial Analysis Intelligence Index v5. Post on X, October 2026. <https://x.com/ArtificialAnlys/status/2115265133467635877>
 - Barres, V., Barton, A., Foss, N. J., & Nielsen, H. M. (2026). Harder Than the Task: From Technical to Organizational Difficulty in AI Benchmarking. arXiv:2611.03494. <https://arxiv.org/abs/2611.03494>
-- Bean, A. M., Kearns, R. O., Romanou, A., et al. (2025). Measuring what Matters: Construct Validity in Large Language Model Benchmarks. arXiv:2511.04703. <https://arxiv.org/abs/2511.04703>
+- Bean, A. M., Kearns, R. O., Romanou, A., et al. (2025). Measuring what Matters: Construct Validity in Large Language Model Benchmarks. arXiv:2511.04703. <https://huggingface.co/papers/2511.04703>
 - Buchanan, E. K., Linderman, S., & Ré, C. (2026). Benchmarks as Software: A Case Study on Terminal-Bench. ICML 2026. <https://icml.cc/virtual/2026/82793>
 - Cançado, L. G., Jorio, A., Ferreira, E. H., et al. (2011). Quantifying defects in graphene via Raman spectroscopy at different excitation energies. Nano Letters, 11(8), 3190–3196. <https://pubmed.ncbi.nlm.nih.gov/21696186/>
-- Chen, M., Tworek, J., Jun, H., et al. (2021). Evaluating Large Language Models Trained on Code. arXiv:2107.03374. <https://arxiv.org/abs/2107.03374>
+- Chen, M., Tworek, J., Jun, H., et al. (2021). Evaluating Large Language Models Trained on Code. arXiv:2107.03374. <https://huggingface.co/papers/2107.03374>
 - Ferrari, A. C., & Basko, D. M. (2013). Raman spectroscopy as a versatile tool for studying the properties of graphene. Nature Nanotechnology, 8, 235–246. <https://arxiv.org/abs/1306.5856>
 - Ferrari, A. C., Meyer, J. C., Scardaci, V., et al. (2006). Raman spectrum of graphene and graphene layers. Physical Review Letters, 97, 187401. <https://arxiv.org/abs/cond-mat/0606284>
-- Gema, A. P., Leang, J. O. J., Hong, G., et al. (2024). Are We Done with MMLU? arXiv:2406.04127. <https://arxiv.org/abs/2406.04127>
-- Ghosh, A., Reuel, A., Chim, J., et al. (2026). Evaluation Cards: An Interpretive Layer for AI Evaluation Reporting. arXiv:2606.09809. <https://arxiv.org/abs/2606.09809>
+- Gema, A. P., Leang, J. O. J., Hong, G., et al. (2024). Are We Done with MMLU? arXiv:2406.04127. <https://huggingface.co/papers/2406.04127>
+- Ghosh, A., Reuel, A., Chim, J., et al. (2026). Evaluation Cards: An Interpretive Layer for AI Evaluation Reporting. arXiv:2606.09809. <https://huggingface.co/papers/2606.09809>
 - Harbor Framework. (n.d.). Harbor documentation. <https://docs.harborframework.com/>
 - Isaac, W., Messing, S., & Lum, K. (2026). Piloting the world's first double-blind AI evaluations. Google DeepMind, August 2026. <https://deepmind.google/blog/piloting-the-worlds-first-double-blind-ai-evaluations/>
-- Longpre, S., Klyman, K., Appel, R. E., et al. (2025). In-House Evaluation Is Not Enough: Towards Robust Third-Party Flaw Disclosure for General-Purpose AI. arXiv:2503.16861. <https://arxiv.org/abs/2503.16861>
-- Miller, E. (2024). Adding Error Bars to Evals: A Statistical Approach to Language Model Evaluations. arXiv:2411.00640. <https://arxiv.org/abs/2411.00640>
+- Longpre, S., Klyman, K., Appel, R. E., et al. (2025). In-House Evaluation Is Not Enough: Towards Robust Third-Party Flaw Disclosure for General-Purpose AI. arXiv:2503.16861. <https://huggingface.co/papers/2503.16861>
+- Miller, E. (2024). Adding Error Bars to Evals: A Statistical Approach to Language Model Evaluations. arXiv:2411.00640. <https://huggingface.co/papers/2411.00640>
 - MLCommons. (n.d.). AILuminate: frequently asked questions. <https://mlcommons.org/ailuminate/faq/>
 - OpenAI. (2026). Why we no longer evaluate SWE-bench Verified. February 2026. <https://openai.com/index/why-we-no-longer-evaluate-swe-bench-verified/>
 - OpenAI. (2026). Separating signal from noise in coding evaluations. July 2026. <https://openai.com/index/separating-signal-from-noise-coding-evaluations/>
@@ -362,8 +362,8 @@ Reusing the runner and task format let us concentrate on the physics, grading, a
 - Terminal-Bench. (2026). Terminal-Bench 2.1. Release notes, May 2026. <https://www.tbench.ai/news/terminal-bench-2-1>
 - Wei, K. (2026). A primer on AI evaluations for policymakers: Part I. Matters of Scale, November 2026. <https://ai.scal.ing/p/evals-intro-1>
 - XLANG Lab. (2025). Introducing OSWorld-Verified. July 2025. <https://xlang.ai/blog/osworld-verified>
-- Yao, S., Shinn, N., Razavi, P., & Narasimhan, K. (2024). τ-bench: A Benchmark for Tool-Agent-User Interaction in Real-World Domains. arXiv:2406.12045. <https://arxiv.org/abs/2406.12045>
-- Zhu, Y., Jin, T., Pruksachatkun, Y., et al. (2025). Establishing Best Practices for Building Rigorous Agentic Benchmarks. arXiv:2507.02825. <https://arxiv.org/abs/2507.02825>
+- Yao, S., Shinn, N., Razavi, P., & Narasimhan, K. (2024). τ-bench: A Benchmark for Tool-Agent-User Interaction in Real-World Domains. arXiv:2406.12045. <https://huggingface.co/papers/2406.12045>
+- Zhu, Y., Jin, T., Pruksachatkun, Y., et al. (2025). Establishing Best Practices for Building Rigorous Agentic Benchmarks. arXiv:2507.02825. <https://huggingface.co/papers/2507.02825>
 
 ## Glossary
 
