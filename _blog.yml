@@ -6041,3 +6041,12 @@
     - transformers
     - inference
     - open-source
+
+- local: agentic-evals
+  date: November 23, 2026
+  tags:
+    - evaluation
+    - agents
+    - benchmark
+    - open-source
+    - research
