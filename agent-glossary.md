@@ -87,7 +87,7 @@ In the community, it's usually put as **Agent = Model + Harness** ([@Vtrivedy10]
 When people talk about products like Claude Code, Codex, or Cursor, they're referring to a specific harness built on top of a specific model, designed and optimized together. Two products using the same underlying model can feel completely different because their harnesses make different choices. And swapping a better model into the same harness also changes the experience. The model, the harness, and the product are three different things.
 
 > [!NOTE]
-> We at Hugging Face are [building harness adapters](https://huggingface.co/harness-hub/models), where we train model adapters on specific harnesses for efficient usage.
+> We at Hugging Face are [building harness adapters](https://huggingface.co/harness-hub/models), where we fine-tune models to work better with a particular harness: better results, fewer tool calls.
 
 ## Context Engineering
 
