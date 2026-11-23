@@ -304,13 +304,13 @@ We have given Inkling 2 Mini a shot in many fun tasks, check them out in this se
 
 The same prompt produced two sunset flythroughs over procedural mountains and reflective water, each rendered with a single WebGL fragment shader.
 
-**Sunset Ridge (Inkling 2 Mini)**
+**Sunset Ridge**
 
-<video controls muted loop playsinline preload="metadata" aria-label="Sunset Ridge (Inkling 2 Mini)" src="https://huggingface.co/buckets/huggingface-projects/inkling-2-mini-release-assets/resolve/3d-worlds/sunset-ridge.mp4"></video>
+<video controls muted loop playsinline preload="metadata" aria-label="Sunset Ridge" src="https://huggingface.co/buckets/huggingface-projects/inkling-2-mini-release-assets/resolve/3d-worlds/sunset-ridge.mp4"></video>
 
-**Over the Still Sea (Qwen 3.8 27B)**
+**Over the Still Sea**
 
-<video controls muted loop playsinline preload="metadata" aria-label="Over the Still Sea (Qwen 3.8 27B)" src="https://huggingface.co/buckets/huggingface-projects/inkling-2-mini-release-assets/resolve/3d-worlds/over-the-still-sea.mp4"></video>
+<video controls muted loop playsinline preload="metadata" aria-label="Over the Still Sea" src="https://huggingface.co/buckets/huggingface-projects/inkling-2-mini-release-assets/resolve/3d-worlds/over-the-still-sea.mp4"></video>
 <details>
 <summary>Show shared flythrough prompt</summary>
 <blockquote><p>Build the most impressive original real-time scene you can: a slow, cinematic camera flight over procedural mountains, through volumetric clouds and low over water with reflections, all lit by a sunset. Deliver it as a single self-contained index.html in the current directory that renders everything in one full-screen WebGL fragment shader, purely from code (no textures, images, fonts, libraries, external files or network requests of any kind). It must run smoothly in desktop Chrome at 1920x1080, aiming for 60 fps on a desktop GPU, with an automatic resolution-scale fallback that lowers the internal render resolution when the frame rate drops, and the flight must keep going indefinitely without glitches. To check your work, run <code>node shot.cjs index.html shot.png 6</code> (the third argument is how many seconds to wait; a comma list such as <code>3,12,25</code> saves one screenshot per time, and an optional fourth argument sets the size, default 1280x720): it renders the page in headless Chrome, saves the screenshot(s), and prints the WebGL renderer, a rough frame rate and any console errors; then look at the images. The headless renderer on this machine may be software-only, so its frame rate can be far below what a real desktop GPU achieves and is not the target. Decide for yourself when the result is finished, then reply with a short description of what you built.</p></blockquote>
