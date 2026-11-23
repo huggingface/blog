@@ -196,7 +196,7 @@ The easiest way to run Inkling 2 locally is with the [Llama App](https://llama.a
 
 There are two quants you can use, the following links will trigger downloads from your Llama app if you have it installed:
 
-* [IQ4_NL](llama://install?repo=ggml-org/Inkling-2-Mini-GGUF&quant=IQ4_NL). Recommended for most users. The original nvfp4 weights are converted to a different 4-bit format, the mxfp8 ones are kep in `fp8` precision. It fits in 32 GB of GPU RAM or unified memory.
+* [IQ4_NL](llama://install?repo=ggml-org/Inkling-2-Mini-GGUF&quant=IQ4_NL). Recommended for most users. The original nvfp4 weights are converted to a different 4-bit format, the mxfp8 ones are kept in `fp8` precision. It fits in 32 GB of GPU RAM or unified memory.
 * [Q8_0](llama://install?repo=ggml-org/Inkling-2-Mini-GGUF&quant=Q8_0). Near lossless, but it requires more RAM and is slightly slower.
 
 **Example**
