@@ -33,7 +33,7 @@ AI evaluation design has evolved in three forms as language models have become m
 
 Lately, research on multi-agent systems has started to add another dimension: how agents coordinate and what they accomplish together. This includes [decentralized swarms](https://huggingface.co/papers/2505.04364), [teams managed by an orchestrator](https://aclanthology.org/2026.findings-emnlp.662/), and [specialized agents collaborating on scientific work](https://arxiv.org/abs/2610.07763). Figure 1 shows a rough timeline of these three eras of evaluations.
 
-<img src="https://huggingface.co/buckets/huggingface/agentic-evals-blog-assets/resolve/images/eval-eras.png" alt="Timeline of three types of language model evaluations: question-and-answer, agentic tasks, and teams and swarms." width="624" style="max-width: 100%; height: auto; background-color: white;">
+<iframe src="https://evijit-blog-assets.static.hf.space/agentic-eval/fig1_eval_types.html" title="Three types of language model evaluations" width="100%" height="664" frameborder="0" sandbox="allow-scripts" loading="lazy"></iframe>
 
 *Figure 1. Three types of language model evals. Question-and-answer benchmarks check a response against a key. Agentic benchmarks check what an agent changed in an environment. Team and swarm benchmarks score what a group of agents produced.*
 
@@ -41,7 +41,7 @@ We’ll focus on agentic evaluations in this article for two reasons. First, the
 
 ### The anatomy of an agentic evaluation
 
-<img src="https://huggingface.co/buckets/huggingface/agentic-evals-blog-assets/resolve/images/eval-anatomy.png" alt="Components of an agentic evaluation: task, agent harness, environment, rollout, trace, evaluation harness, and verifier." width="624" style="max-width: 100%; height: auto; background-color: white;">
+<iframe src="https://evijit-blog-assets.static.hf.space/agentic-eval/fig2_anatomy.html" title="Components of an agentic evaluation" width="100%" height="488" frameborder="0" sandbox="allow-scripts" loading="lazy"></iframe>
 
 *Figure 2. The different components of an agentic evaluation.*
 
@@ -59,7 +59,7 @@ With the anatomy in place, we now build one agentic evaluation for a real use ca
 
 We work through eight steps: [define the claim](#step-1-define-the-claim), [find a task](#step-2-find-a-starting-task), [run it unchanged](#step-3-run-the-task-unchanged), [adapt it](#step-4-adapt-the-task), [check the evaluation](#step-5-check-the-evaluation), [read the traces](#step-6-run-it-and-read-the-traces), [report the score](#step-7-report-the-score), and [compare models](#step-8-compare-models). We then take stock of what we reused. The full walkthrough is in [Appendix A](#appendix-a-practical-example-agentic-deployment-in-a-physics-lab). Figure 3 maps the steps and what each produced in our example.
 
-<img src="https://huggingface.co/buckets/huggingface/agentic-evals-blog-assets/resolve/images/eval-steps.gif" alt="Animated walkthrough of the eight steps of building an agentic evaluation, with what each step produced in the raman-lab example." width="624" style="max-width: 100%; height: auto; background-color: white;">
+<iframe src="https://evijit-blog-assets.static.hf.space/agentic-eval/fig3_eight_steps.html" title="Eight steps to build an agentic evaluation" width="100%" height="837" frameborder="0" sandbox="allow-scripts" loading="lazy"></iframe>
 
 *Figure 3. The eight steps of building an agentic evaluation. The left panel highlights each step in turn, and the right panel shows what it involved in our example. Yellow steps work on the evaluation itself, and orange steps run models and read the results.*
 
@@ -77,7 +77,7 @@ We work through eight steps: [define the claim](#step-1-define-the-claim), [find
 
 ### Results
 
-<img src="https://huggingface.co/buckets/huggingface/agentic-evals-blog-assets/resolve/images/what-we-learned.png" alt="Three panels: the shortcut fooled a ratio-only grader on 8 of 8 tasks; gpt-oss-120b's 24 attempts ended as 11 passed, 11 with no results file, and 2 failed fits; pass counts out of 24 for six models." width="624" style="max-width: 100%; height: auto; background-color: white;">
+<iframe src="https://evijit-blog-assets.static.hf.space/agentic-eval/fig4_results.html" title="Results from building and testing the raman-lab evaluation" width="100%" height="1256" frameborder="0" sandbox="allow-scripts" loading="lazy"></iframe>
 
 *Figure 4. What we learned by measuring different aspects while building the evaluation. (A) Testing the grader with a shortcut showed that a ratio-only check could be fooled. (B) Reading gpt-oss-120b’s traces showed that most of its failures came from stopping early. (C) Running other models showed that the tasks can be solved.* [*Appendix A*](#appendix-a-practical-example-agentic-deployment-in-a-physics-lab) *has the detailed results in Figure 7 (how gpt-oss-120b’s attempts ended), Figure 8 (all six models) and Figure 9 (when each model said it was done).*
 
@@ -175,7 +175,7 @@ If you’re curious what this looks like in practice, then follow our practical 
 
 Consider a physics lab that wants an agent to fit peaks in a Raman spectrum. Raman spectroscopy shines a laser on a sample and measures shifts in the frequency of the scattered light; the resulting peaks reveal properties of the material. For graphene, an atom-thick sheet of carbon, the G and 2D peaks near 1580 and 2700 cm⁻¹ [identify the number of layers](https://arxiv.org/abs/cond-mat/0606284). A third peak, D, appears when the lattice is disordered, and its intensity relative to G [can indicate defects](https://arxiv.org/abs/1306.5856). Figure 5 shows the setup.
 
-<img src="https://huggingface.co/buckets/huggingface/agentic-evals-blog-assets/resolve/images/raman-setup.png" alt="A laser lights a graphene sample, a spectrometer records the Raman spectrum, the agent fits each peak, and the verifier checks the saved values." width="624" style="max-width: 100%; height: auto; background-color: white;">
+<iframe src="https://evijit-blog-assets.static.hf.space/agentic-eval/fig5_raman_setup.html" title="The Raman measurement workflow" width="100%" height="511" frameborder="0" sandbox="allow-scripts" loading="lazy"></iframe>
 
 *Figure 5. Our intended setup. A laser lights a graphene sample, and a spectrometer records how the scattered light has shifted. The agent receives that spectrum as a file, fits a curve to each peak, and saves the fitted values. The verifier checks the saved values against reference fits. The curve shown is a sketch, not measured data.*
 
@@ -233,7 +233,7 @@ The D-to-G intensity ratio can indicate defects, but its interpretation [depends
 
 The original [instruction.md](https://huggingface.co/datasets/harborframework/terminal-bench-2.1/blob/main/tasks/raman-fitting/instruction.md) shows why such definitions matter: it asks for x0, gamma, amplitude, and offset without defining them or their units. The reference solution treats them as peak center, half-width at half-maximum, height above background, and background level, and converts the x-axis from nanometres to Raman shift. We put choices like these into the adapted instructions, so that the verifier's requirements are visible. Figure 6 shows the two files side by side.
 
-<img src="https://huggingface.co/buckets/huggingface/agentic-evals-blog-assets/resolve/images/instruction-diff.png" alt="The raman-fitting and raman-lab instruction.md files side by side, with the additions highlighted." width="624" style="max-width: 100%; height: auto; background-color: white;">
+<iframe src="https://evijit-blog-assets.static.hf.space/agentic-eval/fig6_instructions.html" title="Side-by-side instructions for raman-fitting and raman-lab" width="100%" height="677" frameborder="0" sandbox="allow-scripts" loading="lazy"></iframe>
 
 *Figure 6. The `instruction.md` files for* [*raman-fitting*](https://huggingface.co/datasets/harborframework/terminal-bench-2.1/blob/main/tasks/raman-fitting/instruction.md) *and* [*raman-lab*](https://huggingface.co/datasets/burtenshaw/raman-lab/blob/main/graphene-s01/instruction.md)*, side by side. The highlighted additions cover the new parts of the claim: the D peak, the defect ratio, and both in the saved results. The remaining part, handling varied measurements, lives in the data: all eight raman-lab tasks share this instruction, and only the spectrum, with its noise and defect level, changes.*
 
@@ -270,7 +270,7 @@ It is helpful to read both successful and failed rollouts. Harbor records messag
 
 The adapted setup passed 11 of 24 rollouts. In 19, the model called `mark_task_complete` in its first response; 11 of those attempts produced no results file.
 
-<img src="https://huggingface.co/buckets/huggingface/agentic-evals-blog-assets/resolve/images/gpt-oss-outcomes.png" alt="Outcomes of gpt-oss-120b's 24 raman-lab attempts, split by whether it called mark_task_complete in its first response." width="624" style="max-width: 100%; height: auto; background-color: white;">
+<iframe src="https://evijit-blog-assets.static.hf.space/agentic-eval/fig7_gptoss_outcomes.html" title="gpt-oss-120b rollout outcomes on raman-lab" width="100%" height="218" frameborder="0" sandbox="allow-scripts" loading="lazy"></iframe>
 
 *Figure 7. On 19 of 24 attempts, the agent called `mark_task_complete` in its first response. Eleven produced no results file, seven passed, and one failed the fit check. Of the five remaining attempts, four passed and one failed the fit check.*
 
@@ -307,13 +307,13 @@ OPENAI_API_KEY="$HF_TOKEN" harbor run -p datasets/my-evals -k 3 \
 
 Figure 8 shows the raman-lab results for each model.
 
-<img src="https://huggingface.co/buckets/huggingface/agentic-evals-blog-assets/resolve/images/model-results.png" alt="raman-lab pass^3, pass@3, and mean pass rate with clustered standard error for six models." width="624" style="max-width: 100%; height: auto; background-color: white;">
+<iframe src="https://evijit-blog-assets.static.hf.space/agentic-eval/fig8_rollout_explorer.html" title="Interactive rollout explorer for the six-model comparison" width="100%" height="531" frameborder="0" sandbox="allow-scripts" loading="lazy"></iframe>
 
-*Figure 8. raman-lab results per model. The hollow circle is pass^3, the filled circle is pass@3, and the diamond is the mean with its clustered standard error.*
+*Figure 8. raman-lab results per model, with pass@3, pass^3, and the mean pass rate with its clustered standard error. Select a square to inspect that rollout.*
 
 The comparison makes one pattern in gpt-oss-120b clearer: it often declares completion before seeing command output. In this separate run with DeepInfra pinned as the provider, it called `mark_task_complete` in its first response in 22 of 24 rollouts, while none of the other five models did so (Figure 9). The Step 6 run used the router's default provider and recorded 19 of 24 such early completions. It passed 11 of 24 rollouts, compared with 13 of 24 in the DeepInfra run. Both counts use the same test: whether the model called `mark_task_complete` in its first response.
 
-<img src="https://huggingface.co/buckets/huggingface/agentic-evals-blog-assets/resolve/images/completion-timing.png" alt="raman-lab rollout outcomes per model, split by whether the agent observed command output before declaring completion." width="624" style="max-width: 100%; height: auto; background-color: white;">
+<iframe src="https://evijit-blog-assets.static.hf.space/agentic-eval/fig9_outcomes_by_finish.html" title="Rollout outcomes by when each model declared completion" width="100%" height="401" frameborder="0" sandbox="allow-scripts" loading="lazy"></iframe>
 
 *Figure 9. raman-lab rollout outcomes by when the agent declared completion. Left: the agent observed command output first. Right: it called `mark_task_complete` in its first response.*
 
