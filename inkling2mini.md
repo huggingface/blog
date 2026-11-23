@@ -209,13 +209,11 @@ Here we ask the 4-bit model to make a website to a SaaS called plant therapy whe
 
 If you are on Linux, or if you only want the command line, you can use the [one-line installer](https://llama.app/docs/installation#one-line-install):
 
-```bash
 curl -LsSf https://llama.app/install.sh | sh
 ```
 
 For integration with other tools, you can launch a server compatible with the OpenAI API:
 
-```bash
 llama serve -hf ggml-org/Inkling-2-Mini-GGUF:IQ4_NL
 ```
 
