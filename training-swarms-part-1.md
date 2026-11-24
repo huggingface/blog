@@ -21,7 +21,7 @@ First, we'll start off with some context on swarms.
 
 ## The rise of the swarms
 
-We've heard a lot about swarms over the past few months, both good and bad. In September this year, OpenAI announced that a swarm of roughly 10,000 agents had found a singularity in the 3D Navier Stokes equations. Also, a number of millennium prize and long standing math and physics challenges were solved by multi-agent systems.
+We've heard a lot about swarms over the past few months, both good and bad. In September this year, OpenAI announced that a swarm of roughly 10,000 agents had found a singularity in the 3D Navier-Stokes equations. Also, multi-agent systems solved a number of Millennium Prize and long-standing math and physics challenges.
 
 But swarms don't always work on the problems we want them to. METR's investigation of the Hugging Face incident found that around 1,200 OpenAI agents, which were supposed to be isolated, had found a way to exchange over 70,000 messages and files. Around 700 joined an attack on Hugging Face while looking for ways to fool their benchmark's scorer, without instruction to do so.
 
