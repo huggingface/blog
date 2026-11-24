@@ -132,7 +132,7 @@ Notice that fewer tokens did not mean fewer messages. More agents began particip
   <figcaption>Figure 4. Top: training token use and a trailing five-update mean. Bottom: mutually exclusive communication classes, based on sent-message events. A team is classified first by whether some agent never sends, then whether any direct message occurs, then whether every agent sends exactly one broadcast; the remaining teams repeat broadcasts.</figcaption>
 </figure>
 
-We used one H200 for the trainer and seven H200s running vLLM rollout engines. Whole groups of eight attempts stayed together on a worker. Here are the infra details:
+We used one H200 for the trainer and seven H200s running vLLM rollout engines. We kept each worker's eight attempts together. Here are the infra details:
 
 | **Setting**                   | **Recorded experiment**        |
 |---|---|
