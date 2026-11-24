@@ -1,6 +1,6 @@
 ---
 title: "Swarms, Flocks, Gangs: How to build, train, and evaluate multi-agent systems"
-thumbnail: /blog/assets/training-swarms-part-1/thumbnail.png
+thumbnail: /blog/assets/training-swarms/thumbnail.png
 authors:
 - user: burtenshaw
 ---
@@ -65,13 +65,15 @@ Agents can also be organized in different ways. Two useful starting points are:
 
 We'll reproduce the information-sharing task from [Simple Scaling of Swarms](https://arxiv.org/abs/2611.08615) because it's interpretable and straightforward to implement. Four agents share a small language model and learn to pool what each of them knows.
 
-Each agent receives one integer from 1 to 99. It knows its own assignment and its teammates' names. It does not initially know the other agents' numbers. For example, four private assignments might be "five", "twenty-six", "six" and "seventy-eight" and a correct final answer is:
+Each agent receives one integer from 1 to 99. It knows its own assignment and its teammates' names. It does not initially know the other agents' numbers. For example, four private assignments might be "five", "twenty-six", "five" and "seventy-eight". Duplicates stay in the list, so a correct final answer is:
 
 ```text
-#### [5, 6, 26, 78]
+#### [5, 5, 26, 78]
 ```
 
 The team succeeds when **at least one agent submits the complete, correctly sorted list**. One correct answer is enough; success does not require all four agents to answer correctly. An agent cannot reliably infer the other private assignments without information from its teammates.
+
+This means the task does not yet test Figure 1 directly. Each agent holds information the others need, so a single agent, or a team without messaging, cannot succeed however many retries it gets. Instead, the task tests the precondition behind Figure 1: can a small shared policy learn to communicate at all, and how many tokens does that cost? A later post moves to a task that a single agent can solve alone, where the matched-budget comparison is meaningful.
 
 The main communication tools are `message(to, text)`, `read_messages()`, and `check_notifications()`. A notification tells an agent that unread messages exist; reading its inbox makes their contents available. Agents can send direct messages or broadcast to everyone.
 
@@ -84,7 +86,7 @@ We defined four agent systems using **one shared Qwen3-0.6B policy**, with separ
 
 ### A team reward and eight attempts at each problem
 
-A successful team receives a reward reduced by the tokens it uses. A failed team receives zero:
+In this post, a *team* means one episode: four agents attempting one problem once. A successful team receives a reward reduced by the tokens it uses. A failed team receives zero:
 
 ```text
 team allowance = 4 × (8,192 work tokens + 1,024 final-answer tokens)
@@ -100,7 +102,7 @@ For every training problem, we collect eight independent team attempts. Their re
 In TRL, each agent's sampled tokens form a training row. Its incoming messages and tool results provide context. The trainer batches the four rows from one team together, so longer conversations do not give that team more weight.
 
 > [!NOTE]
-> The walkthrough below uses TRL's 128-team updates. The next section reports the original experiment, which used 256 teams per update.
+> [Our results](#our-results) come from the original experiment, which used 256 team attempts per update (32 problems with eight attempts each). The [walkthrough](#practical-example-train-your-own-swarm) uses TRL's default of 128 team attempts per update (16 problems with eight attempts each).
 
 ### Our Results
 
@@ -132,7 +134,20 @@ Notice that fewer tokens did not mean fewer messages. More agents began particip
   <figcaption>Figure 4. Top: training token use and a trailing five-update mean. Bottom: mutually exclusive communication classes, based on sent-message events. A team is classified first by whether some agent never sends, then whether any direct message occurs, then whether every agent sends exactly one broadcast; the remaining teams repeat broadcasts.</figcaption>
 </figure>
 
-We used one H200 for the trainer and seven H200s running vLLM rollout engines. We kept each worker's eight attempts together. Here are the infra details:
+### More retries or a trained team?
+
+No agent can solve the problem alone, so the closest equivalent of "a single agent with more retries" is the untrained team with more retries. The training data already contains this comparison. Each update collects eight attempts per problem, and the task's answers are easy to check, so we can count a problem as solved when any of its eight attempts succeeded. Early in training, that count gives the untrained team's best-of-8 success rate:
+
+| | **Success** | **Generated tokens per problem** |
+|---|---:|---:|
+| Untrained team, best of 8 attempts (updates 1–5) | 37.5% | about 103,000 |
+| Trained team, one attempt (updates 71–75) | 82.3% | about 8,000 |
+
+With eight retries, the untrained team solves fewer than half the problems and spends about 13 times as many tokens as one attempt from the trained team. Read this as an estimate. Both rows use training problems rather than held-out ones, and updates 2–5 already sample from a slightly trained policy.
+
+### Infrastructure
+
+The model is small, but the rollouts are not. Each update generates millions of tokens of agent conversation at contexts of up to 40k tokens. We used one H200 for the trainer and seven H200s running vLLM rollout engines to get through those rollouts quickly, and kept each worker's eight attempts together. The walkthrough below runs the same task on two GPUs. Here are the infra details:
 
 | **Setting**                   | **Recorded experiment**        |
 |---|---|
@@ -150,7 +165,7 @@ We used one H200 for the trainer and seven H200s running vLLM rollout engines. W
 
 The figures above describe our original 75-update experiment. In this walkthrough we'll run [TRL's swarm example](https://github.com/huggingface/trl/tree/main/examples/async_grpo_s3_aggregation) on Hugging Face Jobs. One H200 serves the shared Qwen3-0.6B policy with vLLM and a second H200 trains it.
 
-### 1. Create a private bucket for the run
+### 1. Create a bucket for the run
 
 Sign in with a Hugging Face account that can run Jobs and create buckets. Replace `YOUR_USERNAME` with your Hub username.
 
@@ -161,7 +176,7 @@ Sign in with a Hugging Face account that can run Jobs and create buckets. Replac
 uv tool install 'huggingface_hub==2.4.0'
 hf auth login
 BUCKET="YOUR_USERNAME/swarm-trl-$(date -u +%Y%m%d-%H%M%S)"
-hf buckets create "$BUCKET" --private
+hf buckets create "$BUCKET"
 ```
 
 ### 2. Run the TRL example on Hugging Face Jobs
@@ -212,7 +227,7 @@ evaluate /tmp/swarm/checkpoint-50 trained
 
 </details>
 
-The command below sends its contents to the job. Inside the job, vLLM serves the shared policy on GPU 0. GPU 1 runs TRL's `async_grpo_s3_aggregation.py` for 50 updates with Trackio. TRL's `evaluate.py` scores the base model and checkpoint 50 on the same 192 held-out problems. The job saves both scores, the checkpoint, Trackio data and the exact Git commit to your private bucket.
+The command below sends its contents to the job. Inside the job, vLLM serves the shared policy on GPU 0. GPU 1 runs TRL's `async_grpo_s3_aggregation.py` for 50 updates with Trackio. TRL's `evaluate.py` scores the base model and checkpoint 50 on the same 192 held-out problems. That is a larger set than the 32-problem checks in our results, which gives tighter error bars. The job saves both scores, the checkpoint, Trackio data and the exact Git commit to your bucket.
 
 ```bash
 hf jobs run --detach --flavor h200x2 --timeout 12h \
@@ -220,17 +235,20 @@ hf jobs run --detach --flavor h200x2 --timeout 12h \
   -- vllm/vllm-openai:v0.32.0 bash -c "$(cat train-swarm.sh)"
 ```
 
-One TRL rollout contains a whole team conversation. The trainer compares eight attempts at the same problem and gives all four agents in an attempt the same advantage. Each update uses 128 team attempts. The `--report-to trackio` flag records training metrics at every update.
+One TRL rollout contains a whole team conversation. The trainer compares eight attempts at the same problem and gives all four agents in an attempt the same advantage. Each update uses 128 team attempts: 16 problems with eight attempts each. The `--report-to trackio` flag records training metrics at every update.
+
+This shorter run is cheaper than our original experiment, and it stops earlier on the learning curve. TRL's run of this example took about 2.9 hours on two H100s and reached 49.5% held-out success at checkpoint 50.
+
+> [!TIP]
+> To run closer to our original experiment, change the training flags to `--updates 75 --teams-per-update 256 --concurrent-teams 256`, replace `checkpoint-50` with `checkpoint-75` in the script, and raise the job's `--timeout` to `24h`. That is three times as many rollouts. The two codebases still differ in details such as the system prompt, so expect similar results rather than an exact replication.
 
 ### 3. Read the results
 
-Once the job completes, download the two evaluation files and the Trackio data. In the dashboard, compare `team/success`, `team/messages` and `team/tokens` over training. The job logs also give the held-out success rate for the base model and checkpoint 50. Each line of `base.jsonl` or `trained.jsonl` records one of those evaluation attempts.
+Once the job completes, sync the bucket to a local folder. It holds the two evaluation files, the Trackio data, the TRL revision and the checkpoint-50 weights, which are the largest download. In the dashboard, compare `team/success`, `team/messages` and `team/tokens` over training. The job logs also give the held-out success rate for the base model and checkpoint 50. Each line of `base.jsonl` or `trained.jsonl` records one of those evaluation attempts.
 
 ```bash
-hf buckets cp "hf://buckets/$BUCKET/base.jsonl" ./base.jsonl
-hf buckets cp "hf://buckets/$BUCKET/trained.jsonl" ./trained.jsonl
-hf buckets sync "hf://buckets/$BUCKET/trackio" ./swarm-trackio
-TRACKIO_DIR="$PWD/swarm-trackio" uvx trackio show
+hf buckets sync "hf://buckets/$BUCKET" ./swarm-results
+TRACKIO_DIR="$PWD/swarm-results/trackio" uvx trackio show
 ```
 
 ## What we'll try next

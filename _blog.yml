@@ -6051,7 +6051,7 @@
     - open-source
     - research
 
-- local: training-swarms-part-1
+- local: training-swarms
   date: November 24, 2026
   tags:
     - rl
