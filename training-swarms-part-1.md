@@ -109,7 +109,7 @@ Over 75 steps, training success rose from **6.6% to 82.3%**, comparing the first
 The team also used **37.4% fewer tokens per attempt**, falling from about 12k to 8k. This improvement accompanied more active information sharing: broadcasts increased from 2.38 to 5.73 per team, even as total token use fell.
 
 <figure class="image text-center">
-  <img class="mx-auto" src="https://huggingface.co/buckets/huggingface/training-swarms-blog-assets/resolve/part-1/training-success.png" alt="Team success over 75 training updates, with held-out checks of 1/32, 7/32, 17/32 and 26/32 at updates 1, 25, 50 and 75" width="90%">
+  <iframe src="https://burtenshaw-training-swarms-figures.static.hf.space/training-success.html" title="Interactive chart: team success over 75 training updates, with held-out checks of 1/32, 7/32, 17/32 and 26/32 at updates 1, 25, 50 and 75" width="100%" height="410" frameborder="0" scrolling="no" loading="lazy"></iframe>
   <figcaption>Figure 3. The blue curve describes training batches of 256 team attempts, collected before each update. Orange points are held-out checks after the indicated update.</figcaption>
 </figure>
 
@@ -128,7 +128,7 @@ That is a **37.4% reduction in generated tokens per training team** between thos
 Notice that fewer tokens did not mean fewer messages. More agents began participating but broadcasting became more common, rather than direct messaging. Generated tokens include reasoning and tool calls as well as message bodies, so message count alone does not tell us how much text the team produced.
 
 <figure class="image text-center">
-  <img class="mx-auto" src="https://huggingface.co/buckets/huggingface/training-swarms-blog-assets/resolve/part-1/tokens-and-communication.png" alt="Generated tokens per team fall to 7,624 at batch 75 while broadcasting grows; teams with one broadcast per agent remain a minority" width="85%">
+  <iframe src="https://burtenshaw-training-swarms-figures.static.hf.space/tokens-and-communication.html" title="Interactive chart: generated tokens per team fall to 7,624 at batch 75 while broadcasting grows; teams with one broadcast per agent remain a minority" width="100%" height="620" frameborder="0" scrolling="no" loading="lazy"></iframe>
   <figcaption>Figure 4. Top: training token use and a trailing five-update mean. Bottom: mutually exclusive communication classes, based on sent-message events. A team is classified first by whether some agent never sends, then whether any direct message occurs, then whether every agent sends exactly one broadcast; the remaining teams repeat broadcasts.</figcaption>
 </figure>
 
