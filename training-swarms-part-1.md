@@ -84,7 +84,7 @@ We defined four agent systems using **one shared Qwen3-0.6B policy**, with separ
 
 ### A team reward and eight attempts at each problem
 
-A successful team receives a reward reduced by its generated token use. A failed team receives zero:
+A successful team receives a reward reduced by the tokens it uses. A failed team receives zero:
 
 ```text
 team allowance = 4 × (8,192 work tokens + 1,024 final-answer tokens)
