@@ -6050,3 +6050,13 @@
     - benchmark
     - open-source
     - research
+
+- local: inkling-2-mini-inference-hillclimb
+  date: November 25, 2026
+  tags:
+    - inference
+    - inference-endpoints
+    - jobs
+    - vllm
+    - speculative-decoding
+    - agents
