@@ -46,7 +46,7 @@ Our earlier work ([multi-harness RL](https://huggingface.co/spaces/FineEnvs/mult
 
 ## Training inside agent harnesses
 
-We leverage the [Harbor integration in OpenEnv](https://huggingface.co/docs/openenv/environments/harbor) and [TRL’s OpenEnv](https://huggingface.co/docs/trl/openenv) guide to train the model inside the harnesses we chose for the final training. We have built ready-to-use docker images for all our RL tasks that come with the target harnesses already pre-installed inside. In our final docker images, we use Pi `1.5.2`, OpenCode `2.2.7` and Hermes Agent `v0.22.6`. The diagram below from the aforementioned blogpost explains well the entire protocol:
+We leverage the [Harbor integration in OpenEnv](https://openenv.github.io/OpenEnv/main/environments/harbor) and [TRL’s OpenEnv](https://huggingface.co/docs/trl/openenv) guide to train the model inside the harnesses we chose for the final training. We have built ready-to-use docker images for all our RL tasks that come with the target harnesses already pre-installed inside. In our final docker images, we use Pi `1.5.2`, OpenCode `2.2.7` and Hermes Agent `v0.22.6`. The diagram below from the aforementioned blogpost explains well the entire protocol:
 
 <iframe src="https://harness-hub-harness-adapters-figures.static.hf.space/loop.html" width="100%" height="520" frameborder="0" sandbox="allow-scripts" referrerpolicy="same-origin"></iframe>
 
