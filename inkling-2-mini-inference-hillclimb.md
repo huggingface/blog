@@ -7,17 +7,17 @@ authors:
 
 # Hill-climbing Inkling 2 Mini inference on one RTX PRO 6000
 
-[Inkling 2 Mini](https://huggingface.co/blog/inkling2mini) came out last week and sets a new state of the art for local AI and smaller open-source models. With ~26B total parameters (3B active per token), multimodal inputs, and a 1M-token context window, it leads its weight class on the [Artificial Analysis Intelligence Index v5](https://artificialanalysis.ai/models/open-source) and across 32 of 48 benchmarks against models like Gemma 4 31B and Qwen3.8-27B, making it a strong open option for coding, tool use, and reasoning on modest hardware. We wrote an extensive blog post on how you can use it within the Hugging Face ecosystem [here](https://artificialanalysis.ai/models/open-source).
+[Inkling 2 Mini](https://huggingface.co/blog/inkling2mini) came out last week and sets a new state of the art for local AI and smaller open-source models. With \~26B total parameters (3B active per token), multimodal inputs, and a 1M-token context window, it leads its weight class on the [Artificial Analysis Intelligence Index v5](https://artificialanalysis.ai/models/open-source) and across 32 of 48 benchmarks against models like Gemma 4 31B and Qwen3.8-27B, making it a strong open option for coding, tool use, and reasoning on modest hardware. We wrote an extensive blog post on how you can use it within the Hugging Face ecosystem [here](https://artificialanalysis.ai/models/open-source).
 
-One of the interesting aspects of Inkling 2 Mini that might explain its great performance is its unusual architecture. Inkling 2 Mini is a looped [Mixture-of-Experts (MoE)](https://huggingface.co/blog/moe) model with 24 physical layers where the middle 12 layers run three times, so every token passes through 48 layers. The checkpoint ships in mixed NVFP4 and MXFP8 and bundles a DSpark drafter for speculative decoding. Both vLLM and SGLang, the go-to frameworks for LLM inference, support it on nightly builds, but the published serving recipes target B200 and GB300 machines.
+One of the interesting aspects of Inkling 2 Mini that might explain its great performance is its unusual architecture. Inkling 2 Mini is a looped [Mixture-of-Experts (MoE)](https://huggingface.co/blog/moe) model with 24 physical layers where the middle 12 layers run three times, so every token passes through 48 layers. The checkpoint ships in mixed NVFP4 and MXFP8 and bundles a DSpark drafter for speculative decoding. Both vLLM and SGLang, the go-to frameworks for LLM inference, support it on nightly builds, but the published serving recipes target NVIDIA B200 and GB300 machines, excluding compute capacities higher than sm10X e.g., sm120.
 
-We wanted to see how fast we could serve it on a single 96 GB RTX PRO 6000, the GPU behind an `nvidia-rtx-pro-6000 x1` [Inference Endpoint](https://huggingface.co/docs/inference-endpoints). Rather than tuning flags by hand, we gave a coding agent the [`inference-optimisation`](https://github.com/sybil-solutions/inference-optimisation-skill) skill, the `hf` CLI, and access to [Hugging Face Jobs](https://huggingface.co/docs/hub/jobs-overview), and let it run experiments for an afternoon.
+We wanted to see how fast we could serve it on a single NVIDIA RTX PRO 6000 96 GB, the GPU behind an `nvidia-rtx-pro-6000` [Inference Endpoint](https://huggingface.co/docs/inference-endpoints). Rather than tuning flags by hand, we gave a coding agent the [`inference-optimisation`](https://github.com/sybil-solutions/inference-optimisation-skill) skill, the `hf` CLI, and access to [Hugging Face Jobs](https://huggingface.co/docs/hub/jobs-overview), and let it run experiments for an afternoon.
 
-Across 46 valid benchmark runs, single-user decode went from **136 to 190.6 tok/s (+40%)** and 8-user aggregate throughput went from **~570 to 716 tok/s (+26%)** using vLLM nightly with DSpark speculative decoding. Greedy outputs are byte-identical with and without speculation, long-context needle retrieval passes 3/3 up to 250K tokens, and the winning config is now running as an Inference Endpoint from a pinned image digest. All logs, scripts, and raw measurements are in [NielsRogge/inkling-2-mini-hillclimb](https://github.com/NielsRogge/inkling-2-mini-hillclimb).
+Across 46 valid benchmark runs, single-user decode went from **136 to 190.6 tok/s (+40%)** and 8-user aggregate throughput went from **\~570 to 716 tok/s (+26%)** using vLLM nightly with DSpark speculative decoding. Greedy outputs are byte-identical with and without speculation, long-context needle retrieval passes 3/3 up to 250K tokens, and the winning config is now running as an Inference Endpoint from a pinned image digest. All logs, scripts, and raw measurements are in [`NielsRogge/inkling-2-mini-hillclimb`](https://github.com/NielsRogge/inkling-2-mini-hillclimb).
 
 ## The setup
 
-The `inference-optimisation` skill gives an agent a fixed experimental protocol and a small, engine-agnostic benchmark script (`bench.py`):
+The `inference-optimisation` skill gives an agent a fixed experimental protocol and a small, engine-agnostic benchmark script ([`bench.py`](https://github.com/sybil-solutions/inference-optimisation-skill/blob/main/skills/inference-optimisation/scripts/bench.py)):
 
 1. Measure the hardware and estimate theoretical ceilings before tuning.
 2. Change one variable at a time and bracket every candidate between two control runs (`control → candidate → control`). Keep a change only if it beats both controls without regressing other metrics.
@@ -55,6 +55,8 @@ All of the speedup comes from switching to vLLM nightly (+15% over SGLang withou
 
 ```bash
 vllm serve thinkingmachines/Inkling-2-Mini \
+  --tool-call-parser inkling \
+  --enable-auto-tool-chioce \
   --reasoning-parser inkling \
   --max-model-len 262144 \
   --gpu-memory-utilization 0.85 \
@@ -115,7 +117,7 @@ hf endpoints deploy inkling2mini-tuned-dspark --namespace <your-org> \
   --vendor aws --region us-east-2 --accelerator gpu --instance-type nvidia-rtx-pro-6000 --instance-size x1 \
   --min-replica 0 --max-replica 1 --scale-to-zero-timeout 60 --type authenticated \
   --container-command "vllm serve" \
-  --container-args "/repository --served-model-name thinkingmachines/Inkling-2-Mini --host 0.0.0.0 --port 8000 --reasoning-parser inkling --max-model-len 262144 --gpu-memory-utilization 0.85 --speculative-config '{\"method\":\"dspark\",\"num_speculative_tokens\":7,\"draft_sample_method\":\"probabilistic\"}'"
+  --container-args "/repository --served-model-name thinkingmachines/Inkling-2-Mini --host 0.0.0.0 --port 8000 --tool-call-parser inkling --enable-auto-tool-choice --reasoning-parser inkling --max-model-len 262144 --gpu-memory-utilization 0.85 --speculative-config '{\"method\":\"dspark\",\"num_speculative_tokens\":7,\"draft_sample_method\":\"probabilistic\"}'"
 ```
 
 Running `bench.py` against the live endpoint gave 194.9 tok/s single-user, matching the Job runs once network latency is accounted for.
