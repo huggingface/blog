@@ -45,9 +45,9 @@ Let's get started.
 
 ## Model
 
-The model is the brain. It is a Large Language Model (LLM), which takes text (also images, audio, videos etc.) as inputs and produces text as outputs (e.g., Claude, Qwen, GPT, Kimi, DeepSeek etc.). On its own, the model has no memory between calls, and cannot loop over conversations. It answers one prompt and stops.
+The model is the brain. It is a Large Language Model (LLM), which takes text (also images, audio, video) as input and produces text as output (e.g., Claude, Qwen, GPT, Kimi, DeepSeek). On its own, the model has no memory between calls and no loop. It answers one prompt and stops.
 
-<iframe src="https://huggingface.co/playground" width="100%" height="560" frameborder="0"></iframe>
+Visit [hf.co/models](https://huggingface.co/models) to choose and run from the wide variety of models hosted on the Hub.
 
 The model can express the intent to make a tool call (to achieve a task), but it needs a [harness](#harness) to actually execute it.
 
@@ -58,13 +58,13 @@ The model can express the intent to make a tool call (to achieve a task), but it
 
 This is the behavior-defining layer around the model. It consists of the system prompt, tool descriptions, how the model's responses get parsed, what it remembers across steps (context management) and so on. It shapes how the model sees the world and acts in it, whether during training or at inference.
 
-Products like Claude Code, Codex, and Antigravity CLI call the whole thing a harness. Claude Code's [own docs](https://code.claude.com/docs/en/how-claude-code-works) say it directly:
+Products like Claude Code, Codex, and Antigravity CLI call the whole thing a harness. Claude Code's [own docs](https://code.claude.com/docs/en/how-claude-code-works) say it directly: "Claude Code serves as the agentic harness around Claude." That's the broad use: harness means everything that isn't the model. The scaffold/harness distinction matters most when you need to reason about them separately, as in a training pipeline. You'll also hear "scaffold" used more broadly to cover any infrastructure the harness relies on: hooks, runtime configuration, even directory structure.
 
-"Claude Code serves as the agentic harness around Claude"
+Some products like Claude Code and Codex are tightly coupled to their provider's models. Others like Antigravity CLI and Hermes Agent let you plug in any model.
 
 ## Harness
 
-Harness is the execution layer inside the agent. It calls the model, handles its tool calls, decides when to stop. The harness is what makes the agent run. Scaffolding, defined above, is what the model works from, its instructions, its tools, its format. The scaffold/harness distinction matters most when you need to reason about them separately, as in a training pipeline. You'll also hear "scaffold" used more broadly to cover any infrastructure the harness relies on, including the hooks, runtime configuration, even directory structure.
+Harness is the execution layer inside the agent. It calls the model, handles its tool calls, decides when to stop. The harness is what makes the agent run. Scaffolding, defined above, is what the model works from: its instructions, its tools, its format.
 
 **Harness engineering** is the discipline of designing this layer well. It includes deciding when the agent should stop, how errors get handled, and what guardrails keep it on track. It applies at both training and inference. [Addy Osmani's piece](https://www.oreilly.com/radar/agent-harness-engineering/) and [OpenAI's account of building with Codex](https://openai.com/index/harness-engineering/) both cover this from the inference side.
 
@@ -91,9 +91,9 @@ When people talk about products like Claude Code, Codex, or Cursor, they're refe
 
 ## Context Engineering
 
-It is designing what goes into the agent's context window. It can be what the model sees at each step, system prompt, tool descriptions, conversation history, retrieved knowledge. As the model runs, previous turns shape what goes into future calls, and the harness actively manages this throughout the run. It applies at both training and inference, but the cost of getting it wrong is very different.
+It is the practice of designing what goes into the agent's context window: what the model sees at each step, including the system prompt, tool descriptions, conversation history, and retrieved knowledge. As the model runs, previous turns shape what goes into future calls, and the harness actively manages this throughout the run. It applies at both training and inference, but the cost of getting it wrong is very different.
 
-At training, what the model sees shapes what gets learned. Get it wrong and you're retraining. At inference, it's just text where we can change a prompt and redeploy. The [HF Context Engineering Course](https://huggingface.co/learn/context-course/en/unit0/introduction) covers this in depth.
+At training, what the model sees shapes what gets learned. Get it wrong and you're retraining. At inference, it's just text: you can change a prompt and redeploy. The [HF Context Engineering Course](https://huggingface.co/learn/context-course/en/unit0/introduction) covers this in depth.
 
 Memory is part of this picture. **Short-term memory** is what stays in the context window during a single run like the conversation history, tool results, previous reasoning. **Long-term memory** persists across sessions, stored externally and retrieved on demand, then injected back into context when relevant.
 
@@ -105,7 +105,7 @@ A policy is not an agent. The policy defines behavior; the agent is the full sys
 
 ## Tool Use
 
-With tool usage an agents reaches outside themselves (APIs, code interpreters, databases, web search, file systems). The model expresses the intent to use a tool in a structured format. Modern inference APIs surface this as a first-class object where the harness receives the call directly and routes it to the right function. The result gets fed back into context and the loop continues.
+With tool use, an agent reaches outside itself (APIs, code interpreters, databases, web search, file systems). The model expresses the intent to use a tool in a structured format. Modern inference APIs surface this as a first-class object where the harness receives the call directly and routes it to the right function. The result gets fed back into context and the loop continues.
 
 ## Skills
 
