@@ -77,7 +77,7 @@ This means the task does not yet test Figure 1 directly. Each agent holds inform
 
 The main communication tools are `message(to, text)`, `read_messages()`, and `check_notifications()`. A notification tells an agent that unread messages exist; reading its inbox makes their contents available. Agents can send direct messages or broadcast to everyone.
 
-We defined four agent systems using **one shared Qwen3-0.6B policy**, with separate contexts and private inputs. We are not training four different models. The prompt explains the task and the tools, including the need to share assignments.
+We defined a four-agent system using **one shared Qwen3-0.6B policy**, with separate contexts and private inputs. We are not training four different models. The prompt explains the task and the tools, including the need to share assignments.
 
 <figure class="image text-center">
   <img class="mx-auto" src="https://huggingface.co/buckets/huggingface/training-swarms-blog-assets/resolve/part-1/task-and-training-loop.png" alt="Four agents share one policy with separate contexts and private numbers, exchange messages, submit a sorted list, and train from a common team reward" width="80%">
