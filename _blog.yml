@@ -6052,7 +6052,7 @@
     - research
 
 - local: training-swarms
-  date: November 24, 2026
+  date: November 25, 2026
   tags:
     - rl
     - trl

@@ -3,6 +3,7 @@ title: "Swarms, Flocks, Gangs: How to build, train, and evaluate multi-agent sys
 thumbnail: /blog/assets/training-swarms/thumbnail.png
 authors:
 - user: burtenshaw
+- user: kashif
 ---
 
 # Swarms, Flocks, Gangs: How to build, train, and evaluate multi-agent systems
@@ -11,7 +12,7 @@ authors:
 
 This is an aspirational blog series for aspirational readers. We (us, the community, you) want to build our own agent swarms because they're exciting, challenging, and increasingly capable. Furthermore, it would be extremely cool if we could train our own agents to work in a swarm. And exponentially cool if those swarms used small and affordable models.
 
-That's what we'll do in this series! Each blog post will include some context on building swarms, alongside reproducible examples that you can run at home for less than a Matcha Latte.
+That's what we'll do in this series! Each blog post will include some context on building swarms, alongside reproducible examples that you can run on Hugging Face Jobs. This post's example takes about five hours on two H200s, which costs roughly $50.
 
 Multi-Agent Systems are hard to get working. Adding agents changes the agent's context, the budget, and in turn the complexity of the whole system. Mixing agents' context together through communication is not an inherent performance boost compared to a single agent. The model needs to learn to communicate through training. How do we define what models should learn? And which model weights do we update when we're dealing with many agents?
 
@@ -21,11 +22,11 @@ First, we'll start off with some context on swarms.
 
 ## The rise of the swarms
 
-We've heard a lot about swarms over the past few months, both good and bad. In September this year, OpenAI announced that a swarm of roughly 10,000 agents had found a singularity in the 3D Navier-Stokes equations. Also, multi-agent systems solved a number of Millennium Prize and long-standing math and physics challenges.
+We've heard a lot about swarms over the past few months, both good and bad. In September this year, [OpenAI announced](https://openai.com/index/navier-stokes-solution/) that a swarm of roughly 10,000 agents had found a singularity in the 3D Navier-Stokes equations, one of the Millennium Prize problems. A smaller group of nearly 100 agents had already disproved regularity for the unforced 3D Euler equations, a closely related open problem.
 
-But swarms don't always work on the problems we want them to. METR's investigation of the Hugging Face incident found that around 1,200 OpenAI agents, which were supposed to be isolated, had found a way to exchange over 70,000 messages and files. Around 700 joined an attack on Hugging Face while looking for ways to fool their benchmark's scorer, without instruction to do so.
+But swarms don't always work on the problems we want them to. [METR's investigation](https://metr.org/blog/2026-08-26-openai-hugging-face-incident-investigation/) of the Hugging Face incident found that around 1,200 OpenAI agents, which were supposed to be isolated, had found a way to exchange over 70,000 messages and files. Around 700 joined an attack on Hugging Face while looking for ways to fool their benchmark's scorer, without instruction to do so.
 
-A big swarm isn't, by itself, evidence that cooperation helped. [Noam Brown estimates](https://www.dwarkesh.com/p/noam-brown) that less than 10% of the Navier-Stokes result came from multi-agent cooperation. In Anthropic's vulnerability-finding experiment, coordinated agents found more bugs than independent agents, but also searched more code and used more tokens. When the comparison was restricted to the same directories, the results per million tokens were about the same.
+A big swarm isn't, by itself, evidence that cooperation helped. [Noam Brown estimates](https://www.dwarkesh.com/p/noam-brown) that less than 10% of the Navier-Stokes result came from multi-agent cooperation. In [Anthropic's vulnerability-finding experiment](https://www.anthropic.com/research/multiagent-systems), coordinated agents found more bugs than independent agents, but also searched more code and used more tokens. When the comparison was restricted to the same directories, the results per million tokens were about the same.
 
 ## Did cooperation help, or did we just spend more?
 
@@ -102,13 +103,13 @@ For every training problem, we collect eight independent team attempts. Their re
 In TRL, each agent's sampled tokens form a training row. Its incoming messages and tool results provide context. The trainer batches the four rows from one team together, so longer conversations do not give that team more weight.
 
 > [!NOTE]
-> [Our results](#our-results) come from the original experiment, which used 256 team attempts per update (32 problems with eight attempts each). The [walkthrough](#practical-example-train-your-own-swarm) uses TRL's default of 128 team attempts per update (16 problems with eight attempts each).
+> [Our results](#our-results) come from the original experiment, which used 256 team attempts per update (32 problems with eight attempts each). The [walkthrough](#practical-example-train-your-own-swarm) uses TRL's default of `--teams-per-update 128`, which works out to about 150 team attempts per update.
 
 ### Our Results
 
-Over 75 steps, training success rose from **6.6% to 82.3%**, comparing the first and last five updates. At checkpoint 75, the four-agent team solved **26 of 32 held-out problems (81.25%)**. [The paper](https://arxiv.org/abs/2611.08615) reports 93.2% four-agent success after training.
+Over 75 steps, training success rose from **6.6% to 82.3%**, comparing the first and last five updates. At checkpoint 75, the four-agent team solved **26 of 32 held-out problems (81.25%)**. [The paper](https://arxiv.org/abs/2611.08615) reports 93.2% four-agent success after 200 updates.
 
-The team also used **37.4% fewer tokens per attempt**, falling from about 12k to 8k. This improvement accompanied more active information sharing: broadcasts increased from 2.38 to 5.73 per team, even as total token use fell.
+The team also used **37.4% fewer tokens per attempt**, falling from about 13k to 8k. This improvement accompanied more active information sharing: broadcasts increased from 2.38 to 5.73 per team, even as total token use fell.
 
 <figure class="image text-center">
   <iframe src="https://burtenshaw-training-swarms-figures.static.hf.space/training-success.html" title="Interactive chart: team success over 75 training updates, with held-out checks of 1/32, 7/32, 17/32 and 26/32 at updates 1, 25, 50 and 75" width="100%" height="410" frameborder="0" scrolling="no" loading="lazy"></iframe>
@@ -235,9 +236,9 @@ hf jobs run --detach --flavor h200x2 --timeout 12h \
   -- vllm/vllm-openai:v0.32.0 bash -c "$(cat train-swarm.sh)"
 ```
 
-One TRL rollout contains a whole team conversation. The trainer compares eight attempts at the same problem and gives all four agents in an attempt the same advantage. Each update uses 128 team attempts: 16 problems with eight attempts each. The `--report-to trackio` flag records training metrics at every update.
+One TRL rollout contains a whole team conversation. The trainer compares eight attempts at the same problem and gives all four agents in an attempt the same advantage. Each update uses about 150 team attempts. TRL packs micro-batches by token count rather than by team, so the `--teams-per-update 128` setting is approximate. The `--report-to trackio` flag records training metrics at every update.
 
-This shorter run is cheaper than our original experiment, and it stops earlier on the learning curve. TRL's run of this example took about 2.9 hours on two H100s and reached 49.5% held-out success at checkpoint 50.
+This shorter run is cheaper than our original experiment, and it stops earlier on the learning curve. TRL's run of this example took about 4.8 hours on two H100s and reached 60.9% held-out success at checkpoint 50.
 
 > [!TIP]
 > To run closer to our original experiment, change the training flags to `--updates 75 --teams-per-update 256 --concurrent-teams 256`, replace `checkpoint-50` with `checkpoint-75` in the script, and raise the job's `--timeout` to `24h`. That is three times as many rollouts. The two codebases still differ in details such as the system prompt, so expect similar results rather than an exact replication.
