@@ -7,7 +7,9 @@ authors:
 
 # Hill-climbing Inkling 2 Mini inference on one RTX PRO 6000
 
-[Inkling 2 Mini](https://huggingface.co/blog/inkling2mini) came out last week with an unusual architecture to serve. It is a looped MoE with 24 layers of weights where the middle 12 layers run three times, so every token passes through 48 layers. The checkpoint ships in mixed NVFP4 and MXFP8 and bundles a DSpark drafter for speculative decoding. Both vLLM and SGLang support it on nightly builds, but the published serving recipes target B200 and GB300 machines.
+[Inkling 2 Mini](https://huggingface.co/blog/inkling2mini) came out last week and sets a new state of the art for local AI and smaller open-source models. With ~26B total parameters (3B active per token), multimodal inputs, and a 1M-token context window, it leads its weight class on the Artificial Analysis Intelligence Index v5 and across 32 of 48 benchmarks against models like Gemma 4 31B and Qwen3.8-27B, making it a strong open option for coding, tool use, and reasoning on modest hardware.
+
+That quality comes from an unusual architecture to serve. Inkling 2 Mini is a looped MoE with 24 physical layers where the middle 12 layers run three times, so every token passes through 48 layers. The checkpoint ships in mixed NVFP4 and MXFP8 and bundles a DSpark drafter for speculative decoding. Both vLLM and SGLang support it on nightly builds, but the published serving recipes target B200 and GB300 machines.
 
 We wanted to see how fast we could serve it on a single 96 GB RTX PRO 6000, the GPU behind an `nvidia-rtx-pro-6000 x1` [Inference Endpoint](https://huggingface.co/docs/inference-endpoints). Rather than tuning flags by hand, we gave a coding agent the [`inference-optimisation`](https://github.com/sybil-solutions/inference-optimisation-skill) skill, the `hf` CLI, and access to [Hugging Face Jobs](https://huggingface.co/docs/hub/jobs-overview), and let it run experiments for an afternoon.
 
