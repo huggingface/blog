@@ -27,11 +27,7 @@ Making the films was relatively simple: I only steered a coding agent, with fair
 
 ## How it works
 
-The input is a film: a JSON list of shots, each with a name and a prompt, much like a storyboard. LTX-2.5 does better with long prompts, so each prompt is a paragraph on the style, the subject, the motion, the camera, the light and the sound.
-
-A shot can start from the last frames of an earlier shot. Starting from the earlier shot's last frame keeps a subject's look across a cut (prompts alone do not). Starting from its last 25 frames (1 s) also continues the motion. A shot can likewise end on the first frames of a later shot, so that it leads into it. Finally, a shot can have its own seed, to keep the take I picked among several, and it can be trimmed or have a caption.
-
-Making a film from shots works like animation, which has two ways to go. Straight ahead, each shot continues the one before. That is how I made the fox film, a walk in the snow with nothing to build up to. Pose to pose, you make the key shot first, until you get one you like. Then the shots before it end on its first frames, and the shots after it start from its last frames. When a film builds up to a payoff, the payoff is the key shot. I found this order by trial and error, and made the seal film that way. Here are its four shots, with their prompts shortened:
+The input is a film: a JSON list of shots, each with a name and a prompt, much like a storyboard. LTX-2.5 does better with long prompts, so each prompt is a paragraph on the style, the subject, the motion, the camera, the light and the sound. Here is the seal film's file, with the prompts shortened:
 
 ```json
 [
@@ -45,7 +41,16 @@ Making a film from shots works like animation, which has two ways to go. Straigh
 ]
 ```
 
-The payoff is `iceberg`: the iceberg rolls over, and its wave drenches the seal. `nap`, the sleeping seal, ends on the first 9 frames of `iceberg`, so that the seal, the floe and the iceberg stay the same into the payoff. `shake` starts from the last 25 frames of `iceberg`: the dripping seal shakes off the water and flops down on the floe. The `dream` is made on its own, and a cut joins it to the rest.
+Each shot has a `name` and a `prompt`, and can have a `seed`, to keep the take I picked among several. Shots are chained with two keys — this chaining is the point, since prompts alone do not keep a subject from one shot to the next:
+
+- `from`: the shot starts from the last frames of an earlier shot. Starting from the earlier shot's last frame keeps a subject's look across a cut; starting from its last 25 frames (1 s) also continues the motion.
+- `to`: the shot ends on the first frames of a later shot, so that it leads into it.
+
+A shot can also be trimmed, or have a caption drawn over it.
+
+Making a film from shots works like animation, which has two ways to go. Straight ahead, each shot continues the one before. Pose to pose, you make the key shot first, until you get one you like; then the shots before it end on its first frames (`to`), and the shots after it start from its last frames (`from`). When a film builds up to a payoff — the moment everything was leading to — the payoff is the key shot. I found this order by trial and error, and made the seal film pose to pose, starting from `iceberg`.
+
+The payoff is `iceberg`: the iceberg rolls over, and its wave drenches the seal. `nap`, the sleeping seal, ends on the first 9 frames of `iceberg` (`to`), so that the seal, the floe and the iceberg stay the same into the payoff. `shake` starts from the last 25 frames of `iceberg` (`from`): the dripping seal shakes off the water and flops down on the floe. The `dream` is made on its own, and a cut joins it to the rest.
 
 <figure class="image text-center">
   <img class="mx-auto" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/video-trainium3/shot-chain-diagram.svg" alt="Diagram of the seal film's four shots: dream stands alone, nap ends on the first 9 frames of iceberg, and shake starts from the last 25 frames of iceberg." width="90%">
