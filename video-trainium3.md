@@ -3,6 +3,7 @@ title: "Taking Trainium3 to the Track: Generating Videos with LTX-2.5"
 thumbnail: /blog/assets/video-trainium3/thumbnail.jpg
 authors:
 - user: dacorvo
+- user: Jingya
 ---
 
 # Taking Trainium3 to the Track: Generating Videos with LTX-2.5
