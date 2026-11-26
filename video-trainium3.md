@@ -120,6 +120,8 @@ Getting there took three kinds of work: making the model run on the NeuronCores 
 
 ### What needed a workaround
 
+*Most of these fixes are on the device — and that is where most of the effort went. The biggest end-to-end savings came from the host — the low-hanging fruit, since that is obviously where the waste was.*
+
 | Problem | Workaround | Gain |
 |---|---|---|
 | The LTX-2.5 transformer has no tensor-parallel plan in diffusers | A plan, and an attention processor that runs on the heads of one rank | The transformer runs on 4 cores |
@@ -138,7 +140,7 @@ Three issues were never explained: the transformer compiled as one graph returne
 
 ## Lessons learned
 
-- **Most of the time went around the compute, not into it.** The NeuronCores were computing for only about 45 s of the vanilla run's 12 min 22 s. Most of the fixes removed host work, tracing and copies. Even at the end, the transformer runs for about 13 s of the 22 s it takes to make a clip. The last gains came from the host: rank 0 got CPUs of its own, the frames reach it through shared memory, and it makes the sound while the cores decode the frames.
+- **Both sides fell hard — the host and the device.** Once running, a clip's host time fell from about 280 s to about 8 s (~35×: prompt encoding, CPU decoding, tracing, copies), and its time on the NeuronCores from 45 s to 15 s (3×, at four times the pixels, and with a second stage the vanilla run could not even load).
 - **Sequence parallelism is how one clip uses the machine.** Tensor parallelism is imposed by memory (the transformer does not fit on one core) and capped by the 32 attention heads. Splitting the sequence over chips is what puts 32 of the 64 NeuronCores on a single clip — and what made 2048×1024 possible at all, by shrinking each core's graph until it loaded. And diffusers made it the easy part: the pipelines and the stock `torch.distributed` primitives carried it.
 - **On Trainium, plan for the size of the graphs.** The shapes decide whether the attention takes the fast kernel, and graphs that are too large fail to load.
 - **Check against the CPU first.** Each split of the models was checked on CPU before it ran on the device, and the comparison with CPU found the GELU issue.
