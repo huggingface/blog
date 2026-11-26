@@ -60,11 +60,11 @@ Agents can also be organized in different ways. Two useful starting points are:
 
 - **A hierarchy.** A lead agent assigns work to workers and collects their results. Anthropic's Research system works this way, with a separate context for each worker. Kimi K2.5's PARL trains only the orchestrator and keeps the subagents frozen, so training a multi-agent system doesn't mean updating every component. See [Anthropic's system description](https://www.anthropic.com/research/multi-agent-research-system) and [Kimi's technical blog](https://www.kimi.com/en/blog/kimi-k2-5).
 
-- **A distributed team.** Peers send each other messages and decide when to read their inboxes. No lead agent assigns the actions. This is the setup we'll use here, following the information-aggregation task in [s³: Simple Scaling of Swarms via Cooperative Multi-agent RL](https://arxiv.org/abs/2611.08615).
+- **A distributed team.** Peers send each other messages and decide when to read their inboxes. No lead agent assigns the actions. This is the setup we'll use here, following the information-aggregation task in [s³: Simple Scaling of Swarms via Cooperative Multi-agent RL](https://huggingface.co/papers/2611.08615).
 
 ## Our first experiment: four agents ordering numbers
 
-We'll reproduce the information-sharing task from [Simple Scaling of Swarms](https://arxiv.org/abs/2611.08615) because it's interpretable and straightforward to implement. Four agents share a small language model and learn to pool what each of them knows.
+We'll reproduce the information-sharing task from [Simple Scaling of Swarms](https://huggingface.co/papers/2611.08615) because it's interpretable and straightforward to implement. Four agents share a small language model and learn to pool what each of them knows.
 
 Each agent receives one integer from 1 to 99. It knows its own assignment and its teammates' names. It does not initially know the other agents' numbers. For example, four private assignments might be "five", "twenty-six", "five" and "seventy-eight". Duplicates stay in the list, so a correct final answer is:
 
@@ -107,7 +107,7 @@ In TRL, each agent's sampled tokens form a training row. Its incoming messages a
 
 ### Our Results
 
-Over 75 steps, training success rose from **6.6% to 82.3%**, comparing the first and last five updates. At checkpoint 75, the four-agent team solved **26 of 32 held-out problems (81.25%)**. [The paper](https://arxiv.org/abs/2611.08615) reports 93.2% four-agent success after 200 updates.
+Over 75 steps, training success rose from **6.6% to 82.3%**, comparing the first and last five updates. At checkpoint 75, the four-agent team solved **26 of 32 held-out problems (81.25%)**. [The paper](https://huggingface.co/papers/2611.08615) reports 93.2% four-agent success after 200 updates.
 
 The team also used **37.4% fewer tokens per attempt**, falling from about 13k to 8k. This improvement accompanied more active information sharing: broadcasts increased from 2.38 to 5.73 per team, even as total token use fell.
 

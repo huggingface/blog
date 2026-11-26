@@ -6062,7 +6062,7 @@
     - agents
 
 - local: training-swarms
-  date: November 25, 2026
+  date: November 26, 2026
   tags:
     - rl
     - trl
