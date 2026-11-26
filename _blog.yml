@@ -5990,7 +5990,7 @@
     - open-source
     - embeddings
     - sentence-transformers
-    
+
 - local: 3d-lora-finetuning
   date: November 12, 2026
   tags:
@@ -6060,3 +6060,14 @@
     - vllm
     - speculative-decoding
     - agents
+
+- local: video-trainium3
+  date: November 26, 2026
+  tags:
+    - partnerships
+    - aws
+    - neuron
+    - hardware
+    - diffusers
+    - video
+    - text-to-video
