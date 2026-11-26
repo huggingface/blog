@@ -101,7 +101,7 @@ The diffusers pipelines do all of the generation. The rest, reading the film fil
 
 ## Optimizing for Trainium3
 
-The vanilla pipeline took 12 min 22 s for a 10-second clip on the 4 NeuronCores of one chip, and the NeuronCores were actually computing for only about 45 s of it. Vanilla here means `LTX2Pipeline` as the model card runs it, with only what it takes to run on the NeuronCores: the transformer compiled with `torch.compile(backend="neuron")`, and split over 4 cores by tensor parallelism, as it does not fit on one. By the end:
+The vanilla pipeline took **12 min 22 s** for a 10-second clip on the 4 NeuronCores of one chip, and the NeuronCores were actually computing for only about 45 s of it. Vanilla here means `LTX2Pipeline` as the model card runs it, with only what it takes to run on the NeuronCores: the transformer compiled with `torch.compile(backend="neuron")`, and split over 4 cores by tensor parallelism, as it does not fit on one. By the end:
 
 | 10-second clip with sound | NeuronCores | Time |
 |---|---|---|
