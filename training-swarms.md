@@ -100,7 +100,7 @@ For illustration, a correct team using half its allowance receives 0.875. There 
 
 For every training problem, we collect eight independent team attempts. Their rewards are normalized within that group. An attempt that does better than its group average gets a positive advantage; one that does worse gets a negative advantage. Every agent in the same team receives that team's advantage, including an agent whose own final answer was wrong.
 
-In TRL, each agent's sampled tokens form a training row. Its incoming messages and tool results provide context. The trainer batches the four rows from one team together, so longer conversations do not give that team more weight.
+In [TRL](https://github.com/huggingface/trl), each agent's sampled tokens form a training row. Its incoming messages and tool results provide context. The loss is averaged within each team and then across teams, so longer conversations do not give a team more weight.
 
 > [!NOTE]
 > [Our results](#our-results) come from the original experiment, which used 256 team attempts per update (32 problems with eight attempts each). The [walkthrough](#practical-example-train-your-own-swarm) uses TRL's default of `--teams-per-update 128`, which works out to about 150 team attempts per update.
