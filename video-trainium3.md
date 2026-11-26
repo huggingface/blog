@@ -111,15 +111,13 @@ pipe = LTX2Pipeline.from_pretrained("Lightricks/LTX-2.5-Diffusers", torch_dtype=
 pipe.transformer.forward = torch.compile(pipe.transformer.forward, backend="neuron")
 ```
 
-By the end:
+Five days later:
 
 | 10-second clip with sound | NeuronCores | Wall time | On the NeuronCores | vs. vanilla |
 |---|---|---|---|---|
 | Vanilla, 960×544 | 4 | 12 min 22 s | about 45 s | 1× |
 | Optimized, 1024×512 | 4 | 131 s, from launch | about 50 s | 5.7× |
 | Optimized, 2048×1024 (out of reach of the vanilla pipeline) | 32 | 22 to 23 s, models loaded | about 15 s | 33× |
-
-*Optimized is vanilla plus every row of the table below.*
 
 Getting there took three kinds of work: making the model run on the NeuronCores (requires tensor parallelism), splitting it over more of them (sequence parallelism), and making the host keep up with them.
 
