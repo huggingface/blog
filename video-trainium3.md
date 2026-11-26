@@ -103,11 +103,11 @@ The diffusers pipelines do all of the generation. The rest is about 160 lines of
 
 The vanilla pipeline took **12 min 22 s** for a 10-second clip on the 4 NeuronCores of one chip, and the NeuronCores were actually computing for only about 45 s of it. Vanilla here means `LTX2Pipeline` as the model card runs it, with only what it takes to run on the NeuronCores: the transformer compiled with `torch.compile(backend="neuron")`, and split over 4 cores by tensor parallelism, as it does not fit on one. By the end:
 
-| 10-second clip with sound | NeuronCores | Wall time | On the NeuronCores |
-|---|---|---|---|
-| Vanilla, 960×544 | 4 | 12 min 22 s | about 45 s |
-| Optimized, 1024×512 | 4 | 131 s, from launch | about 50 s |
-| Optimized, 2048×1024 — out of reach of the vanilla pipeline | 32 | 22 to 23 s, models loaded | about 15 s |
+| 10-second clip with sound | NeuronCores | Wall time | On the NeuronCores | vs. vanilla |
+|---|---|---|---|---|
+| Vanilla, 960×544 | 4 | 12 min 22 s | about 45 s | 1× |
+| Optimized, 1024×512 | 4 | 131 s, from launch | about 50 s | 5.7× |
+| Optimized, 2048×1024 — out of reach of the vanilla pipeline | 32 | 22 to 23 s, models loaded | about 15 s | 33× |
 
 Getting there took three kinds of work: making the model run on the NeuronCores (requires tensor parallelism), splitting it over more of them (sequence parallelism), and making the host keep up with them. In code, the diffusers side of it is short:
 
@@ -128,6 +128,8 @@ vae.decoder.compile(backend="neuron", fullgraph=False, dynamic=False)
 ```
 
 ### What worked out of the box
+
+*What ran on the NeuronCores with stock diffusers and torch — no changes needed:*
 
 - The code of the diffusers pipelines, which runs on the host and calls the transformer compiled for the NeuronCores.
 - Regional compilation: diffusers' `compile_repeated_blocks` compiles one graph for the 48 blocks of the transformer.
