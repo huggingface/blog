@@ -11,7 +11,7 @@ Thanks to our partnership with AWS, I was lucky enough to get access to a Traini
 
 With five days left, I allowed myself a little fun. When you have a Ferrari, every now and then you want to take it out on the track. So I asked myself: what if I tried to generate videos?
 
-I picked [LTX-2.5](https://huggingface.co/Lightricks/LTX-2.5-Diffusers) from Lightricks, which generates video and sound together. By the end, a 10-second clip with sound took 22 to 23 s to generate, on half of the machine. Here is the result.
+I picked [LTX-2.5](https://huggingface.co/Lightricks/LTX-2.5-Diffusers) from Lightricks, which generates video and sound together. By the end, once the models were loaded, a 10-second clip with sound took 22 to 23 s to generate, on half of the machine. Here is the result.
 
 <video controls playsinline preload="metadata" width="100%" aria-label="The seal film, made with LTX-2.5 on Trainium3" src="https://huggingface.co/buckets/dacorvo/video-generation/resolve/entertainment/seal.mp4"></video>
 
@@ -21,7 +21,7 @@ I picked [LTX-2.5](https://huggingface.co/Lightricks/LTX-2.5-Diffusers) from Lig
 
 I had two goals. The first was to see how easy it is to generate videos with [diffusers](https://github.com/huggingface/diffusers) on Trainium3. Not the simple clips from the examples: I wanted to make short films from a script, closer to a real use case, like drafting a movie. The second was performance. I wanted to get close to what you get with CUDA, or with LTX's own API.
 
-For CUDA, I found no real figure to compare against. The only one is LTX's claim of 6.8 s for a 10-second 720p clip on four B200 GPUs, with no detail on how it was measured. So I set CUDA aside and compared with LTX's online API instead, which [LTX says](https://venturebeat.com/technology/ltx-2-5-can-generate-a-10-second-ai-video-from-an-image-in-just-6-8-seconds-on-nvidia-superchips-and-its-open-weights) makes a 10-second 1080p clip in 23.7 s. In the end, the setup matches it, and even beats it by about a second: 22 to 23 s for the same 10-second 1080p clip, once the models are loaded, on half of the machine. Not bad, considering how little time I had to optimize the pipelines.
+For CUDA, I found no real figure to compare against. The only one is LTX's claim of 6.8 s for a 10-second 720p clip on four B200 GPUs, with no detail on how it was measured. So I set CUDA aside and compared with LTX's online API instead, which [LTX says](https://venturebeat.com/technology/ltx-2-5-can-generate-a-10-second-ai-video-from-an-image-in-just-6-8-seconds-on-nvidia-superchips-and-its-open-weights) makes a 10-second 1080p clip in 23.7 s. In the end, the setup matches it, and even beats it by about a second: 22 to 23 s for a 10-second clip at 2048×1024 — a few percent more pixels than the API's 1080p — once the models are loaded, on half of the machine. Not bad, considering how little time I had to optimize the pipelines.
 
 Making the films was relatively simple: I only steered a coding agent, with fairly high-level directions. Making them fast is where the five days went (more below). My films are an amateur's, and I'm quite happy with them. The tools behind them, though, are close to production grade.
 
@@ -45,7 +45,7 @@ Making a film from shots works like animation, which has two ways to go. Straigh
 ]
 ```
 
-The payoff is `iceberg`: the iceberg rolls over, and its wave drenches the seal. `nap`, the sleeping seal, ends on its first 9 frames, so that the seal, the floe and the iceberg stay the same into the payoff. `shake` starts from its last 25 frames: the dripping seal shakes off the water and flops down on the floe. The `dream` is made on its own, and a cut joins it to the rest.
+The payoff is `iceberg`: the iceberg rolls over, and its wave drenches the seal. `nap`, the sleeping seal, ends on the first 9 frames of `iceberg`, so that the seal, the floe and the iceberg stay the same into the payoff. `shake` starts from the last 25 frames of `iceberg`: the dripping seal shakes off the water and flops down on the floe. The `dream` is made on its own, and a cut joins it to the rest.
 
 <figure class="image text-center">
   <img class="mx-auto" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/video-trainium3/shot-chain-diagram.svg" alt="Diagram of the seal film's four shots: dream stands alone, nap ends on the first 9 frames of iceberg, and shake starts from the last 25 frames of iceberg." width="90%">
@@ -66,7 +66,15 @@ The diffusers pipelines do all of the generation. The rest, reading the film fil
 
 ## Optimizing for Trainium3
 
-The vanilla pipeline took 12 min 22 s for a 10-second clip on the 4 NeuronCores of one chip, and the NeuronCores were actually computing for only about 45 s of it. Vanilla here means `LTX2Pipeline` as the model card runs it, with only what it takes to run on the NeuronCores: the transformer compiled with `torch.compile(backend="neuron")`, and split over 4 cores by tensor parallelism, as it does not fit on one. A 10-second clip at 1024×512 now takes 131 s on the same 4 cores. The 2048×1024 clip, out of reach of the vanilla pipeline, takes 22 to 23 s on 32 cores once the models are loaded, from the prompt to the mp4. Getting there took three kinds of work: making the model run on the NeuronCores, splitting it over more of them, and making the host keep up with them.
+The vanilla pipeline took 12 min 22 s for a 10-second clip on the 4 NeuronCores of one chip, and the NeuronCores were actually computing for only about 45 s of it. Vanilla here means `LTX2Pipeline` as the model card runs it, with only what it takes to run on the NeuronCores: the transformer compiled with `torch.compile(backend="neuron")`, and split over 4 cores by tensor parallelism, as it does not fit on one. By the end:
+
+| 10-second clip with sound | NeuronCores | Time |
+|---|---|---|
+| Vanilla, 1024×512 | 4 | 12 min 22 s |
+| Optimized, 1024×512 | 4 | 131 s |
+| Optimized, 2048×1024 — out of reach of the vanilla pipeline | 32 | 22 to 23 s, models loaded |
+
+Getting there took three kinds of work: making the model run on the NeuronCores, splitting it over more of them, and making the host keep up with them.
 
 ### What worked out of the box
 
@@ -117,23 +125,25 @@ What keeps it at drafts:
 
 ## From films to world models
 
-LTX calls LTX-2.5 a world model, with robotics as an emerging use. Robots, cars and drones learn from videos of what their cameras see, and a world model can make more of them, including events too rare or too risky to film. So I also tried it on real footage, with the same code: a shot can start from the last second of a video filmed by a camera. One frame was not enough, as the model cannot tell from it how fast things move.
+LTX calls LTX-2.5 a world model, with robotics as an emerging use. Robots, cars and drones learn from videos of what their cameras see, and a world model can make more of them, including events too rare or too risky to film. So I also tried it on real footage, with the same code: a shot can start from the first second of a real camera clip and invent what happens next. One frame was not enough, as the model cannot tell from it how fast things move.
 
-Here is the head camera of a Fourier GR1-T2 humanoid robot (a clip from NVIDIA's [GR1-100](https://huggingface.co/datasets/nvidia/PhysicalAI-Robotics-GR00T-GR1)), looking down at a table. In the real 6-second clip, the robot's left hand picks an orange from a plate and drops it in a tray. Next to it, what the model made of the clip's last second:
+Here is the head camera of a Fourier GR1-T2 humanoid robot (a clip from NVIDIA's [GR1-100](https://huggingface.co/datasets/nvidia/PhysicalAI-Robotics-GR00T-GR1)), looking down at a table. In the real 6-second clip, the robot's left hand picks an orange from a plate and drops it in a tray. The model only sees the first second of that clip — the hands raised, before anything moves — and invents the rest. What really happened, next to its invention:
 
-<video controls playsinline preload="metadata" width="100%" aria-label="Real footage from the head camera of a GR1-T2 humanoid next to the continuation generated from its last second" src="https://huggingface.co/buckets/dacorvo/video-generation/resolve/robotics/gr1-orange/happened-side-by-side.mp4"></video>
+<video controls playsinline preload="metadata" width="100%" aria-label="Real footage from the head camera of a GR1-T2 humanoid next to the continuation invented from its first second" src="https://huggingface.co/buckets/dacorvo/video-generation/resolve/robotics/gr1-orange/happened-side-by-side.mp4"></video>
 
-*Real footage from the head camera of a GR1-T2 humanoid, next to the continuation LTX-2.5 generated from its last second.*
+*Real footage from the head camera of a GR1-T2 humanoid, next to the continuation LTX-2.5 invented from its first second.*
 
-Same scene, same pick: the model regenerates what really happened, and keeps the table, the hands and the fruit consistent with the real footage. More interesting are the events that did not happen. From the same second, with only the prompt changed, a person leans over and grabs the orange too, and the human hand and the robot hand carry it to the tray together. Five takes, with the real footage first:
+Same scene, same pick: the model invents the grab on its own, and keeps the table, the hands and the fruit consistent with the real footage. More interesting are the events that did not happen. From the same second, with only the prompt changed, a person leans over and grabs the orange too, and the human hand and the robot hand carry it to the tray together. Five takes, with the real footage first:
 
 <video controls playsinline preload="metadata" width="100%" aria-label="The real clip followed by five generated takes of a person helping the robot carry the orange" src="https://huggingface.co/buckets/dacorvo/video-generation/resolve/robotics/gr1-orange/human-side-by-side.mp4"></video>
 
 *The real clip, then five generated takes of a person helping the robot carry the orange.*
 
-The person's gestures and timing differ in each take, and the robot's arm adapts to them. That is the appeal for training: not one continuation of a clip, but a distribution of them, each reproducible from its film file and seed. The [robotics](https://huggingface.co/buckets/dacorvo/video-generation/tree/robotics) folder of the bucket has the five takes with their JSON files, and a second example from the front camera of a car in a snowstorm ([Boreas](https://www.boreas.utias.utoronto.ca/)), where the alternate event is slush thrown on the lens by a passing truck. Asked to make the car accelerate instead, the model kept its speed: the prompt does not override what the last second of footage already implies.
+The person's gestures and timing differ in each take, and the robot's arm adapts to them. That is the appeal for training: not one continuation of a clip, but a distribution of them, each reproducible from its film file and seed.
 
-Here the prompts drive the videos — a true world model for training would instead follow the commands of the robot or the car. For that, a team fine-tunes the [pre-trained checkpoint of LTX-2.5](https://huggingface.co/Lightricks/LTX-2.5-Pre-Trained) on the frames and actions of its own robots.
+The [robotics](https://huggingface.co/buckets/dacorvo/video-generation/tree/robotics) folder of the bucket has the five takes with their JSON files, and a second example from the front camera of a car in a snowstorm ([Boreas](https://www.boreas.utias.utoronto.ca/)), where the alternate event is slush thrown on the lens by a passing truck. Asked to make the car accelerate instead, the model kept its speed: the prompt does not override what the first second of footage already implies.
+
+These videos follow prompts, not the robot's or car's commands — a training setup would need generation conditioned on those actions. For that, a team fine-tunes the [pre-trained checkpoint of LTX-2.5](https://huggingface.co/Lightricks/LTX-2.5-Pre-Trained) on the frames and actions of its own robots.
 
 The Ferrari made it around the track, on half of its cylinders.
 
