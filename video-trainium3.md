@@ -7,11 +7,11 @@ authors:
 
 # Taking Trainium3 to the Track: Generating Videos with LTX-2.5
 
-Thanks to our partnership with AWS, I was lucky enough to get access to a Trainium3 48xl machine — 16 chips, 64 NeuronCores — for a month. I spent most of the month testing Hugging Face models on it, and getting more of them to work (up to GLM-5 — all 754B parameters of it — on a single instance).
+Thanks to our partnership with AWS, I was lucky enough to get access to a Trainium3 48xl machine — 16 chips, 64 NeuronCores — for a month. I spent most of the month testing Hugging Face models on it, and getting more of them to work.
 
 With five days left, I allowed myself a little fun. When you have a Ferrari, every now and then you want to take it out on the track. So I asked myself: what if I tried to generate videos?
 
-I picked [LTX-2.5](https://huggingface.co/Lightricks/LTX-2.5-Diffusers) from Lightricks, which generates video and sound together. Here is the result.
+I picked [LTX-2.5](https://huggingface.co/Lightricks/LTX-2.5-Diffusers) from Lightricks, which generates video and sound together. By the end, a 10-second clip with sound took 22 to 23 s to generate, on half of the machine. Here is the result.
 
 <video controls playsinline preload="metadata" width="100%" aria-label="The seal film, made with LTX-2.5 on Trainium3" src="https://huggingface.co/buckets/dacorvo/video-generation/resolve/entertainment/seal.mp4"></video>
 
@@ -23,11 +23,13 @@ I had two goals. The first was to see how easy it is to generate videos with [di
 
 For CUDA, I found no real figure to compare against. The only one is LTX's claim of 6.8 s for a 10-second 720p clip on four B200 GPUs, with no detail on how it was measured. So I set CUDA aside and compared with LTX's online API instead, which [LTX says](https://venturebeat.com/technology/ltx-2-5-can-generate-a-10-second-ai-video-from-an-image-in-just-6-8-seconds-on-nvidia-superchips-and-its-open-weights) makes a 10-second 1080p clip in 23.7 s. In the end, the setup matches it, and even beats it by about a second: 22 to 23 s for the same 10-second 1080p clip, once the models are loaded, on half of the machine. Not bad, considering how little time I had to optimize the pipelines.
 
-And it was relatively simple. I only steered a coding agent, with fairly high-level directions. My films are an amateur's, and I'm quite happy with them. The tools behind them, though, are close to production grade.
+Making the films was relatively simple: I only steered a coding agent, with fairly high-level directions. Making them fast is where the five days went (more below). My films are an amateur's, and I'm quite happy with them. The tools behind them, though, are close to production grade.
 
 ## How it works
 
-The input is a film: a JSON list of shots, each with a name and a prompt, much like a storyboard. LTX-2.5 does better with long prompts, so each prompt is a paragraph on the style, the subject, the motion, the camera, the light and the sound. A shot can start from the last frames of an earlier shot. Starting from the earlier shot's last frame keeps a subject's look across a cut (prompts alone do not). Starting from its last 25 frames (1 s) also continues the motion. A shot can likewise end on the first frames of a later shot, so that it leads into it. Finally, a shot can have its own seed, to keep the take I picked among several, and it can be trimmed or have a caption.
+The input is a film: a JSON list of shots, each with a name and a prompt, much like a storyboard. LTX-2.5 does better with long prompts, so each prompt is a paragraph on the style, the subject, the motion, the camera, the light and the sound.
+
+A shot can start from the last frames of an earlier shot. Starting from the earlier shot's last frame keeps a subject's look across a cut (prompts alone do not). Starting from its last 25 frames (1 s) also continues the motion. A shot can likewise end on the first frames of a later shot, so that it leads into it. Finally, a shot can have its own seed, to keep the take I picked among several, and it can be trimmed or have a caption.
 
 Making a film from shots works like animation, which has two ways to go. Straight ahead, each shot continues the one before. That is how I made the fox film, a walk in the snow with nothing to build up to. Pose to pose, you make the key shot first, until you get one you like. Then the shots before it end on its first frames, and the shots after it start from its last frames. When a film builds up to a payoff, the payoff is the key shot. I found this order by trial and error, and made the seal film that way. Here are its four shots, with their prompts shortened:
 
@@ -112,6 +114,8 @@ What keeps it at drafts:
 - The model still gets details wrong, so each new shot needs several takes.
 - Each shot makes its own sound. The film evens out the background level, but the sound does not carry over from one shot to the next.
 - A shot lasts at most 20 s, the model's limit.
+
+## From films to world models
 
 LTX calls LTX-2.5 a world model, with robotics as an emerging use. Robots, cars and drones learn from videos of what their cameras see, and a world model can make more of them, including events too rare or too risky to film. So I also tried it on real footage, with the same code: a shot can start from the last second of a video filmed by a camera. One frame was not enough, as the model cannot tell from it how fast things move. Here is what the front camera of a car filmed in a snowstorm ([Boreas](https://www.boreas.utias.utoronto.ca/)), next to the video generated from its last second, 28 s in three shots:
 
