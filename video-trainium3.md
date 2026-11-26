@@ -34,8 +34,6 @@ I had two goals. The first was to see how easy it is to generate videos with [di
 
 For CUDA, I found no real figure to compare against. The only one is LTX's claim of 6.8 s for a 10-second 720p clip on four B200 GPUs, with no detail on how it was measured. So I set CUDA aside and compared with LTX's online API instead, which [LTX says](https://venturebeat.com/technology/ltx-2-5-can-generate-a-10-second-ai-video-from-an-image-in-just-6-8-seconds-on-nvidia-superchips-and-its-open-weights) makes a 10-second 1080p clip in 23.7 s. In the end, the setup matches it, and even beats it by about a second: 22 to 23 s for a 10-second clip at 2048×1024 (a few percent more pixels than the API's 1080p), once the models are loaded, on half of the machine. Not bad, considering how little time I had to optimize the pipelines.
 
-Making the films was relatively simple: I only steered a coding agent, with fairly high-level directions. Making them fast is where the five days went (more below). My films are an amateur's, and I'm quite happy with them. The tools behind them, though, are close to production grade.
-
 ## How it works
 
 The input is a film: a JSON list of shots, each with a name and a prompt, much like a storyboard. LTX-2.5 does better with long prompts, so each prompt is a paragraph on the style, the subject, the motion, the camera, the light and the sound. Here is the seal film's file, with the prompts shortened:
@@ -100,7 +98,7 @@ The diffusers pipelines do all of the generation. The rest is about 160 lines of
   </figcaption>
 </figure>
 
-## Optimizing for Trainium3
+## Running on Trainium3
 
 Out of the box, the model does not run on the NeuronCores: the transformer does not fit on one, and diffusers has no plan to split it. The first attempt that ran (the model card's pipeline, with the transformer split over 4 cores and a few patches) took **12 min 22 s** for a 10-second clip, and the NeuronCores were actually computing for only about 45 s of it.
 
@@ -119,55 +117,34 @@ Getting there took three kinds of work: making the model run on the NeuronCores 
   <figcaption>TP-4 × SP-8: 32 cores on one clip. The weights split 4 ways, one band of every layer per core; the video tokens split 8 ways, one stripe of the film per chip.</figcaption>
 </figure>
 
-### What worked out of the box
+Most of the fixes below are on the device, and that is where most of the effort went. The biggest end-to-end savings came from the host: the low-hanging fruit, since that is obviously where the waste was.
 
-*The pipeline code (the denoising loop, the scheduler, the upsampler) runs unmodified. What follows is the machinery diffusers and torch give you for free; the model on the device is stock modules plus the few patches of the table below:*
+### What it took to make it work
 
-- The code of the diffusers pipelines, which runs on the host and calls the transformer compiled for the NeuronCores.
-- Regional compilation: diffusers' `compile_repeated_blocks` compiles one graph for the 48 layers of the transformer (its `transformer_blocks`).
-- Loading a model split by tensor parallelism, which diffusers does for any model that has a plan (`_tp_plan`).
-- `torch.distributed` on the NeuronCores: device meshes, DTensors, all-to-all and all-gather.
+| Problem | Workaround | Result |
+|---|---|---|
+| The transformer does not fit on one NeuronCore, and diffusers has no tensor-parallel plan for it | A [plan](https://github.com/dacorvo/video-generation/blob/main/parallel.py#L50), and an [attention processor](https://github.com/dacorvo/video-generation/blob/main/parallel.py#L65) that runs on the heads of one rank | The transformer runs on 4 cores |
+| diffusers runs a pipeline on the device of its accelerated models, but all models except the transformer run on the CPUs | Pin the pipeline to the host, and move the transformer's inputs to the cores and its outputs back | The pipeline runs with only its transformer on the cores |
+| Compiled as one graph, the transformer returned NaN at one size, and each new process traced it again, even with every graph in the cache | Compile one block with `compile_repeated_blocks` | Finite outputs, and the first call of the transformer falls from 388 s to 18 s |
+| torch-neuronx computes a bf16 GELU entirely in bf16, constants included ([#1049](https://github.com/aws-neuron/torch-neuronx/issues/1049)) | Compute the GELUs in fp32 | Transformer error against fp32: 0.297 → 0.158 (CPU bf16: 0.160) |
+| At 2048×1024, the block graph of the transformer split 4 ways fails to load | Split the video tokens 8 ways on top (sequence parallelism): two custom attention processors on diffusers' `set_attn_processor` hook, each a few tensor reshapes around its collective calls ([code](https://github.com/dacorvo/video-generation/blob/main/parallel.py#L141)) | Stage 2 runs on 4 × 8 = 32 cores, at 3.0 s a step |
+| A shot that starts from frames has a timestep per video token, and its block graph fails to load | Embed only the two timesteps, and pick one for each token ([code](https://github.com/dacorvo/video-generation/blob/main/timesteps.py)) | A shot from frames takes about as long as one from a prompt |
 
-The diffusers side of the setup is short: the plan that tells diffusers how to split the transformer as it loads it, and the two compile calls:
-
-```python
-# Teach diffusers how to split the LTX-2.5 transformer over a
-# tensor-parallel group as it loads (parallel.py)
-class TensorParallelLTX2Transformer(LTX2VideoTransformer3DModel):
-    _tp_plan = {
-        "transformer_blocks.*.attn1.to_q": "colwise",
-        "transformer_blocks.*.attn1.to_out.0": "rowwise",
-        # ... same for the six attentions and two feed-forwards of each block
-    }
-
-# One compiled graph shared by the 48 layers; the rest of the forward
-# runs op by op on the host (generate.py)
-transformer.compile_repeated_blocks(backend="neuron", fullgraph=True, dynamic=False)
-vae.decoder.compile(backend="neuron", fullgraph=False, dynamic=False)
-```
-
-### What needed a workaround
-
-*Most of these fixes are on the device, and that is where most of the effort went. The biggest end-to-end savings came from the host: the low-hanging fruit, since that is obviously where the waste was.*
+### What it took to make it fast
 
 | Problem | Workaround | Gain |
 |---|---|---|
-| The LTX-2.5 transformer has no tensor-parallel plan in diffusers | A [plan](https://github.com/dacorvo/video-generation/blob/main/parallel.py#L50), and an [attention processor](https://github.com/dacorvo/video-generation/blob/main/parallel.py#L65) that runs on the heads of one rank | The transformer runs on 4 cores |
-| torch-neuronx computes a bf16 GELU entirely in bf16, constants included ([#1049](https://github.com/aws-neuron/torch-neuronx/issues/1049)) | Compute the GELUs in fp32 | Transformer error against fp32: 0.297 → 0.158 (CPU bf16: 0.160) |
 | Each rank (one process per NeuronCore) ran the whole pipeline, and they all encoded the prompt on the CPUs of one socket | Run the pipeline on rank 0 only, and send the other ranks the arguments of each call | Prompt encoding: about 205 s → 7.5 s |
-| Each new process traces and lowers the whole transformer again, even with every graph in the cache | Compile one block with `compile_repeated_blocks` | First call of the transformer: 388 s → 18 s |
 | torch-neuronx's allocator leaves most of its memory segments unused ([#1052](https://github.com/aws-neuron/torch-neuronx/issues/1052)) | Pack the parameters into buffers of at most 1 GiB | Memory per core: 22.96 GiB → 10.2 GiB |
 | The attention runs as plain ops unless the sequence length is a multiple of 128 tokens | Generate at 1024×512 (512 tokens per frame), with `NEURON_LOGICAL_NC_CONFIG=2` | Transformer step: 4.3 s → 3.0 s |
 | The video decode is slow on CPU, and more CPU cores do not help | Decode on the NeuronCores, split by frames, and pass the frames to rank 0 through shared memory | Decode at 2048×1024: 357 s → 1.6 s |
-| At 2048×1024, the block graph of the transformer split 4 ways fails to load | Split the video tokens 8 ways on top (sequence parallelism): two custom attention processors on diffusers' `set_attn_processor` hook, each a few tensor reshapes around one collective call ([code](https://github.com/dacorvo/video-generation/blob/main/parallel.py#L141)) | Stage 2 runs on 4 × 8 = 32 cores, at 3.0 s a step |
-| A shot that starts from frames has a timestep per video token, and its block graph fails to load | Embed only the two timesteps, and pick one for each token ([code](https://github.com/dacorvo/video-generation/blob/main/timesteps.py)) | A shot from frames takes 64 s, against 62 s from a prompt |
 | A strided slice copied to the device is filled by a slow copy on the device ([#1050](https://github.com/aws-neuron/torch-neuronx/issues/1050)) | [`.contiguous()`](https://github.com/dacorvo/video-generation/blob/main/parallel.py#L231-L235) before the copy | Step on 16 cores: 5.6 s → 1.0 s |
-| Rank 0 alone runs the pipeline's CPU stages (text encoder, upsampler, vocoder), but every rank gets a node-wide torch thread pool, and 31 ranks starve it | Pin rank 0's threads to the CPUs no other rank uses, and cap the other ranks' threads to their fair share ([code](https://github.com/dacorvo/video-generation/blob/main/generate.py#L330)) | Text encoder: 7.4 s → 3.3 s. Stage 1 step: 0.9 s → 0.6 s |
+| Rank 0 alone runs the pipeline's CPU stages (text encoder, upsampler, vocoder), but every rank gets a node-wide torch thread pool, and 31 ranks starve it | Pin rank 0's threads to the CPUs no other rank uses, and cap the other ranks' threads to their fair share ([code](https://github.com/dacorvo/video-generation/blob/main/generate.py#L330)) | Prompt encoding: 7.4 s → 3.3 s. Stage 1 step: 0.9 s → 0.6 s |
 | The pipeline pads the prompt to 1024 tokens, and the text encoder, on CPU, encodes the padding too | Run the text encoder on the tokens of the prompt only | Prompt encoding: 3.4 s → 1.4 s |
 
 Three issues were never explained: the transformer compiled as one graph returned NaN at one size, the first shot that ends on keyframes was slow in each new process (even with every graph in the cache), and the latent upsampler fails to load next to the transformer, so it stays on the CPU.
 
-Some of this is already closing upstream: [diffusers#14725](https://github.com/huggingface/diffusers/pull/14725) brings tensor and context parallelism into one `ParallelConfig`, and a `_tp_plan` for LTX-2.5 is planned: the first rows of this table should soon be unnecessary.
+Some of this is being fixed upstream. [diffusers#14725](https://github.com/huggingface/diffusers/pull/14725) (still open) brings tensor and context parallelism into one `ParallelConfig`, and a `_tp_plan` for LTX-2.5 is planned, which would make the first workaround above unnecessary.
 
 ## Lessons learned
 
@@ -178,7 +155,6 @@ Some of this is already closing upstream: [diffusers#14725](https://github.com/h
 - **Keep the traced code stable.** In the build I used, torch-neuronx's cache key included the file and line of each traced op, so an edit could trigger a recompile of up to 30 minutes per graph. I had already reported it ([aws-neuron/torch-neuronx#1027](https://github.com/aws-neuron/torch-neuronx/issues/1027)), and the issue is now closed.
 - **A film needs more than prompts.** Prompts alone do not keep a character, or a mountain, from one shot to the next, so shots start or end on frames of other shots. Each shot also stays in one place: when a shot in an early version of the fox film took the fox from the forest to the lake, the model made a cross-dissolve to another fox.
 - **Make several takes of each shot.** The model often gets a detail wrong: the same prompt gave the goat funny horns in 3 takes out of 4. I made 4 takes of each new shot and picked one.
-- **Steer the coding agent with principles, not steps.** Mine were: make the best use of the time on the instance, and favor sequence parallelism over wider tensor parallelism.
 
 ## Professional use cases
 
