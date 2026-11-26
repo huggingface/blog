@@ -32,7 +32,7 @@ I picked [LTX-2.5](https://huggingface.co/Lightricks/LTX-2.5-Diffusers) from Lig
 
 I had two goals. The first was to see how easy it is to generate videos with [diffusers](https://github.com/huggingface/diffusers) on Trainium3. Not the simple clips from the examples: I wanted to make short films from a script, closer to a real use case, like drafting a movie. The second was performance. I wanted to get close to what you get with CUDA, or with LTX's own API.
 
-For CUDA, I found no real figure to compare against. The only one is LTX's claim of 6.8 s for a 10-second 720p clip on four B200 GPUs, with no detail on how it was measured. So I set CUDA aside and compared with LTX's online API instead, which [LTX says](https://venturebeat.com/technology/ltx-2-5-can-generate-a-10-second-ai-video-from-an-image-in-just-6-8-seconds-on-nvidia-superchips-and-its-open-weights) makes a 10-second 1080p clip in 23.7 s. In the end, the setup matches it, and even beats it by about a second: 22 to 23 s for a 10-second clip at 2048×1024 (a few percent more pixels than the API's 1080p), once the models are loaded, on half of the machine. Not bad, considering how little time I had to optimize the pipelines.
+For CUDA, I found no real figure to compare against. The only one is LTX's claim of 6.8 s for a 10-second 720p clip on four B200 GPUs, with no detail on how it was measured. So I set CUDA aside and compared with LTX's online API instead, which [LTX says](https://venturebeat.com/technology/ltx-2-5-can-generate-a-10-second-ai-video-from-an-image-in-just-6-8-seconds-on-nvidia-superchips-and-its-open-weights) makes a 10-second 1080p clip in 23.7 s. In the end, the setup matches it, and even beats it by about a second: 22 to 23 s for a 10-second clip at 2048×1024, once the models are loaded, on half of the machine. Not bad, considering how little time I had to optimize the pipelines.
 
 ## How it works
 
@@ -66,7 +66,7 @@ The payoff is `iceberg`: the iceberg rolls over, and its wave drenches the seal.
   <figcaption>The seal film's shot chain. <code>iceberg</code>, the payoff, is made first; <code>nap</code> ends on its first 9 frames and <code>shake</code> starts from its last 25, so the seal, the floe and the iceberg stay the same.</figcaption>
 </figure>
 
-On the diffusers side, three pipelines share the models of [LTX-2.5](https://huggingface.co/Lightricks/LTX-2.5-Diffusers). `LTX2Pipeline` makes the shots from their prompt alone, and `LTX2ConditionPipeline` makes the shots that start or end on frames of another shot. These two follow the two-stage distilled recipe of the model card: 8 steps at 1024×512, then the third pipeline, `LTX2LatentUpsamplePipeline`, upscales the latents ×2 before 3 final steps at 2048×1024.
+On the diffusers side, three pipelines share the models of [LTX-2.5](https://huggingface.co/Lightricks/LTX-2.5-Diffusers). `LTX2Pipeline` makes the shots from their prompt alone, and `LTX2ConditionPipeline` makes the shots that start or end on frames of another shot. These two follow the two-stage distilled recipe of the model card: 8 steps, then the third pipeline, `LTX2LatentUpsamplePipeline`, upscales the latents ×2 before 3 final steps.
 
 The diffusers pipelines do all of the generation. The film part is about 160 lines of Python on top: read the film file, order the shots so each keyframe exists before the shot that needs it, and cut the frames to hand over; then trim, caption, even out the sound and assemble the film. The code is in [dacorvo/video-generation](https://github.com/dacorvo/video-generation). The films I kept are in the [dacorvo/video-generation](https://huggingface.co/buckets/dacorvo/video-generation/tree/entertainment) bucket, with their JSON files: the seal, the fox, and the goat, which trims two of its shots and draws a caption over its payoff.
 
@@ -148,8 +148,8 @@ Some of this is being fixed upstream. [diffusers#14725](https://github.com/huggi
 
 ## Lessons learned
 
-- **Both sides fell hard: the host and the device.** Once running, a clip's host time fell from about 280 s to about 8 s (~35×: prompt encoding, CPU decoding, tracing, copies), and its time on the NeuronCores from 45 s to 15 s (3×, at four times the pixels, and with a second stage the first attempt could not even load).
-- **Sequence parallelism is how one clip uses the machine.** Tensor parallelism is imposed by memory (the transformer does not fit on one core) and capped by the 32 attention heads. Splitting the sequence over more of them is what puts 32 of the 64 NeuronCores on a single clip, and what made 2048×1024 possible at all, by shrinking each core's graph until it loaded. And diffusers made it the easy part: two custom attention processors on its `set_attn_processor` hook, the rest is stock `torch.distributed`.
+- **Both sides fell hard: the host and the device.** Once running, a clip's host time fell from about 280 s to about 8 s (~35×), and its time on the NeuronCores from 45 s to 15 s (3×, at four times the pixels, and with a second stage the first attempt could not even load).
+- **Sequence parallelism is how one clip uses the machine.** Tensor parallelism is imposed by memory (the transformer does not fit on one core) and capped by the 32 attention heads. Splitting the sequence over more of them is what puts 32 of the 64 NeuronCores on a single clip, and what made 2048×1024 possible at all, by shrinking each core's graph until it loaded.
 - **On Trainium, plan for the size of the graphs.** The shapes decide whether the attention takes the fast kernel, and graphs that are too large fail to load.
 - **Check against the CPU first.** Each split of the models was checked on CPU before it ran on the device, and the comparison with CPU found the GELU issue.
 - **Keep the traced code stable.** In the build I used, torch-neuronx's cache key included the file and line of each traced op, so an edit could trigger a recompile of up to 30 minutes per graph. I had already reported it ([aws-neuron/torch-neuronx#1027](https://github.com/aws-neuron/torch-neuronx/issues/1027)), and the issue is now closed.
@@ -158,7 +158,7 @@ Some of this is being fixed upstream. [diffusers#14725](https://github.com/huggi
 
 ## Professional use cases
 
-On the performance side, once its models are loaded, one process makes a 10-second 2048×1024 clip with sound in 22 to 23 s. That rivals LTX's paid API, on half of the instance. With its 32 attention heads, the transformer splits over 32 NeuronCores at most, so the other half could make a second clip at the same time (I did not measure it). A service would keep its processes up, as a process takes about 3 minutes to load the models, and 80 s for its first clip.
+On the performance side, once its models are loaded, one process makes a 10-second 2048×1024 clip with sound in 22 to 23 s. That rivals LTX's paid API, on half of the instance. A service would keep its processes up, as a process takes about 3 minutes to load the models, and 80 s for its first clip.
 
 On the feature side, diffusers has what it takes to draft a movie. The shots come from prompts, and keep their subject from one shot to the next by starting or ending on frames of other shots. Takes differ by their seed, and the film file keeps the one I picked. Re-run with the same code and film file, and you get the same film back, byte for byte. A shot can also start from an image, such as a storyboard frame or a character sheet, which the condition pipeline takes the same way as frames (I did not try it in a film).
 
