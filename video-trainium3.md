@@ -13,9 +13,19 @@ With five days left, I allowed myself a little fun. When you have a Ferrari, eve
 
 I picked [LTX-2.5](https://huggingface.co/Lightricks/LTX-2.5-Diffusers) from Lightricks, which generates video and sound together. By the end, once the models were loaded, a 10-second clip with sound took 22 to 23 s to generate, on half of the machine. Here is the result.
 
-<video controls playsinline preload="metadata" width="100%" aria-label="The seal film, made with LTX-2.5 on Trainium3" src="https://huggingface.co/buckets/dacorvo/video-generation/resolve/entertainment/seal.mp4"></video>
-
-*A seal dreams of warm sand. Generated entirely on Trainium3.*
+<figure>
+  <video
+    controls
+    playsinline
+    preload="metadata"
+    style="display: block; width: 100%; height: auto;"
+    aria-label="The seal film, made with LTX-2.5 on Trainium3"
+    src="https://huggingface.co/buckets/dacorvo/video-generation/resolve/entertainment/seal.mp4"
+  ></video>
+  <figcaption style="text-align: center;">
+    <em>A seal dreams of warm sand. Generated entirely on Trainium3.</em>
+  </figcaption>
+</figure>
 
 ## Two goals
 
@@ -61,13 +71,33 @@ On the diffusers side, three pipelines share the models of [LTX-2.5](https://hug
 
 The diffusers pipelines do all of the generation. The rest, reading the film file and editing the film, is about 160 lines of Python. The code is in [dacorvo/video-generation](https://github.com/dacorvo/video-generation). The films I kept are in the [dacorvo/video-generation](https://huggingface.co/buckets/dacorvo/video-generation/tree/entertainment) bucket, with their JSON files: the seal, the fox, and the goat, which trims two of its shots and draws a caption over its payoff.
 
-<video controls playsinline preload="metadata" width="100%" aria-label="The fox film, made with LTX-2.5 on Trainium3" src="https://huggingface.co/buckets/dacorvo/video-generation/resolve/entertainment/fox.mp4"></video>
+<figure>
+  <video
+    controls
+    playsinline
+    preload="metadata"
+    style="display: block; width: 100%; height: auto;"
+    aria-label="The fox film, made with LTX-2.5 on Trainium3"
+    src="https://huggingface.co/buckets/dacorvo/video-generation/resolve/entertainment/fox.mp4"
+  ></video>
+  <figcaption style="text-align: center;">
+    <em>The fox film: a walk in the snow, made "straight ahead" — each shot continues the one before.</em>
+  </figcaption>
+</figure>
 
-*The fox film: a walk in the snow, made "straight ahead" — each shot continues the one before.*
-
-<video controls playsinline preload="metadata" width="100%" aria-label="The goat film, made with LTX-2.5 on Trainium3" src="https://huggingface.co/buckets/dacorvo/video-generation/resolve/entertainment/goat.mp4"></video>
-
-*The goat film: two trimmed shots, and a caption drawn over the payoff.*
+<figure>
+  <video
+    controls
+    playsinline
+    preload="metadata"
+    style="display: block; width: 100%; height: auto;"
+    aria-label="The goat film, made with LTX-2.5 on Trainium3"
+    src="https://huggingface.co/buckets/dacorvo/video-generation/resolve/entertainment/goat.mp4"
+  ></video>
+  <figcaption style="text-align: center;">
+    <em>The goat film: two trimmed shots, and a caption drawn over the payoff.</em>
+  </figcaption>
+</figure>
 
 ## Optimizing for Trainium3
 
@@ -135,15 +165,35 @@ LTX calls LTX-2.5 a world model, with robotics as an emerging use. Robots, cars 
 
 Here is the head camera of a Fourier GR1-T2 humanoid robot (a clip from NVIDIA's [GR1-100](https://huggingface.co/datasets/nvidia/PhysicalAI-Robotics-GR00T-GR1)), looking down at a table. In the real 6-second clip, the robot's left hand picks an orange from a plate and drops it in a tray. The model only sees the first second of that clip — the hands raised, before anything moves — and invents the rest. What really happened, next to its invention:
 
-<video controls playsinline preload="metadata" width="100%" aria-label="Real footage from the head camera of a GR1-T2 humanoid next to the continuation invented from its first second" src="https://huggingface.co/buckets/dacorvo/video-generation/resolve/robotics/gr1-orange/happened-side-by-side.mp4"></video>
-
-*Real footage from the head camera of a GR1-T2 humanoid, next to the continuation LTX-2.5 invented from its first second.*
+<figure>
+  <video
+    controls
+    playsinline
+    preload="metadata"
+    style="display: block; width: 100%; height: auto;"
+    aria-label="Real footage from the head camera of a GR1-T2 humanoid next to the continuation invented from its first second"
+    src="https://huggingface.co/buckets/dacorvo/video-generation/resolve/robotics/gr1-orange/happened-side-by-side.mp4"
+  ></video>
+  <figcaption style="text-align: center;">
+    <em>Real footage from the head camera of a GR1-T2 humanoid, next to the continuation LTX-2.5 invented from its first second.</em>
+  </figcaption>
+</figure>
 
 Same scene, same pick: the model invents the grab on its own, and keeps the table, the hands and the fruit consistent with the real footage. More interesting are the events that did not happen. From the same second, with only the prompt changed, a person leans over and grabs the orange too, and the human hand and the robot hand carry it to the tray together. Five takes, with the real footage first:
 
-<video controls playsinline preload="metadata" width="100%" aria-label="The real clip followed by five generated takes of a person helping the robot carry the orange" src="https://huggingface.co/buckets/dacorvo/video-generation/resolve/robotics/gr1-orange/human-side-by-side.mp4"></video>
-
-*The real clip, then five generated takes of a person helping the robot carry the orange.*
+<figure>
+  <video
+    controls
+    playsinline
+    preload="metadata"
+    style="display: block; width: 100%; height: auto;"
+    aria-label="The real clip followed by five generated takes of a person helping the robot carry the orange"
+    src="https://huggingface.co/buckets/dacorvo/video-generation/resolve/robotics/gr1-orange/human-side-by-side.mp4"
+  ></video>
+  <figcaption style="text-align: center;">
+    <em>The real clip, then five generated takes of a person helping the robot carry the orange.</em>
+  </figcaption>
+</figure>
 
 The person's gestures and timing differ in each take, and the robot's arm adapts to them. That is the appeal for training: not one continuation of a clip, but a distribution of them, each reproducible from its film file and seed.
 
