@@ -113,8 +113,8 @@ Five days later:
 Getting there took three kinds of work: making the model run on the NeuronCores (requires tensor parallelism), splitting it over more of them (sequence parallelism), and making the host keep up with them.
 
 <figure class="image text-center">
-  <img class="mx-auto" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/video-trainium3/parallelism-layout.svg" alt="Layout of the 32 NeuronCores that make one clip: the video frame split in 8 stripes, one per chip (sequence parallelism); each core also keeps one band of every layer's weight table (tensor parallelism). Each core holds a quarter of the weights and an eighth of the tokens." width="90%">
-  <figcaption>TP-4 × SP-8: 32 cores on one clip. The weights split 4 ways, one band of every layer per core; the video tokens split 8 ways, one stripe of the film per chip.</figcaption>
+  <img class="mx-auto" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/video-trainium3/parallelism-layout.svg" alt="Layout of the 32 NeuronCores that make one clip: the clip split in 8 stretches of time, one per chip (sequence parallelism); each core also keeps one band of every layer's weight table (tensor parallelism). Each core holds a quarter of the weights and an eighth of the tokens." width="90%">
+  <figcaption>TP-4 × SP-8: 32 cores on one clip. The weights split 4 ways, one band of every layer per core; the video tokens split 8 ways, one stretch of the clip per chip.</figcaption>
 </figure>
 
 Most of the fixes below are on the device, and that is where most of the effort went. The biggest end-to-end savings came from the host: the low-hanging fruit, since that is obviously where the waste was.
