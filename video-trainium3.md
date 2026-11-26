@@ -101,13 +101,24 @@ The diffusers pipelines do all of the generation. The rest is about 160 lines of
 
 ## Optimizing for Trainium3
 
-The vanilla pipeline took **12 min 22 s** for a 10-second clip on 4 NeuronCores, and the NeuronCores were actually computing for only about 45 s of it. Vanilla here means `LTX2Pipeline` as the model card runs it, with only what it takes to run on the NeuronCores: the transformer compiled with `torch.compile(backend="neuron")`, and split over 4 cores by tensor parallelism, as it does not fit on one. By the end:
+The vanilla pipeline took **12 min 22 s** for a 10-second clip on 4 NeuronCores, and the NeuronCores were actually computing for only about 45 s of it. Vanilla here means `LTX2Pipeline` as the model card runs it, plus the minimum to run on the NeuronCores, two lines of it:
+
+```python
+# Vanilla: the model card's pipeline, with only what it takes to run on the
+# NeuronCores (the transformer traced and compiled block by block in every new process)
+pipe = LTX2Pipeline.from_pretrained("Lightricks/LTX-2.5-Diffusers", torch_dtype=torch.bfloat16)
+pipe.transformer.forward = torch.compile(pipe.transformer.forward, backend="neuron")
+```
+
+By the end:
 
 | 10-second clip with sound | NeuronCores | Wall time | On the NeuronCores | vs. vanilla |
 |---|---|---|---|---|
 | Vanilla, 960×544 | 4 | 12 min 22 s | about 45 s | 1× |
 | Optimized, 1024×512 | 4 | 131 s, from launch | about 50 s | 5.7× |
 | Optimized, 2048×1024 (out of reach of the vanilla pipeline) | 32 | 22 to 23 s, models loaded | about 15 s | 33× |
+
+*Optimized is vanilla plus every row of the table below.*
 
 Getting there took three kinds of work: making the model run on the NeuronCores (requires tensor parallelism), splitting it over more of them (sequence parallelism), and making the host keep up with them.
 
