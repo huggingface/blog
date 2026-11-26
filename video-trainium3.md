@@ -117,13 +117,23 @@ What keeps it at drafts:
 
 ## From films to world models
 
-LTX calls LTX-2.5 a world model, with robotics as an emerging use. Robots, cars and drones learn from videos of what their cameras see, and a world model can make more of them, including events too rare or too risky to film. So I also tried it on real footage, with the same code: a shot can start from the last second of a video filmed by a camera. One frame was not enough, as the model cannot tell from it how fast things move. Here is what the front camera of a car filmed in a snowstorm ([Boreas](https://www.boreas.utias.utoronto.ca/)), next to the video generated from its last second, 28 s in three shots:
+LTX calls LTX-2.5 a world model, with robotics as an emerging use. Robots, cars and drones learn from videos of what their cameras see, and a world model can make more of them, including events too rare or too risky to film. So I also tried it on real footage, with the same code: a shot can start from the last second of a video filmed by a camera. One frame was not enough, as the model cannot tell from it how fast things move.
 
-<video controls playsinline preload="metadata" width="100%" aria-label="Real footage from Boreas next to the video generated from its last second" src="https://huggingface.co/buckets/dacorvo/video-generation/resolve/robotics/boreas-snow/happened-side-by-side.mp4"></video>
+Here is the head camera of a Fourier GR1-T2 humanoid robot (a clip from NVIDIA's [GR1-100](https://huggingface.co/datasets/nvidia/PhysicalAI-Robotics-GR00T-GR1)), looking down at a table. In the real 6-second clip, the robot's left hand picks an orange from a plate and drops it in a tray. Next to it, what the model made of the clip's last second:
 
-*Real footage from a car's front camera in a snowstorm, next to the continuation LTX-2.5 generated from its last second.*
+<video controls playsinline preload="metadata" width="100%" aria-label="Real footage from the head camera of a GR1-T2 humanoid next to the continuation generated from its last second" src="https://huggingface.co/buckets/dacorvo/video-generation/resolve/robotics/gr1-orange/happened-side-by-side.mp4"></video>
 
-From the same second, the model also makes what could have happened, such as slush thrown on the lens by a passing truck. The [robotics](https://huggingface.co/buckets/dacorvo/video-generation/tree/robotics) folder of the bucket has this example, and a second one from the camera of a humanoid robot ([GR1-100](https://huggingface.co/datasets/nvidia/PhysicalAI-Robotics-GR00T-GR1)), where a person helps the robot carry an orange. Here the prompts drive the videos — a true world model for training would instead follow the commands of the robot or the car. For that, a team fine-tunes the [pre-trained checkpoint of LTX-2.5](https://huggingface.co/Lightricks/LTX-2.5-Pre-Trained) on the frames and actions of its own robots.
+*Real footage from the head camera of a GR1-T2 humanoid, next to the continuation LTX-2.5 generated from its last second.*
+
+Same scene, same pick: the model regenerates what really happened, and keeps the table, the hands and the fruit consistent with the real footage. More interesting are the events that did not happen. From the same second, with only the prompt changed, a person leans over and grabs the orange too, and the human hand and the robot hand carry it to the tray together. Five takes, with the real footage first:
+
+<video controls playsinline preload="metadata" width="100%" aria-label="The real clip followed by five generated takes of a person helping the robot carry the orange" src="https://huggingface.co/buckets/dacorvo/video-generation/resolve/robotics/gr1-orange/human-side-by-side.mp4"></video>
+
+*The real clip, then five generated takes of a person helping the robot carry the orange.*
+
+The person's gestures and timing differ in each take, and the robot's arm adapts to them. That is the appeal for training: not one continuation of a clip, but a distribution of them, each reproducible from its film file and seed. The [robotics](https://huggingface.co/buckets/dacorvo/video-generation/tree/robotics) folder of the bucket has the five takes with their JSON files, and a second example from the front camera of a car in a snowstorm ([Boreas](https://www.boreas.utias.utoronto.ca/)), where the alternate event is slush thrown on the lens by a passing truck. Asked to make the car accelerate instead, the model kept its speed: the prompt does not override what the last second of footage already implies.
+
+Here the prompts drive the videos — a true world model for training would instead follow the commands of the robot or the car. For that, a team fine-tunes the [pre-trained checkpoint of LTX-2.5](https://huggingface.co/Lightricks/LTX-2.5-Pre-Trained) on the frames and actions of its own robots.
 
 The Ferrari made it around the track, on half of its cylinders.
 
