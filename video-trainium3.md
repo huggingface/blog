@@ -7,7 +7,7 @@ authors:
 
 # Taking Trainium3 to the Track: Generating Videos with LTX-2.5
 
-Thanks to our partnership with AWS, I was lucky enough to get access to a Trainium3 machine for a month. I spent most of the month testing Hugging Face models on it, and getting more of them to work (up to GLM-5 — all 754B parameters of it — on a single instance).
+Thanks to our partnership with AWS, I was lucky enough to get access to a Trainium3 48xl machine — 16 chips, 64 NeuronCores — for a month. I spent most of the month testing Hugging Face models on it, and getting more of them to work (up to GLM-5 — all 754B parameters of it — on a single instance).
 
 With five days left, I allowed myself a little fun. When you have a Ferrari, every now and then you want to take it out on the track. So I asked myself: what if I tried to generate videos?
 
@@ -21,7 +21,7 @@ I picked [LTX-2.5](https://huggingface.co/Lightricks/LTX-2.5-Diffusers) from Lig
 
 I had two goals. The first was to see how easy it is to generate videos with [diffusers](https://github.com/huggingface/diffusers) on Trainium3. Not the simple clips from the examples: I wanted to make short films from a script, closer to a real use case, like drafting a movie. The second was performance. I wanted to get close to what you get with CUDA, or with LTX's own API.
 
-For CUDA, I found no real figure to compare against. The only one is LTX's claim of 6.8 s for a 10-second 720p clip on four B200 GPUs, with no detail on how it was measured. So I set CUDA aside and compared with LTX's online API instead, which LTX says makes a 10-second 1080p clip in 23.7 s. In the end, the setup matches it, and even beats it by about a second: 22 to 23 s for the same 10-second 1080p clip, once the models are loaded, on half of the machine. Not bad, considering how little time I had to optimize the pipelines.
+For CUDA, I found no real figure to compare against. The only one is LTX's claim of 6.8 s for a 10-second 720p clip on four B200 GPUs, with no detail on how it was measured. So I set CUDA aside and compared with LTX's online API instead, which [LTX says](https://venturebeat.com/technology/ltx-2-5-can-generate-a-10-second-ai-video-from-an-image-in-just-6-8-seconds-on-nvidia-superchips-and-its-open-weights) makes a 10-second 1080p clip in 23.7 s. In the end, the setup matches it, and even beats it by about a second: 22 to 23 s for the same 10-second 1080p clip, once the models are loaded, on half of the machine. Not bad, considering how little time I had to optimize the pipelines.
 
 And it was relatively simple. I only steered a coding agent, with fairly high-level directions. My films are an amateur's, and I'm quite happy with them. The tools behind them, though, are close to production grade.
 
@@ -44,6 +44,11 @@ Making a film from shots works like animation, which has two ways to go. Straigh
 ```
 
 The payoff is `iceberg`: the iceberg rolls over, and its wave drenches the seal. `nap`, the sleeping seal, ends on its first 9 frames, so that the seal, the floe and the iceberg stay the same into the payoff. `shake` starts from its last 25 frames: the dripping seal shakes off the water and flops down on the floe. The `dream` is made on its own, and a cut joins it to the rest.
+
+<figure class="image text-center">
+  <img class="mx-auto" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/video-trainium3/shot-chain-diagram.svg" alt="Diagram of the seal film's four shots: dream stands alone, nap ends on the first 9 frames of iceberg, and shake starts from the last 25 frames of iceberg." width="90%">
+  <figcaption>The seal film's shot chain. <code>iceberg</code>, the payoff, is made first; <code>nap</code> ends on its first 9 frames and <code>shake</code> starts from its last 25, so the seal, the floe and the iceberg stay the same.</figcaption>
+</figure>
 
 On the diffusers side, three pipelines share the models of [LTX-2.5](https://huggingface.co/Lightricks/LTX-2.5-Diffusers). `LTX2Pipeline` makes the shots from their prompt alone, and `LTX2ConditionPipeline` makes the shots that start or end on frames of another shot. These two follow the two-stage distilled recipe of the model card: 8 steps at 1024×512, then the third pipeline, `LTX2LatentUpsamplePipeline`, upscales the latents ×2 before 3 final steps at 2048×1024.
 
