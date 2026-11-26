@@ -129,7 +129,7 @@ Here repo is the full Hugging Face Git URL, while dataset is the name and versio
 
 ### OpenEnv: run an agent and inspect its reward
 
-[OpenEnv's Harbor integration](https://huggingface.co/docs/openenv/main/environments/harbor) can run the same task directories with an agent such as OpenCode and return the verifier's reward alongside the agent's trace. 
+[OpenEnv's Harbor integration](https://openenv.github.io/OpenEnv/main/environments/harbor) can run the same task directories with an agent such as OpenCode and return the verifier's reward alongside the agent's trace. 
 
 ```sh
 pip install "openenv[harbor]==0.7.0"

@@ -45,7 +45,7 @@ Inkling 2 Mini is state-of-the-art in its class in the Artificial Analysis Intel
 
 Inkling 2 Mini is a great local coding companion. It leads in FrontierCode v2.0, ties with Qwen3.8-27B on Terminal-Bench 4.0, and trails Qwen on AutomationBench-AA v1.0.6. You can check out a few of our highlights below for coding and knowledge work. Note that AA Briefcase is in ELO rating, higher is better.
 
-![Inkling 2 Mini selected benchmarks](https://huggingface.co/buckets/huggingface-projects/inkling-2-mini-release-assets/resolve/selected-benchmarks.png)
+![Inkling 2 Mini selected benchmarks](https://huggingface.co/buckets/huggingface-projects/inkling-2-mini-release-assets/resolve/inkling-benchmarks.png)
 
 ## Inference Support
 
@@ -209,11 +209,13 @@ Here we ask the 4-bit model to make a website to a SaaS called plant therapy whe
 
 If you are on Linux, or if you only want the command line, you can use the [one-line installer](https://llama.app/docs/installation#one-line-install):
 
+```sh
 curl -LsSf https://llama.app/install.sh | sh
 ```
 
 For integration with other tools, you can launch a server compatible with the OpenAI API:
 
+```sh
 llama serve -hf ggml-org/Inkling-2-Mini-GGUF:IQ4_NL
 ```
 
