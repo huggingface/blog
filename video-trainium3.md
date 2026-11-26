@@ -74,14 +74,14 @@ The vanilla pipeline took 12 min 22 s for a 10-second clip on the 4 NeuronCores 
 | Optimized, 1024×512 | 4 | 131 s |
 | Optimized, 2048×1024 — out of reach of the vanilla pipeline | 32 | 22 to 23 s, models loaded |
 
-Getting there took three kinds of work: making the model run on the NeuronCores, splitting it over more of them, and making the host keep up with them.
+Getting there took three kinds of work: making the model run on the NeuronCores (requires tensor parallelism), splitting it over more of them (sequence parallelism), and making the host keep up with them.
 
 ### What worked out of the box
 
 - The code of the diffusers pipelines, which runs on the host and calls the transformer compiled for the NeuronCores.
 - Regional compilation: diffusers' `compile_repeated_blocks` compiles one graph for the 48 blocks of the transformer.
 - Loading a model split by tensor parallelism, which diffusers does for any model that has a plan (`_tp_plan`).
-- `torch.distributed` on the NeuronCores, within a chip and across chips: device meshes, DTensors, all-to-all and all-gather.
+- `torch.distributed` on the NeuronCores, within a chip and across chips: device meshes, DTensors, all-to-all and all-gather. Sequence parallelism fell out of these stock primitives — no custom kernels.
 
 ### What needed a workaround
 
@@ -104,7 +104,8 @@ Three issues were never explained: the transformer compiled as one graph returne
 ## Lessons learned
 
 - **Most of the time went around the compute, not into it.** The NeuronCores were computing for only about 45 s of the vanilla run's 12 min 22 s. Most of the fixes removed host work, tracing and copies. Even at the end, the transformer runs for about 13 s of the 22 s it takes to make a clip. The last gains came from the host: rank 0 got CPUs of its own, the frames reach it through shared memory, and it makes the sound while the cores decode the frames.
-- **On Trainium, plan for the size of the graphs.** The shapes decide whether the attention takes the fast kernel, and graphs that are too large fail to load. Splitting the tokens over more chips made them small enough.
+- **Sequence parallelism is how one clip uses the machine.** Tensor parallelism is imposed by memory (the transformer does not fit on one core) and capped by the 32 attention heads. Splitting the sequence over chips is what puts 32 of the 64 NeuronCores on a single clip — and what made 2048×1024 possible at all, by shrinking each core's graph until it loaded. And diffusers made it the easy part: the pipelines and the stock `torch.distributed` primitives carried it.
+- **On Trainium, plan for the size of the graphs.** The shapes decide whether the attention takes the fast kernel, and graphs that are too large fail to load.
 - **Check against the CPU first.** Each split of the models was checked on CPU before it ran on the device, and the comparison with CPU found the GELU issue.
 - **Keep the traced code stable.** In the build I used, torch-neuronx's cache key included the file and line of each traced op, so an edit could trigger a recompile of up to 30 minutes per graph. I had already reported it ([aws-neuron/torch-neuronx#1027](https://github.com/aws-neuron/torch-neuronx/issues/1027)), and the issue is now closed.
 - **A film needs more than prompts.** Prompts alone do not keep a character, or a mountain, from one shot to the next, so shots start or end on frames of other shots. Each shot also stays in one place: when a shot in an early version of the fox film took the fox from the forest to the lake, the model made a cross-dissolve to another fox.
