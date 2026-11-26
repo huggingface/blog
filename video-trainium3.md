@@ -7,7 +7,7 @@ authors:
 
 # Taking Trainium3 to the Track: Generating Videos with LTX-2.5
 
-Thanks to our partnership with AWS, we were lucky enough to get access to a Trainium3 48xl machine — 16 chips, 64 NeuronCores — for a month. We spent most of the month testing Hugging Face models on it, and getting more of them to work.
+Thanks to our partnership with AWS, we were lucky enough to get access to a Trainium3 48xl machine (64 NeuronCores) for a month. We spent most of the month testing Hugging Face models on it, and getting more of them to work.
 
 With five days left, I allowed myself a little fun. When you have a Ferrari, every now and then you want to take it out on the track. So I asked myself: what if I tried to generate videos?
 
@@ -31,7 +31,7 @@ I picked [LTX-2.5](https://huggingface.co/Lightricks/LTX-2.5-Diffusers) from Lig
 
 I had two goals. The first was to see how easy it is to generate videos with [diffusers](https://github.com/huggingface/diffusers) on Trainium3. Not the simple clips from the examples: I wanted to make short films from a script, closer to a real use case, like drafting a movie. The second was performance. I wanted to get close to what you get with CUDA, or with LTX's own API.
 
-For CUDA, I found no real figure to compare against. The only one is LTX's claim of 6.8 s for a 10-second 720p clip on four B200 GPUs, with no detail on how it was measured. So I set CUDA aside and compared with LTX's online API instead, which [LTX says](https://venturebeat.com/technology/ltx-2-5-can-generate-a-10-second-ai-video-from-an-image-in-just-6-8-seconds-on-nvidia-superchips-and-its-open-weights) makes a 10-second 1080p clip in 23.7 s. In the end, the setup matches it, and even beats it by about a second: 22 to 23 s for a 10-second clip at 2048×1024 — a few percent more pixels than the API's 1080p — once the models are loaded, on half of the machine. Not bad, considering how little time I had to optimize the pipelines.
+For CUDA, I found no real figure to compare against. The only one is LTX's claim of 6.8 s for a 10-second 720p clip on four B200 GPUs, with no detail on how it was measured. So I set CUDA aside and compared with LTX's online API instead, which [LTX says](https://venturebeat.com/technology/ltx-2-5-can-generate-a-10-second-ai-video-from-an-image-in-just-6-8-seconds-on-nvidia-superchips-and-its-open-weights) makes a 10-second 1080p clip in 23.7 s. In the end, the setup matches it, and even beats it by about a second: 22 to 23 s for a 10-second clip at 2048×1024 (a few percent more pixels than the API's 1080p), once the models are loaded, on half of the machine. Not bad, considering how little time I had to optimize the pipelines.
 
 Making the films was relatively simple: I only steered a coding agent, with fairly high-level directions. Making them fast is where the five days went (more below). My films are an amateur's, and I'm quite happy with them. The tools behind them, though, are close to production grade.
 
@@ -51,14 +51,14 @@ The input is a film: a JSON list of shots, each with a name and a prompt, much l
 ]
 ```
 
-Each shot has a `name` and a `prompt`, and can have a `seed`, to keep the take I picked among several. Shots are chained with two keys — this chaining is the point, since prompts alone do not keep a subject from one shot to the next:
+Each shot has a `name` and a `prompt`, and can have a `seed`, to keep the take I picked among several. Shots are chained with two keys. This chaining is the point, since prompts alone do not keep a subject from one shot to the next:
 
 - `from`: the shot starts from the last frames of an earlier shot. Starting from the earlier shot's last frame keeps a subject's look across a cut; starting from its last 25 frames (1 s) also continues the motion.
 - `to`: the shot ends on the first frames of a later shot, so that it leads into it.
 
 A shot can also be trimmed, or have a caption drawn over it.
 
-Making a film from shots works like animation, which has two ways to go. Straight ahead, each shot continues the one before. Pose to pose, you make the key shot first, until you get one you like; then the shots before it end on its first frames (`to`), and the shots after it start from its last frames (`from`). When a film builds up to a payoff — the moment everything was leading to — the payoff is the key shot. I found this order by trial and error, and made the seal film pose to pose, starting from `iceberg`.
+Making a film from shots works like animation, which has two ways to go. Straight ahead, each shot continues the one before. Pose to pose, you make the key shot first, until you get one you like; then the shots before it end on its first frames (`to`), and the shots after it start from its last frames (`from`). When a film builds up to a payoff (the moment everything was leading to), the payoff is the key shot. I found this order by trial and error, and made the seal film pose to pose, starting from `iceberg`.
 
 The payoff is `iceberg`: the iceberg rolls over, and its wave drenches the seal. `nap`, the sleeping seal, ends on the first 9 frames of `iceberg` (`to`), so that the seal, the floe and the iceberg stay the same into the payoff. `shake` starts from the last 25 frames of `iceberg` (`from`): the dripping seal shakes off the water and flops down on the floe. The `dream` is made on its own, and a cut joins it to the rest.
 
@@ -81,7 +81,7 @@ The diffusers pipelines do all of the generation. The rest is about 160 lines of
     src="https://huggingface.co/buckets/dacorvo/video-generation/resolve/entertainment/fox.mp4"
   ></video>
   <figcaption style="text-align: center;">
-    <em>The fox film: a walk in the snow, made "straight ahead" — each shot continues the one before.</em>
+    <em>The fox film: a walk in the snow, made "straight ahead": each shot continues the one before.</em>
   </figcaption>
 </figure>
 
@@ -101,15 +101,26 @@ The diffusers pipelines do all of the generation. The rest is about 160 lines of
 
 ## Optimizing for Trainium3
 
-The vanilla pipeline took **12 min 22 s** for a 10-second clip on the 4 NeuronCores of one chip, and the NeuronCores were actually computing for only about 45 s of it. Vanilla here means `LTX2Pipeline` as the model card runs it, with only what it takes to run on the NeuronCores: the transformer compiled with `torch.compile(backend="neuron")`, and split over 4 cores by tensor parallelism, as it does not fit on one. By the end:
+The vanilla pipeline took **12 min 22 s** for a 10-second clip on 4 NeuronCores, and the NeuronCores were actually computing for only about 45 s of it. Vanilla here means `LTX2Pipeline` as the model card runs it, with only what it takes to run on the NeuronCores: the transformer compiled with `torch.compile(backend="neuron")`, and split over 4 cores by tensor parallelism, as it does not fit on one. By the end:
 
 | 10-second clip with sound | NeuronCores | Wall time | On the NeuronCores | vs. vanilla |
 |---|---|---|---|---|
 | Vanilla, 960×544 | 4 | 12 min 22 s | about 45 s | 1× |
 | Optimized, 1024×512 | 4 | 131 s, from launch | about 50 s | 5.7× |
-| Optimized, 2048×1024 — out of reach of the vanilla pipeline | 32 | 22 to 23 s, models loaded | about 15 s | 33× |
+| Optimized, 2048×1024 (out of reach of the vanilla pipeline) | 32 | 22 to 23 s, models loaded | about 15 s | 33× |
 
-Getting there took three kinds of work: making the model run on the NeuronCores (requires tensor parallelism), splitting it over more of them (sequence parallelism), and making the host keep up with them. In code, the diffusers side of it is short:
+Getting there took three kinds of work: making the model run on the NeuronCores (requires tensor parallelism), splitting it over more of them (sequence parallelism), and making the host keep up with them.
+
+### What worked out of the box
+
+*The pipeline code (the denoising loop, the scheduler, the upsampler) runs unmodified. What follows is the machinery diffusers and torch give you for free; the model on the device is stock modules plus the few patches of the table below:*
+
+- The code of the diffusers pipelines, which runs on the host and calls the transformer compiled for the NeuronCores.
+- Regional compilation: diffusers' `compile_repeated_blocks` compiles one graph for the 48 layers of the transformer (its `transformer_blocks`).
+- Loading a model split by tensor parallelism, which diffusers does for any model that has a plan (`_tp_plan`).
+- `torch.distributed` on the NeuronCores: device meshes, DTensors, all-to-all and all-gather.
+
+The diffusers side of the setup is short: the plan that tells diffusers how to split the transformer as it loads it, and the two compile calls:
 
 ```python
 # Teach diffusers how to split the LTX-2.5 transformer over a
@@ -121,24 +132,15 @@ class TensorParallelLTX2Transformer(LTX2VideoTransformer3DModel):
         # ... same for the six attentions and two feed-forwards of each block
     }
 
-# One compiled graph shared by the 48 blocks; the rest of the forward
+# One compiled graph shared by the 48 layers; the rest of the forward
 # runs op by op on the host (generate.py)
 transformer.compile_repeated_blocks(backend="neuron", fullgraph=True, dynamic=False)
 vae.decoder.compile(backend="neuron", fullgraph=False, dynamic=False)
 ```
 
-### What worked out of the box
-
-*What ran on the NeuronCores with stock diffusers and torch — no changes needed:*
-
-- The code of the diffusers pipelines, which runs on the host and calls the transformer compiled for the NeuronCores.
-- Regional compilation: diffusers' `compile_repeated_blocks` compiles one graph for the 48 blocks of the transformer.
-- Loading a model split by tensor parallelism, which diffusers does for any model that has a plan (`_tp_plan`).
-- `torch.distributed` on the NeuronCores, within a chip and across chips: device meshes, DTensors, all-to-all and all-gather. Sequence parallelism fell out of these stock primitives — no custom kernels.
-
 ### What needed a workaround
 
-*Most of these fixes are on the device — and that is where most of the effort went. The biggest end-to-end savings came from the host — the low-hanging fruit, since that is obviously where the waste was.*
+*Most of these fixes are on the device, and that is where most of the effort went. The biggest end-to-end savings came from the host: the low-hanging fruit, since that is obviously where the waste was.*
 
 | Problem | Workaround | Gain |
 |---|---|---|
@@ -149,19 +151,20 @@ vae.decoder.compile(backend="neuron", fullgraph=False, dynamic=False)
 | torch-neuronx's allocator leaves most of its memory segments unused ([#1052](https://github.com/aws-neuron/torch-neuronx/issues/1052)) | Pack the parameters into buffers of at most 1 GiB | Memory per core: 22.96 GiB → 10.2 GiB |
 | The attention runs as plain ops unless the sequence length is a multiple of 128 tokens | Generate at 1024×512 (512 tokens per frame), with `NEURON_LOGICAL_NC_CONFIG=2` | Transformer step: 4.3 s → 3.0 s |
 | The video decode is slow on CPU, and more CPU cores do not help | Decode on the NeuronCores, split by frames, and pass the frames to rank 0 through shared memory | Decode at 2048×1024: 357 s → 1.6 s |
-| At 2048×1024, the transformer block split over the 4 cores of a chip fails to load | Split the video tokens over 8 chips (sequence parallelism) | Stage 2 runs on 32 cores, at 3.0 s a step |
+| At 2048×1024, the block graph of the transformer split 4 ways fails to load | Split the video tokens 8 ways on top (sequence parallelism): two custom attention processors on diffusers' `set_attn_processor` hook, each a few tensor reshapes around one collective call ([code](https://github.com/dacorvo/video-generation/blob/main/parallel.py#L141)) | Stage 2 runs on 4 × 8 = 32 cores, at 3.0 s a step |
+| A shot that starts from frames has a timestep per video token, and its block graph fails to load | Embed only the two timesteps, and pick one for each token ([code](https://github.com/dacorvo/video-generation/blob/main/timesteps.py)) | A shot from frames takes 64 s, against 62 s from a prompt |
 | A strided slice copied to the device is filled by a slow copy on the device ([#1050](https://github.com/aws-neuron/torch-neuronx/issues/1050)) | [`.contiguous()`](https://github.com/dacorvo/video-generation/blob/main/parallel.py#L231-L235) before the copy | Step on 16 cores: 5.6 s → 1.0 s |
-| Rank 0 alone runs the pipeline's CPU stages (text encoder, upsampler, vocoder) — but every rank gets a node-wide torch thread pool, and 31 ranks starve it | Pin rank 0's threads to the CPUs no other rank uses, and cap the other ranks' threads to their fair share ([code](https://github.com/dacorvo/video-generation/blob/main/generate.py#L330)) | Text encoder: 7.4 s → 3.3 s. Stage 1 step: 0.9 s → 0.6 s |
+| Rank 0 alone runs the pipeline's CPU stages (text encoder, upsampler, vocoder), but every rank gets a node-wide torch thread pool, and 31 ranks starve it | Pin rank 0's threads to the CPUs no other rank uses, and cap the other ranks' threads to their fair share ([code](https://github.com/dacorvo/video-generation/blob/main/generate.py#L330)) | Text encoder: 7.4 s → 3.3 s. Stage 1 step: 0.9 s → 0.6 s |
 | The pipeline pads the prompt to 1024 tokens, and the text encoder, on CPU, encodes the padding too | Run the text encoder on the tokens of the prompt only | Prompt encoding: 3.4 s → 1.4 s |
 
 Three issues were never explained: the transformer compiled as one graph returned NaN at one size, the first shot that ends on keyframes was slow in each new process (even with every graph in the cache), and the latent upsampler fails to load next to the transformer, so it stays on the CPU.
 
-Some of this is already closing upstream: [diffusers#14725](https://github.com/huggingface/diffusers/pull/14725) brings tensor and context parallelism into one `ParallelConfig`, and a `_tp_plan` for LTX-2.5 is planned — the first rows of this table should soon be unnecessary.
+Some of this is already closing upstream: [diffusers#14725](https://github.com/huggingface/diffusers/pull/14725) brings tensor and context parallelism into one `ParallelConfig`, and a `_tp_plan` for LTX-2.5 is planned: the first rows of this table should soon be unnecessary.
 
 ## Lessons learned
 
-- **Both sides fell hard — the host and the device.** Once running, a clip's host time fell from about 280 s to about 8 s (~35×: prompt encoding, CPU decoding, tracing, copies), and its time on the NeuronCores from 45 s to 15 s (3×, at four times the pixels, and with a second stage the vanilla run could not even load).
-- **Sequence parallelism is how one clip uses the machine.** Tensor parallelism is imposed by memory (the transformer does not fit on one core) and capped by the 32 attention heads. Splitting the sequence over chips is what puts 32 of the 64 NeuronCores on a single clip — and what made 2048×1024 possible at all, by shrinking each core's graph until it loaded. And diffusers made it the easy part: the pipelines and the stock `torch.distributed` primitives carried it.
+- **Both sides fell hard: the host and the device.** Once running, a clip's host time fell from about 280 s to about 8 s (~35×: prompt encoding, CPU decoding, tracing, copies), and its time on the NeuronCores from 45 s to 15 s (3×, at four times the pixels, and with a second stage the vanilla run could not even load).
+- **Sequence parallelism is how one clip uses the machine.** Tensor parallelism is imposed by memory (the transformer does not fit on one core) and capped by the 32 attention heads. Splitting the sequence over more of them is what puts 32 of the 64 NeuronCores on a single clip, and what made 2048×1024 possible at all, by shrinking each core's graph until it loaded. And diffusers made it the easy part: two custom attention processors on its `set_attn_processor` hook, the rest is stock `torch.distributed`.
 - **On Trainium, plan for the size of the graphs.** The shapes decide whether the attention takes the fast kernel, and graphs that are too large fail to load.
 - **Check against the CPU first.** Each split of the models was checked on CPU before it ran on the device, and the comparison with CPU found the GELU issue.
 - **Keep the traced code stable.** In the build I used, torch-neuronx's cache key included the file and line of each traced op, so an edit could trigger a recompile of up to 30 minutes per graph. I had already reported it ([aws-neuron/torch-neuronx#1027](https://github.com/aws-neuron/torch-neuronx/issues/1027)), and the issue is now closed.
@@ -185,7 +188,7 @@ What keeps it at drafts:
 
 LTX calls LTX-2.5 a world model, with robotics as an emerging use. Robots, cars and drones learn from videos of what their cameras see, and a world model can make more of them, including events too rare or too risky to film. So I also tried it on real footage, with the same code: a shot can start from the first second of a real camera clip and invent what happens next. One frame was not enough, as the model cannot tell from it how fast things move.
 
-Here is the head camera of a Fourier GR1-T2 humanoid robot (a clip from NVIDIA's [GR1-100](https://huggingface.co/datasets/nvidia/PhysicalAI-Robotics-GR00T-GR1)), looking down at a table. In the real 6-second clip, the robot's left hand picks an orange from a plate and drops it in a tray. The model only sees the first second of that clip — the hands raised, before anything moves — and invents the rest. What really happened, next to its invention:
+Here is the head camera of a Fourier GR1-T2 humanoid robot (a clip from NVIDIA's [GR1-100](https://huggingface.co/datasets/nvidia/PhysicalAI-Robotics-GR00T-GR1)), looking down at a table. In the real 6-second clip, the robot's left hand picks an orange from a plate and drops it in a tray. The model only sees the first second of that clip (the hands raised, before anything moves) and invents the rest. What really happened, next to its invention:
 
 <figure>
   <video
@@ -221,7 +224,7 @@ The person's gestures and timing differ in each take, and the robot's arm adapts
 
 The [robotics](https://huggingface.co/buckets/dacorvo/video-generation/tree/robotics) folder of the bucket has the five takes with their JSON files, and a second example from the front camera of a car in a snowstorm ([Boreas](https://www.boreas.utias.utoronto.ca/)), where the alternate event is slush thrown on the lens by a passing truck. Asked to make the car accelerate instead, the model kept its speed: the prompt does not override what the first second of footage already implies.
 
-These videos follow prompts, not the robot's or car's commands — a training setup would need generation conditioned on those actions. For that, a team fine-tunes the [pre-trained checkpoint of LTX-2.5](https://huggingface.co/Lightricks/LTX-2.5-Pre-Trained) on the frames and actions of its own robots.
+These videos follow prompts, not the robot's or car's commands: a training setup would need generation conditioned on those actions. For that, a team fine-tunes the [pre-trained checkpoint of LTX-2.5](https://huggingface.co/Lightricks/LTX-2.5-Pre-Trained) on the frames and actions of its own robots.
 
 The Ferrari made it around the track, on half of its cylinders.
 
