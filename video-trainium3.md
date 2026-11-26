@@ -102,22 +102,15 @@ The diffusers pipelines do all of the generation. The rest is about 160 lines of
 
 ## Optimizing for Trainium3
 
-The vanilla pipeline took **12 min 22 s** for a 10-second clip on 4 NeuronCores, and the NeuronCores were actually computing for only about 45 s of it. Vanilla here means `LTX2Pipeline` as the model card runs it, plus the minimum to run on the NeuronCores, two lines of it:
-
-```python
-# Vanilla: the model card's pipeline, with only what it takes to run on the
-# NeuronCores (the transformer traced and compiled block by block in every new process)
-pipe = LTX2Pipeline.from_pretrained("Lightricks/LTX-2.5-Diffusers", torch_dtype=torch.bfloat16)
-pipe.transformer.forward = torch.compile(pipe.transformer.forward, backend="neuron")
-```
+Out of the box, the model does not run on the NeuronCores: the transformer does not fit on one, and diffusers has no plan to split it. The first attempt that ran (the model card's pipeline, with the transformer split over 4 cores and a few patches) took **12 min 22 s** for a 10-second clip, and the NeuronCores were actually computing for only about 45 s of it.
 
 Five days later:
 
-| 10-second clip with sound | NeuronCores | Wall time | On the NeuronCores | vs. vanilla |
+| 10-second clip with sound | NeuronCores | Wall time | On the NeuronCores | vs. first attempt |
 |---|---|---|---|---|
-| Vanilla, 960×544 | 4 | 12 min 22 s | about 45 s | 1× |
+| First attempt, 960×544 | 4 | 12 min 22 s | about 45 s | 1× |
 | Optimized, 1024×512 | 4 | 131 s, from launch | about 50 s | 5.7× |
-| Optimized, 2048×1024 (out of reach of the vanilla pipeline) | 32 | 22 to 23 s, models loaded | about 15 s | 33× |
+| Optimized, 2048×1024 (out of reach of the first attempt) | 32 | 22 to 23 s, models loaded | about 15 s | 33× |
 
 Getting there took three kinds of work: making the model run on the NeuronCores (requires tensor parallelism), splitting it over more of them (sequence parallelism), and making the host keep up with them.
 
@@ -178,7 +171,7 @@ Some of this is already closing upstream: [diffusers#14725](https://github.com/h
 
 ## Lessons learned
 
-- **Both sides fell hard: the host and the device.** Once running, a clip's host time fell from about 280 s to about 8 s (~35×: prompt encoding, CPU decoding, tracing, copies), and its time on the NeuronCores from 45 s to 15 s (3×, at four times the pixels, and with a second stage the vanilla run could not even load).
+- **Both sides fell hard: the host and the device.** Once running, a clip's host time fell from about 280 s to about 8 s (~35×: prompt encoding, CPU decoding, tracing, copies), and its time on the NeuronCores from 45 s to 15 s (3×, at four times the pixels, and with a second stage the first attempt could not even load).
 - **Sequence parallelism is how one clip uses the machine.** Tensor parallelism is imposed by memory (the transformer does not fit on one core) and capped by the 32 attention heads. Splitting the sequence over more of them is what puts 32 of the 64 NeuronCores on a single clip, and what made 2048×1024 possible at all, by shrinking each core's graph until it loaded. And diffusers made it the easy part: two custom attention processors on its `set_attn_processor` hook, the rest is stock `torch.distributed`.
 - **On Trainium, plan for the size of the graphs.** The shapes decide whether the attention takes the fast kernel, and graphs that are too large fail to load.
 - **Check against the CPU first.** Each split of the models was checked on CPU before it ran on the device, and the comparison with CPU found the GELU issue.
