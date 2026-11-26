@@ -111,6 +111,11 @@ The vanilla pipeline took **12 min 22 s** for a 10-second clip on 4 NeuronCores,
 
 Getting there took three kinds of work: making the model run on the NeuronCores (requires tensor parallelism), splitting it over more of them (sequence parallelism), and making the host keep up with them.
 
+<figure class="image text-center">
+  <img class="mx-auto" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/video-trainium3/parallelism-layout.svg" alt="Layout of the 32 NeuronCores that make one clip: the video frame split in 8 stripes, one per chip (sequence parallelism); each core also keeps one band of every layer's weight table (tensor parallelism). Each core holds a quarter of the weights and an eighth of the tokens." width="90%">
+  <figcaption>TP-4 × SP-8: 32 cores on one clip. The weights split 4 ways, one band of every layer per core; the video tokens split 8 ways, one stripe of the film per chip.</figcaption>
+</figure>
+
 ### What worked out of the box
 
 *The pipeline code (the denoising loop, the scheduler, the upsampler) runs unmodified. What follows is the machinery diffusers and torch give you for free; the model on the device is stock modules plus the few patches of the table below:*
