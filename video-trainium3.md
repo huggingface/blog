@@ -101,14 +101,14 @@ The diffusers pipelines do all of the generation. The film part is about 160 lin
 
 ## Running on Trainium3
 
-Out of the box, the model does not run on the NeuronCores: the transformer does not fit on one, and diffusers has no plan to split it. The first attempt that ran (the model card's pipeline, with the transformer split over 4 cores and a few patches) took about **5 min 20 s** for a 10-second clip, and the NeuronCores were actually computing for only about 45 s of it.
+Out of the box, the model does not run on the NeuronCores: the transformer does not fit on one, and diffusers has no plan to split it. The first attempt that ran (the model card's pipeline, with the transformer split over 4 cores and a few patches) took about **5 min 20 s** for a 10-second clip, and the NeuronCores were actually computing for only about 45 s of it. What's more, the target resolution was out of reach.
 
 Five days later:
 
 | 10-second clip with sound | NeuronCores | Wall time | On the NeuronCores | vs. first attempt |
 |---|---|---|---|---|
-| First attempt, 960×544 | 4 | about 5 min 20 s | about 45 s | 1× |
-| Optimized, 2048×1024 (out of reach of the first attempt) | 32 | 22 to 23 s | about 15 s | about 14× |
+| First attempt, 960×544 | 4 | 5 min 20 s | 45 s | 1× |
+| Optimized, 2048×1024 (~4× more pixels) | 32 | 22 to 23 s | 15 s | 14× |
 
 Getting there took three kinds of work: making the model run on the NeuronCores (requires tensor parallelism), splitting it over more of them (sequence parallelism), and making the host keep up with them.
 
