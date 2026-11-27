@@ -101,15 +101,14 @@ The diffusers pipelines do all of the generation. The film part is about 160 lin
 
 ## Running on Trainium3
 
-Out of the box, the model does not run on the NeuronCores: the transformer does not fit on one, and diffusers has no plan to split it. The first attempt that ran (the model card's pipeline, with the transformer split over 4 cores and a few patches) took **12 min 22 s** for a 10-second clip, and the NeuronCores were actually computing for only about 45 s of it.
+Out of the box, the model does not run on the NeuronCores: the transformer does not fit on one, and diffusers has no plan to split it. The first attempt that ran (the model card's pipeline, with the transformer split over 4 cores and a few patches) took about **5 min 20 s** for a 10-second clip, and the NeuronCores were actually computing for only about 45 s of it.
 
 Five days later:
 
 | 10-second clip with sound | NeuronCores | Wall time | On the NeuronCores | vs. first attempt |
 |---|---|---|---|---|
-| First attempt, 960×544 | 4 | 12 min 22 s | about 45 s | 1× |
-| Optimized, 1024×512 | 4 | 131 s, from launch | about 50 s | 5.7× |
-| Optimized, 2048×1024 (out of reach of the first attempt) | 32 | 22 to 23 s, models loaded | about 15 s | 33× |
+| First attempt, 960×544 | 4 | about 5 min 20 s | about 45 s | 1× |
+| Optimized, 2048×1024 (out of reach of the first attempt) | 32 | 22 to 23 s | about 15 s | about 14× |
 
 Getting there took three kinds of work: making the model run on the NeuronCores (requires tensor parallelism), splitting it over more of them (sequence parallelism), and making the host keep up with them.
 
@@ -126,7 +125,7 @@ Most of the fixes below are on the device, and that is where most of the effort 
 |---|---|---|
 | The transformer does not fit on one NeuronCore, and diffusers has no tensor-parallel plan for it | A [plan](https://github.com/dacorvo/video-generation/blob/main/parallel.py#L50), and an [attention processor](https://github.com/dacorvo/video-generation/blob/main/parallel.py#L65) that runs on the heads of one rank | The transformer runs on 4 cores |
 | The text encoder does not fit on a NeuronCore next to the transformer, so it runs on the CPUs. diffusers supports a pipeline split this way, but its LTX-2 pipelines give the text encoder its inputs on the NeuronCores | Pin the pipeline to the host, and move the transformer's inputs to the cores and its outputs back | The pipeline runs with its transformer on the cores |
-| Compiled as one graph, the transformer returned NaN at one size, and each new process traced it again, even with every graph in the cache | Compile one block with `compile_repeated_blocks` | Finite outputs, and the first call of the transformer falls from 388 s to 18 s |
+| Compiled as one graph, the transformer returned NaN at one size, and each new process traced it again, even with every graph in the cache | Compile one block with `compile_repeated_blocks` | Finite outputs, and tracing falls from 388 s to 18 s |
 | torch-neuronx computes a bf16 GELU entirely in bf16, constants included ([#1049](https://github.com/aws-neuron/torch-neuronx/issues/1049)) | Compute the GELUs in fp32 | Transformer error against fp32: 0.297 → 0.158 (CPU bf16: 0.160) |
 | At 2048×1024, the block graph of the transformer split 4 ways fails to load | Split the video tokens 8 ways on top (sequence parallelism): two custom attention processors on diffusers' `set_attn_processor` hook, each a few tensor reshapes around its collective calls ([code](https://github.com/dacorvo/video-generation/blob/main/parallel.py#L141)) | Stage 2 runs on 4 × 8 = 32 cores, at 3.0 s a step |
 | A shot that starts from frames has a timestep per video token, and its block graph fails to load | Embed only the two timesteps, and pick one for each token ([code](https://github.com/dacorvo/video-generation/blob/main/timesteps.py)) | A shot from frames takes about as long as one from a prompt |
