@@ -158,7 +158,7 @@ Some of this is being fixed upstream. [diffusers#15420](https://github.com/huggi
 
 ## Professional use cases
 
-On the performance side, once its models are loaded, one process makes a 10-second 2048×1024 clip with sound in 22 to 23 s. That rivals LTX's paid API, on half of the instance. A service would keep its processes up, as a process takes about 3 minutes to load the models, and 80 s for its first clip.
+On the performance side, once the models are loaded, a 10-second 2048×1024 clip with sound takes 22 to 23 s. That rivals LTX's paid API, on half of the instance. A service would keep its processes up, as they take about 3 minutes to load the models, and 80 s for their first clip.
 
 On the feature side, diffusers has what it takes to draft a movie. The shots come from prompts, and keep their subject from one shot to the next by starting or ending on frames of other shots. Takes differ by their seed, and the film file keeps the one I picked. Re-run with the same code and film file, and you get the same film back, byte for byte. A shot can also start from an image, such as a storyboard frame or a character sheet, which the condition pipeline takes the same way as frames (I did not try it in a film).
 
