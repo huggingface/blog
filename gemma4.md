@@ -666,9 +666,9 @@ Find all models [here](https://huggingface.co/mistralrs-community/models). Pleas
 
 ## AWS SageMaker AI
 
-You can also deploy Gemma 4 on Amazon SageMaker AI with the [vLLM Deep Learning Container for SageMaker](https://github.com/aws/deep-learning-containers), using the AWS SDK for Python (`boto3`). The container reads the vLLM arguments from `SM_VLLM_*` environment variables, so any `vllm serve` flag can be set as an environment variable, e.g. `--max-model-len` as `SM_VLLM_MAX_MODEL_LEN`.
+You can also deploy Gemma 4 on Amazon SageMaker AI with the [Hugging Face vLLM Deep Learning Container for SageMaker](https://aws.github.io/deep-learning-containers/reference/available_images/#huggingface-vllm-inference), using the AWS SDK for Python (`boto3`). The container reads the vLLM arguments from `SM_VLLM_*` environment variables, so any `vllm serve` flag can be set as an environment variable, e.g. `--max-model-len` as `SM_VLLM_MAX_MODEL_LEN`.
 
-The recipe below serves `google/gemma-4-31B-it` on a single `ml.g7e.2xlarge` instance (1 x NVIDIA RTX PRO 6000 96GB), with an FP8 KV cache and [DFlash speculative decoding](https://huggingface.co/RedHatAI/gemma-4-31B-it-speculator.dflash2). In our benchmarks with this setup, a single request generates ~70 tokens per second (~260 ms to first token), and the endpoint sustains ~600 output tokens per second across 64 concurrent requests, at an on-demand price of ~$4.20 per hour in `us-east-1`.
+The recipe below serves `google/gemma-4-31B-it` on a single `ml.g7e.2xlarge` instance (1 x NVIDIA RTX PRO 6000 96GB), with an FP8 KV cache and [DFlash speculative decoding](https://huggingface.co/RedHatAI/gemma-4-31B-it-speculator.dflash2). In our benchmarks with this setup, a single request generates \~70 tokens per second (\~260 ms to first token), and the endpoint sustains \~600 output tokens per second across 64 concurrent requests, at an on-demand price of \~$4.20 per hour in `us-east-1`. Note that the container enables LMCache CPU offloading by default, which turns off the vLLM hybrid KV cache manager that Gemma 4 needs for its sliding window attention layers, so the recipe disables it with `HF_ENABLE_LMCACHE`.
 
 ```shell
 pip install boto3 --upgrade
@@ -689,8 +689,9 @@ sagemaker.create_model(
     ModelName=name,
     ExecutionRoleArn=os.getenv("SAGEMAKER_ROLE_ARN"),
     PrimaryContainer={
-        "Image": f"763104351884.dkr.ecr.{region}.amazonaws.com/vllm:0.29.0-gpu-py312-cu130-ubuntu24.04-sagemaker",
+        "Image": f"763104351884.dkr.ecr.{region}.amazonaws.com/huggingface-vllm:0.29.0-transformers5.15.0-gpu-py312-cu130-ubuntu24.04",
         "Environment": {
+            "HF_ENABLE_LMCACHE": "0",
             "SM_VLLM_MODEL": "google/gemma-4-31B-it",
             "SM_VLLM_SERVED_MODEL_NAME": "google/gemma-4-31B-it",
             "SM_VLLM_MAX_MODEL_LEN": "131072",
@@ -758,9 +759,9 @@ When you're done, remember to delete the endpoint, endpoint configuration and mo
 
 ## Gemini Enterprise Agent Platform
 
-You can deploy Gemma 4 on [Gemini Enterprise Agent Platform](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/open-models/vllm/use-vllm) (formerly Vertex AI) on Google Cloud, using the [vLLM container from Model Garden](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/open-models/vllm/use-vllm) and the Python SDK (`google-cloud-aiplatform`).
+You can deploy Gemma 4 on [Gemini Enterprise Agent Platform](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/open-models/vllm/use-vllm) (formerly Vertex AI) on Google Cloud, using the [Hugging Face vLLM container](https://console.cloud.google.com/artifacts/docker/huggingface-public/us/containers/vllm) and the Python SDK (`google-cloud-aiplatform`).
 
-The recipe below serves `google/gemma-4-31B-it` on an `a3-highgpu-2g` instance (2 x NVIDIA H100 80GB) with tensor parallelism, the full 256K context, and tool calling and reasoning enabled. In our benchmarks of this same recipe on 2 x NVIDIA H100 80GB with vLLM, it sustains ~1,570 output tokens per second across 64 concurrent requests.
+The recipe below serves `google/gemma-4-31B-it` on an `a3-highgpu-2g` instance (2 x NVIDIA H100 80GB) with tensor parallelism, the full 256K context, and tool calling and reasoning enabled. In our benchmarks of this same recipe on 2 x NVIDIA H100 80GB with vLLM, it sustains \~1,570 output tokens per second across 64 concurrent requests. Note that Agent Platform allocates a fixed 100 GB boot disk, so the recipe sets `serving_container_shared_memory_size_mb` to cache the checkpoint in `/dev/shm`.
 
 ```shell
 pip install google-cloud-aiplatform --upgrade
@@ -775,13 +776,8 @@ aiplatform.init(project=os.getenv("PROJECT_ID"), location="us-central1")
 
 model = aiplatform.Model.upload(
     display_name="gemma-4-31b-it",
-    serving_container_image_uri="us-docker.pkg.dev/vertex-ai/vertex-vision-model-garden-dockers/pytorch-vllm-serve:20260713_0916_RC01",
+    serving_container_image_uri="us-docker.pkg.dev/huggingface-public/containers/vllm:v0.34.0",
     serving_container_args=[
-        "python",
-        "-m",
-        "vllm.entrypoints.openai.api_server",
-        "--host=0.0.0.0",
-        "--port=8080",
         "--model=google/gemma-4-31B-it",
         "--served-model-name=google/gemma-4-31B-it",
         "--tensor-parallel-size=2",
@@ -794,7 +790,7 @@ model = aiplatform.Model.upload(
     serving_container_ports=[8080],
     serving_container_predict_route="/v1/chat/completions",
     serving_container_health_route="/health",
-    serving_container_shared_memory_size_mb=16 * 1024,
+    serving_container_shared_memory_size_mb=128 * 1024,
     serving_container_deployment_timeout=7200,
 )
 
@@ -847,10 +843,10 @@ Gemma 4 is available in the Hugging Face collection on [Microsoft Foundry](https
 
 You can deploy them from the Foundry portal (Discover > Models, filtering by Hugging Face), or with the Azure SDK for Python, given an existing Microsoft Foundry resource. Each model comes with ready-to-use deployment templates for different instances and context lengths.
 
-The recipe below serves `google/gemma-4-31B-it` with the template for 2 x NVIDIA H100 80GB at the full 256K context, with tool calling and reasoning enabled. In our benchmarks of this same recipe on 2 x NVIDIA H100 80GB with vLLM, a single request generates ~70 tokens per second (~90 ms to first token), and it sustains ~1,560 output tokens per second across 64 concurrent requests.
+The recipe below serves `google/gemma-4-31B-it` with the template for 2 x NVIDIA H100 80GB at the full 256K context, with tool calling and reasoning enabled. In our benchmarks of this same recipe on 2 x NVIDIA H100 80GB with vLLM, a single request generates \~70 tokens per second (\~90 ms to first token), and it sustains \~1,560 output tokens per second across 64 concurrent requests.
 
 ```shell
-uv pip install azure-identity azure-ai-ml "azure-mgmt-cognitiveservices>=15.0.0b2" openai
+uv pip install azure-identity azure-ai-ml azure-mgmt-cognitiveservices==15.0.0b6 openai
 ```
 
 ```python
