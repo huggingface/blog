@@ -56,10 +56,8 @@ the scores, but the traces stay with the people who agreed to the terms.
 
 The figure below summarizes the overall architecture:
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://huggingface.co/buckets/nielsr/hub-agent-evals-blog-figures/resolve/hub-eval-stack-dark.png">
-  <img src="https://huggingface.co/buckets/nielsr/hub-agent-evals-blog-figures/resolve/hub-eval-stack-light.png" alt="The stack: a laptop launches a CPU Job running Harbor; it reads tasks from the gated dataset, calls Inference Providers (terminus-2), drives agent and grader sandboxes on HF Jobs, and pushes traces and results to a private dataset. World images come from the container registry; Codex reaches the model through a relay inside the agent sandbox; graders reach only the LLM judge." width="100%">
-</picture>
+<img class="block dark:hidden" src="https://huggingface.co/buckets/nielsr/hub-agent-evals-blog-figures/resolve/hub-eval-stack-hf-light.png" alt="The stack: a laptop launches a CPU Job running Harbor; it reads tasks from the gated dataset, calls Inference Providers (terminus-2), drives agent and grader sandboxes on HF Jobs, and pushes traces and results to a private dataset. World images come from the container registry; Codex reaches the model through a relay inside the agent sandbox; graders reach only the LLM judge." width="100%">
+<img class="hidden dark:block" src="https://huggingface.co/buckets/nielsr/hub-agent-evals-blog-figures/resolve/hub-eval-stack-hf-dark.png" alt="The stack: a laptop launches a CPU Job running Harbor; it reads tasks from the gated dataset, calls Inference Providers (terminus-2), drives agent and grader sandboxes on HF Jobs, and pushes traces and results to a private dataset. World images come from the container registry; Codex reaches the model through a relay inside the agent sandbox; graders reach only the LLM judge." width="100%">
 
 The launcher can be ran like so:
 
@@ -163,10 +161,8 @@ The score is a mean over the 29 dev tasks of each task's mean reward over 3 atte
 | terminus-2 (150-turn cap) | **0.273** | 0.333 | 0.230 |
 | Codex 0.162.1 (reasoning `high`, 6 h limit) | **0.152** | 0.214 | 0.108 |
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://huggingface.co/buckets/nielsr/hub-agent-evals-blog-figures/resolve/ple-per-task-by-harness-dark.png">
-  <img src="https://huggingface.co/buckets/nielsr/hub-agent-evals-blog-figures/resolve/ple-per-task-by-harness-light.png" alt="Per-task reward of GLM-5.3-Flash on the 29 PLE dev tasks with terminus-2 and with Codex, mean of 3 attempts, in two panels: 12 world tasks and 17 other tasks. terminus-2 is higher on 24 tasks, Codex on 3, and 2 are tied at zero." width="100%">
-</picture>
+<img class="block dark:hidden" src="https://huggingface.co/buckets/nielsr/hub-agent-evals-blog-figures/resolve/ple-per-task-by-harness-light.png" alt="Per-task reward of GLM-5.3-Flash on the 29 PLE dev tasks with terminus-2 and with Codex, mean of 3 attempts, in two panels: 12 world tasks and 17 other tasks. terminus-2 is higher on 24 tasks, Codex on 3, and 2 are tied at zero." width="100%">
+<img class="hidden dark:block" src="https://huggingface.co/buckets/nielsr/hub-agent-evals-blog-figures/resolve/ple-per-task-by-harness-dark.png" alt="Per-task reward of GLM-5.3-Flash on the 29 PLE dev tasks with terminus-2 and with Codex, mean of 3 attempts, in two panels: 12 world tasks and 17 other tasks. terminus-2 is higher on 24 tasks, Codex on 3, and 2 are tied at zero." width="100%">
 
 A few things stand out:
 
