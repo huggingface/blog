@@ -6061,6 +6061,14 @@
     - speculative-decoding
     - agents
 
+- local: training-swarms
+  date: November 26, 2026
+  tags:
+    - rl
+    - trl
+    - agents
+    - open-source
+
 - local: video-trainium3
   date: November 26, 2026
   tags:
