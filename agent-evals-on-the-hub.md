@@ -76,9 +76,13 @@ from the dataset and re-runs only the graders of the trials whose grading failed
 
 ## Adapter 1: Harbor environments on HF Jobs sandboxes
 
-Hugging Face provides a [Sandbox](https://huggingface.co/docs/huggingface_hub/en/guides/sandbox): a Job running a small exec and file server, created in
-seconds from any public image. Recent Harbor releases include a built-in environment on top of it (`-e hf-sandbox`), which is what [the evaluation guide](https://huggingface.co/blog/agentic-evals) uses, and it is the simplest way to run tasks with a prebuilt image and open network. PLE needs two things it doesn't have:
-network policies (agents with no network, graders that may reach only the judge) and images that have to be built from multi-stage Dockerfiles. To deal with these, we wrote our own environment for Harbor 0.20, which implements Harbor's environment interface on the same `Sandbox`:
+Hugging Face provides a [Sandbox](https://huggingface.co/docs/huggingface_hub/en/guides/sandbox):
+a Job running a small exec and file server, created in seconds from any public image. Harbor's
+built-in `hf-sandbox` environment runs on top of it, and it is what
+[the evaluation guide](https://huggingface.co/blog/agentic-evals) uses. PLE asks for a bit more:
+network rules that change between phases (setup with network, an agent without it, a grader that
+may reach only its judge) and images built from multi-stage Dockerfiles. So we wrote a small
+environment for Harbor 0.20 on the same `Sandbox` API:
 
 - **Sizing.** Each task declares CPUs and memory; the adapter picks the cheapest CPU flavor
   that covers them (most PLE tasks fit `cpu-basic` or `cpu-upgrade`).
@@ -86,38 +90,15 @@ network policies (agents with no network, graders that may reach only the judge)
   sandbox starts from the `FROM` image and the Dockerfile is replayed inside it (`RUN`, `ENV`,
   `WORKDIR`, `COPY`, …). Anything that can't be replayed faithfully fails loudly instead of
   building something different.
-- **Network policies without NET_ADMIN.** Benchmarks need agents that can't reach the internet,
-  and graders that can reach only their judge. Sandboxes have no network namespaces or
-  firewall capabilities, so the adapter uses [Landlock](https://docs.kernel.org/userspace-api/landlock.html):
-  every command after setup runs under a ruleset that denies outbound TCP `connect`, inherited
-  by every child and irreversible, even for root. `no-network` denies all TCP; `allowlist`
-  starts a small CONNECT proxy *before* confinement that forwards only to the allowed hosts,
-  and confined processes may only connect to the proxy's port. That is how PLE's judge-graded
-  verifiers reach exactly one host, the judge's API.
-- **Long commands.** Agents like codex run as one command that lasts hours. A single
-  streaming exec request for that long gets cut by the transport, so commands that may run
-  longer than a few minutes are started detached and polled with short requests.
-
-Landlock filters by port, not by address, and doesn't cover UDP. For tasks with no network at
-all that's exact; for tasks with local services (below) it's a port allowlist, which we report
-as a caveat.
-
-**Platform network policies.** `huggingface_hub` 2.5.0 added network policies to sandboxes
-(`network="none"` or `{"allow": [...]}`, enforced by the sandbox server). We tested them against
-our setups. For processes running as root they work exactly as advertised: with
-`{"allow": ["127.0.0.1"]}`, outside TCP, UDP and DNS are blocked while loopback works, and a
-grader with `{"allow": ["api.anthropic.com"]}` reaches only the judge. That also closes the port
-and UDP gaps above. Three cases don't fit PLE yet, all under an allowlist:
-
-- processes running as another user can't connect at all, not even to `127.0.0.1`, and neither
-  can non-dumpable ones;
-- processes that outlive the command that started them (`nohup … &`, service scripts) get
-  `ENOSYS` on every connect;
-- the policy is fixed when the sandbox is created, while our setup steps need the network.
-
-World tasks run their agent and apps as non-root users and start the apps from a script, so we
-keep Landlock for now. Graders and root agents running from fully prebuilt images could switch
-to the platform policy.
+- **Network rules per phase.** After setup, every command runs under a
+  [Landlock](https://docs.kernel.org/userspace-api/landlock.html) ruleset that denies outbound
+  TCP, inherited by every child and irreversible, even for root. For an allowlist, a small
+  CONNECT proxy started before confinement forwards only to the allowed hosts, which is how PLE's
+  judge-graded verifiers reach exactly one host. `huggingface_hub` 2.5.0 has since added network
+  policies to sandboxes, which fit graders and agents running from prebuilt images directly; we
+  kept Landlock for the multi-service world tasks.
+- **Long commands.** Agents like codex run as one command that lasts hours, so commands that may
+  run longer than a few minutes are started detached and polled with short requests.
 
 ## Adapter 2: task images that a Space can't build
 
@@ -383,7 +364,7 @@ environment class.
   per-trial traces
 - The Hub's container registry (`cr.hf.co`, currently staff-only) for the world-task images
 - `huggingface_hub` 2.5.0 [sandbox network policies](https://huggingface.co/docs/huggingface_hub/main/en/guides/sandbox#sandboxes-without-internet-access),
-  tested as described in adapter 1
+  (see adapter 1)
 
 **Other tools**
 
