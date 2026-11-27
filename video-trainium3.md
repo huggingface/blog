@@ -145,7 +145,7 @@ Most of the fixes below are on the device, and that is where most of the effort 
 
 Three issues were never explained: the transformer compiled as one graph returned NaN at one size, the first shot that ends on keyframes was slow in each new process (even with every graph in the cache), and the latent upsampler fails to load next to the transformer, so it stays on the CPU.
 
-Some of this is being fixed upstream. [diffusers#14725](https://github.com/huggingface/diffusers/pull/14725) (still open) brings tensor and context parallelism into one `ParallelConfig`, and a `_tp_plan` for LTX-2.5 is planned, which would make the first workaround above unnecessary.
+Some of this is being fixed upstream. [diffusers#15420](https://github.com/huggingface/diffusers/pull/15420) (open) fixes the LTX-2 pipelines, which would make the second workaround above unnecessary. [diffusers#14725](https://github.com/huggingface/diffusers/pull/14725) (still open) brings tensor and context parallelism into one `ParallelConfig`, and a `_tp_plan` for LTX-2.5 is planned.
 
 ## Lessons learned
 
