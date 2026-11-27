@@ -4,6 +4,7 @@ thumbnail: /blog/assets/video-trainium3/thumbnail.jpg
 authors:
 - user: dacorvo
 - user: Jingya
+- user: sayakpaul
 ---
 
 # Taking Trainium3 to the Track: Generating Videos with LTX-2.5
