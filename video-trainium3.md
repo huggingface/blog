@@ -9,7 +9,7 @@ authors:
 
 # Taking Trainium3 to the Track: Generating Videos with LTX-2.5
 
-Thanks to our partnership with AWS, we were lucky enough to get access to a Trainium3 machine (trn3.48xlarge, 64 NeuronCores) for a month. We spent most of the month testing Hugging Face models on it, and getting more of them to work.
+Thanks to our partnership with AWS, we were lucky enough to get access to a Trainium3 machine ([trn3.48xlarge](https://aws.amazon.com/ec2/instance-types/trn3/), 64 NeuronCores) for a month. We spent most of the month testing Hugging Face models on it, and getting more of them to work.
 
 With five days left, I allowed myself a little fun. When you have a Ferrari, every now and then you want to take it out on the track. So I asked myself: what if I tried to generate videos?
 
