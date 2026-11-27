@@ -5,100 +5,80 @@ authors:
 - user: nielsr
 ---
 
-# Evaluating agents entirely on the Hub: a benchmark run with no machine of your own
+# Evaluating agents on the Hub: a benchmark run with no machine of your own
 
-Agent benchmarks are no longer a prompt and an answer. A task is a container with a project
-in it, sometimes a whole office of running apps, a harness that drives a model through tens of
-tool calls, and a grader that may need a container of its own and an LLM judge. That usually
+Agent benchmarks are no longer a simple prompt and an answer. Nowadays, each task on which an agent is evaluated is a [container](https://www.docker.com/resources/what-container/) with a project
+in it, sometimes a whole suite of running apps, a [harness](https://en.wikipedia.org/wiki/Agent_harness) that drives a model through tens or hundreds of
+tool calls, and a grader that may need a container of its own and an [LLM judge](https://en.wikipedia.org/wiki/LLM-as-a-Judge). That usually
 means a workstation with Docker, a few API keys, and a laptop that has to stay awake for a day.
 
-We ran a full agent benchmark, [Physical-Engineering's Last Exam
-(PLE)](https://huggingface.co/datasets/google/physical-engineerings-last-exam), with two
-unmodified agent harnesses, and every piece ran on the Hugging Face Hub: the tasks, the
-model, the sandboxes, the container images, the judge's network path, the orchestrator and
-the results. This post explains how, what broke on the way, and what the numbers say.
+We ran 2 full agent evaluations of [GLM-5.3-Flash](https://huggingface.co/zai-org/GLM-5.3-Flash) on Google's [Physical-Engineering's Last Exam
+(PLE)](https://huggingface.co/datasets/google/physical-engineerings-last-exam) entirely on the Hugging Face Hub.
+
+This post explains how, what broke on the way, and what the numbers say. PLE is one of the natively supported [benchmarks](https://huggingface.co/datasets?benchmark=benchmark:official&sort=trending) on the hub (learn more about this new feature [here](https://huggingface.co/docs/hub/eval-results)).
 
 If you're designing an evaluation of your own (choosing the claim, checking the verifier,
 reporting uncertainty, deciding what to open), start with
-[How to build and maintain an agentic evaluation](https://huggingface.co/blog/agentic-evals). This post is the other half: running
-a large, hard and private benchmark at scale on the Hub, with harnesses that weren't built for
-it.
+[How to build and maintain an agentic evaluation](https://huggingface.co/blog/agentic-evals).
+This post is the other half: running a large, hard and private benchmark at scale on the Hub,
+with harnesses that weren't built for it.
 
 ## In short
 
-- **Everything on the Hub.** Benchmark tasks are a gated dataset, the model is served by
-  [Inference Providers](https://huggingface.co/docs/inference-providers), every task runs in
-  its own [HF Jobs](https://huggingface.co/docs/hub/jobs-overview) sandbox, the
-  [Harbor](https://github.com/laude-institute/harbor) orchestrator runs in a CPU Job, complex
-  task images live in the Hub's container registry, and each finished trial is pushed to a
-  private dataset as a [session trace](https://huggingface.co/docs/hub/en/session-traces-format).
-  Close the laptop after `launch_job.sh`.
-- **Harness adapters, the infrastructure kind.** The harnesses (Harbor's `terminus-2` and
-  OpenAI's `codex`) run unmodified. Three thin adapters connect them to the Hub: an
-  *environment* adapter (Harbor ↔ HF Jobs sandboxes, with network policies enforced by
-  Landlock), an *image* adapter (multi-stage task images built with kaniko in a Job and
-  materialized inside the sandbox), and a *model* adapter (a loopback relay that lets an
-  in-sandbox agent reach Inference Providers without ever seeing a token).
-- **All 29 PLE dev tasks, 3 attempts each, with both harnesses**, including the 12 "world"
-  tasks that run OpenProject, Nextcloud, Wiki.js, databases and a dozen MCP servers inside the
-  sandbox.
-- **About $50–60 per full run.** All 29 tasks × 3 attempts cost about $47–60 per harness,
-  almost all of it inference; sandboxes add about two dollars. Building the 12 world images
-  cost $22 once.
-- **The harness matters as much as anything.** `zai-org/GLM-5.3-Flash` scores **0.273** with
-  terminus-2 and **0.152** with codex on the same tasks, same model, same judge.
+- **Everything on the Hub.** The tasks of the benchmark are available as a [gated dataset](https://huggingface.co/datasets/google/physical-engineerings-last-exam). GLM-5.3-Flash is accessed via [Inference Providers](https://huggingface.co/docs/inference-providers). As for evaluation framework, [Harbor](https://www.harborframework.com/) is leveraged, which is run inside [HF Jobs](https://huggingface.co/docs/hub/jobs-overview) sandboxes, which is serverless compute (CPU and GPU). Each task of the PLE benchmark comes with a Docker image. Complex images are stored in the Hub's [container registry](https://huggingface.co/docs/hub/en/container-images). Finally, each finished trial is pushed to a private dataset as a [session trace](https://huggingface.co/docs/hub/en/session-traces-format).
+  As everything runs on the hub, you can close your laptop after running the `launch_job.sh` script.
+- **Harness adapters, the infrastructure kind.** We evaluated GLM-5.3-Flash using 2 harnesses (Harbor's `terminus-2` and
+  OpenAI's `codex`). Three thin adapters were build to connect them seamlessly to the Hub: an *environment* adapter (Harbor ↔ HF Jobs sandboxes), an *image* adapter (multi-stage task images), and a *model* adapter (a loopback relay that lets an in-sandbox agent reach Inference Providers without ever seeing a token). These are explained in detail below.
+- **About $50–60 per full run.** PLE consists of 29 tasks, and the agent gets 3 attempts (trials) for each. This costs about $47–60 per harness,
+  almost all of it inference; sandboxes add about two dollars.
+- **The harness matters as much as anything.** GLM-5.3-Flash scores **0.273** with
+  terminus-2 and **0.152** with codex on the same tasks, same model, same judge. See also the
+  [Harness Leaderboard](https://huggingface.co/spaces/joelniklaus/harness-leaderboard) which
+  compares the performance of various agent harnesses on the same benchmarks.
 
 ## Why run evaluations on the Hub
-
-A note on terms: we follow Harbor and call one attempt of an agent at a task a *trial* (a
-*rollout* in [the evaluation guide](https://huggingface.co/blog/agentic-evals)); its trace is Harbor's ATIF trajectory, and an
-*attempt count* of 3 means three trials per task.
 
 Three things are hard about agent evals, and the Hub already has an answer for each:
 
 | Problem | Usual setup | On the Hub |
 |---|---|---|
 | Where the task runs | Docker on a workstation, or a sandbox vendor account | HF Jobs sandboxes, sized per task, billed to your org |
-| Where the model runs | One API key per provider | Inference Providers: one token, `X-HF-Bill-To` for the org |
+| Where the model runs | One API key per provider | Inference Providers: access to a wide variety of models, [billed to your org](https://huggingface.co/docs/inference-providers/main/en/pricing#billing-for-team-and-enterprise-organizations) |
 | Where the results go | A local `jobs/` folder | A private dataset: one trace per trial, live, browsable |
 
 The fourth piece is the benchmark itself. PLE is published as Harbor task folders in a gated
-dataset, with an `eval.yaml` that ties it to a leaderboard. Its terms forbid redistributing
-the tasks, so everything that contains task content (traces, run archives, images) stays
-private in the evaluating org. That's the protected column of the release-strategy table in
+dataset. Its terms forbid redistributing the tasks, so everything that contains task content (agent traces, run archives, images)
+stays private in the evaluating org. That's the protected column of the release-strategy table in
 [the evaluation guide](https://huggingface.co/blog/agentic-evals): with a gated benchmark you can still open the method, the code and
 the scores, but the traces stay with the people who agreed to the terms.
 
 ## The stack
+
+The figure below summarizes the overall architecture:
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://huggingface.co/buckets/nielsr/hub-agent-evals-blog-figures/resolve/hub-eval-stack-dark.png">
   <img src="https://huggingface.co/buckets/nielsr/hub-agent-evals-blog-figures/resolve/hub-eval-stack-light.png" alt="The stack: a laptop launches a CPU Job running Harbor; it reads tasks from the gated dataset, calls Inference Providers (terminus-2), drives agent and grader sandboxes on HF Jobs, and pushes traces and results to a private dataset. World images come from the container registry; codex reaches the model through a relay inside the agent sandbox; graders reach only the LLM judge." width="100%">
 </picture>
 
-The launcher ships the committed code to the job as an archive. Harbor runs there, creates a
-sandbox per trial through the environment adapter, and a small watcher pushes each finished
-trial's trace and an updated per-task results file to the dataset while the run continues.
-Progress lines (`TRIAL … reward=…`, `ALERT …`) show up in the job logs, so a run can be
-followed from a phone.
+The launcher can be ran like so:
 
 ```bash
 export HF_BILL_TO=<your-org> TRACES_REPO=<your-org>/<private-dataset>
 AGENT=codex TASKS=<task ids> N_ATTEMPTS=3 N_CONCURRENT=29 scripts/launch_job.sh
 ```
 
+Some explanation here: the launcher script commits the code to a CPU job as an archive. Harbor, the evaluation framework, runs there, and creates a
+sandbox per trial (remember that PLE consists of 29 tasks with 3 trials per task as also seen by the environment variables above). A small watcher pushes each finished trial's [trace](https://huggingface.co/docs/hub/en/agent-traces) and an updated per-task results file to a private HF dataset while the run continues. Progress lines (`TRIAL … reward=…`, `ALERT …`) show up in the job logs, so a run can even be followed from a phone. The `HF_BILL_TO` environment variable sets the Hugging Face org to which you can to set up the billing. The script is run for a given agent harness (above we set this to "codex" via the `AGENT` environment variable).
+
 A run that partly failed doesn't have to be repeated: a regrade job takes the run archive
 from the dataset and re-runs only the graders of the trials whose grading failed.
 
 ## Adapter 1: Harbor environments on HF Jobs sandboxes
 
-`huggingface_hub` ships a `Sandbox`: a Job running a small exec and file server, created in
-seconds from any public image. Recent Harbor releases include a built-in environment on top of
-it (`-e hf-sandbox`), which is what [the evaluation guide](https://huggingface.co/blog/agentic-evals) uses, and it is the simplest
-way to run tasks with a prebuilt image and open network. PLE needs two things it doesn't have:
-network policies (agents with no network, graders that may reach only the judge) and images
-that have to be built from multi-stage Dockerfiles. So we wrote our own environment for Harbor
-0.20, which implements Harbor's environment interface on the same `Sandbox`:
+Hugging Face provides a [Sandbox](https://huggingface.co/docs/huggingface_hub/en/guides/sandbox): a Job running a small exec and file server, created in
+seconds from any public image. Recent Harbor releases include a built-in environment on top of it (`-e hf-sandbox`), which is what [the evaluation guide](https://huggingface.co/blog/agentic-evals) uses, and it is the simplest way to run tasks with a prebuilt image and open network. PLE needs two things it doesn't have:
+network policies (agents with no network, graders that may reach only the judge) and images that have to be built from multi-stage Dockerfiles. To deal with these, we wrote our own environment for Harbor 0.20, which implements Harbor's environment interface on the same `Sandbox`:
 
 - **Sizing.** Each task declares CPUs and memory; the adapter picks the cheapest CPU flavor
   that covers them (most PLE tasks fit `cpu-basic` or `cpu-upgrade`).
