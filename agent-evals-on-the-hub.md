@@ -161,8 +161,8 @@ The score is a mean over the 29 dev tasks of each task's mean reward over 3 atte
 | terminus-2 (150-turn cap) | **0.273** | 0.333 | 0.230 |
 | Codex 0.162.1 (reasoning `high`, 6 h limit) | **0.152** | 0.214 | 0.108 |
 
-<img class="block dark:hidden" src="https://huggingface.co/buckets/nielsr/hub-agent-evals-blog-figures/resolve/ple-per-task-by-harness-light.png" alt="Per-task reward of GLM-5.3-Flash on the 29 PLE dev tasks with terminus-2 and with Codex, mean of 3 attempts, in two panels: 12 world tasks and 17 other tasks. terminus-2 is higher on 24 tasks, Codex on 3, and 2 are tied at zero." width="100%">
-<img class="hidden dark:block" src="https://huggingface.co/buckets/nielsr/hub-agent-evals-blog-figures/resolve/ple-per-task-by-harness-dark.png" alt="Per-task reward of GLM-5.3-Flash on the 29 PLE dev tasks with terminus-2 and with Codex, mean of 3 attempts, in two panels: 12 world tasks and 17 other tasks. terminus-2 is higher on 24 tasks, Codex on 3, and 2 are tied at zero." width="100%">
+<img class="block dark:hidden" src="https://huggingface.co/buckets/nielsr/hub-agent-evals-blog-figures/resolve/ple-per-task-by-harness-hf-light.png" alt="Per-task reward of GLM-5.3-Flash on the 29 PLE dev tasks with terminus-2 and with Codex, mean of 3 attempts, in two panels: 12 world tasks and 17 other tasks. terminus-2 is higher on 24 tasks, Codex on 3, and 2 are tied at zero." width="100%">
+<img class="hidden dark:block" src="https://huggingface.co/buckets/nielsr/hub-agent-evals-blog-figures/resolve/ple-per-task-by-harness-hf-dark.png" alt="Per-task reward of GLM-5.3-Flash on the 29 PLE dev tasks with terminus-2 and with Codex, mean of 3 attempts, in two panels: 12 world tasks and 17 other tasks. terminus-2 is higher on 24 tasks, Codex on 3, and 2 are tied at zero." width="100%">
 
 A few things stand out:
 
