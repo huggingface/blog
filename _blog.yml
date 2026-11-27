@@ -6079,3 +6079,12 @@
     - diffusers
     - video
     - text-to-video
+
+- local: agent-evals-on-the-hub
+  date: November 28, 2026
+  tags:
+    - agents
+    - evaluation
+    - benchmark
+    - inference
+    - open-source
