@@ -25,7 +25,7 @@ with harnesses that weren't built for it.
 
 ## In short
 
-- **Everything on the Hub.** The tasks of the benchmark are available as a [gated dataset](https://huggingface.co/datasets/google/physical-engineerings-last-exam). GLM-5.3-Flash is accessed via [Inference Providers](https://huggingface.co/docs/inference-providers). As for evaluation framework, [Harbor](https://www.harborframework.com/) is leveraged, which is run inside [HF Jobs](https://huggingface.co/docs/hub/jobs-overview) sandboxes, which is serverless compute (CPU and GPU). Each task of the PLE benchmark comes with a Docker image. Complex images are stored in the Hub's [container registry](https://huggingface.co/docs/hub/en/container-images). Finally, each finished trial is pushed to a private dataset as a [session trace](https://huggingface.co/docs/hub/en/session-traces-format).
+- **Everything on the Hub.** The tasks of the benchmark are available as a [gated dataset](https://huggingface.co/datasets/google/physical-engineerings-last-exam). GLM-5.3-Flash is accessed via [Inference Providers](https://huggingface.co/docs/inference-providers). As for evaluation framework, [Harbor](https://www.harborframework.com/) is leveraged, which is run inside [HF Jobs](https://huggingface.co/docs/hub/jobs-overview) sandboxes, which is serverless compute (CPU and GPU). Each task of the PLE benchmark comes with a Docker image. Complex images are stored in the Hub's [container registry](https://huggingface.co/docs/hub/en/container-images) (currently limited to Hugging Face staff). Finally, each finished trial is pushed to a private dataset as a [session trace](https://huggingface.co/docs/hub/en/session-traces-format).
   As everything runs on the hub, you can close your laptop after running the `launch_job.sh` script.
 - **Harness adapters, the infrastructure kind.** We evaluated GLM-5.3-Flash using 2 harnesses (Harbor's `terminus-2` and
   OpenAI's `codex`). Three thin adapters were build to connect them seamlessly to the Hub: an *environment* adapter (Harbor ↔ HF Jobs sandboxes), an *image* adapter (multi-stage task images), and a *model* adapter (a loopback relay that lets an in-sandbox agent reach Inference Providers without ever seeing a token). These are explained in detail below.
@@ -102,6 +102,23 @@ Landlock filters by port, not by address, and doesn't cover UDP. For tasks with 
 all that's exact; for tasks with local services (below) it's a port allowlist, which we report
 as a caveat.
 
+**Platform network policies.** `huggingface_hub` 2.5.0 added network policies to sandboxes
+(`network="none"` or `{"allow": [...]}`, enforced by the sandbox server). We tested them against
+our setups. For processes running as root they work exactly as advertised: with
+`{"allow": ["127.0.0.1"]}`, outside TCP, UDP and DNS are blocked while loopback works, and a
+grader with `{"allow": ["api.anthropic.com"]}` reaches only the judge. That also closes the port
+and UDP gaps above. Three cases don't fit PLE yet, all under an allowlist:
+
+- processes running as another user can't connect at all, not even to `127.0.0.1`, and neither
+  can non-dumpable ones;
+- processes that outlive the command that started them (`nohup … &`, service scripts) get
+  `ENOSYS` on every connect;
+- the policy is fixed when the sandbox is created, while our setup steps need the network.
+
+World tasks run their agent and apps as non-root users and start the apps from a script, so we
+keep Landlock for now. Graders and root agents running from fully prebuilt images could switch
+to the platform policy.
+
 ## Adapter 2: task images that a Space can't build
 
 Twelve PLE tasks are *worlds*: a 14-stage Dockerfile with FreeCAD, LibreOffice, MySQL,
@@ -111,7 +128,11 @@ dozen MCP servers, started by a health check. Up to 12 GB of RAM at runtime, ~8 
 - **Build.** A Docker Space builder ran out of memory at OpenProject's asset precompile on
   every hardware tier. [kaniko](https://github.com/GoogleContainerTools/kaniko) in a
   `cpu-performance` Job (32 vCPU / 256 GB) builds them in 36–86 minutes each and pushes to a
-  private repo in the Hub's container registry. All 12 images were built in parallel.
+  private repo in the Hub's container registry. All 12 images were built in parallel. The
+  registry (`cr.hf.co`) is currently limited to Hugging Face staff. Outside HF, the same images
+  can go to any registry a Job can pull from, which today means a public one, since Jobs take no
+  registry credentials. That doesn't work for a benchmark whose images contain gated data, so
+  for now PLE's world tasks run this way only inside Hugging Face.
 - **Run.** Jobs pull public images, but a sandbox can't be given credentials for a private
   one. Kaniko's single-snapshot builds are "the public base image + a few build layers", so
   the image adapter starts the sandbox from the public base and streams the build layers into
@@ -237,6 +258,9 @@ earlier.
 - **Network isolation is weaker for world tasks.** Landlock filters by port, not by address,
   so a process in a world task could reach any internet host on one of the ~40 allowed app
   ports (never 80 or 443). UDP isn't blocked in any task.
+- **World tasks depend on a staff-only registry.** Their images live in the Hub's container
+  registry, which is currently limited to Hugging Face staff, so outside HF this part of the
+  setup can't be reproduced as is (see adapter 2).
 - **Images are rebuilt on today's base.** World images are layered onto the current public
   `python:3.13-slim-trixie`; if that tag moves, the base under the build layers changes.
 - **Re-runs and exclusions.** Trials that failed because of our harness, not the agent, were
@@ -275,17 +299,19 @@ than a log that scrolled away, and a partial failure is a regrade rather than a 
 
 Each adapter exists because of one missing feature. In order of impact:
 
-- **Pull private registry images in Jobs.** A Job in the org that owns a private `cr.hf.co`
-  image can't pull it today (`pull access denied`), and Jobs take no registry credentials.
-  Supporting that removes adapter 2's layer streaming, its 3–7 minutes per sandbox, and the
-  stream failures we hit under load.
+- **Container images as a product, with private pulls in Jobs.** The container registry is
+  still staff-only, and even there a Job in the org that owns a private `cr.hf.co` image can't
+  pull it (`pull access denied`); Jobs take no registry credentials either. Private pulls would
+  remove adapter 2's layer streaming, its 3–7 minutes per sandbox, and the stream failures we
+  hit under load.
 - **Larger request bodies on the router's Responses endpoint.** `/v1/responses` rejects bodies
   over about 100 KB, while `/v1/chat/completions` accepts megabytes. With that limit raised, and
   codex's `namespace` tools accepted, codex could call the router directly and adapter 3's
   translation goes away.
-- **Network policies on sandboxes.** A `network="none"` or `allowlist=[...]` option, enforced
-  outside the container, would replace the Landlock wrapper and the CONNECT proxy, and close the
-  port-based and UDP gaps above.
+- **Network policies for multi-service sandboxes.** Policies shipped in `huggingface_hub` 2.5.0
+  (see adapter 1). To replace the Landlock wrapper and the CONNECT proxy for every PLE task,
+  they also need to cover processes running as other users and processes that outlive their
+  command, and a way to tighten the policy after setup.
 - **Detached commands that survive disconnects.** Start a process, read its output from an
   offset, get its exit code later. We built this from files and polling after cut streams
   killed 8 of 87 codex trials.
@@ -355,7 +381,9 @@ environment class.
 - [Inference Providers](https://huggingface.co/docs/inference-providers)
 - [Session Trace format](https://huggingface.co/docs/hub/en/session-traces-format) for the
   per-trial traces
-- The Hub's container registry (`cr.hf.co`) for the world-task images
+- The Hub's container registry (`cr.hf.co`, currently staff-only) for the world-task images
+- `huggingface_hub` 2.5.0 [sandbox network policies](https://huggingface.co/docs/huggingface_hub/main/en/guides/sandbox#sandboxes-without-internet-access),
+  tested as described in adapter 1
 
 **Other tools**
 
