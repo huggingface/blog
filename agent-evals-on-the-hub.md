@@ -27,12 +27,12 @@ with harnesses that weren't built for it.
 
 - **Everything on the Hub.** The tasks of the benchmark are available as a [gated dataset](https://huggingface.co/datasets/google/physical-engineerings-last-exam). GLM-5.3-Flash is accessed via [Inference Providers](https://huggingface.co/docs/inference-providers). As for evaluation framework, [Harbor](https://www.harborframework.com/) is leveraged, which is run inside [HF Jobs](https://huggingface.co/docs/hub/jobs-overview) sandboxes, which is serverless compute (CPU and GPU). Each task of the PLE benchmark comes with a Docker image. Complex images are stored in the Hub's [container registry](https://huggingface.co/docs/hub/en/container-images) (currently limited to Hugging Face staff). Finally, each finished trial is pushed to a private dataset as a [session trace](https://huggingface.co/docs/hub/en/session-traces-format).
   As everything runs on the hub, you can close your laptop after running the `launch_job.sh` script.
-- **Harness adapters, the infrastructure kind.** We evaluated GLM-5.3-Flash using 2 harnesses (Harbor's `terminus-2` and
-  OpenAI's `codex`). Three thin adapters were build to connect them seamlessly to the Hub: an *environment* adapter (Harbor ↔ HF Jobs sandboxes), an *image* adapter (multi-stage task images), and a *model* adapter (a loopback relay that lets an in-sandbox agent reach Inference Providers without ever seeing a token). These are explained in detail below.
+- **Harness adapters, the infrastructure kind.** We evaluated GLM-5.3-Flash using 2 harnesses (Harbor's [Terminus-2](https://github.com/harbor-framework/terminal-bench-1/tree/main/terminal_bench/agents/terminus_2) and
+  OpenAI's [Codex](https://github.com/openai/Codex)). Three thin adapters were build to connect them seamlessly to the Hub: an *environment* adapter (Harbor ↔ HF Jobs sandboxes), an *image* adapter (multi-stage task images), and a *model* adapter (a loopback relay that lets an in-sandbox agent reach Inference Providers without ever seeing a token). These are explained in detail below.
 - **About $50–60 per full run.** PLE consists of 29 tasks, and the agent gets 3 attempts (trials) for each. This costs about $47–60 per harness,
   almost all of it inference; sandboxes add about two dollars.
 - **The harness matters as much as anything.** GLM-5.3-Flash scores **0.273** with
-  terminus-2 and **0.152** with codex on the same tasks, same model, same judge. See also the
+  terminus-2 and **0.152** with Codex on the same tasks, same model, same judge. See also the
   [Harness Leaderboard](https://huggingface.co/spaces/joelniklaus/harness-leaderboard) which
   compares the performance of various agent harnesses on the same benchmarks.
 
@@ -58,18 +58,18 @@ The figure below summarizes the overall architecture:
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://huggingface.co/buckets/nielsr/hub-agent-evals-blog-figures/resolve/hub-eval-stack-dark.png">
-  <img src="https://huggingface.co/buckets/nielsr/hub-agent-evals-blog-figures/resolve/hub-eval-stack-light.png" alt="The stack: a laptop launches a CPU Job running Harbor; it reads tasks from the gated dataset, calls Inference Providers (terminus-2), drives agent and grader sandboxes on HF Jobs, and pushes traces and results to a private dataset. World images come from the container registry; codex reaches the model through a relay inside the agent sandbox; graders reach only the LLM judge." width="100%">
+  <img src="https://huggingface.co/buckets/nielsr/hub-agent-evals-blog-figures/resolve/hub-eval-stack-light.png" alt="The stack: a laptop launches a CPU Job running Harbor; it reads tasks from the gated dataset, calls Inference Providers (terminus-2), drives agent and grader sandboxes on HF Jobs, and pushes traces and results to a private dataset. World images come from the container registry; Codex reaches the model through a relay inside the agent sandbox; graders reach only the LLM judge." width="100%">
 </picture>
 
 The launcher can be ran like so:
 
 ```bash
 export HF_BILL_TO=<your-org> TRACES_REPO=<your-org>/<private-dataset>
-AGENT=codex TASKS=<task ids> N_ATTEMPTS=3 N_CONCURRENT=29 scripts/launch_job.sh
+AGENT=Codex TASKS=<task ids> N_ATTEMPTS=3 N_CONCURRENT=29 scripts/launch_job.sh
 ```
 
 Some explanation here: the launcher script commits the code to a CPU job as an archive. Harbor, the evaluation framework, runs there, and creates a
-sandbox per trial (remember that PLE consists of 29 tasks with 3 trials per task as also seen by the environment variables above). A small watcher pushes each finished trial's [trace](https://huggingface.co/docs/hub/en/agent-traces) and an updated per-task results file to a private HF dataset while the run continues. Progress lines (`TRIAL … reward=…`, `ALERT …`) show up in the job logs, so a run can even be followed from a phone. The `HF_BILL_TO` environment variable sets the Hugging Face org to which you can to set up the billing. The script is run for a given agent harness (above we set this to "codex" via the `AGENT` environment variable).
+sandbox per trial (remember that PLE consists of 29 tasks with 3 trials per task as also seen by the environment variables above). A small watcher pushes each finished trial's [trace](https://huggingface.co/docs/hub/en/agent-traces) and an updated per-task results file to a private HF dataset while the run continues. Progress lines (`TRIAL … reward=…`, `ALERT …`) show up in the job logs, so a run can even be followed from a phone. The `HF_BILL_TO` environment variable sets the Hugging Face org to which you can to set up the billing. The script is run for a given agent harness (above we set this to "Codex" via the `AGENT` environment variable).
 
 A run that partly failed doesn't have to be repeated: a regrade job takes the run archive
 from the dataset and re-runs only the graders of the trials whose grading failed.
@@ -77,7 +77,7 @@ from the dataset and re-runs only the graders of the trials whose grading failed
 ## Adapter 1: Harbor environments on HF Jobs sandboxes
 
 Hugging Face provides a [Sandbox](https://huggingface.co/docs/huggingface_hub/en/guides/sandbox):
-a Job running a small exec and file server, created in seconds from any public image. Harbor's
+an isolated environment in which agents can run. It's powered by [Jobs](https://huggingface.co/docs/hub/jobs-overview) and runs a small [exec](https://en.wikipedia.org/wiki/Exec_(system_call)) and file server, created in seconds from any public image. Harbor's
 built-in `hf-sandbox` environment runs on top of it, and it is what
 [the evaluation guide](https://huggingface.co/blog/agentic-evals) uses. PLE asks for a bit more:
 network rules that change between phases (setup with network, an agent without it, a grader that
@@ -94,10 +94,10 @@ environment for Harbor 0.20 on the same `Sandbox` API:
   [Landlock](https://docs.kernel.org/userspace-api/landlock.html) ruleset that denies outbound
   TCP, inherited by every child and irreversible, even for root. For an allowlist, a small
   CONNECT proxy started before confinement forwards only to the allowed hosts, which is how PLE's
-  judge-graded verifiers reach exactly one host. `huggingface_hub` 2.5.0 has since added network
+  judge-graded verifiers reach exactly one host. `huggingface_hub` [2.5.0](https://github.com/huggingface/huggingface_hub/releases/tag/v2.5.0) has since added network
   policies to sandboxes, which fit graders and agents running from prebuilt images directly; we
   kept Landlock for the multi-service world tasks.
-- **Long commands.** Agents like codex run as one command that lasts hours, so commands that may
+- **Long commands.** Agents like Codex run as one command that lasts hours, so commands that may
   run longer than a few minutes are started detached and polled with short requests.
 
 ## Adapter 2: task images that a Space can't build
@@ -127,11 +127,10 @@ dozen MCP servers, started by a health check. Up to 12 GB of RAM at runtime, ~8 
 
 ## Adapter 3: models from inside the sandbox
 
-terminus-2 calls the model from the orchestrator and only sends keystrokes into the sandbox,
-so the sandbox never needs network. codex, like most coding agents, runs *inside* the sandbox
-and calls the model API itself. That's how the PLE leaderboard runs it, so a leaderboard-style
-run needs a model path out of an otherwise sealed sandbox, without handing the agent a
-credential.
+We evaluate GLM-5.3-Flash on 2 harnesses: Terminus-2 and Codex. Terminus-2 calls the model from the orchestrator
+and only sends keystrokes into the sandbox, so the sandbox never needs network. Codex, like most coding agents,
+runs *inside* the sandbox and calls the model API itself. That's how the PLE leaderboard runs it, so a leaderboard-style
+run needs a model path out of an otherwise sealed sandbox, without handing the agent a credential.
 
 The model adapter is a ~350-line, standard-library-only relay that starts on `127.0.0.1`
 before confinement:
@@ -140,44 +139,43 @@ before confinement:
   itself non-dumpable, and lives outside the agent's Landlock domain; even root in the sandbox
   gets `EACCES` on its memory and environment. The agent gets a dummy key, and its only route
   out is the relay's port, which forwards only `/v1/*` to the router and pins the model id.
-- **Protocol translation.** codex speaks the OpenAI Responses API and resends the whole
+- **Protocol translation.** Codex speaks the OpenAI Responses API and resends the whole
   conversation every turn. The router's Responses endpoint caps request bodies at about
   100 KB, which a real task exceeds within a few turns, while its Chat Completions endpoint
   accepts megabytes. The relay therefore serves Responses on top of Chat Completions,
   streaming in both directions: messages, tool calls and outputs, images, reasoning effort,
   usage with cached tokens.
-- **What codex expects.** codex groups MCP servers and its sub-agent tools into `namespace`
+- **What Codex expects.** Codex groups MCP servers and its sub-agent tools into `namespace`
   tools, which Chat Completions doesn't have; the relay flattens them and maps calls back. It
-  also registers the relay as a custom provider so codex compacts long contexts locally
+  also registers the relay as a custom provider so Codex compacts long contexts locally
   instead of asking for OpenAI-only server-side compaction.
 
-codex itself (the leaderboard's version, 0.162.1) is installed while the sandbox still has
+Codex itself (the leaderboard's version, 0.162.1) is installed while the sandbox still has
 network, before confinement, in a private Node.js so the world's own apps keep theirs.
 
 ## Results on PLE
 
-Model: [`zai-org/GLM-5.3-Flash`](https://huggingface.co/zai-org/GLM-5.3-Flash) via Inference
-Providers. Judge for rubric and checks-judge tasks: Claude Opus 5.5, as in PLE's own setup.
-Score: mean over the 29 dev tasks of each task's mean reward over 3 attempts.
+Below, you can find the results of GLM-5.3-Flash with both harnesses. Claude Opus-5.5 was leveraged as a judge for rubric and checks-judge tasks, as in PLE's own setup.
+The score is a mean over the 29 dev tasks of each task's mean reward over 3 attempts.
 
 | Harness | All 29 tasks | 12 world tasks | 17 other tasks |
 |---|---|---|---|
 | terminus-2 (150-turn cap) | **0.273** | 0.333 | 0.230 |
-| codex 0.162.1 (reasoning `high`, 6 h limit) | **0.152** | 0.214 | 0.108 |
+| Codex 0.162.1 (reasoning `high`, 6 h limit) | **0.152** | 0.214 | 0.108 |
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://huggingface.co/buckets/nielsr/hub-agent-evals-blog-figures/resolve/ple-per-task-by-harness-dark.png">
-  <img src="https://huggingface.co/buckets/nielsr/hub-agent-evals-blog-figures/resolve/ple-per-task-by-harness-light.png" alt="Per-task reward of GLM-5.3-Flash on the 29 PLE dev tasks with terminus-2 and with codex, mean of 3 attempts, in two panels: 12 world tasks and 17 other tasks. terminus-2 is higher on 24 tasks, codex on 3, and 2 are tied at zero." width="100%">
+  <img src="https://huggingface.co/buckets/nielsr/hub-agent-evals-blog-figures/resolve/ple-per-task-by-harness-light.png" alt="Per-task reward of GLM-5.3-Flash on the 29 PLE dev tasks with terminus-2 and with Codex, mean of 3 attempts, in two panels: 12 world tasks and 17 other tasks. terminus-2 is higher on 24 tasks, Codex on 3, and 2 are tied at zero." width="100%">
 </picture>
 
 A few things stand out:
 
 - **The harness is a first-class variable.** Same model, same tasks, same judge: terminus-2
-  beats codex on 24 of 29 tasks (codex wins 3, 2 are tied at zero), and the gap holds when the
+  beats Codex on 24 of 29 tasks (Codex wins 3, 2 are tied at zero), and the gap holds when the
   task set is resampled. The PLE
   leaderboard shows the same effect across models; for some open models, the best and worst
   harness differ by a factor of four.
-- **Short sessions.** GLM-5.3-Flash under codex works for a median of 4.4 minutes per task and
+- **Short sessions.** GLM-5.3-Flash under Codex works for a median of 4.4 minutes per task and
   then writes a completion summary, rather than running out of time. Under terminus-2 the
   median is about 15 minutes on the world tasks.
 - **Worlds are not the hardest part.** Both harnesses score higher on the world tasks than on
@@ -196,7 +194,7 @@ through Inference Providers, the judge per token on its own API. The table cover
 that went into the two scores, including the ones that failed and were re-run; it leaves out
 development probes and smoke tests.
 
-| | terminus-2 (29 tasks × 3) | codex (29 tasks × 3) |
+| | terminus-2 (29 tasks × 3) | Codex (29 tasks × 3) |
 |---|---|---|
 | Model: GLM-5.3-Flash via Inference Providers | $43–52 | $41–43 |
 | Sandboxes: `cpu-basic` / `cpu-upgrade` | $1.93 (76 sandbox-hours) | $0.73 (31 sandbox-hours) |
@@ -212,7 +210,7 @@ Shared, one-time: building the 12 world images took 13 kaniko jobs, 11.7 hours o
 Some notes on the numbers:
 
 - **Inference dominates, and caching makes it cheap.** Agents resend their whole context
-  every turn: terminus-2 read 895M input tokens and codex 1.23B, but 96% and 99% of them were
+  every turn: terminus-2 read 895M input tokens and Codex 1.23B, but 96% and 99% of them were
   cache hits. The ranges come from the router's own per-token prices, which varied between
   calls in our measurements ($0.15–0.225 per million uncached input tokens, about $0.03 cached,
   $0.50–0.75 output).
@@ -220,21 +218,21 @@ Some notes on the numbers:
   parallel, each with its own grader sandbox, add up to about two dollars.
 - **The judge is an estimate.** The graders don't record token usage, so we estimated it from
   the size of what each rubric call reads (Opus 5.5 at $4 / $20 per million tokens).
-- **Wall clock.** 29 tasks × 3 attempts with codex, 29 at a time, took 98 minutes; the
+- **Wall clock.** 29 tasks × 3 attempts with Codex, 29 at a time, took 98 minutes; the
   12 world tasks × 3 with terminus-2, 12 at a time, took about 2 hours. The 6-hour task limit
   was never close.
 
-For scale, the PLE leaderboard lists about $14 per task for GLM 5.2 with codex at list prices;
+For scale, the PLE leaderboard lists about $14 per task for GLM 5.2 with Codex at list prices;
 GLM-5.3-Flash is a smaller, much cheaper model, and with this harness it also stops much
 earlier.
 
 ## Limitations
 
 - **Not leaderboard submissions.** terminus-2 isn't one of the leaderboard's harnesses, and it
-  ran with a 150-turn cap. codex ran with reasoning effort `high` (the highest the router
+  ran with a 150-turn cap. Codex ran with reasoning effort `high` (the highest the router
   accepts) rather than `max`, with web search disabled, and through the relay's
   Responses-to-Chat translation, which does not send the model's reasoning back to it between
-  turns. codex also has no built-in settings for GLM-5.3-Flash, so it used fallback values,
+  turns. Codex also has no built-in settings for GLM-5.3-Flash, so it used fallback values,
   including a context window smaller than the model's, which makes it compact earlier.
 - **Network isolation is weaker for world tasks.** Landlock filters by port, not by address,
   so a process in a world task could reach any internet host on one of the ~40 allowed app
@@ -246,10 +244,10 @@ earlier.
   `python:3.13-slim-trixie`; if that tag moves, the base under the build layers changes.
 - **Re-runs and exclusions.** Trials that failed because of our harness, not the agent, were
   re-run with the same attempt count: 7 in the terminus-2 runs (6 hit a port gap in two world
-  images, 1 lost its terminal), 10 in the codex run (cut exec streams, remote compaction).
+  images, 1 lost its terminal), 10 in the Codex run (cut exec streams, remote compaction).
   Graders alone (agents not repeated) were re-run for the first terminus-2 run, after a
-  working-directory bug in our backend, and for two codex trials (a DNS failure, a timeout).
-  One codex trial that crashed but was still graded 0.0 was excluded in favour of its re-run.
+  working-directory bug in our backend, and for two Codex trials (a DNS failure, a timeout).
+  One Codex trial that crashed but was still graded 0.0 was excluded in favour of its re-run.
 - **Three attempts per task.** Attempts of the same task vary a lot (0.14 to 0.61 in one
   case). The 29-task means are stable to about ±0.015 over attempts, but a different set of
   tasks could move them by ±0.08.
@@ -269,8 +267,8 @@ Most of the work was not the happy path. In case you're building something simil
 | world never becomes healthy | apps talk to each other on ports we hadn't allowed | probe each image's listening ports |
 | `413 Payload Too Large` | Responses endpoint caps bodies at ~100 KB | serve Responses over Chat Completions |
 | `RemoteProtocolError` after hours | one exec stream for a 2-hour command | detached commands, short polls |
-| codex sees no MCP tools | `namespace` tool type dropped | flatten and map back |
-| "remote compaction v2" errors | codex treats the relay as OpenAI | register it as a custom provider |
+| Codex sees no MCP tools | `namespace` tool type dropped | flatten and map back |
+| "remote compaction v2" errors | Codex treats the relay as OpenAI | register it as a custom provider |
 
 Each of these turned into a failed trial first. Because every trial's trace and the run
 archive land in the dataset as soon as they exist, a failure is an archive to read rather
@@ -287,7 +285,7 @@ Each adapter exists because of one missing feature. In order of impact:
   hit under load.
 - **Larger request bodies on the router's Responses endpoint.** `/v1/responses` rejects bodies
   over about 100 KB, while `/v1/chat/completions` accepts megabytes. With that limit raised, and
-  codex's `namespace` tools accepted, codex could call the router directly and adapter 3's
+  Codex's `namespace` tools accepted, Codex could call the router directly and adapter 3's
   translation goes away.
 - **Network policies for multi-service sandboxes.** Policies shipped in `huggingface_hub` 2.5.0
   (see adapter 1). To replace the Landlock wrapper and the CONNECT proxy for every PLE task,
@@ -295,7 +293,7 @@ Each adapter exists because of one missing feature. In order of impact:
   command, and a way to tighten the policy after setup.
 - **Detached commands that survive disconnects.** Start a process, read its output from an
   offset, get its exit code later. We built this from files and polling after cut streams
-  killed 8 of 87 codex trials.
+  killed 8 of 87 Codex trials.
 - **Image builds and scoped tokens.** A build job type with BuildKit and enough memory, and
   short-lived inference tokens limited to one model and one org's billing, so an in-sandbox
   agent could hold its own key.
@@ -309,7 +307,7 @@ Each adapter exists because of one missing feature. In order of impact:
   sandbox and speaks an OpenAI-style API can use it, so pi, opencode and hermes are next, which
   would also connect this evaluation path to the harness adapters trained in
   [Introducing harness adapters](https://huggingface.co/blog/harness-adapters-at-scale).
-- **Leaderboard-grade codex.** A small A/B with reasoning passed back to the model, to measure
+- **Leaderboard-grade Codex.** A small A/B with reasoning passed back to the model, to measure
   how much the protocol translation costs.
 
 ## Openings: run your own benchmark this way
@@ -346,7 +344,7 @@ environment class.
 
 - [Harbor](https://github.com/laude-institute/harbor) 0.20.0: task format, orchestrator and
   the `terminus-2` agent
-- [codex](https://github.com/openai/codex) 0.162.1, the version on the PLE leaderboard
+- [Codex](https://github.com/openai/Codex) 0.162.1, the version on the PLE leaderboard
 
 **Models**
 
