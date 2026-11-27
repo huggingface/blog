@@ -155,7 +155,7 @@ network, before confinement, in a private Node.js so the world's own apps keep t
 
 ## Results on PLE
 
-Below, you can find the results of GLM-5.3-Flash with both harnesses. Claude Opus-5.5 was leveraged as a judge for rubric and checks-judge tasks, as in PLE's own setup.
+Below, you can find the results of GLM-5.3-Flash with both harnesses. Claude Opus-5.5 was leveraged as a judge for rubric and checks-judge tasks, as in PLE's own setup (see the [paper](https://huggingface.co/papers/2610.30537) for details).
 The score is a mean over the 29 dev tasks of each task's mean reward over 3 attempts.
 
 | Harness | All 29 tasks | 12 world tasks | 17 other tasks |
