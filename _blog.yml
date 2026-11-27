@@ -5990,7 +5990,7 @@
     - open-source
     - embeddings
     - sentence-transformers
-    
+
 - local: 3d-lora-finetuning
   date: November 12, 2026
   tags:
@@ -6042,8 +6042,46 @@
     - inference
     - open-source
 
+- local: agentic-evals
+  date: November 23, 2026
+  tags:
+    - evaluation
+    - agents
+    - benchmark
+    - open-source
+    - research
+
+- local: inkling-2-mini-inference-hillclimb
+  date: November 25, 2026
+  tags:
+    - inference
+    - inference-endpoints
+    - jobs
+    - vllm
+    - speculative-decoding
+    - agents
+
+- local: training-swarms
+  date: November 26, 2026
+  tags:
+    - rl
+    - trl
+    - agents
+    - open-source
+
+- local: video-trainium3
+  date: November 27, 2026
+  tags:
+    - partnerships
+    - aws
+    - neuron
+    - hardware
+    - diffusers
+    - video
+    - text-to-video
+
 - local: agent-evals-on-the-hub
-  date: November 24, 2026
+  date: November 28, 2026
   tags:
     - agents
     - evaluation
