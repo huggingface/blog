@@ -150,7 +150,7 @@ Some of this is being fixed upstream. [diffusers#15420](https://github.com/huggi
 ## Lessons learned
 
 - **Both sides fell hard: the host and the device.** Once running, a clip's host time fell from about 280 s to about 8 s (~35×), and its time on the NeuronCores from 45 s to 15 s (3×, at four times the pixels, and with a second stage the first attempt could not even load).
-- **Sequence parallelism is how one clip uses the machine.** Tensor parallelism is imposed by memory (the transformer does not fit on one core) and capped by the 32 attention heads. Splitting the sequence over more of them is what puts 32 of the 64 NeuronCores on a single clip, and what made 2048×1024 possible at all, by shrinking each core's graph until it loaded.
+- **Sequence parallelism is how one clip uses the machine.** Tensor parallelism is imposed by memory (the transformer does not fit on one core) and capped by the 32 attention heads. Splitting the sequence over more cores is what puts 32 of the 64 NeuronCores on a single clip, and what made 2048×1024 possible at all, by shrinking each core's graph until it loaded.
 - **On Trainium, plan for the size of the graphs.** The shapes decide whether the attention takes the fast kernel, and graphs that are too large fail to load.
 - **Check against the CPU first.** Each split of the models was checked on CPU before it ran on the device, and the comparison with CPU found the GELU issue.
 - **Keep the traced code stable.** In the build I used, torch-neuronx's cache key included the file and line of each traced op, so an edit could trigger a recompile of up to 30 minutes per graph. I had already reported it ([aws-neuron/torch-neuronx#1027](https://github.com/aws-neuron/torch-neuronx/issues/1027)), and the issue is now closed.
