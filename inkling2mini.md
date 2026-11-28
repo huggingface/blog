@@ -83,19 +83,18 @@ print(processor.decode(outputs[0][input_len:], skip_special_tokens=False))
 
 #### Variable loop
 
-To set the number of loops in the research checkpoint, you can modify the `loop_num_passes` in `text_config` as follows. The example below uses two loops.
+To set the number of loops in the research checkpoint, load its configuration and set `config.text_config.loop_num_passes` before loading the model. The example below uses two loops.
 
 ```py
 import torch
-from transformers import AutoModelForMultimodalLM, AutoProcessor
+from transformers import AutoConfig, AutoModelForMultimodalLM, AutoProcessor
 
 model_id = "thinkingmachines/TML-d24-varloop-research"
 
 processor = AutoProcessor.from_pretrained(model_id)
-model = AutoModelForMultimodalLM.from_pretrained(
-    model_id,
-    text_config={"loop_num_passes": 2},
-)
+config = AutoConfig.from_pretrained(model_id)
+config.text_config.loop_num_passes = 2
+model = AutoModelForMultimodalLM.from_pretrained(model_id, config=config)
 
 messages = [{"role": "user", "content": [{"type": "text", "text": "Why is the sky blue?"}]}]
 
