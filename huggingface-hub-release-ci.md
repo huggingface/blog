@@ -180,9 +180,10 @@ permissions:
   id-token: write       # mint the OIDC token for PyPI
   attestations: write   # generate Sigstore provenance
 # ...
-- uses: pypa/gh-action-pypi-publish@v1.14.0
-  with:
-    attestations: true  # no password, no API token, just OIDC
+steps:
+  - uses: pypa/gh-action-pypi-publish@v1.14.0
+    with:
+      attestations: true  # no password, no API token, just OIDC
 ```
 
 **The agent runtime is pinned and verified.** We don't `curl | bash` the latest OpenCode and hope. We pin a version and check its SHA256 before running it:
